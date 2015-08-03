@@ -4,19 +4,12 @@ title: About
 # About me 
 
 
-Welcome! This is a minimal homepage for Colin Diesh
-
-Broad interests
-
-- Computer science
-- Bioinformatics
-- Data viz
-- NGS data
-- Open source
-
-Check out my [projects page](/pages/projects.html) or my [science blog](http://searchvoidstar.tumblr.com/) to learn more!
+Welcome! This is a minimal homepage for Colin Diesh. I am currently working as a Research Analyst at the University of Missouri in the Elsik Lab
 
 
-[![](static/github.png)](http://github.com/cmdcolin/)
-[![](static/twitter.png)](http://twitter.com/cmdcolin/)
+
+Check out my [science blog](http://searchvoidstar.tumblr.com/) for more posts!
+
+
+I am also somewhat of an artist and work on lo-tech analog techniques for glitch art. Some of this is on tumblr as well at [http://videomeltdown.tumblr.com](http://videomeltdown.tumblr.com).
 
