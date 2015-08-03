@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://cmdcolin.github.io/blog</id>
+    <title>Stationary Module</title>
+    <updated>2015-08-03T00:13:08Z</updated>
+    <link rel="self" href="http://cmdcolin.github.io/blog/index.atom"/>
+    <link rel="alternate" href="http://cmdcolin.github.io/blog"/>
+    <generator version="0.045">Statocles</generator>
+    <entry>
+        <id>http://cmdcolin.github.io/blog/2015/08/02/first_post</id>
+        <title>first_post</title>
+        <link rel="alternate" href="http://cmdcolin.github.io/blog/2015/08/02/first_post" />
+        <content type="html"><![CDATA[
+            <p>Markdown content goes here.</p>
+
+                <p><a href="http://cmdcolin.github.io/blog/2015/08/02/first_post#section-2">Continue reading...</a></p>
+            <p>Tags:
+            </p>
+        ]]></content>
+        <updated>2015-08-02T00:00:00Z</updated>
+    </entry>
+</feed>
+

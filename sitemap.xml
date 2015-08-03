@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://cmdcolin.github.io</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-08-03</lastmod>
+    </url>
+    <url>
+        <loc>http://cmdcolin.github.io/page/projects.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-08-03</lastmod>
+    </url>
+    <url>
+        <loc>http://cmdcolin.github.io/blog</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2015-08-02</lastmod>
+    </url>
+    <url>
+        <loc>http://cmdcolin.github.io/blog/2015/08/02/first_post</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2015-08-02</lastmod>
+    </url>
+</urlset>
+
+
