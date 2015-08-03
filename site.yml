@@ -1,0 +1,53 @@
+---
+blog_app:
+  args:
+    store: blog
+    url_root: /blog
+  class: Statocles::App::Blog
+deploy:
+  args:
+    branch: master
+  class: Statocles::Deploy::Git
+page_app:
+  args:
+    store: page
+    url_root: /page
+  class: Statocles::App::Plain
+site:
+  args:
+    apps:
+      blog:
+        $ref: blog_app
+      page:
+        $ref: page_app
+      static:
+        $ref: static_app
+    base_url: http://cmdcolin.github.io
+    deploy:
+      $ref: deploy
+    index: page
+    nav:
+      main:
+        - href: /
+          title: About
+        - href: https://github.com/cmdcolin/
+          title: GitHub
+        - href: https://twitter.com/cmdcolin/
+          title: Twitter
+    theme:
+      $ref: theme
+    title: Stationary Module
+  class: Statocles::Site
+  on:
+    - build:
+        $class: Statocles::Plugin::LinkCheck
+        $sub: check_pages
+static_app:
+  args:
+    store: static
+    url_root: /static
+  class: Statocles::App::Static
+theme:
+  args:
+    store: theme
+  class: Statocles::Theme
