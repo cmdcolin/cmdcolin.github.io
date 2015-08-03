@@ -1,9 +1,4 @@
 ---
-blog_app:
-  args:
-    store: blog
-    url_root: /blog
-  class: Statocles::App::Blog
 deploy:
   args:
     branch: master
@@ -16,8 +11,6 @@ page_app:
 site:
   args:
     apps:
-      blog:
-        $ref: blog_app
       page:
         $ref: page_app
       static:
