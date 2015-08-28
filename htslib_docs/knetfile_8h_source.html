@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>HTSLib: htslib.bak/knetfile.h Source File</title>
+<title>HTSLib: htslib/knetfile.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_60c503f23f40cd0ca3e97314247adee9.html">htslib.bak</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_56e9ec2728d3cca0362e8a5d9a0f97fc.html">htslib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -123,8 +123,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="knetfile_8h.html#ad70e4a571deff1c86d2777756ea37634">   34</a></span>&#160;<span class="preprocessor">#define netread(fd, ptr, len) recv(fd, ptr, len, 0)</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="knetfile_8h.html#a676f71fcc77e4310a94c9f8eea9859ab">   35</a></span>&#160;<span class="preprocessor">#define netwrite(fd, ptr, len) send(fd, ptr, len, 0)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="knetfile_8h.html#ad70e4a571deff1c86d2777756ea37634">   34</a></span>&#160;<span class="preprocessor">#define netread(fd, ptr, len) read(fd, ptr, len)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="knetfile_8h.html#a676f71fcc77e4310a94c9f8eea9859ab">   35</a></span>&#160;<span class="preprocessor">#define netwrite(fd, ptr, len) write(fd, ptr, len)</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="knetfile_8h.html#ae9525184f72500348a67a0e6c90ab14c">   36</a></span>&#160;<span class="preprocessor">#define netclose(fd) close(fd)</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;winsock2.h&gt;</span></div>
@@ -197,10 +197,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="structknet_file__s_html_a6f8059414f0228f0256115e024eeed4b"><div class="ttname"><a href="structknet_file__s.html#a6f8059414f0228f0256115e024eeed4b">knetFile_s::fd</a></div><div class="ttdeci">int fd</div><div class="ttdef"><b>Definition:</b> knetfile.h:51</div></div>
 <div class="ttc" id="structknet_file__s_html_a44196e6a5696d10442c29e639437196e"><div class="ttname"><a href="structknet_file__s.html#a44196e6a5696d10442c29e639437196e">knetFile_s::path</a></div><div class="ttdeci">char * path</div><div class="ttdef"><b>Definition:</b> knetfile.h:62</div></div>
 <div class="ttc" id="structknet_file__s_html_a83c12b8daae37e8bbdcea5a0f2c610bf"><div class="ttname"><a href="structknet_file__s.html#a83c12b8daae37e8bbdcea5a0f2c610bf">knetFile_s::ctrl_fd</a></div><div class="ttdeci">int ctrl_fd</div><div class="ttdef"><b>Definition:</b> knetfile.h:56</div></div>
-<div class="ttc" id="knetfile_8h_html_a4e4af3fc48620b65dc5c3a439a58ab7f"><div class="ttname"><a href="knetfile_8h.html#a4e4af3fc48620b65dc5c3a439a58ab7f">knet_seek</a></div><div class="ttdeci">off_t knet_seek(knetFile *fp, off_t off, int whence)</div><div class="ttdef"><b>Definition:</b> knetfile.c:556</div></div>
+<div class="ttc" id="knetfile_8h_html_a4e4af3fc48620b65dc5c3a439a58ab7f"><div class="ttname"><a href="knetfile_8h.html#a4e4af3fc48620b65dc5c3a439a58ab7f">knet_seek</a></div><div class="ttdeci">off_t knet_seek(knetFile *fp, off_t off, int whence)</div><div class="ttdef"><b>Definition:</b> knetfile.c:543</div></div>
 <div class="ttc" id="structknet_file__s_html_a1c2046dcb30a629d6d9f45ff8f403f12"><div class="ttname"><a href="structknet_file__s.html#a1c2046dcb30a629d6d9f45ff8f403f12">knetFile_s::host</a></div><div class="ttdeci">char * host</div><div class="ttdef"><b>Definition:</b> knetfile.h:53</div></div>
 <div class="ttc" id="structknet_file__s_html_a118c6e9a5a2811db537e7749b2644c7d"><div class="ttname"><a href="structknet_file__s.html#a118c6e9a5a2811db537e7749b2644c7d">knetFile_s::file_size</a></div><div class="ttdeci">int64_t file_size</div><div class="ttdef"><b>Definition:</b> knetfile.h:59</div></div>
-<div class="ttc" id="knetfile_8h_html_a0a49285cca8a3f3f75c7f1f72124a857"><div class="ttname"><a href="knetfile_8h.html#a0a49285cca8a3f3f75c7f1f72124a857">knet_open</a></div><div class="ttdeci">knetFile * knet_open(const char *fn, const char *mode)</div><div class="ttdef"><b>Definition:</b> knetfile.c:471</div></div>
+<div class="ttc" id="knetfile_8h_html_a0a49285cca8a3f3f75c7f1f72124a857"><div class="ttname"><a href="knetfile_8h.html#a0a49285cca8a3f3f75c7f1f72124a857">knet_open</a></div><div class="ttdeci">knetFile * knet_open(const char *fn, const char *mode)</div><div class="ttdef"><b>Definition:</b> knetfile.c:462</div></div>
 <div class="ttc" id="structknet_file__s_html_af74f24b5563a4d0f104e7098e3f3a9a0"><div class="ttname"><a href="structknet_file__s.html#af74f24b5563a4d0f104e7098e3f3a9a0">knetFile_s::seek_offset</a></div><div class="ttdeci">int64_t seek_offset</div><div class="ttdef"><b>Definition:</b> knetfile.h:58</div></div>
 <div class="ttc" id="structknet_file__s_html_ae87f4ec47fc0449c8eaba915785df0cf"><div class="ttname"><a href="structknet_file__s.html#ae87f4ec47fc0449c8eaba915785df0cf">knetFile_s::retr</a></div><div class="ttdeci">char * retr</div><div class="ttdef"><b>Definition:</b> knetfile.h:57</div></div>
 <div class="ttc" id="structknet_file__s_html_a31f23a707ef19d4ddee07a59bde44e75"><div class="ttname"><a href="structknet_file__s.html#a31f23a707ef19d4ddee07a59bde44e75">knetFile_s::is_ready</a></div><div class="ttdeci">int is_ready</div><div class="ttdef"><b>Definition:</b> knetfile.h:56</div></div>
@@ -209,14 +209,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="structknet_file__s_html_abcc9520d8643148cb3318550c593aa77"><div class="ttname"><a href="structknet_file__s.html#abcc9520d8643148cb3318550c593aa77">knetFile_s::http_host</a></div><div class="ttdeci">char * http_host</div><div class="ttdef"><b>Definition:</b> knetfile.h:62</div></div>
 <div class="ttc" id="structknet_file__s_html_a28da222169d1ed082488dae51cd93e4d"><div class="ttname"><a href="structknet_file__s.html#a28da222169d1ed082488dae51cd93e4d">knetFile_s::pasv_port</a></div><div class="ttdeci">int pasv_port</div><div class="ttdef"><b>Definition:</b> knetfile.h:56</div></div>
 <div class="ttc" id="structknet_file__s_html_ad8c10bf10b18fc38dd66b42310d38f15"><div class="ttname"><a href="structknet_file__s.html#ad8c10bf10b18fc38dd66b42310d38f15">knetFile_s::no_reconnect</a></div><div class="ttdeci">int no_reconnect</div><div class="ttdef"><b>Definition:</b> knetfile.h:56</div></div>
-<div class="ttc" id="knetfile_8h_html_adc65bb242291cbf45466c2da0760ef40"><div class="ttname"><a href="knetfile_8h.html#adc65bb242291cbf45466c2da0760ef40">knet_read</a></div><div class="ttdeci">ssize_t knet_read(knetFile *fp, void *buf, size_t len)</div><div class="ttdef"><b>Definition:</b> knetfile.c:527</div></div>
-<div class="ttc" id="knetfile_8h_html_ac771f660fda9fef4306cc2676f33318a"><div class="ttname"><a href="knetfile_8h.html#ac771f660fda9fef4306cc2676f33318a">knet_dopen</a></div><div class="ttdeci">knetFile * knet_dopen(int fd, const char *mode)</div><div class="ttdef"><b>Definition:</b> knetfile.c:519</div></div>
+<div class="ttc" id="knetfile_8h_html_adc65bb242291cbf45466c2da0760ef40"><div class="ttname"><a href="knetfile_8h.html#adc65bb242291cbf45466c2da0760ef40">knet_read</a></div><div class="ttdeci">ssize_t knet_read(knetFile *fp, void *buf, size_t len)</div><div class="ttdef"><b>Definition:</b> knetfile.c:514</div></div>
+<div class="ttc" id="knetfile_8h_html_ac771f660fda9fef4306cc2676f33318a"><div class="ttname"><a href="knetfile_8h.html#ac771f660fda9fef4306cc2676f33318a">knet_dopen</a></div><div class="ttdeci">knetFile * knet_dopen(int fd, const char *mode)</div><div class="ttdef"><b>Definition:</b> knetfile.c:506</div></div>
 <div class="ttc" id="structknet_file__s_html_ae25fb5067bd6b3b1b319efc61685a98f"><div class="ttname"><a href="structknet_file__s.html#ae25fb5067bd6b3b1b319efc61685a98f">knetFile_s::offset</a></div><div class="ttdeci">int64_t offset</div><div class="ttdef"><b>Definition:</b> knetfile.h:52</div></div>
 <div class="ttc" id="structknet_file__s_html"><div class="ttname"><a href="structknet_file__s.html">knetFile_s</a></div><div class="ttdef"><b>Definition:</b> knetfile.h:50</div></div>
 <div class="ttc" id="htsfile_8c_html_a236aa2b005fbfffd244c7fccf6a157a3"><div class="ttname"><a href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a></div><div class="ttdeci">enum @18 mode</div></div>
 <div class="ttc" id="structknet_file__s_html_a74b83d1a2e086188b8e87ca651f3a610"><div class="ttname"><a href="structknet_file__s.html#a74b83d1a2e086188b8e87ca651f3a610">knetFile_s::port</a></div><div class="ttdeci">char * port</div><div class="ttdef"><b>Definition:</b> knetfile.h:53</div></div>
 <div class="ttc" id="structknet_file__s_html_a11373f02c42587a1853ad6c8be5fe10e"><div class="ttname"><a href="structknet_file__s.html#a11373f02c42587a1853ad6c8be5fe10e">knetFile_s::response</a></div><div class="ttdeci">char * response</div><div class="ttdef"><b>Definition:</b> knetfile.h:57</div></div>
-<div class="ttc" id="knetfile_8h_html_a75d7ca76433cea080588b69f8119f7fc"><div class="ttname"><a href="knetfile_8h.html#a75d7ca76433cea080588b69f8119f7fc">knet_close</a></div><div class="ttdeci">int knet_close(knetFile *fp)</div><div class="ttdef"><b>Definition:</b> knetfile.c:589</div></div>
+<div class="ttc" id="knetfile_8h_html_a75d7ca76433cea080588b69f8119f7fc"><div class="ttname"><a href="knetfile_8h.html#a75d7ca76433cea080588b69f8119f7fc">knet_close</a></div><div class="ttdeci">int knet_close(knetFile *fp)</div><div class="ttdef"><b>Definition:</b> knetfile.c:576</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -109,12 +109,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="cram_8h_source.html">cram/cram.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="os_8h_source.html">cram/os.h</a>&quot;</code><br />
-<code>#include &quot;htslib/hts.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="hts_8h_source.html">htslib/hts.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="open__trace__file_8h_source.html">cram/open_trace_file.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="r_a_n_s__static_8h_source.html">cram/rANS_static.h</a>&quot;</code><br />
-<code>#include &quot;htslib/hfile.h&quot;</code><br />
-<code>#include &quot;htslib/bgzf.h&quot;</code><br />
-<code>#include &quot;htslib/faidx.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="hfile_8h_source.html">htslib/hfile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bgzf_8h_source.html">htslib/bgzf.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="faidx_8h_source.html">htslib/faidx.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -194,7 +194,7 @@ Functions</h2></td></tr>
 <tr class="separator:a5982b7b402e0d135c90a1b9a1a628824"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add486b2211839e9992bf06d7f4d87f34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#add486b2211839e9992bf06d7f4d87f34">expand_cache_path</a> (char *path, char *dir, char *fn)</td></tr>
 <tr class="separator:add486b2211839e9992bf06d7f4d87f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a247f19be0a6731622bcc2663df06bac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a247f19be0a6731622bcc2663df06bac8">mkdir_prefix</a> (char *path, int <a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a247f19be0a6731622bcc2663df06bac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a247f19be0a6731622bcc2663df06bac8">mkdir_prefix</a> (char *path, int <a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a247f19be0a6731622bcc2663df06bac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a135248706e994f9ae382903f2d5b8bfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a135248706e994f9ae382903f2d5b8bfa">cram_ref_incr</a> (<a class="el" href="structrefs__t.html">refs_t</a> *r, int id)</td></tr>
 <tr class="separator:a135248706e994f9ae382903f2d5b8bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -242,9 +242,9 @@ Functions</h2></td></tr>
 <tr class="separator:ae1610e1b285d6a648a76256854c5381f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa623411a09dc516cd3de57940c6bb34b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#aa623411a09dc516cd3de57940c6bb34b">cram_write_SAM_hdr</a> (<a class="el" href="structcram__fd.html">cram_fd</a> *fd, <a class="el" href="struct_s_a_m__hdr.html">SAM_hdr</a> *hdr)</td></tr>
 <tr class="separator:aa623411a09dc516cd3de57940c6bb34b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a4185c705fea977b95d30cda4af0c00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcram__fd.html">cram_fd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a2a4185c705fea977b95d30cda4af0c00">cram_open</a> (const char *filename, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a2a4185c705fea977b95d30cda4af0c00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcram__fd.html">cram_fd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a2a4185c705fea977b95d30cda4af0c00">cram_open</a> (const char *filename, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a2a4185c705fea977b95d30cda4af0c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d00e997b67d7e897d3aaa07e645d3f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcram__fd.html">cram_fd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a5d00e997b67d7e897d3aaa07e645d3f3">cram_dopen</a> (<a class="el" href="structh_f_i_l_e.html">hFILE</a> *fp, const char *filename, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a5d00e997b67d7e897d3aaa07e645d3f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcram__fd.html">cram_fd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a5d00e997b67d7e897d3aaa07e645d3f3">cram_dopen</a> (<a class="el" href="structh_f_i_l_e.html">hFILE</a> *fp, const char *filename, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a5d00e997b67d7e897d3aaa07e645d3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d98cc1407c6b54c3dc3285cd05bbe5e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cram__io_8c.html#a0d98cc1407c6b54c3dc3285cd05bbe5e">cram_seek</a> (<a class="el" href="structcram__fd.html">cram_fd</a> *fd, off_t offset, int whence)</td></tr>
 <tr class="separator:a0d98cc1407c6b54c3dc3285cd05bbe5e"><td class="memSeparator" colspan="2">&#160;</td></tr>

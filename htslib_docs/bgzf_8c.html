@@ -101,10 +101,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;pthread.h&gt;</code><br />
 <code>#include &lt;sys/types.h&gt;</code><br />
 <code>#include &lt;inttypes.h&gt;</code><br />
-<code>#include &quot;htslib/hts.h&quot;</code><br />
-<code>#include &quot;htslib/bgzf.h&quot;</code><br />
-<code>#include &quot;htslib/hfile.h&quot;</code><br />
-<code>#include &quot;htslib/khash.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="hts_8h_source.html">htslib/hts.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bgzf_8h_source.html">htslib/bgzf.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="hfile_8h_source.html">htslib/hfile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="khash_8h_source.html">htslib/khash.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -129,8 +129,6 @@ Macros</h2></td></tr>
 <tr class="separator:acc4770fe09b0843dfa43de464a65cad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99c02cd8cda4ec54271a62684d6d4ed6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#a99c02cd8cda4ec54271a62684d6d4ed6">BLOCK_FOOTER_LENGTH</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:a99c02cd8cda4ec54271a62684d6d4ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af808c6880732c15dd7210159c486ff82"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#af808c6880732c15dd7210159c486ff82">kroundup32</a>(x)&#160;&#160;&#160;(--(x), (x)|=(x)&gt;&gt;1, (x)|=(x)&gt;&gt;2, (x)|=(x)&gt;&gt;4, (x)|=(x)&gt;&gt;8, (x)|=(x)&gt;&gt;16, ++(x))</td></tr>
-<tr class="separator:af808c6880732c15dd7210159c486ff82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -143,11 +141,11 @@ Functions</h2></td></tr>
 <tr class="separator:a151e0df30dc231542839926b3cce92cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a275ad10b52dd472a1cda3266763e2812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#a275ad10b52dd472a1cda3266763e2812">bgzf_index_add_block</a> (<a class="el" href="struct_b_g_z_f.html">BGZF</a> *fp)</td></tr>
 <tr class="separator:a275ad10b52dd472a1cda3266763e2812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07e9e9d0608c680afd0305f6a17b84b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#a07e9e9d0608c680afd0305f6a17b84b2">bgzf_open</a> (const char *path, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a07e9e9d0608c680afd0305f6a17b84b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#a07e9e9d0608c680afd0305f6a17b84b2">bgzf_open</a> (const char *path, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a07e9e9d0608c680afd0305f6a17b84b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac35e7e1748e131a607ecce641b33f049"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a> (int fd, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:ac35e7e1748e131a607ecce641b33f049"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a> (int fd, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:ac35e7e1748e131a607ecce641b33f049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07b66522fc80878980d887f415609932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#a07b66522fc80878980d887f415609932">bgzf_hopen</a> (<a class="el" href="structh_f_i_l_e.html">hFILE</a> *hfp, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a07b66522fc80878980d887f415609932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#a07b66522fc80878980d887f415609932">bgzf_hopen</a> (<a class="el" href="structh_f_i_l_e.html">hFILE</a> *hfp, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a07b66522fc80878980d887f415609932"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad25a63b1298308eb770d8e6dfafb33a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8c.html#ad25a63b1298308eb770d8e6dfafb33a1">bgzf_read_block</a> (<a class="el" href="struct_b_g_z_f.html">BGZF</a> *fp)</td></tr>
 <tr class="separator:ad25a63b1298308eb770d8e6dfafb33a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,22 +231,6 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define BLOCK_HEADER_LENGTH&#160;&#160;&#160;18</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="af808c6880732c15dd7210159c486ff82"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define kroundup32</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;(--(x), (x)|=(x)&gt;&gt;1, (x)|=(x)&gt;&gt;2, (x)|=(x)&gt;&gt;4, (x)|=(x)&gt;&gt;8, (x)|=(x)&gt;&gt;16, ++(x))</td>
         </tr>
       </table>
 </div><div class="memdoc">

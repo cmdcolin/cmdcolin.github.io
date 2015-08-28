@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>HTSLib: htslib.bak/knetfile.h File Reference</title>
+<title>HTSLib: htslib/knetfile.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_60c503f23f40cd0ca3e97314247adee9.html">htslib.bak</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_56e9ec2728d3cca0362e8a5d9a0f97fc.html">htslib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -107,9 +107,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ad70e4a571deff1c86d2777756ea37634"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#ad70e4a571deff1c86d2777756ea37634">netread</a>(fd,  ptr,  len)&#160;&#160;&#160;recv(fd, ptr, len, 0)</td></tr>
+<tr class="memitem:ad70e4a571deff1c86d2777756ea37634"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#ad70e4a571deff1c86d2777756ea37634">netread</a>(fd,  ptr,  len)&#160;&#160;&#160;read(fd, ptr, len)</td></tr>
 <tr class="separator:ad70e4a571deff1c86d2777756ea37634"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a676f71fcc77e4310a94c9f8eea9859ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#a676f71fcc77e4310a94c9f8eea9859ab">netwrite</a>(fd,  ptr,  len)&#160;&#160;&#160;send(fd, ptr, len, 0)</td></tr>
+<tr class="memitem:a676f71fcc77e4310a94c9f8eea9859ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#a676f71fcc77e4310a94c9f8eea9859ab">netwrite</a>(fd,  ptr,  len)&#160;&#160;&#160;write(fd, ptr, len)</td></tr>
 <tr class="separator:a676f71fcc77e4310a94c9f8eea9859ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9525184f72500348a67a0e6c90ab14c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#ae9525184f72500348a67a0e6c90ab14c">netclose</a>(fd)&#160;&#160;&#160;close(fd)</td></tr>
 <tr class="separator:ae9525184f72500348a67a0e6c90ab14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,9 +131,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0a49285cca8a3f3f75c7f1f72124a857"><td class="memItemLeft" align="right" valign="top"><a class="el" href="knetfile_8h.html#a4ea26a83ed41c8ba2b6ad30a2e2d580f">knetFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#a0a49285cca8a3f3f75c7f1f72124a857">knet_open</a> (const char *fn, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a0a49285cca8a3f3f75c7f1f72124a857"><td class="memItemLeft" align="right" valign="top"><a class="el" href="knetfile_8h.html#a4ea26a83ed41c8ba2b6ad30a2e2d580f">knetFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#a0a49285cca8a3f3f75c7f1f72124a857">knet_open</a> (const char *fn, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a0a49285cca8a3f3f75c7f1f72124a857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac771f660fda9fef4306cc2676f33318a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="knetfile_8h.html#a4ea26a83ed41c8ba2b6ad30a2e2d580f">knetFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#ac771f660fda9fef4306cc2676f33318a">knet_dopen</a> (int fd, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:ac771f660fda9fef4306cc2676f33318a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="knetfile_8h.html#a4ea26a83ed41c8ba2b6ad30a2e2d580f">knetFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#ac771f660fda9fef4306cc2676f33318a">knet_dopen</a> (int fd, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:ac771f660fda9fef4306cc2676f33318a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc65bb242291cbf45466c2da0760ef40"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="knetfile_8h.html#adc65bb242291cbf45466c2da0760ef40">knet_read</a> (<a class="el" href="knetfile_8h.html#a4ea26a83ed41c8ba2b6ad30a2e2d580f">knetFile</a> *fp, void *buf, size_t len)</td></tr>
 <tr class="separator:adc65bb242291cbf45466c2da0760ef40"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -252,7 +252,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;recv(fd, ptr, len, 0)</td>
+          <td></td><td>&#160;&#160;&#160;read(fd, ptr, len)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -284,7 +284,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;send(fd, ptr, len, 0)</td>
+          <td></td><td>&#160;&#160;&#160;write(fd, ptr, len)</td>
         </tr>
       </table>
 </div><div class="memdoc">

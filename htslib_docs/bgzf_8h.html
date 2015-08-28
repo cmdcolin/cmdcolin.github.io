@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>HTSLib: htslib.bak/bgzf.h File Reference</title>
+<title>HTSLib: htslib/bgzf.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_60c503f23f40cd0ca3e97314247adee9.html">htslib.bak</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_56e9ec2728d3cca0362e8a5d9a0f97fc.html">htslib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -127,7 +127,7 @@ Macros</h2></td></tr>
 <tr class="separator:a0127de67aa5f2fcb764cfad6f7a5c004"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71b6483c174a21acf9670716ce5dcd06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a71b6483c174a21acf9670716ce5dcd06">KSTRING_T</a>&#160;&#160;&#160;<a class="el" href="bgzf_8h.html#ac800c6fe2937b30307ab5a457e5bbf19">kstring_t</a></td></tr>
 <tr class="separator:a71b6483c174a21acf9670716ce5dcd06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a939c0a706b451d30cb6030c4507d9d3a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a939c0a706b451d30cb6030c4507d9d3a">bgzf_fdopen</a>(fd,  <a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)&#160;&#160;&#160;<a class="el" href="bgzf_8h.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a>((fd), (<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>))</td></tr>
+<tr class="memitem:a939c0a706b451d30cb6030c4507d9d3a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a939c0a706b451d30cb6030c4507d9d3a">bgzf_fdopen</a>(fd,  <a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)&#160;&#160;&#160;<a class="el" href="bgzf_8h.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a>((fd), (<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>))</td></tr>
 <tr class="separator:a939c0a706b451d30cb6030c4507d9d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a922f7cd4c99b086699327e2f5f4528e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a922f7cd4c99b086699327e2f5f4528e2">bgzf_tell</a>(fp)&#160;&#160;&#160;(((fp)-&gt;block_address &lt;&lt; 16) | ((fp)-&gt;block_offset &amp; 0xFFFF))</td></tr>
 <tr class="separator:a922f7cd4c99b086699327e2f5f4528e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,11 +143,11 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac35e7e1748e131a607ecce641b33f049"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a> (int fd, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:ac35e7e1748e131a607ecce641b33f049"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a> (int fd, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:ac35e7e1748e131a607ecce641b33f049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07e9e9d0608c680afd0305f6a17b84b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a07e9e9d0608c680afd0305f6a17b84b2">bgzf_open</a> (const char *path, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a07e9e9d0608c680afd0305f6a17b84b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a07e9e9d0608c680afd0305f6a17b84b2">bgzf_open</a> (const char *path, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a07e9e9d0608c680afd0305f6a17b84b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a945f397c1910bf9bebf0b46d3de6b38c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a945f397c1910bf9bebf0b46d3de6b38c">bgzf_hopen</a> (struct <a class="el" href="structh_f_i_l_e.html">hFILE</a> *fp, const char *<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>)</td></tr>
+<tr class="memitem:a945f397c1910bf9bebf0b46d3de6b38c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b_g_z_f.html">BGZF</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a945f397c1910bf9bebf0b46d3de6b38c">bgzf_hopen</a> (struct <a class="el" href="structh_f_i_l_e.html">hFILE</a> *fp, const char *<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>)</td></tr>
 <tr class="separator:a945f397c1910bf9bebf0b46d3de6b38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86cc9c547f0e3cafebf94d43ccb32554"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bgzf_8h.html#a86cc9c547f0e3cafebf94d43ccb32554">bgzf_close</a> (<a class="el" href="struct_b_g_z_f.html">BGZF</a> *fp)</td></tr>
 <tr class="separator:a86cc9c547f0e3cafebf94d43ccb32554"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,12 +265,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>&#160;</td>
+          <td class="paramname"><a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="bgzf_8h.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a>((fd), (<a class="el" href="htsfile2_8c.html#ae683fcc6d873978ef6a63f1c2543ec43">mode</a>))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="bgzf_8h.html#ac35e7e1748e131a607ecce641b33f049">bgzf_dopen</a>((fd), (<a class="el" href="htsfile_8c.html#a236aa2b005fbfffd244c7fccf6a157a3">mode</a>))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -364,7 +364,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_2_users_2biocmd_2_code_2htslib_2htslib_8bak_2hts_8h-example.html#a7">/Users/biocmd/Code/htslib/htslib.bak/hts.h</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_2_users_2biocmd_2_code_2htslib_2htslib_2hts_8h-example.html#a7">/Users/biocmd/Code/htslib/htslib/hts.h</a>.</dd>
 </dl>
 </div>
 </div>

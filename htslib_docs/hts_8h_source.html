@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>HTSLib: htslib.bak/hts.h Source File</title>
+<title>HTSLib: htslib/hts.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_60c503f23f40cd0ca3e97314247adee9.html">htslib.bak</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_56e9ec2728d3cca0362e8a5d9a0f97fc.html">htslib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -185,7 +185,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="structhts_format.html">  100</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structhts_format.html">htsFormat</a> {</div>
 <div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="structhts_format.html#a4ac55c449c654919e32e929643777813">  101</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="hts_8h.html#aa3ac9362d661bd4d21631eb19d30fa82">htsFormatCategory</a> <a class="code" href="structhts_format.html#a4ac55c449c654919e32e929643777813">category</a>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="structhts_format.html#af65812616d8b30de4afdc9859ccdc090">  102</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="hts_8h.html#a5012a62947ab60eb4691d4dee8655df2">htsExactFormat</a> <a class="code" href="structhts_format.html#af65812616d8b30de4afdc9859ccdc090">format</a>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="structhts_format.html#adb75a8841fbdda3cb4f2373edac4f1dc">  103</a></span>&#160;    <span class="keyword">struct </span>{ <span class="keywordtype">short</span> <a class="code" href="structhts_format.html#abe2b53edb36f3d674f052ab7254d4a3e">major</a>, <a class="code" href="structhts_format.html#adb75a8841fbdda3cb4f2373edac4f1dc">minor</a>; } <a class="code" href="structhts_format.html#a9fca311851314262b5e8c381ae005fb8">version</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="structhts_format.html#adb75a8841fbdda3cb4f2373edac4f1dc">  103</a></span>&#160;    <span class="keyword">struct </span>{ <span class="keywordtype">short</span> <a class="code" href="structhts_format.html#abe2b53edb36f3d674f052ab7254d4a3e">major</a>, <a class="code" href="structhts_format.html#adb75a8841fbdda3cb4f2373edac4f1dc">minor</a>; } <a class="code" href="structhts_format.html#abd5c8a71e70be28082ef9e0c1ae1a824">version</a>;</div>
 <div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="structhts_format.html#aae89c5da2eb6e00ebe84b074e7578eff">  104</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="hts_8h.html#a9edfabc6c6b7a8f52cdc2c637493b7e1">htsCompression</a> <a class="code" href="structhts_format.html#aae89c5da2eb6e00ebe84b074e7578eff">compression</a>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="structhts_format.html#af46da478f9afe4a4465bae44aa753647">  105</a></span>&#160;    <span class="keywordtype">short</span> <a class="code" href="structhts_format.html#af46da478f9afe4a4465bae44aa753647">compression_level</a>;  <span class="comment">// currently unused</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="structhts_format.html#a94f1fde37f7ef06c7b8f4933feda4f4b">  106</a></span>&#160;    <span class="keywordtype">void</span> *<a class="code" href="structhts_format.html#a94f1fde37f7ef06c7b8f4933feda4f4b">specific</a>;  <span class="comment">// currently unused</span></div>
@@ -518,6 +518,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="hts_8h_html_a6f052460eba315d7876c6899ad1981aa"><div class="ttname"><a href="hts_8h.html#a6f052460eba315d7876c6899ad1981aa">hts_set_fai_filename</a></div><div class="ttdeci">int hts_set_fai_filename(htsFile *fp, const char *fn_aux)</div><div class="ttdef"><b>Definition:</b> hts.c:572</div></div>
 <div class="ttc" id="hts_8h_html_a8a259b58634710d46681725ef79ee686"><div class="ttname"><a href="hts_8h.html#a8a259b58634710d46681725ef79ee686">hts_idx_save</a></div><div class="ttdeci">void hts_idx_save(const hts_idx_t *idx, const char *fn, int fmt)</div><div class="ttdef"><b>Definition:</b> hts.c:1125</div></div>
 <div class="ttc" id="hts_8h_html_a8e695d1cbcf3731b36a3b33bda1d4dbc"><div class="ttname"><a href="hts_8h.html#a8e695d1cbcf3731b36a3b33bda1d4dbc">hts_id2name_f</a></div><div class="ttdeci">const char *(* hts_id2name_f)(void *, int)</div><div class="ttdef"><b>Definition:</b> hts.h:388</div></div>
+<div class="ttc" id="structhts_format_html_abd5c8a71e70be28082ef9e0c1ae1a824"><div class="ttname"><a href="structhts_format.html#abd5c8a71e70be28082ef9e0c1ae1a824">htsFormat::version</a></div><div class="ttdeci">struct htsFormat::@19 version</div></div>
 <div class="ttc" id="structhts__md5__context_html_a5a5d2cddf4928b952e815a9bf7387023"><div class="ttname"><a href="structhts__md5__context.html#a5a5d2cddf4928b952e815a9bf7387023">hts_md5_context::b</a></div><div class="ttdeci">hts_md5_u32plus b</div><div class="ttdef"><b>Definition:</b> md5.c:63</div></div>
 <div class="ttc" id="structhts_format_html_a94f1fde37f7ef06c7b8f4933feda4f4b"><div class="ttname"><a href="structhts_format.html#a94f1fde37f7ef06c7b8f4933feda4f4b">htsFormat::specific</a></div><div class="ttdeci">void * specific</div><div class="ttdef"><b>Definition:</b> hts.h:106</div></div>
 <div class="ttc" id="hts_8h_html_a1d696a356430013cc14a2ba5cda07220a83ae34cd0322dd04175271e6f22352e1"><div class="ttname"><a href="hts_8h.html#a1d696a356430013cc14a2ba5cda07220a83ae34cd0322dd04175271e6f22352e1">CRAM_OPT_USE_RANS</a></div><div class="ttdef"><b>Definition:</b> hts.h:165</div></div>
@@ -592,7 +593,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="structhts__pair64__t_html_af97306d87d846b71b58a13c940da7b90"><div class="ttname"><a href="structhts__pair64__t.html#af97306d87d846b71b58a13c940da7b90">hts_pair64_t::v</a></div><div class="ttdeci">uint64_t v</div><div class="ttdef"><b>Definition:</b> hts.h:327</div></div>
 <div class="ttc" id="structcram__fd_html"><div class="ttname"><a href="structcram__fd.html">cram_fd</a></div><div class="ttdef"><b>Definition:</b> cram_structs.h:655</div></div>
 <div class="ttc" id="hts_8h_html_a58bd9d7f0c23cf3c571d42e6f3c7e8b4"><div class="ttname"><a href="hts_8h.html#a58bd9d7f0c23cf3c571d42e6f3c7e8b4">hts_parse_reg</a></div><div class="ttdeci">const char * hts_parse_reg(const char *str, int *beg, int *end)</div><div class="ttdoc">Parse a "CHR:START-END"-style region string. </div><div class="ttdef"><b>Definition:</b> hts.c:1543</div></div>
-<div class="ttc" id="structhts_format_html_a9fca311851314262b5e8c381ae005fb8"><div class="ttname"><a href="structhts_format.html#a9fca311851314262b5e8c381ae005fb8">htsFormat::version</a></div><div class="ttdeci">struct htsFormat::@20 version</div></div>
 <div class="ttc" id="structhts_file_html_a43755c644296a0a7e451e31a3ac4d381"><div class="ttname"><a href="structhts_file.html#a43755c644296a0a7e451e31a3ac4d381">htsFile::line</a></div><div class="ttdeci">kstring_t line</div><div class="ttdef"><b>Definition:</b> hts.h:119</div></div>
 <div class="ttc" id="hts_8h_html_a79d796e56b0e4e02084099ed30fa81d5ab213fb51758417a0c497505e6a863ec3"><div class="ttname"><a href="hts_8h.html#a79d796e56b0e4e02084099ed30fa81d5ab213fb51758417a0c497505e6a863ec3">SAM_QNAME</a></div><div class="ttdef"><b>Definition:</b> hts.h:132</div></div>
 <div class="ttc" id="struct_b_g_z_f_html"><div class="ttname"><a href="struct_b_g_z_f.html">BGZF</a></div><div class="ttdef"><b>Definition:</b> bgzf.h:53</div></div>
