@@ -13,6 +13,8 @@ site:
     apps:
       page:
         $ref: page_app
+      static:
+        $ref: static_app
     base_url: http://cmdcolin.github.io
     deploy:
       $ref: deploy
@@ -35,6 +37,11 @@ site:
     - build:
         $class: Statocles::Plugin::LinkCheck
         $sub: check_pages
+static_app:
+  args:
+    store: static
+    url_root: /static
+  class: Statocles::App::Static
 theme:
   args:
     store: theme
