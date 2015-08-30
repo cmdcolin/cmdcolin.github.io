@@ -1,4 +1,5 @@
-# Projects
+# Personal projects
+
 
 ## TumblrGraph v2
 
@@ -21,5 +22,6 @@ A command line application for downloading Travis-CI build statistics and plotti
 A dagre-d3 based ontology viewer insprired by BioJS DAGViewer. Demo available at [http://cmdcolin.github.io/ontograph/](http://cmdcolin.github.io/ontograph/)
 
 ![](/static/ontograph.png)
+
 
 
