@@ -4,24 +4,15 @@ deploy:
     branch: master
   class: Statocles::Deploy::Git
 page_app:
-  args:
-    store: page
-    url_root: /page
   class: Statocles::App::Plain
-page_app_projects:
   args:
-    store: page
-    url_root: /projects
-  class: Statocles::App::Plain
+    store: site/
+    url_root: /
 site:
   args:
     apps:
       page:
         $ref: page_app
-      static:
-        $ref: static_app
-      projects:
-        $ref: page_app_projects
     base_url: http://cmdcolin.github.io
     deploy:
       $ref: deploy
