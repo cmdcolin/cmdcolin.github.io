@@ -8,6 +8,11 @@ page_app:
     store: page
     url_root: /page
   class: Statocles::App::Plain
+page_app_projects:
+  args:
+    store: page
+    url_root: /projects
+  class: Statocles::App::Plain
 site:
   args:
     apps:
@@ -15,6 +20,8 @@ site:
         $ref: page_app
       static:
         $ref: static_app
+      projects:
+        $ref: page_app_projects
     base_url: http://cmdcolin.github.io
     deploy:
       $ref: deploy
@@ -23,6 +30,8 @@ site:
       main:
         - href: /
           title: About
+        - href: /projects
+          title: Projects
         - href: https://github.com/cmdcolin/
           title: GitHub
         - href: https://twitter.com/cmdcolin/
@@ -35,11 +44,6 @@ site:
     - build:
         $class: Statocles::Plugin::LinkCheck
         $sub: check_pages
-static_app:
-  args:
-    store: static
-    url_root: /static
-  class: Statocles::App::Static
 theme:
   args:
     store: theme
