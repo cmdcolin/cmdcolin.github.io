@@ -1,3 +1,8 @@
+---
+title: Personal projects
+---
+
+
 # Personal projects
 
 

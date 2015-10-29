@@ -1,4 +1,3 @@
----
 deploy:
   args:
     branch: master
@@ -15,7 +14,6 @@ site:
         $ref: page_app
       static:
         $ref: static_app
-    base_url: http://cmdcolin.github.io
     deploy:
       $ref: deploy
     index: page
@@ -32,6 +30,8 @@ site:
     theme:
       $ref: theme
     title: Stationary Module
+    data:
+      google_analytics_id: 'UA-59273647-1'
   class: Statocles::Site
   on:
     - build:
@@ -42,7 +42,7 @@ static_app:
     store: static
     url_root: /static
   class: Statocles::App::Static
-theme:
-  args:
-    store: theme
-  class: Statocles::Theme
+theme:  
+    class: Statocles::Theme
+    args:
+        store: theme
