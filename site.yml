@@ -3,7 +3,7 @@ deploy:
     branch: master
   class: Statocles::Deploy::Git
 page_app:
-  class: Statocles::App::Plain
+  class: Statocles::App::Basic
   args:
     store: site/
     url_root: /
@@ -16,13 +16,15 @@ site:
         $ref: static_app
     deploy:
       $ref: deploy
-    index: page
+    index: /index.html
     nav:
       main:
         - href: /
           title: About
         - href: /projects
           title: Projects
+        - href: /resume.pdf
+          title: Resume
         - href: https://github.com/cmdcolin/
           title: GitHub
         - href: https://twitter.com/cmdcolin/
@@ -41,7 +43,7 @@ static_app:
   args:
     store: static
     url_root: /static
-  class: Statocles::App::Static
+  class: Statocles::App::Basic
 theme:  
     class: Statocles::Theme
     args:
