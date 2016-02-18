@@ -1,11 +1,12 @@
 ---
 title: About
 ---
-# About me 
-
-
-Welcome! This is a homepage for Colin Diesh. I am currently working as a Research Analyst at the University of Missouri in the [Elsik Lab](http://genomes.missouri.edu/drupal/elsiklab/?q=people)
-
+<img style="display: inline-block;" src="/static/me.jpg" height=150>
+<span style="display:inline-block;">
+Colin Diesh  
+Research analyst, [Elsik Lab](http://genomes.missouri.edu/drupal/elsiklab/?q=people)  
+University of Missouri
+</span>
 
 
 Links
