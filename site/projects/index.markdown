@@ -24,7 +24,7 @@ A command line application for downloading Travis-CI build statistics and plotti
 
 ## Ontograph
 
-A dagre-d3 based ontology viewer insprired by BioJS DAGViewer. Demo available at [http://cmdcolin.github.io/ontograph/](http://cmdcolin.github.io/ontograph/)
+A cytoscape.js (formerly dagre-d3) based ontology viewer insprired by BioJS DAGViewer. Demo available at [http://cmdcolin.github.io/ontograph/](http://cmdcolin.github.io/ontograph/)
 
 ![](/static/ontograph.png)
 
