@@ -1,0 +1,104 @@
+{
+  "basics": {
+    "name": "Colin Diesh",
+    "label": "Bioinformatics Software Engineer",
+    "picture": "",
+    "email": "colin.diesh@gmail.com",
+    "phone": "3038868691",
+    "location": {
+      "address": "2707 Quail Dr, Apt 17",
+      "postalCode": "65202",
+      "city": "Columbia",
+      "countryCode": "USA",
+      "region": "Missouri"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "cmdcolin",
+        "url": "http://github.com/cmdcolin"
+      },
+      {
+        "network": "",
+        "username": "",
+        "url": ""
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "University of Missouri, Columbia",
+      "position": "Research Analyst",
+      "startDate": "2013-11-01",
+      "endDate": "Present",
+      "summary": "The Elsik lab is focused on creating databases and resources for model organism communities, improving gene prediction, and developing annotation tools.",
+      "highlights": [
+        "Developed integrative data mining websites (BovineMine, HymenopteraMine) based on the InterMine data warehousing system (PostgreSQL, Java, Ant, NodeJS)",
+        "Contributed to the development of web-based manual gene annotation tool, WebApollo, and the genome browser, JBrowse (GitHub, Grails, Dojo, Front-end engineering)"
+      ]
+    }
+  ],
+  "volunteer": [],
+  "education": [
+    {
+      "institution": "University of Colorado, Boulder",
+      "area": "Computer Science",
+      "studyType": "BS, Minor in Math",
+      "startDate": "2009-08-01",
+      "endDate": "2013-05-01",
+      "courses": [
+        "CSCI 4950-Senior Thesis, Advisor Debra Goldberg. \"Comparison of transcription factor binding sites using ChIP-seq experiments\""
+      ]
+    }
+  ],
+  "awards": [],
+  "publications": [
+    {
+      "name": "Bovine Genome Database: new tools for gleaning function from the Bos taurus genome.",
+      "publisher": "Nucleic Acids Research",
+      "releaseDate": "2015 Oct 19",
+      "website": "http://nar.oxfordjournals.org/content/early/2015/10/19/nar.gkv1077.full",
+      "summary": ""
+    },
+    {
+      "name": "Hymenoptera Genome Database: integrating genome annotations in HymenopteraMine",
+      "publisher": "Nucleic Acids Research",
+      "releaseDate": "2015 Nov 17",
+      "website": "http://nar.oxfordjournals.org/content/early/2015/11/16/nar.gkv1208.full",
+      "summary": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "Master",
+      "keywords": [
+        "Grails",
+        "Hibernate",
+        "Dojo",
+        "NodeJS",
+        "Electron"
+      ]
+    },
+    {
+      "name": "Data analysis",
+      "level": "Intermediate",
+      "keywords": [
+        "R",
+        "Bash",
+        "ggplot2"
+      ]
+    },
+    {
+      "name": "Server administration",
+      "level": "Intermediate",
+      "keywords": [
+        "Bash",
+        "Tomcat",
+        "Passenger",
+        "PostgreSQL",
+        "MySQL"
+      ]
+    }
+  ]
+}
