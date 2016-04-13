@@ -85,8 +85,8 @@
       "level": "Master",
       "keywords": [
         "Grails ecosystem (Groovy, Java, Hibernate, GWT, Tomcat, PostgreSQL, MySQL)",
-        "Front-end engineering (Javascript, Dojo, jQuery, Bower/NPM/Babel, React)",
-        "NodeJS, Electron, ES6"
+        "Front-end engineering (Javascript, Dojo, jQuery, Bower/NPM/Babel)",
+        "Other (Express.js, Electron, ES6, ElasticSearch, React, Cytoscape.js, JBrowse customization)"
       ]
     },
     {

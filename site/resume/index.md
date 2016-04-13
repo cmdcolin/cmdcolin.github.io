@@ -213,7 +213,7 @@ h1 {
         <div class="row">
         <div class="col-sm-6">
             <strong>Email</strong>
-            <div class="email"><a class="__cf_email__" href="/cdn-cgi/l/email-protection" data-cfemail="cdaea2a1a4a3e3a9a4a8bea58daaa0aca4a1e3aea2a0">[email&#160;protected]</a><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[ */!function(t,e,r,n,c,a,p){try{t=document.currentScript||function(){for(t=document.getElementsByTagName('script'),e=t.length;e--;)if(t[e].getAttribute('data-cfhash'))return t[e]}();if(t&&(c=t.previousSibling)){p=t.parentNode;if(a=c.getAttribute('data-cfemail')){for(e='',r='0x'+a.substr(0,2)|0,n=2;a.length-n;n+=2)e+='%'+('0'+('0x'+a.substr(n,2)^r).toString(16)).slice(-2);p.replaceChild(document.createTextNode(decodeURIComponent(e)),c)}p.removeChild(t)}}catch(u){}}()/* ]]> */</script></div>
+            <div class="email"><a class="__cf_email__" href="/cdn-cgi/l/email-protection" data-cfemail="41222e2d282f6f252824322901262c20282d6f222e2c">[email&#160;protected]</a><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[ */!function(t,e,r,n,c,a,p){try{t=document.currentScript||function(){for(t=document.getElementsByTagName('script'),e=t.length;e--;)if(t[e].getAttribute('data-cfhash'))return t[e]}();if(t&&(c=t.previousSibling)){p=t.parentNode;if(a=c.getAttribute('data-cfemail')){for(e='',r='0x'+a.substr(0,2)|0,n=2;a.length-n;n+=2)e+='%'+('0'+('0x'+a.substr(n,2)^r).toString(16)).slice(-2);p.replaceChild(document.createTextNode(decodeURIComponent(e)),c)}p.removeChild(t)}}catch(u){}}()/* ]]> */</script></div>
         </div>
         <div class="col-sm-6">
             <strong>Phone</strong>
@@ -400,8 +400,8 @@ h1 {
             </div>
             <ul class="keywords">
                 <li>Grails ecosystem (Groovy, Java, Hibernate, GWT, Tomcat, PostgreSQL, MySQL)</li>
-                <li>Front-end engineering (Javascript, Dojo, jQuery, Bower/NPM/Babel, React)</li>
-                <li>NodeJS, Electron, ES6</li>
+                <li>Front-end engineering (Javascript, Dojo, jQuery, Bower/NPM/Babel)</li>
+                <li>Other (Express.js, Electron, ES6, ElasticSearch, React, Cytoscape.js, JBrowse customization)</li>
             </ul>
         </div>
         <div class="col-sm-6">
