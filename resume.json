@@ -1,12 +1,11 @@
 {
   "basics": {
     "name": "Colin Diesh",
-    "label": "Bioinformatics Software Engineer",
     "picture": "",
     "email": "colin.diesh@gmail.com",
     "phone": "3038868691",
     "website": "",
-    "summary": "",
+    "summary": "Bioinformatics software engineer & research analyst",
     "location": {
       "address": "2707 Quail Dr, Apt 17",
       "postalCode": "65202",
@@ -33,11 +32,12 @@
       "position": "Research Analyst",
       "website": "",
       "startDate": "2013-11-01",
-      "endDate": "2016-04-12",
+      "endDate": "Present",
       "summary": "The Elsik lab is focused on creating databases and resources for model organism communities, improving gene prediction, and developing annotation tools.",
       "highlights": [
-        "Developed integrative data mining websites (BovineMine, HymenopteraMine) based on the InterMine data warehousing system (PostgreSQL, Java, Ant, NodeJS)",
-        "Contributed to the development of web-based manual gene annotation tool, WebApollo, and the genome browser, JBrowse (GitHub, Grails, Dojo, Front-end engineering)"
+        "Developed BovineMine and HymenopteraMine, integrative web-based data mining platforms using the InterMine data warehousing system (PostgreSQL, Java, Ant, NodeJS)",
+        "Core developer on Web Apollo, a web-based genome annotation tool (GitHub, Grails, NodeJS)",
+        "Contributor to JBrowse, a web-based genome browser (Dojo, Electron, NodeJS, Front-end engineering)"
       ]
     }
   ],
@@ -94,7 +94,7 @@
       "level": "Intermediate",
       "keywords": [
         "R, ggplot2",
-        "Bioinformatics command line (BWA, TopHat, HISAT2, LUMPY, SAMTools, GNU Parallel)"
+        "Bioinformatics command line (BWA, TopHat, HISAT2, LUMPY, SAMTools, MACS, GNU Parallel)"
       ]
     }
   ],
