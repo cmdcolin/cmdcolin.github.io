@@ -5,6 +5,8 @@
     "picture": "",
     "email": "colin.diesh@gmail.com",
     "phone": "3038868691",
+    "website": "",
+    "summary": "",
     "location": {
       "address": "2707 Quail Dr, Apt 17",
       "postalCode": "65202",
@@ -29,8 +31,9 @@
     {
       "company": "University of Missouri, Columbia",
       "position": "Research Analyst",
+      "website": "",
       "startDate": "2013-11-01",
-      "endDate": "Present",
+      "endDate": "2016-04-12",
       "summary": "The Elsik lab is focused on creating databases and resources for model organism communities, improving gene prediction, and developing annotation tools.",
       "highlights": [
         "Developed integrative data mining websites (BovineMine, HymenopteraMine) based on the InterMine data warehousing system (PostgreSQL, Java, Ant, NodeJS)",
@@ -46,6 +49,7 @@
       "studyType": "BS, Minor in Math",
       "startDate": "2009-08-01",
       "endDate": "2013-05-01",
+      "gpa": "",
       "courses": [
         "CSCI 4950-Senior Thesis, Advisor Debra Goldberg. \"Comparison of transcription factor binding sites using ChIP-seq experiments\""
       ]
@@ -54,10 +58,10 @@
   "awards": [],
   "publications": [
     {
-      "name": "Bovine Genome Database: new tools for gleaning function from the Bos taurus genome.",
-      "publisher": "Nucleic Acids Research",
-      "releaseDate": "2015 Oct 19",
-      "website": "http://nar.oxfordjournals.org/content/early/2015/10/19/nar.gkv1077.full",
+      "name": "JBrowse: a dynamic web platform for genome visualization and analysis",
+      "publisher": "Genome Biology",
+      "releaseDate": "2016 Apr 12",
+      "website": "http://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0924-1",
       "summary": ""
     },
     {
@@ -66,39 +70,35 @@
       "releaseDate": "2015 Nov 17",
       "website": "http://nar.oxfordjournals.org/content/early/2015/11/16/nar.gkv1208.full",
       "summary": ""
+    },
+    {
+      "name": "Bovine Genome Database: new tools for gleaning function from the Bos taurus genome.",
+      "publisher": "Nucleic Acids Research",
+      "releaseDate": "2015 Oct 19",
+      "website": "http://nar.oxfordjournals.org/content/early/2015/10/19/nar.gkv1077.full",
+      "summary": ""
     }
   ],
   "skills": [
     {
-      "name": "Web Development",
+      "name": "Web development",
       "level": "Master",
       "keywords": [
-        "Grails",
-        "Hibernate",
-        "Dojo",
-        "NodeJS",
-        "Electron"
+        "Grails ecosystem (Groovy, Java, Hibernate, GWT, Tomcat, PostgreSQL, MySQL)",
+        "Front-end engineering (Javascript, Dojo, jQuery, Bower/NPM/Babel, React)",
+        "NodeJS, Electron, ES6"
       ]
     },
     {
       "name": "Data analysis",
       "level": "Intermediate",
       "keywords": [
-        "R",
-        "Bash",
-        "ggplot2"
-      ]
-    },
-    {
-      "name": "Server administration",
-      "level": "Intermediate",
-      "keywords": [
-        "Bash",
-        "Tomcat",
-        "Passenger",
-        "PostgreSQL",
-        "MySQL"
+        "R, ggplot2",
+        "Bioinformatics command line (BWA, TopHat, HISAT2, LUMPY, SAMTools, GNU Parallel)"
       ]
     }
-  ]
+  ],
+  "languages": [],
+  "interests": [],
+  "references": []
 }

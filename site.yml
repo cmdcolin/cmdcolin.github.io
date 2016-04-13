@@ -23,7 +23,7 @@ site:
           title: About
         - href: /projects
           title: Projects
-        - href: /resume.pdf
+        - href: /resume
           title: Resume
         - href: https://github.com/cmdcolin/
           title: GitHub
