@@ -13,7 +13,7 @@
       {
          "hg19" : true,
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Genes",
-         "urlTemplate" : "http://mygene.info/v2/query?q=hg19.{refseq}:{start}-{end}&fields=all&size=1000&email=colin.diesh@gmail.com",
+         "urlTemplate" : "https://mygene.info/v2/query?q=hg19.{refseq}:{start}-{end}&fields=all&size=1000&email=colin.diesh@gmail.com",
          "subParts" : [
             "exon"
          ],
@@ -25,7 +25,7 @@
             "color" : "{colorfun}",
             "featureScale" : 0.5
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end}&size=1000&email=colin.diesh@gmail.com",
          "type" : "CanvasFeatures",
@@ -38,7 +38,7 @@
          "style" : {
             "color" : "#665"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=evs.chrom:[{refseq} TO {refseq}] AND evs.hg19.start:<={end} AND evs.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=evs",
          "refSeqTransform": true,
@@ -52,7 +52,7 @@
          "style" : {
             "color" : "magenta"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:gwassnps&size=1000&email=colin.diesh@gmail.com&fields=gwassnps",
          "category": "Range query",
@@ -66,7 +66,7 @@
          "style" : {
             "color" : "#aae"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=cosmic.chrom:[{refseq} TO {refseq}] AND cosmic.hg19.start:<={end} AND cosmic.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=cosmic",
          "refSeqTransform": true,
@@ -80,7 +80,7 @@
          "style" : {
             "color" : "#5fa"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=mutdb.chrom:[{refseq} TO {refseq}] AND mutdb.hg19.start:<={end} AND mutdb.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=mutdb",
          "refSeqTransform": true,
@@ -94,7 +94,7 @@
          "style" : {
             "color" : "#119"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:snpeff&size=1000&email=colin.diesh@gmail.com&fields=snpeff",
          "category": "Range query",
@@ -107,7 +107,7 @@
          "style" : {
             "color" : "#a84"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:emv&size=1000&email=colin.diesh@gmail.com&fields=emv",
          "type" : "CanvasFeatures",
@@ -120,7 +120,7 @@
          "style" : {
             "color" : "#3ff"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:docm&size=1000&email=colin.diesh@gmail.com&fields=docm",
          "type" : "CanvasFeatures",
@@ -133,7 +133,7 @@
          "style" : {
             "color" : "#3f9"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "refSeqTransform": true,
          "urlTemplate" : "query?q=docm.chrom:[{refseq} TO {refseq}] AND docm.hg19.start:<={end} AND docm.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=docm",
@@ -147,7 +147,7 @@
          "style" : {
             "color" : "#b44"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:snpedia&size=1000&email=colin.diesh@gmail.com&fields=snpedia",
          "category": "Range query",
@@ -160,7 +160,7 @@
          "style" : {
             "color" : "cyan"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "refSeqTransform": true,
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=clinvar.chrom:[{refseq} TO {refseq}] AND clinvar.hg19.start:<={end} AND clinvar.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=clinvar",
@@ -174,7 +174,7 @@
          "style": {
              "color" : "#4a9"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:cadd&size=1000&email=colin.diesh@gmail.com&fields=cadd",
          "category": "Range query",
@@ -187,7 +187,7 @@
          "style" : {
             "color" : "#22a"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:grasp&size=1000&email=colin.diesh@gmail.com&fields=grasp",
          "type" : "CanvasFeatures",
@@ -200,7 +200,7 @@
          "style" : {
             "color" : "#22a"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=grasp.hg19.chr:[{refseq} TO {refseq}] AND grasp.hg19.pos:<={end} AND grasp.hg19.pos:>={start}&size=1000&email=colin.diesh@gmail.com&fields=grasp",
          "type" : "CanvasFeatures",
@@ -214,7 +214,7 @@
          "style" : {
             "color" : "#b33"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:exac&size=1000&email=colin.diesh@gmail.com&fields=exac",
          "type" : "CanvasFeatures",
@@ -227,7 +227,7 @@
          "style" : {
             "color" : "#b3b"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=wellderly.chrom:[{refseq} TO {refseq}] AND wellderly.hg19.start:<={end} AND wellderly.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=wellderly",
          "category": "Specialized query",
@@ -241,7 +241,7 @@
          "style" : {
             "color" : "#5e4"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q=dbsnp.chrom:[{refseq} TO {refseq}] AND dbsnp.hg19.start:<={end} AND dbsnp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbsnp",
          "type" : "CanvasFeatures",
@@ -255,7 +255,7 @@
          "style" : {
             "color" : "#742"
          },
-         "baseUrl" : "http://myvariant.info/v1/",
+         "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "category": "Specialized query",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
