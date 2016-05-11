@@ -1,4 +1,4 @@
-define( [
+define( "MyVariantViewer/Store/Names/REST", [
             'dojo/_base/declare',
             'dojo/_base/array',
             'dojo/store/util/QueryResults',

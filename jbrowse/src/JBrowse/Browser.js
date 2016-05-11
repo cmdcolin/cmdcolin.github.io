@@ -154,45 +154,46 @@ constructor: function(params) {
             if( thisB.config.initialHighlight && thisB.config.initialHighlight != "/" )
                 thisB.setHighlight( new Location( thisB.config.initialHighlight ) );
 
-            thisB.loadNames();
             thisB.initPlugins().then( function() {
-                thisB.loadUserCSS().then( function() {
+                thisB.loadNames().then( function() {
+                    thisB.loadUserCSS().then( function() {
 
-                    thisB.initTrackMetadata();
-                    thisB.loadRefSeqs().then( function() {
+                        thisB.initTrackMetadata();
+                        thisB.loadRefSeqs().then( function() {
 
-                       // figure out our initial location
-                       var initialLocString = thisB._initialLocation();
-                       var initialLoc = Util.parseLocString( initialLocString );
-                       if (initialLoc && initialLoc.ref && thisB.allRefs[initialLoc.ref]) {
-                           thisB.refSeq = thisB.allRefs[initialLoc.ref];
-                       }
+                           // figure out our initial location
+                           var initialLocString = thisB._initialLocation();
+                           var initialLoc = Util.parseLocString( initialLocString );
+                           if (initialLoc && initialLoc.ref && thisB.allRefs[initialLoc.ref]) {
+                               thisB.refSeq = thisB.allRefs[initialLoc.ref];
+                           }
 
-                       thisB.initView().then( function() {
-                           Touch.loadTouch(); // init touch device support
-                           if( initialLocString )
-                               thisB.navigateTo( initialLocString );
+                           thisB.initView().then( function() {
+                               Touch.loadTouch(); // init touch device support
+                               if( initialLocString )
+                                   thisB.navigateTo( initialLocString );
 
-                           // figure out what initial track list we will use:
-                           var tracksToShow = [];
-                           // always add alwaysOnTracks, regardless of any other track params
-                           if (thisB.config.alwaysOnTracks) { tracksToShow = tracksToShow.concat(thisB.config.alwaysOnTracks.split(",")); }
-                           // add tracks specified in URL track param,
-                           //    if no URL track param then add last viewed tracks via tracks cookie
-                           //    if no URL param and no tracks cookie, then use defaultTracks
-                           if (thisB.config.forceTracks)   { tracksToShow = tracksToShow.concat(thisB.config.forceTracks.split(",")); }
-                           else if (thisB.cookie("tracks")) { tracksToShow = tracksToShow.concat(thisB.cookie("tracks").split(",")); }
-                           else if (thisB.config.defaultTracks) { tracksToShow = tracksToShow.concat(thisB.config.defaultTracks.split(",")); }
-                           // currently, force "DNA" _only_ if no other guides as to what to show?
-                           //    or should this be changed to always force DNA to show?
-                           if (tracksToShow.length == 0) { tracksToShow.push("DNA"); }
-                           // eliminate track duplicates (may have specified in both alwaysOnTracks and defaultTracks)
-                           tracksToShow = Util.uniq(tracksToShow);
-                           thisB.showTracks( tracksToShow );
+                               // figure out what initial track list we will use:
+                               var tracksToShow = [];
+                               // always add alwaysOnTracks, regardless of any other track params
+                               if (thisB.config.alwaysOnTracks) { tracksToShow = tracksToShow.concat(thisB.config.alwaysOnTracks.split(",")); }
+                               // add tracks specified in URL track param,
+                               //    if no URL track param then add last viewed tracks via tracks cookie
+                               //    if no URL param and no tracks cookie, then use defaultTracks
+                               if (thisB.config.forceTracks)   { tracksToShow = tracksToShow.concat(thisB.config.forceTracks.split(",")); }
+                               else if (thisB.cookie("tracks")) { tracksToShow = tracksToShow.concat(thisB.cookie("tracks").split(",")); }
+                               else if (thisB.config.defaultTracks) { tracksToShow = tracksToShow.concat(thisB.config.defaultTracks.split(",")); }
+                               // currently, force "DNA" _only_ if no other guides as to what to show?
+                               //    or should this be changed to always force DNA to show?
+                               if (tracksToShow.length == 0) { tracksToShow.push("DNA"); }
+                               // eliminate track duplicates (may have specified in both alwaysOnTracks and defaultTracks)
+                               tracksToShow = Util.uniq(tracksToShow);
+                               thisB.showTracks( tracksToShow );
 
-                           thisB.passMilestone( 'completely initialized', { success: true } );
-                       });
-                       thisB.reportUsageStats();
+                               thisB.passMilestone( 'completely initialized', { success: true } );
+                           });
+                           thisB.reportUsageStats();
+                        });
                     });
                 });
             });
@@ -220,7 +221,7 @@ _initialLocation: function() {
 version: function() {
     // when a build is put together, the build system assigns a string
     // to the variable below.
-    var BUILD_SYSTEM_JBROWSE_VERSION = "1.12.1";
+    var BUILD_SYSTEM_JBROWSE_VERSION = "1.12.2-pre";
     return BUILD_SYSTEM_JBROWSE_VERSION || 'development';
 }.call(),
 
@@ -731,6 +732,16 @@ initView: function() {
                   }
                 )
             );
+            this.addGlobalMenuItem(this.config.classicMenu ? 'file':'dataset',
+              new dijitMenuItem(
+                  {
+                      id: 'menubar_dataset_home',
+                      label: "Return to main menu",
+                      iconClass: 'dijitIconTask',
+                      onClick: dojo.hitch( this, function() { var container = thisObj.container || document.body;thisObj.welcomeScreen(container); } )
+                  }
+                )
+            );
         }
         else if( !this.config.hideGenomeOptions ) {
             this.addGlobalMenuItem(this.config.classicMenu ? 'file':'dataset',
@@ -884,9 +895,13 @@ initView: function() {
             this.renderGlobalMenu( 'help', {}, menuBar );
         }
 
-        if( this.config.show_nav && this.config.show_tracklist && this.config.show_overview ) {
+        if( this.config.show_nav && this.config.show_tracklist && this.config.show_overview && !Util.isElectron() ) {
             var shareLink = this.makeShareLink();
             if (shareLink) { menuBar.appendChild( shareLink ); }
+        }
+        else if(Util.isElectron()) {
+            var snapLink = this.makeSnapLink();
+            if(snapLink) { menuBar.appendChild( snapLink ); }
         }
         else
             menuBar.appendChild( this.makeFullViewLink() );
@@ -1076,15 +1091,28 @@ openConfig: function( plugins ) {
     var remote = electronRequire('remote');
     var fs = electronRequire('fs');
 
-    console.log( JSON.stringify( plugins ) );
     var dir = this.config.dataRoot;
-    var trackList = JSON.parse( fs.readFileSync(dir+"/trackList.json", 'utf8') );
+    var trackList = JSON.parse( fs.readFileSync( dir + "/trackList.json", 'utf8') );
+
+    //remap existing plugins to object form
     trackList.plugins = trackList.plugins || {};
+    if( lang.isArray( trackList.plugins ) ) {
+        var temp = {};
+        array.forEach( trackList.plugins, function( p ) {
+            temp[ p ] = { 'name': p, 'location': dir+'/'+p };
+        });
+        trackList.plugins = temp;
+    }
+
+    // add new plugins
     array.forEach( plugins, function( plugin ) {
-        var name = plugin.match(/\/(\w+)$/)[1]
-        trackList.plugins[name] = { location: plugin };
+        var name = plugin.match(/\/(\w+)$/)[1];
+        trackList.plugins[ name ] = { location: plugin, name: name };
     });
-    fs.writeFileSync( dir + "/trackList.json", JSON.stringify(trackList, null, 2) );
+
+    try {
+        fs.writeFileSync( dir + "/trackList.json", JSON.stringify(trackList, null, 2) );
+    } catch(e) { console.log("Failed to save trackList.json"); }
     window.location.reload();
 },
 
@@ -1099,16 +1127,16 @@ saveData: function() {
     var dir = this.config.dataRoot;
 
     // use getstore to access the files that were loaded from local files, and create standard configs
-    var trackConfs = array.map( this.view.tracks, function(track) {
-        var temp = dojo.clone( track.config );
-        this.getStore( temp.store, dojo.hitch( this, function( obj ) {
+    var trackConfs = array.map( this.config.tracks, function(trackConfig) {
+        var temp = lang.clone( trackConfig );
+        this.getStore( temp.store, lang.hitch( this, function( obj ) {
             temp.storeClass = obj.config.type;
             if( !temp.urlTemplate ) {
-                dojo.mixin( temp, obj.saveStore() );
+                lang.mixin( temp, obj.saveStore() );
 
                 if( temp.histograms && temp.histograms.store ) {
                     this.getStore( temp.histograms.store, function( obj ) {
-                        dojo.mixin( temp.histograms, obj.saveStore() );
+                        lang.mixin( temp.histograms, obj.saveStore() );
                     });
                 }
             }
@@ -1117,10 +1145,20 @@ saveData: function() {
         return temp;
     }, this);
 
+    var plugins = array.filter( Util.uniq( this.config.plugins ), function(elt) { return elt!="RegexSequenceSearch" });
+    var tmp = {};
+
+    if( lang.isArray( this.config.plugins ) ) {
+        array.forEach( this.config.plugins, function( p ) {
+            tmp[ p ] = typeof p == 'object' ? p : { 'name': p };
+        });
+    }
+    else tmp = this.config.plugins;
     var minTrackList = {
-      tracks: trackConfs,
-      refSeqs: this.config.refSeqs,
-      refSeqOrder: this.config.refSeqOrder
+        tracks: trackConfs,
+        refSeqs: this.config.refSeqs,
+        refSeqOrder: this.config.refSeqOrder,
+        plugins:tmp
     };
     try {
         fs.writeFileSync( Util.unReplacePath(dir) + "/trackList.json", JSON.stringify(minTrackList, null, 2) );
@@ -1141,7 +1179,7 @@ openFastaElectron: function() {
           var confs = results.trackConfs || [];
 
           if( confs.length ) {
-            if( confs[0].store.fasta ) {
+            if( confs[0].store.fasta && confs[0].store.fai ) {
                 var fasta = Util.replacePath( confs[0].store.fasta.url );
                 var fai = Util.replacePath( confs[0].store.fai.url );
 
@@ -1174,7 +1212,7 @@ openFastaElectron: function() {
                 } catch(e) { alert(e); }
             }
             else {
-                var fasta = Util.replacePath( confs[0].store.blob.url );
+                var fasta = Util.replacePath( confs[0].store.fasta.url );
                 try {
                     var stats = fs.statSync( fasta );
                     if(stats.size>100000000) {
@@ -1209,7 +1247,7 @@ openFastaElectron: function() {
                         thisB.saveSessionDir( dir );
                         window.location = window.location.href.split('?')[0] + "?data=" + Util.replacePath( dir );
                     } catch(e) { alert(e); }
-                }, function() { console.log('error'); });
+                }, function(err) { console.error('error', err); });
             }
           }
         })
@@ -1234,37 +1272,21 @@ openFasta: function() {
                       refSeqs: { data: refSeqs },
                       refSeqOrder: results.refSeqOrder
                   });
-                  setTimeout( function() {
-                    array.forEach( tracks, function( conf ) {
-                        var storeConf = conf.store;
-                        if( storeConf && typeof storeConf == 'object' ) {
-                            delete conf.store;
-                            storeConf.name = 'refseqs'; // important to make it the refseq store
-                            var name = this.addStoreConfig( storeConf.name, storeConf );
-                            conf.store = name;
-                        }
-                    },newBrowser);
-                    newBrowser.publish( '/jbrowse/v1/v/tracks/new', tracks );
-                  }, 1000 );
+                  newBrowser.afterMilestone('completely initialized', function() {
+                      array.forEach( tracks, function( conf ) {
+                          var storeConf = conf.store;
+                          if( storeConf && typeof storeConf == 'object' ) {
+                              delete conf.store;
+                              storeConf.name = 'refseqs'; // important to make it the refseq store
+                              conf.store = this.addStoreConfig( storeConf.name, storeConf );
+                          }
+                      }, newBrowser);
+                      newBrowser.publish( '/jbrowse/v1/v/tracks/new', tracks );
+                  });
               });
           }
           if( confs.length ) {
-            if( confs[0].store.blob ) {
-                if( confs[0].store.blob.size > 100000000 ) {
-                   if(!confirm('Warning: you are opening a non-indexed fasta larger than 100MB. It is recommended to load a fasta (.fa) and the fasta index (.fai) to provide speedier loading. Do you wish to continue anyways?')) {
-                       return;
-                   }
-                }
-                new UnindexedFasta({
-                    browser: this,
-                    fasta: confs[0].store.blob
-                })
-                .getRefSeqs(
-                    function(refSeqs) { loadNewRefSeq( refSeqs, confs ); },
-                    function(error) { alert('Error getting refSeq: '+error); }
-                );
-            }
-            else {
+            if( confs[0].store.fasta && confs[0].store.fai ) {
                 new IndexedFasta({
                     browser: this,
                     fai: confs[0].store.fai,
@@ -1275,6 +1297,22 @@ openFasta: function() {
                     function(error) { alert('Error getting refSeq: '+error); }
                 );
             }
+            else if( confs[0].store.fasta ) {
+                if( confs[0].store.fasta.size > 100000000 ) {
+                   if(!confirm('Warning: you are opening a non-indexed fasta larger than 100MB. It is recommended to load a fasta (.fa) and the fasta index (.fai) to provide speedier loading. Do you wish to continue anyways?')) {
+                       return;
+                   }
+                }
+                new UnindexedFasta({
+                    browser: this,
+                    fasta: confs[0].store.fasta
+                })
+                .getRefSeqs(
+                    function(refSeqs) { loadNewRefSeq( refSeqs, confs ); },
+                    function(error) { alert('Error getting refSeq: '+error); }
+                );
+            }
+
           }
         })
       });
@@ -1355,6 +1393,7 @@ getTrackTypes: function() {
                 'JBrowse/Store/SeqFeature/NCList'      : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/BigWig'      : 'JBrowse/View/Track/Wiggle/XYPlot',
                 'JBrowse/Store/SeqFeature/VCFTabix'    : 'JBrowse/View/Track/CanvasVariants',
+                'JBrowse/Store/SeqFeature/GFF3Tabix'   : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/GFF3'        : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/GTF'         : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/StaticChunked' : 'JBrowse/View/Track/Sequence',
@@ -2495,10 +2534,37 @@ globalKeyHandler: function( evt ) {
         evt.stopPropagation();
     }
 },
+makeSnapLink: function () {
+    var browser = this;
+    var shareURL = '#';
+    var dataRoot = this.config.dataRoot;
+
+    // make the share link
+    var button = new dijitButton({
+            className: 'share',
+            innerHTML: 'Screenshot',
+            title: 'share this view',
+            onClick: function() {
+                var fs = electronRequire('fs');
+                var screenshot = electronRequire('electron-screenshot')
+                var remote = electronRequire('remote');
+                var dialog = remote.require('dialog');
+                dialog.showSaveDialog(function (fileName) {
+                    screenshot({
+                      filename: fileName,
+                      delay: 1
+                    }, function() { console.log('Saved screenshot',fileName); });
+                });
+            }
+        }
+    );
+
+    return button.domNode;
+},
 
 makeShareLink: function () {
     // don't make the link if we were explicitly configured not to
-    if( ( 'share_link' in this.config ) && !this.config.share_link || Util.isElectron() )
+    if( ( 'share_link' in this.config ) && !this.config.share_link )
         return null;
 
     var browser = this;
@@ -2793,7 +2859,7 @@ cookie: function(keyWithoutId,value) {
 
 createNavBox: function( parent ) {
     var thisB = this;
-    var align = 'left';
+    var align = 'center';
     var navbox = dojo.create( 'div', { id: 'navbox', style: { 'text-align': align } }, parent );
 
     // container adds a white backdrop to the locationTrap.
@@ -3082,6 +3148,19 @@ createNavBox: function( parent ) {
  */
 getHighlight: function() {
     return this._highlight || null;
+},
+
+getBookmarks: function() {
+    if( this.config.bookmarkService ) {
+        return request( this.config.bookmarkService, {
+            data: {
+                sequence: this.refSeq.name
+            },
+            handleAs: "json",
+            method: "post"
+        })
+    }
+    else return this.config.bookmarks;
 },
 
 /**

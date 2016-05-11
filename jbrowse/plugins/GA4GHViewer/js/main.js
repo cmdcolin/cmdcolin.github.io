@@ -1,19 +1,3 @@
-define([
-           'dojo/_base/declare',
-           'JBrowse/Plugin'
-       ],
-       function(
-           declare,
-           JBrowsePlugin
-       ) {
-return declare( JBrowsePlugin,
-{
-    constructor: function( args ) {
-        var browser = args.browser;
-
-        // do anything you need to initialize your plugin here
-        console.log( "GA4GHViewer plugin starting" );
-
-    }
-});
-});
+//>>built
+require({cache:{"JBrowse/Plugin":function(){define(["dojo/_base/declare","JBrowse/Component"],function(b,c){return b(c,{constructor:function(a){this.name=a.name;this.cssLoaded=a.cssLoaded;this._finalizeConfig(a.config)},_defaultConfig:function(){return{baseUrl:"/plugins/"+this.name}}})})}}});define("GA4GHViewer/main",["dojo/_base/declare","JBrowse/Plugin"],function(b,c){return b(c,{constructor:function(a){}})});
+//# sourceMappingURL=main.js.map

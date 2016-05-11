@@ -1,4 +1,4 @@
-define( [   
+define( "MyVariantViewer/View/Track/Variants", [   
             'dojo/_base/declare',
             'dojo/_base/array',
             'dojo/_base/lang',

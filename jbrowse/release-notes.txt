@@ -1,11 +1,63 @@
-# Release 1.12.1     2016-03-01 03:47:38 America/Los_Angeles
+# Release 1.12.2-pre     2016-05-11 12:57:33 America/Chicago
 
-# Release 1.12.1     2015-03-01
+# Release 1.12.2-pre     2016-05-11 12:31:55 America/Chicago
+
+## Minor improvements
+
+  * Upgraded build system to install dependencies with bower (#718).
+
+  * Update Dojo to 1.9.8
+
+  * Add the ability to load tabix indexed GFF files. Thanks to
+    Colin Diesh for the implementation (#670).
+
+  * Add ability to access SPARQL stores that reject CORS requests
+    to access sites like WikiData. Thanks to the WebApollo hackathon
+    for the ideas (#679).
+
+  * Add extra coloring schemes for the Sequence track when using
+    protein residues. Thanks to Eric Rasche for the idea and
+    implementation (#673).
+
+  * Add ability to specify custom exporter classes for the "Save track
+    data" option, for example, adding exporter code in plugins (#682).
+
+  * Add a timer for the feature statistics calculation (#663).
+
+  * Add an option to specify multiple highlights, or bookmarks,
+    using the config file, a remote service, or the URL bar (#668).
+
+  * Fix some inconsistencies where opening a file with .fasta instead
+    of .fa caused issues (#696).
+
+## Bug fixes
+
+  * Fix error where the sequence track would not load after "Open
+    sequence file"
+
+  * Revert to standard eukaryotic codon set
+
+  * Fix issue where saving session overwrote the plugins that were
+    loaded
+
+  * Fix an error if there were numerical values being used as label
+    or description for the CanvasFeatures type tracks. Thanks to
+    Eric Rasche for reporting (#673).
+
+  * Fix some issues where the Gene glyph would not layout some
+    features correctly. Thanks to Eric Rasche for reporting (#686).
+
+  * Fix an issue with desktop mode where saving session would not
+    save the tracks that were not visible.
+
+  * Added fix when using indexed fasta from prepare-refseqs.pl
+    Thanks to @billzt for the report (#719).
+
+# Release 1.12.1     2016-03-01 03:47:38 America/Los_Angeles
 
 ## Minor improvements
 
  * Update Dojo to 1.8.10
-
 
 ## Bug fixes
 
@@ -14,8 +66,7 @@
 
  * Fix compat_121.html to access /css directory
 
-
-# Release 1.12.0     2015-12-17
+# Release 1.12.0     2015-12-18 17:40:39 America/Los_Angeles
 
 ## New features
 

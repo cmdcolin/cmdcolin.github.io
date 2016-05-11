@@ -10,7 +10,54 @@ done_message () {
     fi
 }
 
+function check_node(){
+    node_executable=$(which node)
+    npm_executable=$(which npm)
+    if ! [ -x "$node_executable" ] ; then
+        nodejs_executable=$(which nodejs)
+        if ! [ -x "$nodejs_executable" ] ; then
+            echo "You must install 'Node JS' to install JBrowse from bower."
+        else
+            echo "Creating an alias 'node' for 'nodejs'"
+            node_executable="$nodejs_executable"
+        fi
+    fi
+    echo "Node installed";
+}
+
+function check_bower(){
+    check_node;
+    bower_executable=$(which bower)
+    if ! [ -x "$bower_executable" ] ; then
+        $npm_executable install -g bower
+        bower_executable=$(which bower)
+        if ! [ -x "$bower_executable" ] ; then
+            echo "You must install 'bower' to install JBrowse `npm install -g bower` using bower."
+        else
+            echo "Bower installed";
+        fi
+    else
+        echo "Bower installed";
+    fi
+}
+
+
 echo > setup.log;
+
+# if src/dojo/dojo.js exists, but that is the only file in that directory (or other directories don't exist)
+# OR
+# if dev we don't care
+if [ -f "src/dojo/dojo.js" ] && ! [ -f "src/dojo/_firebug/firebug.js" ]; then
+    echo "Detected precompiled version." ;
+elif ! [ -f "src/dojo/dojo.js" ]; then
+    echo "Dojo does not exist, installing" ;
+    check_bower >> setup.log ;
+    $bower_executable install -f --allow-root >> setup.log ;
+else
+    check_bower >> setup.log ;
+    echo "Bower dependencies already installed.  Type '$bower_executable install -f allow-root' to force reinstallation of dependencies.";
+fi
+
 
 # log information about this system
 (
@@ -55,15 +102,17 @@ echo -n "Formatting Volvox example data ...";
     cat docs/tutorial/data_files/volvox_fromconfig.conf >> sample_data/json/volvox/tracks.conf
     cat docs/tutorial/data_files/volvox.gff3.conf >> sample_data/json/volvox/tracks.conf
     cat docs/tutorial/data_files/volvox.gtf.conf >> sample_data/json/volvox/tracks.conf
+    cat docs/tutorial/data_files/volvox.sort.gff3.gz.conf >> sample_data/json/volvox/tracks.conf
+    cat docs/tutorial/data_files/bookmarks.conf >> sample_data/json/volvox/tracks.conf
     bin/add-json.pl '{ "dataset_id": "volvox", "include": [ "../../raw/volvox/functions.conf" ] }' sample_data/json/volvox/trackList.json
     bin/add-json.pl '{ "dataset_id": "volvox", "plugins": [ "NeatHTMLFeatures","NeatCanvasFeatures","HideTrackLabels" ] }' sample_data/json/volvox/trackList.json
     bin/generate-names.pl --safeMode -v --out sample_data/json/volvox;
 
     # also recreate some symlinks used by tests and such
-    if [ -d sample_data/json/modencode ]; then		
-            mkdir -p sample_data/json/modencode/tracks;		
-            ln -sf ../../volvox/tracks/volvox_microarray.wig sample_data/json/modencode/tracks/volvox_microarray.wig;		
-    fi;    
+    if [ -d sample_data/json/modencode ]; then
+            mkdir -p sample_data/json/modencode/tracks;
+            ln -sf ../../volvox/tracks/volvox_microarray.wig sample_data/json/modencode/tracks/volvox_microarray.wig;
+    fi;
     mkdir -p sample_data/raw;
     if [ ! -e sample_data/raw/volvox ]; then
         ln -s ../../docs/tutorial/data_files sample_data/raw/volvox;

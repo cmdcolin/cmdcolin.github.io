@@ -17,8 +17,9 @@ time than the built release zipfiles.  Also, since the master branch code is ''i
 Make sure you have a web server installed on your development machine.  Any web server will do.
 
     cd /my/dev/webserver/root;
-    git clone --recursive git@github.com:YOURACCOUNT/jbrowse.git
+    git clone https://github.com/GMOD/jbrowse jbrowse 
     cd jbrowse
+    bower --allow-root -f install
     ./setup.sh
     # and now point your browser to
     #   http://localhost/jbrowse/index.html?data=sample_data/json/volvox
@@ -27,9 +28,10 @@ Make sure you have a web server installed on your development machine.  Any web 
 
 Then you can simply edit files and your changes will be available in the browser (i.e. no build step is required)
 
-You can also optionally run build steps to create the minimized codebase
+You can also optionally run build steps to create the minimized codebase. Extra dependencies Text::Markdown and DateTime are required to run the build step.
 
-    make -f build/Makefile release
+    make -f build/Makefile release-notest
+    make -f build/Makefile release # alternate build with full test suite
 
 To build the Electron app, run the following
 
@@ -67,8 +69,6 @@ eggs for `selenium` and `nose` installed.  Run the tests with:
 
 
 # Cutting a JBrowse release
-
-0. Create a directory and clone the repo: git clone --recursive https://github.com/GMOD/jbrowse.git  Then for 1.12.1, git checkout tags/1.12.1-release (because it lives in a branch that is not master) 
 
 1. Edit the JBrowse `package.json` file and change 'version' to the version you are releasing.  *Don't commit this change to the repository, it should stay as `dev` in git so that it shows up in analytics as a development version.*
 
