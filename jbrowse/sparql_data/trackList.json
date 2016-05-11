@@ -6,21 +6,19 @@
       "key": "Reference sequence",
       "type": "SequenceTrack",
       "urlTemplate": "seq/{refseq_dirpath}/{refseq}-",
-      "label": "DNA",
+      "label": "refseqs",
       "category": "Reference sequence",
       "chunkSize": 20000
     },
     {
-      "label":      "genes",
-      "key":        "SPARQL Genes",
-      "type":       "JBrowse/View/Track/HTMLFeatures",
-      "storeClass": "JBrowse/Store/SeqFeature/SPARQL",
-      "urlTemplate":    "https://query.wikidata.org/bigdata/namespace/wdq/sparql",
-      "disablePreflight": true,
-      "queryTemplate": 	"prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> \n prefix xsd:    <http://www.w3.org/2001/XMLSchema#> \n prefix obo:    <http://purl.obolibrary.org/obo/> \n prefix idorg:  <http://rdf.identifiers.org/database/> \n prefix insdc:  <http://insdc.org/owl/> \n PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n PREFIX wd: <http://www.wikidata.org/entity/>\n PREFIX p: <http://www.wikidata.org/prop/> \n SELECT ?start ?end ?uniqueID ('-1' as ?strand) \n WHERE {\n ?gene wdt:P279 wd:Q7187 .\n ?gene wdt:P703 wd:Q20800254 .\n ?gene wdt:P351 ?uniqueID.\n ?gene wdt:P644 ?start .\n ?gene wdt:P645 ?end .\n  }"
+      "storeClass" : "JBrowse/Store/SeqFeature/SequenceChunks",
+      "type": "GCContent/View/Track/GCContentXY",
+      "label": "GCContentXY",
+      "urlTemplate" : "seq/{refseq_dirpath}/{refseq}-",
+      "bicolor_pivot": 0.5
     }
-    
-    ]
+    ],
+    "plugins": ["GCContent"]
 }
 
 
