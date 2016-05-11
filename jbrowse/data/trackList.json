@@ -270,6 +270,10 @@
    "include" : [
       "functions.conf"
    ],
+   "names": {
+      "type": "MyVariantViewer/Store/Names/REST",
+      "url": "http://myvariant.info/v1/query"
+   },
    "highResolutionMode" : 2,
    "formatVersion" : 1
 }
