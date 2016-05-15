@@ -15,7 +15,11 @@
       "type": "GCContent/View/Track/GCContentXY",
       "label": "GCContentXY",
       "urlTemplate" : "seq/{refseq_dirpath}/{refseq}-",
-      "bicolor_pivot": 0.5
+      "gcMode": "skew",
+      "windowSize": 1000,
+      "windowDelta": 100,
+      "min_score": -1,
+      "bicolor_pivot": 0
     }
     ],
     "plugins": ["GCContent"]
