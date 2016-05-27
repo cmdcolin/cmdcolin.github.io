@@ -33,7 +33,6 @@
          "category": "Range query",
          "label" : "MyVariant.info",
          "optimizer": true,
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
       {
          "style" : {
@@ -47,7 +46,6 @@
          "category": "Specialized query",
          "label" : "MyVariant.info evs",
          "optimizer": true,
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
       {
          "style" : {
@@ -61,7 +59,6 @@
          "optimizer": true,
          "label" : "MyVariant.info gwassnps",
          "key": "MyVariant.info gwas catalog",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
       {
          "style" : {
@@ -268,254 +265,322 @@
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_phastcons')['20way'].mammalian_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phastcons','20way','mammalian_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phastcons','20way','mammalian_rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
-         "label" : "(phastCons 20-way rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
+         "label" : "(phastCons 20-way mammalian_rankscore)",
+         "optimizer": true,
+         "refSeqTransform": true
+      },
+      
+      {
+         "style" : {
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phastcons','7way','vertebrate_rankscore'); }"
+         },
+         "baseUrl" : "https://myvariant.info/v1/",
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phastcons','7way','vertebrate_rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
+         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
+         "label" : "(phastCons 7-way vertebrate_rankscore)",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_gerp++').rs_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phylo','p20way','mammalian_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phylo','p20way','mammalian_rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
+         "label" : "(phylo 20-way mammalian_rankscore)",
+         "optimizer": true,
+         "refSeqTransform": true
+      },
+
+      {
+         "style" : {
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phylo','p7way','vertebrate_rankscore'); }"
+         },
+         "baseUrl" : "https://myvariant.info/v1/",
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phylo','p7way','vertebrate_rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
+         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
+         "label" : "(phylo 7-way vertebrate_rankscore)",
+         "optimizer": true,
+         "refSeqTransform": true
+      },
+      {
+         "style" : {
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_gerp++','rs_rankscore'); }"
+         },
+         "baseUrl" : "https://myvariant.info/v1/",
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_gerp++','rs_rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(gerp++ rs_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_fathmm-mkl').coding_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_fathmm-mkl','coding_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_fathmm-mkl','coding_rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(fathmm-mkl coding_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_siphy_29way').logodds_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_provean','rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_provean','rankscore'); }",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
-         "label" : "(sift 29way logodds_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_sift')) return 'black'; else return 'hsl('+feature.get('dbnsfp_sift').converted_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
-         "label" : "(sift converted_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_provean')) return 'black'; else return 'hsl('+feature.get('dbnsfp_provean').rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(provean rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_polyphen2')) return 'black'; else return 'hsl('+feature.get('dbnsfp_polyphen2').hvar.rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_polyphen2','hvar','rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_polyphen2','hvar','rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(polyphen2 hvar rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
+         "heightScaler": 100,
+         "maxHeight": 110,
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_polyphen2')) return 'black'; else return 'hsl('+feature.get('dbnsfp_polyphen2').hdiv.rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_polyphen2','hdiv','rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_polyphen2','hdiv','rankscore'); }",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(polyphen2 hdiv rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
+         "heightScaler": 100,
+         "maxHeight": 110,
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_huvec').fitcons_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_huvec','fitcons_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_huvec','fitcons_rankscore'); }",
+         "heightScaler": 100,
+         "maxHeight": 110,
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(huvec fitcons_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_fathmm')) return 'black'; else return 'hsl('+feature.get('dbnsfp_fathmm').rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_fathmm','rankscore'); }"
          },
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_fathmm','rankscore'); }",
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "category": "Custom coloring/dbNSFP plotter",
+         "heightScaler": 100,
+         "maxHeight": 110,
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(fathmm rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_gm12878').fitcons_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_gm12878','fitcons_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_gm12878','fitcons_rankscore'); }",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "category": "Custom coloring/dbNSFP plotter",
+         "heightScaler": 100,
+         "maxHeight": 110,
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(gm12878 fitcons_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_h1-hesc').fitcons_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_h1-hesc','fitcons_rankscore'); }"
          },
+         "heightScaler": 100,
+         "maxHeight": 110,
          "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_h1-hesc','fitcons_rankscore'); }",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(h1-hesc fitcons_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_metalr')) return 'black'; else return 'hsl('+feature.get('dbnsfp_metalr').rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_metalr','rankscore'); }"
          },
+         "heightScaler": 100,
+         "maxHeight": 110,
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_metalr','rankscore'); }",
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(metalr rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_integrated').fitcons_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_integrated','fitcons_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_integrated','fitcons_rankscore'); }",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(integrated fitcons_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_lrt')) return 'black'; else return 'hsl('+feature.get('dbnsfp_lrt').converted_rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_lrt','converted_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_lrt','converted_rankscore'); }",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(lrt converted_rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_metasvm')) return 'black'; else return 'hsl('+feature.get('dbnsfp_metasvm').rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_metasvm','rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun": "function(feature) { return ({getval})(feature, 'dbnsfp_metasvm','rankscore'); }",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(metasvm rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_mutationassessor')) return 'black'; else return 'hsl('+feature.get('dbnsfp_mutationassessor').rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_mutationtaster','converted_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun" : "function(feature) { return ({getval})(feature, 'dbnsfp_mutationtaster','converted_rankscore'); }",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP",
+         "category": "Custom coloring/dbNSFP plotter",
+         "heightScaler": 100,
+         "maxHeight": 110,
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "CanvasFeatures",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
+         "label" : "(mutationtaster rankscore)",
+         "optimizer": true,
+         "refSeqTransform": true
+      },
+      {
+         "style" : {
+            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_mutationassessor','rankscore'); }"
+         },
+         "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun" : "function(feature) { return ({getval})(feature, 'dbnsfp_mutationassessor','rankscore'); }",
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
+         "category": "Custom coloring/dbNSFP plotter",
+         "heightScaler": 100,
+         "maxHeight": 110,
+         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
+         "type" : "GWASViewer/View/Track/VariantPlotter",
          "label" : "(mutationassessor rankscore)",
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true,
          "refSeqTransform": true
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_polyphen2')) return 'black'; else return 'hsl('+feature.get('dbnsfp_polyphen2').hvar.rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_siphy_29way','logodds_rankscore'); }"
          },
          "baseUrl" : "https://myvariant.info/v1/",
+         "scoreFun": "function(feature) { return ({getval})(feature, 'dbnsfp_siphy_29way','logodds_rankscore'); }",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ((feature.get('dbnsfp_polyphen2')||{}).hvar||{}).rankscore||0; }",
          "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
          "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(polyphen2 hvar rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
+         "label" : "(sift 29way logodds_rankscore)",
          "heightScaler": 100,
          "maxHeight": 110,
          "optimizer": true,
@@ -523,206 +588,17 @@
       },
       {
          "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_polyphen2')) return 'black'; else return 'hsl('+feature.get('dbnsfp_polyphen2').hdiv.rankscore*100+',50%,50%)'; }"
+            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_sift','converted_rankscore'); }"
          },
+         "scoreFun": "function(feature) { return ({getval})(feature, 'dbnsfp_sift','converted_rankscore'); }",
          "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ((feature.get('dbnsfp_polyphen2')||{}).hdiv||{}).rankscore||0; }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(polyphen2 hdiv rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_huvec').fitcons_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_huvec')||{}).fitcons_rankscore||0; }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(huvec fitcons_rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_fathmm')) return 'black'; else return 'hsl('+feature.get('dbnsfp_fathmm').rankscore*100+',50%,50%)'; }"
-         },
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_fathmm')||{}).rankscore||0; }",
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(fathmm rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_gm12878').fitcons_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_gm12878')||{}).fitcons_rankscore||0; }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(gm12878 fitcons_rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_h1-hesc').fitcons_rankscore*100+',50%,50%)'; }"
-         },
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_h1-hesc')||{}).fitcons_rankscore||0; }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(h1-hesc fitcons_rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_metalr')) return 'black'; else return 'hsl('+feature.get('dbnsfp_metalr').rankscore*100+',50%,50%)'; }"
-         },
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_metalr')||{}).rankscore||0; }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(metalr rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_integrated').fitcons_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_integrated')||{}).fitcons_rankscore||0; }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(integrated fitcons_rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_lrt')) return 'black'; else return 'hsl('+feature.get('dbnsfp_lrt').converted_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_lrt')||{}).converted_rankscore||0; }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(lrt converted_rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_metasvm')) return 'black'; else return 'hsl('+feature.get('dbnsfp_metasvm').rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_metasvm')||{}).rankscore||0; }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(metasvm rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_mutationassessor')) return 'black'; else return 'hsl('+feature.get('dbnsfp_mutationassessor').rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_mutationassessor')||{}).rankscore||0; }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(mutationassessor rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return 'hsl('+feature.get('dbnsfp_siphy_29way').logodds_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_siphy_29way')||{}).logodds_rankscore||0; }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(sift 29way logodds_rankscore) mod",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { if(!feature.get('dbnsfp_sift')) return 'black'; else return 'hsl('+feature.get('dbnsfp_sift').converted_rankscore*100+',50%,50%)'; }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return (feature.get('dbnsfp_sift')||{}).converted_rankscore||0; }",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "category": "Custom coloring/dbNSFP plotter",
          "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
          "heightScaler": 100,
          "maxHeight": 110,
          "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(sift converted_rankscore) mod",
-         "glyph" : "GWASViewer/View/FeatureGlyph/Circle",
+         "label" : "(sift converted_rankscore)",
          "optimizer": true,
          "refSeqTransform": true
       },
