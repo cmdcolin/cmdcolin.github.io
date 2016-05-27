@@ -738,6 +738,12 @@
    "highResolutionMode" : 2,
    "formatVersion" : 1,
    "dataset_id": "GWASViewer",
+   "datasets": {
+       "GWASViewer": {
+           "url": "?data=data",
+           "name": "hg19"
+       }
+   },
    "trackSelector": {
        "collapsedCategories": "Custom coloring/dbNSFP,Custom coloring/dbNSFP plotter"
    }
