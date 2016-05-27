@@ -180,6 +180,7 @@ constructor: function(params) {
                                // add tracks specified in URL track param,
                                //    if no URL track param then add last viewed tracks via tracks cookie
                                //    if no URL param and no tracks cookie, then use defaultTracks
+                               console.log('hello');
                                if (thisB.config.forceTracks)   { tracksToShow = tracksToShow.concat(thisB.config.forceTracks.split(",")); }
                                else if (thisB.cookie("tracks")) { tracksToShow = tracksToShow.concat(thisB.cookie("tracks").split(",")); }
                                else if (thisB.config.defaultTracks) { tracksToShow = tracksToShow.concat(thisB.config.defaultTracks.split(",")); }

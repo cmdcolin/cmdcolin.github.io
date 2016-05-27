@@ -1,4 +1,4 @@
-define( "GA4GHViewer/Store/SeqFeature/1000genomes", [
+define( [
             'dojo/_base/declare',
             'dojo/_base/array',
             'dojo/request',
@@ -37,7 +37,6 @@ return declare(SeqFeature, {
                 headers: { 'X-Requested-With': null, 'Content-Type': 'application/json' },
                 handleAs: "json"
             }).then(function(res) {
-                console.log(res);
 
                 
                 array.forEach(res.variants, function(variant) {
