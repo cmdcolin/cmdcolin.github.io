@@ -23,10 +23,12 @@ A command line application for downloading Travis-CI build statistics and plotti
 
 - [flamegraph](https://cmdcolin.github.io/flamegraph/web) - A fixed version of [flamegraph](https://github.com/thlorenz/flamegraph) for visualizing CPU profiler results from Chrome or node.js CPU profiling
 
-- [evsrc-cytoscape](https://cmdcolin.github.io/evsrc-cytoscape) - a visualizer for a program that calculates correlations between files in your git history.
+- [evsrc-cytoscape](https://cmdcolin.github.io/evsrc-cytoscape) - A visualizer for a program that calculates correlations between files in your git history.
 
-- [hab.education](https://hab.education) - jekyll based website redesign for a high altitude balloon (HAB) education group
+- [hab.education](https://hab.education) - A jekyll based website redesign for a high altitude balloon (HAB) education group
 
 - [ontograph](https://cmdcolin.github.io/ontograph) - A cytoscape.js (formerly dagre-d3) based ontology viewer insprired by BioJS DAGViewer
 
 - [freqmod2](https://github.com/cmdcolin/freqmod2) - A node.js frequency modulation waveform synthesizer. Also written in C [freqmod](https://github.com/cmdcolin/freqmod).
+
+- [pulse](https://cmdcolin.github.io/pulse_tribute) - A tribute to victims of the pulse massacre
