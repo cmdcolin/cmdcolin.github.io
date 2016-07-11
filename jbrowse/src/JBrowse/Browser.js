@@ -13,6 +13,7 @@ define( "JBrowse/Browser", [
             'dojo/topic',
             'dojo/aspect',
             'dojo/request',
+            'dojo/io-query',
             'JBrowse/has',
             'dojo/_base/array',
             'dijit/layout/ContentPane',
@@ -66,6 +67,7 @@ define( "JBrowse/Browser", [
             topic,
             aspect,
             request,
+            ioQuery,
             has,
             array,
             dijitContentPane,
@@ -180,7 +182,6 @@ constructor: function(params) {
                                // add tracks specified in URL track param,
                                //    if no URL track param then add last viewed tracks via tracks cookie
                                //    if no URL param and no tracks cookie, then use defaultTracks
-                               console.log('hello');
                                if (thisB.config.forceTracks)   { tracksToShow = tracksToShow.concat(thisB.config.forceTracks.split(",")); }
                                else if (thisB.cookie("tracks")) { tracksToShow = tracksToShow.concat(thisB.cookie("tracks").split(",")); }
                                else if (thisB.config.defaultTracks) { tracksToShow = tracksToShow.concat(thisB.config.defaultTracks.split(",")); }
@@ -222,7 +223,7 @@ _initialLocation: function() {
 version: function() {
     // when a build is put together, the build system assigns a string
     // to the variable below.
-    var BUILD_SYSTEM_JBROWSE_VERSION = "1.12.2-pre";
+    var BUILD_SYSTEM_JBROWSE_VERSION = "1.x.x";
     return BUILD_SYSTEM_JBROWSE_VERSION || 'development';
 }.call(),
 
@@ -467,8 +468,7 @@ fatalError: function( error ) {
 },
 loadSessions: function() {
     var fs = electronRequire('fs');
-    var remote = electronRequire('remote');
-    var app = remote.require('app');
+    var app = electronRequire('electron').remote.app;
 
     var path = app.getPath('userData') + "/sessions.json";
     var obj = JSON.parse( fs.readFileSync( path, 'utf8' ) );
@@ -1061,9 +1061,8 @@ renderDatasetSelect: function( parent ) {
 
 
 saveSessionDir: function( directory ) {
-    var remote = electronRequire('remote');
     var fs = electronRequire('fs');
-    var app = remote.require('app');
+    var app = electronRequire('electron').remote.app;
     var path = app.getPath('userData')+"/sessions.json";
     var obj = [];
 
@@ -1089,7 +1088,6 @@ openDirectoryElectron: function( directory ) {
 openConfig: function( plugins ) {
     if( !confirm("If you have opened any new tracks, please save them before continuing. Are you sure you want to continue?") )
         return;
-    var remote = electronRequire('remote');
     var fs = electronRequire('fs');
 
     var dir = this.config.dataRoot;
@@ -1123,7 +1121,6 @@ saveData: function() {
     if( !confirm("This will overwrite tracks and config data in your data directory. Are you sure you want to continue?") )
         return;
 
-    var remote = electronRequire('remote');
     var fs = electronRequire('fs');
     var dir = this.config.dataRoot;
 
@@ -1170,10 +1167,9 @@ saveData: function() {
 openFastaElectron: function() {
     this.fastaFileDialog = this.fastaFileDialog || new FastaFileDialog({browser: this});
 
-    var remote = electronRequire('remote');
+    var app = electronRequire('electron').remote.app;
     var fs = electronRequire('fs');
     var path = electronRequire('path');
-    var app = remote.require('app');
 
     this.fastaFileDialog.show ({
         openCallback: dojo.hitch(this, function(results) {
@@ -1394,8 +1390,10 @@ getTrackTypes: function() {
                 'JBrowse/Store/SeqFeature/NCList'      : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/BigWig'      : 'JBrowse/View/Track/Wiggle/XYPlot',
                 'JBrowse/Store/SeqFeature/VCFTabix'    : 'JBrowse/View/Track/CanvasVariants',
-                'JBrowse/Store/SeqFeature/GFF3Tabix'   : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/GFF3'        : 'JBrowse/View/Track/CanvasFeatures',
+                'JBrowse/Store/SeqFeature/GFF3Tabix'   : 'JBrowse/View/Track/CanvasFeatures',
+                'JBrowse/Store/SeqFeature/BED'         : 'JBrowse/View/Track/CanvasFeatures',
+                'JBrowse/Store/SeqFeature/BEDTabix'    : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/GTF'         : 'JBrowse/View/Track/CanvasFeatures',
                 'JBrowse/Store/SeqFeature/StaticChunked' : 'JBrowse/View/Track/Sequence',
                 'JBrowse/Store/SeqFeature/UnindexedFasta': 'JBrowse/View/Track/Sequence',
@@ -2548,8 +2546,7 @@ makeSnapLink: function () {
             onClick: function() {
                 var fs = electronRequire('fs');
                 var screenshot = electronRequire('electron-screenshot')
-                var remote = electronRequire('remote');
-                var dialog = remote.require('dialog');
+                var dialog = electronRequire('electron').remote.dialog;
                 dialog.showSaveDialog(function (fileName) {
                     screenshot({
                       filename: fileName,
@@ -3153,13 +3150,9 @@ getHighlight: function() {
 
 getBookmarks: function() {
     if( this.config.bookmarkService ) {
-        return request( this.config.bookmarkService, {
-            data: {
-                sequence: this.refSeq.name
-            },
-            handleAs: "json",
-            method: "post"
-        })
+        return request( this.config.bookmarkService + "?"+ioQuery.objectToQuery({sequence: this.refSeq.name}), {
+            handleAs: "json"
+        });
     }
     else return this.config.bookmarks;
 },

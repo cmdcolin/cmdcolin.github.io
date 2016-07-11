@@ -1,4 +1,4 @@
-define([
+define("GWASViewer/View/FeatureGlyph/Circle", [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'JBrowse/View/FeatureGlyph/Box'

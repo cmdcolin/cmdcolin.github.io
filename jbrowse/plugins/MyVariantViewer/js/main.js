@@ -1,14 +1,3 @@
-define([
-    'dojo/_base/declare',
-    'JBrowse/Plugin'
-],
-function(
-   declare,
-   JBrowsePlugin
-) {
-    return declare(JBrowsePlugin, {
-        constructor: function(/* args */) {
-            console.log('MyVariantInfo plugin starting');
-        }
-    });
-});
+//>>built
+require({cache:{"JBrowse/Plugin":function(){define(["dojo/_base/declare","JBrowse/Component"],function(a,b){return a(b,{constructor:function(a){this.name=a.name;this.cssLoaded=a.cssLoaded;this._finalizeConfig(a.config)},_defaultConfig:function(){return{baseUrl:"/plugins/"+this.name}}})})}}});define("MyVariantViewer/main",["dojo/_base/declare","JBrowse/Plugin"],function(a,b){return a(b,{constructor:function(){}})});
+//# sourceMappingURL=main.js.map

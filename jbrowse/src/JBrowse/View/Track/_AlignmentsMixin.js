@@ -5,6 +5,7 @@ define("JBrowse/View/Track/_AlignmentsMixin", [
            'dojo/_base/declare',
            'dojo/_base/array',
            'dojo/_base/lang',
+           'dojo/dom-construct',
            'dojo/when',
            'JBrowse/Util',
            'JBrowse/Store/SeqFeature/_MismatchesMixin',
@@ -14,6 +15,7 @@ define("JBrowse/View/Track/_AlignmentsMixin", [
             declare,
             array,
             lang,
+            domConstruct,
             when,
             Util,
             MismatchesMixin,
@@ -62,6 +64,9 @@ return declare([ MismatchesMixin, NamedFeatureFiltersMixin ], {
         dojo.forEach( additionalTags, function(t) {
                           fmt( t, f.get(t), f );
         });
+
+        // genotypes in a separate section
+        this._renderTable( container, track, f, div );
 
         return container;
     },
@@ -210,6 +215,83 @@ return declare([ MismatchesMixin, NamedFeatureFiltersMixin ], {
                            ],
                            filters );
                    });
+    },
+
+
+    _renderTable: function( parentElement, track, feat, featDiv  ) {
+        var mismatches = track._getMismatches(feat);
+        var seq = feat.get('seq');
+        var val1 = '', val2 = '', val3 = '';
+        var adjust = 0, adjust2 = 0;
+        var beginning = 0;
+        mismatches.sort(function(a,b) { return a.start-b.start; });
+        for(var i = 0; i < seq.length; i++) {
+            var f = false;
+            for(var j = beginning; j < mismatches.length; j++) {
+                var mismatch = mismatches[j];
+                if(i - adjust2 == mismatch.start - adjust) {
+                    beginning = j+1;
+                    if(mismatch.type == "softclip") {
+                        for(var l = 0; l < mismatch.cliplen; l++) {
+                            val1+=seq[i+l];
+                            val2+='.';
+                            val3+='S';
+                        }
+                        i+=mismatch.cliplen-1;
+                        adjust2+=mismatch.cliplen;
+                        f = true;
+                        break;
+                    }
+                    else if(mismatch.type == "insertion") {
+                        for(var l = 0; l < +mismatch.base; l++) {
+                            val1+=seq[i+l];
+                            val2+=' ';
+                            val3+='-';
+                        }
+                        adjust -= +mismatch.base;
+                        i += +mismatch.base;
+                        break;
+                    }
+                    else if(mismatch.type == "deletion") {
+                        for(var l=0; l<mismatch.length; l++) {
+                            val1+='-';
+                            val2+=' ';
+                            val3+=seq[i+l];
+                        }
+                        break;
+                    }
+                    else if(mismatch.type == "skip") {
+                        val1+='...';
+                        val2+='...';
+                        val3+='...';
+                        adjust+=mismatch.length;
+                        f = true;
+                    }
+                    else if(mismatch.type == "mismatch") {
+                        val1+=mismatch.base;
+                        val2+=' ';
+                        val3+=mismatch.altbase;
+                        f = true;
+                    }
+                }
+            }
+            if(!f) {
+                val1+=seq[i];
+                val2+='|';
+                val3+=seq[i];
+            }
+        }
+        
+        var gContainer = domConstruct.create(
+            'div',
+            { className: 'renderTable',
+              innerHTML: '<h2 class="sectiontitle">Matches</h2><div style=\"font-family: Courier; white-space: pre;\">'
+              +'Query: '+val1+'   <br>'
+              +'       '+val2+'   <br>'
+              +'Ref:   '+val3+'   </div>'
+            },
+            parentElement );
+        return {val1: val1,val2:val2,val3:val3};
     }
 
 });

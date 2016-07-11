@@ -623,6 +623,10 @@ var Utils = {
         return (ba[offset + 1] << 8) | (ba[offset]);
     },
 
+    readByte: function(ba, offset) {
+        return (ba[offset]);
+    },
+
     readFloat: function(ba, offset) {
         var temp = new Uint8Array( 4 );
         for( var i = 0; i<4; i++ ) {
@@ -718,6 +722,7 @@ var Utils = {
 return Utils;
 
 });
+
 },
 'JBrowse/Store/SeqFeature/BAM/LazyFeature':function(){
 define( ['dojo/_base/array',
@@ -733,6 +738,7 @@ var CIGAR_DECODER  = ['M', 'I', 'D', 'N', 'S', 'H', 'P', '=', 'X', '?', '?', '?'
 var readInt   = BAMUtil.readInt;
 var readShort = BAMUtil.readShort;
 var readFloat = BAMUtil.readFloat;
+var readByte  = BAMUtil.readByte;
 
 var Feature = Util.fastDeclare(
 {
@@ -1048,6 +1054,47 @@ var Feature = Util.fastDeclare(
                     }
                     else {
                         value += String.fromCharCode(cc);
+                    }
+                }
+                break;
+            case 'b':
+                value = '';
+                var cc = byteArray[p++];
+                var Btype = String.fromCharCode(cc);
+                if( Btype == 'i'|| Btype == 'I' ) {
+                    var limit = readInt( byteArray, p )
+                    p += 4;
+                    for( var k = 0; k < limit; k++ ) {
+                        value += readInt( byteArray, p );
+                        if(k+1<limit) value += ',';
+                        p += 4;
+                    }
+                }
+                if( Btype == 's'|| Btype == 'S' ) {
+                    var limit = readInt( byteArray, p )
+                    p += 4;
+                    for( var k = 0; k < limit; k++ ) {
+                        value += readShort( byteArray, p );
+                        if(k+1<limit) value += ',';
+                        p += 2;
+                    }
+                }
+                if( Btype == 'c'|| Btype == 'C' ) {
+                    var limit = readInt( byteArray, p )
+                    p += 4;
+                    for( var k = 0; k < limit; k++ ) {
+                        value += readByte( byteArray, p );
+                        if(k+1<limit) value += ',';
+                        p += 1;
+                    }
+                }
+                if( Btype == 'f' ) {
+                    var limit = readInt( byteArray, p )
+                    p += 4;
+                    for( var k = 0; k < limit; k++ ) {
+                        value += readFloat( byteArray, p );
+                        if(k+1<limit) value += ',';
+                        p += 4;
                     }
                 }
                 break;
