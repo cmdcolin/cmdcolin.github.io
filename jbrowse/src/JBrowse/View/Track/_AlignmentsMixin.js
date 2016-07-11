@@ -256,7 +256,7 @@ return declare([ MismatchesMixin, NamedFeatureFiltersMixin ], {
                         for(var l=0; l<mismatch.length; l++) {
                             val1+='-';
                             val2+=' ';
-                            val3+=seq[i+l];
+                            val3+='.';
                         }
                         break;
                     }

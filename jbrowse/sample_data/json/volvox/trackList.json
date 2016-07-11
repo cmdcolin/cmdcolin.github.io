@@ -331,13 +331,13 @@
       },
       {
          "maxHeight" : 5000,
-         "urlTemplate" : "out.sorted.bam",
+         "urlTemplate" : "polyester.bam",
          "type" : "Alignments2",
          "label" : "BAM - simulated RNA-seq",
          "category": "BAM"
       },
       {
-         "urlTemplate" : "out3.bam",
+         "urlTemplate" : "simlord.bam",
          "type" : "Alignments2",
          "label" : "BAM - simulated long read",
          "category": "BAM"
