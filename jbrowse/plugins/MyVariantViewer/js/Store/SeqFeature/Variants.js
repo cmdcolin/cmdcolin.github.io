@@ -1,4 +1,4 @@
-define("MyVariantViewer/Store/SeqFeature/Variants", [
+define([
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',

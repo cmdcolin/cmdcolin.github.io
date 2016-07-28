@@ -1,4 +1,4 @@
-define("MyVariantViewer/View/FeatureGlyph/Diamond", [
+define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'JBrowse/View/FeatureGlyph/Box'

@@ -1,8 +1,8 @@
 {
    "plugins" : [
-      "MyVariantViewer",
-      "GA4GHViewer",
-      "GWASViewer"
+	  "MyVariantViewer",
+	  "GA4GHViewer",
+	  "GWASViewer"
    ],
    "tracks" : [
       {
@@ -18,11 +18,10 @@
          "functional": true,
          "callSetIds":[]
       },
-
       {
          "hg19" : true,
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Genes",
-         "urlTemplate" : "https://mygene.info/v2/query?q=hg19.{refseq}:{start}-{end}&fields=all&size=1000&email=colin.diesh@gmail.com",
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Genes_v3",
+         "urlTemplate" : "http://mygene.info/v3/query?q=hg19.{refseq}:{start}-{end}&fields=all&size=1000&email=colin.diesh@gmail.com",
          "subParts" : [
             "exon"
          ],
@@ -34,11 +33,11 @@
             "color" : "{colorfun}",
             "featureScale" : 0.5
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end}&size=1000&email=colin.diesh@gmail.com",
          "type" : "CanvasFeatures",
-         "category": "Range query",
+         "category": "MyVariant.info",
          "label" : "MyVariant.info",
          "optimizer": true,
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
@@ -47,12 +46,11 @@
          "style" : {
             "color" : "#665"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=evs.chrom:[{refseq} TO {refseq}] AND evs.hg19.start:<={end} AND evs.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=evs",
-         "refSeqTransform": true,
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:evs&size=1000&email=colin.diesh@gmail.com&fields=evs",
          "type" : "CanvasFeatures",
-         "category": "Specialized query",
+         "category": "MyVariant.info",
          "label" : "MyVariant.info evs",
          "optimizer": true,
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
@@ -61,10 +59,10 @@
          "style" : {
             "color" : "magenta"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:gwassnps&size=1000&email=colin.diesh@gmail.com&fields=gwassnps",
-         "category": "Range query",
+         "category": "MyVariant.info",
          "type" : "CanvasFeatures",
          "optimizer": true,
          "label" : "MyVariant.info gwassnps",
@@ -75,12 +73,11 @@
          "style" : {
             "color" : "#aae"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=cosmic.chrom:[{refseq} TO {refseq}] AND cosmic.hg19.start:<={end} AND cosmic.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=cosmic",
-         "refSeqTransform": true,
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:cosmic&size=1000&email=colin.diesh@gmail.com&fields=cosmic",
          "type" : "CanvasFeatures",
-         "category": "Specialized query",
+         "category": "MyVariant.info",
          "optimizer": true,
          "label" : "MyVariant.info cosmic",
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
@@ -89,12 +86,11 @@
          "style" : {
             "color" : "#5fa"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=mutdb.chrom:[{refseq} TO {refseq}] AND mutdb.hg19.start:<={end} AND mutdb.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=mutdb",
-         "refSeqTransform": true,
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:mutdb&size=1000&email=colin.diesh@gmail.com&fields=mutdb",
          "optimizer": true,
-         "category": "Specialized query",
+         "category": "MyVariant.info",
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info mutdb",
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
@@ -103,10 +99,10 @@
          "style" : {
             "color" : "#119"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:snpeff&size=1000&email=colin.diesh@gmail.com&fields=snpeff",
-         "category": "Range query",
+         "category": "MyVariant.info",
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info snpeff",
          "optimizer": true,
@@ -116,25 +112,12 @@
          "style" : {
             "color" : "#a84"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:emv&size=1000&email=colin.diesh@gmail.com&fields=emv",
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info emvclass",
-         "category": "Range query",
-         "optimizer": true,
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
-      },
-      {
-         "style" : {
-            "color" : "#3ff"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:docm&size=1000&email=colin.diesh@gmail.com&fields=docm",
-         "type" : "CanvasFeatures",
-         "category": "Range query",
-         "label" : "MyVariant.info docm (unindex)",
+         "category": "MyVariant.info",
          "optimizer": true,
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
@@ -142,11 +125,10 @@
          "style" : {
             "color" : "#3f9"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "refSeqTransform": true,
-         "urlTemplate" : "query?q=docm.chrom:[{refseq} TO {refseq}] AND docm.hg19.start:<={end} AND docm.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=docm",
-         "category": "Specialized query",
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:docm&size=1000&email=colin.diesh@gmail.com&fields=docm",
+         "category": "MyVariant.info",
          "type" : "CanvasFeatures",
          "optimizer": true,
          "label" : "MyVariant.info docm",
@@ -156,10 +138,10 @@
          "style" : {
             "color" : "#b44"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:snpedia&size=1000&email=colin.diesh@gmail.com&fields=snpedia",
-         "category": "Range query",
+         "category": "MyVariant.info",
          "optimizer": true,
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info snpedia",
@@ -169,13 +151,12 @@
          "style" : {
             "color" : "cyan"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "refSeqTransform": true,
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=clinvar.chrom:[{refseq} TO {refseq}] AND clinvar.hg19.start:<={end} AND clinvar.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=clinvar",
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:clinvar&size=1000&email=colin.diesh@gmail.com&fields=clinvar",
          "optimizer": true,
          "type" : "CanvasFeatures",
-         "category": "Specialized query",
+         "category": "MyVariant.info",
          "label" : "MyVariant.info clinvar",
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
@@ -183,10 +164,10 @@
          "style": {
              "color" : "#4a9"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:cadd&size=1000&email=colin.diesh@gmail.com&fields=cadd",
-         "category": "Range query",
+         "category": "MyVariant.info",
          "optimizer": true,
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info cadd",
@@ -196,38 +177,24 @@
          "style" : {
             "color" : "#22a"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:grasp&size=1000&email=colin.diesh@gmail.com&fields=grasp",
          "type" : "CanvasFeatures",
-         "category": "Range query",
-         "label" : "MyVariant.info grasp (unindex)",
-         "optimizer": true,
-         "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
-      },
-      {
-         "style" : {
-            "color" : "#22a"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=grasp.hg19.chr:[{refseq} TO {refseq}] AND grasp.hg19.pos:<={end} AND grasp.hg19.pos:>={start}&size=1000&email=colin.diesh@gmail.com&fields=grasp",
-         "type" : "CanvasFeatures",
          "label" : "MyVariant.info grasp",
-         "category": "Specialized query",
+         "category": "MyVariant.info",
          "optimizer": true,
-         "refSeqTransform": true,
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
       {
          "style" : {
             "color" : "#b33"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
          "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:exac&size=1000&email=colin.diesh@gmail.com&fields=exac",
          "type" : "CanvasFeatures",
-         "category": "Range query",
+         "category": "MyVariant.info",
          "optimizer": true,
          "label" : "MyVariant.info exac",
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
@@ -236,11 +203,10 @@
          "style" : {
             "color" : "#b3b"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=wellderly.chrom:[{refseq} TO {refseq}] AND wellderly.hg19.start:<={end} AND wellderly.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=wellderly",
-         "category": "Specialized query",
-         "refSeqTransform": true,
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:wellderly&size=1000&email=colin.diesh@gmail.com&fields=wellderly",
+         "category": "MyVariant.info",
          "optimizer": true,
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info wellderly",
@@ -250,13 +216,12 @@
          "style" : {
             "color" : "#5e4"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "urlTemplate" : "query?q=dbsnp.chrom:[{refseq} TO {refseq}] AND dbsnp.hg19.start:<={end} AND dbsnp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbsnp",
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:dbsnp&size=1000&email=colin.diesh@gmail.com&fields=dbsnp",
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info dbsnp",
-         "category": "Specialized query",
-         "refSeqTransform": true,
+         "category": "MyVariant.info",
          "optimizer": true,
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond"
       },
@@ -264,374 +229,16 @@
          "style" : {
             "color" : "#742"
          },
-         "baseUrl" : "https://myvariant.info/v1/",
+         "baseUrl" : "http://myvariant.info/v1/",
          "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Specialized query",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
+         "category": "MyVariant.info",
+         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:dbnsfp&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp",
          "type" : "CanvasFeatures",
          "label" : "MyVariant.info dbnsfp",
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phastcons','20way','mammalian_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phastcons','20way','mammalian_rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.phastcons",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(phastCons 20-way mammalian_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phastcons','7way','vertebrate_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phastcons','7way','vertebrate_rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.phastcons",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(phastCons 7-way vertebrate_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phylo','p20way','mammalian_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phylo','p20way','mammalian_rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.phylo",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(phylo 20-way mammalian_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_phylo','p7way','vertebrate_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_phylo','p7way','vertebrate_rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.phylo",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(phylo 7-way vertebrate_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_gerp++','rs_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_gerp++','rs_rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.gerp%2B%2B",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(gerp++ rs_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_fathmm-mkl','coding_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_fathmm-mkl','coding_rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.fathmm-mkl",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(fathmm-mkl coding_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_provean','rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_provean','rankscore'); }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.provean",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(provean rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_polyphen2','hvar','rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_polyphen2','hvar','rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.polyphen2.hvar",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(polyphen2 hvar rankscore)",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_polyphen2','hdiv','rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_polyphen2','hdiv','rankscore'); }",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.polyphen2.hdiv",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(polyphen2 hdiv rankscore)",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_huvec','fitcons_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_huvec','fitcons_rankscore'); }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.huvec",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(huvec fitcons_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_fathmm','rankscore'); }"
-         },
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_fathmm','rankscore'); }",
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.fathmm",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(fathmm rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_gm12878','fitcons_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_gm12878','fitcons_rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.gm12878",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(gm12878 fitcons_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_h1-hesc','fitcons_rankscore'); }"
-         },
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_h1-hesc','fitcons_rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.h1-hesc",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(h1-hesc fitcons_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_metalr','rankscore'); }"
-         },
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_metalr','rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.metalr",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(metalr rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_integrated','fitcons_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_integrated','fitcons_rankscore'); }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.integrated",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(integrated fitcons_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_lrt','converted_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "scoreFun": "function(feature) { return ({getval})(feature,'dbnsfp_lrt','converted_rankscore'); }",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.lrt",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(lrt converted_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature,'dbnsfp_metasvm','rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return ({getval})(feature, 'dbnsfp_metasvm','rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.metasvm",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(metasvm rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_mutationtaster','converted_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun" : "function(feature) { return ({getval})(feature, 'dbnsfp_mutationtaster','converted_rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.mutationtaster",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(mutationtaster rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_mutationassessor','rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun" : "function(feature) { return ({getval})(feature, 'dbnsfp_mutationassessor','rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.mutationassessor",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(mutationassessor rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_siphy_29way','logodds_rankscore'); }"
-         },
-         "baseUrl" : "https://myvariant.info/v1/",
-         "scoreFun": "function(feature) { return ({getval})(feature, 'dbnsfp_siphy_29way','logodds_rankscore'); }",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.siphy_29way",
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(sift 29way logodds_rankscore)",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "optimizer": true,
-         "refSeqTransform": true
-      },
-      {
-         "style" : {
-            "color" : "function(feature) { return ({getcol})(feature, 'dbnsfp_sift','converted_rankscore'); }"
-         },
-         "scoreFun": "function(feature) { return ({getval})(feature, 'dbnsfp_sift','converted_rankscore'); }",
-         "baseUrl" : "https://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "Custom coloring/dbNSFP plotter",
-         "urlTemplate" : "query?q=dbnsfp.chrom:[{refseq} TO {refseq}] AND dbnsfp.hg19.start:<={end} AND dbnsfp.hg19.end:>={start}&size=1000&email=colin.diesh@gmail.com&fields=dbnsfp.sift",
-         "heightScaler": 100,
-         "maxHeight": 110,
-         "type" : "GWASViewer/View/Track/VariantPlotter",
-         "label" : "(sift converted_rankscore)",
-         "optimizer": true,
-         "refSeqTransform": true
+         "optimizer": true
       }
-   ],
-   "classicMenu" : true,
-   "include" : [
-      "functions.conf"
-   ],
-   "names": {
-      "type": "MyVariantViewer/Store/Names/REST",
-      "url": "http://myvariant.info/v1/query"
-   },
-   "highResolutionMode" : 2,
-   "formatVersion" : 1,
-   "dataset_id": "GWASViewer",
-   "datasets": {
-       "GWASViewer": {
-           "url": "?data=data",
-           "name": "hg19"
-       }
-   },
-   "trackSelector": {
-       "collapsedCategories": "Custom coloring/dbNSFP,Custom coloring/dbNSFP plotter"
-   }
+  ],
+  "include": ["functions.conf","rank.json"],
+  "highResolutionMode":2
 }
