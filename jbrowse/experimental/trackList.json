@@ -1,14 +1,22 @@
 {
-    "tracks":[
+   "plugins" : [
+	  "MyVariantViewer",
+	  "GA4GHViewer",
+	  "GWASViewer"
+   ],
+   "tracks" : [
       {
-         "hg19" : true,
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Genes_v3",
-         "urlTemplate" : "http://mygene.info/v3/query?q=hg19.{refseq}:{start}-{end}&fields=all&size=1000&email=colin.diesh@gmail.com",
-         "subParts" : [
-            "exon"
-         ],
-         "type" : "CanvasFeatures",
-         "label" : "MyGene.info v3"
+         "type": "CanvasFeatures",
+         "storeClass": "GA4GHViewer/Store/SeqFeature/1000genomes",
+         "label": "GA4GH 1kg (phase3)",
+         "callSetIds":[]
+      },
+      {
+         "type": "CanvasFeatures",
+         "storeClass": "GA4GHViewer/Store/SeqFeature/1000genomes",
+         "label": "GA4GH 1kg (functional annot)",
+         "functional": true,
+         "callSetIds":[]
       },
       {
          "hg19" : true,
@@ -19,6 +27,16 @@
          ],
          "type" : "CanvasFeatures",
          "label" : "MyGene.info v2"
+      },
+      {
+         "hg19" : true,
+         "storeClass" : "MyVariantViewer/Store/SeqFeature/Genes_v3",
+         "urlTemplate" : "http://mygene.info/v3/query?q=hg19.{refseq}:{start}-{end}&fields=all&size=1000&email=colin.diesh@gmail.com",
+         "subParts" : [
+            "exon"
+         ],
+         "type" : "CanvasFeatures",
+         "label" : "MyGene.info v3"
       },
       {
          "style" : {
@@ -229,25 +247,8 @@
          "label" : "MyVariant.info dbnsfp",
          "glyph" : "MyVariantViewer/View/FeatureGlyph/Diamond",
          "optimizer": true
-      },
-      {
-         "type": "SVGLollipop",
-         "baseUrl" : "http://myvariant.info/v1/",
-         "storeClass" : "MyVariantViewer/Store/SeqFeature/Variants",
-         "category": "MyVariant.info",
-         "urlTemplate" : "query?q={refseq}:{start}-{end} AND _exists_:cosmic&size=1000&email=colin.diesh@gmail.com&fields=cosmic",
-         "label": "VariantLollipop",
-         "style": {
-            "height": "function(feature) { return feature.get('cosmic_attrs').mut_freq; }",
-            "circleColor": "{cancerColor}",
-            "defaultHeight": 300
-         },
-         "optimizer": true
       }
-
   ],
-  "plugins": ["MyVariantViewer"],
-  "include": ["functions.conf"],
-  "highResolutionMode":2,
-  "classicMenu": true
+  "include": ["functions.conf","rank.json"],
+  "highResolutionMode":2
 }
