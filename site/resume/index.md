@@ -12,7 +12,9 @@
 
 <style type="text/css">
 .navbar {
+font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 border-bottom: 1px solid #bbb !important;
+margin-bottom: 1em;
 }
 @import url(
 https://fonts.googleapis.com/css?family=Lato:400,700
@@ -82,7 +84,7 @@ h4 span:first-child {
 color: #000;
 font-weight: bold;
 }
-.container {
+.resume-container {
 max-width: 750px;
 padding: 0 30px;
 }
@@ -234,7 +236,7 @@ h1 {
 <body>
 
 <header id="header" class="extra">
-    <div class="container">
+    <div class="resume-container">
         <div class="row">
             <div class="col-sm-9 col-sm-push-3">
                 <h1>
@@ -244,7 +246,7 @@ h1 {
         </div>
     </div>
 </header>
-<div id="content" class="container extra">
+<div id="content" class="resume-container extra">
 
 <section id="contact" class="row">
     <aside class="col-sm-3">
