@@ -11,42 +11,52 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
 
 <style type="text/css">
+.navbar {
+border-bottom: 1px solid #bbb !important;
+}
 @import url(
 https://fonts.googleapis.com/css?family=Lato:400,700
 );
 body {
 background: #fff;
-font-family: Lato, sans-serif;
+font-family: Lato, sans-serif !important;
 margin: 0 0 80px;
 }
-a {
+.extra a {
 color: #2ecc71;
 }
-a:focus,
+.extra 
+a:focus, .extra 
 a:hover {
 color: #f1c40f;
 text-decoration: none;
 }
+.extra 
 p {
 line-height: 1.5;
 margin: 0;
 }
+.extra 
 p + p {
 margin-top: 10px;
 }
-h1,
-h2,
-h3,
+.extra 
+h1, .extra 
+h2, .extra 
+h3, .extra 
 h4 {
 margin-top: 0
 }
+.extra 
 section {
 margin-top: 30px;
 }
+.extra 
 li {
 line-height: 1.8;
 list-style: none;
 }
+.extra 
 li:before {
 content: "\f052";
 float: left;
@@ -56,15 +66,18 @@ margin-left: -20px;
 opacity: .1;
 position: absolute;
 }
+.extra 
 blockquote {
 border-left: 5px solid #e7e9ec;
 font-size: 14px;
 }
+.extra 
 em {
 color: #95a5a6;
 font-weight: normal;
 font-style: normal;
 }
+.extra 
 h4 span:first-child {
 color: #000;
 font-weight: bold;
@@ -73,61 +86,78 @@ font-weight: bold;
 max-width: 750px;
 padding: 0 30px;
 }
+.extra 
 .col-sm-6 {
 margin-bottom: 10px;
 }
+.extra 
 .col-sm-12 h4 {
 margin-top: 12px; 
 }
+.extra 
 .col-sm-12 + .col-sm-12 {
 margin-top: 30px;
 }
+.extra 
 #header {
 background: #f4f6f6;
 padding: 50px 0;
 margin-bottom: 30px;
 }
+.extra 
 #header h2 {
 color: #95a5a6;
 font-size: 24px;
 }
+.extra 
 #content h3 {
 color: #f1c40f;
 font-size: 26px;
 margin-top: -4px;
 }
+.extra 
 #content aside {
 text-align: right;
 padding-right: 30px;
 }
+.extra 
 #profiles .network {
 text-transform: capitalize;
 }
+.extra 
 #work .position,
+.extra 
 #volunteer .position {
 font-weight: bold;
 margin-bottom: 8px;
 }
+.extra 
 #education .area {
 font-weight: bold;
 }
+.extra 
 #education .area:before {
 content: "\f0d7";
 font: 16px Octicons;
 margin-right: 6px;
 }
+.extra 
 #education .studyType {
 margin-left: 25px;
 }
+.extra 
 #awards .summary,
+.extra 
 #publications .summary {
 margin-top: 8px;
 }
+.extra 
 #publications .website a:before {
 content: attr(href);
 }
 
 @media (min-width: 480px) {
+.extra 
 .strike-through {
     border-top: 1px solid #f4f6f6;
     height: 20px;
@@ -135,64 +165,75 @@ content: attr(href);
     margin-bottom: -2px;
     position: relative;
 }
+.extra 
 .strike-through span,
+.extra 
 .strike-through a {
     background: #fff;
     position: absolute;
 }
+.extra 
 .strike-through span:first-child {
     padding-right: 20px;
     margin-top: -12px;
 }
+.extra 
 .strike-through span + span {
     font-size: 14px;
     margin-top: -10px;
     padding-left: 20px;
     right: 0;
 }
-}
 @media (max-width: 768px) {
+.extra 
 .col-sm-6:last-child {
     margin-bottom: 0px;
 }
+.extra 
 #content aside {
     margin-bottom: 20px;
     padding-right: 0;
     text-align: left;
 }
+.extra 
 #publications .website a:before {
     content: "View publication";
 }
-}
 @media (max-width: 480px) {
+.extra 
 h1 {
     font-size: 26px;
 }
+.extra 
 .date {
     font-size: 14px;
     margin-bottom: 5px;
 }
+.extra 
 .strike-through span:first-child {
     margin-bottom: 7px;
 }
+.extra 
 .strike-through span {
     display: block;
-}	
+}
+.extra 	
 #header {
     margin-bottom: 10px;
     padding: 40px 0;
 }
+.extra 
 #actions {
     display: none;
 }
-}
+
 
 </style>
 
 </head>
 <body>
 
-<header id="header">
+<header id="header" class="extra">
     <div class="container">
         <div class="row">
             <div class="col-sm-9 col-sm-push-3">
@@ -203,7 +244,7 @@ h1 {
         </div>
     </div>
 </header>
-<div id="content" class="container">
+<div id="content" class="container extra">
 
 <section id="contact" class="row">
     <aside class="col-sm-3">
