@@ -4,8 +4,8 @@ title: About
 <img style="display: inline-block;" src="/static/me.jpg" height=150>
 <span style="display:inline-block;">
 Colin Diesh  
-Research analyst, [Elsik Lab](http://genomes.missouri.edu/drupal/elsiklab/?q=people)  
-University of Missouri
+Research analyst, [Gallant lab at MSU](http://efish.zoology.msu.edu/)  
+Michigan state University
 </span>
 
 

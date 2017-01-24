@@ -4,19 +4,25 @@
         <loc>/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2016-08-10</lastmod>
+        <lastmod>2017-01-24</lastmod>
+    </url>
+    <url>
+        <loc>/google5cb40b316b484a2a.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2017-01-24</lastmod>
     </url>
     <url>
         <loc>/projects/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2016-08-10</lastmod>
+        <lastmod>2017-01-24</lastmod>
     </url>
     <url>
         <loc>/resume/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2016-08-10</lastmod>
+        <lastmod>2017-01-24</lastmod>
     </url>
 </urlset>
 
