@@ -4,8 +4,8 @@ title: About
 <img style="display: inline-block;" src="/static/me.jpg" height=150>
 <span style="display:inline-block;">
 Colin Diesh  
-Research analyst, [Gallant lab at MSU](http://efish.zoology.msu.edu/)  
-Michigan state University
+Bioinformatics programmer, [Gallant lab at MSU](http://efish.zoology.msu.edu/)  
+Michigan State University
 </span>
 
 
