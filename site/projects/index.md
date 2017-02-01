@@ -2,24 +2,14 @@
 title: Personal projects
 ---
 
-## TumblrGraph v2
 
-A cytoscape.js web application for creating graphs of tumblr reblogs. Demo at [http://cmdcolin.github.io/tumblrgraph2](https://cmdcolin.github.io/tumblrgraph2)
+## Personal projects
 
-<img src="/static/tumblrgraph.png" width=600></img>
+- [tumblrgraph v2](https://cmdcolin.github.io/tumblrgraph2) - A cytoscape.js web application for creating graphs of tumblr reblogs
 
-TumblrGraph v1 was an RStudio Shiny app using graphviz on the backend (still available at [https://colindiesh.shinyapps.io/tumblrgraph](https://colindiesh.shinyapps.io/tumblrgraph))
+- [tumblrgraph v1](https://colindiesh.shinyapps.io/tumblrgraph) - A RStudio Shiny app using graphviz on the backend to visualize tumblr reblogs
 
-## TraviGraph
-
-A command line application for downloading Travis-CI build statistics and plotting them. Not a hosted webapp (yet) but available on github at [https://github.com/cmdcolin/travigraph](https://github.com/cmdcolin/travigraph)
-
-
-<img src="/static/travigraph.png" width=600></img>
-
-
-## Other
-
+- [travigraph](https://github.com/cmdcolin/travigraph) - A command line application for downloading Travis-CI build statistics and plotting them
 
 - [flamegraph](https://cmdcolin.github.io/flamegraph/web) - A fixed version of [flamegraph](https://github.com/thlorenz/flamegraph) for visualizing CPU profiler results from Chrome or node.js CPU profiling
 
@@ -32,3 +22,11 @@ A command line application for downloading Travis-CI build statistics and plotti
 - [freqmod2](https://github.com/cmdcolin/freqmod2) - A node.js frequency modulation waveform synthesizer. Also written in C [freqmod](https://github.com/cmdcolin/freqmod).
 
 - [pulse](https://cmdcolin.github.io/pulse_tribute) - A tribute to victims of the pulse massacre
+
+## Gallery
+
+<img src="/static/gwasviewer.png" width=400 />
+<img src="/static/tumblrgraph.png" width=400 />
+<img src="/static/travigraph.png" width=400 />
+<img src="/static/ontograph.png" width=400 />
+<img src="/static/mafviewer.png" width=400 />
