@@ -28,6 +28,22 @@ title: Personal projects
 - Elsik, Christine G., Aditi Tayal, Colin M. Diesh, Deepak R. Unni, Marianne L. Emery, Hung N. Nguyen, and Darren E. Hagen. “Hymenoptera Genome Database: Integrating Genome Annotations in HymenopteraMine.” Nucleic Acids Research 44, no. D1 (January 4, 2016): D793–800. doi:10.1093/nar/gkv1208.
 - Elsik, Christine G., Deepak R. Unni, Colin M. Diesh, Aditi Tayal, Marianne L. Emery, Hung N. Nguyen, and Darren E. Hagen. “Bovine Genome Database: New Tools for Gleaning Function from the Bos Taurus Genome.” Nucleic Acids Research 44, no. Database issue (January 4, 2016): D834–39. doi:10.1093/nar/gkv1077.
 
+
+## JBrowse plugins
+
+- [gwasviewer](https://github.com/elsiklab/gwasviewer)
+- [sashimiplot](https://github.com/elsiklab/sashimiplot)
+- [multibigwig](https://github.com/elsiklab/multibigwig)
+- [multivariantviewer](https://github.com/elsiklab/multivariantviewer)
+- [agp_parser](https://github.com/elsiklab/agp_parser)
+- [gccontent](https://github.com/elsiklab/gccontent)
+- [mafviewer](https://github.com/cmdcolin/mafviewer)
+- [myvariantviewer](https://github.com/elsiklab/myvariantviewer)
+- [ga4ghviewer](https://github.com/elsiklab/ga4ghviewer)
+- [gccoverage](https://github.com/cmdcolin/gccoverage)
+- [jbrowse_elasticsearch](https://github.com/elsiklab/jbrowse_elasticsearch)
+
+
 ## Gallery
 
 <img src="/static/gwasviewer.png" width=400 />
