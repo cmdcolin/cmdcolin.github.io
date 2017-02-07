@@ -4,19 +4,31 @@
         <loc>/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-02-06</lastmod>
+        <lastmod>2017-02-07</lastmod>
+    </url>
+    <url>
+        <loc>/blog/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2017-02-07</lastmod>
+    </url>
+    <url>
+        <loc>/blog/2017/02/07/new-blog/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2017-02-07</lastmod>
     </url>
     <url>
         <loc>/google5cb40b316b484a2a.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-02-06</lastmod>
+        <lastmod>2017-02-07</lastmod>
     </url>
     <url>
         <loc>/projects/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-02-06</lastmod>
+        <lastmod>2017-02-07</lastmod>
     </url>
 </urlset>
 

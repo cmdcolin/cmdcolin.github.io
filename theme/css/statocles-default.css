@@ -3,6 +3,11 @@
  * Basic style
  ************************************************/
 
+body {
+    /* Raleway looks terrible, and in some cases is hard to read */
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 h1 {
     font-size: 3.5em;
 }
@@ -38,12 +43,27 @@ ol {
     margin-left: 1.4em;
 }
 
+ul ul, ul ol, ol ul, ol ol {
+    /* Fix each successive layer of lists getting smaller and smaller.
+     * After three layers of lists, it's too small to read well
+     */
+    font-size: 100%;
+}
+
 .button.disabled {
     cursor: not-allowed;
 }
 
+/** Blog header */
+main header {
+    margin-bottom: 1.8em;
+    font-size: 12pt;
+    overflow: hidden;
+}
+
 main header h1 {
     border-bottom: 1px solid #045578;
+    margin-bottom: 0.2em;
 }
 
 main header h1 a {
@@ -53,6 +73,13 @@ main header h1 a {
 header aside {
     margin-top: 0;
     font-size: 12pt;
+}
+
+header aside * {
+    float: left;
+    display: inline-block;
+    margin-right: 0.5em;
+    margin-bottom: 0;
 }
 
 /** Add a line when using the "Continue reading..." link */
@@ -93,7 +120,7 @@ ol.bare, ul.bare {
 }
 
 ol.list-inline, ul.list-inline {
-    margin: 0;
+    margin: 0 0 2.5rem 0;
 }
 
 ol.list-inline li, ul.list-inline li {
@@ -157,6 +184,15 @@ img.u-pull-left, img.u-pull-right {
 }
 
 /** Sidebar widget */
+.sidebar h1,
+.sidebar h2,
+.sidebar h3,
+.sidebar h4,
+.sidebar h5,
+.sidebar h6 {
+    margin-bottom: 0.2em;
+}
+
 .sidebar h1 {
     font-size: 2.25em;
 }
@@ -184,6 +220,7 @@ img.u-pull-left, img.u-pull-right {
 /** Pager widget */
 ul.pager {
     list-style: none;
+    margin-left: 0;
 }
 
 .pager .prev {
@@ -192,6 +229,13 @@ ul.pager {
 
 .pager .next {
     float: right;
+}
+
+.pager::after {
+    /* Clear the floated pager items */
+    content: "";
+    clear: both;
+    display: table;
 }
 
 /** Footer */
@@ -235,5 +279,14 @@ footer .tagline {
 /** Blog */
 .tags {
     float: right;
+    margin-bottom: 0;
 }
 
+/************************************************
+ * Reponsive
+ */
+@media ( max-width: 549px ) {
+    .column, .columns {
+        margin-left: 0;
+    }
+}
