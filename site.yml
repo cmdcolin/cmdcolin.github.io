@@ -7,9 +7,15 @@ page_app:
   args:
     store: site/
     url_root: /
+blog_app:
+  $class: Statocles::App::Blog
+  store: "blog"
+  url_root: /blog
 site:
   args:
     apps:
+      blog:
+        $ref: blog_app
       page:
         $ref: page_app
       static:
