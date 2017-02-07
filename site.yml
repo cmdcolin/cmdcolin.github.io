@@ -1,3 +1,4 @@
+---
 deploy:
   args:
     branch: master
@@ -39,16 +40,12 @@ site:
     data:
       google_analytics_id: 'UA-59273647-1'
   class: Statocles::Site
-  on:
-    - build:
-        $class: Statocles::Plugin::LinkCheck
-        $sub: check_pages
 static_app:
   args:
     store: static
     url_root: /static
   class: Statocles::App::Basic
-theme:  
-    class: Statocles::Theme
-    args:
-        store: theme
+theme:
+  class: Statocles::Theme
+  args:
+    store: theme
