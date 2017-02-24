@@ -9,7 +9,3 @@ Michigan State University
 </span>
 
 
-Links
-
-- My blog on software and bioinformatics [http://searchvoidstar.tumblr.com](http://searchvoidstar.tumblr.com/)
-- My glitch art blog, a hobby of mine [http://videomeltdown.tumblr.com](http://videomeltdown.tumblr.com)

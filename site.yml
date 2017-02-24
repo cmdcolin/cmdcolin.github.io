@@ -32,10 +32,9 @@ site:
           title: Blog
         - href: /projects
           title: Projects
-        - href: https://github.com/cmdcolin/
-          title: GitHub
-        - href: https://twitter.com/cmdcolin/
-          title: Twitter
+        - href: /links
+          title: Links
+        
     title: Stationary Module
     data:
       google_analytics_id: 'UA-59273647-1'
