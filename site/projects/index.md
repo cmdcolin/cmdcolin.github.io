@@ -14,21 +14,16 @@ title: Personal projects
 
 I have developed a number of plugins for the genome browser JBrowse, <https://gmod.github.io/jbrowse-registry> for more
 
-Some popular ones include
-
-- GWASViewer
-- SashimiPlot
-- MultiVariantViewer
+- GWASViewer <https://github.com/elsiklab/gwasviewer>
+- SashimiPlot <https://github.com/elsiklab/sashimiplot>
+- MultiVariantViewer <https://github.com/elsiklab/multivariantviewer>
+- MyVariantViewer <https://github.com/elsiklab/myvariantviewer>
+- MAFViewer <https://github.com/cmdcolin/mafviewer>
 
 ## Coursera classes
 
-I have taken several MOOCs on Coursera, favorites include
-
-Favorites
-
 - Experimental Genome Science, University of Pennsylvania 2013, [statement of completion, distinction](genomesci.pdf)
 - Computing for Data Analysis, John Hopkins 2013, [statement of completion](compdata.pdf)
-- Bioinformatics Algorithms, UC San Diego 2014, not completed but very good course
 
 ## Personal projects
 
