@@ -1,8 +1,0 @@
-{
-"version":3,
-"file":"main.js",
-"lineCount":2,
-"mappings":"A;AAAAA,OAAA,SACA,gBADA,CACiBC,QAAAA,GACjBC,MAAA,4CAIO,QAAA,CAAUC,CAAV,CAAmBC,CAAnB,QACAD,EAAA,CAASC,CAAT,cAEUC,QAAAA,CAAUC,CAAVD,EACTE,SADSF,CACGC,CAAAC,KACZC,eAFSH,CAEQC,CAAAE,UACjBC,qBAAA,CAAsBH,CAAAI,OAAtB,CAHSL,CAFV,gBAQaM,QAAAA,8BAEaJ,SAFbI,EARb,EADA,CAJP,CADiBV,CADjB,GAuBAC,OAAA,2DAIA,QAAA,CACGC,CADH,CAEGS,CAFH,QAIWT,EAAA,CAAQS,CAAR,cACUP,QAAAA,CAASC,CAATD,EACKC,CAAAO,QAEdC,kBAAA,kEAHST,CADV,EAJX,CAJA;",
-"sources":["main.js.uncompressed.js"],
-"names":["require","JBrowse/Plugin","define","declare","Component","constructor","args","name","cssLoaded","_finalizeConfig","config","_defaultConfig","JBrowsePlugin","browser","registerTrackType"]
-}

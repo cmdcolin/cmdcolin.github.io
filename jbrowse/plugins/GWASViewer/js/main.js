@@ -1,3 +1,0 @@
-//>>built
-require({cache:{"JBrowse/Plugin":function(){define(["dojo/_base/declare","JBrowse/Component"],function(b,c){return b(c,{constructor:function(a){this.name=a.name;this.cssLoaded=a.cssLoaded;this._finalizeConfig(a.config)},_defaultConfig:function(){return{baseUrl:"/plugins/"+this.name}}})})}}});define("GWASViewer/main",["dojo/_base/declare","JBrowse/Plugin"],function(b,c){return b(c,{constructor:function(a){a.browser.registerTrackType({label:"GWASViewer",type:"GWASViewer/View/Track/VariantPlotter"})}})});
-//# sourceMappingURL=main.js.map
