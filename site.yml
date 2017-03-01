@@ -28,8 +28,6 @@ site:
       main:
         - href: /
           title: About
-        - href: /blog
-          title: Blog
         - href: /projects
           title: Projects
         - href: /links
