@@ -22,8 +22,8 @@ I have developed a number of plugins for the genome browser JBrowse, <https://gm
 
 ## Coursera classes
 
-- Experimental Genome Science, University of Pennsylvania 2013, [statement of completion, distinction](genomesci.pdf)
-- Computing for Data Analysis, John Hopkins 2013, [statement of completion](compdata.pdf)
+- Experimental Genome Science, University of Pennsylvania 2013, [statement of completion](genomesci.pdf)
+- Computing for Data Analysis, John Hopkins 2013, [statement of completion, with distinction](compdata.pdf)
 
 ## Personal projects
 
