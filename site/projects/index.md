@@ -29,9 +29,9 @@ I have developed a number of plugins for the genome browser JBrowse, <https://gm
 
 These are more or less random things I have developed for fun over time
 
-- [tumblrgraph2](https://cmdcolin.github.io/tumblrgraph2) - A cytoscape.js app to visualize tumblr reblogs (tumblrgraph v1 is a RStudio Shiny app)
-- [travigraph](https://github.com/cmdcolin/travigraph) - A command line application for downloading Travis-CI build statistics and plotting them
-- [freqmod2](https://github.com/cmdcolin/freqmod2) - A node.js frequency modulation synthesizer (also C version, [freqmod](https://github.com/cmdcolin/freqmod))
+- [tumblrgraph2](https://cmdcolin.github.io/tumblrgraph2) - A cytoscape.js app to visualize tumblr reblogs (previous version also exists as a shiny app [tumblrgraph v1](https://github.com/cmdcolin/tumblrgraph))
+- [travigraphjs](https://cmdcolin.github.io/travigraphjs) - A web-app using vega, d3, and the travis-CI API to view build statistics (previously was a [command line tool](https://github.com/cmdcolin/travigraph))
+- [freqmod2](https://github.com/cmdcolin/freqmod2) - A node.js frequency modulation synthesizer (also exists as a C program, [freqmod](https://github.com/cmdcolin/freqmod))
 - [pulse](https://cmdcolin.github.io/pulse_tribute) - A tribute to victims of the pulse massacre
 
 
