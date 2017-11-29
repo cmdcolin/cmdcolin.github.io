@@ -33,6 +33,7 @@ These are more or less random things I have developed for fun over time
 - [travigraphjs](https://cmdcolin.github.io/travigraphjs) - A web-app using vega, d3, and the travis-CI API to view build statistics (previously was a [command line tool](https://github.com/cmdcolin/travigraph))
 - [freqmod2](https://github.com/cmdcolin/freqmod2) - A node.js frequency modulation synthesizer (also exists as a C program, [freqmod](https://github.com/cmdcolin/freqmod))
 - [pulse](https://cmdcolin.github.io/pulse_tribute) - A tribute to victims of the pulse massacre
+- [resort](https://cmdcolin.github.io/resort/qs.html) - A visualization of sorting algorithms
 
 
 ## Gallery
