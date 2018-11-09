@@ -20,22 +20,15 @@ Past:
 - "Hymenoptera Genome Database: Integrating Genome Annotations in HymenopteraMine." Nucleic Acids Research 44, no. D1 (January 4, 2016): D793–800. doi:10.1093/nar/gkv1208. <https://academic.oup.com/nar/article/44/D1/D793/2502686/Hymenoptera-Genome-Database-integrating-genome>
 - "Bovine Genome Database: New Tools for Gleaning Function from the Bos Taurus Genome." Nucleic Acids Research 44, no. Database issue (January 4, 2016): D834–39. doi:10.1093/nar/gkv1077. <https://academic.oup.com/nar/article/44/D1/D834/2502604/Bovine-Genome-Database-new-tools-for-gleaning>
 
-
-## JBrowse plugins
-
-I have developed a number of plugins for the genome browser JBrowse, <https://gmod.github.io/jbrowse-registry> for more
-
-- GWASViewer <https://github.com/elsiklab/gwasviewer>
-- SashimiPlot <https://github.com/elsiklab/sashimiplot>
-- MultiVariantViewer <https://github.com/elsiklab/multivariantviewer>
-- MyVariantViewer <https://github.com/elsiklab/myvariantviewer>
-- MAFViewer <https://github.com/cmdcolin/mafviewer>
-
 ## Personal projects
 
 I keep track of a list of odd genomic phenomena and gene annotations here, please contribute!
 
-- [oddgenes](https://github.com/cmdcolin/oddgenes) - A list of odd genomic phenomena and gene annotations, please contribute!
+- [oddgenes](https://github.com/cmdcolin/oddgenes)
+
+
+I have also developed many JBrowse plugins, see <https://gmod.github.io/jbrowse-registry>
+
 
 ## Coursera classes
 
