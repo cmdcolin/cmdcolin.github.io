@@ -2,6 +2,17 @@
 title: Personal projects
 ---
 
+
+## Work
+
+I am currently working for UC Berkeley on the <a href="https://jbrowse.org">JBrowse</a> project. I am working on developing visualizations that are relevant for cancer researchers such as structural variation.
+
+Past:
+
+- Michigan State University, Gallant lab (2016-2017)
+- University of Missouri, Elsik lab (2013-2016)
+- University of Colorado, BS computer science (2009-2013)
+
 ## Publications
 
 - "WikiGenomes: An Open Web Application for Community Consumption and Curation of Gene Annotation Data in Wikidata." bioRxiv, January 24, 2017, 102046. doi:10.1101/102046. <http://biorxiv.org/content/early/2017/01/24/102046>
@@ -20,29 +31,24 @@ I have developed a number of plugins for the genome browser JBrowse, <https://gm
 - MyVariantViewer <https://github.com/elsiklab/myvariantviewer>
 - MAFViewer <https://github.com/cmdcolin/mafviewer>
 
+## Personal projects
+
+I keep track of a list of odd genomic phenomena and gene annotations here, please contribute!
+
+- [oddgenes](https://github.com/cmdcolin/oddgenes) - A list of odd genomic phenomena and gene annotations, please contribute!
+
 ## Coursera classes
 
 - Experimental Genome Science, University of Pennsylvania 2013, [statement of completion](genomesci.pdf)
 - Computing for Data Analysis, John Hopkins 2013, [statement of completion, with distinction](compdata.pdf)
 
-## Personal projects
-
-These are more or less random things I have developed for fun over time
-
-- [tumblrgraph2](https://cmdcolin.github.io/tumblrgraph2) - A cytoscape.js app to visualize tumblr reblogs (previous version also exists as a shiny app [tumblrgraph v1](https://github.com/cmdcolin/tumblrgraph))
-- [travigraphjs](https://cmdcolin.github.io/travigraphjs) - A web-app using vega, d3, and the travis-CI API to view build statistics (previously was a [command line tool](https://github.com/cmdcolin/travigraph))
-- [freqmod2](https://github.com/cmdcolin/freqmod2) - A node.js frequency modulation synthesizer (also exists as a C program, [freqmod](https://github.com/cmdcolin/freqmod))
-- [pulse](https://cmdcolin.github.io/pulse_tribute) - A tribute to victims of the pulse massacre
-- [resort](https://cmdcolin.github.io/resort/qs.html) - A visualization of sorting algorithms
-- [cytoscape js interaction viewer](https://cmdcolin.github.io/evsrc-cytoscape/) - A visualization of protein protein interaction data
-
 
 ## Gallery
 
-<img src="/static/gwasviewer.png" width=400 />
-<img src="/static/tumblrgraph.png" width=400 />
-<img src="/static/travigraph.png" width=400 />
-<img src="/static/ontograph.png" width=400 />
-<img src="/static/mafviewer.png" width=400 />
+<a href="https://github.com/elsiklab/gwasviewer"><img src="/static/gwasviewer.png" width=400 /></a>
+<a href="https://github.com/cmdcolin/tumblrgraph2"><img src="/static/tumblrgraph.png" width=400 /></a>
+<a href="https://github.com/cmdcolin/travigraph"js><img src="/static/travigraph.png" width=400 /></a>
+<a href="https://github.com/elsiklab/ontograph"><img src="/static/ontograph.png" width=400 /></a>
+<a href="https://github.com/cmdcolin/mafviewer"><img src="/static/mafviewer.png" width=400 /></a>
 
 
