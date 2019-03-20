@@ -5,7 +5,7 @@ title: Personal projects
 
 ## Work
 
-I am currently working for UC Berkeley on the <a href="https://jbrowse.org">JBrowse</a> project. I am working on developing visualizations that are relevant for cancer researchers such as structural variation.
+I am currently working for UC Berkeley on the <a href="https://jbrowse.org">JBrowse</a> project. I am working on developing visualizations that are relevant for cancer researchers such as structural variant views of next generation sequencing. I created the paired-end sequencing views for JBrowse 1 and am working on redeveloping JBrowse 2 using ReactJS currently
 
 Past:
 
