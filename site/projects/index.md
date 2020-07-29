@@ -2,10 +2,11 @@
 title: Personal projects
 ---
 
-
 ## Work
 
-I am currently working for UC Berkeley on the <a href="https://jbrowse.org">JBrowse</a> project. I am working on developing visualizations that are relevant for cancer researchers such as structural variant views of next generation sequencing. I created the paired-end sequencing views for JBrowse 1 and am working on redeveloping JBrowse 2 using ReactJS currently
+I am currently working for UC Berkeley on the <a href="https://jbrowse.org">JBrowse</a> project. I am working on developing visualizations that are relevant for cancer researchers such as structural variant views of next generation sequencing. We are currently working on redeveloping JBrowse 2 using ReactJS currently.
+
+JBrowse 2 homepage <a href="https://jbrowse.org/jb2">https://jbrowse.org/jb2</a>
 
 Past:
 
@@ -26,15 +27,12 @@ I keep track of a list of odd genomic phenomena and gene annotations here, pleas
 
 - [oddgenes](https://github.com/cmdcolin/oddgenes)
 
-
 I have also developed many JBrowse plugins, see <https://gmod.github.io/jbrowse-registry>
-
 
 ## Coursera classes
 
 - Experimental Genome Science, University of Pennsylvania 2013, [statement of completion](genomesci.pdf)
 - Computing for Data Analysis, John Hopkins 2013, [statement of completion, with distinction](compdata.pdf)
-
 
 ## Gallery
 
@@ -43,5 +41,3 @@ I have also developed many JBrowse plugins, see <https://gmod.github.io/jbrowse-
 <a href="https://github.com/cmdcolin/travigraph"js><img src="/static/travigraph.png" width=400 /></a>
 <a href="https://github.com/elsiklab/ontograph"><img src="/static/ontograph.png" width=400 /></a>
 <a href="https://github.com/cmdcolin/mafviewer"><img src="/static/mafviewer.png" width=400 /></a>
-
-
