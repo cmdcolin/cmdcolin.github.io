@@ -23,11 +23,28 @@ Past:
 
 ## Personal projects
 
-I keep track of a list of odd genomic phenomena and gene annotations here, please contribute!
+I like to do a lot of random/fun coding projects
+
+- [aws_serverless_photo_gallery](https://github.com/cmdcolin/aws_serverless_photo_gallery/) a serverless photo gallery with uploading and comments
+- [logistic_chaos_map](https://cmdcolin.github.io/logistic_chaos_map/) logistic map fractal viewer with WASM and JS drawing
+- [graphgenomeviewer](https://cmdcolin.github.io/graphgenomeviewer) BCC2020 hackathon project to visualize GFA graph genome files
+- [travigraphjs](https://cmdcolin.github.io/travigraphjs) visualize your travis-CI build times
+- [githubgraphjs](https://cmdcolin.github.io/githubgraphjs) visualize your Github Actions build times
+- [resort](https://cmdcolin.github.io/resort/qs.html) visualize sorting algorithms
+
+I have also developed many JBrowse 1 plugins, see <https://gmod.github.io/jbrowse-registry>
+
+## Awesome lists
+
+I like to keep track of various awesome or odd or interesting things in these
+repos. Please add your favorites with PRs :)
 
 - [oddgenes](https://github.com/cmdcolin/oddgenes)
+- [genomesignals](https://github.com/cmdcolin/genomesignals)
+- [awesome-jbrowse](https://github.com/cmdcolin/awesome-jbrowse)
+- [awesome-genome-visualization](https://github.com/cmdcolin/awesome-genome-visualization)
 
-I have also developed many JBrowse plugins, see <https://gmod.github.io/jbrowse-registry>
+## Anci
 
 ## Coursera classes
 
