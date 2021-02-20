@@ -44,8 +44,6 @@ repos. Please add your favorites with PRs :)
 - [awesome-jbrowse](https://github.com/cmdcolin/awesome-jbrowse)
 - [awesome-genome-visualization](https://github.com/cmdcolin/awesome-genome-visualization)
 
-## Anci
-
 ## Coursera classes
 
 - Experimental Genome Science, University of Pennsylvania 2013, [statement of completion](genomesci.pdf)
