@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-51f94a4fd678a8c1801c.js" defer=""></script><script src="/_next/static/chunks/pages/2013-03-03-386db86e6bb33c2793ba.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_buildManifest.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div style="margin:0 auto;width:75%"><h1>Analysis of chip-seq data</h1><p><strong>Intro</strong></p><p>I have had a goal for a long time to analyze ChIP-seq data from multiple
+experiments, and i have had trouble due to my poor understanding of
+statistics. I have recently taken several classes that vastly improve my
+practical understanding of subjects including the Data Analysis class on
+coursera, the Computing for Data analysis class, and the Experimental
+genome science class, all on coursera!! Currently, the data anlysis
+approach has been invaluable, and i looked at the performance of
+Normdiff scores for comparing experiments (Zheng et al. 2010).</p><p><strong>Methods</strong></p><p>I did this preliminary data analysis to compare two biological
+replicates. I used the wiggle files produced using MACS that represent
+the number of reads that overlap each genome position.  Then i
+calculated the NormDiff using a short R script to get the background
+subtracted and normalized scores.</p><p>After this, I analyzed the effectiveness of the normalization by
+creating an &quot;MA plot&quot;. MA graphs the results of two experiments by using
+the log product vs log ratio, or alternatively, using the added effect
+vs the difference of two experiments (which is what I used). The idea is
+that if the normalization is good, the differences or log ratios should
+not be biased.</p><p><strong>Results</strong>\
+\
+As it turns out, the normalization is very good and the best fit line
+almost flat (slope 0.05, 95% confidence interval +- 0.001). One of the
+cool things of the NormDiff algorithm is that it estimates the variance
+from a sliding window in the data, and this appears to stabilize the
+normalization very effectively (see Figure 1).\
+\
+Figure 1. MA plots showing line of best fit for S96 replicates. (a)
+NormDiff with local variance parameter (b) NormDiff with global variance
+parameter</p><p><img src="../../media/44474299692_0.png" alt="image"/></p><p><img src="../../media/44474299692_1.png" alt="image"/></p><p><strong>Conclusion</strong>\
+\
+ I am fairly pleased with the results so I am making the data available
+and the R code so you can reproduce the results if you want!! Next, I
+want to look at the clustering and peak finding, and possibly evaluate
+other models of normalization\
+\
+<a href="https://dl.dropbox.com/u/11267/analyzewig.R">https://dl.dropbox.com/u/11267/analyzewig.R</a></p><p><a href="https://dl.dropbox.com/u/11267/wiggledata.rda">https://dl.dropbox.com/u/11267/wiggledata.rda</a> (5MB file)</p><p>::: {#footer}
+<!-- -->[ March 3rd, 2013 2:10pm ]<!-- -->{#timestamp} <!-- -->[bioinformatics]<!-- -->{.tag} <!-- -->[data
+analysis]<!-- -->{.tag} <!-- -->[statistics]<!-- -->{.tag}
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2013-03-03","query":{},"buildId":"ir3stmELHQRvEOT9d_k92","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>

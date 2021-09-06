@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-51f94a4fd678a8c1801c.js" defer=""></script><script src="/_next/static/chunks/pages/2014-01-08-e438a996a34e29d80b0f.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_buildManifest.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div style="margin:0 auto;width:75%"><h1>Motif finding from chip-seq</h1><p><strong>Introduction</strong></p><p>Recently I have been involved in a discussion about MACS on the mailing
+list, and I wanted to do some basic experiments to look at motif finding
+in ChIP-seq.</p><p><strong>Methods</strong></p><p>I used very basic methods and I have <a href="https://gist.github.com/tonto/8312029">posted some gist
+files</a> on GitHub that essentially
+follows from <a href="http://www.bioconductor.org/help/workflows/gene-regulation-tfbs/">Bioconductor for motif
+finding</a>.
+I also made up some code for plotting the read coverage of the peaks
+using a combination of bedtools and R.</p><p><strong>Results</strong></p><p>The results from plotting the coverage are pretty much as expected
+(Figure 1), but I think it opens up some questions when we also look at
+the motif map (Figure 2). The enrichment of ChIP-seq reads shows a clear
+pattern over the peak summits, but there are some areas where either
+mappability was bad (dark stripes) or my algorithm for calculating
+coverage has some bugs.</p><p><img src="../../media/72637788100_0.png"/></p><p><strong>Figure 1.</strong> Plot of log read counts in 2000bp windows around the
+summits of ChIP-seq peaks from a deeply sequenced STE12 transcription
+factor pulldown in yeast (Zheng et al, 2010)</p><p>I also looked at the instances of motifs in the same 2000bp window
+around the summits (Figure 2). The motif finding produced much less
+definitive results, and I was actually verycurious about this. There are
+almost perfect matches to the motif scattered throughout the sequences
+that don&#x27;t necessarily correspond to the enrichment plot.</p><p><img src="../../media/72637788100_1.png"/></p><p><strong>Figure 2.</strong> Motif matches from a very basic motif searcher in the
+package Biostrings using matchPWM. PWM is downloaded from JASPAR for
+STE12, which corresponds to the same transcription factor targetted in
+this ChIP-seq.</p><p><strong>Discussion</strong></p><p>Given the disparity between the datasets, I see a couple possibilities
+(as a nive bioinformatics person, biologists please correct me)</p><p>1<!-- -->)<!-- --> We used too basic of a motif finder, and it could not distinguish
+the motifs clearly and they may actually be clustered near the peak
+summits</p><p>2<!-- -->)<!-- --> Motifs may be enriched in the promoter regions, but more complex
+regulation causes true ChIP-seq binding</p><p>3<!-- -->)<!-- --> The motif is simply found very frequently throughout the genome, and
+not just in the promoter region, and so like the above we need something
+better than the basic motif finding that we have to figure out chip-seq
+regulation</p><p>4<!-- -->)<!-- --> Edit: there may also be co-regulation (which is very possible given
+the trans-regulators that were found in Zheng et al.&#x27;s results)</p><p>For posterity, here is the seqLogo for our JASPAR STE12 PWM</p><p><img src="../../media/72637788100_2.png"/></p><p><strong>Conclusion</strong></p><p>I have a lot of questions about this data, and I am wondering how we can
+use it to further our knowledge of the behavior of the transcription
+factors for regulating the genome!</p><p>::: {#footer}
+<!-- -->[ January 8th, 2014 12:57am ]<!-- -->{#timestamp} <!-- -->[chip-seq]<!-- -->{.tag}
+<!-- -->[bioinformatics]<!-- -->{.tag} <!-- -->[questions]<!-- -->{.tag} <!-- -->[genomics]<!-- -->{.tag} <!-- -->[fun]<!-- -->{.tag}
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2014-01-08","query":{},"buildId":"ir3stmELHQRvEOT9d_k92","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>

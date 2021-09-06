@@ -1,0 +1,78 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-51f94a4fd678a8c1801c.js" defer=""></script><script src="/_next/static/chunks/pages/2015-07-31-001280e2c86c48cffaef.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_buildManifest.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div style="margin:0 auto;width:75%"><h1>Making PDFs from Markdown on Readthedocs.org using sphinx</h1><p>Readthedocs.org (RTD) is a great service to build a centralized resource
+for your documentation. It works really well for programmers since you
+can just push new documentation to your git repository and your
+readthedocs.org webpage will be updated. On readthedocs, there are
+essentially two parsers: mkdocs and sphinx, and it is generally pretty
+easy to configure your Markdown builds with Mkdocs (not covered here),
+but unfortunately, Mkdocs isn&#x27;t able to generate a PDF of your
+documentation. Not to fear though, you can actually configure the sphinx
+build system to parse your markdown to build PDFs. The caveat is that
+normally sphinx is not used for parsing markdown (it is used commonly
+for reStructuredText), but with a little extra work, we can configure
+sphinx to parse Markdown.</p><p>When I realized that we could really use a nice PDF guide, I started
+converting our documentation to RST since it would work with sphinx
+better, but then I saw this tweet talking about using Markdown with
+Sphinx:</p><blockquote><p>Would you benefit from Markdown being available as a Sphinx input
+language? <a href="http://t.co/XH0byxyV4Y">http://t.co/XH0byxyV4Y</a>
+<a href="https://twitter.com/hashtag/scipy2015?src=hash">#scipy2015</a>
+<a href="https://twitter.com/hashtag/sphinx?src=hash">#sphinx</a>
+<a href="https://twitter.com/hashtag/markdown?src=hash">#markdown</a>
+<a href="https://twitter.com/hashtag/python?src=hash">#python</a></p><div><p>--- Michael Aye (@michaelaye)</p></div><p><a href="https://twitter.com/michaelaye/status/621053125818908673">July 14,
+2015</a></p></blockquote><p>I responded that this would be awesome, but Eric Holscher pointed out
+that there is already some support for this, citing this repo
+<a href="https://github.com/ericholscher/sphinx-markdown-test/">https://github.com/ericholscher/sphinx-markdown-test/</a>.</p><p>So, very interested to test this out, I converted our existing docs to
+parse Markdown and build awesome PDF and web-based docs on
+readthedocs.org automatically.</p><p><strong>Step one:</strong></p><p>On your local machine <code>pip install sphinx</code></p><p><strong>Step two:</strong></p><p>Run <code>sphinx-quickstart</code>, probably in your docs directory</p><p><strong>Step three:</strong></p><p>Follow sphinx-quickstart&#x27;s guide. You can basically follow the defaults,
+it is not too complicated. None of the options will really have any
+bearing on your success :) The output directories don&#x27;t matter either.
+After completion, a conf.py and Makefile will typically be outputted.
+Only the conf.py is needed by readthedocs.org. Readthedocs will scan the
+whole repo for the conf.py file apparently, but I normally run the
+sphinx-quickstart in the docs subdirectory.</p><p><strong>Step four:</strong></p><p>At the bottom of conf.py, add this:</p><blockquote><h1>The suffix of source filenames.</h1><p>from recommonmark.parser import CommonMarkParser</p><h1>The suffix of source filenames.</h1><p>source_suffix = <!-- -->[&#x27;.rst&#x27;, &#x27;.md&#x27;]</p><p>source_parsers = {
+   &#x27;.md&#x27;: CommonMarkParser,
+}</p></blockquote><p>This will enable the markdown parser for sphinx</p><p><strong>Step five:</strong></p><p>Replace your normal index.md with an index.rst. Having an index.rst will
+allow you to create a table of contents guide. I am not 100% sure that
+this needs the RST, maybe the toctree can be made in Markdown too, but
+this is a small compromise for having the rest of the docs in Markdown.
+For our index.rst, it simply looks like this:</p><blockquote><p>Contents:</p><p>.. toctree::
+  :maxdepth: 2
+  :glob:</p><p>  *</p></blockquote><p>Note: I think sphinx requires <em>three spaces</em> for indentation. Besides
+that, you can just use a wildcard (*) or use a list the filenames
+(without extension, both rst and md extension removed) in the toc list</p><p>Now if you are following along, your docs directory might look like
+this:</p><p>docs/Prerequisites.md
+docs/QuickStart.md
+docs/Configure.md
+...
+docs/index.rst
+docs/conf.py</p><p><strong>Step six:</strong></p><p>Go to your admin tab on readthedocs.org and enable the sphinx builds.
+This step frustrated me a lot because I had manually set builds to use
+Mkdocs, which meant that the Sphinx/PDF builds wouldn&#x27;t work. If your
+PDF builds are not working at all, make sure to check this step! The
+Sphinx HTML option will also build PDFs.</p><p><img src="../../media/125486358368_0.png"/></p><p>Figure 1: That moment when I finally figured out how to enable Sphinx
+builds on readthedocs...go to the admin panel for your project. After
+this, sphinx and PDF auto building will be enabled.</p><p><strong>Step seven:</strong></p><p>After step six, your PDFs should have already started building
+automatically <em>cross fingers</em>!</p><p>You will see whether your PDFs are building in the &quot;Builds&quot; tab of your
+project</p><p><img src="../../media/125486358368_1.png"/></p><p>Then your pdf will be accessible at this semi-secret
+URL: <a href="https://media.readthedocs.org/pdf/yourproject/latest/yourproject.pdf">https://media.readthedocs.org/pdf/yourproject/latest/yourproject.pdf</a></p><p>The &quot;latest&quot; element of the URL can also be a specific tag or branch
+name that is building.</p><p><strong>Step eight:</strong></p><p>Rejoice!</p><p>Other things to consider:</p><p>1) The initial example was Eric Holscher&#x27;s
+<a href="https://github.com/ericholscher/sphinx-markdown-test/">https://github.com/ericholscher/sphinx-markdown-test/</a> which has an
+example PDF here
+<a href="https://media.readthedocs.org/pdf/sphinx-markdown-test/latest/sphinx-markdown-test.pdf">https://media.readthedocs.org/pdf/sphinx-markdown-test/latest/sphinx-markdown-test.pdf</a></p><p>2) You should review your Markdown pages and make sure to set proper
+headings (e.g. # Header, ## Subheader). People are often kind of
+sloppy about their markdown headings, but these are used when creating
+the table of contents for the PDF, so your will notice that your table
+of contents will look weird if your Markdown headers are inconsistent.
+In our index.rst, we list two levels of headings (:maxdepth: 2), which
+should capture the main title of the page and second level subsections.</p><p>3) You will notice that your webpage built using sphinx will not 100%
+match the pages built using mkdocs (indeed, they use slightly different
+HTML themes too) and some small syntax highlighting changes may occur,
+etc. Hopefully it gets better over time though, and I think the PDF
+build is a very valuable feature here!</p><p>4) There might be other alternative approaches such as using pandoc
+with custom readthedocs build scripts to make PDFs. I haven&#x27;t tested
+this but see <a href="https://github.com/rtfd/readthedocs.org/issues/1939">https://github.com/rtfd/readthedocs.org/issues/1939</a> for
+tracking the issue maybe</p><p>I hope this guide is helpful, but drop me a line @cmdcolin if you have
+any questions</p><p>::: {#footer}
+<!-- -->[ July 31st, 2015 12:04am ]<!-- -->{#timestamp} <!-- -->[readthedocs]<!-- -->{.tag} <!-- -->[software
+engineering]<!-- -->{.tag} <!-- -->[devops]<!-- -->{.tag} <!-- -->[writethedocs]<!-- -->{.tag} <!-- -->[markdown]<!-- -->{.tag}
+<!-- -->[best practices]<!-- -->{.tag}
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2015-07-31","query":{},"buildId":"ir3stmELHQRvEOT9d_k92","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-51f94a4fd678a8c1801c.js" defer=""></script><script src="/_next/static/chunks/pages/2014-04-21-de630607a9a397c26b2c.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_buildManifest.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div style="margin:0 auto;width:75%"><h1>Compiling wxWidgets 3.0 on Mac OSX</h1><p>Recently I compiled wxWidgets on Mac OSX, and i thought it went pretty
+smoothly, but I went back over my notes and saw it actually took a
+couple twists and turns. I am not sure if all the steps I took were
+necessary, but here are some notes I made in case it might help someone.</p><p><strong>Configure wxWidgets</strong></p><p>The command to configure wxwidgets should be simple, something like this</p><blockquote><p>./configure --disable-shared --enable-monolithic</p></blockquote><p>However, I ran into some errors just doing this, and with the help of
+some forum threads<!-- -->[<!-- -->1<!-- -->]<!-- -->[<!-- -->2<!-- -->]<!-- --> I was able to build wxWidgets on Mac OSX.
+My eventual command to build wxwidgets was a big messy command to force
+using c++11 with clang:\</p><blockquote><p>./configure --with-expat=builtin --enable-debug --disable-shared
+--enable-monolithic CC=clang CXX=clang++ CXXFLAGS=&quot;-stdlib=libc++
+-std=c++11&quot; OBJCXXFLAGS=&quot;-stdlib=libc++ -std=c++11&quot;
+LDFLAGS=-stdlib=libc++
+--with-macosx-sdk=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/
+--with-macosx-version-min=10.7</p></blockquote><p>Note: the folder
+/<em>Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/</em>
+might be different on your machine, as well as the
+<em>--with-macosx-version-min=10.7</em> parameter (I haven&#x27;t tested lower than
+10.7)\</p><p><strong>Build wxWidgets 3.0</strong>\</p><p>Then simply run:\</p><p>make &amp;&amp; make install</p><p>Run it with make -j8 to use extra cores!\</p><p><strong>Bibliography</strong>\
+<!-- -->[<!-- -->1<!-- -->]<!-- --> I followed notes
+<a href="http://forums.wxwidgets.org/viewtopic.php?f=19&amp;t=37432">here</a> about
+using c++11 with ./configure for wxwidgets and linking libstdc++</p><p>[<!-- -->2<!-- -->]<!-- --> I followed notes <a href="http://www.brokentoaster.com/blog/?cat=19">here</a>
+to fix xml errors compiling wxwidgets which required adding the
+--with-expat=builtin argument</p><p>::: {#footer}
+<!-- -->[ April 21st, 2014 10:26pm ]<!-- -->{#timestamp}
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2014-04-21","query":{},"buildId":"ir3stmELHQRvEOT9d_k92","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>

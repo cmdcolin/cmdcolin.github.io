@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-51f94a4fd678a8c1801c.js" defer=""></script><script src="/_next/static/chunks/pages/2017-04-21-7eede56428fe506fa9b2.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_buildManifest.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div style="margin:0 auto;width:75%"><h1>Problems that I experienced with the HPCC<!-- -->.<!-- -->..</h1><h1>Module load completely barfs with incomprehensible error</h1><pre><code>$ module spider bedtools
+Using system spider cache file
+/opt/software/lmod/bin/lua: /opt/software/lmod/4.1.4icer5/libexec/Spider.lua:662: attempt to perform arithmetic on a nil value
+stack traceback:
+    /opt/software/lmod/4.1.4icer5/libexec/Spider.lua:662: in function &#x27;Level1&#x27;
+    /opt/software/lmod/4.1.4icer5/libexec/Spider.lua:640: in function &#x27;spiderSearch&#x27;
+    /opt/software/lmod/4.1.4icer5/libexec/lmod:967: in function &#x27;cmd&#x27;
+    /opt/software/lmod/4.1.4icer5/libexec/lmod:1195: in function &#x27;main&#x27;
+    /opt/software/lmod/4.1.4icer5/libexec/lmod:1222: in main chunk
+    [C]: ?
+</code></pre><h1>Linuxbrew is terribly confused by things that depend on gcc</h1><pre><code>brew install hello
+==&gt; Installing dependencies for hello: glibc, xz, gmp, mpfr, libmpc, isl, gcc
+==&gt; Installing hello dependency: glibc
+Error: glibc cannot be built with any available compilers.
+Install Clang or brew install gcc
+</code></pre><p>Using module load Clang does not fix problem <!-- -->&gt;<!-- -->_<!-- -->\&lt;</p><h1>Compiling things manually on software machine does not work on interactive machine</h1><pre><code>$ mummer
+Illegal instruction (core dumped)
+</code></pre><h1>Many modules have a secret dependency on loading other modules</h1><pre><code>$ module load LASTZ
+
+Lmod Warning: Did not find: LASTZ
+
+Try: &quot;module spider LASTZ&quot;
+$ module load GNU
+$ module load LASTZ
+$ lastz
+You must specify a target file
+lastz-- Local Alignment Search Tool, blastZ-like
+  (version 1.03.02 released 20110719)
+...
+</code></pre><p>Etc etc.</p><p>::: {#footer}
+<!-- -->[ April 21st, 2017 9:18am ]<!-- -->{#timestamp}
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2017-04-21","query":{},"buildId":"ir3stmELHQRvEOT9d_k92","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>

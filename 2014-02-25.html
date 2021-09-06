@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-51f94a4fd678a8c1801c.js" defer=""></script><script src="/_next/static/chunks/pages/2014-02-25-f18a981be8ae491065b5.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_buildManifest.js" defer=""></script><script src="/_next/static/ir3stmELHQRvEOT9d_k92/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div style="margin:0 auto;width:75%"><h1>Merging VCF files</h1><p><strong>Introduction</strong></p><p>Recently, I was looking at a bunch of variant call files (VCF) where
+each VCF represented it&#x27;s own scaffold, and I sought to merge them
+together to create a unified view. I decided to use GATK CombineVariants
+and followed their guide for using it
+<a href="http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_variantutils_CombineVariants.html">here</a>.
+It was fairly straightforward but there were some hiccups that i&#x27;ll go
+through here</p><p><img src="../../media/77857883496_0.png"/></p><p><em>Variant detail view in JBrowse showing genotype statistics</em></p><p><strong>CombineVariants wants a dict and samtools index file for the reference
+genome</strong></p><p>In order to use GATK you first need to format some files for the
+reference genome. I followed the GATK guide for doing so from
+<a href="http://gatkforums.broadinstitute.org/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference">here</a>.
+The steps for formatting the reference are as follows:</p><ul><li>Create a dict file for the FASTA using picard</li><li>Create a fai file using SAMtools</li></ul><p>Here&#x27;s the commands we used (and the error messages that clued me to do
+it)</p><p><em>First create a fai index. Note: You should use this step to create an
+fai index if you get the error message: ERROR MESSAGE: Fasta index file
+... for reference ... does not exist.</em></p><blockquote><pre><code>samtools faidx Amel_4.5_scaffolds.fa
+</code></pre></blockquote><p><em>Then create a dict index. Note: You should use this step from the
+picard toolkit if you get this error: ERROR MESSAGE: Fasta dict file ...
+for reference ... does not exist. </em></p><blockquote><pre><code> java -jar CreateSequenceDictionary.jar R= ~/Amel_4.5_scaffolds.fa O= ~/Amel_4.5_scaffolds.fa.dict
+</code></pre></blockquote><p><strong>CombineVariants needs a sorted VCF\
+</strong></p><p>GATK CombineVariants can be used after the reference is formatted, but
+it gives errors if the VCF isn&#x27;t sorted. I found the <a href="http://seqanswers.com/forums/showthread.php?t=11909%20">following
+discussion thread on
+seqanswers</a> and
+used vcfsorter to fix that problem <a href="http://code.google.com/p/vcfsorter/">http://code.google.com/p/vcfsorter/</a></p><blockquote><pre><code># Note: You should use vcfsorter if you get the error message:
+##### ERROR MESSAGE: Input files ../myvcf.vcf and reference have incompatible contigs:
+###### Relative ordering of overlapping contigs differs, which is unsafe.
+ 
+for f in vcfGzip/*.vcf; do echo &quot;Processing $f&quot;;
+    perl vcfsorter.pl ~/Amel_4.5_scaffolds.dict $f&gt;$f.sorted.vcf;
+done
+</code></pre></blockquote><p>This is probably just an alphanumeric sort on the chromosome names and a
+numeric sort on the start position, so a custom unix &quot;sort&quot; might work
+too i.e. sort -k1,1 -k 2,2n or similar</p><p>\</p><p>\
+<strong>Finally merge the variants with CombineVariants</strong></p><p>Generate a list of variants and then you are ready to piece together a
+command to combine all your VCFs</p><blockquote><pre><code> CombineVariants java -jar GenomeAnalysisTK.jar -R Amel_4.5_scaffolds.fa -T CombineVariants \
+--variant C181.vcf.sorted.vcf \
+--variant C182.vcf.sorted.vcf \
+--variant ...etc... \
+-o combined.vcf -genotypeMergeOptions UNIQUIFY
+</code></pre></blockquote><p>I haven&#x27;t explored all the genotypeMergeOptions, but this one was ok
+enough to create a &quot;reasonable&quot; output for our purposes.</p><p><strong>Finalize the VCF by creating a BGZip archive and a Tabix index file</strong></p><p>BGzip and Tabix are companions of SAMtools to finalize a VCF file. I ran
+programs Bgzip and Tabix on the combined variant file</p><blockquote><pre><code>./bgzip ~/combined.vcf
+./tabix -p vcf ~/combined.vcf.gz
+</code></pre></blockquote><p>\
+Then this creates combined.vcf.gz and combined.vcf.gz.tbi that can be
+loaded into JBrowse easily.</p><p>\</p><p>Note: there is no custom VCF &quot;loader&quot; for jbrowse currently, but you can
+just manually add it to your track list pretty easily, e.g. add this to
+your trackList.json.</p><pre><code>      {
+         &quot;label&quot;         : &quot;MyTrack&quot;,
+         &quot;storeClass&quot;    : &quot;JBrowse/Store/SeqFeature/VCFTabix&quot;,
+         &quot;urlTemplate&quot;   : &quot;combined.vcf.gz&quot;,
+         &quot;type&quot;          : &quot;JBrowse/View/Track/HTMLVariants&quot;
+      }
+</code></pre><p>Also note: The tbiUrlTemplate is only necessary if your tabix index file
+isn&#x27;t named combined.vcf.gz.tbi (i.e., it automatically checks for the
+url of your .vcf.gz file +&quot;.tbi&quot;). Similar thing for baiUrlTemplate,
+because it only needed if your BAM index isn&#x27;t named bamfile.bam.bai
+because it automatically checks for your the url of your bamfile +
+&quot;.bai&quot;</p><p>::: {#footer}
+<!-- -->[ February 25th, 2014 8:09pm ]<!-- -->{#timestamp} <!-- -->[bioinformatics]<!-- -->{.tag}
+<!-- -->[tutorial]<!-- -->{.tag} <!-- -->[vcf]<!-- -->{.tag} <!-- -->[gatk]<!-- -->{.tag} <!-- -->[samtools]<!-- -->{.tag}
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2014-02-25","query":{},"buildId":"ir3stmELHQRvEOT9d_k92","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
