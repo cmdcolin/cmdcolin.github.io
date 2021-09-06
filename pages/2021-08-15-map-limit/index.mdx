@@ -8,7 +8,8 @@ weird limits with a system.
 
 I was personally trying to load every 'common' single nucleotide polymorphism
 for the human genome into memory (dbSNP), of which there are over 37 million
-entries (there are many more uncommon ones)
+entries (there are many more uncommon ones) for the purposes of making a custom
+search index for them [1].
 
 Turns out, you may run into some hard limits. Note that these are all V8-isms
 and may not apply to all browsers or engines (I was using node.js for this)
@@ -167,6 +168,10 @@ for (let i = 0; i <= 1_000_000_000; i++) {
 
 This has been another episode of ....the twilight zone (other episodes
 catalogued here) https://github.com/cmdcolin/technical_oddities/
+
+
+[1] The final product of this adventure was this, to create a search index for
+a large number of elements https://github.com/GMOD/ixixx-js
 
 
 export default ({ children }) => <Layout>{children}</Layout>
