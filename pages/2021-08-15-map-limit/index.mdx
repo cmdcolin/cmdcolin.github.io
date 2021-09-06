@@ -13,11 +13,13 @@ entries (there are many more uncommon ones)
 Turns out, you may run into some hard limits. Note that these are all V8-isms
 and may not apply to all browsers or engines (I was using node.js for this)
 
+```
 const myObject = new Map();
 for (let i = 0; i <= 50_000_000; i++) {
   myObject.set(i,i);
   if(i%100000==0) { console.log(i) }
 }
+```
 
 
 

@@ -10,6 +10,11 @@ body {
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+  max-height: 500px;
+}
+
 .blog {
   width: 100%;
   overflow: auto;
