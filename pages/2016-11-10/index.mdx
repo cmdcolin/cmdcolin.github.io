@@ -1,0 +1,159 @@
+import Layout from "../components/Layout"
+
+
+Creating a JBrowse plugin
+=========================
+
+I have been very impressed with peoples creativity and willingness to
+dig into all the details of JBrowse to customize it's features. One
+great way to do this in a modular way is to create a "JBrowse plugin".
+This concept sounds hard but you can set up a simple couple of files and
+refresh your browser and it will "just work"!
+
+**Introduction to the plugin mindset**
+
+In a plugin, you can define new things like custom track types, custom
+adaptors to new file types, new track selectors, or something really
+different. A key insight about the custom types of tracks and things
+though is that you can put the name of your new custom class in the
+jbrowse config file which will then find the code in your plugin and run
+it. Plugins can do other things, but the ability to just swap out track
+types or other components in the config file is a great benefit.
+
+**A scenario**
+
+One example that was talked about on the mailing list might involve
+adding new menu items for a given track. We might consider a plugin that
+defines a custom track type to add that functionality.
+
+Basically, we can use object- oriented principles to "inherit" from some
+existing track type like CanvasFeatures and then extend its
+functionality by overriding the functions.
+
+
+
+If you are not familiar with object-oriented javascript, dojo makes it
+pretty easy (but, especially get a background on this if you need to,
+see footnotes below).
+
+
+
+We can inherit a new track type by using the "define" function to
+include the dependencies needed in a file, and they are listed in an
+array at the top of your file.
+
+
+
+Then the "declare" function creates a new class. The first argument to
+declare is the is your parent class, like CanvasFeatures, and we type
+"return declare" because we are returning our new track class from the
+module.
+
+```
+ define( ["dojo/_base/declare",
+ "JBrowse/View/Track/CanvasFeatures"],
+     function(declare,CanvasFeatures) {
+     return declare(CanvasFeatures, {
+         _trackMenuOptions: function() {
+
+             var opts=this.inherited(arguments); //call the parent
+ classes function
+
+             opts.push( // add an extra menu item to the array returned
+ from parent class function
+                 {       
+                     label: "Custom item",
+                     type: 'dijit/CheckedMenuItem',
+                     onClick: function(event) {
+                         console.log('Clicked');
+                     },  
+                     iconClass: "dijitIconPackage"
+                 }   
+             );  
+             return opts;
+         }   
+     });
+     }   
+ );
+```
+
+Code listing 1. an example custom track type, MyTrack.js, that adds an
+extra track menu item
+
+**Now how do we make this a plugin?**
+
+In the above section, we created a new track subclass with a custom menu
+option. How do we use this track? We want to turn it into part of afine
+the boilerplate code from the [Writing
+plugins](http://gmod.org/wiki/JBrowse_Configuration_Guide#Writing_JBrowse_Plugins)
+guide.
+
+```js
+ define([
+            'dojo/_base/declare',
+            'JBrowse/Plugin'
+        ],  
+        function(
+            declare,
+            JBrowsePlugin
+        ) {
+  
+ return declare( JBrowsePlugin, // our plugin's main.js derives from
+ the "JBrowse/Plugin" base class
+ {
+     constructor: function( args ) {
+         /*don't necessarily have to do any initializing here, but you
+ can get a handle to various jbrowse components if any initialization
+ is needed from the args.browser variable*/
+     }   
+ });
+ });
+```
+Code listing 2. Our plugin's main.js
+
+After this, we create the plugin directory structure
+
+> jbrowse/plugins/MyPlugin
+>
+> > jbrowse/plugins/MyPlugin/js
+> >
+> > > jbrowse/plugins/MyPlugin/js/main.js
+> > >
+> > > jbrowse/plugins/MyPlugin/js/MyTrack.js
+
+Then we can add our new plugin to a config file like jbrowse_conf.json
+as "plugins": ["MyPlugin"]  and then make a track in trackList.json
+have "type":  "MyPlugin/MyTrack" instead of for
+example "type": "CanvasFeatures". That will tell jbrowse to load the
+MyTrack class from your plugin instead of the normal CanvasFeatures
+class.
+
+That's about it!
+
+
+
+
+
+Note that the bin/new-plugin.pl script can automatically initialize some
+of this directory structure too. Try running "bin/new-plugin.pl
+MyPlugin" and see what happens.
+
+
+
+Footnotes:
+
+It is important to understand the module format (AMD) which is what the
+"define" function is about and the dojo way of definining classes using
+the "declare" function. Together, this allows the dojo to create
+object-oriented programs that are modular in javascript. See
+<http://dojotoolkit.org/reference-guide/1.10/dojo/_base/declare.html>
+and <http://dojotoolkit.org/documentation/tutorials/1.9/modules/>
+(understanding this helps you understand the "preamble" for declaring a
+jbrowse plugin)
+
+::: {#footer}
+[ November 10th, 2016 5:06pm ]{#timestamp}
+:::
+
+
+export default ({ children }) => <Layout>{children}</Layout>

@@ -1,3 +1,3 @@
-# Welcome
+# welcome
 
-This site is built using the [Statocles](https://github.com/preaction/Statocles) static site generator.
+https://cmdcolin.github.io/

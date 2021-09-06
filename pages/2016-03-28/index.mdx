@@ -1,0 +1,83 @@
+import Layout from "../components/Layout"
+
+
+Running nginx on containerised travis-CI pt 2
+=============================================
+
+There are several guides out there about how to setup nginx on travis-CI
+but I still found it to be a challenge, especially finding a modern one
+that works with the containerized builds. I was frustrated that things
+like SimpleHTTPServer from python and http-server from npm did not have
+fully enough features to run our app either (a complex "static-site
+generator" type thing you might say), and I was also too lazy to setup
+"sauce labs" (which I have not used, but presume has some better ability
+to run functional/browser tests).
+
+Essentially, the problem with running nginx under the containerized
+build is that it "likes to be sudo", with many logfiles by default going
+to different places that only sudo has access to.
+
+This link is probably the most similar to the technique I use here, but
+it is now gone (?) and must be accessed through the internet archive!
+
+[](http://www.doublesignal.com/running-nginx-on-containerised-travis-ci)<https://web.archive.org/web/20150919050719/http://www.doublesignal.com/running-nginx-on-containerised-travis-ci>
+
+My technique is very similar, however I use an extra trick to set the
+file root to the current directory (instead of /tmp/nowhere as in the
+link) by using "envsubst" to replace variables in the nginx config file.
+
+Without further ado, the .travis.yml can look like this
+
+    sudo: false
+    addons:
+      apt:
+        packages:
+        - nginx
+    install:
+      - cat tests/travis.conf | envsubst > tests/travis-envsubst.conf
+      - nginx -c `pwd`/tests/travis-envsubst.conf
+    script:
+      - wget http://localhost:9000/yourfiles
+
+Then your nginx config file can look like this
+
+    worker_processes 10;
+    pid /tmp/nginx.pid;
+
+    error_log /tmp/error.log;
+
+    events {
+        worker_connections 768;
+    }
+
+    http {
+        client_body_temp_path /tmp/nginx_client_body;
+        fastcgi_temp_path     /tmp/nginx_fastcgi_temp;
+        proxy_temp_path       /tmp/nginx_proxy_temp;
+        scgi_temp_path        /tmp/nginx_scgi_temp;
+        uwsgi_temp_path       /tmp/nginx_uwsgi_temp;
+
+        server {
+            listen 9000 default_server;
+
+            server_name localhost;
+            location / {
+                root $TRAVIS_BUILD_DIR;
+                index  index.html index.htm;
+            }
+            error_log /tmp/error.log;
+            access_log /tmp/access.log;
+        }
+    }
+
+Then, when travis-CI is run, it uses envsubst to replace
+\$TRAVIS\_BUILD\_DIR in the tests/travis.conf file, and then boots up
+nginx
+
+::: {#footer}
+[ March 28th, 2016 4:56pm ]{#timestamp} [nginx]{.tag} [travisci]{.tag}
+[software]{.tag}
+:::
+
+
+export default ({ children }) => <Layout>{children}</Layout>

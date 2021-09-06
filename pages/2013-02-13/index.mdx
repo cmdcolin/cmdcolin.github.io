@@ -1,0 +1,53 @@
+import Layout from "../components/Layout"
+
+
+In my previous post I mentioned <http://www.encodestatistics.org> This
+site introduces IDR but also has something called **GSC - ( Block
+Bootstrap and Segmentation )**
+
+Bootstrapping techniques are a new thing to me, so I didn't really grasp
+the GSC concept at first, but I found another blog post about
+bootstrapping for a different subject on the [bioinformatics
+subreddit.](http://reddit.com/r/bioinformatics)
+
+The post in question is called ["Sampling a matching distribution for
+bootstrapping"](http://www.cureffi.org/2013/01/29/sampling-a-matching-distribution-for-bootstrapping/)
+and it contains some new ideas about bootstrapping that I found very
+interesting
+
+This is a "case in point" figure from the post.
+
+![](https://64.media.tumblr.com/6043e920e797db507087d1b32a2f20e0/7982d709f4c79da3-19/s540x810/9d11ea2b2191973bf480bfa707ff4d79d65e7eea.jpg)
+
+**Fig.** "Here are histograms I created based
+on [CEU](http://www.1000genomes.org/category/frequently-asked-questions/population)
+allele frequencies from [HapMap Phase
+3](ftp://ftp.ncbi.nlm.nih.gov/hapmap/genotypes/2009-01_phaseIII/plink_format/00README.txt) for
+[GWAS catalog](http://www.genome.gov/gwastudies/) SNPs (as of Jan 16,
+2013) vs. all SNPs included in the HapMap SNP chips....pretty different
+distributions huh?" **from Sampling a matching distribution for
+bootstrapping**
+
+This difference in the distribution of the GWAS SNP frequencies in a
+population  makes it difficult to know if the crucial GWAS genes are
+being overrepresented in the regions that you are sampling. therefore,
+the frequencies are sampled relative to the distribution of all SNPs.
+
+Another interesting method was used for choosing a nearby SNP as a
+control SNP for each GWAS SNP. Then, the control SNP would act as a
+control by having a different random frequency compared with the GWAS
+SNP, so if you find that the QTLs are enriched relative to the controls,
+then you remove the chance that the GWAS frequency was influencing the
+results
+
+Now that I understand the concept I think that looking at bootstrapping
+more closely with the ENCODE package GSC will be more likely (at least
+statistically more likely :))))
+
+::: {#footer}
+[ February 13th, 2013 12:52am ]{#timestamp} [statistics]{.tag}
+[ENCODE]{.tag} [science]{.tag} [bioinformatics]{.tag}
+:::
+
+
+export default ({ children }) => <Layout>{children}</Layout>

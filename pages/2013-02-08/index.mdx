@@ -1,0 +1,82 @@
+import Layout from "../components/Layout"
+
+
+Data analysis with ShortRead
+============================
+
+I have wanted to do more exploratory data analysis on my datasets after
+taking the Coursera class, Data Analysis. I used a short guide I/0 and
+Quality Assessment using ShortRead by martin Morgan. I have already
+aligned reads so I can't do much quality analysis but I thought the data
+was interesting. I also needed to generally try to start using R also!
+
+    opts_knit$set(upload.fun = imgur_upload, base.url = NULL)
+    opts_chunk$set(fig.width = 5, fig.height = 5, cache = TRUE)
+
+Here is the setup for reading ELAND result files
+
+    library(EMBL2011)
+    library(Biostrings)
+    library(R.utils)
+    library(xtable)
+    library(ShortRead)
+    rd <- readAligned("HS959ChIP_rep1u_eland_result.txt", type = "SolexaResult")
+
+We can calculate a table according to which strand reads are aligned to
+
+    whichStrand <- strand(rd)
+    table(whichStrand)
+
+    ## whichStrand
+    ##      +      -      * 
+    ## 530693 517883      0
+
+Additionally, a table which gives us the nucleotide frequency
+
+    sr <- sread(rd)
+    af <- alphabetFrequency(sr, baseOnly = TRUE, collapse = TRUE)
+    barchart(af)
+
+![plot of chunk unnamed-chunk-1](http://i.imgur.com/Gr7TKmi.png)
+
+The dinucleotide frequency can also show some interesting information.
+The prevalence of certain terms shows the primers being overrepresented
+here in the AA column
+
+    cs <- colSums(dinucleotideFrequency(sread(rd)))
+    barchart(cs)
+
+![plot of chunk din](http://i.imgur.com/yx3rEbJ.png)
+
+The GC content calculated as
+
+    (af["G"] + af["C"])/(af["A"] + af["G"] + af["C"] + af["T"])
+
+    ##      G 
+    ## 0.3842
+
+Observing the position of nucleotides in each read can be informative
+too. We don't have the read quality but these would show the read
+quality at each position which could be correlated with the nucleotide
+read cycles
+
+    abc <- alphabetByCycle(sread(rd))
+    abc <- abc[rowSums(abc) != 0, ]
+    df <- as.data.frame(t(abc[1:4, ]))
+    xyplot(A + C + G + T ~ 1:nrow(df), df, type = "l", auto.key = list(x = 0.75, 
+        y = 0.95, points = FALSE, lines = TRUE), xlab = "Cycle", ylab = "Count")
+
+![plot of chunk cycle](http://i.imgur.com/KEeWT05.png)
+
+\
+Note I didn't write any of the code here. Refer to
+<http://www.bioconductor.org/help/course-materials/2009/SeattleJan09/ShortRead/IOQA.pdf>
+
+More to come in future analyses
+
+::: {#footer}
+[ February 8th, 2013 9:50pm ]{#timestamp}
+:::
+
+
+export default ({ children }) => <Layout>{children}</Layout>

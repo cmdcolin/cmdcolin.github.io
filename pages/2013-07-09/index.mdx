@@ -1,0 +1,56 @@
+import Layout from "../components/Layout"
+
+
+Slides from a presentation
+==========================
+
+Recently, I did a presentation for my lab group at school, and I wanted
+to do an "experiment" and try to do everything without PowerPoint.
+
+Crazy you say? Well, I considered some options, and I went ahead and
+made my presentation using
+[Slidify](http://ramnathv.github.io/slidify/customize.html)!!
+
+I was super impressed with Slidify because it was very easy to get
+started and it uses R Markdown syntax which I have already used for some
+blog posts. To get started, you just use a textfile and separate the
+slides using a newline with three dashes "---". After just a few
+minutes, you can easily start generating HTML output slideshows that
+work great.
+
+It helps if you have some web design experience to use Slidify also,
+because you can style Markdown code using CSS. Here is a discussion
+about how to [align images in a markdown document, and I particularly
+like the second
+answer](http://stackoverflow.com/questions/255170/markdown-and-image-alignment).
+Unfortunately. I had some trouble aligning images too, so I think I
+could probably do with some practice (see Figure 1)
+
+![](https://64.media.tumblr.com/fd0a1bbcb464afa24393fe7442906eda/311221fe66cef2f3-45/s540x810/ba83892db13b3c1a8075663407d9b9ae47647986.jpg)
+
+Figure 1. Example slide from my presentation with a figure that is
+cutoff. I used the CSS style "float:right" but for some reason it didn't
+stay on the page.
+
+I also wanted to publish my slides on the web, and found that you can
+use Slidify to publish to your Github repository using [Github
+Pages.](http://pages.github.com/) Again, this process was also
+surprisingly simple: you simply make a branch on your repository that is
+named "gh-pages" and push all your Slidify slides to it!
+
+The outcome: [Comparison and analysis of ChIP-seq
+experiments](http://tonto.github.io/macs-accessories/slides.html#1)
+
+Feel free to check out the slides, and you can also see the code for
+generating the slides on my [Github
+Branch](https://github.com/tonto/macs-accessories/tree/gh-pages). Soon,
+I may also update the code for the slides to generate the figures
+instead of just linking to figures
+
+::: {#footer}
+[ July 9th, 2013 11:39pm ]{#timestamp} [slidify]{.tag} [rstats]{.tag}
+[chip-seq]{.tag} [bioinformatics]{.tag} [slides]{.tag}
+:::
+
+
+export default ({ children }) => <Layout>{children}</Layout>
