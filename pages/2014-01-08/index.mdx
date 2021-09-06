@@ -1,0 +1,80 @@
+Motif finding from chip-seq
+===========================
+
+**Introduction**
+
+Recently I have been involved in a discussion about MACS on the mailing
+list, and I wanted to do some basic experiments to look at motif finding
+in ChIP-seq.
+
+**Methods**
+
+I used very basic methods and I have [posted some gist
+files](https://gist.github.com/tonto/8312029) on GitHub that essentially
+follows from [Bioconductor for motif
+finding](http://www.bioconductor.org/help/workflows/gene-regulation-tfbs/).
+I also made up some code for plotting the read coverage of the peaks
+using a combination of bedtools and R.
+
+**Results**
+
+The results from plotting the coverage are pretty much as expected
+(Figure 1), but I think it opens up some questions when we also look at
+the motif map (Figure 2). The enrichment of ChIP-seq reads shows a clear
+pattern over the peak summits, but there are some areas where either
+mappability was bad (dark stripes) or my algorithm for calculating
+coverage has some bugs.
+
+![](../../media/72637788100_0.png)
+
+**Figure 1.** Plot of log read counts in 2000bp windows around the
+summits of ChIP-seq peaks from a deeply sequenced STE12 transcription
+factor pulldown in yeast (Zheng et al, 2010)
+
+I also looked at the instances of motifs in the same 2000bp window
+around the summits (Figure 2). The motif finding produced much less
+definitive results, and I was actually verycurious about this. There are
+almost perfect matches to the motif scattered throughout the sequences
+that don't necessarily correspond to the enrichment plot.
+
+![](../../media/72637788100_1.png)
+
+**Figure 2.** Motif matches from a very basic motif searcher in the
+package Biostrings using matchPWM. PWM is downloaded from JASPAR for
+STE12, which corresponds to the same transcription factor targetted in
+this ChIP-seq.
+
+**Discussion**
+
+Given the disparity between the datasets, I see a couple possibilities
+(as a nive bioinformatics person, biologists please correct me)
+
+1\) We used too basic of a motif finder, and it could not distinguish
+the motifs clearly and they may actually be clustered near the peak
+summits
+
+2\) Motifs may be enriched in the promoter regions, but more complex
+regulation causes true ChIP-seq binding
+
+3\) The motif is simply found very frequently throughout the genome, and
+not just in the promoter region, and so like the above we need something
+better than the basic motif finding that we have to figure out chip-seq
+regulation
+
+4\) Edit: there may also be co-regulation (which is very possible given
+the trans-regulators that were found in Zheng et al.'s results)
+
+For posterity, here is the seqLogo for our JASPAR STE12 PWM
+
+![](../../media/72637788100_2.png)
+
+**Conclusion**
+
+I have a lot of questions about this data, and I am wondering how we can
+use it to further our knowledge of the behavior of the transcription
+factors for regulating the genome!
+
+::: {#footer}
+[ January 8th, 2014 12:57am ]{#timestamp} [chip-seq]{.tag}
+[bioinformatics]{.tag} [questions]{.tag} [genomics]{.tag} [fun]{.tag}
+:::

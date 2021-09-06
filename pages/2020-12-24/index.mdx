@@ -1,0 +1,135 @@
+Making a serverless website for photo upload pt. 1
+==================================================
+
+I set out to make a serverless website for photo uploads. Our dearly
+departed dixie dog needed a place to have photo uploads.
+
+I didn't want to get charged dollars per month for a running ec2
+instance, so I wanted something that was lightweight e.g. serverless,
+and easy
+
+\
+
+I decided to follow this tutorial
+
+<https://aws.amazon.com/blogs/compute/uploading-to-amazon-s3-directly-from-a-web-or-mobile-application/>\
+
+I really liked the command line deployment (aws-sam) because fiddling
+around with the AWS web based control panel is ridiculously complicated\
+
+For example I also tried following this tutorial which uses the web
+based UI (<https://www.youtube.com/watch?v=mw_-0iCVpUc>) and it just did
+not work for me....I couldn't stay focused (blame ADHD or just my CLI
+obsession?) and certain things like "Execution role" that they say to
+modify are not there in the web UI anymore, so I just gave up (I did try
+though!)
+
+\
+
+\
+
+To install aws-sam I used homebrew
+
+> brew tap aws/tap\
+> brew install aws-sam-cli\
+> brew install aws-sam-cli \# I had to run the install command twice
+> ref <https://github.com/aws/aws-sam-cli/issues/2320#issuecomment-721414971>\
+>
+> git clone
+> <https://github.com/aws-samples/amazon-s3-presigned-urls-aws-sam>\
+> cd amazon-s3-presigned-urls-aws-sam\
+> sam deploy --guided\
+> \
+> \# proceeeds with a guided installation, I used all defaults except I
+> made "UploadRequestFunction may not have authorization defined, Is
+> this okay? \[y/N\]: y"\
+> \
+
+\
+
+![](https://64.media.tumblr.com/3028ab2ff22803ebe4ab1f69dc4c6cb0/237164d886a09414-60/s540x810/9e02904fd35ebd9dfab681cd1d5a3a13fa7a1efa.png)
+
+\
+
+They then in the tutorial describe trying to use postman to test
+
+I test with \`curl\` instead
+
+\
+
+> ❯❯❯ curl
+> 'https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads'
+>
+> \
+> {"uploadURL":"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAU6CQBER6YBNCDDMJ%2F20201224%2Fus-east-2%2Fs3%2Faws4\_request&X-Amz-Date=20201224T174804Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDIaCXVzLWVhc3QtMiJGMEQCIH65IvgJsofUpIX46lTaG3Pi5WC85ti1lukM3iICh%2BB%2BAiAJEyynPNPhZN8%2Bg1ylO7wthqud9cBcNIChIp2H%2F%2BR7mCryAQjb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDMzOTQ3MDI2MzQyMSIMLqPo1IYyH7udCGZuKsYBSEF3c50YXkmPeSWcLsEzq%2BFBTpeOIrwZTyCUjbJ7fgJUakhM1YRX40jExstN8eJcMXqw00Xd5lYHvZDbU9ajwWPLRAxcEN5BQ0utqn0NGTLyJhibzJUj8cjgm5RguIEKe9GUtMVWa9mi7C5%2FlFpS0i9jK5BSVf74JyPSLETV5mzMMzy5kHBQMGjw1dR66E3MG8PjIqfgKjhVtZmlaicf5OmeqNI2%2F8T5ye%2FICRsH4d7KNEmj4FELa8buW8U%2Fn97ThfH3P7XmMNOok%2F8FOuEBDj1EHluCT4DfZ1jIXjvrJsVv1WtV4POQDn2Dah%2BWosBn%2BFNTtQtw841ACDarYR1ZVbuwcpTjfBPlGuSOncPsbzOhzDy7wYyumsPKsXoPdxTncMWbx4BQkbU5SeF9hjpfIKRMSOqkJBN7%2BtgHXwuW1rfYMDN2OAlQZpTj7uWMPWojUMbvMzyHvI2pfgcRAlrBdGGYDigyjWl9QXP%2Bdi6WiR7XCSXbWcIAJDZh%2Beb%2BIH1asmMJtpAK6nMP8gWczaYh7PMeYyVOIs2B20xQBy%2Bz7oe%2BYQ2GfdEr2hgqPH3jd%2B7c&X-Amz-Signature=11b8cd524c25ef51193e3b3fc4816760ebcde8bfc74bd52f3f91d8bf409620f5&X-Amz-SignedHeaders=host","Key":"112162.jpg"}% 
+
+\
+
+The premise of this is you make a request, and then the response from
+the API is a pre-signed URL that then allows you to upload directly to
+S3. You can use \`curl \<url\> --upload-file yourfile.jpg\`. This
+automatically does a PUT request to the s3 bucket (yes, this is talking
+directly to s3 now, not the lambda! the lambda is just for generating
+the "pre-signed URL" to let you upload). Careful to copy it exactly as
+is
+
+\
+
+> curl
+> "https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAU6CQBER6YBNCDDMJ%2F20201224%2Fus-east-2%2Fs3%2Faws4\_request&X-Amz-Date=20201224T174804Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDIaCXVzLWVhc3QtMiJGMEQCIH65IvgJsofUpIX46lTaG3Pi5WC85ti1lukM3iICh%2BB%2BAiAJEyynPNPhZN8%2Bg1ylO7wthqud9cBcNIChIp2H%2F%2BR7mCryAQjb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDMzOTQ3MDI2MzQyMSIMLqPo1IYyH7udCGZuKsYBSEF3c50YXkmPeSWcLsEzq%2BFBTpeOIrwZTyCUjbJ7fgJUakhM1YRX40jExstN8eJcMXqw00Xd5lYHvZDbU9ajwWPLRAxcEN5BQ0utqn0NGTLyJhibzJUj8cjgm5RguIEKe9GUtMVWa9mi7C5%2FlFpS0i9jK5BSVf74JyPSLETV5mzMMzy5kHBQMGjw1dR66E3MG8PjIqfgKjhVtZmlaicf5OmeqNI2%2F8T5ye%2FICRsH4d7KNEmj4FELa8buW8U%2Fn97ThfH3P7XmMNOok%2F8FOuEBDj1EHluCT4DfZ1jIXjvrJsVv1WtV4POQDn2Dah%2BWosBn%2BFNTtQtw841ACDarYR1ZVbuwcpTjfBPlGuSOncPsbzOhzDy7wYyumsPKsXoPdxTncMWbx4BQkbU5SeF9hjpfIKRMSOqkJBN7%2BtgHXwuW1rfYMDN2OAlQZpTj7uWMPWojUMbvMzyHvI2pfgcRAlrBdGGYDigyjWl9QXP%2Bdi6WiR7XCSXbWcIAJDZh%2Beb%2BIH1asmMJtpAK6nMP8gWczaYh7PMeYyVOIs2B20xQBy%2Bz7oe%2BYQ2GfdEr2hgqPH3jd%2B7c&X-Amz-Signature=11b8cd524c25ef51193e3b3fc4816760ebcde8bfc74bd52f3f91d8bf409620f5&X-Amz-SignedHeaders=host"
+> --upload-file test.jpg\
+
+There is no response, but I can then check the s3 console and see the
+file upload is successful (all files are renamed)
+
+![](https://64.media.tumblr.com/cd948c0709d9e36a4434ed6c1fdc0706/237164d886a09414-c2/s540x810/886b466cae543391a32a424dfd13aa7826423398.png)
+
+Figure shows that the file upload is successful :)
+
+\
+
+Then we can edit the file frontend/index.html from the repo we cloned to
+contain the lambda with the /uploads/ suffix
+
+\
+
+![](https://64.media.tumblr.com/8dd5ec24c62e5a588fbb9c338b72533c/237164d886a09414-d8/s540x810/8ad17c4eee0a72fd8e8300cd35e7c4929ea5d8d9.png)
+
+Figure shows editing the index.html with the lambda endpoint
+
+Then we manually upload this file to another s3 bucket or test it
+locally
+
+> aws s3 cp index.html s3://mybucket/\
+>
+> ...visit that in the browser
+
+\
+
+At this point the files are getting uploaded but not publically
+accessible. To make them publically accessible we uncomment the
+ACL: 'public-read' in the getSignedURL/app.js folder in the github repo
+
+\
+
+![](https://64.media.tumblr.com/c2bb77d16f1ff8501da962cf99954241/237164d886a09414-9b/s540x810/9c8a6be9e7291b168400984533061976febd38cf.png)
+
+Figure showing the public-read uncommented
+
+![](https://64.media.tumblr.com/6b46deb1dc8025abacbeb67d5c950d17/237164d886a09414-e4/s540x810/4e1913f18f4c3b544af95aa617e025bfa48b34b5.png)
+
+Figure showing the lines that need uncommenting in template.yaml in the
+root of the github repo that allows putObject in s3 with the public-read
+ACL
+
+\
+
+Re-run \`sam deploy --guided\`, same thing as at the start
+
+\
+
+Now the objects are publicly accessible!
+
+::: {#footer}
+[ December 24th, 2020 1:14pm ]{#timestamp}
+:::

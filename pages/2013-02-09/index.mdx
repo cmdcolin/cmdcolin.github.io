@@ -1,0 +1,31 @@
+![](../../media/42706529086.png)
+
+::: {.caption}
+I used **IDR (irreproducible discovery rate)** analysis fto measure the
+consistency of biological replicates in ChIP-seq samples. IDR was used
+for the [ENCODE project](http://www.encodestatistics.org/%20) for this
+type of analysis too, listed here and the software is available as a
+small script package here
+<https://sites.google.com/site/anshulkundaje/projects/idr>
+
+I setup my BED files outputted from MACS by rearranging columns to fit
+the format described as follows:
+
+I used the number of tags mapped to a peak as the signal strength,
+sorted the values based on -log10 p-value, and also included the summit
+as the point-source value. I didn't have a q-value or strand value since
+I used old version of MACS.
+
+Overall, IDR shows that my data are **not** very reproducable with MACS
+because the slope of the all peaks matched line is less than 1,
+indicating that many of the peaks don't match very well.
+
+One factor that I questioned was my use of number of tags mapped as the
+signal strength. Ideally, this would be normalized. More data analysis
+might reveal additional information
+:::
+
+::: {#footer}
+[ February 9th, 2013 7:05pm ]{#timestamp} [ENCODE]{.tag}
+[bioinformatics]{.tag} [science]{.tag}
+:::

@@ -1,0 +1,78 @@
+Comparison of ChIP-seq data
+===========================
+
+In my last post, we looked at how normalization can be used for
+analyzing high throughput sequencing data. I am interested now in how to
+identify differences across conditions.
+
+To compare the ChIP-seq data from different experiments, we looked at
+the yeast data from \[3\]. To start, the reads overlapping each genome
+position are binned into windows (spacing=10) using wiggle files in MACS
+\[1\]. Then MACS identifies peaks in the data, identifying potential
+transcription factor binding sites, and we found overlapping and
+non-overlapping (unique) peaks using bedtools \[2\].
+
+When we compared biological replicate experiments of S96 yeast strain,
+we see that most of the differences (unique peaks) are near y=x showing
+that they are not significantly different from each other (Figure 1)
+
+![](https://64.media.tumblr.com/99914156f6f168f257e3b8a92d4654a1/52cfb33ae67369fa-df/s540x810/e7b2689282c31c34ca1bcd957d1985712ff86c28.png)
+
+![](https://64.media.tumblr.com/7c46f9cd5a8a2e95f117d8a3a633651a/52cfb33ae67369fa-2f/s540x810/5a5aa348ca34346159e2250f735a5b17909c339a.png)
+
+Figure 1. Comparison of S96 replicates shows high correlation (rho\~0.9)
+and the peaks that are marked unique are clustered around the line of
+equality. The log2 plot does not show large differences either.
+
+We can also use this same technique to show how the two different
+strains compare by using the same procedure. In this case, we compared
+S96 and HS959 strains and found noticeable differences in the peaks that
+are called unique. The raw data shows large differences between the
+peaks that are called unique in each dataset. Looking at the
+log-transform shows that most of these positions have fold-change
+differences greater than 2.
+
+![](https://64.media.tumblr.com/8ac2909e501554b13f8407cc53ad7129/52cfb33ae67369fa-79/s540x810/3a14e861792cc9647fbbd2b936029100ea08cc44.png)
+
+![](https://64.media.tumblr.com/2db595fe53e2f9f70260a3ac90c6424f/52cfb33ae67369fa-b4/s540x810/38358a3b1f0a1acfab635625521a6095a9bb75b9.png)
+
+\
+
+Figure 2. Comparison of the S96 and HS959 genomes. (Left) The raw read
+scores shows that the unique peaks have significantly different
+groupings between each strain (Right) Log-transform shows large
+fold-change differences exist amongst the peaks called unique
+
+ 
+
+The comparison of the raw read scores is convincing that some of the
+peaks are differentiated but it is also clear from comparing some
+experiments that the read depth is not equal which results in the
+"banana shape" (Figure 2). We explored several options for normalizing
+the data including background subtraction, scaling, background
+subtraction and scaling, and normalized difference (NormDiff) \[3\]. I
+will include these in a new post...
+
+To process the data, plyr (R package) was used to fit a neat design
+pattern called split-apply-combine. In this case I split data across
+factors (chromosome) and apply functions (selections), and then results
+are combine automatically back into one table. This cut some of the fat
+off of my old overweight code!
+
+\[1\] Zhang et al. Model-based Analysis of ChIP-Seq (MACS). Genome Biol
+(2008) vol. 9 (9) pp. R137
+
+\[2\] Quinlan AR and Hall IM, 2010. BEDTools: a flexible suite of
+utilities for comparing genomic features. Bioinformatics. 26, 6, pp.
+841--842.
+
+\[3\] Zheng et al. 2010 Genetic analysis of variation in transcription
+factor binding in yeast
+
+additionally R packages plyr, stringr, and RColorBrewer were used to
+analyze this data
+
+::: {#footer}
+[ March 24th, 2013 1:28am ]{#timestamp} [chip-seq]{.tag} [graphs]{.tag}
+[bioinformatics]{.tag}
+:::

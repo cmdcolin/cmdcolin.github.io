@@ -1,0 +1,78 @@
+Querying InterMine databases using R
+====================================
+
+In the past, I had found some ways to do simple queries on InterMine web
+services using basic HTTP commands with R (see
+<https://gist.github.com/cmdcolin/4758167bdd89e6c9c055>)
+
+However, the InterMineR (<https://github.com/intermine/intermineR>)
+package automates some of these features and makes it easier to load the
+data in R.
+
+**Installation**
+
+One way to install InterMineR is to install from github with
+hadley/devtools
+
+    install.packages("devtools")
+    devtools::install_github("hadley/devtools")
+    devtools::install_github("intermine/intermineR")
+
+**Usage**
+
+Basic usage includes loading the "intermine URL" using the initInterMine
+function. Then various functions can be called on this result.
+
+    library(InterMineR)
+    mine=initInterMine("http://bovinegenome.org/bovinemine/")
+    getVersion(mine) #18, intermine API version
+    getRelease(mine) #1.0, our data release version
+    getTemplates(mine) # lists all templates on interminer
+
+**Run a template query**
+
+From the getTemplates function, if you see a template query that you
+want to run, you can use the getTemplateQuery function with it's name,
+and run it with the runQuery function
+
+    getTemplateQuery(mine,"TQ_protein_to_gene") # see what template looks like
+    template=getTemplateQuery(mine,"TQ_protein_to_gene") # save template
+    runQuery(mine,template) # run the template query with default params, receive data.frame
+
+This method is good, but some improvement could be added to change
+default parameters in the template query, etc.
+
+**Run query XML**
+
+Another option for running queries is to use the query XML that you can
+download from the InterMine query result pages. 
+
+> query='\<query model="genomic" view="Gene.primaryIdentifier
+> Gene.secondaryIdentifier Gene.symbol Gene.name Gene.source
+> Gene.organism.shortName Gene.chromosome.primaryIdentifier"
+> sortOrder="Gene.primaryIdentifier ASC" \>\<constraint
+> path="Gene.organism.shortName" op="=" value="B. taurus"
+> /\>\<constraint path="Gene.chromosome.primaryIdentifier" op="="
+> value="GK000028.2" /\>\</query\>' \# get all Ensembl genes on chr28
+> from bovinemine
+>
+> results=runQuery(mine, query)
+>
+> head(results)
+
+**Conclusion**
+
+The InterMineR package has a couple of nice features for getting
+InterMine data with a couple of functions for looking at templates. For
+many use cases, copying the Query XML from a InterMine webpage and
+pasting that into the runQuery function is sufficient and produces a
+data frame that can be analyzed.
+
+PS it is not easy to post XML on tumblr after editing the post in
+markdown mode. You have to add the lt and gt shortcuts and even after
+that it gets filtered?!
+
+::: {#footer}
+[ June 17th, 2016 11:29am ]{#timestamp} [intermine]{.tag}
+[bioinformatics]{.tag} [R]{.tag} [rstats]{.tag}
+:::

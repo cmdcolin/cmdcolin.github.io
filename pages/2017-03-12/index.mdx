@@ -1,0 +1,68 @@
+How I learned to hate ORM (especially for data import scripts)
+==============================================================
+
+When I was tasked with making a new application for our websites, I was
+given several CSV files with some expectation that these files could
+basically be just loaded into a database and jumped into production
+really quickly. This was sort of naive idea for me to share in, so I'll
+go through the way the project progressed
+
+When I started, I chose grails/groovy/hibernate/GORM as a platform to
+use. This quickly turned into pain when I tried to make a data importer
+using grails also.
+
+Each CSV row from the source file would have to be turned into many
+different rows in the database because it represented multiple
+relationships, example:
+
+![](../../media/158300473458_0.png)
+
+\
+
+Initially I made my data importer in grails, and was hardcoding column
+names knowing full well this was really inflexible. At the same time I
+was also trying to "iterate" on my database schema, and I'd want to
+re-import my data to test it out, but it was really really slow. I tried
+many different approaches to try to speed this up such as cleanUpGorm,
+StatelessSessions, and other tricks, but it would take 10-20 minutes for
+imports on a 100KB input file.  \
+
+What I basically realised is that for bulk data import
+
+**1) Using the ORM is really painful for bulk import.**
+
+**2) If you can pre-process your data so that it is already in the
+format the database expects, then you can use the CSV COPY command which
+is very fast**
+
+**3) If you can then abandon the ORM mentality and even ignore it as
+a convenience factor, then you can embrace my database system itself**
+
+\
+
+\
+
+Overall, after all this work, it just seemed like ORM treats the
+database as a danger and something to be heavily abstracted over, but I
+actually found joy in learning how to treat my database as a first class
+citizen. Soon I started gaining appreciation of
+
+\- using plain SQL queries\
+- learning about full text search in postgres with ts\_query\
+- learning about triggers to make a "last updated" field get updated
+automatically
+
+I am pretty happy this way, and although I miss some things like
+criteria queries which are very powerful, I am happy that I can interact
+with my database as a friend
+
+\
+
+At the very least, due to the fact that I now pre-process the data
+before database loading, I can now import large amounts of data super
+fast with the CSV COPY command
+
+::: {#footer}
+[ March 12th, 2017 3:13am ]{#timestamp} [grails]{.tag}
+[postgresql]{.tag} [sql]{.tag}
+:::

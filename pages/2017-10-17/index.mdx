@@ -1,0 +1,144 @@
+Response to "You fired your top talent"
+=======================================
+
+This post is not necessarily against the post "you fired your top
+talent" or "we fired our top talent". Just maybe an inquiry to why
+things happen as they do with high performing and low performing workers
+
+\
+
+In my experience, it seems like workers can be completely unproductive
+even when they are "coming into work every day". I can't really explain
+why, but I have been in unproductive roles where I was totally on dead
+ends, and I don't think it's necessarily because I was unskilled. For
+example, I have also  been on projects where I just fully absorbed the
+code and became a core contributor (maybe even became a "Rick"). Then it
+was kind of insane because as a core contributor, when I looked around,
+I just saw other people doing unproductive and even counterproductive
+things.
+
+Now, as the article says, where was "management"? Would they have
+helped, for example to manage Rick better or spread work out, as the
+article seems to suggest? IMO, I think not. Maybe the article is a plea
+for better management (the article itself is a response to another one
+where management simply fired their "Rick") but I think it is just so
+frequent that management is pretty incompetent in technical ways that I
+have a hard idea of knowing whether my experience is bad or not (note
+that I do believe, in many cases, that their diplomacy efforts and
+people skills are pretty impressive so I don't believe in "no
+management"). But can they manage the technical work? I am not sure. For
+example, management I have worked under always seem to have a bunch of
+"pet project" features that they harped on about. We could have a
+meeting every week, and this same thing would occur every other week,
+and you have to repeatedly explain why it is a problem in the current
+codebase. In some sense, as a core dev, you might even start to believe
+the management is psychotic for even wanting some of these features that
+they harp on about because there are so many more important real things
+you need, and implementing their pet project or fixing their pet peeve
+would actually damage the codebase. 
+
+The real work on the project isn't the pet projects that management has,
+it is plugging away at issues, enabling better code through good
+abstractions (functional, architectural, object oriented, or
+configuration abstractions). Good code often can just be a proliferation
+of existing good code patterns in a monkey-see monkey-do thing, and
+eventually you don't always need to go to stackoverflow for an answer
+eventually because the entire mental map you obtain enables you to pick
+and choose solutions from your own project. Abstractions can then enable
+certain more productive things to happen down the line, make things
+flexible. Then many parts of code work in fixing issues should make
+things more stable and accurate (hopefully you are not just working
+yourself into a hacky soup when you are "fixing" your issues). In the
+worst case, something you created actually just multiplies issues for
+you because suddenly everything is dependent on a hack. Sometimes I feel
+like some devs just really fail to see this and start to just hack
+things to the fucking bone trying to make it work. If you are a
+productive contributor working on the project, you might be able to
+recognize a lot of these things, and hopefully realize that productive
+is not just "create hacks" or "we need to change frameworks" (how many
+conference calls have we had where management disparages library x as
+being unhip? or calling the old devs "dumb" for not having implemented
+their pet project before they quit? management can be dumb as a rock
+imo, and as I no longer work there, I'm really happy to rip into their
+bad habits)
+
+What about the idea that things need "documenting" to enable other devs
+to work on the project? I think this is a red herring. In fact, "Rick"
+probably is documenting things if he's a good developer. He probably has
+important notes that you would understand if you were actually even
+using the product as it is meant to be used (and not, simply using the
+product to test whether your pet prioject was finally implemented, or
+working on a crazy side project that is tangential to what most users
+use the product for, these tangential misguided uses of your core
+product often comes from UNPRODUCTIVE DEVS and MANAGEMENT not from RICK!
+Rick probably has the best knowledge about not only the code, but also
+the future potential of the project and the current needs of users (if
+he does mail list support for example, he's might be in correspondence
+with users already). There might be a very deep configuration option
+that Rick made that few people know about, but when you realize that
+config variable exists, you will be so appreciative. In fact, you are
+overjoyed because now you just flip that config switch instead of
+editing the codebase and recompiling to enable something. The entry
+probably exists in documentation, but you don't care until you need it.
+Also, the original article seems to claim that these config switches
+add "complexity" and claim their trimmed down version that they made
+"without Rick" is more "bug free" but many times, config switches can be
+completely painless (e.g. read a global json object. that's absolutely
+painless in javascript. don't complain about globals to me for a read
+only config) and don't add significant complexity, they actually just
+add flexibility!
+
+Now, I've had devs explain "architecture" to me, and afterwards it
+completely means nothing to me. They give me some crazy idea that
+essentially boils down to "oh this is MVC, and there are some crazy
+modules at each layer, but yea, enjoy" and I really am not enlightened
+at all. To even get what's going on, I have to begin deeply working with
+the code. Now because of that, there might be a sort of explanation of
+why a dev is unproductive, namely that for whatever reason or another,
+they are not taking a dive into the code, and therefore, they just don't
+engage. Learning to use "grep" and everything to find what part of code
+does whatever thing is really important as far as this goes, but
+eventually, you need to just get a big mental map of everything.\
+
+The idea of a developer having a "responsibility" for their code is
+something that I truly think could be important too. You can really only
+build the mental map if you are doing things with the code, so for
+example, a successful project would have a good system of getting
+developers on tasks that are appropriate and reasonable. In a project I
+succeeded in, the original developers left the project and I was
+basically in a position where I could take up a lot of slack and
+responsibility for the project, so I did so with eagerness. In another
+example, I've been given projects that I don't feel like is part of the
+core product or even the core codebase (being assigned smaller code
+projects that may or may not find use in a core product)
+
+If I was to make an analogy, sometimes you need to really take some
+personal responsibility to make a project happen. When I am working on
+home repairs, of which I have a LOT of as I am basically fixing up
+houses in my spare time now, I find that I can simply be of assistance
+my friend who is also helping fix the house, or I can spearhead a
+project on my own. Or, my friend (who is better at repairs than me) can
+kindly suggest a project that I can do. In one sense, he can be a
+manager but only because he really knows what is also going on in the
+codebase. But I can also, take the responsibility to make things happen
+myself. If I have a good enough mental map of what to do, I can then
+perform all the google queries, the store trips, know what tools to use,
+and execute all on my own.
+
+With my house-fixing-up project, if I was to have my parents be
+"management" (they love getting pictures of progress and making
+suggestions) then literally what they keep telling me to do is put in a
+washer and dryer in, even though we are not even finished with demo
+(demolition) work and the place is a mess. Surely they know some other
+stuff, and might even be able to suggest things to do or people to call
+if they were more deeply involved, but basically, the management can't
+help very deeply. Similarly, documentation of all my work isn't going to
+help, because really it is the process of being involved in the coding
+and fixing of existing issues that makes you know what needs work. The
+documentation, per se, is all online on google for example "how to put
+in light switch" but your mental map of what needs to go where in the
+house is what pushes the project forward.
+
+::: {#footer}
+[ October 17th, 2017 2:43am ]{#timestamp} [rant]{.tag}
+:::

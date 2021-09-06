@@ -1,0 +1,45 @@
+
+# Decrease your idle CPU usage when developing typescript apps with this one environment variable
+
+
+TL;DR:
+
+add this to your bashrc
+
+```
+export TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling
+```
+
+This particular watcher variable is not the default setting for typescript, but
+it changes the default from polling for file changes to a watcher. There is
+discussion here
+
+https://github.com/microsoft/TypeScript/issues/31048
+
+The issue thread shows that it can go from roughly ~7% idle CPU usage to 0.2%.
+This corresponds roughly what I see too. Detailed docs for typescript discuss
+some of the reasoning behing not making this the default
+
+https://github.com/microsoft/TypeScript-Handbook/blob/master/pages/Configuring%20Watch.md#background
+
+
+
+It claims that some OS specific behaviors of file watching could be harmful to
+making it the default. For example, that (maybe?) on linux, it may use a large
+number of file watchers which can exceed notify handles (this is a setting I
+commonly have to increase in linux, guide here
+https://dev.to/rubiin/ubuntu-increase-inotify-watcher-file-watch-limit-kf4)
+
+
+
+PS: you could also edit your package.json of your `create-react-app –template
+typescript` for example like this…then users of your app will get a similar
+benefit.
+
+```
+-"start": "react-scripts start"
++"start": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start"
+```
+
+disclaimer: there may be reasons that typescript does not have this enabled by
+default so be aware

@@ -1,0 +1,94 @@
+Studying chaos, starting with an overview of ODE
+================================================
+
+A friend and I are studying the book Nonlinear Dynamics and Chaos by
+Strogatz. Here is a quick introduction to differential equations that I
+tried to start up with and an example from the book
+
+The chapter 1 of Nonlinear Dynamics and Chaos talks about the lay of the
+land in chaos theory and starts to give a couple of examples with
+differential equations. But what is a differential equation?
+
+Well, it can be basically any calculus system where you have a
+relationship between rates of change of a variable and other things.
+That is very vague, but maybe for example, we can look at the
+acceleration of an object undergoing friction as an ODE and observe that
+the acceleration of the object is actually related to how fast it is
+already going, so the second derivative is related to the first
+derivative itself.
+
+The initial example in the book refers to something like an object on a
+spring that is experiencing friction, a "damped oscillator".
+
+![](../../media/158949147558_0.png)
+
+To try to study this system, we transformed it into two equations by
+introducing a variable substitution
+
+![](../../media/158949147558_1.png)
+
+In this system, x1 is the position, and the derivative of x1 is velocity
+(change in position over time), and we define derivative of x1 as x2.
+Then acceleration, the derivative of x2, is given by it's relationship
+to the constants (k is spring constant, lookup spring on wiki for
+explanation just like hardness of spring, b is damping force or
+friction, m is mass) and x1 and x2
+
+We can then code this system of equations in R, in this new system:
+
+        library(deSolve)
+        # x1 = initial position
+        # x2 = initial velocity
+        state <- c(x1 = 100, x2 = 0)
+        # b = damping constant (e.g. friction)
+        # m = mass
+        # k = spring constant for oscillator
+        parameters <- c(b = 10, m = 50, k = 100)
+        DampedOscillator<-function(t, state, parameters) {
+          with(as.list(c(state, parameters)), {
+            dX <- x2
+            dY <- -b/m*x2-k/m*x1
+            list(c(dX, dY))
+          })
+        }
+        # go from time 0 to 100, iterating by 0.01 seconds
+        times <- seq(0, 100, by = 0.01)
+        # run simulation for each timestep
+        out <- ode(y = state, times = times, func = DampedOscillator, parms = parameters)
+        # plot multiple plots on one plot, not too important
+        x=par(mfrow=c(2,2))
+        # plot of position over time
+        plot(out[,'time'], out[,'x1'], type='l', xlab='time', ylab='position')
+        # plot of variable over time
+        plot(out[,'time'], out[,'x2'], type='l', xlab='time', ylab='velocity')
+        # phase plot
+        plot(out[,'x1'], out[,'x2'], type='l', xlab='position', ylab='velocity')
+        # restore plots
+        par(x)
+
+Now run this in R and see what the output is. For me it looks like this:
+
+![](../../media/158949147558_2.png)
+
+Does this plot make sense for an "oscillating object undergoing
+friction"? Does the code make sense? Any questions about how this is
+setup?
+
+Now try playing with the system
+
+Exercise 1: Try changing initial position `x1` to be 0 and initial
+velocity `x2` to 100, and run the simulation again. Do the results make
+sense?
+
+Exercise 2: Try changing the parameters such as increasing the friction
+`b` to a high value, what happens?
+
+Exercise 3: Try making `b` equal to 0, what happens?
+
+This system of equations does not demonstrate chaos, but next time we
+can try and look at a chaotic system!
+
+::: {#footer}
+[ March 28th, 2017 10:01pm ]{#timestamp} [chaos]{.tag} [studying]{.tag}
+[math]{.tag} [calculus]{.tag} [r]{.tag} [rstats]{.tag}
+:::
