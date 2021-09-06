@@ -4,28 +4,30 @@ import Layout from "../components/Layout"
 Installing clamav on OSX
 ========================
 
-It is a common trope that OSX doesn't need anti-virus because everyone
-targets windows. That is maybe comforting to some but I think it's
-pretty naive. It would be better to have a system on your machine to
-tell you about viruses, trojan horses, malware, or spying.  I have
-decided to employ a free open source scanner called
-clamAV <https://www.clamav.net/>
+It is a common trope that OSX doesn't need anti-virus because everyone targets
+windows. That is maybe comforting to some but I think it's pretty naive. It
+would be better to have a system on your machine to tell you about viruses,
+trojan horses, malware, or spying.  I have decided to employ a free open source
+scanner called clamAV <https://www.clamav.net/>. I don't really know if it has
+any good features for Mac scanning but thought it could be fun to install
 
-ClamAV is the top choice for linux based OSs being free and open source
-(GPL) virus scanner.
 
-\
+ClamAV is the top choice for linux based OSs being free and open source (GPL)
+virus scanner.
+
+
 
 To install we can use homebrew
 
-    \$ brew install clamav
+```
+    $ brew install clamav
+```
 
-\
 
 Then there is s config file to setup. This is located
 in /usr/local/etc/clamav/freshclam.conf
 
-\
+
 
 To setup, edit this file and delete the line that says "Example" and
 then uncheck the desired settings. I would chose to enable logging to
@@ -33,29 +35,35 @@ then uncheck the desired settings. I would chose to enable logging to
 
 Then run the "freshclam" program
 
-    \$ freshclam
+```
+    $ freshclam
+```
 
-\
 
 This will download the virus scanner database (main) and daily scanning
 updates
 
-\
+
 
 Then you can run clamscan on a given directory (recursively, only print
 infected files)
 
-    \$ clamscan -ri \~/
+```
+    $ clamscan -ri ~/
+```
 
-\
 
 Or add this to a cronjob
 
-    \$ crontab -
+```
+    $ crontab -
 
-    [\@hourly](https://tmblr.co/mOKWMmBeJ1b_J7izaZpeYaQ) clamscan -ri
-\~/ \| mail -v -s "clamscan results" your.email\@gmail.com  \>/dev/null
-2\>&1
+    [@hourly](https://tmblr.co/mOKWMmBeJ1b_J7izaZpeYaQ) clamscan -ri
+~/ | mail -v -s "clamscan results" your.email@gmail.com  >/dev/null
+2>&1
+
+```
+
 
 ::: {#footer}
 [ June 20th, 2016 6:15pm ]{#timestamp}
