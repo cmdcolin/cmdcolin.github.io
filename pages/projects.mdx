@@ -1,3 +1,5 @@
+import Layout from "./components/Layout"
+
 # Personal info
 
 ## Work
@@ -53,7 +55,10 @@ repos. Please add your favorites with PRs :)
 
 ## Gallery
 
-![](gwasviewer.png)
-![](tumblrgraph.png)
-![](ontograph.png)
-![](mafviewer.png)
+<img src="mafviewer.png" width={400}/>
+<img src="gwasviewer.png" width={400}/>
+<img src="tumblrgraph.png" width={400}/>
+<img src="ontograph.png" width={400}/>
+
+
+export default ({ children }) => <Layout>{children}</Layout>
