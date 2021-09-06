@@ -1,3 +1,6 @@
+import Layout from "../components/Layout"
+
+
 You are writing a library...or your writing an app and you want to publish some
 of the components of it as a library...
 
@@ -26,3 +29,6 @@ Here are some questions in the form of comments
 Just something to be aware of! You can always ride the dragon and accept these
 minor breakages from semver bumps, but it can introduce some issues for your
 consumers
+
+
+export default ({ children }) => <Layout>{children}</Layout>

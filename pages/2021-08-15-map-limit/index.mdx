@@ -1,3 +1,6 @@
+import Layout from "../components/Layout"
+
+
 # An amazing error message if you put more than 2^24 items in a JS Map object
 
 One of the fun things about working with big data is that you can often hit
@@ -162,3 +165,6 @@ for (let i = 0; i <= 1_000_000_000; i++) {
 
 This has been another episode of ....the twilight zone (other episodes
 catalogued here) https://github.com/cmdcolin/technical_oddities/
+
+
+export default ({ children }) => <Layout>{children}</Layout>
