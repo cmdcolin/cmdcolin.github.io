@@ -1,171 +1,156 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/82eb5efba2a6c9217a68.css" as="style"/><link rel="stylesheet" href="/_next/static/css/82eb5efba2a6c9217a68.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-75e0706c9e1cdf9d8afe.js" defer=""></script><script src="/_next/static/chunks/pages/2018-12-17-4db9a3a0ad68c7b6e7e7.js" defer=""></script><script src="/_next/static/jYEhchOW9TfIj71h1WZjR/_buildManifest.js" defer=""></script><script src="/_next/static/jYEhchOW9TfIj71h1WZjR/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div class="blog"><h1>Behind the release: the story of the bugs and features in a standard maintenance release of jbrowse</h1><p>Every once in awhile, you might see that your favorite program,
-JBrowse,  has a new release. There are a ton of little snippets in the
-release notes, you might as well just go ahead and upgrade, but what
-went into all those little fixes? Going to the blog post has links to
-the github
-issues, <a href="http://jbrowse.org/blog/2018/12/13/jbrowse-1-16-0.html">http://jbrowse.org/blog/2018/12/13/jbrowse-1-16-0.html</a> but I
-felt like maybe I&#x27;d add a little more context for some of them:</p><p>PS This is sort of motivated by @zcbenz blog on Electron
-(<a href="https://twitter.com/zcbenz">https://twitter.com/zcbenz</a> <a href="http://cheng.guru/">http://cheng.guru/</a>) which tells the
-software in terms of actual commit messages and such.</p><ul><li><p>The webpack build doing a production build by default. This seems
-pretty straightforward, but was also difficult because I use WSL and the
-UglifyJs plugin had trouble on WSL using the parallel: 4 option to use
-multiple processors. This was really annoying and resulted in the
-webpack build just hanging for no reason and only careful google-fu
-really uncovered other people having this issue. I removed the
-parallelism as the speed gain wasn&#x27;t even really
-justifiable <a href="https://github.com/gmod/jbrowse/pull/1223">https://github.com/gmod/jbrowse/pull/1223</a></p></li><li><p>The incorporation of the \@gmod/bam module. This was an almost 2
-months process after my first module, @gmod/indexedfasta. It required
-really getting down to the binary level for BAM and was pretty tough.
-The module has already itself had 12 releases
-<a href="https://github.com/GMOD/bam-js/blob/master/CHANGELOG.md">https://github.com/GMOD/bam-js/blob/master/CHANGELOG.md</a></p></li></ul><p>- Added support for indexing arbitrary fields from GFF3Tabix files. This
-was fairly straightforward but required making design decisions about
-this. Previously flatfile-to-json.pl files would have a command line
-flag to index arbitrary fields. Since gff3tabix files are specified via
-config, I allowed specifying arbitrary fields via config.</p><p>- Added ability to render non-coding transcript types to the default
-Gene glyph. This one was a nice feature and enables you to see
-non-coding types, but required some weird design decisions because I
-could not override the &quot;box-&gt;style-<!-- -->&gt;<!-- -->color&quot; from a higher level type
-simply using the _defaultConfig function, so I needed to override the
-getStyle callback that was passed down to the lower levels, so that it
-was able to use the default lower level style and also our non-coding
-transcript style. See this part of the code for
-details <a href="https://github.com/GMOD/jbrowse/commit/ec638ea1cc62c8727#diff-a14e88322d8f4e8e940f995417277878R22">https://github.com/GMOD/jbrowse/commit/ec638ea1cc62c8727#diff-a14e88322d8f4e8e940f995417277878R22</a></p><p>- Added hideImproperPairs filter. This was fairly straightforward but it
-is one of these bugs that went unnoticed for years...the
-hideMissingMatepairs flag would hide things didn&#x27;t have the sam 0x02
-flag for &quot;read mapped in proper pair&quot;, but reads with this flag could
-still be paired. Doing the 1.16 release that focused on paired reads
-helped focus on this issue and now hideMissingMatepairs filters on &quot;mate
-unmapped&quot; and hideImproperPairs is the &quot;read mapped in proper pair&quot;</p><ul><li>Added useTS flag. This one is fairly straightforward, it is similar
-to useXS which colors reads based on their alignment in canonical splice
-site orientations. I figured I could just copy the useXS to the useTS
-since I figured they are the same, but I went ahead and manually
-generated RNA-seq alignments with minimap2 and found that the useTS is
-actually flipped the opposite of useXS, so it was valuable to get actual
-test data here.</li></ul><p>- Fixed issue where some generate-names setups would fail to index
-features. This was a bad bug that was brought to light by a user. I was
-kind of mind boggled when I saw it. In JBrowse 1.13-JBrowse 1.15 a
-change was introduced to name indexing with a memory leak. In JBrowse
-1.15 that was removed. But, there was another change where refseqs could
-return empty name records, because they were handled separately. But if
-the initial fill up of the name buffer of 50000 was exceeded by the
-reference sequence, then there would be empty name records after this
-point and cause the name indexing to stop. Therefore this bug would only
-happen when the reference sequence indexing buffer exceeded 50000 items
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/82eb5efba2a6c9217a68.css" as="style"/><link rel="stylesheet" href="/_next/static/css/82eb5efba2a6c9217a68.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-1a8a258926ecde76681b.js" defer=""></script><script src="/_next/static/chunks/framework-b97a0ed4f13ff8397343.js" defer=""></script><script src="/_next/static/chunks/main-1f2c591c5d3bfcfc95e6.js" defer=""></script><script src="/_next/static/chunks/pages/_app-72a03db9ecdc52193d45.js" defer=""></script><script src="/_next/static/chunks/pages/2018-12-17-95dc2ed30e5581f19ffd.js" defer=""></script><script src="/_next/static/nM3Pl6ONFlRgnuOSFAj3x/_buildManifest.js" defer=""></script><script src="/_next/static/nM3Pl6ONFlRgnuOSFAj3x/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div class="blog"><p>Behind the release: the story of the bugs and features in a standard</p><h1>maintenance release of jbrowse</h1><p>Every once in awhile, you might see that your favorite program, JBrowse,  has a
+new release. There are a ton of little snippets in the release notes, you might
+as well just go ahead and upgrade, but what went into all those little fixes?
+Going to the blog post has links to the github
+issues, <a href="http://jbrowse.org/blog/2018/12/13/jbrowse-1-16-0.html">http://jbrowse.org/blog/2018/12/13/jbrowse-1-16-0.html</a> but I felt
+like maybe I&#x27;d add a little more context for some of them:</p><p>PS This is sort of motivated by @zcbenz blog on Electron
+(<a href="https://twitter.com/zcbenz">https://twitter.com/zcbenz</a> <a href="http://cheng.guru/">http://cheng.guru/</a>) which tells the software in
+terms of actual commit messages and such.</p><ul><li><p>The webpack build doing a production build by default. This seems pretty
+straightforward, but was also difficult because I use WSL and the UglifyJs
+plugin had trouble on WSL using the parallel: 4 option to use multiple
+processors. This was really annoying and resulted in the webpack build just
+hanging for no reason and only careful google-fu really uncovered other
+people having this issue. I removed the parallelism as the speed gain wasn&#x27;t
+even really justifiable <a href="https://github.com/gmod/jbrowse/pull/1223">https://github.com/gmod/jbrowse/pull/1223</a></p></li><li><p>The incorporation of the <code>@gmod/bam</code> module. This was an almost 2 months
+process after my first module, <code>@gmod/indexedfasta</code>. It required really
+getting down to the binary level for BAM and was pretty tough.  The module
+has already itself had 12 releases <a href="https://github.com/GMOD/bam-js/blob/master/CHANGELOG.md">here</a></p></li></ul><p>- Added support for indexing arbitrary fields from GFF3Tabix files. This was
+fairly straightforward but required making design decisions about this.
+Previously flatfile-to-json.pl files would have a command line flag to index
+arbitrary fields. Since gff3tabix files are specified via config, I allowed
+specifying arbitrary fields via config.</p><p>- Added ability to render non-coding transcript types to the default Gene
+glyph. This one was a nice feature and enables you to see non-coding types, but
+required some weird design decisions because I could not override
+the <code>box-&gt;style-&gt;color</code> from a higher level type simply using the
+<code>_defaultConfig</code> function, so I needed to override the <code>getStyle</code> callback
+that was passed down to the lower levels, so that it was able to use the
+default lower level style and also our non-coding transcript style. See this
+part of the code for
+details <a href="https://github.com/GMOD/jbrowse/commit/ec638ea1cc62c8727#diff-a14e88322d8f4e8e940f995417277878R22">https://github.com/GMOD/jbrowse/commit/ec638ea1cc62c8727#diff-a14e88322d8f4e8e940f995417277878R22</a></p><p>- Added <code>hideImproperPairs</code> filter. This was fairly straightforward but it is one
+of these bugs that went unnoticed for years...the <code>hideMissingMatepairs</code> flag
+would hide things didn&#x27;t have the sam 0x02 flag for &quot;read mapped in proper
+pair&quot;, but reads with this flag could still be paired. Doing the 1.16 release
+that focused on paired reads helped focus on this issue and now
+hideMissingMatepairs filters on &quot;mate unmapped&quot; and <code>hideImproperPairs</code> is
+the &quot;read mapped in proper pair&quot;</p><ul><li>Added <code>useTS</code> flag. This one is fairly straightforward, it is similar to
+<code>useXS</code> which colors reads based on their alignment in canonical splice site
+orientations. I figured I could just copy the <code>useXS</code> to the <code>useTS</code> since I
+figured they are the same, but I went ahead and manually generated RNA-seq
+alignments with minimap2 and found that the useTS is actually flipped the
+opposite of <code>useXS</code>, so it was valuable to get actual test data here.</li></ul><p>- Fixed issue where some <code>generate-names</code> setups would fail to index features.
+This was a bad bug that was brought to light by a user. I was kind of mind
+boggled when I saw it. In JBrowse 1.13-JBrowse 1.15 a change was introduced to
+name indexing with a memory leak. In JBrowse 1.15 that was removed. But, there
+was another change where refseqs could return empty name records, because they
+were handled separately. But if the initial fill up of the name buffer of 50000
+was exceeded by the reference sequence, then there would be empty name records
+after this point and cause the name indexing to stop. Therefore this bug would
+only happen when the reference sequence indexing buffer exceeded 50000 items
 which could happen even when there are less than 50000 refseqs due to
-autocompletions</p><p>-  Fixed issue with getting feature density from BAM files via the index
-stats estimation. This involved parsing the &quot;dummy bin&quot; from index
-files, and I found it was failing on certain 1000 genomes files. I
-actually don&#x27;t really know what the story behind this was, but our tabix
-code was better at parsing the dummy bins than my bam code, and it was
-the same concept, so I took a note from their codebase to use it in
-bam-js code. Commit
-here <a href="https://github.com/GMOD/bam-js/commit/d5796dfc8750378ac8b875615ae0a7e81371af76">https://github.com/GMOD/bam-js/commit/d5796dfc8750378ac8b875615ae0a7e81371af76</a></p><p>-  Fixed issue with some GFF3Tabix tracks having some inconsistent
-layout of features. This is a persistently annoying fact in tabix files
-where we cannot really get a unique ID of a feature based on it&#x27;s file
-offset. Therefore this takes the full crc32 of a line as it&#x27;s unique ID.</p><ul><li>Fixed CRAM store not renaming reference sequences in the same way as
-other stores. This one was interesting because rbuels made a fix but it
-caused features from one chromosome to show up on the wrong ones, so
-chr1 reads where showing up on chrMT. This happened because it was
-falling back to the refseq index if it chrMT wasn&#x27;t in the embedded &quot;sam
-header&quot; in the CRAM file, but it should only fallback to refseq index if
-there is not any embedded &quot;sam header&quot; in the CRAM file.</li></ul><p>-  Fixed bug where older browsers e.g. IE11 were not being properly
-supported via babel. This was a absolutely terrible bug that I found
-over thanksgiving break. It was a regression from 1.15 branch of
-JBrowse. Previous versions from 1.13 when webpack was up until 1.15 used
-@babel/env. It was changed to babel-preset-2015 but it was not being
-run correctly. Then I found that even if I did get it running correctly,
-it was unable to properly babel-ify the lru-cache module because it used
-something called Object.defineProperty(&#x27;length&#x27;, ...) to change how the
-length property was intepreted which was illegal in IE11. The
-&#x27;util.promisify&#x27; NPM module also did this in some contexts. I found that
-I could use the quick-lru module and the es6-promisify module instead of
-lru-cache and util.promisify as a workaround. Then I had to update all
-@gmod/tabix, \@gmod/vcf, \@gmod/bgzf-filehandle, \@gmod/indexedfasta,
-@gmod/tribble-index, \@gmod/bam, and JBrowse proper to use these
-modules instead, and make the bable chain, which typically does not
-parse node_modules, to build these modules specifically (I didn&#x27;t want
-to setup babel toolchains for every single one of these modules, just
-one in the jbrowse main codebase...). This was really a lot of work to
-support IE11 but now that works so *shrug<!-- -->*</p><p>-  Fixed bug where some files were not being fetched properly when
-changing refseqs. This was actually fixed when I changed out lru-cache
-for quick-lru and fixed a bug where the cache size was set to 0 due to a
-erroneous comment that said &quot;50<em>1024 // 50MB&quot;...of course it should
-have said &quot;50</em>1024<!-- -->*<!-- -->1024 //
-50MB&quot; <a href="https://github.com/GMOD/jbrowse/commit/2025dc0aa0091b70">https://github.com/GMOD/jbrowse/commit/2025dc0aa0091b70</a></p><ul><li><p>Fixed issue where JBrowse would load the wrong area of the refseq on
-startup resulting in bad layouts and excessive data fetches. This was
-actually a heinous bug where jbrowse upon loading would just navigateTo
-the start of the reference sequence automatically and then to wherever
-was specified by the user. This resulted in track data to start
-downloading immediately from the start of the chromosome and resulted in
-for example 350 kilobases of reference sequence from all tracks to start
-downloading, which when I was implementing view as pairs, was causing me
-to download over 100MB routinely. This was terrible, and after fixing I
-only download about 10MB over even large regions for most BAM files.
-Additionally, this bug was causing the track heights to be calculated
-incorrectly because the track heights would actually be calculated based
-on distorted canvas
-bitmaps. <a href="https://github.com/gmod/jbrowse/issues/1187">https://github.com/gmod/jbrowse/issues/1187</a></p></li><li><p>JBrowse Desktop was not fetching remote files. This was a weird issue
-where remote file requests were considered a CORS requests to any
-external remote. This was solved by changing the usage of the fetch API
-in JBrowse for node-fetch which does not obey CORS. Note that
-electron-fetch was also considered, which uses Chromiums network stack
-instead of node&#x27;s, but that had specific assumptions about the context
-in which it was called. </p></li></ul><p>-  Fixed issue where some parts of a CRAM file would not be displayed in
-JBrowse due to a CRAM index parsing issue. This was based on a sort of
-binary search that was implemented in JBrowse where the elements of the
-lists were non-overlapping regions, and the query was a region, and the
-output should be a list of the non-overlapping regions that overlap the
-query. Most algorithms for binary search don&#x27;t really tell you how to do
-searches on ranges so needed to roll up my sleeves and write a little
-custom code. An interval tree could have been used but this is too
-heavy-weight for non-overlapping regions from the
-index <a href="https://github.com/GMOD/cram-js/pull/10">https://github.com/GMOD/cram-js/pull/10</a></p><p>-  Fixed an issue where BAM features were not lazily evaluating their
-tags. When a function feature.get(&#x27;blahblahblah&#x27;) is called on a BAM
-feature, it checks to see if it&#x27;s part of a default list of things that
-are parsed like feature start, end, id, but if not, it has to parse all
-the BAM tags to see if it is a tag. Since they are called &quot;lazy
-features&quot; the tag processing is deferred until it is absolutely needed.
-As it turned out, the incorporation of CRAM in 1.15 was calling a
-function to try to get the CRAM&#x27;s version of CIGAR/MD on the BAM
-features unnecessarily invoking the tag parsing on every feature up
-front and therefore making the feature not really lazy anymore. This
-restored the &quot;lazyness&quot; aspect of BAM.</p><p>-  Fixed issue where CRAM layout and mouseover would be glitchy due to
-ID collisions on features. In the 1.15 releases, CRAM was introduced,
-and we thought that the concept of taking CRC32 of the entire feature
-data days were over because there is the concept of a &quot;unique ID&quot; on the
-features. However, this ID was only unique within the slices, so around
-the slice boundaries there were a lot of bad feature layouts and
-mouseovers would fail because they would map to multiple features, etc.
-I found a way to unique-ify this by giving it the sliceHeader file
-offset. <a href="https://github.com/GMOD/cram-js/pull/10">https://github.com/GMOD/cram-js/pull/10</a></p><ul><li><p>We also had behind the scenes work by igv.js team member jrobinso who
-helped on the CRAM codebase to incorporate a feature where for lossy
-read names, so that a read and it&#x27;s mate pair would consistently be
-assigned the same read name based on the unique ID mentioned above.
-There was also a rare issue where sometimes the mate pair&#x27;s orientation
-was incorrectly reported based on the CRAM flags, but the embedded BAM
-flags correctly reported it.</p></li><li><p>Finally the paired reads feature. This was a feature that I really
-wanted to get right. It started when garrett and rbuels were going to
-san diego for the CIVIC hackathon, and we talked about doing something
-that matched a &quot;variant review system&quot; that they had done for the IGV
-codebase, which involved detailed inspection of reads. I thought it
-would probably be feasible for jbrowse to do this, but I thought
-essentially at some point that enhancing jbrowse&#x27;s read visualizations
-with paired reads would be a big win. I had thought about this at the
-JBrowse hackathon also and my discussions then were that this was very
-hard. Overall, I invented a compromise that I thought was reasonable
-which was that there can be a &quot;maxInsertSize&quot; for the pileup view beyond
-which the pairing wouldn&#x27;t be resolved. This allowed (a) a significant
-reduction in data fetches because I implemented a &quot;read redispatcher&quot;
-that would actually literally resolve the read pairs in the separate
-chunks and (b) a cleaner view because the layout wouldn&#x27;t be polluted by
-very long read inserts all the time and also, for example, if you
-scrolled to the right, and suddenly a read was paired to the left side
-of your view, it would result in a bad layout (but with max insert size,
-the window of all reads within maxinsertsize are always resolved so this
-does not happen) and finally ( c) the paired arc view was incorporated
-which does not use read redispatching and which can do very long reads.
-All of these things took time to think through and resolve, but it is
-now I think a pretty solid system and I look forward to user feedback!</p></li></ul><p>::: {#footer}
+autocompletions</p><p>-  Fixed issue with getting feature density from BAM files via the index stats
+estimation. This involved parsing the &quot;dummy bin&quot; from index files, and I found
+it was failing on certain 1000 genomes files. I actually don&#x27;t really know what
+the story behind this was, but our tabix code was better at parsing the dummy
+bins than my bam code, and it was the same concept, so I took a note from their
+codebase to use it in bam-js code. Commit
+here <a href="https://github.com/GMOD/bam-js/commit/d5796dfc8750378ac8b875615ae0a7e81371af76">https://github.com/GMOD/bam-js/commit/d5796dfc8750378ac8b875615ae0a7e81371af76</a></p><p>-  Fixed issue with some GFF3Tabix tracks having some inconsistent layout of
+features. This is a persistently annoying fact in tabix files where we cannot
+really get a unique ID of a feature based on it&#x27;s file offset. Therefore this
+takes the full crc32 of a line as it&#x27;s unique ID.</p><ul><li>Fixed CRAM store not renaming reference sequences in the same way as other
+stores. This one was interesting because rbuels made a fix but it caused
+features from one chromosome to show up on the wrong ones, so chr1 reads
+where showing up on chrMT. This happened because it was falling back to the
+refseq index if it chrMT wasn&#x27;t in the embedded &quot;sam header&quot; in the CRAM
+file, but it should only fallback to refseq index if there is not any
+embedded &quot;sam header&quot; in the CRAM file.</li></ul><p>-  Fixed bug where older browsers e.g. IE11 were not being properly supported
+via babel. This was a absolutely terrible bug that I found over thanksgiving
+break. It was a regression from 1.15 branch of JBrowse. Previous versions from
+1.13 when webpack was up until 1.15 used <code>@babel/env</code>. It was changed to
+babel-preset-2015 but it was not being run correctly. Then I found that even if
+I did get it running correctly, it was unable to properly babel-ify the
+lru-cache module because it used something called
+<code>Object.defineProperty(&#x27;length&#x27;, ...)</code> to change how the length property was
+intepreted which was illegal in IE11. The &#x27;util.promisify&#x27; NPM module also did
+this in some contexts. I found that I could use the quick-lru module and the
+es6-promisify module instead of lru-cache and util.promisify as a workaround.
+Then I had to update all <code>@gmod/tabix</code>, <code>@gmod/vcf</code>, <code>@gmod/bgzf-filehandle</code>,
+<code>@gmod/indexedfasta</code>, <code>@gmod/tribble-index</code>, <code>@gmod/bam</code>, and JBrowse proper to
+use these modules instead, and make the bable chain, which typically does not
+parse node_modules, to build these modules specifically (I didn&#x27;t want to setup
+babel toolchains for every single one of these modules, just one in the jbrowse
+main codebase...). This was really a lot of work to support IE11 but now that
+works so ...ya</p><p>-  Fixed bug where some files were not being fetched properly when changing
+refseqs. This was actually fixed when I changed out lru-cache for quick-lru and
+fixed a bug where the cache size was set to 0 due to a erroneous comment that
+said <code>50*1024 // 50MB</code>...of course it should have said <code>50*1024*1024 //
+50MB</code> <a href="https://github.com/GMOD/jbrowse/commit/2025dc0aa0091b70">https://github.com/GMOD/jbrowse/commit/2025dc0aa0091b70</a></p><ul><li><p>Fixed issue where JBrowse would load the wrong area of the refseq on startup
+resulting in bad layouts and excessive data fetches. This was actually a
+heinous bug where jbrowse upon loading would just navigateTo the start of the
+reference sequence automatically and then to wherever was specified by the
+user. This resulted in track data to start downloading immediately from the
+start of the chromosome and resulted in for example 350 kilobases of
+reference sequence from all tracks to start downloading, which when I was
+implementing view as pairs, was causing me to download over 100MB routinely.
+This was terrible, and after fixing I only download about 10MB over even
+large regions for most BAM files.  Additionally, this bug was causing the
+track heights to be calculated incorrectly because the track heights would
+actually be calculated based on distorted canvas
+bitmaps. <a href="https://github.com/gmod/jbrowse/issues/1187">https://github.com/gmod/jbrowse/issues/1187</a></p></li><li><p>JBrowse Desktop was not fetching remote files. This was a weird issue where
+remote file requests were considered a CORS requests to any external remote.
+This was solved by changing the usage of the fetch API in JBrowse for
+node-fetch which does not obey CORS. Note that electron-fetch was also
+considered, which uses Chromiums network stack instead of node&#x27;s, but that
+had specific assumptions about the context in which it was called. </p></li></ul><p>-  Fixed issue where some parts of a CRAM file would not be displayed in
+JBrowse due to a CRAM index parsing issue. This was based on a sort of binary
+search that was implemented in JBrowse where the elements of the lists were
+non-overlapping regions, and the query was a region, and the output should be a
+list of the non-overlapping regions that overlap the query. Most algorithms for
+binary search don&#x27;t really tell you how to do searches on ranges so needed to
+roll up my sleeves and write a little custom code. An interval tree could have
+been used but this is too heavy-weight for non-overlapping regions from the
+index <a href="https://github.com/GMOD/cram-js/pull/10">https://github.com/GMOD/cram-js/pull/10</a></p><p>-  Fixed an issue where BAM features were not lazily evaluating their tags.
+When a function <code>feature.get(&#x27;blahblah&#x27;)</code> is called on a BAM feature, it checks
+to see if it&#x27;s part of a default list of things that are parsed like feature
+start, end, id, but if not, it has to parse all the BAM tags to see if it is a
+tag. Since they are called &quot;lazy features&quot; the tag processing is deferred until
+it is absolutely needed.  As it turned out, the incorporation of CRAM in 1.15
+was calling a function to try to get the CRAM&#x27;s version of CIGAR/MD on the BAM
+features unnecessarily invoking the tag parsing on every feature up front and
+therefore making the feature not really lazy anymore. This restored
+the &quot;lazyness&quot; aspect of BAM.</p><p>-  Fixed issue where CRAM layout and mouseover would be glitchy due to ID
+collisions on features. In the 1.15 releases, CRAM was introduced, and we
+thought that the concept of taking CRC32 of the entire feature data days were
+over because there is the concept of a &quot;unique ID&quot; on the features. However,
+this ID was only unique within the slices, so around the slice boundaries there
+were a lot of bad feature layouts and mouseovers would fail because they would
+map to multiple features, etc.  I found a way to unique-ify this by giving it
+the sliceHeader file offset. <a href="https://github.com/GMOD/cram-js/pull/10">https://github.com/GMOD/cram-js/pull/10</a></p><ul><li><p>We also had behind the scenes work by igv.js team member jrobinso who helped
+on the CRAM codebase to incorporate a feature where for lossy read names, so
+that a read and it&#x27;s mate pair would consistently be assigned the same read
+name based on the unique ID mentioned above.  There was also a rare issue
+where sometimes the mate pair&#x27;s orientation was incorrectly reported based on
+the CRAM flags, but the embedded BAM flags correctly reported it.</p></li><li><p>Finally the paired reads feature. This was a feature that I really wanted to
+get right. It started when garrett and rbuels were going to san diego for the
+CIVIC hackathon, and we talked about doing something that matched a &quot;variant
+review system&quot; that they had done for the IGV codebase, which involved
+detailed inspection of reads. I thought it would probably be feasible for
+jbrowse to do this, but I thought essentially at some point that enhancing
+jbrowse&#x27;s read visualizations with paired reads would be a big win. I had
+thought about this at the JBrowse hackathon also and my discussions then were
+that this was very hard. Overall, I invented a compromise that I thought was
+reasonable which was that there can be a &quot;maxInsertSize&quot; for the pileup view
+beyond which the pairing wouldn&#x27;t be resolved. This allowed (a) a significant
+reduction in data fetches because I implemented a &quot;read redispatcher&quot; that
+would actually literally resolve the read pairs in the separate chunks and
+(b) a cleaner view because the layout wouldn&#x27;t be polluted by very long read
+inserts all the time and also, for example, if you scrolled to the right, and
+suddenly a read was paired to the left side of your view, it would result in
+a bad layout (but with max insert size, the window of all reads within
+maxinsertsize are always resolved so this does not happen) and finally ( c)
+the paired arc view was incorporated which does not use read redispatching
+and which can do very long reads.  All of these things took time to think
+through and resolve, but it is now I think a pretty solid system and I look
+forward to user feedback!</p></li></ul><p>::: {#footer}
 <!-- -->[ December 17th, 2018 4:16pm ]<!-- -->{#timestamp} <!-- -->[code]<!-- -->{.tag}
 <!-- -->[javascript]<!-- -->{.tag}
-:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2018-12-17","query":{},"buildId":"jYEhchOW9TfIj71h1WZjR","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2018-12-17","query":{},"buildId":"nM3Pl6ONFlRgnuOSFAj3x","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>

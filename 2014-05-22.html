@@ -1,88 +1,74 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/82eb5efba2a6c9217a68.css" as="style"/><link rel="stylesheet" href="/_next/static/css/82eb5efba2a6c9217a68.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-7c4c4c05609ee1ee2453.js" defer=""></script><script src="/_next/static/chunks/framework-7915ac2dcad08ccffd1a.js" defer=""></script><script src="/_next/static/chunks/main-d0187c47f4d0d1b19d72.js" defer=""></script><script src="/_next/static/chunks/pages/_app-75e0706c9e1cdf9d8afe.js" defer=""></script><script src="/_next/static/chunks/pages/2014-05-22-185d0432e5beafa243b8.js" defer=""></script><script src="/_next/static/jYEhchOW9TfIj71h1WZjR/_buildManifest.js" defer=""></script><script src="/_next/static/jYEhchOW9TfIj71h1WZjR/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div class="blog"><h1>High DPI rendering on HTML5 canvas: some problems and solutions</h1><p> Recently our code has been moving towards the use of HTML5 canvas, as
-it has many benefits. I felt that if we were going to keep this going
-towards canvas, the rendering needed to match the quality of regular
-HTML based tracks. Unfortunately, the HTML5 canvas by default looks very
-&quot;fuzzy&quot; on a high resolution display (Figure 1).\</p><p>\</p><p>\</p><p><img src="../../media/86542847038_0.jpg"/></p><p><em>Figure 1.</em> An example of really bad font rendering before and after
-enabling high resolution on the HTML5 canvas.</p><p>\</p><p>\</p><p><strong>Background\
-</strong></p><p>Major credit goes to the tutorial at
-<a href="http://www.html5rocks.com/en/tutorials/canvas/hidpi/">http://www.html5rocks.com/en/tutorials/canvas/hidpi/</a> for pioneering
-this!  The html5rocks tutorial, written in 2010 it still remains
-relevant. The major thing it introduces is these browser variables
-called devicePixelRatio and backingStoreRatio that can be used to adjust
-your canvas drawing. In my interpretation, these two variables have the
-following purpose:</p><p><em>devicePixelRatio</em></p><p>On high DPI displays, screen pixels are actually abstracted away from
-the physical pixels, so, when you create some HTML element with width
-100, height 100, that element actually takes up a larger number of
-pixels than 100x100. The actual ratio of the pixels that it takes up is
-100<!-- -->*<!-- -->devicePixelRatio x 100<!-- -->*<!-- -->devicePixelRatio. On a high DPI platform
-like Retina, the devicePixelRatio is normally 2 at 100% zoom.\</p><p><em>backingStoreRatio</em></p><p>The backing store ratio doesn&#x27;t seem to change as much from platform to
-platform, but my interpretation of this value is that it essentially
-gives the size of the memory buffer for the canvas. On my platform, the
-backingStoreRatio is &quot;1&quot;. I think this value had more historical use,
-but it may not really be used anymore (update aug 7th, 2015 deprecated?
-<a href="http://stackoverflow.com/questions/24332639/why-context2d-backingstorepixelratio-deprecated">http://stackoverflow.com/questions/24332639/why-context2d-backingstorepixelratio-deprecated</a>)\</p><p>So, what are the consequences of the backing store ratio and the device
-pixel ratio? If the backing store ratio equals the device pixel ratio,
-then no scaling takes place, but what we often see is that they are not
-equal, so the image is up-scaled from the backing store to the screen,
-and then it is stretched and blurred.</p><p><strong>So, how do you enable the high DPI mode?</strong></p><p>The solution to properly scale your HTML5 canvas content involves a
-couple of steps that are described in the tutorial here
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/82eb5efba2a6c9217a68.css" as="style"/><link rel="stylesheet" href="/_next/static/css/82eb5efba2a6c9217a68.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-1a8a258926ecde76681b.js" defer=""></script><script src="/_next/static/chunks/framework-b97a0ed4f13ff8397343.js" defer=""></script><script src="/_next/static/chunks/main-1f2c591c5d3bfcfc95e6.js" defer=""></script><script src="/_next/static/chunks/pages/_app-72a03db9ecdc52193d45.js" defer=""></script><script src="/_next/static/chunks/pages/2014-05-22-7699a818c714cedcae70.js" defer=""></script><script src="/_next/static/nM3Pl6ONFlRgnuOSFAj3x/_buildManifest.js" defer=""></script><script src="/_next/static/nM3Pl6ONFlRgnuOSFAj3x/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><a href="/">Return home</a><div class="blog"><h1>High DPI rendering on HTML5 canvas: some problems and solutions</h1><p> Recently our code has been moving towards the use of HTML5 canvas, as it has
+many benefits. I felt that if we were going to keep this going towards canvas,
+the rendering needed to match the quality of regular HTML based tracks.
+Unfortunately, the HTML5 canvas by default looks very &quot;fuzzy&quot; on a high
+resolution display (Figure 1).</p><p><img src="../../media/86542847038_0.jpg"/></p><p><em>Figure 1.</em> An example of really bad font rendering before and after enabling
+high resolution on the HTML5 canvas.</p><p><strong>Background </strong></p><p>Major credit goes to the tutorial at
+<a href="http://www.html5rocks.com/en/tutorials/canvas/hidpi/">http://www.html5rocks.com/en/tutorials/canvas/hidpi/</a> for pioneering this!
+ The html5rocks tutorial, written in 2010 it still remains relevant. The major
+thing it introduces is these browser variables called devicePixelRatio and
+backingStoreRatio that can be used to adjust your canvas drawing. In my
+interpretation, these two variables have the following purpose:</p><p><em>devicePixelRatio</em></p><p>On high DPI displays, screen pixels are actually abstracted away from the
+physical pixels, so, when you create some HTML element with width 100, height
+100, that element actually takes up a larger number of pixels than 100x100. The
+actual ratio of the pixels that it takes up is 100<em>devicePixelRatio x
+100</em>devicePixelRatio. On a high DPI platform like Retina, the devicePixelRatio
+is normally 2 at 100% zoom.</p><p><em>backingStoreRatio</em></p><p>The backing store ratio doesn&#x27;t seem to change as much from platform to
+platform, but my interpretation of this value is that it essentially gives the
+size of the memory buffer for the canvas. On my platform, the backingStoreRatio
+is &quot;1&quot;. I think this value had more historical use, but it may not really be
+used anymore (update aug 7th, 2015 deprecated?
+<a href="http://stackoverflow.com/questions/24332639/why-context2d-backingstorepixelratio-deprecated">http://stackoverflow.com/questions/24332639/why-context2d-backingstorepixelratio-deprecated</a>)</p><p>So, what are the consequences of the backing store ratio and the device pixel
+ratio? If the backing store ratio equals the device pixel ratio, then no
+scaling takes place, but what we often see is that they are not equal, so the
+image is up-scaled from the backing store to the screen, and then it is
+stretched and blurred.</p><p><strong>So, how do you enable the high DPI mode?</strong></p><p>The solution to properly scale your HTML5 canvas content involves a couple of
+steps that are described in the tutorial here
 <a href="http://www.html5rocks.com/en/tutorials/canvas/hidpi/">http://www.html5rocks.com/en/tutorials/canvas/hidpi/</a>, but here is the
-essence:</p><p>1<!-- -->)<!-- --> Use the canvas.scale method, which tells the canvas&#x27;s drawing area
-to become bigger, but keeps drawing operations consistent.</p><p>2<!-- -->)<!-- --> The scaling factor for the canvas.scale method is
-devicePixelRatio/backingStoreRatio. This will be 2 for instance on a
-Retina screen at a typical 100% zoom level. The zoom level is relevant
-which will be discussed later in this post...</p><p>3<!-- -->)<!-- --> Multiply the width and height attributes of the canvas by
-devicePixelRatio/backingStoreRatio, so that the &quot;canvas object&quot; is as
-big as the scaled size.\</p><p>4<!-- -->)<!-- --> Here&#x27;s the tricky part: set the CSS width and height attributes to
-be the UNSCALED size that you want.</p><p>Note: you can also set CSS width:100% or something and then the canvas
-will be sized appropriately. Normally though, what you will have is
-something like \&lt;canvas width=640 height=480
-style=&quot;width:320px;height:240px&quot;<!-- -->&gt;<!-- --> so you can see that the canvas size
-is larger than what the CSS actually resizes it to be.\</p><p><strong>Issues: Browser zoom and fractional devicePixelRatios\
-</strong></p><p>When I first started this project, the benefit of this high resolution
-rendering seemed limited to the fancy people who had Retina or other
-High DPI screens. However, what I didn&#x27;t even realize is that the
-devicePixelRatio value changes depending on browser zoom settings, so
-even people with a regular screen can have improved rendering of the
-HTML5 canvas. (Update: we even saw that if you have customized canvas
-renderings, then you an generate good screenshots of the canvas with
-PhantomJS too. See <a href="http://searchvoidstar.tumblr.com/post/112494997473/creating-high-resolution-screenshots-of-jbrowse">my other more recent
-article</a>)\</p><p>The issue with these zoom settings though is that when you change the
-zoom level, especially on chrome and firefox browsers, the
-devicePixelRatio can end up being a fractional value e.g. 2.223277 which
-can result in sub-pixel rendering problems.</p><p>Remember that when we scaled the canvas, it also scales the drawing
-functions to be consistent, so that essentially if you draw a 1 pixel
-width line on a scaled canvas, it might draw a 2.223277 pixel width
-line. Hence, we can get fuzzy rendering issues.\</p><p>This issue is very noticeable if you draw many 1px wide lines right next
-to each other. In this case, there will be noticeable gaps between the
-lines due to the imperfect rendering (see green box below).</p><p><a href="http://i.imgur.com/THsfjX4.png"></a></p><p><a href="http://i.imgur.com/THsfjX4.png"></a></p><p><a href="http://i.imgur.com/THsfjX4.png"></a></p><p><img src="../../media/86542847038_1.png"/></p><p><em>Figure 2.</em> Examples of 1px wide lines rendered next to each other when
-there is fractional devicePixelRatio.</p><p>\
-Bottom Green box: 1px wide lines drawn 1px apart. (note: bad rendering!
-tiny gaps) \
-Middle Blue box: 1px wide line rendered every 2 px (intentional gaps for
-demonstration). \
-Top Red box: 1.3px wide lines (a fudge factor is used to make eliminate
-the tiny gaps).\</p><p>\</p><p><strong>My solution: The Red Box -- add a fudge factor\
-</strong></p><p>As you can see in the above figure, my solution to the sub-pixel
-rendering is to add a &quot;fudge factor&quot; to the line width to make it render
-lines that are 1.3px wide instead of 1px wide when the devicePixelRatio
-is not a whole number, which effectively eliminates any gaps due to the
-sub-pixel rendering problem.</p><p>I heuristically determined the value 1.3px to be sufficient, as testing
-values like 1.1px, 1.2px and even 1.25px were too small. I&#x27;d love to see
-a proof of determining this value empirically, or even better, something
-that isn&#x27;t this big of a hack, but for now that&#x27;s what I have.</p><p>You can see the effect of the fudge factor (red box) vs the bad
-rendering (green box) in Figure 2. You can also try this out yourself
-here <a href="http://jsfiddle.net/4xe4d/">http://jsfiddle.net/4xe4d/</a>, just zoom your browser and then
-refresh (zooming and not refreshing doesn&#x27;t modify device pixel ratio)
-to test out different values of devicePixelRatio.\</p><p>\</p><p><strong>Conclusion</strong></p><p>In conclusion...we now have high resolution rendering on canvas! The
-solution for drawing lots of lines right next to each other is sort of
-suboptimal, so the question continues...what shall be done in this
-case?\</p><p>Maybe someone could implement some sort of library that replaces the
+essence:</p><p>1) Use the canvas.scale method, which tells the canvas&#x27;s drawing area to become
+bigger, but keeps drawing operations consistent.</p><p>2) The scaling factor for the canvas.scale method is
+devicePixelRatio/backingStoreRatio. This will be 2 for instance on a Retina
+screen at a typical 100% zoom level. The zoom level is relevant which will be
+discussed later in this post...</p><p>3) Multiply the width and height attributes of the canvas by
+devicePixelRatio/backingStoreRatio, so that the &quot;canvas object&quot; is as big as
+the scaled size.</p><p>4) Here&#x27;s the tricky part: set the CSS width and height attributes to be the
+UNSCALED size that you want.</p><p>Note: you can also set CSS width:100% or something and then the canvas will be
+sized appropriately. Normally though, what you will have is something like
+<code>&lt;canvas width=640 height=480 style=&quot;width:320px;height:240px&quot;&gt;</code> so you can see
+that the canvas size is larger than what the CSS actually resizes it to be.</p><p><strong>Issues: Browser zoom and fractional devicePixelRatios </strong></p><p>When I first started this project, the benefit of this high resolution
+rendering seemed limited to the fancy people who had Retina or other High DPI
+screens. However, what I didn&#x27;t even realize is that the devicePixelRatio value
+changes depending on browser zoom settings, so even people with a regular
+screen can have improved rendering of the HTML5 canvas. (Update: we even saw
+that if you have customized canvas renderings, then you an generate good
+screenshots of the canvas with PhantomJS too. See <a href="http://searchvoidstar.tumblr.com/post/112494997473/creating-high-resolution-screenshots-of-jbrowse">my other more recent
+article</a>)</p><p>The issue with these zoom settings though is that when you change the zoom
+level, especially on chrome and firefox browsers, the devicePixelRatio can end
+up being a fractional value e.g. 2.223277 which can result in sub-pixel
+rendering problems.</p><p>Remember that when we scaled the canvas, it also scales the drawing functions
+to be consistent, so that essentially if you draw a 1 pixel width line on a
+scaled canvas, it might draw a 2.223277 pixel width line. Hence, we can get
+fuzzy rendering issues.</p><p>This issue is very noticeable if you draw many 1px wide lines right next to
+each other. In this case, there will be noticeable gaps between the lines due
+to the imperfect rendering (see green box below).</p><p><a href="http://i.imgur.com/THsfjX4.png"></a></p><p><a href="http://i.imgur.com/THsfjX4.png"></a></p><p><a href="http://i.imgur.com/THsfjX4.png"></a></p><p><img src="../../media/86542847038_1.png"/></p><p><em>Figure 2.</em> Examples of 1px wide lines rendered next to each other when there
+is fractional devicePixelRatio.</p><p>Bottom Green box: 1px wide lines drawn 1px apart. (note: bad rendering!  tiny
+gaps)  Middle Blue box: 1px wide line rendered every 2 px (intentional gaps for
+demonstration).  Top Red box: 1.3px wide lines (a fudge factor is used to make
+eliminate the tiny gaps).</p><p><strong>My solution: The Red Box -- add a fudge factor </strong></p><p>As you can see in the above figure, my solution to the sub-pixel rendering is
+to add a &quot;fudge factor&quot; to the line width to make it render lines that are
+1.3px wide instead of 1px wide when the devicePixelRatio is not a whole number,
+which effectively eliminates any gaps due to the sub-pixel rendering problem.</p><p>I heuristically determined the value 1.3px to be sufficient, as testing values
+like 1.1px, 1.2px and even 1.25px were too small. I&#x27;d love to see a proof of
+determining this value empirically, or even better, something that isn&#x27;t this
+big of a hack, but for now that&#x27;s what I have.</p><p>You can see the effect of the fudge factor (red box) vs the bad rendering
+(green box) in Figure 2. You can also try this out yourself here
+<a href="http://jsfiddle.net/4xe4d/">http://jsfiddle.net/4xe4d/</a>, just zoom your browser and then refresh (zooming
+and not refreshing doesn&#x27;t modify device pixel ratio) to test out different
+values of devicePixelRatio.</p><p><strong>Conclusion</strong></p><p>In conclusion...we now have high resolution rendering on canvas! The solution
+for drawing lots of lines right next to each other is sort of suboptimal, so
+the question continues...what shall be done in this case?</p><p>Maybe someone could implement some sort of library that replaces the
 canvas.scale method to do better layout and obtain more pixel perfect
-rendering. Alternatively, you could force the scaling factor to always
-round to a whole number. This is actually not a bad solution, because
-the canvas is already being resized, and then you can control your
-rendering better.\</p><p>Thanks for reading\</p><p>::: {#footer}
-<!-- -->[ May 22nd, 2014 7:03pm ]<!-- -->{#timestamp} <!-- -->[html5]<!-- -->{.tag} <!-- -->[canvas]<!-- -->{.tag}
-<!-- -->[javascript]<!-- -->{.tag}
-:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2014-05-22","query":{},"buildId":"jYEhchOW9TfIj71h1WZjR","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
+rendering. Alternatively, you could force the scaling factor to always round to
+a whole number. This is actually not a bad solution, because the canvas is
+already being resized, and then you can control your rendering better.</p><p>Thanks for reading</p><p>::: {#footer} <!-- -->[ May 22nd, 2014 7:03pm ]<!-- -->{#timestamp} <!-- -->[html5]<!-- -->{.tag}
+<!-- -->[canvas]<!-- -->{.tag} <!-- -->[javascript]<!-- -->{.tag} :::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2014-05-22","query":{},"buildId":"nM3Pl6ONFlRgnuOSFAj3x","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
