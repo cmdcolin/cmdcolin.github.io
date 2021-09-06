@@ -16,7 +16,7 @@ export TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling
 
 <hr/>
 
-By default, the typescript watcher configuration e.g. tsc --watch or whatever is run internally to a create-react-app typescript app (I see it in the process manager as fork-ts-checker-webpack-plugin cpu usage) can have high CPU usage by default
+By default, the typescript watcher configuration e.g. tsc --watch or whatever is run internally to a create-react-app typescript app (I see it in the process manager as fork-ts-checker-webpack-plugin cpu usage) can have high idling (doing nothing...) CPU usage
 
 
 This is because the default configuration polls for file changes (constantly

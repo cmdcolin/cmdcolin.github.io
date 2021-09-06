@@ -50,18 +50,20 @@ default parameters in the template query, etc.
 Another option for running queries is to use the query XML that you can
 download from the InterMine query result pages. 
 
-> query='\<query model="genomic" view="Gene.primaryIdentifier
-> Gene.secondaryIdentifier Gene.symbol Gene.name Gene.source
-> Gene.organism.shortName Gene.chromosome.primaryIdentifier"
-> sortOrder="Gene.primaryIdentifier ASC" \>\<constraint
-> path="Gene.organism.shortName" op="=" value="B. taurus"
-> /\>\<constraint path="Gene.chromosome.primaryIdentifier" op="="
-> value="GK000028.2" /\>\</query\>' \# get all Ensembl genes on chr28
-> from bovinemine
->
-> results=runQuery(mine, query)
->
-> head(results)
+```
+ # get all Ensembl genes on chr28 from bovinemine
+ query='<query model="genomic" view="Gene.primaryIdentifier
+ Gene.secondaryIdentifier Gene.symbol Gene.name Gene.source
+ Gene.organism.shortName Gene.chromosome.primaryIdentifier"
+ sortOrder="Gene.primaryIdentifier ASC" ><constraint
+ path="Gene.organism.shortName" op="=" value="B. taurus"
+ /><constraint path="Gene.chromosome.primaryIdentifier" op="="
+ value="GK000028.2" /></query>'
+
+ results=runQuery(mine, query)
+
+ head(results)
+```
 
 **Conclusion**
 
