@@ -60,6 +60,25 @@ Phew. I can already feel my laptop running cooler...or at least I can sleep
 more soundly knowing that my readers adopt this and save some CPU cycles for
 planet earth...and hopefully don't run into any of the caveats
 
+
+Edit: It may be worth it to note, the 'UseFsEvents' part of this uses the
+node.js fs.watch API and the polling based API is based on fs.watchFile
+
+Fun table of how the watchers are implemented on different OSs [[1](https://github.com/microsoft/TypeScript/issues/31048#issuecomment-495483957)]
+
+```
+On Linux systems, this uses inotify(7).
+On BSD systems, this uses kqueue(2).
+On macOS, this uses kqueue(2) for files and FSEvents for directories.
+On SunOS systems (including Solaris and SmartOS), this uses event ports.
+On Windows systems, this feature depends on ReadDirectoryChangesW.
+On Aix systems, this feature depends on AHAFS, which must be enabled.
+```
+
+And in general, these should all respond more or less the same, but there are
+small corner cases that are discussed
+https://nodejs.org/docs/latest/api/fs.html#fs_availability
+
 Disclaimer: it may be worth reading the reasons that typescript does not have
 this enabled by default before pushing this into your dev environment and all
 your teammates, but as far as I could tell, it seems ok!

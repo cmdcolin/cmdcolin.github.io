@@ -5,7 +5,7 @@ Making a serverless website for photo and video upload pt. 2
 ============================================================
 
 This post follows
-on <https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1>
+on <https://cmdcolin.github.io/2020-12-24.html>
 
 
 
@@ -62,7 +62,7 @@ each file
 This generates a pre-signed URL to allow the client-side JS (not the
 lambda itself) to directly upload to S3, and also posts a row in the S3
 to the filename that will. It is very similar code in
-to <https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1>
+to <https://cmdcolin.github.io/2020-12-24.html>
 
 
 
@@ -86,8 +86,7 @@ to <https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverle
 
  const { AWS_REGION: region } = process.env;
 
- const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10", region
- });
+ const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10", region });
 
  async function uploadPic({
   timestamp,
@@ -182,26 +181,26 @@ to <https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverle
  const docClient = new AWS.DynamoDB.DocumentClient();
 
  const getItems = function () {
- const params = {
-   TableName: "files",
- };
+   const params = {
+     TableName: "files",
+   };
 
- return docClient.scan(params).promise();
+   return docClient.scan(params).promise();
  };
 
  exports.handler = async (event) => {
- try {
-   const result = await getItems();
-   return {
-     statusCode: 200,
-     body: JSON.stringify(result),
-   };
- } catch (e) {
-   return {
-     statusCode: 400,
-     body: JSON.stringify({ message: `${e}` }),
-   };
- }
+   try {
+     const result = await getItems();
+     return {
+       statusCode: 200,
+       body: JSON.stringify(result),
+     };
+   } catch (e) {
+     return {
+       statusCode: 400,
+       body: JSON.stringify({ message: `${e}` }),
+     };
+   }
  };
 
 ```
@@ -248,8 +247,7 @@ to <https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverle
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>upload a file (supports picture or
- video)</DialogTitle>
+      <DialogTitle>upload a file (supports picture or video)</DialogTitle>
 
       <DialogContent>
         <label htmlFor="user">name (optional) </label>
@@ -533,7 +531,7 @@ Summary
 The template.yaml automatically deploys the lambdas for postFile/getFile
 and the files table in dynamoDB
 
-The React app uses postFile for each file in an <input type="file"/>,
+The React app uses postFile for each file in an `<input type="file"/>`,
 the code uses React hooks and functional components but is hopefully not
 too complex
 
