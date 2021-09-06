@@ -1,5 +1,5 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/39537df1dfa69610d89e.css" as="style"/><link rel="stylesheet" href="/_next/static/css/39537df1dfa69610d89e.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-1a8a258926ecde76681b.js" defer=""></script><script src="/_next/static/chunks/framework-b97a0ed4f13ff8397343.js" defer=""></script><script src="/_next/static/chunks/main-1f2c591c5d3bfcfc95e6.js" defer=""></script><script src="/_next/static/chunks/pages/_app-72a03db9ecdc52193d45.js" defer=""></script><script src="/_next/static/chunks/pages/2020-12-26-2f7e06b9cd493f0cfb96.js" defer=""></script><script src="/_next/static/Wtzm6n6zEYTwzh4KnurCq/_buildManifest.js" defer=""></script><script src="/_next/static/Wtzm6n6zEYTwzh4KnurCq/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><div><a href="/">Return home</a><img src="/avatar.png" style="height:2em;margin-left:1em"/></div><div class="blog"><h1>Making a serverless website for photo and video upload pt. 2</h1><p>This post follows
-on <a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1">https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1</a></p><p>It is possible I zoomed ahead too fast to make this a continuous
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/39537df1dfa69610d89e.css" as="style"/><link rel="stylesheet" href="/_next/static/css/39537df1dfa69610d89e.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-1a8a258926ecde76681b.js" defer=""></script><script src="/_next/static/chunks/framework-b97a0ed4f13ff8397343.js" defer=""></script><script src="/_next/static/chunks/main-1f2c591c5d3bfcfc95e6.js" defer=""></script><script src="/_next/static/chunks/pages/_app-72a03db9ecdc52193d45.js" defer=""></script><script src="/_next/static/chunks/pages/2020-12-26-1fbf3536849645df3f9c.js" defer=""></script><script src="/_next/static/OTXqL_pNLhZW5kFHttQ5t/_buildManifest.js" defer=""></script><script src="/_next/static/OTXqL_pNLhZW5kFHttQ5t/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><div><a href="/">Return home</a><img src="/avatar.png" style="height:2em;margin-left:1em"/></div><div class="blog"><h1>Making a serverless website for photo and video upload pt. 2</h1><p>This post follows
+on <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p><p>It is possible I zoomed ahead too fast to make this a continuous
 tutorial, but overall I just wanted to post an update</p><p>In pt. 1 I learned how to use the <code>aws-sam</code> CLI tool. This was a great
 insight for me about automating deployments. I can now simply run <code>sam
 deploy</code> and it will create new dynamodb tables, lambda functions, etc.</p><p>After writing pt 1. I converted the existing vue-js app that was in the
@@ -23,7 +23,7 @@ time, but the client code post to the lambda endpoint individually for
 each file</p><p>This generates a pre-signed URL to allow the client-side JS (not the
 lambda itself) to directly upload to S3, and also posts a row in the S3
 to the filename that will. It is very similar code in
-to <a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1">https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1</a></p><p>./lambdas/postFile/app.js</p><pre><code class="language-js"> &quot;use strict&quot;;
+to <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p><p>./lambdas/postFile/app.js</p><pre><code class="language-js"> &quot;use strict&quot;;
 
  const AWS = require(&quot;aws-sdk&quot;);
  const multipart = require(&quot;./multipart&quot;);
@@ -40,8 +40,7 @@ to <a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-
 
  const { AWS_REGION: region } = process.env;
 
- const dynamodb = new AWS.DynamoDB({ apiVersion: &quot;2012-08-10&quot;, region
- });
+ const dynamodb = new AWS.DynamoDB({ apiVersion: &quot;2012-08-10&quot;, region });
 
  async function uploadPic({
   timestamp,
@@ -131,26 +130,26 @@ to <a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-
  const docClient = new AWS.DynamoDB.DocumentClient();
 
  const getItems = function () {
- const params = {
-   TableName: &quot;files&quot;,
- };
+   const params = {
+     TableName: &quot;files&quot;,
+   };
 
- return docClient.scan(params).promise();
+   return docClient.scan(params).promise();
  };
 
  exports.handler = async (event) =&gt; {
- try {
-   const result = await getItems();
-   return {
-     statusCode: 200,
-     body: JSON.stringify(result),
-   };
- } catch (e) {
-   return {
-     statusCode: 400,
-     body: JSON.stringify({ message: `${e}` }),
-   };
- }
+   try {
+     const result = await getItems();
+     return {
+       statusCode: 200,
+       body: JSON.stringify(result),
+     };
+   } catch (e) {
+     return {
+       statusCode: 400,
+       body: JSON.stringify({ message: `${e}` }),
+     };
+   }
  };
 
 </code></pre><p>./frontend/src/App.tsx (excerpt)</p><pre><code class="language-tsx">
@@ -192,8 +191,7 @@ to <a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-
 
   return (
     &lt;Dialog onClose={handleClose} open={open}&gt;
-      &lt;DialogTitle&gt;upload a file (supports picture or
- video)&lt;/DialogTitle&gt;
+      &lt;DialogTitle&gt;upload a file (supports picture or video)&lt;/DialogTitle&gt;
 
       &lt;DialogContent&gt;
         &lt;label htmlFor=&quot;user&quot;&gt;name (optional) &lt;/label&gt;
@@ -434,7 +432,7 @@ like <a href="https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osaf
          borderImage: `url(borders/${border}) 30 round`
      }
 </code></pre><p><img src="/media/638602799897329664_0.png"/></p><p>Summary</p><p>The template.yaml automatically deploys the lambdas for postFile/getFile
-and the files table in dynamoDB</p><p>The React app uses postFile for each file in an <input type="file"/>,
+and the files table in dynamoDB</p><p>The React app uses postFile for each file in an <code>&lt;input type=&quot;file&quot;/&gt;</code>,
 the code uses React hooks and functional components but is hopefully not
 too complex</p><p>I also added commenting on photos. The code is not shown here but you
 can look in the source code for details</p><p><img src="/media/638602799897329664_1.png"/></p><p>Overall this has been a good experience learning to develop this app and
@@ -447,4 +445,4 @@ a great kick start for me. I am sure the serverless CLI is great too and
 it ensures a bit less vendor lock in, but then is also a little bit
 removed from the native aws config schemas. Probably fine though</p><p>Source code <a href="https://github.com/cmdcolin/aws_photo_gallery/">https://github.com/cmdcolin/aws_photo_gallery/</a></p><p>::: {#footer}
 <!-- -->[ December 26th, 2020 4:44pm ]<!-- -->{#timestamp}
-:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2020-12-26","query":{},"buildId":"Wtzm6n6zEYTwzh4KnurCq","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
+:::</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2020-12-26","query":{},"buildId":"OTXqL_pNLhZW5kFHttQ5t","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
