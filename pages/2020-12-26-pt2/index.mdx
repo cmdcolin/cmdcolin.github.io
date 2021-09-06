@@ -4,7 +4,7 @@ Making a HTTPS accessible S3 powered static site with CloudFront+route 53
 This is not a very authoritative post because I stumbled though this but
 I think I got it working now on my website :)
 
-\
+
 
 Setup your S3 bucket
 --------------------
@@ -15,7 +15,7 @@ e.g. named after your domain
 Then if you have a create-react-app setup I add a script in package.json
 that runs
 
-> "predeploy": "npm run build",\
+> "predeploy": "npm run build",
 > "deploy": "aws sync --delete build s3://yourdomain.com"
 
 Then we can run "yarn deploy" and it will automatically upload our
@@ -25,9 +25,9 @@ Then make sure your bucket has public permissions enabled
 <https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html#example-bucket-policies-use-case-2>Then
 make sure your bucket has "static site hosting" enabled too
 
-\
 
-\
+
+
 
 Setup route 53, and make your NS entries in domains.google.com
 --------------------------------------------------------------
@@ -43,28 +43,28 @@ domains.google.com site
 
 ![](https://64.media.tumblr.com/6fa9dde6e0245a26cbdd0e103e93a949/092c49c2f6a4a26d-8c/s540x810/5dc68e8a96378c3b6e59b2981284c232764183bb.png)
 
-\
+
 
 Screenshot shows copying the NS values from route 53 to the name servers
 area of domains.google.com
 
-\
 
- 
+
+
 
 Setup your Amazon certificate for making SSL work on CloudFront
 ---------------------------------------------------------------
 
 To properly setup However, this does not work so you need to go to
-Amazon Certificates-\>Provision certificates\
+Amazon Certificates->Provision certificates
 
-We request the certificate for\
-\
-[www.yourdomain.com](http://www.yourdomain.com)\
-yourdomain.com\
-\
+We request the certificate for
+
+[www.yourdomain.com](http://www.yourdomain.com)
+yourdomain.com
+
 Then it generates some codes for a CNAME value for each of those two
-entries, and has a button to autoimport those CNAME values to route53\
+entries, and has a button to autoimport those CNAME values to route53
 
 Then it will say "Pending validation"...I waited like an hour and then
 it changed to "Success".
@@ -74,7 +74,7 @@ it changed to "Success".
 Screenshot shows the now successful Amazon Certificate. After you get
 this, you can proceed to finishing your cloudfront
 
-\
+
 
 Create a CloudFront distribution and add "Alternative CNAME" entries for your domain
 ------------------------------------------------------------------------------------
@@ -82,13 +82,13 @@ Create a CloudFront distribution and add "Alternative CNAME" entries for your do
 Then we can update our CloudFront distribution and add these to
 the "Alternative CNAME" input box
 
-yourdomain.com\
-[www.yourdomain.com](http://www.yourdomain.com)\
-\
+yourdomain.com
+[www.yourdomain.com](http://www.yourdomain.com)
+
 
 Note also that I first generated my certificate in us-east-2 but the
 "Import certificate form" in cloudfront said I had to create it in
-us-east-1\
+us-east-1
 
 ![](https://64.media.tumblr.com/4c429ef56289ac3fb1c7d5fdea847f5d/092c49c2f6a4a26d-de/s540x810/34509c40a23215e97a3a4cda7b6a183d35bbd9f1.png)
 
@@ -99,7 +99,7 @@ Make your CloudFront "default object" is index.html
 
 You have to manually type this in :)
 
-\
+
 
 Add the CloudFront distribution to your Route 53
 ------------------------------------------------
@@ -107,7 +107,7 @@ Add the CloudFront distribution to your Route 53
 Add a Route 53 "A" record that points to the CloudFront domain name e.g.
 d897d897d87d98dd.cloudfront.net
 
-\
+
 
 Summary of steps needed
 -----------------------
@@ -131,21 +131,21 @@ The general hindsight 20/20 procedure is
     yourdomain.com which requires importing (e.g. selecting from a list
     that they auto-populate) your Amazon-issued-certificate
 
-\
+
 
 Troubleshooting and notes
 -------------------------
 
-Problem: Your website gives 403 CloudFlare error\
+Problem: Your website gives 403 CloudFlare error
 Solution: You have to get the Alternateive CNAME configuration setup
-(pre-step involves the certificate request and validation)\
-\
-Problem: Your website gives an object not found error\
+(pre-step involves the certificate request and validation)
+
+Problem: Your website gives an object not found error
 Solution: Set the CloudFront "default object" to index.html
 
-\
 
-\
+
+
 
 Random comment
 --------------
@@ -153,7 +153,7 @@ Random comment
 This is one of those processes (creating the cloudfront/route 53) that
 probably could have done with the aws-sam CLI and it would have possibly
 been easier, it is quite fiddly doing all these steps in the web
-interface\
+interface
 
 ::: {#footer}
 [ December 26th, 2020 8:53pm ]{#timestamp}
