@@ -16,11 +16,14 @@ export TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling
 
 <hr/>
 
-By default, the typescript watcher configuration e.g. tsc --watch or whatever is run internally to a create-react-app typescript app (I see it in the process manager as fork-ts-checker-webpack-plugin cpu usage) can have high idling (doing nothing...) CPU usage
+By default, the typescript watcher configuration e.g. tsc --watch or whatever
+is run internally to a create-react-app typescript app (I see it in the process
+manager as fork-ts-checker-webpack-plugin cpu usage) can have high idling
+(doing nothing...) CPU usage
 
 
 This is because the default configuration polls for file changes (constantly
-asks the computer if there are changes every second or so). There is an
+asks the computer if there are changes every 250ms or so). There is an
 alternative configuration for this to change it to a file watcher so it
 receives file system notifications on file change. There is discussion here on
 this.
@@ -64,7 +67,8 @@ planet earth...and hopefully don't run into any of the caveats
 Edit: It may be worth it to note, the 'UseFsEvents' part of this uses the
 node.js fs.watch API and the polling based API is based on fs.watchFile
 
-Fun table of how the watchers are implemented on different OSs [[1](https://github.com/microsoft/TypeScript/issues/31048#issuecomment-495483957)]
+Fun table of how the watchers are implemented on different OSs
+[[1](https://github.com/microsoft/TypeScript/issues/31048#issuecomment-495483957)]
 
 ```
 On Linux systems, this uses inotify(7).

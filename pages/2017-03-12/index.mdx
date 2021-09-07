@@ -6,9 +6,13 @@ How I learned to hate ORM (especially for data import scripts)
 
 When I was tasked with making a new application for our websites, I was
 given several CSV files with some expectation that these files could
-basically be just loaded into a database and jumped into production
-really quickly. This was sort of naive idea for me to share in, so I'll
-go through the way the project progressed
+basically be just loaded into a database and jumped into production really
+quickly. If you are using R and Shiny to make a data visualization dashboard,
+especially if it is read only, this can actually be a reality for you: load
+those CSVs and just pretend you're a full featured database. I had to actually
+create some read write functionality though. This was sort of experimental for
+me and I'm not that well versed in databases, but I wanted to share my
+experience
 
 When I started, I chose grails/groovy/hibernate/GORM as a platform to
 use. This quickly turned into pain when I tried to make a data importer
