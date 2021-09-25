@@ -32,13 +32,13 @@ shot, and it seemed simple enough, but I kept getting really confused about how
 to even read and initialize the value of a textbox for example properly. TLDR:
 I was not aware of what a *controlled component* was.
 
-The idea of controlled components quite unintuitive and I didn't know the words
-for it. Instead, I kept googling weird things like "two way data binding react"
-and variants of this (I had never used angular but I heard of two-way data
-binding from angular, and I just felt like it was what I needed). I even posted
-about my frustrations about this on the react subreddit and was downvoted. Felt
-bad. I was just really confused.  I abandoned the project in react and just
-used our normal jqueryish thing.
+The idea of controlled components (not a word in my vocabulary at the time) was
+quite unintuitive and instead, I kept googling weird things like "two way data
+binding react" and variants of this. I had never used Angular but I heard of
+two-way data binding from Angular, and I just felt like it was what I needed.
+I even posted about my frustrations about this on the React subreddit and was
+downvoted. Felt bad. I was just really confused.  I abandoned the project in
+React and just used our normal jqueryish thing.
 
 
 
@@ -46,13 +46,17 @@ used our normal jqueryish thing.
 
 When I got a call about a new job in 2018, I was really happy and started in
 June 2018. They decided they are going to do "the big rewrite" and are going to
-use React. My coworker started building the new react app prototype. My
+use React. My coworker started building the new React app prototype. My
 coworker keeps asking me "what state management library should we use". I just
 had no idea about React still, I had not ever looked into state management, and
 basically just was like "I dunno!". I had no way to form an opinion. I was also
 working on some misc stuff sort of unrelated to the rewrite and remained pretty
 out of the loop. We would have weekly meetings but I just wouldn't really
-understand the goings ons. This didn't feel great
+understand the goings ons. The project started using mobx-state-tree and I saw
+them start to write fresh code for the project but things like prop-types just
+were confusing to me, e.g. there were the mobx-state-tree model types, and
+suddenly and the React prop-types and it was still the days of class-based
+React components. I couldn't get any clear idea of what was happening
 
 
 
@@ -60,8 +64,8 @@ understand the goings ons. This didn't feel great
 
 It's December 2018, I go home for Christmas and I have an honest talk with my
 parents and tell them "I don't get what is happening in the new codebase, I'm
-honestly unhappy, and it just does all this 'react' stuff" but I can't explain
-react to them I just say the code is automatically reacting to other things. My
+honestly unhappy, and it just does all this 'React' stuff" but I can't explain
+React to them I just say the code is automatically reacting to other things. My
 parents say "well if you are unhappy you might have to leave your job" and they
 are not like, cheering for me to leave, but they tell me that. At this point,
 it really hit me that I do like this job and I decided to try to focus on work.
@@ -76,12 +80,13 @@ programming**
 On January 10th 2019 I make my first commit to the rewrite by doing some
 monkey-see monkey-do type coding. I copy a bunch of files and just put them in
 the right place, tweak some lines, and start to figure out how to make things
-run. By the end of January 2019 I get my first code change merged. I also
-suggested that we start doing **pair-programming sessions**. Once I started
-these it made a huge difference for me in learning how to code.  The pair
-programming often still way over my head due to how my coworker presented stuff
-or how much he assumed I understood. Nevertheless, these were extremely helpful
-for me to help get caught up.
+run. By the end of January 2019 I get my first code change merged.
+
+I also suggested that we start doing **pair-programming sessions**. Once I
+started these it made a huge difference for me in learning how to code.  The
+pair programming often still way over my head due to how my coworker presented
+stuff or how much he assumed I understood. Nevertheless, these were extremely
+helpful for me to help get caught up.
 
 **I start to reading "Learning React"**
 
@@ -89,14 +94,14 @@ In March 2019, I got the book "Learning React" (O'Reilly2017
 <https://www.oreilly.com/library/view/learning-react/9781491954614/>) for my
 kindle.  Reading this book was a big help I felt, and provided a needed "brain
 reset" for me. The book worked well for me, I read it each night on my kindle,
-and the functional component concepts were super enlightening. To me it was so
-much better reading a book than say and internet tutorial because I could
-focus, not have distractions, etc. My eyes would just glaze over every time I
-clicked on React blog posts and stuff before this.
+and the function component concepts were super enlightening. To me it was so
+much better reading a book than, say, an internet tutorial. With the book, I
+could focus, not have distractions, etc. My eyes would just glaze over every
+time I clicked on internet tutorials and stuff before this.
 
 So anyways, March 2019 goes on, and I'm learning, but our codebase still feels
 pretty complicated and alien. We use mobx-state-tree and the glue for
-mobx-state-tree to react e.g. the mobx-react doesn't really make sense to me. I
+mobx-state-tree to React e.g. the mobx-react doesn't really make sense to me. I
 remember asking my coworkers why my component was not updating and they
 eventually find out it's because I keep not using the observe() wrapper around
 my components.
@@ -113,8 +118,8 @@ return types.
 
 **I start using React hooks**
 
-In May 2019 I try out my first React hook, I try a useState instead. It worked
-well. I couldn't really figure out why I would use it instead of the mobx state
+In May 2019 I try out my first React hook, a useState. It worked well. I
+couldn't really figure out why I would use it instead of the mobx state
 management we used elsewhere, but the example was that it was a click and drag
 and it made sense to keep that click and drag state local to the component
 rather than the "app"
@@ -150,7 +155,7 @@ rather than a nice simple one.
 Overall, I just wanted to write up my whole experience. It felt really
 difficult for me to make these changes. I also went through a breakup during
 this time, had a bad living situation, etc. so things were a struggle. If
-anyone else has had struggles learning react, tell your story, and let me know.
+anyone else has had struggles learning React, tell your story, and let me know.
 I'd like to also thank everyone who helped me along the way. I feel like a much
 better coder now, yet, I should always keep growing. The feeling of
 uncomfortableness could be a growing experience.
