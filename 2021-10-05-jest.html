@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/39537df1dfa69610d89e.css" as="style"/><link rel="stylesheet" href="/_next/static/css/39537df1dfa69610d89e.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"></script><script src="/_next/static/chunks/webpack-1a8a258926ecde76681b.js" defer=""></script><script src="/_next/static/chunks/framework-b97a0ed4f13ff8397343.js" defer=""></script><script src="/_next/static/chunks/main-1f2c591c5d3bfcfc95e6.js" defer=""></script><script src="/_next/static/chunks/pages/_app-72a03db9ecdc52193d45.js" defer=""></script><script src="/_next/static/chunks/pages/2021-10-05-jest-662e970744e35877c6ec.js" defer=""></script><script src="/_next/static/UAfgX3p2vb5aJ-pMdJqjd/_buildManifest.js" defer=""></script><script src="/_next/static/UAfgX3p2vb5aJ-pMdJqjd/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><div><a href="/">Return home</a><img src="/avatar.png" style="height:2em;margin-left:1em"/></div><div class="blog"><h1>Do you understand how parallelization interacts with global variabesl in jest?</h1><p>I found that there is a little bit of confusion and misunderstanding around how
+things like parallelization work in jest, which sometimes leads to additional
+hacking around problems that may not exist or speculating incorrectly about
+test failure. Here are a short summary of things that may cause confusion.</p><p>This is also of course a point of concern when you have code that for some
+reason or another uses global variables.</p><h2>Tests in a single file are NOT run in parallel</h2><p>Simple example, the global variable r is included in the test condition, but it
+is accurately run in all cases because the tests are not run in parallel.</p><pre><code class="language-js">let r = 0;
+
+function timeout(ms) {
+  return new Promise((resolve) =&gt; setTimeout(resolve, ms));
+}
+
+describe(&quot;tests&quot;, () =&gt; {
+  it(&quot;t1&quot;, async () =&gt; {
+    await timeout(1000);
+    expect(r).toBe(0);
+    r++;
+  });
+  it(&quot;t2&quot;, async () =&gt; {
+    await timeout(1000);
+    expect(r).toBe(1);
+    r++;
+  });
+  it(&quot;t3&quot;, async () =&gt; {
+    await timeout(1000);
+    expect(r).toBe(2);
+    r++;
+  });
+});
+</code></pre><p>This test will take 3 seconds, and will accurately count the global variable.
+If it was in parallel, it may only take 1 second, and would inaccurately count
+the global variable due to race conditions</p><h2>Tests in different files ARE run in parallel</h2><p>Let&#x27;s take another example where we use a global variable, and then two
+different tests use the global variable.</p><p>file_using_some_globals.js</p><pre><code class="language-js">let myGlobal = 0;
+
+export function doStuff() {
+  myGlobal++;
+  return myGlobal;
+}
+
+export function resetMyGlobal() {
+  myGlobal = 0;
+}
+
+export function timeout(ms) {
+  return new Promise((resolve) =&gt; setTimeout(resolve, ms));
+}
+</code></pre><p>test_global_vars1.test.js</p><pre><code class="language-js">import { doStuff, timeout } from &quot;./dostuff&quot;;
+test(&quot;file1&quot;, async () =&gt; {
+  doStuff();
+  await timeout(1000);
+  expect(doStuff()).toEqual(2);
+});
+</code></pre><p>test_global_vars2.test.js</p><pre><code class="language-js">
+import { doStuff, timeout } from &quot;./dostuff&quot;;
+
+test(&quot;file1&quot;, async () =&gt; {
+  await timeout(1000);
+  expect(doStuff()).toEqual(1);
+});
+</code></pre><p>This test completes in less than 2 seconds, and these tests are run in
+parallel. They use different instances of the global state, and therefore have
+no worries with colliding their state.</p></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/2021-10-05-jest","query":{},"buildId":"UAfgX3p2vb5aJ-pMdJqjd","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
