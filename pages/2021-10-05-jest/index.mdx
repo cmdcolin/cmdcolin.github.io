@@ -1,0 +1,106 @@
+
+import Layout from "../components/Layout"
+
+
+
+# Do you understand how parallelization interacts with global variabesl in jest?
+
+I found that there is a little bit of confusion and misunderstanding around how
+things like parallelization work in jest, which sometimes leads to additional
+hacking around problems that may not exist or speculating incorrectly about
+test failure. This is also of course a point of concern when you have code that
+for some reason or another uses global variables. Here are a short summary of
+things that may cause confusion.
+
+
+## Tests in a single file are NOT run in parallel
+
+Simple example, the global variable r is included in the test condition, but it
+is accurately run in all cases because the tests are not run in parallel.
+
+```js
+let r = 0;
+
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+describe("tests", () => {
+  it("t1", async () => {
+    await timeout(1000);
+    expect(r).toBe(0);
+    r++;
+  });
+  it("t2", async () => {
+    await timeout(1000);
+    expect(r).toBe(1);
+    r++;
+  });
+  it("t3", async () => {
+    await timeout(1000);
+    expect(r).toBe(2);
+    r++;
+  });
+});
+```
+
+This test will take 3 seconds, and will accurately count the global variable.
+If it was in parallel, it may only take 1 second, and would inaccurately count
+the global variable due to race conditions
+
+## Tests in different files ARE run in parallel
+
+
+Let's take another example where we use a global variable, and then two
+different tests use the global variable.
+
+
+file_using_some_globals.js
+
+```js
+let myGlobal = 0;
+
+export function doStuff() {
+  myGlobal++;
+  return myGlobal;
+}
+
+export function resetMyGlobal() {
+  myGlobal = 0;
+}
+
+export function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+```
+
+test_global_vars1.test.js
+
+
+```js
+import { doStuff, timeout } from "./dostuff";
+test("file1", async () => {
+  doStuff();
+  await timeout(1000);
+  expect(doStuff()).toEqual(2);
+});
+```
+
+test_global_vars2.test.js
+```js
+
+import { doStuff, timeout } from "./dostuff";
+
+test("file1", async () => {
+  await timeout(1000);
+  expect(doStuff()).toEqual(1);
+});
+```
+
+
+This test completes in less than 2 seconds, and these tests are run in
+parallel. They use different instances of the global state, and therefore have
+no worries with colliding their state.
+
+
+export default ({ children }) => <Layout>{children}</Layout>
