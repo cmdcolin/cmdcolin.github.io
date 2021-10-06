@@ -66,7 +66,6 @@ yes!</p><p>mock_console.test.js</p><pre><code>test(&quot;test1&quot;, () =&gt; {
   console.error = jest.fn();
   console.error(&quot;wow&quot;);
   expect(console.error).toHaveBeenCalled();
-  console.error.mockRestore()
 });
 
 test(&quot;test2&quot;, () =&gt; {
