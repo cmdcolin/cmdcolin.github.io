@@ -15,7 +15,7 @@ ERROR: data not found
 
 ![](/media/pumpkin-dark.jpg)
 
-But... our code is so simple (we of course abide by the religion of writing "simple code" you know)...when could be happening?
+But... our code is so simple (we of course abide by the religion of writing "simple code" you know)...what could be happening?
 
 The code looks like this
 
@@ -39,9 +39,10 @@ const buffer = unzip(file)
 const str = new TextDecoder("utf8",{fatal:true}).decode(buf);
 ```
 
-This doesn't change, but it seems like TextDecoder is failing.
+This doesn't change the results though
 
-Then it dawns on us while the lightning hits and the thunderclap booms and the wind blows through the rattly windows
+Then it dawns on us while the lightning hits and the thunderclap booms and the
+wind blows through the rattly windows
 
 
 We have hit...the maximum string length in Chrome
@@ -78,55 +79,6 @@ happy halloween!!
 
 
 pumpkin photo source: http://mountainbikerak.blogspot.com/2010/11/google-chrome-pumpkin.html
-
-
-addendum: with node js it actually prints an error instead of being silent
-
-```
-~ ❯❯❯ node test.js                                                                            ✘ 130
-node:buffer:603
-    slice: (buf, start, end) => buf.ucs2Slice(start, end),
-                                    ^
-
-Error: Cannot create a string longer than 0x1fffffe8 characters
-    at Object.slice (node:buffer:603:37)
-    at Uint8Array.toString (node:buffer:812:14)
-    at TextDecoder.decode (node:internal/encoding:426:18)
-    at Object.<anonymous> (/home/cdiesh/test.js:6:31)
-    at Module._compile (node:internal/modules/cjs/loader:1092:14)
-    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1121:10)
-    at Module.load (node:internal/modules/cjs/loader:972:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:813:14)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:76:12)
-    at node:internal/main/run_main_module:17:47 {
-  code: 'ERR_STRING_TOO_LONG'
-
-```
-
-Curiously, with a 600_000_000 byte string it is a different error...who knows why (lightning clap)
-
-```
-~ ❯❯❯ node test.js                                                                            ✘ 130
-node:internal/encoding:424
-        throw new ERR_ENCODING_INVALID_ENCODED_DATA(this.encoding, ret);
-        ^
-
-TypeError [ERR_ENCODING_INVALID_ENCODED_DATA]: The encoded data was not valid for encoding utf-8
-    at new NodeError (node:internal/errors:329:5)
-    at TextDecoder.decode (node:internal/encoding:424:15)
-    at Object.<anonymous> (/home/cdiesh/test.js:6:31)
-    at Module._compile (node:internal/modules/cjs/loader:1092:14)
-    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1121:10)
-    at Module.load (node:internal/modules/cjs/loader:972:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:813:14)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:76:12)
-    at node:internal/main/run_main_module:17:47 {
-  errno: 1,
-  code: 'ERR_ENCODING_INVALID_ENCODED_DATA'
-}
-
-```
-
 
 
 
