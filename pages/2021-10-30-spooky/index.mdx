@@ -1,6 +1,6 @@
 import Layout from "../components/Layout"
 
-## A spooky error when you have a string bigger than 512MB
+## A spooky error when you have a string bigger than 512MB in Chrome
 
 Now gather round for a spooky story
 
@@ -70,15 +70,26 @@ This is correct, outputs  536,870,888
 
 With anything, even one byte more, it fails and outputs 0
 
-With 512MB+1 bytes on node.js it actually prints an error instead of no error
-message like chrome
-
-
 
 happy halloween!!
 
 
 pumpkin photo source: http://mountainbikerak.blogspot.com/2010/11/google-chrome-pumpkin.html
+
+chrome 95 tested
+
+
+nodejs 15 - at 512MB+1 bytes it prints an error message `Error: Cannot create a
+string longer than 0x1fffffe8 characters` for significantly greater than 512MB
+e.g. 600MB it actually prints a different error `TypeError
+[ERR_ENCODING_INVALID_ENCODED_DATA]: The encoded data was not valid for
+encoding utf-8`)
+
+
+
+firefox 93 - goes up to ~1GB but then gives Exception { name: "NS_ERROR_OUT_OF_MEMORY", message: "", result: 2147942414
+
+midori 6 (safari-alike/webkit) - goes up to ~2GB fine! will have to test more
 
 
 
