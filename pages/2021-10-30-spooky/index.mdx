@@ -20,7 +20,7 @@ But... our code is so simple (we of course abide by the religion of writing "sim
 The code looks like this
 
 ```js
-const buffer = unzip(file)
+const buf = unzip(file)
 const str = new TextDecoder().decode(buf);
 ```
 
@@ -35,7 +35,7 @@ What could be happening?
 We see in the TextDecoder documentation that it has a note called "fatal". We try
 
 ```js
-const buffer = unzip(file)
+const buf = unzip(file)
 const str = new TextDecoder("utf8",{fatal:true}).decode(buf);
 ```
 
