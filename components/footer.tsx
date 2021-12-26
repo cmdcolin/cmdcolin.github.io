@@ -26,6 +26,11 @@ const Footer = () => {
               <a className="hover:underline">Projects</a>
             </Link>
           </div>
+          <div className="m-4">
+            <Link href="/rss.xml">
+              <a className="hover:underline">RSS</a>
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>
