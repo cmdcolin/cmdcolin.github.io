@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Misc scribblings</title>
-        <link>https://ashleemboyer.com</link>
+        <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 26 Dec 2021 21:32:29 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 26 Dec 2021 21:35:34 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
             <title><![CDATA[A spooky error when you have a string bigger than 512MB in Chrome]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sat, 30 Oct 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Now gather round for a spooky story
@@ -97,8 +97,8 @@ midori 6 (safari-alike/webkit) - goes up to ~2GB fine! will have to test more
         </item>
         <item>
             <title><![CDATA[Jest parallelization, globals, mocks, and squawkless tests]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Tue, 05 Oct 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 I found that there is a little bit of confusion and misunderstanding around how
@@ -270,8 +270,8 @@ and write cleaner jest tests.
         </item>
         <item>
             <title><![CDATA[Decrease your idle CPU usage when developing typescript apps with this one weird environment variable]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sun, 05 Sep 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 TL;DR:
@@ -352,8 +352,8 @@ your teammates, but as far as I could tell, it seems ok!
         </item>
         <item>
             <title><![CDATA[An amazing error message if you put more than 2^24 items in a JS Map object]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sun, 15 Aug 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 One of the fun things about working with big data is that you can often hit
@@ -503,8 +503,8 @@ a large number of elements https://github.com/GMOD/ixixx-js
         </item>
         <item>
             <title><![CDATA[Do you understand your NPM dependencies?]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Tue, 27 Jul 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 You are writing a library...or your writing an app and you want to publish some
@@ -543,8 +543,8 @@ will decide to downgrade you to 6.0.1
         </item>
         <item>
             <title><![CDATA[Making a HTTPS accessible S3 powered static site with CloudFront+route 53]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 This is not a very authoritative post because I stumbled though this but
@@ -673,8 +673,8 @@ interface
         </item>
         <item>
             <title><![CDATA[Making a serverless website for photo and video upload pt. 2]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 This post follows
@@ -1189,8 +1189,8 @@ Source code <https://github.com/cmdcolin/aws_photo_gallery/>
         </item>
         <item>
             <title><![CDATA[Making a serverless website for photo upload pt. 1]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 24 Dec 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 I set out to make a serverless website for photo uploads. Our dearly
@@ -1299,8 +1299,8 @@ Now the objects are publicly accessible!
         </item>
         <item>
             <title><![CDATA[Challenges I have faced learning React]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sat, 04 Jul 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Learning React was a big challenge for me. I started learning React in earnest
@@ -1446,8 +1446,8 @@ uncomfortableness could be a growing experience.
         </item>
         <item>
             <title><![CDATA[Misconceptions your team might have during The Big Rewrite]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Wed, 03 Jun 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Disclaimer: I enjoy the project I am working on and this is still a work
@@ -1566,8 +1566,8 @@ v2 design goals are, and more. It's really crazy
         </item>
         <item>
             <title><![CDATA[Behind the release - the story of the bugs and features in JBrowse 1.16.0]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Mon, 17 Dec 2018 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Every once in awhile, you might see that your favorite program, JBrowse,  has a
@@ -1767,8 +1767,8 @@ the sliceHeader file offset. <https://github.com/GMOD/cram-js/pull/10>
         </item>
         <item>
             <title><![CDATA[Problems that I experienced with the HPCC]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Fri, 21 Apr 2017 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Many of these issues may be due to me being stubborn with a weird build system.
@@ -1824,8 +1824,8 @@ Etc etc.
         </item>
         <item>
             <title><![CDATA[How I learned to hate ORM (especially for data import scripts)]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sun, 12 Mar 2017 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 When I was tasked with making a new application for our websites, I was
@@ -1889,8 +1889,8 @@ fast with the CSV COPY command
         </item>
         <item>
             <title><![CDATA[Plotting a coordinate on the screen]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 16 Feb 2017 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 I always end up having to remember the math for plotting a coordinate on the
@@ -1942,8 +1942,8 @@ that can be a further exercise
         </item>
         <item>
             <title><![CDATA[Creating a JBrowse plugin]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 10 Nov 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 I have been very impressed with peoples creativity and willingness to
@@ -2086,8 +2086,8 @@ jbrowse plugin)
         </item>
         <item>
             <title><![CDATA[Fixing spiky CPU issues with Tomcat]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Fri, 16 Sep 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 The symptoms of spiking that we saw were simply that after light usage
@@ -2127,8 +2127,8 @@ export default ({ children }) => <Layout>{children}</Layout>
         </item>
         <item>
             <title><![CDATA[Installing clamav on OSX]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Mon, 20 Jun 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 It is a common trope that OSX doesn't need anti-virus because everyone targets
@@ -2183,8 +2183,8 @@ Or add this to a cronjob
         </item>
         <item>
             <title><![CDATA[Querying InterMine databases using R]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Fri, 17 Jun 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 In the past, I had found some ways to do simple queries on InterMine web
@@ -2264,8 +2264,8 @@ that it gets filtered?!
         </item>
         <item>
             <title><![CDATA[How to make your resume.json or resume-cli look great]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sat, 23 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 There are a ton of themes for resume-cli that are not immediately
@@ -2306,8 +2306,8 @@ See <https://github.com/jsonresume/resume-cli/issues/94>
         </item>
         <item>
             <title><![CDATA[Creating a testing framework for JBrowse plugins]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Tue, 19 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Testing client side apps requires a couple of tedious steps: Organizing
@@ -2462,8 +2462,8 @@ For an example of the project using this, see
         </item>
         <item>
             <title><![CDATA[Creating a docker image]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sun, 17 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Example
@@ -2481,8 +2481,8 @@ Example
         </item>
         <item>
             <title><![CDATA[Basic command line productivity tricks and learning experiences]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Wed, 06 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 - dd deletes line in vim
@@ -2550,8 +2550,8 @@ export default ({ children }) => <Layout>{children}</Layout>
         </item>
         <item>
             <title><![CDATA[Running nginx on containerised travis-CI pt 2]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Mon, 28 Mar 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 There are several guides out there about how to setup nginx on travis-CI
@@ -2633,8 +2633,8 @@ nginx
         </item>
         <item>
             <title><![CDATA[On over-reproducibility]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sat, 05 Mar 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Recently, some posts were made by
@@ -2771,8 +2771,8 @@ way to do science but it's not a bad thing to have.
         </item>
         <item>
             <title><![CDATA[Cheating in your computer science class by copying from stackoverflow]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 17 Dec 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 I would like to tell a story about how I provided some personal tutoring
@@ -2900,8 +2900,8 @@ they never get a full meal!
         </item>
         <item>
             <title><![CDATA[Killing postgres the hard way]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 22 Oct 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 So today, I finally decided to do something about a query that we saw
@@ -3156,8 +3156,8 @@ think it is still good to know some alternative steps to kill -9
         </item>
         <item>
             <title><![CDATA[Tomcat memory debugging]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 15 Oct 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 In my previous posts, I speculated about the issues that were causing
@@ -3241,8 +3241,8 @@ export default ({ children }) => <Layout>{children}</Layout>
         </item>
         <item>
             <title><![CDATA[Weekend project - graphing tumblr reblogs using cytoscape.js]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sun, 30 Aug 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 In the past, I made an app that used RStudio's Shiny platform to plot
@@ -3349,8 +3349,8 @@ export default ({ children }) => <Layout>{children}</Layout>
         </item>
         <item>
             <title><![CDATA[Creating high-resolution screenshots (of jbrowse) with phantomJS]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Mon, 02 Mar 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Generating screenshots that are of high quality can be a great benefit
@@ -3464,8 +3464,8 @@ export default ({ children }) => <Layout>{children}</Layout>
         </item>
         <item>
             <title><![CDATA[Post graduation survey]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Sun, 01 Feb 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 I recently received some post-graduation survey results from my class of
@@ -3529,8 +3529,8 @@ export default ({ children }) => <Layout>{children}</Layout>
         </item>
         <item>
             <title><![CDATA[High DPI rendering on HTML5 canvas - some problems and solutions]]></title>
-            <link>https://ashleemboyer.com/undefined</link>
-            <guid>https://ashleemboyer.com/undefined</guid>
+            <link>https://cmdcolin.github.io/undefined</link>
+            <guid>https://cmdcolin.github.io/undefined</guid>
             <pubDate>Thu, 22 May 2014 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
 Recently our code has been moving towards the use of HTML5 canvas, as it has
