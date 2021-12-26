@@ -4,13 +4,15 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@mdx-js/loader": "next",
     "@next/mdx": "next",
     "classnames": "2.3.1",
     "date-fns": "2.27.0",
+    "feed": "^4.2.2",
     "gray-matter": "4.0.3",
     "next": "next",
     "react": "^17.0.2",
