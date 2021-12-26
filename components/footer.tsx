@@ -27,6 +27,11 @@ const Footer = () => {
             </Link>
           </div>
           <div className="m-4">
+            <Link href="/photos">
+              <a className="hover:underline">Photos</a>
+            </Link>
+          </div>
+          <div className="m-4">
             <Link href="/rss.xml">
               <a className="hover:underline">RSS</a>
             </Link>

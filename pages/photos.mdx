@@ -1,0 +1,40 @@
+import Container from '../components/container'
+import Posts from '../components/posts'
+import { generateRSSFeed, getAllPosts } from '../lib/api'
+import Link from 'next/link'
+import Layout from '../components/layout'
+import Header from '../components/header'
+
+export function getStaticProps() {
+  const allPosts = getAllPosts()
+
+  generateRSSFeed(allPosts);
+
+  return {
+    props: { allPosts },
+  }
+}
+
+
+## Photos
+
+### Sketches
+
+
+<img src="photos/sketch1.webp" style={{maxWidth:800}}/>
+12/25/21 - [winter in the forest - isaac leviton (1885)](https://www.wikiart.org/en/isaac-levitan/in-the-forest-at-winter-1885)
+
+<img src="photos/sketch2.webp" style={{maxWidth:800}}/>
+12/26/21 - [by the water's edge - isaac leviton (undated)](https://www.atlasofplaces.com/painting/mood-landscape/)
+
+
+
+
+export default ({ children, allPosts }) => <>
+  <Layout>
+    <Container>
+      <Header/>
+      {children}
+    </Container>
+  </Layout>
+</>
