@@ -1,29 +1,51 @@
+import Container from '../components/container'
+import Posts from '../components/posts'
+import Layout from '../components/layout'
+import Header from '../components/header'
+import Head from 'next/head'
+import Link from 'next/link'
+import { getAllPosts } from '../lib/api'
 
-## Colin Diesh
+
 
 ![](/me.jpg)
 
 
-I'm a web developer and bioinformatician working on genomic data
-visualizations. I'm trying to reboot this page as a blog, to document fun,
-surprising or worthwhile tech-splunking adventures.
-
-- [Personal projects and other info](projects.html)
-- [Links](links.html)
-
-## New blog posts
+I'm a web developer and bioinformatician working on JBrowse. Interested in all
+sorts of creative hacking, performance. engineering, and data science. Also
+crafting, DIY and nature.
 
 
-- [2021-10-30 - A spooky error in Chrome](2021-10-30-spooky.html)
-- [2021-10-05 - Jest parallelization, globals, mocks, and squawkless tests](2021-10-05-jest.html)
-- [2021-09-05 - Decrease your idle CPU usage when developing typescript apps with this one weird environment variable](2021-09-05-typescript.html)
-- [2021-08-17 - An amazing error message if you put more than 2^24 items in a JS Map object](2021-08-15-map-limit.html)
-- [2021-07-27 - Do you understand your NPM dependencies?](2021-07-27-npm-dependencies)
-
-[older posts...](blogarchive.html)
 
 
-Website made with next.js. Source code
-https://github.com/cmdcolin/cmdcolin.github.io
+
+
+
+export function getStaticProps() {
+  const allPosts = getAllPosts().slice(0, 8)
+
+  return {
+    props: { allPosts },
+  }
+}
+
+
+
+
+export default ({ children, allPosts }) => <>
+  <Layout>
+    <Container>
+      <Header/>
+      <h1 className="text-2xl md:text-2xl font-bold">
+        Colin Diesh
+      </h1>
+      {children}
+      <Posts posts={allPosts}/>
+      <Link href="/archive">
+        <a className="hover:underline">More posts...</a>
+      </Link>
+    </Container>
+  </Layout>
+</>
 
 

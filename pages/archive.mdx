@@ -1,0 +1,28 @@
+import Container from '../components/container'
+import Posts from '../components/posts'
+import { getAllPosts } from '../lib/api'
+import Link from 'next/link'
+import Layout from '../components/layout'
+import Header from '../components/header'
+
+export function getStaticProps() {
+  const allPosts = getAllPosts()
+
+  return {
+    props: { allPosts },
+  }
+}
+
+
+## Blog archive
+
+
+export default ({ children, allPosts }) => <>
+  <Layout>
+    <Container>
+      <Header/>
+      {children}
+      <Posts posts={allPosts} />
+    </Container>
+  </Layout>
+</>
