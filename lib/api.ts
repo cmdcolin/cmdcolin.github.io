@@ -25,7 +25,7 @@ export function getAllPosts() {
 }
 
 export function generateRSSFeed(articles: any) {
-  const baseUrl = 'https://ashleemboyer.com'
+  const baseUrl = 'https://cmdcolin.github.io'
   const author = {
     name: 'Colin Diesh',
     email: 'colin.diesh@gmail.com',
@@ -62,7 +62,6 @@ export function generateRSSFeed(articles: any) {
     })
   })
 
-  // Write the RSS output to a public file, making it
-  // accessible at ashleemboyer.com/rss.xml
+  // Write the RSS output to a public file
   fs.writeFileSync('public/rss.xml', feed.rss2())
 }
