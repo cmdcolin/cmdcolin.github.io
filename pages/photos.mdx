@@ -1,19 +1,9 @@
 import Container from '../components/container'
 import Posts from '../components/posts'
-import { generateRSSFeed, getAllPosts } from '../lib/api'
 import Link from 'next/link'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-export function getStaticProps() {
-  const allPosts = getAllPosts()
-
-  generateRSSFeed(allPosts);
-
-  return {
-    props: { allPosts },
-  }
-}
 
 
 ## Photos
@@ -30,7 +20,7 @@ export function getStaticProps() {
 
 
 
-export default ({ children, allPosts }) => <>
+export default ({ children }) => <>
   <Layout>
     <Container>
       <Header/>

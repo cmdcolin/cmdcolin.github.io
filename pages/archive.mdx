@@ -5,8 +5,8 @@ import Link from 'next/link'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-export function getStaticProps() {
-  const allPosts = getAllPosts()
+export async function getStaticProps() {
+  const allPosts = await getAllPosts()
 
   generateRSSFeed(allPosts);
 

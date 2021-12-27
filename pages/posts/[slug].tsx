@@ -7,7 +7,7 @@ import PostHeader from '../../components/post-header'
 import Layout from '../../components/layout'
 import { getPostBySlug, getAllPosts } from '../../lib/api'
 import Head from 'next/head'
-import markdownToHtml from '../../lib/markdownToHtml'
+import { MDXRemote } from 'next-mdx-remote'
 
 type Props = {
   post: any
@@ -19,6 +19,7 @@ const Post = ({ post }: Props) => {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
+  const { title, date, mdxSource } = post
   return (
     <Layout>
       <Container>
@@ -29,10 +30,10 @@ const Post = ({ post }: Props) => {
           <>
             <article className="mb-32">
               <Head>
-                <title>{post.title}</title>
+                <title>{title}</title>
               </Head>
-              <PostHeader title={post.title} date={post.date} />
-              <PostBody content={post.content} />
+              <PostHeader title={title} date={date} />
+              <MDXRemote {...mdxSource} />
             </article>
           </>
         )}
@@ -50,21 +51,17 @@ type Params = {
 }
 
 export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug)
-  const content = await markdownToHtml(post.content || '')
+  const post = await getPostBySlug(params.slug)
 
   return {
     props: {
-      post: {
-        ...post,
-        content,
-      },
+      post,
     },
   }
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
 
   return {
     paths: posts.map(post => {
