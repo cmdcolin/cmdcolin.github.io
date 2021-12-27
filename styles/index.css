@@ -2,6 +2,10 @@ img {
   max-width: 80%;
 }
 
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
 footer > a {
   margin:8px;
 }
