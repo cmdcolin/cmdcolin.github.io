@@ -48,8 +48,8 @@ export function generateRSSFeed(articles: any) {
 
   // Add each article to the feed
   articles.forEach((post: any) => {
-    const { content, fileName, date, description, title } = post
-    const url = `${baseUrl}/${fileName}`
+    const { content, slug, date, description, title } = post
+    const url = `${baseUrl}/posts/${slug}`
 
     feed.addItem({
       title,
@@ -57,8 +57,8 @@ export function generateRSSFeed(articles: any) {
       link: url,
       description,
       content,
-      author: [author],
       date: new Date(date),
+      author: [author],
     })
   })
 

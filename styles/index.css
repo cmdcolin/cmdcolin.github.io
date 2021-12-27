@@ -13,3 +13,10 @@
 /* Stop purging. */
 
 /* Your own custom utilities */
+a {
+   @apply underline text-blue-600 hover:text-blue-800;
+}
+
+a.header {
+  color:black;
+}
