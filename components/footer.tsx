@@ -3,40 +3,29 @@ import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer className="bg-accent-1 border-t border-accent-2">
+    <footer style={{ marginTop: 20 }}>
       <Container>
-        <div className="py-14 flex flex-col lg:flex-row items-center">
-          <div className="m-4">
-            <Link href="/">
-              <a className="hover:underline">Home</a>
-            </Link>
-          </div>
-          <div className="m-4">
-            <Link href="https://github.com/cmdcolin">
-              <a className="hover:underline">Github</a>
-            </Link>
-          </div>
-          <div className="m-4">
-            <Link href="https://twitter.com/cmdcolin">
-              <a className="hover:underline">Twitter</a>
-            </Link>
-          </div>
-          <div className="m-4">
-            <Link href="/projects">
-              <a className="hover:underline">Projects</a>
-            </Link>
-          </div>
-          <div className="m-4">
-            <Link href="/photos">
-              <a className="hover:underline">Photos</a>
-            </Link>
-          </div>
-          <div className="m-4">
-            <Link href="/rss.xml">
-              <a className="hover:underline">RSS</a>
-            </Link>
-          </div>
-        </div>
+        <Link href="/">
+          <a>Home</a>
+        </Link>{' '}
+        <Link href="/archive">
+          <a>Blog archive</a>
+        </Link>{' '}
+        <Link href="https://github.com/cmdcolin">
+          <a>Github</a>
+        </Link>{' '}
+        <Link href="https://twitter.com/cmdcolin">
+          <a>Twitter</a>
+        </Link>{' '}
+        <Link href="/projects">
+          <a>Projects</a>
+        </Link>{' '}
+        <Link href="/photos">
+          <a>Photos</a>
+        </Link>{' '}
+        <Link href="/rss.xml">
+          <a>RSS</a>
+        </Link>
       </Container>
     </footer>
   )

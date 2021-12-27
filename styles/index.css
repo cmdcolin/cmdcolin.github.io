@@ -1,24 +1,5 @@
-@tailwind base;
-
-/* Write your own custom base styles here */
-
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
-
-/* Write you own custom component styles here */
-
-/* Start purging... */
-@tailwind utilities;
-/* Stop purging. */
-
-/* Your own custom utilities */
-a {
-   @apply underline text-blue-600 hover:text-blue-800;
-}
-
-a.header {
-  color:black;
+img {
+  max-width: 80%;
 }
 
 /* PrismJS 1.25.0

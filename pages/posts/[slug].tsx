@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Container from '../../components/container'
-import PostBody from '../../components/post-body'
 import Header from '../../components/header'
 import PostHeader from '../../components/post-header'
 import Layout from '../../components/layout'
@@ -27,15 +26,13 @@ const Post = ({ post }: Props) => {
         {router.isFallback ? (
           <div>Loading...</div>
         ) : (
-          <>
-            <article className="mb-32">
-              <Head>
-                <title>{title}</title>
-              </Head>
-              <PostHeader title={title} date={date} />
-              <MDXRemote {...mdxSource} />
-            </article>
-          </>
+          <article>
+            <Head>
+              <title>{title}</title>
+            </Head>
+            <PostHeader title={title} date={date} />
+            <MDXRemote {...mdxSource} />
+          </article>
         )}
       </Container>
     </Layout>

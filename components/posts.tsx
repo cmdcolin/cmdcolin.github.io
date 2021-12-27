@@ -16,7 +16,7 @@ const PostPreview = ({
   return (
     <div>
       <Link as={`/posts/${slug}`} href="/posts/[slug]">
-        <a className="hover:underline">
+        <a>
           {date} - {title}
         </a>
       </Link>
@@ -27,18 +27,16 @@ const PostPreview = ({
 const MoreStories = ({ posts }: Props) => {
   return (
     <section>
-      <div className="py-14">
-        <h1>Posts</h1>
-        <div>
-          {posts.map(post => (
-            <PostPreview
-              key={post.slug}
-              title={post.title}
-              date={post.date}
-              slug={post.slug}
-            />
-          ))}
-        </div>
+      <h1>Posts</h1>
+      <div>
+        {posts.map(post => (
+          <PostPreview
+            key={post.slug}
+            title={post.title}
+            date={post.date}
+            slug={post.slug}
+          />
+        ))}
       </div>
     </section>
   )
