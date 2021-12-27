@@ -1,60 +1,45 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><title>Making a serverless website for photo and video upload pt. 2</title><meta name="next-head-count" content="6"/><link rel="preload" href="/_next/static/css/ddb86c7b4e1045c6.css" as="style"/><link rel="stylesheet" href="/_next/static/css/ddb86c7b4e1045c6.css" data-n-g=""/><link rel="preload" href="/_next/static/css/e1f6961df2961232.css" as="style"/><link rel="stylesheet" href="/_next/static/css/e1f6961df2961232.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/_next/static/chunks/webpack-514908bffb652963.js" defer=""></script><script src="/_next/static/chunks/framework-91d7f78b5b4003c8.js" defer=""></script><script src="/_next/static/chunks/main-7c3bf82eed00c281.js" defer=""></script><script src="/_next/static/chunks/pages/_app-76cd57bf65f05d70.js" defer=""></script><script src="/_next/static/chunks/162-1be62df9fbed0df5.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-2c663bbcac870718.js" defer=""></script><script src="/_next/static/pp9mRqc6res1HnVJ1xnx6/_buildManifest.js" defer=""></script><script src="/_next/static/pp9mRqc6res1HnVJ1xnx6/_ssgManifest.js" defer=""></script><script src="/_next/static/pp9mRqc6res1HnVJ1xnx6/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="min-h-screen"><main><div class="container mx-auto px-5"><div class="text-2xl md:text-4xl font-bold py-14 border-b border-accent-2 flex flex-col lg:flex-row items-center"><a class="header" href="/">Misc scribbles</a></div><article class="mb-32"><h1 class="text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">Making a serverless website for photo and video upload pt. 2<!-- --> - <!-- -->2020-12-26</h1><div class="max-w-1xl mx-auto"><div class="markdown-styles_markdown__h_8de"><p>This post follows
-on <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
-<p>It is possible I zoomed ahead too fast to make this a continuous
-tutorial, but overall I just wanted to post an update</p>
-<p>In pt. 1 I learned how to use the <code>aws-sam</code> CLI tool. This was a great
-insight for me about automating deployments. I can now simply run <code>sam deploy</code> and it will create new dynamodb tables, lambda functions, etc.</p>
-<p>After writing pt 1. I converted the existing vue-js app that was in the
-aws tutorial and converted it to react. Then I extended the app to allow</p>
-<ul>
-<li>Posting comments on photos</li>
-<li>Uploading multiple files</li>
-<li>Uploading videos
-etc.</li>
-</ul>
-<p>It will be hard to summarize all the changes since now the app has taken
-off a little bit but it looks like this:</p>
-<p>Repo structure</p>
-<pre><code> ./frontend # created using npx create-react-app frontend --template
+<!DOCTYPE html><html lang="en"><head><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><title>Making a serverless website for photo and video upload pt. 2</title><meta name="next-head-count" content="6"/><link rel="preload" href="/_next/static/css/9273c78a2450133e.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9273c78a2450133e.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/_next/static/chunks/webpack-514908bffb652963.js" defer=""></script><script src="/_next/static/chunks/framework-91d7f78b5b4003c8.js" defer=""></script><script src="/_next/static/chunks/main-7c3bf82eed00c281.js" defer=""></script><script src="/_next/static/chunks/pages/_app-76cd57bf65f05d70.js" defer=""></script><script src="/_next/static/chunks/162-1be62df9fbed0df5.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-205785f6b619387d.js" defer=""></script><script src="/_next/static/xdOEQ06ZwfpYuP89agAlh/_buildManifest.js" defer=""></script><script src="/_next/static/xdOEQ06ZwfpYuP89agAlh/_ssgManifest.js" defer=""></script><script src="/_next/static/xdOEQ06ZwfpYuP89agAlh/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="min-h-screen"><main><div class="container mx-auto px-5"><div class="text-2xl md:text-4xl font-bold py-14 border-b border-accent-2 flex flex-col lg:flex-row items-center"><a class="header" href="/">Misc scribbles</a></div><article class="mb-32"><h1 class="text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">Making a serverless website for photo and video upload pt. 2<!-- --> - <!-- -->2020-12-26</h1><p>This post follows
+on <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p><p>It is possible I zoomed ahead too fast to make this a continuous
+tutorial, but overall I just wanted to post an update</p><p>In pt. 1 I learned how to use the <code>aws-sam</code> CLI tool. This was a great
+insight for me about automating deployments. I can now simply run <code>sam deploy</code> and it will create new dynamodb tables, lambda functions, etc.</p><p>After writing pt 1. I converted the existing vue-js app that was in the
+aws tutorial and converted it to react. Then I extended the app to allow</p><ul><li>Posting comments on photos</li><li>Uploading multiple files</li><li>Uploading videos
+etc.</li></ul><p>It will be hard to summarize all the changes since now the app has taken
+off a little bit but it looks like this:</p><p>Repo structure</p><pre><code> ./frontend # created using npx create-react-app frontend --template
  typescript
  ./frontend/src/App.tsx # main frontend app code in react
  ./lambdas/
  ./lambdas/postFile # post a file to the lambda, this uploads a row to
  dynamodb and returns a pre-signed URL for uploading (note that if the
- client failed it's upload, that row in the lambda DB might be in a bad
+ client failed it&#x27;s upload, that row in the lambda DB might be in a bad
  state...)
  ./lambdas/getFiles # get all files that were ever posted
  ./lambdas/postComment # post a comment on a picture with POST
  request
  ./lambdas/getComments?file=filename.jpg # get comments on a
  picture/video with GET request
-</code></pre>
-<p>Here is a detailed code for uploading the file. We upload one file at a
+</code></pre><p>Here is a detailed code for uploading the file. We upload one file at a
 time, but the client code post to the lambda endpoint individually for
-each file</p>
-<p>This generates a pre-signed URL to allow the client-side JS (not the
+each file</p><p>This generates a pre-signed URL to allow the client-side JS (not the
 lambda itself) to directly upload to S3, and also posts a row in the S3
 to the filename that will. It is very similar code in
-to <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
-<p>./lambdas/postFile/app.js</p>
-<pre><code>'use strict'
+to <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p><p>./lambdas/postFile/app.js</p><pre><code class="language-js">&#x27;use strict&#x27;
 
-const AWS = require('aws-sdk')
-const multipart = require('./multipart')
+const AWS = require(&#x27;aws-sdk&#x27;)
+const multipart = require(&#x27;./multipart&#x27;)
 AWS.config.update({ region: process.env.AWS_REGION })
 const s3 = new AWS.S3()
 
-// Change this value to adjust the signed URL's expiration
+// Change this value to adjust the signed URL&#x27;s expiration
 const URL_EXPIRATION_SECONDS = 300
 
 // Main Lambda entry point
-exports.handler = async event => {
+exports.handler = async event =&gt; {
   return await getUploadURL(event)
 }
 
 const { AWS_REGION: region } = process.env
 
-const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10', region })
+const dynamodb = new AWS.DynamoDB({ apiVersion: &#x27;2012-08-10&#x27;, region })
 
 async function uploadPic({
   timestamp,
@@ -85,7 +70,7 @@ async function uploadPic({
         S: contentType,
       },
     },
-    TableName: 'files',
+    TableName: &#x27;files&#x27;,
   }
   return dynamodb.putItem(params).promise()
 }
@@ -103,10 +88,10 @@ const getUploadURL = async function (event) {
       Expires: URL_EXPIRATION_SECONDS,
       ContentType: contentType, // This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.
 
-      ACL: 'public-read',
+      ACL: &#x27;public-read&#x27;,
     }
 
-    const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params)
+    const uploadURL = await s3.getSignedUrlPromise(&#x27;putObject&#x27;, s3Params)
 
     await uploadPic({
       timestamp,
@@ -129,10 +114,8 @@ const getUploadURL = async function (event) {
     return response
   }
 }
-</code></pre>
-<p>./lambdas/getFiles/app.js</p>
-<pre><code>// eslint-disable-next-line import/no-unresolved
-const AWS = require('aws-sdk')
+</code></pre><p>./lambdas/getFiles/app.js</p><pre><code class="language-js">// eslint-disable-next-line import/no-unresolved
+const AWS = require(&#x27;aws-sdk&#x27;)
 
 const { AWS_REGION: region } = process.env
 
@@ -140,13 +123,13 @@ const docClient = new AWS.DynamoDB.DocumentClient()
 
 const getItems = function () {
   const params = {
-    TableName: 'files',
+    TableName: &#x27;files&#x27;,
   }
 
   return docClient.scan(params).promise()
 }
 
-exports.handler = async event => {
+exports.handler = async event =&gt; {
   try {
     const result = await getItems()
     return {
@@ -160,9 +143,7 @@ exports.handler = async event => {
     }
   }
 }
-</code></pre>
-<p>./frontend/src/App.tsx (excerpt)</p>
-<pre><code>async function myfetch(params: string, opts?: any) {
+</code></pre><p>./frontend/src/App.tsx (excerpt)</p><pre><code class="language-tsx">async function myfetch(params: string, opts?: any) {
   const response = await fetch(params, opts)
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}
@@ -176,70 +157,70 @@ function UploadDialog({
   onClose,
 }: {
   open: boolean
-  onClose: () => void
+  onClose: () =&gt; void
 }) {
-  const [images, setImages] = useState&#x3C;FileList>()
-  const [error, setError] = useState&#x3C;Error>()
+  const [images, setImages] = useState&lt;FileList&gt;()
+  const [error, setError] = useState&lt;Error&gt;()
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState(0)
   const [completed, setCompleted] = useState(0)
-  const [user, setUser] = useState('')
-  const [message, setMessage] = useState('')
+  const [user, setUser] = useState(&#x27;&#x27;)
+  const [message, setMessage] = useState(&#x27;&#x27;)
   const classes = useStyles()
 
-  const handleClose = () => {
+  const handleClose = () =&gt; {
     setError(undefined)
     setLoading(false)
     setImages(undefined)
     setCompleted(0)
     setTotal(0)
-    setMessage('')
+    setMessage(&#x27;&#x27;)
     onClose()
   }
 
   return (
-    &#x3C;Dialog onClose={handleClose} open={open}>
-           &#x3C;DialogTitle>upload a file (supports picture or video)&#x3C;/DialogTitle> 
-         &#x3C;DialogContent>
-               &#x3C;label htmlFor="user">name (optional) &#x3C;/label>
-               &#x3C;input
-          type="text"
+    &lt;Dialog onClose={handleClose} open={open}&gt;
+           &lt;DialogTitle&gt;upload a file (supports picture or video)&lt;/DialogTitle&gt; 
+         &lt;DialogContent&gt;
+               &lt;label htmlFor=&quot;user&quot;&gt;name (optional) &lt;/label&gt;
+               &lt;input
+          type=&quot;text&quot;
           value={user}
-          onChange={event => setUser(event.target.value)}
-          id="user"
-        />
-               &#x3C;br />       &#x3C;label htmlFor="user">message (optional) &#x3C;/label>
+          onChange={event =&gt; setUser(event.target.value)}
+          id=&quot;user&quot;
+        /&gt;
+               &lt;br /&gt;       &lt;label htmlFor=&quot;user&quot;&gt;message (optional) &lt;/label&gt;
                
-        &#x3C;input
-          type="text"
+        &lt;input
+          type=&quot;text&quot;
           value={message}
-          onChange={event => setMessage(event.target.value)}
-          id="message"
-        />
-               &#x3C;br />
+          onChange={event =&gt; setMessage(event.target.value)}
+          id=&quot;message&quot;
+        /&gt;
+               &lt;br /&gt;
                
-        &#x3C;input
+        &lt;input
           multiple
-          type="file"
-          onChange={e => {
+          type=&quot;file&quot;
+          onChange={e =&gt; {
             let files = e.target.files
-            if (files &#x26;&#x26; files.length) {
+            if (files &amp;&amp; files.length) {
               setImages(files)
             }
           }}
-        />
+        /&gt;
                {error ? (
-          &#x3C;div className={classes.error}>{`${error}`}&#x3C;/div>
+          &lt;div className={classes.error}&gt;{`${error}`}&lt;/div&gt;
         ) : loading ? (
           `Uploading...${completed}/${total}`
         ) : completed ? (
-          &#x3C;h2>Uploaded &#x3C;/h2>
+          &lt;h2&gt;Uploaded &lt;/h2&gt;
         ) : null}       
-        &#x3C;DialogActions>
+        &lt;DialogActions&gt;
                    
-          &#x3C;Button
-            style={{ textTransform: 'none' }}
-            onClick={async () => {
+          &lt;Button
+            style={{ textTransform: &#x27;none&#x27; }}
+            onClick={async () =&gt; {
               try {
                 if (images) {
                   setLoading(true)
@@ -247,27 +228,27 @@ function UploadDialog({
                   setCompleted(0)
                   setTotal(images.length)
                   await Promise.all(
-                    Array.from(images).map(async image => {
+                    Array.from(images).map(async image =&gt; {
                       const data = new FormData()
-                      data.append('message', message)
-                      data.append('user', user)
-                      data.append('date', new Date().toLocaleString())
-                      data.append('filename', image.name)
-                      data.append('contentType', image.type)
-                      const res = await myfetch(API_ENDPOINT + '/postFile', {
-                        method: 'POST',
+                      data.append(&#x27;message&#x27;, message)
+                      data.append(&#x27;user&#x27;, user)
+                      data.append(&#x27;date&#x27;, new Date().toLocaleString())
+                      data.append(&#x27;filename&#x27;, image.name)
+                      data.append(&#x27;contentType&#x27;, image.type)
+                      const res = await myfetch(API_ENDPOINT + &#x27;/postFile&#x27;, {
+                        method: &#x27;POST&#x27;,
                         body: data,
                       })
 
                       await myfetch(res.uploadURL, {
-                        method: 'PUT',
+                        method: &#x27;PUT&#x27;,
                         body: image,
                       })
 
-                      setCompleted(completed => completed + 1)
+                      setCompleted(completed =&gt; completed + 1)
                     }),
                   )
-                  setTimeout(() => {
+                  setTimeout(() =&gt; {
                     handleClose()
                   }, 500)
                 }
@@ -275,26 +256,24 @@ function UploadDialog({
                 setError(e)
               }
             }}
-            color="primary"
-          >
+            color=&quot;primary&quot;
+          &gt;
                        upload          
-          &#x3C;/Button>
-                   &#x3C;Button
+          &lt;/Button&gt;
+                   &lt;Button
             onClick={handleClose}
-            color="primary"
-            style={{ textTransform: 'none' }}
-          >
+            color=&quot;primary&quot;
+            style={{ textTransform: &#x27;none&#x27; }}
+          &gt;
                        cancel          
-          &#x3C;/Button>       
-        &#x3C;/DialogActions>
+          &lt;/Button&gt;       
+        &lt;/DialogActions&gt;
              
-      &#x3C;/DialogContent>   
-    &#x3C;/Dialog>
+      &lt;/DialogContent&gt;   
+    &lt;/Dialog&gt;
   )
 }
-</code></pre>
-<p>template.yaml for AWS</p>
-<pre><code> AWSTemplateFormatVersion: 2010-09-09
+</code></pre><p>template.yaml for AWS</p><pre><code> AWSTemplateFormatVersion: 2010-09-09
  Transform: AWS::Serverless-2016-10-31
  Description: S3 Uploader
 
@@ -303,15 +282,15 @@ function UploadDialog({
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
-        - AttributeName: "timestamp"
-          AttributeType: "N"
+        - AttributeName: &quot;timestamp&quot;
+          AttributeType: &quot;N&quot;
       KeySchema:
-        - AttributeName: "timestamp"
-          KeyType: "HASH"
+        - AttributeName: &quot;timestamp&quot;
+          KeyType: &quot;HASH&quot;
       ProvisionedThroughput:
-        ReadCapacityUnits: "5"
-        WriteCapacityUnits: "5"
-      TableName: "files"
+        ReadCapacityUnits: &quot;5&quot;
+        WriteCapacityUnits: &quot;5&quot;
+      TableName: &quot;files&quot;
 
   # HTTP API
   MyApi:
@@ -320,7 +299,7 @@ function UploadDialog({
       # CORS configuration - this is open for development only and
  should be restricted in prod.
       # See
- &#x3C;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html>
+ &lt;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html&gt;
       CorsConfiguration:
         AllowMethods:
           - GET
@@ -328,9 +307,9 @@ function UploadDialog({
           - DELETE
           - OPTIONS
         AllowHeaders:
-          - "*"
+          - &quot;*&quot;
         AllowOrigins:
-          - "*"
+          - &quot;*&quot;
 
   UploadRequestFunction:
     Type: AWS::Serverless::Function
@@ -349,7 +328,7 @@ function UploadDialog({
             BucketName: !Ref S3UploadBucket
         - Statement:
             - Effect: Allow
-              Resource: !Sub "arn:aws:s3:::${S3UploadBucket}/"
+              Resource: !Sub &quot;arn:aws:s3:::${S3UploadBucket}/&quot;
               Action:
                 - s3:putObjectAcl
       Events:
@@ -386,32 +365,29 @@ function UploadDialog({
       CorsConfiguration:
         CorsRules:
           - AllowedHeaders:
-              - "*"
+              - &quot;*&quot;
             AllowedMethods:
               - GET
               - PUT
               - HEAD
             AllowedOrigins:
-              - "*"
+              - &quot;*&quot;
 
 
  ## Take a note of the outputs for deploying the workflow templates
  in this sample application
  Outputs:
   APIendpoint:
-    Description: "HTTP API endpoint URL"
+    Description: &quot;HTTP API endpoint URL&quot;
     Value: !Sub
- "https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com"
+ &quot;https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com&quot;
   S3UploadBucketName:
-    Description: "S3 bucket for application uploads"
-    Value: !Ref "S3UploadBucket"
+    Description: &quot;S3 bucket for application uploads&quot;
+    Value: !Ref &quot;S3UploadBucket&quot;
 
-</code></pre>
-<p>To display all the pictures I use a switch from video or img tag based
-on contentType.startsWith('video'). I also use the "figcaption" HTML tag
-to have a little caption on the pics/videos</p>
-<p>./frontend/src/App.tsx</p>
-<pre><code> function Media({
+</code></pre><p>To display all the pictures I use a switch from video or img tag based
+on contentType.startsWith(&#x27;video&#x27;). I also use the &quot;figcaption&quot; HTML tag
+to have a little caption on the pics/videos</p><p>./frontend/src/App.tsx</p><pre><code> function Media({
   file,
   style,
   onClick,
@@ -425,47 +401,34 @@ to have a little caption on the pics/videos</p>
   const { filename, contentType } = file;
   const src = `${BUCKET}/${filename}`;
   return (
-    &#x3C;figure style={{ display: "inline-block" }}>
-      &#x3C;picture>
-        {contentType.startsWith("video") ? (
-          &#x3C;video style={style} src={src} controls onClick={onClick as
- any} />
+    &lt;figure style={{ display: &quot;inline-block&quot; }}&gt;
+      &lt;picture&gt;
+        {contentType.startsWith(&quot;video&quot;) ? (
+          &lt;video style={style} src={src} controls onClick={onClick as
+ any} /&gt;
         ) : (
-          &#x3C;img style={style} src={src} onClick={onClick as any} />
+          &lt;img style={style} src={src} onClick={onClick as any} /&gt;
         )}
-      &#x3C;/picture>
-      &#x3C;figcaption>{children}&#x3C;/figcaption>
-    &#x3C;/figure>
+      &lt;/picture&gt;
+      &lt;figcaption&gt;{children}&lt;/figcaption&gt;
+    &lt;/figure&gt;
   );
  }
-</code></pre>
-<p>Now the really fun part: if you get an image of a picture frame
-like <a href="https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T">https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T</a></p>
-<p>You can make it a border for any image or video using border-image CSS</p>
-<pre><code>     style = {
-         border: "30px solid",
+</code></pre><p>Now the really fun part: if you get an image of a picture frame
+like <a href="https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T">https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T</a></p><p>You can make it a border for any image or video using border-image CSS</p><pre><code>     style = {
+         border: &quot;30px solid&quot;,
          borderImage: `url(borders/${border}) 30 round`
      }
-</code></pre>
-<p><img src="/media/638602799897329664_0.png" alt=""></p>
-<p>Summary</p>
-<p>The template.yaml automatically deploys the lambdas for postFile/getFile
-and the files table in dynamoDB</p>
-<p>The React app uses postFile for each file in an <code>&#x3C;input type="file"/></code>,
+</code></pre><p><img src="/media/638602799897329664_0.png"/></p><p>Summary</p><p>The template.yaml automatically deploys the lambdas for postFile/getFile
+and the files table in dynamoDB</p><p>The React app uses postFile for each file in an <code>&lt;input type=&quot;file&quot;/&gt;</code>,
 the code uses React hooks and functional components but is hopefully not
-too complex</p>
-<p>I also added commenting on photos. The code is not shown here but you
-can look in the source code for details</p>
-<p><img src="/media/638602799897329664_1.png" alt=""></p>
-<p>Overall this has been a good experience learning to develop this app and
+too complex</p><p>I also added commenting on photos. The code is not shown here but you
+can look in the source code for details</p><p><img src="/media/638602799897329664_1.png"/></p><p>Overall this has been a good experience learning to develop this app and
 learning to automate the cloud deployment is really good for ensuring
-reliability and fast iteration.</p>
-<p>Also quick note on serverless CLI vs aws-sam. I had tried a serverless
-CLI tutorial from another user but it didn't click with me, while the
+reliability and fast iteration.</p><p>Also quick note on serverless CLI vs aws-sam. I had tried a serverless
+CLI tutorial from another user but it didn&#x27;t click with me, while the
 aws-sam tutorial from
 <a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1">https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1</a> was
 a great kick start for me. I am sure the serverless CLI is great too and
 it ensures a bit less vendor lock in, but then is also a little bit
-removed from the native aws config schemas. Probably fine though</p>
-<p>Source code <a href="https://github.com/cmdcolin/aws_photo_gallery/">https://github.com/cmdcolin/aws_photo_gallery/</a></p>
-</div></div></article></div></main></div><footer class="bg-accent-1 border-t border-accent-2"><div class="container mx-auto px-5"><div class="py-14 flex flex-col lg:flex-row items-center"><div class="m-4"><a class="hover:underline" href="/">Home</a></div><div class="m-4"><a class="hover:underline" href="https://github.com/cmdcolin">Github</a></div><div class="m-4"><a class="hover:underline" href="https://twitter.com/cmdcolin">Twitter</a></div><div class="m-4"><a class="hover:underline" href="/projects">Projects</a></div><div class="m-4"><a class="hover:underline" href="/photos">Photos</a></div><div class="m-4"><a class="hover:underline" href="/rss.xml">RSS</a></div></div></div></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Making a serverless website for photo and video upload pt. 2","date":"2020-12-26","slug":"2020-12-26","content":"\u003cp\u003eThis post follows\non \u003ca href=\"https://cmdcolin.github.io/2020-12-24.html\"\u003ehttps://cmdcolin.github.io/2020-12-24.html\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eIt is possible I zoomed ahead too fast to make this a continuous\ntutorial, but overall I just wanted to post an update\u003c/p\u003e\n\u003cp\u003eIn pt. 1 I learned how to use the \u003ccode\u003eaws-sam\u003c/code\u003e CLI tool. This was a great\ninsight for me about automating deployments. I can now simply run \u003ccode\u003esam deploy\u003c/code\u003e and it will create new dynamodb tables, lambda functions, etc.\u003c/p\u003e\n\u003cp\u003eAfter writing pt 1. I converted the existing vue-js app that was in the\naws tutorial and converted it to react. Then I extended the app to allow\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ePosting comments on photos\u003c/li\u003e\n\u003cli\u003eUploading multiple files\u003c/li\u003e\n\u003cli\u003eUploading videos\netc.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eIt will be hard to summarize all the changes since now the app has taken\noff a little bit but it looks like this:\u003c/p\u003e\n\u003cp\u003eRepo structure\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e ./frontend # created using npx create-react-app frontend --template\n typescript\n ./frontend/src/App.tsx # main frontend app code in react\n ./lambdas/\n ./lambdas/postFile # post a file to the lambda, this uploads a row to\n dynamodb and returns a pre-signed URL for uploading (note that if the\n client failed it's upload, that row in the lambda DB might be in a bad\n state...)\n ./lambdas/getFiles # get all files that were ever posted\n ./lambdas/postComment # post a comment on a picture with POST\n request\n ./lambdas/getComments?file=filename.jpg # get comments on a\n picture/video with GET request\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eHere is a detailed code for uploading the file. We upload one file at a\ntime, but the client code post to the lambda endpoint individually for\neach file\u003c/p\u003e\n\u003cp\u003eThis generates a pre-signed URL to allow the client-side JS (not the\nlambda itself) to directly upload to S3, and also posts a row in the S3\nto the filename that will. It is very similar code in\nto \u003ca href=\"https://cmdcolin.github.io/2020-12-24.html\"\u003ehttps://cmdcolin.github.io/2020-12-24.html\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e./lambdas/postFile/app.js\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e'use strict'\n\nconst AWS = require('aws-sdk')\nconst multipart = require('./multipart')\nAWS.config.update({ region: process.env.AWS_REGION })\nconst s3 = new AWS.S3()\n\n// Change this value to adjust the signed URL's expiration\nconst URL_EXPIRATION_SECONDS = 300\n\n// Main Lambda entry point\nexports.handler = async event =\u003e {\n  return await getUploadURL(event)\n}\n\nconst { AWS_REGION: region } = process.env\n\nconst dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10', region })\n\nasync function uploadPic({\n  timestamp,\n  filename,\n  message,\n  user,\n  date,\n  contentType,\n}) {\n  const params = {\n    Item: {\n      timestamp: {\n        N: `${timestamp}`,\n      },\n      filename: {\n        S: filename,\n      },\n      message: {\n        S: message,\n      },\n      user: {\n        S: user,\n      },\n      date: {\n        S: date,\n      },\n      contentType: {\n        S: contentType,\n      },\n    },\n    TableName: 'files',\n  }\n  return dynamodb.putItem(params).promise()\n}\n\nconst getUploadURL = async function (event) {\n  try {\n    const data = multipart.parse(event)\n    const { filename, contentType, user, message, date } = data\n    const timestamp = +Date.now()\n    const Key = `${timestamp}-${filename}` // Get signed URL from S3\n\n    const s3Params = {\n      Bucket: process.env.UploadBucket,\n      Key,\n      Expires: URL_EXPIRATION_SECONDS,\n      ContentType: contentType, // This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.\n\n      ACL: 'public-read',\n    }\n\n    const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params)\n\n    await uploadPic({\n      timestamp,\n      filename: Key,\n      message,\n      user,\n      date,\n      contentType,\n    })\n\n    return JSON.stringify({\n      uploadURL,\n      Key,\n    })\n  } catch (e) {\n    const response = {\n      statusCode: 500,\n      body: JSON.stringify({ message: `${e}` }),\n    }\n    return response\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e./lambdas/getFiles/app.js\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e// eslint-disable-next-line import/no-unresolved\nconst AWS = require('aws-sdk')\n\nconst { AWS_REGION: region } = process.env\n\nconst docClient = new AWS.DynamoDB.DocumentClient()\n\nconst getItems = function () {\n  const params = {\n    TableName: 'files',\n  }\n\n  return docClient.scan(params).promise()\n}\n\nexports.handler = async event =\u003e {\n  try {\n    const result = await getItems()\n    return {\n      statusCode: 200,\n      body: JSON.stringify(result),\n    }\n  } catch (e) {\n    return {\n      statusCode: 400,\n      body: JSON.stringify({ message: `${e}` }),\n    }\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e./frontend/src/App.tsx (excerpt)\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003easync function myfetch(params: string, opts?: any) {\n  const response = await fetch(params, opts)\n  if (!response.ok) {\n    throw new Error(`HTTP ${response.status}\n ${response.statusText}`)\n  }\n  return response.json()\n}\n\nfunction UploadDialog({\n  open,\n  onClose,\n}: {\n  open: boolean\n  onClose: () =\u003e void\n}) {\n  const [images, setImages] = useState\u0026#x3C;FileList\u003e()\n  const [error, setError] = useState\u0026#x3C;Error\u003e()\n  const [loading, setLoading] = useState(false)\n  const [total, setTotal] = useState(0)\n  const [completed, setCompleted] = useState(0)\n  const [user, setUser] = useState('')\n  const [message, setMessage] = useState('')\n  const classes = useStyles()\n\n  const handleClose = () =\u003e {\n    setError(undefined)\n    setLoading(false)\n    setImages(undefined)\n    setCompleted(0)\n    setTotal(0)\n    setMessage('')\n    onClose()\n  }\n\n  return (\n    \u0026#x3C;Dialog onClose={handleClose} open={open}\u003e\n           \u0026#x3C;DialogTitle\u003eupload a file (supports picture or video)\u0026#x3C;/DialogTitle\u003e \n         \u0026#x3C;DialogContent\u003e\n               \u0026#x3C;label htmlFor=\"user\"\u003ename (optional) \u0026#x3C;/label\u003e\n               \u0026#x3C;input\n          type=\"text\"\n          value={user}\n          onChange={event =\u003e setUser(event.target.value)}\n          id=\"user\"\n        /\u003e\n               \u0026#x3C;br /\u003e       \u0026#x3C;label htmlFor=\"user\"\u003emessage (optional) \u0026#x3C;/label\u003e\n               \n        \u0026#x3C;input\n          type=\"text\"\n          value={message}\n          onChange={event =\u003e setMessage(event.target.value)}\n          id=\"message\"\n        /\u003e\n               \u0026#x3C;br /\u003e\n               \n        \u0026#x3C;input\n          multiple\n          type=\"file\"\n          onChange={e =\u003e {\n            let files = e.target.files\n            if (files \u0026#x26;\u0026#x26; files.length) {\n              setImages(files)\n            }\n          }}\n        /\u003e\n               {error ? (\n          \u0026#x3C;div className={classes.error}\u003e{`${error}`}\u0026#x3C;/div\u003e\n        ) : loading ? (\n          `Uploading...${completed}/${total}`\n        ) : completed ? (\n          \u0026#x3C;h2\u003eUploaded \u0026#x3C;/h2\u003e\n        ) : null}       \n        \u0026#x3C;DialogActions\u003e\n                   \n          \u0026#x3C;Button\n            style={{ textTransform: 'none' }}\n            onClick={async () =\u003e {\n              try {\n                if (images) {\n                  setLoading(true)\n                  setError(undefined)\n                  setCompleted(0)\n                  setTotal(images.length)\n                  await Promise.all(\n                    Array.from(images).map(async image =\u003e {\n                      const data = new FormData()\n                      data.append('message', message)\n                      data.append('user', user)\n                      data.append('date', new Date().toLocaleString())\n                      data.append('filename', image.name)\n                      data.append('contentType', image.type)\n                      const res = await myfetch(API_ENDPOINT + '/postFile', {\n                        method: 'POST',\n                        body: data,\n                      })\n\n                      await myfetch(res.uploadURL, {\n                        method: 'PUT',\n                        body: image,\n                      })\n\n                      setCompleted(completed =\u003e completed + 1)\n                    }),\n                  )\n                  setTimeout(() =\u003e {\n                    handleClose()\n                  }, 500)\n                }\n              } catch (e) {\n                setError(e)\n              }\n            }}\n            color=\"primary\"\n          \u003e\n                       upload          \n          \u0026#x3C;/Button\u003e\n                   \u0026#x3C;Button\n            onClick={handleClose}\n            color=\"primary\"\n            style={{ textTransform: 'none' }}\n          \u003e\n                       cancel          \n          \u0026#x3C;/Button\u003e       \n        \u0026#x3C;/DialogActions\u003e\n             \n      \u0026#x3C;/DialogContent\u003e   \n    \u0026#x3C;/Dialog\u003e\n  )\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003etemplate.yaml for AWS\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e AWSTemplateFormatVersion: 2010-09-09\n Transform: AWS::Serverless-2016-10-31\n Description: S3 Uploader\n\n Resources:\n  filesDynamoDBTable:\n    Type: AWS::DynamoDB::Table\n    Properties:\n      AttributeDefinitions:\n        - AttributeName: \"timestamp\"\n          AttributeType: \"N\"\n      KeySchema:\n        - AttributeName: \"timestamp\"\n          KeyType: \"HASH\"\n      ProvisionedThroughput:\n        ReadCapacityUnits: \"5\"\n        WriteCapacityUnits: \"5\"\n      TableName: \"files\"\n\n  # HTTP API\n  MyApi:\n    Type: AWS::Serverless::HttpApi\n    Properties:\n      # CORS configuration - this is open for development only and\n should be restricted in prod.\n      # See\n \u0026#x3C;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html\u003e\n      CorsConfiguration:\n        AllowMethods:\n          - GET\n          - POST\n          - DELETE\n          - OPTIONS\n        AllowHeaders:\n          - \"*\"\n        AllowOrigins:\n          - \"*\"\n\n  UploadRequestFunction:\n    Type: AWS::Serverless::Function\n    Properties:\n      CodeUri: lambdas/postFile/\n      Handler: app.handler\n      Runtime: nodejs12.x\n      Timeout: 3\n      MemorySize: 128\n      Environment:\n        Variables:\n          UploadBucket: !Ref S3UploadBucket\n      Policies:\n        - AmazonDynamoDBFullAccess\n        - S3WritePolicy:\n            BucketName: !Ref S3UploadBucket\n        - Statement:\n            - Effect: Allow\n              Resource: !Sub \"arn:aws:s3:::${S3UploadBucket}/\"\n              Action:\n                - s3:putObjectAcl\n      Events:\n        UploadAssetAPI:\n          Type: HttpApi\n          Properties:\n            Path: /postFile\n            Method: post\n            ApiId: !Ref MyApi\n\n\n  FileReadFunction:\n    Type: AWS::Serverless::Function\n    Properties:\n      CodeUri: lambdas/getFiles/\n      Handler: app.handler\n      Runtime: nodejs12.x\n      Timeout: 3\n      MemorySize: 128\n      Policies:\n        - AmazonDynamoDBFullAccess\n      Events:\n        UploadAssetAPI:\n          Type: HttpApi\n          Properties:\n            Path: /getFiles\n            Method: get\n            ApiId: !Ref MyApi\n\n  ## S3 bucket\n  S3UploadBucket:\n    Type: AWS::S3::Bucket\n    Properties:\n      CorsConfiguration:\n        CorsRules:\n          - AllowedHeaders:\n              - \"*\"\n            AllowedMethods:\n              - GET\n              - PUT\n              - HEAD\n            AllowedOrigins:\n              - \"*\"\n\n\n ## Take a note of the outputs for deploying the workflow templates\n in this sample application\n Outputs:\n  APIendpoint:\n    Description: \"HTTP API endpoint URL\"\n    Value: !Sub\n \"https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com\"\n  S3UploadBucketName:\n    Description: \"S3 bucket for application uploads\"\n    Value: !Ref \"S3UploadBucket\"\n\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eTo display all the pictures I use a switch from video or img tag based\non contentType.startsWith('video'). I also use the \"figcaption\" HTML tag\nto have a little caption on the pics/videos\u003c/p\u003e\n\u003cp\u003e./frontend/src/App.tsx\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e function Media({\n  file,\n  style,\n  onClick,\n  children,\n }: {\n  file: File;\n  onClick?: Function;\n  style?: React.CSSProperties;\n  children?: React.ReactNode;\n }) {\n  const { filename, contentType } = file;\n  const src = `${BUCKET}/${filename}`;\n  return (\n    \u0026#x3C;figure style={{ display: \"inline-block\" }}\u003e\n      \u0026#x3C;picture\u003e\n        {contentType.startsWith(\"video\") ? (\n          \u0026#x3C;video style={style} src={src} controls onClick={onClick as\n any} /\u003e\n        ) : (\n          \u0026#x3C;img style={style} src={src} onClick={onClick as any} /\u003e\n        )}\n      \u0026#x3C;/picture\u003e\n      \u0026#x3C;figcaption\u003e{children}\u0026#x3C;/figcaption\u003e\n    \u0026#x3C;/figure\u003e\n  );\n }\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eNow the really fun part: if you get an image of a picture frame\nlike \u003ca href=\"https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\"\u003ehttps://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eYou can make it a border for any image or video using border-image CSS\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e     style = {\n         border: \"30px solid\",\n         borderImage: `url(borders/${border}) 30 round`\n     }\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cimg src=\"/media/638602799897329664_0.png\" alt=\"\"\u003e\u003c/p\u003e\n\u003cp\u003eSummary\u003c/p\u003e\n\u003cp\u003eThe template.yaml automatically deploys the lambdas for postFile/getFile\nand the files table in dynamoDB\u003c/p\u003e\n\u003cp\u003eThe React app uses postFile for each file in an \u003ccode\u003e\u0026#x3C;input type=\"file\"/\u003e\u003c/code\u003e,\nthe code uses React hooks and functional components but is hopefully not\ntoo complex\u003c/p\u003e\n\u003cp\u003eI also added commenting on photos. The code is not shown here but you\ncan look in the source code for details\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"/media/638602799897329664_1.png\" alt=\"\"\u003e\u003c/p\u003e\n\u003cp\u003eOverall this has been a good experience learning to develop this app and\nlearning to automate the cloud deployment is really good for ensuring\nreliability and fast iteration.\u003c/p\u003e\n\u003cp\u003eAlso quick note on serverless CLI vs aws-sam. I had tried a serverless\nCLI tutorial from another user but it didn't click with me, while the\naws-sam tutorial from\n\u003ca href=\"https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1\"\u003ehttps://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1\u003c/a\u003e was\na great kick start for me. I am sure the serverless CLI is great too and\nit ensures a bit less vendor lock in, but then is also a little bit\nremoved from the native aws config schemas. Probably fine though\u003c/p\u003e\n\u003cp\u003eSource code \u003ca href=\"https://github.com/cmdcolin/aws_photo_gallery/\"\u003ehttps://github.com/cmdcolin/aws_photo_gallery/\u003c/a\u003e\u003c/p\u003e\n"}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2020-12-26"},"buildId":"pp9mRqc6res1HnVJ1xnx6","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
+removed from the native aws config schemas. Probably fine though</p><p>Source code <a href="https://github.com/cmdcolin/aws_photo_gallery/">https://github.com/cmdcolin/aws_photo_gallery/</a></p></article></div></main></div><footer class="bg-accent-1 border-t border-accent-2"><div class="container mx-auto px-5"><div class="py-14 flex flex-col lg:flex-row items-center"><div class="m-4"><a class="hover:underline" href="/">Home</a></div><div class="m-4"><a class="hover:underline" href="https://github.com/cmdcolin">Github</a></div><div class="m-4"><a class="hover:underline" href="https://twitter.com/cmdcolin">Twitter</a></div><div class="m-4"><a class="hover:underline" href="/projects">Projects</a></div><div class="m-4"><a class="hover:underline" href="/photos">Photos</a></div><div class="m-4"><a class="hover:underline" href="/rss.xml">RSS</a></div></div></div></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Making a serverless website for photo and video upload pt. 2","date":"2020-12-26","slug":"2020-12-26","mdxSource":{"compiledSource":"var c=Object.defineProperty,m=Object.defineProperties;var u=Object.getOwnPropertyDescriptors;var n=Object.getOwnPropertySymbols;var i=Object.prototype.hasOwnProperty,r=Object.prototype.propertyIsEnumerable;var l=(e,t,o)=\u003et in e?c(e,t,{enumerable:!0,configurable:!0,writable:!0,value:o}):e[t]=o,a=(e,t)=\u003e{for(var o in t||(t={}))i.call(t,o)\u0026\u0026l(e,o,t[o]);if(n)for(var o of n(t))r.call(t,o)\u0026\u0026l(e,o,t[o]);return e},p=(e,t)=\u003em(e,u(t));var d=(e,t)=\u003e{var o={};for(var s in e)i.call(e,s)\u0026\u0026t.indexOf(s)\u003c0\u0026\u0026(o[s]=e[s]);if(e!=null\u0026\u0026n)for(var s of n(e))t.indexOf(s)\u003c0\u0026\u0026r.call(e,s)\u0026\u0026(o[s]=e[s]);return o};const layoutProps={},MDXLayout=\"wrapper\";function MDXContent(o){var s=o,{components:e}=s,t=d(s,[\"components\"]);return mdx(MDXLayout,p(a(a({},layoutProps),t),{components:e,mdxType:\"MDXLayout\"}),mdx(\"p\",null,`This post follows\non\\xA0`,mdx(\"a\",a({parentName:\"p\"},{href:\"https://cmdcolin.github.io/2020-12-24.html\"}),\"https://cmdcolin.github.io/2020-12-24.html\")),mdx(\"p\",null,`It is possible I zoomed ahead too fast to make this a continuous\ntutorial, but overall I just wanted to post an update`),mdx(\"p\",null,\"In pt. 1 I learned how to use the \",mdx(\"inlineCode\",{parentName:\"p\"},\"aws-sam\"),` CLI tool. This was a great\ninsight for me about automating deployments. I can now simply run `,mdx(\"inlineCode\",{parentName:\"p\"},\"sam deploy\"),\" and it will create new dynamodb tables, lambda functions, etc.\"),mdx(\"p\",null,`After writing pt 1. I converted the existing vue-js app that was in the\naws tutorial and converted it to react. Then I extended the app to allow`),mdx(\"ul\",null,mdx(\"li\",{parentName:\"ul\"},\"Posting comments on photos\"),mdx(\"li\",{parentName:\"ul\"},\"Uploading multiple files\"),mdx(\"li\",{parentName:\"ul\"},`Uploading videos\netc.`)),mdx(\"p\",null,`It will be hard to summarize all the changes since now the app has taken\noff a little bit but it looks like this:`),mdx(\"p\",null,\"Repo structure\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),` ./frontend # created using npx create-react-app frontend --template\n typescript\n ./frontend/src/App.tsx # main frontend app code in react\n ./lambdas/\n ./lambdas/postFile # post a file to the lambda, this uploads a row to\n dynamodb and returns a pre-signed URL for uploading (note that if the\n client failed it's upload, that row in the lambda DB might be in a bad\n state...)\n ./lambdas/getFiles # get all files that were ever posted\n ./lambdas/postComment # post a comment on a picture with POST\n request\n ./lambdas/getComments?file=filename.jpg # get comments on a\n picture/video with GET request\n`)),mdx(\"p\",null,`Here is a detailed code for uploading the file. We upload one file at a\ntime, but the client code post to the lambda endpoint individually for\neach file`),mdx(\"p\",null,`This generates a pre-signed URL to allow the client-side JS (not the\nlambda itself) to directly upload to S3, and also posts a row in the S3\nto the filename that will. It is very similar code in\nto\\xA0`,mdx(\"a\",a({parentName:\"p\"},{href:\"https://cmdcolin.github.io/2020-12-24.html\"}),\"https://cmdcolin.github.io/2020-12-24.html\")),mdx(\"p\",null,\"./lambdas/postFile/app.js\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{className:\"language-js\"}),`'use strict'\n\nconst AWS = require('aws-sdk')\nconst multipart = require('./multipart')\nAWS.config.update({ region: process.env.AWS_REGION })\nconst s3 = new AWS.S3()\n\n// Change this value to adjust the signed URL's expiration\nconst URL_EXPIRATION_SECONDS = 300\n\n// Main Lambda entry point\nexports.handler = async event =\u003e {\n  return await getUploadURL(event)\n}\n\nconst { AWS_REGION: region } = process.env\n\nconst dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10', region })\n\nasync function uploadPic({\n  timestamp,\n  filename,\n  message,\n  user,\n  date,\n  contentType,\n}) {\n  const params = {\n    Item: {\n      timestamp: {\n        N: \\`\\${timestamp}\\`,\n      },\n      filename: {\n        S: filename,\n      },\n      message: {\n        S: message,\n      },\n      user: {\n        S: user,\n      },\n      date: {\n        S: date,\n      },\n      contentType: {\n        S: contentType,\n      },\n    },\n    TableName: 'files',\n  }\n  return dynamodb.putItem(params).promise()\n}\n\nconst getUploadURL = async function (event) {\n  try {\n    const data = multipart.parse(event)\n    const { filename, contentType, user, message, date } = data\n    const timestamp = +Date.now()\n    const Key = \\`\\${timestamp}-\\${filename}\\` // Get signed URL from S3\n\n    const s3Params = {\n      Bucket: process.env.UploadBucket,\n      Key,\n      Expires: URL_EXPIRATION_SECONDS,\n      ContentType: contentType, // This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.\n\n      ACL: 'public-read',\n    }\n\n    const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params)\n\n    await uploadPic({\n      timestamp,\n      filename: Key,\n      message,\n      user,\n      date,\n      contentType,\n    })\n\n    return JSON.stringify({\n      uploadURL,\n      Key,\n    })\n  } catch (e) {\n    const response = {\n      statusCode: 500,\n      body: JSON.stringify({ message: \\`\\${e}\\` }),\n    }\n    return response\n  }\n}\n`)),mdx(\"p\",null,\"./lambdas/getFiles/app.js\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{className:\"language-js\"}),`// eslint-disable-next-line import/no-unresolved\nconst AWS = require('aws-sdk')\n\nconst { AWS_REGION: region } = process.env\n\nconst docClient = new AWS.DynamoDB.DocumentClient()\n\nconst getItems = function () {\n  const params = {\n    TableName: 'files',\n  }\n\n  return docClient.scan(params).promise()\n}\n\nexports.handler = async event =\u003e {\n  try {\n    const result = await getItems()\n    return {\n      statusCode: 200,\n      body: JSON.stringify(result),\n    }\n  } catch (e) {\n    return {\n      statusCode: 400,\n      body: JSON.stringify({ message: \\`\\${e}\\` }),\n    }\n  }\n}\n`)),mdx(\"p\",null,\"./frontend/src/App.tsx (excerpt)\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{className:\"language-tsx\"}),`async function myfetch(params: string, opts?: any) {\n  const response = await fetch(params, opts)\n  if (!response.ok) {\n    throw new Error(\\`HTTP \\${response.status}\n \\${response.statusText}\\`)\n  }\n  return response.json()\n}\n\nfunction UploadDialog({\n  open,\n  onClose,\n}: {\n  open: boolean\n  onClose: () =\u003e void\n}) {\n  const [images, setImages] = useState\u003cFileList\u003e()\n  const [error, setError] = useState\u003cError\u003e()\n  const [loading, setLoading] = useState(false)\n  const [total, setTotal] = useState(0)\n  const [completed, setCompleted] = useState(0)\n  const [user, setUser] = useState('')\n  const [message, setMessage] = useState('')\n  const classes = useStyles()\n\n  const handleClose = () =\u003e {\n    setError(undefined)\n    setLoading(false)\n    setImages(undefined)\n    setCompleted(0)\n    setTotal(0)\n    setMessage('')\n    onClose()\n  }\n\n  return (\n    \u003cDialog onClose={handleClose} open={open}\u003e\n      \\xA0 \\xA0 \\xA0\u003cDialogTitle\u003eupload a file (supports picture or video)\u003c/DialogTitle\u003e\\xA0\n      \\xA0 \\xA0\u003cDialogContent\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0\u003clabel htmlFor=\"user\"\u003ename (optional) \u003c/label\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0\u003cinput\n          type=\"text\"\n          value={user}\n          onChange={event =\u003e setUser(event.target.value)}\n          id=\"user\"\n        /\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0\u003cbr /\u003e\\xA0 \\xA0 \\xA0 \\xA0\u003clabel htmlFor=\"user\"\u003emessage (optional) \u003c/label\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0\n        \u003cinput\n          type=\"text\"\n          value={message}\n          onChange={event =\u003e setMessage(event.target.value)}\n          id=\"message\"\n        /\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0\u003cbr /\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0\n        \u003cinput\n          multiple\n          type=\"file\"\n          onChange={e =\u003e {\n            let files = e.target.files\n            if (files \u0026\u0026 files.length) {\n              setImages(files)\n            }\n          }}\n        /\u003e\n        \\xA0 \\xA0 \\xA0 \\xA0{error ? (\n          \u003cdiv className={classes.error}\u003e{\\`\\${error}\\`}\u003c/div\u003e\n        ) : loading ? (\n          \\`Uploading...\\${completed}/\\${total}\\`\n        ) : completed ? (\n          \u003ch2\u003eUploaded \u003c/h2\u003e\n        ) : null}\\xA0 \\xA0 \\xA0 \\xA0\n        \u003cDialogActions\u003e\n          \\xA0 \\xA0 \\xA0 \\xA0 \\xA0\n          \u003cButton\n            style={{ textTransform: 'none' }}\n            onClick={async () =\u003e {\n              try {\n                if (images) {\n                  setLoading(true)\n                  setError(undefined)\n                  setCompleted(0)\n                  setTotal(images.length)\n                  await Promise.all(\n                    Array.from(images).map(async image =\u003e {\n                      const data = new FormData()\n                      data.append('message', message)\n                      data.append('user', user)\n                      data.append('date', new Date().toLocaleString())\n                      data.append('filename', image.name)\n                      data.append('contentType', image.type)\n                      const res = await myfetch(API_ENDPOINT + '/postFile', {\n                        method: 'POST',\n                        body: data,\n                      })\n\n                      await myfetch(res.uploadURL, {\n                        method: 'PUT',\n                        body: image,\n                      })\n\n                      setCompleted(completed =\u003e completed + 1)\n                    }),\n                  )\n                  setTimeout(() =\u003e {\n                    handleClose()\n                  }, 500)\n                }\n              } catch (e) {\n                setError(e)\n              }\n            }}\n            color=\"primary\"\n          \u003e\n            \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0upload \\xA0 \\xA0 \\xA0 \\xA0 \\xA0\n          \u003c/Button\u003e\n          \\xA0 \\xA0 \\xA0 \\xA0 \\xA0\u003cButton\n            onClick={handleClose}\n            color=\"primary\"\n            style={{ textTransform: 'none' }}\n          \u003e\n            \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0cancel \\xA0 \\xA0 \\xA0 \\xA0 \\xA0\n          \u003c/Button\u003e\\xA0 \\xA0 \\xA0 \\xA0\n        \u003c/DialogActions\u003e\n        \\xA0 \\xA0 \\xA0\n      \u003c/DialogContent\u003e\\xA0 \\xA0\n    \u003c/Dialog\u003e\n  )\n}\n`)),mdx(\"p\",null,\"template.yaml for AWS\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),` AWSTemplateFormatVersion: 2010-09-09\n Transform: AWS::Serverless-2016-10-31\n Description: S3 Uploader\n\n Resources:\n \\xA0filesDynamoDBTable:\n \\xA0 \\xA0Type: AWS::DynamoDB::Table\n \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0AttributeDefinitions:\n \\xA0 \\xA0 \\xA0 \\xA0- AttributeName: \"timestamp\"\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0AttributeType: \"N\"\n \\xA0 \\xA0 \\xA0KeySchema:\n \\xA0 \\xA0 \\xA0 \\xA0- AttributeName: \"timestamp\"\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0KeyType: \"HASH\"\n \\xA0 \\xA0 \\xA0ProvisionedThroughput:\n \\xA0 \\xA0 \\xA0 \\xA0ReadCapacityUnits: \"5\"\n \\xA0 \\xA0 \\xA0 \\xA0WriteCapacityUnits: \"5\"\n \\xA0 \\xA0 \\xA0TableName: \"files\"\n\n \\xA0# HTTP API\n \\xA0MyApi:\n \\xA0 \\xA0Type: AWS::Serverless::HttpApi\n \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0# CORS configuration - this is open for development only and\n should be restricted in prod.\n \\xA0 \\xA0 \\xA0# See\n \u003chttps://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html\u003e\n \\xA0 \\xA0 \\xA0CorsConfiguration:\n \\xA0 \\xA0 \\xA0 \\xA0AllowMethods:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- GET\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- POST\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- DELETE\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- OPTIONS\n \\xA0 \\xA0 \\xA0 \\xA0AllowHeaders:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- \"*\"\n \\xA0 \\xA0 \\xA0 \\xA0AllowOrigins:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- \"*\"\n\n \\xA0UploadRequestFunction:\n \\xA0 \\xA0Type: AWS::Serverless::Function\n \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0CodeUri: lambdas/postFile/\n \\xA0 \\xA0 \\xA0Handler: app.handler\n \\xA0 \\xA0 \\xA0Runtime: nodejs12.x\n \\xA0 \\xA0 \\xA0Timeout: 3\n \\xA0 \\xA0 \\xA0MemorySize: 128\n \\xA0 \\xA0 \\xA0Environment:\n \\xA0 \\xA0 \\xA0 \\xA0Variables:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0UploadBucket: !Ref S3UploadBucket\n \\xA0 \\xA0 \\xA0Policies:\n \\xA0 \\xA0 \\xA0 \\xA0- AmazonDynamoDBFullAccess\n \\xA0 \\xA0 \\xA0 \\xA0- S3WritePolicy:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0BucketName: !Ref S3UploadBucket\n \\xA0 \\xA0 \\xA0 \\xA0- Statement:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- Effect: Allow\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Resource: !Sub \"arn:aws:s3:::\\${S3UploadBucket}/\"\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Action:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- s3:putObjectAcl\n \\xA0 \\xA0 \\xA0Events:\n \\xA0 \\xA0 \\xA0 \\xA0UploadAssetAPI:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Type: HttpApi\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Path: /postFile\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Method: post\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0ApiId: !Ref MyApi\n\n\n \\xA0FileReadFunction:\n \\xA0 \\xA0Type: AWS::Serverless::Function\n \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0CodeUri: lambdas/getFiles/\n \\xA0 \\xA0 \\xA0Handler: app.handler\n \\xA0 \\xA0 \\xA0Runtime: nodejs12.x\n \\xA0 \\xA0 \\xA0Timeout: 3\n \\xA0 \\xA0 \\xA0MemorySize: 128\n \\xA0 \\xA0 \\xA0Policies:\n \\xA0 \\xA0 \\xA0 \\xA0- AmazonDynamoDBFullAccess\n \\xA0 \\xA0 \\xA0Events:\n \\xA0 \\xA0 \\xA0 \\xA0UploadAssetAPI:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Type: HttpApi\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Path: /getFiles\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0Method: get\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0ApiId: !Ref MyApi\n\n \\xA0## S3 bucket\n \\xA0S3UploadBucket:\n \\xA0 \\xA0Type: AWS::S3::Bucket\n \\xA0 \\xA0Properties:\n \\xA0 \\xA0 \\xA0CorsConfiguration:\n \\xA0 \\xA0 \\xA0 \\xA0CorsRules:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- AllowedHeaders:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- \"*\"\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0AllowedMethods:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- GET\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- PUT\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- HEAD\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0AllowedOrigins:\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0 \\xA0- \"*\"\n\n\n ## Take a note of the outputs for deploying the workflow templates\n in this sample application\n Outputs:\n \\xA0APIendpoint:\n \\xA0 \\xA0Description: \"HTTP API endpoint URL\"\n \\xA0 \\xA0Value: !Sub\n \"https://\\${MyApi}.execute-api.\\${AWS::Region}.amazonaws.com\"\n \\xA0S3UploadBucketName:\n \\xA0 \\xA0Description: \"S3 bucket for application uploads\"\n \\xA0 \\xA0Value: !Ref \"S3UploadBucket\"\n\n`)),mdx(\"p\",null,`To display all the pictures I use a switch from video or img tag based\non contentType.startsWith('video'). I also use the\\xA0\"figcaption\" HTML tag\nto have a little caption on the pics/videos`),mdx(\"p\",null,\"./frontend/src/App.tsx\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),` function Media({\n \\xA0file,\n \\xA0style,\n \\xA0onClick,\n \\xA0children,\n }: {\n \\xA0file: File;\n \\xA0onClick?: Function;\n \\xA0style?: React.CSSProperties;\n \\xA0children?: React.ReactNode;\n }) {\n \\xA0const { filename, contentType } = file;\n \\xA0const src = \\`\\${BUCKET}/\\${filename}\\`;\n \\xA0return (\n \\xA0 \\xA0\u003cfigure style={{ display: \"inline-block\" }}\u003e\n \\xA0 \\xA0 \\xA0\u003cpicture\u003e\n \\xA0 \\xA0 \\xA0 \\xA0{contentType.startsWith(\"video\") ? (\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0\u003cvideo style={style} src={src} controls onClick={onClick as\n any} /\u003e\n \\xA0 \\xA0 \\xA0 \\xA0) : (\n \\xA0 \\xA0 \\xA0 \\xA0 \\xA0\u003cimg style={style} src={src} onClick={onClick as any} /\u003e\n \\xA0 \\xA0 \\xA0 \\xA0)}\n \\xA0 \\xA0 \\xA0\u003c/picture\u003e\n \\xA0 \\xA0 \\xA0\u003cfigcaption\u003e{children}\u003c/figcaption\u003e\n \\xA0 \\xA0\u003c/figure\u003e\n \\xA0);\n }\n`)),mdx(\"p\",null,`Now the really fun part: if you get an image of a picture frame\nlike\\xA0`,mdx(\"a\",a({parentName:\"p\"},{href:\"https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\"}),\"https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\")),mdx(\"p\",null,\"You can make it a border for any image or video using border-image CSS\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),` \\xA0 \\xA0 style = {\n \\xA0 \\xA0 \\xA0 \\xA0 border: \"30px solid\",\n \\xA0 \\xA0 \\xA0 \\xA0 borderImage: \\`url(borders/\\${border}) 30 round\\`\n \\xA0 \\xA0 }\n`)),mdx(\"p\",null,mdx(\"img\",a({parentName:\"p\"},{src:\"/media/638602799897329664_0.png\",alt:null}))),mdx(\"p\",null,\"Summary\"),mdx(\"p\",null,`The template.yaml automatically deploys the lambdas for postFile/getFile\nand the files table in dynamoDB`),mdx(\"p\",null,\"The React app uses postFile for each file in an \",mdx(\"inlineCode\",{parentName:\"p\"},'\u003cinput type=\"file\"/\u003e'),`,\nthe code uses React hooks and functional components but is hopefully not\ntoo complex`),mdx(\"p\",null,`I also added commenting on photos. The code is not shown here but you\ncan look in the source code for details`),mdx(\"p\",null,mdx(\"img\",a({parentName:\"p\"},{src:\"/media/638602799897329664_1.png\",alt:null}))),mdx(\"p\",null,`Overall this has been a good experience learning to develop this app and\nlearning to automate the cloud deployment is really good for ensuring\nreliability and fast iteration.`),mdx(\"p\",null,`Also quick note on serverless CLI vs aws-sam. I had tried a serverless\nCLI tutorial from another user but it didn't click with me, while the\naws-sam tutorial from\n`,mdx(\"a\",a({parentName:\"p\"},{href:\"https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1\"}),\"https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1\"),`\\xA0was\na great kick start for me. I am sure the serverless CLI is great too and\nit ensures a bit less vendor lock in, but then is also a little bit\nremoved from the native aws config schemas. Probably fine though`),mdx(\"p\",null,\"Source code\\xA0\",mdx(\"a\",a({parentName:\"p\"},{href:\"https://github.com/cmdcolin/aws_photo_gallery/\"}),\"https://github.com/cmdcolin/aws_photo_gallery/\")))}MDXContent.isMDXComponent=!0;\n","scope":{}}}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2020-12-26"},"buildId":"xdOEQ06ZwfpYuP89agAlh","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

@@ -1,27 +1,11 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><title>Creating a testing framework for JBrowse plugins</title><meta name="next-head-count" content="6"/><link rel="preload" href="/_next/static/css/ddb86c7b4e1045c6.css" as="style"/><link rel="stylesheet" href="/_next/static/css/ddb86c7b4e1045c6.css" data-n-g=""/><link rel="preload" href="/_next/static/css/e1f6961df2961232.css" as="style"/><link rel="stylesheet" href="/_next/static/css/e1f6961df2961232.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/_next/static/chunks/webpack-514908bffb652963.js" defer=""></script><script src="/_next/static/chunks/framework-91d7f78b5b4003c8.js" defer=""></script><script src="/_next/static/chunks/main-7c3bf82eed00c281.js" defer=""></script><script src="/_next/static/chunks/pages/_app-76cd57bf65f05d70.js" defer=""></script><script src="/_next/static/chunks/162-1be62df9fbed0df5.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-2c663bbcac870718.js" defer=""></script><script src="/_next/static/pp9mRqc6res1HnVJ1xnx6/_buildManifest.js" defer=""></script><script src="/_next/static/pp9mRqc6res1HnVJ1xnx6/_ssgManifest.js" defer=""></script><script src="/_next/static/pp9mRqc6res1HnVJ1xnx6/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="min-h-screen"><main><div class="container mx-auto px-5"><div class="text-2xl md:text-4xl font-bold py-14 border-b border-accent-2 flex flex-col lg:flex-row items-center"><a class="header" href="/">Misc scribbles</a></div><article class="mb-32"><h1 class="text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">Creating a testing framework for JBrowse plugins<!-- --> - <!-- -->2016-04-19</h1><div class="max-w-1xl mx-auto"><div class="markdown-styles_markdown__h_8de"><p>Testing client side apps requires a couple of tedious steps: Organizing
+<!DOCTYPE html><html lang="en"><head><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><title>Creating a testing framework for JBrowse plugins</title><meta name="next-head-count" content="6"/><link rel="preload" href="/_next/static/css/9273c78a2450133e.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9273c78a2450133e.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/_next/static/chunks/webpack-514908bffb652963.js" defer=""></script><script src="/_next/static/chunks/framework-91d7f78b5b4003c8.js" defer=""></script><script src="/_next/static/chunks/main-7c3bf82eed00c281.js" defer=""></script><script src="/_next/static/chunks/pages/_app-76cd57bf65f05d70.js" defer=""></script><script src="/_next/static/chunks/162-1be62df9fbed0df5.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-205785f6b619387d.js" defer=""></script><script src="/_next/static/xdOEQ06ZwfpYuP89agAlh/_buildManifest.js" defer=""></script><script src="/_next/static/xdOEQ06ZwfpYuP89agAlh/_ssgManifest.js" defer=""></script><script src="/_next/static/xdOEQ06ZwfpYuP89agAlh/_middlewareManifest.js" defer=""></script></head><body><div id="__next" data-reactroot=""><div class="min-h-screen"><main><div class="container mx-auto px-5"><div class="text-2xl md:text-4xl font-bold py-14 border-b border-accent-2 flex flex-col lg:flex-row items-center"><a class="header" href="/">Misc scribbles</a></div><article class="mb-32"><h1 class="text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">Creating a testing framework for JBrowse plugins<!-- --> - <!-- -->2016-04-19</h1><p>Testing client side apps requires a couple of tedious steps: Organizing
 the git clone, the dependencies, wrangling up a web server, the test
-framework, etc.</p>
-<p>When testing a plugin for jbrowse, the dependency tree is interesting
-because the plugin "depends" on JBrowse to run, but we will use
+framework, etc.</p><p>When testing a plugin for jbrowse, the dependency tree is interesting
+because the plugin &quot;depends&quot; on JBrowse to run, but we will use
 travis-CI and bower inside the git repo for our plugin to accomplish
-this.</p>
-<p>In this scenario, we will</p>
-<ol>
-<li>
-<p>Use bower to install jasmine and JBrowse (our platform that we write
-the plugin for)</p>
-</li>
-<li>
-<p>Use nginx to launch a webserver on travis-CI</p>
-</li>
-<li>
-<p>Use the phantomjs run-jasmine.js script to check jasmine test
-results</p>
-</li>
-</ol>
-<p>Without further ado</p>
-<p>Here is the .travis.yml</p>
-<pre><code>sudo: false
+this.</p><p>In this scenario, we will</p><ol><li><p>Use bower to install jasmine and JBrowse (our platform that we write
+the plugin for)</p></li><li><p>Use nginx to launch a webserver on travis-CI</p></li><li><p>Use the phantomjs run-jasmine.js script to check jasmine test
+results</p></li></ol><p>Without further ado</p><p>Here is the .travis.yml</p><pre><code>sudo: false
 addons:
   apt:
     packages:
@@ -35,49 +19,42 @@ before_install:
 install:
   - bower install
 before_script:
-  - cat test/travis.conf | envsubst > test/travis-envsubst.conf
+  - cat test/travis.conf | envsubst &gt; test/travis-envsubst.conf
   - nginx -c `pwd`/test/travis-envsubst.conf
 script:
   - phantomjs test/run-jasmine.js http://localhost:9000/test/
   - jshint js
-</code></pre>
-<p>Refer to
+</code></pre><p>Refer to
 <a href="http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2">http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2</a>
-for details on the nginx setup</p>
-<p>Here is the bower.json</p>
-<pre><code>{
-  "name": "sashimiplot",
-  "homepage": "https://github.com/cmdcolin/sashimiplot",
-  "description": "Sashimi track type for jbrowse",
-  "main": "js/main.js",
-  "keywords": [
-    "bioinformatics",
-    "jbrowse"
+for details on the nginx setup</p><p>Here is the bower.json</p><pre><code>{
+  &quot;name&quot;: &quot;sashimiplot&quot;,
+  &quot;homepage&quot;: &quot;https://github.com/cmdcolin/sashimiplot&quot;,
+  &quot;description&quot;: &quot;Sashimi track type for jbrowse&quot;,
+  &quot;main&quot;: &quot;js/main.js&quot;,
+  &quot;keywords&quot;: [
+    &quot;bioinformatics&quot;,
+    &quot;jbrowse&quot;
   ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "src",
-    "test",
-    "tests"
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;ignore&quot;: [
+    &quot;**/.*&quot;,
+    &quot;node_modules&quot;,
+    &quot;bower_components&quot;,
+    &quot;src&quot;,
+    &quot;test&quot;,
+    &quot;tests&quot;
   ],
-  "devDependencies": {
-    "jasmine-core": "jasmine#^2.4.1",
-    "jbrowse": "git://github.com/GMOD/jbrowse.git#master"
+  &quot;devDependencies&quot;: {
+    &quot;jasmine-core&quot;: &quot;jasmine#^2.4.1&quot;,
+    &quot;jbrowse&quot;: &quot;git://github.com/GMOD/jbrowse.git#master&quot;
   }
 }
-</code></pre>
-<p>The key thing here is that it installs jasmine and JBrowse. I set
-.bowerrc to install both jasmine and JBrowse to the "test" directory</p>
-<pre><code>{
-    "directory": "test"
+</code></pre><p>The key thing here is that it installs jasmine and JBrowse. I set
+.bowerrc to install both jasmine and JBrowse to the &quot;test&quot; directory</p><pre><code>{
+    &quot;directory&quot;: &quot;test&quot;
 }
-</code></pre>
-<p>With this setup, bower will make a "flat dependency tree" in the test
-directory, so it will look like this</p>
-<pre><code>$ ls -1 test
+</code></pre><p>With this setup, bower will make a &quot;flat dependency tree&quot; in the test
+directory, so it will look like this</p><pre><code>$ ls -1 test
 FileSaver
 dbind
 dgrid
@@ -97,44 +74,37 @@ put-selector
 *travis.conf*
 util
 xstyle
-</code></pre>
-<p>Here the asterisks indicate things that are part of our app, other's are
+</code></pre><p>Here the asterisks indicate things that are part of our app, other&#x27;s are
 automatically installed by bower (jbrowse, jasmine-core, the dojo
-dependencies, and other things)</p>
-<p>Then we can create the jasmine test/index.html to be something like this</p>
-<pre><code>&#x3C;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+dependencies, and other things)</p><p>Then we can create the jasmine test/index.html to be something like this</p><pre><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;
+  &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
 
 
-  &#x3C;meta>
+  &lt;meta&gt;
   Jasmine Spec Runner
 
-  &#x3C;link rel="stylesheet" href="jasmine-core/lib/jasmine-core/jasmine.css">&#x3C;script src="jasmine-core/lib/jasmine-core/jasmine.js">&#x3C;/script>&#x3C;script src="jasmine-core/lib/jasmine-core/boot.js">&#x3C;/script>&#x3C;script type="text/javascript" src="dojo/dojo.js" data-dojo-config="async: 1">&#x3C;/script>&#x3C;script type="text/javascript">
-    require( { baseUrl: '.',
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;jasmine-core/lib/jasmine-core/jasmine.css&quot;&gt;&lt;script src=&quot;jasmine-core/lib/jasmine-core/jasmine.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;jasmine-core/lib/jasmine-core/boot.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;dojo/dojo.js&quot; data-dojo-config=&quot;async: 1&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;
+    require( { baseUrl: &#x27;.&#x27;,
                packages: [
-                   'dojo',
-                   'dijit',
-                   'dojox',
-                   'jszlib',
-                   { name: 'lazyload', location: 'lazyload', main: 'lazyload' },
-                   'dgrid',
-                   'xstyle',
-                   'put-selector',
-                   'FileSaver',
-                   { name: 'jDataView', location: 'jDataView/src', main: 'jdataview' },
-                   { name: 'JBrowse', location: 'jbrowse/src/JBrowse' },
-                   { name: 'SashimiPlot', location: '../js' }
+                   &#x27;dojo&#x27;,
+                   &#x27;dijit&#x27;,
+                   &#x27;dojox&#x27;,
+                   &#x27;jszlib&#x27;,
+                   { name: &#x27;lazyload&#x27;, location: &#x27;lazyload&#x27;, main: &#x27;lazyload&#x27; },
+                   &#x27;dgrid&#x27;,
+                   &#x27;xstyle&#x27;,
+                   &#x27;put-selector&#x27;,
+                   &#x27;FileSaver&#x27;,
+                   { name: &#x27;jDataView&#x27;, location: &#x27;jDataView/src&#x27;, main: &#x27;jdataview&#x27; },
+                   { name: &#x27;JBrowse&#x27;, location: &#x27;jbrowse/src/JBrowse&#x27; },
+                   { name: &#x27;SashimiPlot&#x27;, location: &#x27;../js&#x27; }
                ]
     });
-  &#x3C;/script>&#x3C;script type="text/javascript" src="spec/SashimiPlot.spec.js">&#x3C;/script>&#x3C;div id="sandbox" style="overflow:hidden; height:1px;">&#x3C;/div>
-</code></pre>
-<p>The "packages" in the require statement puts all these packages in the
-right "namespace" for the AMD includes, and the "specs" are defined like
-<code>&#x3C;script type="text/javascript" src="spec/Projection.spec.js">&#x3C;/script></code></p>
-<p>Finally, run-jasmine.js is used to check the results of the jasmine
+  &lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;spec/SashimiPlot.spec.js&quot;&gt;&lt;/script&gt;&lt;div id=&quot;sandbox&quot; style=&quot;overflow:hidden; height:1px;&quot;&gt;&lt;/div&gt;
+</code></pre><p>The &quot;packages&quot; in the require statement puts all these packages in the
+right &quot;namespace&quot; for the AMD includes, and the &quot;specs&quot; are defined like
+<code>&lt;script type=&quot;text/javascript&quot; src=&quot;spec/Projection.spec.js&quot;&gt;&lt;/script&gt;</code></p><p>Finally, run-jasmine.js is used to check the results of the jasmine
 tests (it is run via phantomjs in the travis-CI script). It is a special
 version for the most recent version of jasmine (2.4)
-<a href="https://gist.github.com/vmeln/b6cbb319d9a0efc816be">https://gist.github.com/vmeln/b6cbb319d9a0efc816be</a></p>
-<p>For an example of the project using this, see
-<a href="https://github.com/cmdcolin/sashimiplot">https://github.com/cmdcolin/sashimiplot</a></p>
-</div></div></article></div></main></div><footer class="bg-accent-1 border-t border-accent-2"><div class="container mx-auto px-5"><div class="py-14 flex flex-col lg:flex-row items-center"><div class="m-4"><a class="hover:underline" href="/">Home</a></div><div class="m-4"><a class="hover:underline" href="https://github.com/cmdcolin">Github</a></div><div class="m-4"><a class="hover:underline" href="https://twitter.com/cmdcolin">Twitter</a></div><div class="m-4"><a class="hover:underline" href="/projects">Projects</a></div><div class="m-4"><a class="hover:underline" href="/photos">Photos</a></div><div class="m-4"><a class="hover:underline" href="/rss.xml">RSS</a></div></div></div></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Creating a testing framework for JBrowse plugins","date":"2016-04-19","slug":"2016-04-19","content":"\u003cp\u003eTesting client side apps requires a couple of tedious steps: Organizing\nthe git clone, the dependencies, wrangling up a web server, the test\nframework, etc.\u003c/p\u003e\n\u003cp\u003eWhen testing a plugin for jbrowse, the dependency tree is interesting\nbecause the plugin \"depends\" on JBrowse to run, but we will use\ntravis-CI and bower inside the git repo for our plugin to accomplish\nthis.\u003c/p\u003e\n\u003cp\u003eIn this scenario, we will\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\n\u003cp\u003eUse bower to install jasmine and JBrowse (our platform that we write\nthe plugin for)\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eUse nginx to launch a webserver on travis-CI\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eUse the phantomjs run-jasmine.js script to check jasmine test\nresults\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eWithout further ado\u003c/p\u003e\n\u003cp\u003eHere is the .travis.yml\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003esudo: false\naddons:\n  apt:\n    packages:\n    - nginx\ncache:\n  apt: true\n  directories:\n  - $HOME/.cache/bower\nbefore_install:\n  - npm install -g jshint bower\ninstall:\n  - bower install\nbefore_script:\n  - cat test/travis.conf | envsubst \u003e test/travis-envsubst.conf\n  - nginx -c `pwd`/test/travis-envsubst.conf\nscript:\n  - phantomjs test/run-jasmine.js http://localhost:9000/test/\n  - jshint js\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eRefer to\n\u003ca href=\"http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2\"\u003ehttp://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2\u003c/a\u003e\nfor details on the nginx setup\u003c/p\u003e\n\u003cp\u003eHere is the bower.json\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e{\n  \"name\": \"sashimiplot\",\n  \"homepage\": \"https://github.com/cmdcolin/sashimiplot\",\n  \"description\": \"Sashimi track type for jbrowse\",\n  \"main\": \"js/main.js\",\n  \"keywords\": [\n    \"bioinformatics\",\n    \"jbrowse\"\n  ],\n  \"license\": \"MIT\",\n  \"ignore\": [\n    \"**/.*\",\n    \"node_modules\",\n    \"bower_components\",\n    \"src\",\n    \"test\",\n    \"tests\"\n  ],\n  \"devDependencies\": {\n    \"jasmine-core\": \"jasmine#^2.4.1\",\n    \"jbrowse\": \"git://github.com/GMOD/jbrowse.git#master\"\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThe key thing here is that it installs jasmine and JBrowse. I set\n.bowerrc to install both jasmine and JBrowse to the \"test\" directory\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e{\n    \"directory\": \"test\"\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eWith this setup, bower will make a \"flat dependency tree\" in the test\ndirectory, so it will look like this\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e$ ls -1 test\nFileSaver\ndbind\ndgrid\ndijit\ndojo\ndojox\n*index.html*\njDataView\njasmine-core\njbrowse\njson-schema\njszlib\nlazyload\nput-selector\n*run-jasmine.js*\n*spec*\n*travis.conf*\nutil\nxstyle\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eHere the asterisks indicate things that are part of our app, other's are\nautomatically installed by bower (jbrowse, jasmine-core, the dojo\ndependencies, and other things)\u003c/p\u003e\n\u003cp\u003eThen we can create the jasmine test/index.html to be something like this\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e\u0026#x3C;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n  \"http://www.w3.org/TR/html4/loose.dtd\"\u003e\n\n\n  \u0026#x3C;meta\u003e\n  Jasmine Spec Runner\n\n  \u0026#x3C;link rel=\"stylesheet\" href=\"jasmine-core/lib/jasmine-core/jasmine.css\"\u003e\u0026#x3C;script src=\"jasmine-core/lib/jasmine-core/jasmine.js\"\u003e\u0026#x3C;/script\u003e\u0026#x3C;script src=\"jasmine-core/lib/jasmine-core/boot.js\"\u003e\u0026#x3C;/script\u003e\u0026#x3C;script type=\"text/javascript\" src=\"dojo/dojo.js\" data-dojo-config=\"async: 1\"\u003e\u0026#x3C;/script\u003e\u0026#x3C;script type=\"text/javascript\"\u003e\n    require( { baseUrl: '.',\n               packages: [\n                   'dojo',\n                   'dijit',\n                   'dojox',\n                   'jszlib',\n                   { name: 'lazyload', location: 'lazyload', main: 'lazyload' },\n                   'dgrid',\n                   'xstyle',\n                   'put-selector',\n                   'FileSaver',\n                   { name: 'jDataView', location: 'jDataView/src', main: 'jdataview' },\n                   { name: 'JBrowse', location: 'jbrowse/src/JBrowse' },\n                   { name: 'SashimiPlot', location: '../js' }\n               ]\n    });\n  \u0026#x3C;/script\u003e\u0026#x3C;script type=\"text/javascript\" src=\"spec/SashimiPlot.spec.js\"\u003e\u0026#x3C;/script\u003e\u0026#x3C;div id=\"sandbox\" style=\"overflow:hidden; height:1px;\"\u003e\u0026#x3C;/div\u003e\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThe \"packages\" in the require statement puts all these packages in the\nright \"namespace\" for the AMD includes, and the \"specs\" are defined like\n\u003ccode\u003e\u0026#x3C;script type=\"text/javascript\" src=\"spec/Projection.spec.js\"\u003e\u0026#x3C;/script\u003e\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003eFinally, run-jasmine.js is used to check the results of the jasmine\ntests (it is run via phantomjs in the travis-CI script). It is a special\nversion for the most recent version of jasmine (2.4)\n\u003ca href=\"https://gist.github.com/vmeln/b6cbb319d9a0efc816be\"\u003ehttps://gist.github.com/vmeln/b6cbb319d9a0efc816be\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eFor an example of the project using this, see\n\u003ca href=\"https://github.com/cmdcolin/sashimiplot\"\u003ehttps://github.com/cmdcolin/sashimiplot\u003c/a\u003e\u003c/p\u003e\n"}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2016-04-19"},"buildId":"pp9mRqc6res1HnVJ1xnx6","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
+<a href="https://gist.github.com/vmeln/b6cbb319d9a0efc816be">https://gist.github.com/vmeln/b6cbb319d9a0efc816be</a></p><p>For an example of the project using this, see
+<a href="https://github.com/cmdcolin/sashimiplot">https://github.com/cmdcolin/sashimiplot</a></p></article></div></main></div><footer class="bg-accent-1 border-t border-accent-2"><div class="container mx-auto px-5"><div class="py-14 flex flex-col lg:flex-row items-center"><div class="m-4"><a class="hover:underline" href="/">Home</a></div><div class="m-4"><a class="hover:underline" href="https://github.com/cmdcolin">Github</a></div><div class="m-4"><a class="hover:underline" href="https://twitter.com/cmdcolin">Twitter</a></div><div class="m-4"><a class="hover:underline" href="/projects">Projects</a></div><div class="m-4"><a class="hover:underline" href="/photos">Photos</a></div><div class="m-4"><a class="hover:underline" href="/rss.xml">RSS</a></div></div></div></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Creating a testing framework for JBrowse plugins","date":"2016-04-19","slug":"2016-04-19","mdxSource":{"compiledSource":"var h=Object.defineProperty,m=Object.defineProperties;var d=Object.getOwnPropertyDescriptors;var r=Object.getOwnPropertySymbols;var o=Object.prototype.hasOwnProperty,n=Object.prototype.propertyIsEnumerable;var p=(e,t,s)=\u003et in e?h(e,t,{enumerable:!0,configurable:!0,writable:!0,value:s}):e[t]=s,a=(e,t)=\u003e{for(var s in t||(t={}))o.call(t,s)\u0026\u0026p(e,s,t[s]);if(r)for(var s of r(t))n.call(t,s)\u0026\u0026p(e,s,t[s]);return e},c=(e,t)=\u003em(e,d(t));var l=(e,t)=\u003e{var s={};for(var i in e)o.call(e,i)\u0026\u0026t.indexOf(i)\u003c0\u0026\u0026(s[i]=e[i]);if(e!=null\u0026\u0026r)for(var i of r(e))t.indexOf(i)\u003c0\u0026\u0026n.call(e,i)\u0026\u0026(s[i]=e[i]);return s};const layoutProps={},MDXLayout=\"wrapper\";function MDXContent(s){var i=s,{components:e}=i,t=l(i,[\"components\"]);return mdx(MDXLayout,c(a(a({},layoutProps),t),{components:e,mdxType:\"MDXLayout\"}),mdx(\"p\",null,`Testing client side apps requires a couple of tedious steps: Organizing\nthe git clone, the dependencies, wrangling up a web server, the test\nframework, etc.`),mdx(\"p\",null,`When testing a plugin for jbrowse, the dependency tree is interesting\nbecause the plugin \"depends\" on JBrowse to run, but we will use\ntravis-CI and bower inside the git repo for our plugin to accomplish\nthis.`),mdx(\"p\",null,\"In this scenario, we will\"),mdx(\"ol\",null,mdx(\"li\",{parentName:\"ol\"},mdx(\"p\",{parentName:\"li\"},`Use bower to install jasmine and JBrowse (our platform that we write\nthe plugin for)`)),mdx(\"li\",{parentName:\"ol\"},mdx(\"p\",{parentName:\"li\"},\"Use nginx to launch a webserver on travis-CI\")),mdx(\"li\",{parentName:\"ol\"},mdx(\"p\",{parentName:\"li\"},`Use the phantomjs run-jasmine.js script to check jasmine test\nresults`))),mdx(\"p\",null,\"Without further ado\"),mdx(\"p\",null,\"Here is the .travis.yml\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),`sudo: false\naddons:\n  apt:\n    packages:\n    - nginx\ncache:\n  apt: true\n  directories:\n  - $HOME/.cache/bower\nbefore_install:\n  - npm install -g jshint bower\ninstall:\n  - bower install\nbefore_script:\n  - cat test/travis.conf | envsubst \u003e test/travis-envsubst.conf\n  - nginx -c \\`pwd\\`/test/travis-envsubst.conf\nscript:\n  - phantomjs test/run-jasmine.js http://localhost:9000/test/\n  - jshint js\n`)),mdx(\"p\",null,`Refer to\n`,mdx(\"a\",a({parentName:\"p\"},{href:\"http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2\"}),\"http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2\"),`\nfor details on the nginx setup`),mdx(\"p\",null,\"Here is the bower.json\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),`{\n  \"name\": \"sashimiplot\",\n  \"homepage\": \"https://github.com/cmdcolin/sashimiplot\",\n  \"description\": \"Sashimi track type for jbrowse\",\n  \"main\": \"js/main.js\",\n  \"keywords\": [\n    \"bioinformatics\",\n    \"jbrowse\"\n  ],\n  \"license\": \"MIT\",\n  \"ignore\": [\n    \"**/.*\",\n    \"node_modules\",\n    \"bower_components\",\n    \"src\",\n    \"test\",\n    \"tests\"\n  ],\n  \"devDependencies\": {\n    \"jasmine-core\": \"jasmine#^2.4.1\",\n    \"jbrowse\": \"git://github.com/GMOD/jbrowse.git#master\"\n  }\n}\n`)),mdx(\"p\",null,`The key thing here is that it installs jasmine and JBrowse. I set\n.bowerrc to install both jasmine and JBrowse to the \"test\" directory`),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),`{\n    \"directory\": \"test\"\n}\n`)),mdx(\"p\",null,`With this setup, bower will make a \"flat dependency tree\" in the test\ndirectory, so it will look like this`),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),`$ ls -1 test\nFileSaver\ndbind\ndgrid\ndijit\ndojo\ndojox\n*index.html*\njDataView\njasmine-core\njbrowse\njson-schema\njszlib\nlazyload\nput-selector\n*run-jasmine.js*\n*spec*\n*travis.conf*\nutil\nxstyle\n`)),mdx(\"p\",null,`Here the asterisks indicate things that are part of our app, other's are\nautomatically installed by bower (jbrowse, jasmine-core, the dojo\ndependencies, and other things)`),mdx(\"p\",null,\"Then we can create the jasmine test/index.html to be something like this\"),mdx(\"pre\",null,mdx(\"code\",a({parentName:\"pre\"},{}),`\u003c!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n  \"http://www.w3.org/TR/html4/loose.dtd\"\u003e\n\n\n  \u003cmeta\u003e\n  Jasmine Spec Runner\n\n  \u003clink rel=\"stylesheet\" href=\"jasmine-core/lib/jasmine-core/jasmine.css\"\u003e\u003cscript src=\"jasmine-core/lib/jasmine-core/jasmine.js\"\u003e\u003c\\/script\u003e\u003cscript src=\"jasmine-core/lib/jasmine-core/boot.js\"\u003e\u003c\\/script\u003e\u003cscript type=\"text/javascript\" src=\"dojo/dojo.js\" data-dojo-config=\"async: 1\"\u003e\u003c\\/script\u003e\u003cscript type=\"text/javascript\"\u003e\n    require( { baseUrl: '.',\n               packages: [\n                   'dojo',\n                   'dijit',\n                   'dojox',\n                   'jszlib',\n                   { name: 'lazyload', location: 'lazyload', main: 'lazyload' },\n                   'dgrid',\n                   'xstyle',\n                   'put-selector',\n                   'FileSaver',\n                   { name: 'jDataView', location: 'jDataView/src', main: 'jdataview' },\n                   { name: 'JBrowse', location: 'jbrowse/src/JBrowse' },\n                   { name: 'SashimiPlot', location: '../js' }\n               ]\n    });\n  \u003c\\/script\u003e\u003cscript type=\"text/javascript\" src=\"spec/SashimiPlot.spec.js\"\u003e\u003c\\/script\u003e\u003cdiv id=\"sandbox\" style=\"overflow:hidden; height:1px;\"\u003e\u003c/div\u003e\n`)),mdx(\"p\",null,`The \"packages\" in the require statement puts all these packages in the\nright \"namespace\" for the AMD includes, and the \"specs\" are defined like\n`,mdx(\"inlineCode\",{parentName:\"p\"},'\u003cscript type=\"text/javascript\" src=\"spec/Projection.spec.js\"\u003e\u003c\\/script\u003e')),mdx(\"p\",null,`Finally, run-jasmine.js is used to check the results of the jasmine\ntests (it is run via phantomjs in the travis-CI script). It is a special\nversion for the most recent version of jasmine (2.4)\n`,mdx(\"a\",a({parentName:\"p\"},{href:\"https://gist.github.com/vmeln/b6cbb319d9a0efc816be\"}),\"https://gist.github.com/vmeln/b6cbb319d9a0efc816be\")),mdx(\"p\",null,`For an example of the project using this, see\n`,mdx(\"a\",a({parentName:\"p\"},{href:\"https://github.com/cmdcolin/sashimiplot\"}),\"https://github.com/cmdcolin/sashimiplot\")))}MDXContent.isMDXComponent=!0;\n","scope":{}}}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2016-04-19"},"buildId":"xdOEQ06ZwfpYuP89agAlh","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
