@@ -8,6 +8,10 @@ likely does it a bit differently, and it can be tricky to get a setup you like.
 Should you use a "starter kit" or a boilerplate example? Or just roll your own?
 Should you use a bundler? How do you use typescript?
 
+**\*Record scratch \*\***
+
+Why don't we try starting from scratch and seeing where we can get?
+
 TLDR: here is a github repo with a template package
 https://github.com/cmdcolin/npm-package-tutorial/
 
@@ -27,6 +31,8 @@ The magic is in the package.json file, which tells npm:
 
 Let's try an experiment...
 
+## Initializing a package
+
 Open up a terminal, and run
 
 ```sh
@@ -38,10 +44,9 @@ npm init
 yarn init
 ```
 
-This outputs
+This init command outputs something like this, and we accept the defaults
 
 ```sh
-$ npm init # or yarn init
 This utility will walk you through creating a package.json file.
 It only covers the most common items, and tries to guess sensible defaults.
 
@@ -90,6 +95,8 @@ module.exports = {
 }
 ```
 
+## Publishing a package
+
 This npm package, `mypackage` can now be published to `npm` with a simple
 command.
 
@@ -102,6 +109,8 @@ yarn publish
 This will prompt you for your npmjs.com username, password, email, and if
 needed, 2FA token (highly recommended)
 
+## Using your package after it is published
+
 Once it is published, you can use it in your create-react-app app or other npm
 package.
 
@@ -111,13 +120,26 @@ npm install mypackage
 yarn add mypackage
 ```
 
+Then you can use
+
+```js
+import { hello } from 'mypackage'
+```
+
+in any of your other codebases
+
+## Summary of the simplest NPM package
+
 This all seems pretty boring thus far but it tells us a couple things
 
 1. packages can be very very bare bones
 1. no transpiler or bundler is needed for publishing an npm package
-1. our package can consist of a single file and it is uploaded to npm
+1. our package can consist of a single file and it is uploaded to npm, and the
+   "main" field in package.json provides an entry point
 1. the filename index.js is not special, probably it is a hangover from the
    name index.html. you can use whatever name you want
+
+## Publishing a package that contains multiple files
 
 More often than not, we may actually want a little more complexity. We may not
 want all our code to exist in a single file. So, in this case, we can actually
@@ -172,16 +194,18 @@ to refer to "src/index.js"
 }
 ```
 
-Then when we use `npm publish` (or `yarn publish`), it will upload the `src`
-directory specifically, including both `src/index.js` and `src/util.js` in
-their raw form, and tell it that the entry point is `src/index.js`.
+Then when we publish this package, it will upload the `src` directory
+specifically, including both `src/index.js` and `src/util.js` in their raw
+form, and tell it that the entry point is `src/index.js`.
 
 This may still be in the "duh, this is too simple territory", I just wanted to
-lay the groundwork for what a `npm` package can be.
+lay the groundwork for uploading a directory of files for what a `npm` package
+can be.
 
 ## Adding typescript
 
-Let's try adding typescript...run
+Let's try adding typescript. We will compile a directory of files in our "src"
+directory to a new set of files in a "dist" directory
 
 ```sh
 npm install --save-dev typescript
@@ -202,7 +226,7 @@ yarn tsc --init
 npx tsc --init
 ```
 
-This will generate a tsconfig.json file (needed by typescript) with a bunch of
+This will generate a `tsconfig.json` file (needed by `typescript`) with a bunch of
 options, but I have stripped it down in my projects to look like this
 
 ```json
@@ -220,7 +244,7 @@ options, but I have stripped it down in my projects to look like this
 }
 ```
 
-Now, we want to change our js to ts files to use typescript, let's change them
+Now, we want to change our `js` to `ts` files to use `typescript`, let's change them
 to use normal ESM import/exports
 
 util.ts
@@ -270,13 +294,33 @@ npm run build
 yarn build
 ```
 
-And this will run the "build" script we created, which in turn, just runs `tsc`
-with no arguments.
+And this will run the `"build"` script we created, which in turn, just runs
+`tsc` with no arguments.
 
-You can also add a "prebuild" script that clears out the old contents. In fact,
-npm scripts generalizes the naming system pre-otherscriptname automatically
-causes the pre- script to be run before the otherscriptname is run, and same
-thing with post. We can use `rimraf` (a node package) to make a cross-platform removal of the dist directory
+You can also add a `"prebuild"` script that clears out the old contents. In fact,
+npm scripts generalizes the naming system -- you can make scripts with whatever name you want, e.g.
+
+```json
+{
+  "scripts": {
+    "preparty": "echo preparty",
+    "party": "echo party",
+    "postparty": "echo postparty"
+  }
+}
+```
+
+Then running
+
+```sh
+$ yarn party
+preparty
+party
+postparty
+```
+
+To make this useful, we will use `rimraf` (a node package) to make a
+cross-platform removal of the `dist` directory
 
 ```sh
 npm install --save-dev rimraf
@@ -300,6 +344,10 @@ and then update your package.json
   }
 }
 ```
+
+
+We could make it say "rm -rf dist" instead of "rimraf dist" (e.g. run arbitrary
+shell commands), but rimraf allows it to be cross-platform
 
 ## Making sure you create a fresh build before you publish
 
