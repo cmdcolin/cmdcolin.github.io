@@ -4,13 +4,20 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 31 Dec 2021 18:38:54 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 31 Dec 2021 23:12:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[My next.js static blog setup, and why I don't use tailwind CSS]]></title>
+            <title><![CDATA[How to make your own npm package with typescript]]></title>
+            <link>https://cmdcolin.github.io/posts/2021-12-31-npm-package</link>
+            <guid>https://cmdcolin.github.io/posts/2021-12-31-npm-package</guid>
+            <pubDate>Fri, 31 Dec 2021 00:00:00 GMT</pubDate>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
+        <item>
+            <title><![CDATA[My next.js static blog setup]]></title>
             <link>https://cmdcolin.github.io/posts/2021-12-26-nextjs</link>
             <guid>https://cmdcolin.github.io/posts/2021-12-26-nextjs</guid>
             <pubDate>Sun, 26 Dec 2021 00:00:00 GMT</pubDate>
