@@ -20,22 +20,27 @@ const Post = ({ post }: Props) => {
   }
   const { title, date, mdxSource } = post
   return (
-    <Layout>
-      <Container>
-        <Header />
-        {router.isFallback ? (
-          <div>Loading...</div>
-        ) : (
-          <article>
-            <Head>
-              <title>{title}</title>
-            </Head>
-            <PostHeader title={title} date={date} />
-            <MDXRemote {...mdxSource} />
-          </article>
-        )}
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          {router.isFallback ? (
+            <div>Loading...</div>
+          ) : (
+            <article>
+              <Head>
+                <title>{title}</title>
+              </Head>
+              <PostHeader title={title} date={date} />
+              <MDXRemote {...mdxSource} />
+            </article>
+          )}
+        </Container>
+      </Layout>
+    </>
   )
 }
 

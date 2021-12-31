@@ -1,6 +1,7 @@
 import Container from '../components/container'
 import Posts from '../components/posts'
 import Link from 'next/link'
+import Head from 'next/head'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
@@ -30,6 +31,9 @@ import Header from '../components/header'
 
 
 export default ({ children }) => <>
+  <Head>
+    <title>Misc scribblings - Photos</title>
+  </Head>
   <Layout>
     <Container>
       <Header/>

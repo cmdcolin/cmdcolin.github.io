@@ -1,6 +1,7 @@
 import Header from '../components/header'
 import Container from '../components/container'
 import Layout from '../components/layout'
+import Head from 'next/head'
 
 
 
@@ -67,6 +68,9 @@ repos. Please add your favorites with PRs :)
 
 
 export default ({ children }) => <>
+  <Head>
+    <title>Misc scribblings - Projects</title>
+  </Head>
   <Layout>
     <Container>
       <Header/>
