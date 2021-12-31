@@ -5,9 +5,10 @@ type Props = {
 
 const PostHeader = ({ title, date }: Props) => {
   return (
-    <h1>
-      {title} - {date}
-    </h1>
+    <div>
+      <h1>{title}</h1>
+      <h4>{date}</h4>
+    </div>
   )
 }
 
