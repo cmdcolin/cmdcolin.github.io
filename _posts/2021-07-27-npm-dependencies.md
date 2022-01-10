@@ -34,6 +34,8 @@ minor breakages from semver bumps, but it can introduce some issues for your
 consumers
 
 Random fun thing: Adding a yarn package can even downgrade some other packages.
-For example if you have ^6.0.0 in your package.json, you yarn upgrade it up to
-^6.1.0 but then later install another library that requires a hard 6.0.1, yarn
-will decide to downgrade you to 6.0.1
+For example if you have ^6.0.0 in your package.json, you yarn upgrade it so in
+the lockfile it says 6.1.0 but then later install another library that requires
+a hard 6.0.1, yarn will decide to downgrade you to 6.0.1 (it will not have a
+duplicate entry in yarn.lock, just that the 6.1.0 in the yarn.lock will
+downgrade to 6.0.1)
