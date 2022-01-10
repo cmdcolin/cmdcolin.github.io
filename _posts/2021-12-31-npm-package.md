@@ -139,73 +139,16 @@ This all seems pretty boring thus far but it tells us a couple things
 1. the filename index.js is not special, probably it is a hangover from the
    name index.html. you can use whatever name you want
 
-## Publishing a package that contains multiple files
-
-More often than not, we may actually want a little more complexity. We may not
-want all our code to exist in a single file. So, in this case, we can actually
-publish a folder of files to `npm`.
-
-So inside of our `mypackage` folder, let's make a src directory
-
-```sh
-mkdir src
-touch src/index.js
-touch src/util.js
-```
-
-And we can then have a `util.js` file
-
-```js
-//util.js
-module.exports = {
-  getMessage: () => {
-    return 'hello'
-  },
-}
-```
-
-And a `index.js` file
-
-```js
-//index.js
-const { getMessage } = require('./util')
-module.exports = {
-  sayMessage: () => {
-    console.log(getMessage())
-  },
-}
-```
-
-In our package.json, we can edit it to have a "files" field, and make the main
-to refer to "src/index.js"
-
-```json
-{
-  "name": "mypackage2",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
-  "files": ["src"],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Colin",
-  "license": "ISC"
-}
-```
-
-Then when we publish this package, it will upload the `src` directory
-specifically, including both `src/index.js` and `src/util.js` in their raw
-form, and tell it that the entry point is `src/index.js`.
-
-This may still be in the "duh, this is too simple territory", I just wanted to
-lay the groundwork for uploading a directory of files for what a `npm` package
-can be.
-
 ## Adding typescript
 
-Let's try adding typescript. We will compile a directory of files in our "src"
-directory to a new set of files in a "dist" directory
+Let's try adding typescript
+
+
+To do this, we will use the typescript compiler to compile a directory of files
+in our "src" directory and output the compiled files to a directory named
+"dist"
+
+To start, let's add typescript
 
 ```sh
 npm install --save-dev typescript
@@ -344,7 +287,6 @@ and then update your package.json
   }
 }
 ```
-
 
 We could make it say "rm -rf dist" instead of "rimraf dist" (e.g. run arbitrary
 shell commands), but rimraf allows it to be cross-platform
