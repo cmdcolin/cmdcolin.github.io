@@ -3,8 +3,8 @@ title: Do you understand your NPM dependencies?
 date: 2021-07-27
 ---
 
-You are writing a library...or your writing an app and you want to publish some
-of the components of it as a library...
+You are writing a library...or you are writing an app and you want to publish
+some of the components of it as a library...
 
 Here are some questions in the form of comments
 
@@ -22,9 +22,12 @@ Here are some questions in the form of comments
   their major version all the time for example so large changes are often made
   to the minor version?
 
-- Did you know if you run `yarn upgrade`, it may update what is in your yarn.lock file but will not update what is in your package.json?
+- Did you know if you run `yarn upgrade`, it may update what is in your
+  yarn.lock file but will not update what is in your package.json?
 
-- Did you realize that this means that if you depend on the results of running `yarn upgrade` e.g. it gave you a bugfix, you will be shipping buggy code to consumers of your library?
+- Did you realize that this means that if you depend on the results of running
+  `yarn upgrade` e.g. it gave you a bugfix, you will be shipping buggy code to
+  consumers of your library?
 
 Just something to be aware of! You can always ride the dragon and accept these
 minor breakages from semver bumps, but it can introduce some issues for your
