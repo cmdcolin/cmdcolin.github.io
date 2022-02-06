@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 02 Feb 2022 20:45:27 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 06 Feb 2022 19:23:36 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -56,6 +56,13 @@
             <link>https://cmdcolin.github.io/posts/2021-07-27-npm-dependencies</link>
             <guid>https://cmdcolin.github.io/posts/2021-07-27-npm-dependencies</guid>
             <pubDate>Tue, 27 Jul 2021 00:00:00 GMT</pubDate>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
+        <item>
+            <title><![CDATA[How to interpret reads from the SAM specification]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-02-06-whatdoreadsmean</link>
+            <guid>https://cmdcolin.github.io/posts/2022-02-06-whatdoreadsmean</guid>
+            <pubDate>Sat, 06 Feb 2021 00:00:00 GMT</pubDate>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
