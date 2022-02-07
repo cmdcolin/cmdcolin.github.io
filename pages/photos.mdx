@@ -1,7 +1,7 @@
 import Container from '../components/container'
-import Posts from '../components/posts'
-import Link from 'next/link'
+import Sketches from '../components/sketches'
 import Head from 'next/head'
+import { getAllSketches } from '../lib/api'
 import Image from '../components/photo'
 import Layout from '../components/layout'
 import Header from '../components/header'
@@ -74,7 +74,7 @@ import k12 from './photos/k12.resized.webp'
 
 
 
-export default ({ children }) => <>
+export default ({ children, allSketches }) => <>
   <Head>
     <title>Misc scribblings - Images</title>
   </Head>
@@ -82,6 +82,23 @@ export default ({ children }) => <>
     <Container>
       <Header/>
       {children}
+      <Sketches sketches={allSketches}/>
     </Container>
   </Layout>
 </>
+
+
+
+
+
+export async function getStaticProps() {
+  const posts = await getAllSketches()
+
+  return {
+    props: { allSketches: posts.slice(0,8) },
+  }
+}
+
+
+
+

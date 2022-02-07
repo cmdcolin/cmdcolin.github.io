@@ -5,9 +5,14 @@ import { join } from 'path'
 import { serialize } from 'next-mdx-remote/serialize'
 
 const postsDirectory = join(process.cwd(), '_posts')
+const sketchDirectory = join(process.cwd(), '_sketches')
 
-function getFiles() {
+function getPostFiles() {
   return fs.readdirSync(postsDirectory)
+}
+
+function getSketchFiles() {
+  return fs.readdirSync(sketchDirectory)
 }
 
 export async function getPostBySlug(slug: string) {
@@ -25,9 +30,19 @@ export async function getPostBySlug(slug: string) {
 }
 
 export async function getAllPosts() {
-  const posts = await Promise.all(getFiles().map(slug => getPostBySlug(slug)))
+  const posts = await Promise.all(
+    getPostFiles().map(slug => getPostBySlug(slug)),
+  )
 
   return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+}
+
+export function getAllSketches() {
+  const sketches = getSketchFiles().map(file => fs.statSync(file))
+
+  return sketches.sort((post1, post2) =>
+    post1.ctimeMs > post2.ctimeMs ? -1 : 1,
+  )
 }
 
 export function generateRSSFeed(articles: any) {
