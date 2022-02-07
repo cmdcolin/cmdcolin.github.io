@@ -1,18 +1,15 @@
 import Link from 'next/link'
-
-type Props = {
-  posts: { title: string; date: string; slug: string }[]
-}
-
-const PostPreview = ({
-  title,
-  date,
-  slug,
-}: {
+interface Post {
   title: string
   date: string
   slug: string
-}) => {
+}
+interface Props {
+  posts: Post[]
+}
+
+const PostPreview = ({ post }: { post: Post }) => {
+  const { title, date, slug } = post
   return (
     <div>
       <Link as={`/posts/${slug}`} href="/posts/[slug]">
@@ -31,12 +28,7 @@ const MoreStories = ({ posts }: Props) => {
       <ul>
         {posts.map(post => (
           <li key={post.slug}>
-            <PostPreview
-              key={post.slug}
-              title={post.title}
-              date={post.date}
-              slug={post.slug}
-            />
+            <PostPreview post={post} />
           </li>
         ))}
       </ul>

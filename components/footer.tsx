@@ -1,9 +1,8 @@
-import Container from './container'
 import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer style={{ marginTop: 20 }}>
+    <footer style={{ marginTop: 100 }}>
       <Link href="/">
         <a>Home</a>
       </Link>{' '}

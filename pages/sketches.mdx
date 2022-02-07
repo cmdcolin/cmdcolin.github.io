@@ -11,17 +11,13 @@ import Header from '../components/header'
 
 export default ({ children, allSketches }) => <>
   <Head>
-    <title>Misc scribblings - Images</title>
+    <title>Misc scribblings - Sketches</title>
   </Head>
   <Layout>
     <Container>
       <Header/>
       {children}
-      <ul>
-        <li>
-          <a href="sketches">Sketches</a>
-        </li>
-      </ul>
+      <Sketches sketches={allSketches}/>
     </Container>
   </Layout>
 </>
