@@ -6,71 +6,6 @@ import Image from '../components/photo'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-import k1 from './photos/k1.resized.webp'
-import k2 from './photos/k2.resized.webp'
-import k3 from './photos/k3.resized.webp'
-import k4 from './photos/k4.resized.webp'
-import k5 from './photos/k5.resized.webp'
-import k6 from './photos/k6.resized.webp'
-import k7 from './photos/k7.resized.webp'
-import k8 from './photos/k8.resized.webp'
-import k9 from './photos/k9.resized.webp'
-import k10 from './photos/k10.resized.webp'
-import k11 from './photos/k11.resized.webp'
-import k12 from './photos/k12.resized.webp'
-
-
-## Images
-
-### Sketches
-
-
-<Image src={k1}/>
-12/25/21 - [winter in the forest - isaac leviton (1885)](https://www.wikiart.org/en/isaac-levitan/in-the-forest-at-winter-1885)
-
-<Image src={k2}/>
-12/26/21 - [by the water's edge - isaac leviton (undated)](https://www.atlasofplaces.com/painting/mood-landscape/)
-
-<Image src={k3}/>
-12/27/21 - [the thaw - fedor vasilev (1871)](https://en.wikipedia.org/wiki/Fyodor_Vasilyev#/media/File:Fedor_Vasilev_-_The_Thaw.JPG)
-
-<Image src={k4}/>
-12/31/21 - [nikolaj kassatkin - rival ladies (1890)](https://en.wikipedia.org/wiki/File:Nikolaj_Alexejewitsch_Kassatkin_-_Rival_Ladies.jpg)
-
-<Image src={k5}/>
-1/8/22 - [welder oak ridge, manhattan project (1945)](https://www.digitaltrends.com/cool-tech/women-scientists-of-the-manhattan-project-part-2/) [source for 1945 being the year hinted at here in the photographer's obituary](https://www.wbir.com/article/news/do-not-publish-ed-westcott-photographer-for-the-manhattan-project-passes-away/51-7bf51211-cac6-4108-8986-6b150d3157dd)
-
-<Image src={k6}/>
-1/10/22 - [inspection of landing gear at willow run (between 1941-1945)](https://en.wikipedia.org/wiki/Willow_Run#/media/File:Willow_Run_airplane_inspection_edited.jpg)
-
-<Image src={k7}/>
-1/12/22 - [workers remove last of old type arc streets lights, meldrum and forest, detroit MI (1946)](https://digital.library.wayne.edu/item/wayne:vmc48499)
-
-<Image src={k8}/>
-1/13/22 - [the close of a career in new york, handwritten: byron ny (between 1900-1906)](https://www.loc.gov/item/2016794664/) [alt](https://www.thehenryford.org/collections-and-research/digital-collections/artifact/174075)
-
-<Image src={k9}/>
-1/18/22 - [eric bouvet - battle of grozny 1995 - chechnya wars](https://ericbouvet.com/Chechnya-wars)
-
-
-<Image src={k10}/>
-1/23/22 - ["defense worker who is on night shift. during the day he works on the new home which he is building. detroit, mi." (1941)](https://www.shorpy.com/node/25486?size=_original#caption)
-
-<Image src={k11}/>
-1/29/22 - ["a soviet soldier smashes a portrait of adolf hitler in the liberated city of gatchina (Гатчина), leningrad oblast, jan 1944"](https://www.reddit.com/r/HistoryPorn/comments/seqlpo/a_soviet_soldier_smashes_a_portrait_of_adolf/)
-
-
-<Image src={k12}/>
-2/6/22 - ["A Soviet soldier smokes a cigarette at a checkpoint of the Soviet military airport in Kabul on February 10, 1989 as the other one forbids pictures."](https://rarehistoricalphotos.com/soviet-war-afganistan-in-pictures/)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -94,8 +29,9 @@ export default ({ children, allSketches }) => <>
 export async function getStaticProps() {
   const posts = await getAllSketches()
 
+
   return {
-    props: { allSketches: posts.slice(0,8) },
+    props: { allSketches: posts },
   }
 }
 

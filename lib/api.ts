@@ -3,16 +3,20 @@ import matter from 'gray-matter'
 import { Feed } from 'feed'
 import { join } from 'path'
 import { serialize } from 'next-mdx-remote/serialize'
+import sketches from './sketches.json'
 
 const postsDirectory = join(process.cwd(), '_posts')
-const sketchDirectory = join(process.cwd(), '_sketches')
 
 function getPostFiles() {
   return fs.readdirSync(postsDirectory)
 }
 
 function getSketchFiles() {
-  return fs.readdirSync(sketchDirectory)
+  return (
+    sketches
+      //@ts-ignore
+      .map(d => ({ ...d, date: +new Date(d.date) }))
+  )
 }
 
 export async function getPostBySlug(slug: string) {
@@ -38,11 +42,10 @@ export async function getAllPosts() {
 }
 
 export function getAllSketches() {
-  const sketches = getSketchFiles().map(file => fs.statSync(file))
+  const sketches = getSketchFiles()
 
-  return sketches.sort((post1, post2) =>
-    post1.ctimeMs > post2.ctimeMs ? -1 : 1,
-  )
+  //@ts-ignore
+  return sketches.sort((post1, post2) => post1.date - post2.date)
 }
 
 export function generateRSSFeed(articles: any) {
