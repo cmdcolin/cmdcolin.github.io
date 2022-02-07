@@ -10,14 +10,18 @@ footer > a {
   margin:8px;
 }
 
-p {
+article {
   width:50%;
 }
 
 @media only screen and (max-width: 600px) {
-  p {
+  article {
     width: 100%;
   }
+}
+
+code {
+  max-width: 500px;
 }
 
 /* PrismJS 1.25.0
