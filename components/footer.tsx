@@ -18,8 +18,14 @@ const Footer = () => {
       <Link href="/projects">
         <a>Projects</a>
       </Link>{' '}
-      <Link href="/photos">
-        <a>Photos</a>
+      <Link href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=--FwzsgAAAAJ">
+        <a>Publications</a>
+      </Link>{' '}
+      <Link href="/sketches">
+        <a>Sketches</a>
+      </Link>{' '}
+      <Link href="/kitty">
+        <a>Kitty</a>
       </Link>{' '}
       <Link href="/rss.xml">
         <a>RSS</a>

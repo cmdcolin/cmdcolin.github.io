@@ -1,3 +1,11 @@
+
+import Container from '../components/container'
+import Sketches from '../components/sketches'
+import Head from 'next/head'
+import Layout from '../components/layout'
+import Header from '../components/header'
+
+
 ## About me
 
 I'm a software developer and bioinformatician. I love the command line, and
@@ -14,4 +22,19 @@ I'm from Boulder, CO and currently work remotely from ABQ, NM.
 ![](/me2.jpg)
 
 
+
+
+export default ({ children }) => <>
+  <Head>
+    <title>Misc scribblings - About me</title>
+  </Head>
+  <Layout>
+    <Container>
+      <Header/>
+      <div className="tiny">
+        {children}
+      </div>
+    </Container>
+  </Layout>
+</>
 

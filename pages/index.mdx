@@ -7,15 +7,10 @@ import Link from 'next/link'
 import { getAllPosts } from '../lib/api'
 
 
+## Colin Diesh
 
 
-
-I'm a web developer and bioinformatician working on JBrowse. Interested in all
-sorts of creative hacking and data science. [More info](projects)
-
-
-
-
+I'm a software developer and bioinformatician attempting to blog stuff.
 
 
 
@@ -37,13 +32,10 @@ export default ({ children, allPosts }) => <>
   <Layout>
     <Container>
       <Header/>
-      <h1>
-        Colin Diesh
-      </h1>
       {children}
       <Posts posts={allPosts}/>
       <Link href="/archive">
-        <a >More posts...</a>
+        <a>More posts...</a>
       </Link>
     </Container>
   </Layout>
