@@ -1,0 +1,36 @@
+
+import Container from '../components/container'
+import Sketches from '../components/sketches'
+import Head from 'next/head'
+import Layout from '../components/layout'
+import Header from '../components/header'
+
+## Kitty
+
+We adopted a cat in late 2021. As a dog person, this it was pretty weird. His
+name is beezlebub. We thought he was a girl as a kitten... but he is, in fact,
+a boy. And he is very devilish.
+
+![](/media/kitty2.jpg)
+![](/media/kitty3.jpg)
+![](/media/kitty4.jpg)
+![](/media/kitty1.jpg)
+
+
+
+
+export default ({ children, allSketches }) => <>
+  <Head>
+    <title>Misc scribblings - Kitty</title>
+  </Head>
+  <Layout>
+    <Container>
+      <Header/>
+      <div className="tiny">
+        {children}
+      </div>
+    </Container>
+  </Layout>
+</>
+
+

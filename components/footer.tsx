@@ -24,6 +24,9 @@ const Footer = () => {
       <Link href="/rss.xml">
         <a>RSS</a>
       </Link>
+      <Link href="/about">
+        <a>About</a>
+      </Link>{' '}
     </footer>
   )
 }
