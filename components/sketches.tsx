@@ -33,7 +33,11 @@ const MoreStories = ({ sketches }: Props) => {
     <section>
       <h1>Sketches</h1>
       {sketches.map((post, idx) => (
-        <PostPreview key={JSON.stringify(post)} post={post} idx={idx} />
+        <PostPreview
+          key={JSON.stringify(post)}
+          post={post}
+          idx={sketches.length - idx - 1}
+        />
       ))}
     </section>
   )

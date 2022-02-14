@@ -44,8 +44,7 @@ export async function getAllPosts() {
 export function getAllSketches() {
   const sketches = getSketchFiles()
 
-  //@ts-ignore
-  return sketches.sort((post1, post2) => post1.date - post2.date)
+  return sketches
 }
 
 export function generateRSSFeed(articles: any) {
