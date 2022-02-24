@@ -4,11 +4,18 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 22 Feb 2022 17:56:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 24 Feb 2022 23:05:01 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
+        <item>
+            <title><![CDATA[Ukraine]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-02-24-ukraine</link>
+            <guid>https://cmdcolin.github.io/posts/2022-02-24-ukraine</guid>
+            <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
         <item>
             <title><![CDATA[Back when I was a noise musician...]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-15-noise</link>
