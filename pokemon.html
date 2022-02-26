@@ -3,11 +3,11 @@
   <body>
     <button id="poke">Get pokemon</button>
     <button id="clear">Clear cache</button>
+    <input type="text" id="pokeid">Pokemon number</input>
     <div id="output"></div>
-    <div id="error"></div>
+    <div id="error" style="color:red"></div>
     <script>
-      async function getPokemon() {
-        const id = Math.floor(Math.random() * 150)
+      async function getPokemon(id) {
         const url = 'https://pokeapi.co/api/v2/pokemon/' + id
         const ret = await fetch(url)
         if (!ret.ok) {
@@ -18,11 +18,14 @@
         return ret.json()
       }
 
-      let res = undefined
-      async function getCachedPokemon() {
-        if (!res) {
-          res = getPokemon().catch(e => {
+      let res
+      let cachedid
+      async function getCachedPokemon(id) {
+        if (cachedid !== id || !res) {
+          cachedid = id
+          res = getPokemon(id).catch(e => {
             res = undefined
+            throw e
           })
         }
         return res
@@ -34,11 +37,13 @@
 
       async function loadPokemon() {
         try {
-          const result = await getCachedPokemon()
+          document.getElementById('error').innerHTML = ''
+          const result = await getCachedPokemon(document.getElementById('pokeid').value)
           document.getElementById('output').innerHTML = result.name
         } catch (e) {
           console.error(e)
           document.getElementById('error').innerHTML = `${e}`
+          document.getElementById('output').innerHTML = ''
         }
       }
 
