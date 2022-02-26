@@ -1,6 +1,7 @@
 <html>
   <body>
     <button id="poke">Get pokemon</button>
+    <button id="clear">Clear cache</button>
     <div id="output"></div>
     <div id="error"></div>
     <script>
@@ -15,13 +16,19 @@
         }
         return ret.json()
       }
+
+      let res = undefined
       async function getCachedPokemon() {
-        if (!this.res) {
-          this.res = getPokemon().catch(e => {
-            this.res = undefined
+        if (!res) {
+          res = getPokemon().catch(e => {
+            res = undefined
           })
         }
-        return this.res
+        return res
+      }
+
+      function clearCache() {
+        res = undefined
       }
 
       async function loadPokemon() {
@@ -37,6 +44,10 @@
       document.getElementById('poke').addEventListener('click', () => {
         document.getElementById('output').innerHTML = 'Loading...'
         loadPokemon()
+      })
+
+      document.getElementById('clear').addEventListener('click', () => {
+        clearCache()
       })
     </script>
   </body>
