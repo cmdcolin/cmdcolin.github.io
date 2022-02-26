@@ -4,13 +4,13 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 26 Feb 2022 21:12:28 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 26 Feb 2022 23:23:44 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Memoizing async functions in Javascript]]></title>
+            <title><![CDATA[Memoizing async functions so that you don't cache errors]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-26-memoize-async</link>
             <guid>https://cmdcolin.github.io/posts/2022-02-26-memoize-async</guid>
             <pubDate>Sat, 26 Feb 2022 00:00:00 GMT</pubDate>
