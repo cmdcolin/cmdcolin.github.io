@@ -1,0 +1,43 @@
+<html>
+  <body>
+    <button id="poke">Get pokemon</button>
+    <div id="output"></div>
+    <div id="error"></div>
+    <script>
+      async function getPokemon() {
+        const id = Math.floor(Math.random() * 150)
+        const url = 'https://pokeapi.co/api/v2/pokemon/' + id
+        const ret = await fetch(url)
+        if (!ret.ok) {
+          throw new Error(
+            `Failed to fetch ${url} HTTP ${ret.status} ${ret.statusText}`,
+          )
+        }
+        return ret.json()
+      }
+      async function getCachedPokemon() {
+        if (!this.res) {
+          this.res = getPokemon().catch(e => {
+            this.res = undefined
+          })
+        }
+        return this.res
+      }
+
+      async function loadPokemon() {
+        try {
+          const result = await getCachedPokemon()
+          document.getElementById('output').innerHTML = result.name
+        } catch (e) {
+          console.error(e)
+          document.getElementById('error').innerHTML = `${e}`
+        }
+      }
+
+      document.getElementById('poke').addEventListener('click', () => {
+        document.getElementById('output').innerHTML = 'Loading...'
+        loadPokemon()
+      })
+    </script>
+  </body>
+</html>
