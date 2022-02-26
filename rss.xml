@@ -4,22 +4,22 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 26 Feb 2022 19:01:04 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 26 Feb 2022 19:02:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Ukraine]]></title>
-            <link>https://cmdcolin.github.io/posts/2022-02-24-ukraine</link>
-            <guid>https://cmdcolin.github.io/posts/2022-02-24-ukraine</guid>
-            <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
-            <author>colin.diesh@gmail.com (Colin Diesh)</author>
-        </item>
-        <item>
             <title><![CDATA[Caching or memoizing promises]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-26-caching-promise</link>
             <guid>https://cmdcolin.github.io/posts/2022-02-26-caching-promise</guid>
+            <pubDate>Sat, 26 Feb 2022 00:00:00 GMT</pubDate>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
+        <item>
+            <title><![CDATA[Ukraine]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-02-24-ukraine</link>
+            <guid>https://cmdcolin.github.io/posts/2022-02-24-ukraine</guid>
             <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
