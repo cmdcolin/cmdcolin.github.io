@@ -175,3 +175,8 @@ pokemon theme
 
 Fun stuff: The cutting room floor wiki with unused moves, sounds, and sprites
 in Pokemon Yellow https://tcrf.net/Pok%C3%A9mon_Yellow
+
+## Footnote 5
+
+This blog post mentioned in a comment thread https://zansh.in/memoizer.html has
+great interactive examples and shows the "invalidate on .catch()" behavior!

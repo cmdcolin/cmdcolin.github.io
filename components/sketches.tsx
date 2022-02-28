@@ -15,12 +15,14 @@ const PostPreview = ({ post, idx }: { post: Post; idx: number }) => {
   const k2 = '/sketches/j' + (idx + 1) + '.resized.webp'
   return (
     <div style={{ marginBottom: 100 }}>
-      <a href={k1}>
-        <img height={450} src={k1} loading="lazy" />
-      </a>
-      <a href={k2}>
-        <img height={450} src={k2} loading="lazy" />
-      </a>
+      <div style={{ display: 'flex' }}>
+        <a href={k1}>
+          <img height={450} src={k1} loading="lazy" />
+        </a>
+        <a href={k2}>
+          <img height={450} src={k2} loading="lazy" />
+        </a>
+      </div>
       <br />
       {new Date(post.date).toLocaleDateString()} -{' '}
       <a href={post.url}>{post.title}</a> {post.note ? `(${post.note})` : ''}
