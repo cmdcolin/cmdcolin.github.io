@@ -19,8 +19,24 @@ article {
   }
 }
 
+article img {
+  max-width: 100%;
+}
+
+article pre {
+  max-width: 100%;
+}
+
 .tiny {
-  width: 40%;
+  width: 50%;
+}
+
+.tiny img {
+  max-width: 100%;
+}
+
+.tiny pre {
+  max-width: 100%;
 }
 
 @media only screen and (max-width: 600px) {
