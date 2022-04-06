@@ -11,13 +11,11 @@ interface Props {
 const PostPreview = ({ post }: { post: Post }) => {
   const { title, date, slug } = post
   return (
-    <div>
-      <Link as={`/posts/${slug}`} href="/posts/[slug]">
-        <a>
-          {date} - {title}
-        </a>
-      </Link>
-    </div>
+    <Link as={`/posts/${slug}`} href="/posts/[slug]">
+      <a>
+        {date} - {title}
+      </a>
+    </Link>
   )
 }
 

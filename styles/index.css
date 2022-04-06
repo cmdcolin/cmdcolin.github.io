@@ -45,6 +45,10 @@ article pre {
   }
 }
 
+li + li {
+  margin-top: 10px;
+}
+
 /* PrismJS 1.25.0
 https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript */
 code[class*='language-'],
