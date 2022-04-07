@@ -9,7 +9,7 @@ const Footer = () => {
       <Link href="/archive">
         <a>Blog archive</a>
       </Link>{' '}
-      <Link href="https://github.com/cmdcolin/cmdcolin.github.io">
+      <Link href="https://github.com/cmdcolin/">
         <a>Github</a>
       </Link>{' '}
       <Link href="https://twitter.com/cmdcolin">
