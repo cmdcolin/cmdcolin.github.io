@@ -39,6 +39,10 @@ article pre {
   max-width: 100%;
 }
 
+article pre {
+  max-width: 100%;
+}
+
 @media only screen and (max-width: 600px) {
   .tiny {
     width: 100%;
