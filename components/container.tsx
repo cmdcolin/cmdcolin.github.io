@@ -1,11 +1,3 @@
-import { ReactNode, FunctionComponent } from 'react'
-
-type Props = {
-  children?: ReactNode
-}
-
-const Container: FunctionComponent = ({ children }: Props) => {
+export default function Container({ children }: { children: React.ReactNode }) {
   return <div>{children}</div>
 }
-
-export default Container
