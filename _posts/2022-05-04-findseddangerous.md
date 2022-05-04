@@ -67,3 +67,9 @@ My take: Use ruplacer [https://github.com/dmerejkowsky/ruplacer](https://github.
 This tool won't try to replace stuff in your .git directory. It will also skip
 anything in .gitignore including e.g. node_modules. I was delighted to discover
 this tool so, just spreading the word
+
+Addendum: Reddit /u/Snarwin also recommended using git ls-files instead of find
+
+```
+git ls-files | xargs sed -i -e 's/apple/orange/g'
+```
