@@ -6,6 +6,7 @@ import PostHeader from '../../components/post-header'
 import Layout from '../../components/layout'
 import { getPostBySlug, getAllPosts } from '../../lib/api'
 import Head from 'next/head'
+import Giscus from '@giscus/react'
 import { MDXRemote } from 'next-mdx-remote'
 
 type Props = {
@@ -36,6 +37,22 @@ const Post = ({ post }: Props) => {
               </Head>
               <PostHeader title={title} date={date} />
               <MDXRemote {...mdxSource} />
+              <div style={{ marginTop: 200 }}>
+                <Giscus
+                  id="comments"
+                  repo="cmdcolin/cmdcolin.github.io"
+                  repoId="MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=="
+                  category="General"
+                  categoryId="DIC_kwDOAY8DLc4CO-L9"
+                  mapping="pathname"
+                  term="Welcome to @giscus/react component!"
+                  reactionsEnabled="1"
+                  emitMetadata="0"
+                  inputPosition="top"
+                  lang="en"
+                  loading="lazy"
+                />
+              </div>
             </article>
           )}
         </Container>
