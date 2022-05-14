@@ -32,6 +32,6 @@
     "@types/react-dom": "^18.0.3",
     "eslint": "^8.14.0",
     "eslint-config-next": "^12.1.4",
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^4.0.0"
   }
 }

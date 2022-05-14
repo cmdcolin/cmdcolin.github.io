@@ -3,19 +3,15 @@ title: Notes on performance profiling JS applications
 date: 2022-05-10
 ---
 
-Keeping your program fast is important for user satisfation in everyday apps,
-and in other areas such as science, having fast code and algorithms can be the
-difference for making certain problems tractable.
+Keeping your program fast is important for
 
-I am not doing a lot of algorithmic analysis, but our javascript data
-visualization app sometimes chugs through some large-ish datasets, so here are
-some performance profiling notes
+- user satisfaction in everyday apps
+- making certain things tractable
 
-# Look at the performance profiling
+In our application, we visualize some large-ish datasets using the browser and
+javascript
 
-It is really critical to look at the profiling results when determining what to
-speed up. You can make hypotheses about what is slow all day, but the profiler
-will tell you what your program is spending time on.
+## The Chrome profiler
 
 I use the Chrome DevTools "Performance" profiler, which is a
 statistical/sampling profiler
@@ -29,10 +25,12 @@ is executing.
 - If you see many small rectangles, your small function may be called many
   times
 
-Just because it is the rectangles are small (e.g. time taken by a function is
-small) does not mean it can't be sped up though. If you speed up a small
-function, your function can become so fast the sampling profiler can miss it
-and you will see it rarely in your profiling result.
+Note: sometimes your function may be so fast, it is rarely or never encountered
+by the sampling. It is a good thing (TM) to be this fast, but I mention it to
+note that the sampling profiler does not give us a complete log of all function
+calls.
+
+## Creating a flamegraph from the Chrome profiler results
 
 Note: sometimes, it is also useful to see the results as a "flamegraph" (see
 https://www.brendangregg.com/flamegraphs.html)
@@ -114,22 +112,22 @@ allowed me to see e.g. some optimizations may only affect certain conditions.
 Developing the end-to-end test suite tool awhile to develop (read: weeks to
 mature, though some earlier result were available), but it let me compare the
 current release vs experimental branches, and over time, the experimental
-branches were merged and things got faster.
+branches were merged and things got faster. [2]
 
-## Memory usage profiling
+## Note that memory usage can be very important to your programs performance.
 
-I have not found a great way to profile memory usage with puppeteer (you can
-grab process.memory but this does not get webworker memory usage for example,
-which was important for me. see
-https://github.com/puppeteer/puppeteer/issues/8258 for possible xref) but using
-the Chrome Profiler, I can look at memory usage. If the blue line is going up,
-that means memory is being allocated! I have found that not all the things you
-might expect to increase memory usage
-
-Note that memory usage can be very important to your programs performance.
 Excessive allocations will increase "GC pressure" (the garbage collector will
 invoke more Minor and Major GC, which you will see in your performance
 profiling reuslts as yellow boxes)
+
+## Conclusion
+
+It is really important to look at the profiling to see what your program
+actually is spending time on. You can make hypothetical optimizations all day
+and dream of rewriting in rust but you may just have a slow hot path in your JS
+code that, if optimized, can get big speedups.
+
+Let me know about your favorite optimizations in the comments!
 
 ## Footnotes
 
@@ -137,3 +135,8 @@ profiling reuslts as yellow boxes)
 between worker and main thread, but these come with many security limitations
 from the browser (and was even removed for a time while these security
 implications were sussed out, due to Spectre/Meltdown vulnerabilities)
+
+[2] I still have not found a good way to get automated memory usage profiling
+via puppeteer. You can access window.process.memory in puppeteer, but this
+variable does not provide info about webworker memory usage
+https://github.com/puppeteer/puppeteer/issues/8258
