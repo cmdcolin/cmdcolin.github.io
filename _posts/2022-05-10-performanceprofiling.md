@@ -15,7 +15,7 @@ javascript
 
 I use the Chrome DevTools "Performance" profiler, which is a
 statistical/sampling profiler
-https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers
+[https://en.wikipedia.org/wiki/Profiling\_(computer_programming)#Statistical_profilers](<https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers>)
 
 This means it samples at some rate and see's where in the callstack the program
 is executing.
@@ -33,10 +33,10 @@ calls.
 ## Creating a flamegraph from the Chrome profiler results
 
 Note: sometimes, it is also useful to see the results as a "flamegraph" (see
-https://www.brendangregg.com/flamegraphs.html)
+[https://www.brendangregg.com/flamegraphs.html)](https://www.brendangregg.com/flamegraphs.html))
 
-The website https://www.speedscope.app/ can create "flamegraph" style figures
-for Chrome profiling results
+The website [https://www.speedscope.app/](https://www.speedscope.app/) can
+create "flamegraph" style figures for Chrome profiling results
 
 ## Stacking up many small optimizations
 
@@ -49,29 +49,28 @@ For example, say a program takes 30 seconds to run on a certain dataset
 
 If you do profiling and find a couple microoptimizations that give you a 15%,
 10% and 5% performance improvement, then you program now takes 20 seconds to
-run. That is still not instantaneous, but it is saving your a good 10 seconds.
+run. That is still not instantaneous, but it is saving users a good 10 seconds.
 
 ## Examples of micro optimizations
 
-- Using Map instead of Object, can often get small performance boosts
+- Using `Map` instead of `Object` can often get small performance boosts
 - Comparing value against `undefined` e.g. `if(val===undefined)` vs just
   comparing against falsy e.g. `if(!val)`
-- Using TypedArray/Uint8Array natively instead of Buffer polyfill on node.js.
-  This one is a kicker for me because we relied on Buffer polyfill for awhile,
-  and webpack 5 stopped bundling polyfills by default which made us wake up to
-  this
-- When converting Uint8Array to String, use `TextDecoder` for large strings, and
+- Using `TypedArray`/`Uint8Array` natively instead of `Buffer` polyfill. This
+  one is a kicker for me because we relied on `Buffer` polyfill, and webpack 5
+  stopped bundling polyfills by default which made us wake up to this
+- When converting `Uint8Array` to string, use `TextDecoder` for large strings, and
   just small string concatenations of `String.fromCharCode` for small ones.
   There is an inflection point for string size where one is faster
 - Use `for` loops instead of `Array.prototype.forEach`/`Array.prototype.map`. I
   think similar to above, there is an inflection point (not where it gets
-  faster in the forEach/map case, but where you can choose to care whether the
-  small performance diff matters) based on number of elements in your array
-- Pre-allocate an array with "new Array(N)" instead of just "[]" if possible
+  faster in the `forEach`/`map` case, but where you can choose to care whether
+  the small performance diff matters) based on number of elements in your array
+- Pre-allocate an array with `new Array(N)` instead of just `[]` if possible
 
 I have tried to keep track of more microoptimizations here, but they are pretty
 specific to small examples and may not generalize across browsers or browser
-versions https://gist.github.com/cmdcolin/ef57d2783e47b16aa07a03967fd870d8
+versions [https://gist.github.com/cmdcolin/ef57d2783e47b16aa07a03967fd870d8](https://gist.github.com/cmdcolin/ef57d2783e47b16aa07a03967fd870d8)
 
 ## Examples of macro optimizations
 
@@ -139,4 +138,4 @@ implications were sussed out, due to Spectre/Meltdown vulnerabilities)
 [2] I still have not found a good way to get automated memory usage profiling
 via puppeteer. You can access window.process.memory in puppeteer, but this
 variable does not provide info about webworker memory usage
-https://github.com/puppeteer/puppeteer/issues/8258
+[https://github.com/puppeteer/puppeteer/issues/8258](https://github.com/puppeteer/puppeteer/issues/8258)
