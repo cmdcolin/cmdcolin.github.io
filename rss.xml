@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 27 May 2022 18:58:27 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 27 May 2022 19:00:39 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -13,7 +13,7 @@
             <title><![CDATA[You may not need a bundler for your NPM library]]></title>
             <link>https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</link>
             <guid>https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</guid>
-            <pubDate>Sun, 15 May 2022 00:00:00 GMT</pubDate>
+            <pubDate>Fri, 27 May 2022 00:00:00 GMT</pubDate>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
