@@ -102,8 +102,8 @@ directly deploy a `dist` folder of `js` files to NPM.
 - We can use a single command, `yarn publish` to publish to npm
 - The single `yarn publish` automatically runs `clean` and `build` via
   `preversion`, then `postversion`, which pushes the tag to the remote repo
-- The `"files": ["dist", "src"]` refers to published the `dist` and `src` directories,
-  and src is used for the `sourceMap`
+- The `"files": ["dist", "src"]` refers to publishing the `dist` and `src`
+  directories, and src is used for the `sourceMap`
 
 ### Example` tsconfig.json`
 
