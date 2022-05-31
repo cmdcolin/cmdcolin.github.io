@@ -69,6 +69,11 @@ would still have to consider:
 - If you are bundling dependencies, you are not allowing people to get updates
   to your sub-dependencies with semver!
 
+Add-on: Another concern brought up by users in discussion thread: There is a
+cost to having many small files, e.g. in app startup cost on serverless or any
+nodejs application to loading many small files off disk. To me, this is an app
+level concern, similar to bundling for the browser though.
+
 ## My suggestion: no bundler, no starter pack, just `tsc`
 
 I'd recommend just compiling your code with `tsc`, no bundler involved. This
@@ -126,9 +131,9 @@ directly deploy a `dist` folder of `js` files to NPM.
 #### Features of the above `tsconfig.json`
 
 - Uses `"moduleResolution": "node"` - this is not pure-ESM because pure-ESM
-  expects you to import with the filenames, while node module resolution can
-  import extensionless paths, but it works well with consumers that use
-  bundlers themselves
+  expects you to import filenames with their file extension, while node module
+  resolution can import extensionless paths, but node module resolution
+  generally works well with consumers that use bundlers themselves
 - Uses `"target": "es2018"` - This is does a small amount of transpilation of
   super modern features, but would generally not require your users to
   babel-ify their `node_modules` if they consume your library
@@ -149,8 +154,8 @@ Some options you have include
 
 ## Conclusion
 
-It is tempting to have a nice zero-config solutions and starter kits, but to
-me, it is not really beneficial to use the bundler aspect of many of these for
+It is tempting to have nice zero-config solutions and starter kits, but to me,
+it is not really beneficial to use the bundler aspect of many of these for
 publishing to NPM. Am I wrong? Let me know if I am.
 
 Also, these starter kits may not be maintained for perpetuity. Our team used
