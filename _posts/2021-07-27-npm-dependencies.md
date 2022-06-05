@@ -26,7 +26,7 @@ Here are some questions in the form of comments
   yarn.lock file but will not update what is in your package.json?
 
 - Did you realize that this means that if you depend on the results of running
-  `yarn upgrade` e.g. it gave you a bugfix, you will be shipping buggy code to
+  `yarn upgrade` e.g. it gave you a bugfix, you could be shipping buggy code to
   consumers of your library?
 
 Just something to be aware of! You can always ride the dragon and accept these
