@@ -248,3 +248,21 @@ tied down. But, I still use things like `create-react-app` because they do seem
 to help me significantly. Now though, the tide seems to be turning other
 directions like next.js which can do static site generation at a basic level
 and extend to multiple pages more easily.
+
+## Footnote 6:
+
+You may not even need `tsc` to compile your dist folder. You can literally
+publish your source `.js` files as-is to NPM. This suggestion comes from
+@trevmanz [1](https://twitter.com/trevmanz/status/1534962190008172545)
+[2](https://twitter.com/trevmanz/status/1534962940348092417). I don't
+personally use this technique yet but there are many users with this workflow
+
+An interesting thing is you can write in `.js` but still get `typescript` to
+get type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
+`tsconfig.json`
+
+## Footnote 7:
+
+What about React? Bundlers not needed, and not even babel is needed: you can
+code your library as in `jsx` or `tsx` files and use `tsc` to compile it to
+React.createElement statements or other jsx transforms.
