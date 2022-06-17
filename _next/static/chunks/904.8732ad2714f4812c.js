@@ -15,3 +15,4 @@
       min-height: 150px;
     }
   `,St([ht({reflect:!0})],Et.prototype,"repo",2),St([ht({reflect:!0})],Et.prototype,"repoId",2),St([ht({reflect:!0})],Et.prototype,"category",2),St([ht({reflect:!0})],Et.prototype,"categoryId",2),St([ht({reflect:!0})],Et.prototype,"mapping",2),St([ht({reflect:!0})],Et.prototype,"term",2),St([ht({reflect:!0})],Et.prototype,"reactionsEnabled",2),St([ht({reflect:!0})],Et.prototype,"emitMetadata",2),St([ht({reflect:!0})],Et.prototype,"inputPosition",2),St([ht({reflect:!0})],Et.prototype,"theme",2),St([ht({reflect:!0})],Et.prototype,"lang",2),St([ht({reflect:!0})],Et.prototype,"loading",2),Et=St([(bt="giscus-widget",t=>{return"function"==typeof t?(e=bt,i=t,window.customElements.define(e,i),i):((t,e)=>{const{kind:i,elements:s}=e;return{kind:i,elements:s,finisher(e){window.customElements.define(t,e)}}})(bt,t);var e,i})],Et)}}]);
+//# sourceMappingURL=904.8732ad2714f4812c.js.map
