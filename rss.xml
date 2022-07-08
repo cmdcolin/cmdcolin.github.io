@@ -4,11 +4,18 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Thu, 07 Jul 2022 21:37:24 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 08 Jul 2022 20:11:09 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
+        <item>
+            <title><![CDATA[Watch out for your pinky]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-07-08-pinky</link>
+            <guid>https://cmdcolin.github.io/posts/2022-07-08-pinky</guid>
+            <pubDate>Fri, 08 Jul 2022 00:00:00 GMT</pubDate>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
         <item>
             <title><![CDATA[You may not need a bundler for your NPM library]]></title>
             <link>https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</link>
