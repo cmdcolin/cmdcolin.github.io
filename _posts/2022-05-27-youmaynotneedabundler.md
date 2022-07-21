@@ -163,7 +163,7 @@ Also, these starter kits may not be maintained for perpetuity. Our team used
 version 3.x, and it ended up being hard to remove from our codebase. Learning
 the basic tools like `tsc` will help
 
-## Footnote 1: Shipping pure-ESM
+## Footnote 1: Shipping "pure-ESM"
 
 Do you want to make a pure-ESM package? Then you do not want to use
 `"moduleResolution": "node"` in `tsconfig.json`, and you will want to set
@@ -175,7 +175,27 @@ If you have ever stumbled on this topic, you will probably want to see this
 link
 [https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 
-## Footnote 2: Learning your tools
+## Footnote 2: Shipping ESM and CommonJS side by side without going "pure-ESM"
+
+It can be tricky to go pure-ESM, but you can go most of the way there by using
+both the "main" and "module" fields in package.json
+
+- Compile with tsc with `tsc --module commonjs --outDir dist
+- Compile with tsc again with `tsc --module esnext --outDir esm`
+- Then set "main":"dist/index.js" for node and `"module":"esm/index.js"` for
+  bundlers
+
+The "module" field is a field only bundlers recognizes
+[https://stackoverflow.com/questions/42708484/what-is-the-module-package-json-field-for](https://stackoverflow.com/questions/42708484/what-is-the-module-package-json-field-for)
+
+Note: This is different from the "type":"module" which marks your module as
+pure-ESM!
+
+I have found this technique can go a long ways towards keeping your package
+compatible with nodeJS and bundlers and it does not require "export maps" or
+anything which I have found to be difficult to configure
+
+## Footnote 3: Learning your tools
 
 Several people on the
 [my recent post](https://cmdcolin.github.io/posts/2022-05-04-findseddangerous)
@@ -189,7 +209,7 @@ research and create more boilerplate, but it's **better**".
 Ultimately though, it's up to you to choose your tools and starter packs and
 whatnot.
 
-## Footnote 3: What does it look like when you compile with tsc?
+## Footnote 4: What does it look like when you compile with tsc?
 
 When I refer to compiling with tsc above, I compile a `src` directory into a
 `dist` directory
@@ -227,7 +247,7 @@ See
 [https://cmdcolin.github.io/posts/2021-12-31-npm-package](https://cmdcolin.github.io/posts/2021-12-31-npm-package)
 for my article on creating a typescript package for npm
 
-## Footnote 4: Other things people recommend
+## Footnote 5: Other things people recommend
 
 Other things people recommend in the starter pack threads
 
@@ -238,7 +258,7 @@ Other things people recommend in the starter pack threads
 - `Typescript-Node-Starter` - [https://github.com/microsoft/TypeScript-Node-Starter](https://github.com/microsoft/TypeScript-Node-Starter) - not a library, full stack framework
 - `joystick` - [https://github.com/CheatCode/joystick](https://github.com/CheatCode/joystick) - not a library, full stack framework
 
-## Footnote 5:
+## Footnote 6:
 
 Similar things happen if you take on dependencies of starter kits like
 `create-react-app`. You become very committed to their particular way of doing
@@ -249,7 +269,7 @@ to help me significantly. Now though, the tide seems to be turning other
 directions like next.js which can do static site generation at a basic level
 and extend to multiple pages more easily.
 
-## Footnote 6:
+## Footnote 7:
 
 You may not even need `tsc` to compile your dist folder. You can literally
 publish your source `.js` files as-is to NPM. This suggestion comes from
@@ -261,7 +281,7 @@ An interesting thing is you can write in `.js` but still get `typescript` to
 get type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
 `tsconfig.json`
 
-## Footnote 7:
+## Footnote 8:
 
 What about React? Bundlers not needed, and not even babel is needed: you can
 code your library as in `jsx` or `tsx` files and use `tsc` to compile it to
