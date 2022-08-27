@@ -3,18 +3,13 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import Head from 'next/head'
 
-
-
 Here are some various projects that I've worked on
-
-
-
 
 ## Bioinformatics
 
 - [graphgenomeviewer](https://cmdcolin.github.io/graphgenomeviewer) BCC2020 hackathon project to visualize GFA graph genome files (2020)
 - [jbrowse 1](https://github.com/gmod/jbrowse) and [jbrowse 1 plugins](https://gmod.github.io/jbrowse-registry) such as multibigwig, multivariantviewer, and more
-- [jbrowse 2](https://github.com/gmod/jbrowse-components) 
+- [jbrowse 2](https://github.com/gmod/jbrowse-components)
 
 See also my [google scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&user=--FwzsgAAAAJ) for publications. My first "first author" publication was recently published here! [https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)(https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)
 
@@ -29,7 +24,6 @@ repos. Please add your favorites with PRs :)
 - [awesome-genome-visualization](https://github.com/cmdcolin/awesome-genome-visualization)
 - [technical-oddities](https://github.com/cmdcolin/technical_oddities)
 
-
 ## Visualizers
 
 - [github burndown](https://colindiesh.shinyapps.io/github_burndown/) a shiny app to plot "burndown" style statistics on github issues (2021)
@@ -41,10 +35,7 @@ repos. Please add your favorites with PRs :)
 
 ## Dotfiles/setup
 
-
 - [dotfiles](https://github.com/cmdcolin/dotfiles/) - also has various other details on my setup
-
-
 
 ## Code/art
 
@@ -62,7 +53,6 @@ repos. Please add your favorites with PRs :)
 - [gratiotquest](https://github.com/vastholdings/gratiotquest) multi-player websocket RPG where you are a pheasant running around a MS Paint world (2018)
 - [slap happy](https://github.com/cmdcolin/slaphappy) retrofitted a arcade cabinet with a raspberry pi (2018)
 
-
 ## Coursera classes
 
 - Experimental Genome Science, University of Pennsylvania 2013, [statement of completion](genomesci.pdf)
@@ -70,36 +60,34 @@ repos. Please add your favorites with PRs :)
 
 ## Gallery
 
-<img src="mafviewer.png" width={400}/>
+<img src="mafviewer.png" width={400} />
 MAFViewer plugin for JBrowse 1 viewing multiple genome alignment of C. elegans
 
-<img src="gwasviewer.png" width={400}/>
+<img src="gwasviewer.png" width={400} />
 GWASViewer for JBrowse 1
 
-<img src="tumblrgraph.png" width={400}/>
+<img src="tumblrgraph.png" width={400} />
 Tumblrgraph showing the reblog graph
 
-<img src="ontograph.png" width={400}/>
+<img src="ontograph.png" width={400} />
 Ontograph showing gene ontology terms
 
-<img src="plots.png" width={400}/>
+<img src="plots.png" width={400} />
 Github burndown chart showing the closing of issues over time
 
-<img src="2sm.png" width={400}/>
-A high-resolution export of the logistic map fractal from my logistic_chaos_map renderer ([full res](https://raw.githubusercontent.com/cmdcolin/logistic_chaos_map/master/img/2.png))
+<img src="2sm.png" width={400} />A high-resolution export of the logistic map fractal
+from my logistic_chaos_map renderer ([full res](https://raw.githubusercontent.com/cmdcolin/logistic_chaos_map/master/img/2.png))
 
-
-export default ({ children }) => <>
-  <Head>
-    <title>Misc scribblings - Projects</title>
-  </Head>
-  <Layout>
-    <Container>
-      <Header/>
-      {children}
-    </Container>
-  </Layout>
-</>
-
-
-
+export default ({ children }) => (
+  <>
+    <Head>
+      <title>Misc scribblings - Projects</title>
+    </Head>
+    <Layout>
+      <Container>
+        <Header />
+        {children}
+      </Container>
+    </Layout>
+  </>
+)

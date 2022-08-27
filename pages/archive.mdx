@@ -9,26 +9,26 @@ import Head from 'next/head'
 export async function getStaticProps() {
   const allPosts = await getAllPosts()
 
-  generateRSSFeed(allPosts);
+generateRSSFeed(allPosts);
 
-  return {
-    props: { allPosts },
-  }
+return {
+props: { allPosts },
 }
-
+}
 
 ## Blog archive
 
-
-export default ({ children, allPosts }) => <>
-  <Head>
-    <title>Misc scribblings - Blog archive</title>
-  </Head>
-  <Layout>
-    <Container>
-      <Header/>
-      {children}
-      <Posts posts={allPosts} />
-    </Container>
-  </Layout>
-</>
+export default ({ children, allPosts }) => (
+  <>
+    <Head>
+      <title>Misc scribblings - Blog archive</title>
+    </Head>
+    <Layout>
+      <Container>
+        <Header />
+        {children}
+        <Posts posts={allPosts} />
+      </Container>
+    </Layout>
+  </>
+)

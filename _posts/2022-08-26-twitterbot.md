@@ -104,22 +104,22 @@ to github!
 Make the bot! Create `src/bot.ts`
 
 ```typescript
-import fs from "fs";
-import * as dotenv from "dotenv";
-import OAuth from "oauth";
-import fetch, { RequestInit } from "node-fetch";
-import { FormData, File } from "formdata-node";
+import fs from 'fs'
+import * as dotenv from 'dotenv'
+import OAuth from 'oauth'
+import fetch, { RequestInit } from 'node-fetch'
+import { FormData, File } from 'formdata-node'
 
-dotenv.config();
+dotenv.config()
 
 async function mfetch(url: string, params: RequestInit) {
-  const response = await fetch(url, params);
+  const response = await fetch(url, params)
 
   if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`HTTP ${response.status} ${text}`);
+    const text = await response.text()
+    throw new Error(`HTTP ${response.status} ${text}`)
   }
-  return response.json() as Promise<Record<string, unknown>>;
+  return response.json() as Promise<Record<string, unknown>>
 }
 
 function getAuthHeader(oauth: OAuth.OAuth, url: string) {
@@ -127,63 +127,63 @@ function getAuthHeader(oauth: OAuth.OAuth, url: string) {
     url,
     process.env.ACCESS_TOKEN as string,
     process.env.ACCESS_TOKEN_SECRET as string,
-    "post"
-  );
+    'post',
+  )
 }
 
-(async () => {
+;(async () => {
   try {
     const client = new OAuth.OAuth(
-      "https://api.twitter.com/oauth/request_token",
-      "https://api.twitter.com/oauth/access_token",
+      'https://api.twitter.com/oauth/request_token',
+      'https://api.twitter.com/oauth/access_token',
       process.env.API_KEY as string,
       process.env.API_SECRET as string,
-      "1.0A",
+      '1.0A',
       null,
-      "HMAC-SHA1"
-    );
+      'HMAC-SHA1',
+    )
 
-    const picEndpoint = "https://upload.twitter.com/1.1/media/upload.json";
-    const tweetEndpoint = "https://api.twitter.com/2/tweets";
-    const clientName = "v3CreateTweetJS";
+    const picEndpoint = 'https://upload.twitter.com/1.1/media/upload.json'
+    const tweetEndpoint = 'https://api.twitter.com/2/tweets'
+    const clientName = 'v3CreateTweetJS'
 
-    const form = new FormData();
+    const form = new FormData()
     form.set(
-      "media",
-      new File([fs.readFileSync("yourpicture.png")], "yourpicture.png")
-    );
+      'media',
+      new File([fs.readFileSync('yourpicture.png')], 'yourpicture.png'),
+    )
 
     // first post a picture
     const response1 = await mfetch(picEndpoint, {
       headers: {
         Authorization: getAuthHeader(client, picEndpoint),
-        "user-agent": clientName,
+        'user-agent': clientName,
       },
-      method: "POST",
+      method: 'POST',
       //@ts-ignore
       body: form,
-    });
+    })
 
     // then post a tweet, referring to the media_id_string from response1
     const response2 = await mfetch(tweetEndpoint, {
       headers: {
         Authorization: getAuthHeader(client, tweetEndpoint),
-        "user-agent": clientName,
-        "content-type": "application/json",
-        accept: "application/json",
+        'user-agent': clientName,
+        'content-type': 'application/json',
+        accept: 'application/json',
       },
       body: JSON.stringify({
         media: { media_ids: [response1.media_id_string] },
-        text: "Hello world!",
+        text: 'Hello world!',
       }),
-      method: "post",
-    });
-    console.log(response2);
+      method: 'post',
+    })
+    console.log(response2)
   } catch (e) {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   }
-})();
+})()
 ```
 
 ### Step 6
@@ -215,7 +215,7 @@ The below github action posts every 5 hours on the hour (see
 name: Post tweet
 on:
   schedule:
-    - cron: "0 */5 * * *"
+    - cron: '0 */5 * * *'
 
 jobs:
   test:
@@ -226,7 +226,7 @@ jobs:
       - name: Use Node.js 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: '14'
       - name: Install deps (with cache)
         uses: bahmutov/npm-install@v1
       - name: Post tweet

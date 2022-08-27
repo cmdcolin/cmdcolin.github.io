@@ -143,7 +143,6 @@ This all seems pretty boring thus far but it tells us a couple things
 
 Let's try adding typescript
 
-
 To do this, we will use the typescript compiler to compile a directory of files
 in our "src" directory and output the compiled files to a directory named
 "dist"

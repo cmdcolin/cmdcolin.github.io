@@ -1,41 +1,32 @@
-
 import Container from '../components/container'
 import Sketches from '../components/sketches'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-
 ## About me
-
 
 I am currently working for UC Berkeley on the [JBrowse](https://jbrowse.org)
 project, which is a web-based genome browser.
 
-
 I'm from Boulder, CO and currently work remotely from ABQ, NM. In previous
 lives I also lived in Columbia, MO and Detroit, MI
 
-
-
 ![](/me2.jpg)
-
 
 This website is made with next.js, source here
 [https://github.com/cmdcolin/cmdcolin.github.io](https://github.com/cmdcolin/cmdcolin.github.io)
 
-
-export default ({ children }) => <>
-  <Head>
-    <title>Misc scribblings - About me</title>
-  </Head>
-  <Layout>
-    <Container>
-      <Header/>
-      <div className="tiny">
-        {children}
-      </div>
-    </Container>
-  </Layout>
-</>
-
+export default ({ children }) => (
+  <>
+    <Head>
+      <title>Misc scribblings - About me</title>
+    </Head>
+    <Layout>
+      <Container>
+        <Header />
+        <div className="tiny">{children}</div>
+      </Container>
+    </Layout>
+  </>
+)

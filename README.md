@@ -4,7 +4,6 @@ Blogpost on how this site is made
 
 https://cmdcolin.github.io/posts/2021-12-26-nextjs
 
-
 I manually exported a bunch of tumblr data in HTML, converted to markdown with
 pandoc which was sort of scrappy, and then hand edited it into a nextjs style
 static website. I did a v2 of this where I adapted from
@@ -20,7 +19,6 @@ minimalism of the blog, but may be more next.js-idiomatic
 yarn deploy
 ```
 
-
 ## dev
 
 ```
@@ -28,4 +26,3 @@ yarn dev
 ```
 
 Starts locally on http://localhost:3000
-

@@ -6,9 +6,6 @@ import Image from '../components/photo'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-
-
-
 export default ({ children, allSketches }) => <>
   <Head>
     <title>Misc scribblings - Sketches</title>
@@ -22,19 +19,10 @@ export default ({ children, allSketches }) => <>
   </Layout>
 </>
 
-
-
-
-
 export async function getStaticProps() {
   const posts = await getAllSketches()
 
-
-  return {
-    props: { allSketches: posts },
-  }
+return {
+props: { allSketches: posts },
 }
-
-
-
-
+}

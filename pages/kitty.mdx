@@ -1,4 +1,3 @@
-
 import Container from '../components/container'
 import Sketches from '../components/sketches'
 import Head from 'next/head'
@@ -17,21 +16,16 @@ to wake me up at all hours of the night to try to get food.
 ![](/media/kitty1.resized.jpg)
 ![](/media/socks.jpg)
 
-
-
-
-export default ({ children }) => <>
-  <Head>
-    <title>Misc scribblings - Kitty</title>
-  </Head>
-  <Layout>
-    <Container>
-      <Header/>
-      <div className="tiny">
-        {children}
-      </div>
-    </Container>
-  </Layout>
-</>
-
-
+export default ({ children }) => (
+  <>
+    <Head>
+      <title>Misc scribblings - Kitty</title>
+    </Head>
+    <Layout>
+      <Container>
+        <Header />
+        <div className="tiny">{children}</div>
+      </Container>
+    </Layout>
+  </>
+)
