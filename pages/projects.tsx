@@ -3,7 +3,7 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import Head from 'next/head'
 
-function Page() {
+function Contents() {
   return (
     <div>
       <h2 id="bioinformatics">Bioinformatics</h2>
@@ -210,16 +210,18 @@ function Page() {
     </div>
   )
 }
-export default () => (
-  <>
-    <Head>
-      <title>Misc scribblings - Projects</title>
-    </Head>
-    <Layout>
-      <Container>
-        <Header />
-        <Page />
-      </Container>
-    </Layout>
-  </>
-)
+export default function Page() {
+  return (
+    <>
+      <Head>
+        <title>Misc scribblings - Projects</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          <Contents />
+        </Container>
+      </Layout>
+    </>
+  )
+}

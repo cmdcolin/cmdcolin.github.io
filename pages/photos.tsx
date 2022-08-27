@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-function Page() {
+function Contents() {
   return (
     <div>
       <h1>Photos</h1>
@@ -29,18 +29,20 @@ function Page() {
   )
 }
 
-export default () => (
-  <>
-    <Head>
-      <title>Misc scribblings - Kitty</title>
-    </Head>
-    <Layout>
-      <Container>
-        <Header />
-        <div className="tiny">
-          <Page />
-        </div>
-      </Container>
-    </Layout>
-  </>
-)
+export default function Page() {
+  return (
+    <>
+      <Head>
+        <title>Misc scribblings - Kitty</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          <div className="tiny">
+            <Contents />
+          </div>
+        </Container>
+      </Layout>
+    </>
+  )
+}

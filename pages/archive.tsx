@@ -16,17 +16,19 @@ export async function getStaticProps() {
   }
 }
 
-export default ({ allPosts }: { allPosts: any }) => (
-  <>
-    <Head>
-      <title>Misc scribblings - Blog archive</title>
-    </Head>
-    <Layout>
-      <Container>
-        <Header />
-        <h1>Blog archive</h1>
-        <Posts posts={allPosts} />
-      </Container>
-    </Layout>
-  </>
-)
+export default function Page({ allPosts }: { allPosts: any }) {
+  return (
+    <>
+      <Head>
+        <title>Misc scribblings - Blog archive</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          <h1>Blog archive</h1>
+          <Posts posts={allPosts} />
+        </Container>
+      </Layout>
+    </>
+  )
+}

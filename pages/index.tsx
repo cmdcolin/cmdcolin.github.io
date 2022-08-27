@@ -6,12 +6,13 @@ import Link from '../components/link'
 import Head from 'next/head'
 import { getAllPosts } from '../lib/api'
 
-function Page() {
+function Contents() {
   return (
     <div>
       <h1>Colin Diesh</h1>
       <p>
-        I'm a software developer and bioinformatician attempting to blog stuff.
+        I&apos;m a software developer and bioinformatician attempting to blog
+        stuff.
       </p>
     </div>
   )
@@ -25,20 +26,22 @@ export async function getStaticProps() {
   }
 }
 
-export default ({ allPosts }: { allPosts: any }) => (
-  <>
-    <Head>
-      <title>Misc scribblings</title>
-    </Head>
-    <Layout>
-      <Container>
-        <Header />
-        <Page />
-        <Posts posts={allPosts} />
-        <Link href="/archive">
-          <a>More posts...</a>
-        </Link>
-      </Container>
-    </Layout>
-  </>
-)
+export default function Page({ allPosts }: { allPosts: any }) {
+  return (
+    <>
+      <Head>
+        <title>Misc scribblings</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          <Contents />
+          <Posts posts={allPosts} />
+          <Link href="/archive">
+            <a>More posts...</a>
+          </Link>
+        </Container>
+      </Layout>
+    </>
+  )
+}

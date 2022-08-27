@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import Header from '../components/header'
 
-function Page() {
+function Contents() {
   return (
     <div>
       <h2 id="about-me">About me</h2>
@@ -13,7 +13,7 @@ function Page() {
         project, which is a web-based genome browser.
       </p>
       <p>
-        I'm from Boulder, CO and currently work remotely from ABQ, NM. In
+        I&apos;m from Boulder, CO and currently work remotely from ABQ, NM. In
         previous lives I also lived in Columbia, MO and Detroit, MI
       </p>
       <p>
@@ -29,18 +29,20 @@ function Page() {
   )
 }
 
-export default () => (
-  <>
-    <Head>
-      <title>Misc scribblings - About me</title>
-    </Head>
-    <Layout>
-      <Container>
-        <Header />
-        <div className="tiny">
-          <Page />
-        </div>
-      </Container>
-    </Layout>
-  </>
-)
+export default function Page() {
+  return (
+    <>
+      <Head>
+        <title>Misc scribblings - About me</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Header />
+          <div className="tiny">
+            <Contents />
+          </div>
+        </Container>
+      </Layout>
+    </>
+  )
+}

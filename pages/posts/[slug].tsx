@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
+import Head from 'next/head'
+
+// locals
 import Container from '../../components/container'
 import Header from '../../components/header'
 import PostHeader from '../../components/post-header'
 import Layout from '../../components/layout'
 import { getPostBySlug, getAllPosts } from '../../lib/api'
-import Head from 'next/head'
 import Giscus from '@giscus/react'
-import { MDXRemote } from 'next-mdx-remote'
 
 type Props = {
   post: any
@@ -19,7 +20,7 @@ const Post = ({ post }: Props) => {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
-  const { title, date, mdxSource } = post
+  const { title, date } = post
   return (
     <>
       <Head>
@@ -36,7 +37,7 @@ const Post = ({ post }: Props) => {
                 <title>{title}</title>
               </Head>
               <PostHeader title={title} date={date} />
-              <MDXRemote {...mdxSource} />
+              <div dangerouslySetInnerHTML={{ __html: post.html }} />
               <div style={{ marginTop: 200 }}>
                 <Giscus
                   id="comments"

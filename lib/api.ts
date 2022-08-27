@@ -2,7 +2,11 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import { Feed } from 'feed'
 import { join } from 'path'
-import { serialize } from 'next-mdx-remote/serialize'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkGfm from 'remark-gfm'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
 import sketches from './sketches.json'
 
 const postsDirectory = join(process.cwd(), '_posts')
@@ -12,11 +16,7 @@ function getPostFiles() {
 }
 
 function getSketchFiles() {
-  return (
-    sketches
-      //@ts-ignore
-      .map(d => ({ ...d, date: +new Date(d.date) }))
-  )
+  return sketches.map(d => ({ ...d, date: +new Date(d.date) }))
 }
 
 export async function getPostBySlug(slug: string) {
@@ -24,16 +24,18 @@ export async function getPostBySlug(slug: string) {
   const fullPath = join(postsDirectory, `${realSlug}.md`)
   const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
 
-  const source = 'Some https://google.com text, with a component'
-  const k1 = await serialize(source)
-  console.log({ k1 })
+  const html = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeStringify)
+    .process(content)
 
-  const mdxSource = await serialize(content)
   return {
     ...data,
     slug: realSlug,
-    date: '' + data.date?.toISOString().slice(0, 10),
-    mdxSource,
+    date: `${data.date?.toISOString().slice(0, 10)}`,
+    html: html.value,
   }
 }
 
@@ -46,9 +48,7 @@ export async function getAllPosts() {
 }
 
 export function getAllSketches() {
-  const sketches = getSketchFiles()
-
-  return sketches
+  return getSketchFiles()
 }
 
 export function generateRSSFeed(articles: any) {

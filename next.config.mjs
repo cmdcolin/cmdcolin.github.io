@@ -1,19 +1,7 @@
-// next.config.js
-import remarkGfm from 'remark-gfm'
-import createMDX from '@next/mdx'
-
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [],
-  },
-})
-
 const nextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  pageExtensions: ["js", "jsx", "ts", "tsx"],
 
   images: {
     loader: 'akamai',
@@ -21,4 +9,4 @@ const nextConfig = {
   },
 };
 
-export default withMDX(nextConfig);
+export default (nextConfig);

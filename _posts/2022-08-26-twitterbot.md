@@ -206,7 +206,7 @@ Create a file with the path `.github/workflows/post.yml` in your repo to make th
 
 You can use a cron/scheduled workflow in the github action, which the below
 example does
-[https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule)
+https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
 
 The below github action posts every 5 hours on the hour (see
 [https://crontab.guru/](crontab.guru) for more info on cron syntax)
@@ -240,12 +240,10 @@ jobs:
 
 ## Conclusion
 
-See
-[https://github.com/cmdcolin/twitter_fractal_bot](https://github.com/cmdcolin/twitter_fractal_bot)
-for working example. I could have, in retrospect, used a library like `twit`
-([https://www.npmjs.com/package/twit](https://www.npmjs.com/package/twit)) but
-this code sample is not substantially more complicated than using the `twit`
-library.
+See https://github.com/cmdcolin/twitter_fractal_bot for working example. I
+could have, in retrospect, used a library like `twit`
+(https://www.npmjs.com/package/twit) but this code sample is not substantially
+more complicated than using the `twit` library.
 
 You can also adapt this to post only when you push to your repo, or release a
 new version from your repo!
@@ -270,4 +268,4 @@ on: release
 
 ## Footnote 3: Additional reading
 
-[https://aaronparecki.com/oauth-2-simplified/](https://aaronparecki.com/oauth-2-simplified/)
+https://aaronparecki.com/oauth-2-simplified/
