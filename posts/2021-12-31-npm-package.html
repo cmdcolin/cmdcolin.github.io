@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>How to make your own npm package with typescript</title><meta name="next-head-count" content="3"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="preload" href="/_next/static/css/9d066bf523979bbf.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9d066bf523979bbf.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-8b306f51a35d80a9.js" defer=""></script><script src="/_next/static/chunks/framework-c0d8f0fd2eea5ac1.js" defer=""></script><script src="/_next/static/chunks/main-b12cd062888056b2.js" defer=""></script><script src="/_next/static/chunks/pages/_app-d9139de5c3de3b6b.js" defer=""></script><script src="/_next/static/chunks/996-3d2a4318c0ac6f1a.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-a48b13f8f13172f9.js" defer=""></script><script src="/_next/static/0Ovx-X7QyeRw0lhyzPQbJ/_buildManifest.js" defer=""></script><script src="/_next/static/0Ovx-X7QyeRw0lhyzPQbJ/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><main><div><div style="margin-bottom:100px"><a href="/">Misc scribbles</a></div><article><div><h1>How to make your own npm package with typescript</h1><h4>2021-12-31</h4></div><p>There is a lot of mystery around making your own <code>npm</code> package. Every package
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>How to make your own npm package with typescript</title><meta name="next-head-count" content="3"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="preload" href="/_next/static/css/9d066bf523979bbf.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9d066bf523979bbf.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-8b306f51a35d80a9.js" defer=""></script><script src="/_next/static/chunks/framework-c0d8f0fd2eea5ac1.js" defer=""></script><script src="/_next/static/chunks/main-b12cd062888056b2.js" defer=""></script><script src="/_next/static/chunks/pages/_app-d9139de5c3de3b6b.js" defer=""></script><script src="/_next/static/chunks/996-3d2a4318c0ac6f1a.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-57e1a152edd84713.js" defer=""></script><script src="/_next/static/yT12Vw8jT1FaH99WS-1oF/_buildManifest.js" defer=""></script><script src="/_next/static/yT12Vw8jT1FaH99WS-1oF/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><main><div><div style="margin-bottom:100px"><a href="/">Misc scribbles</a></div><article><div><h1>How to make your own npm package with typescript</h1><h4>2021-12-31</h4></div><div><p>There is a lot of mystery around making your own <code>npm</code> package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
-Should you use a &quot;starter kit&quot; or a boilerplate example? Or just roll your own?
+Should you use a "starter kit" or a boilerplate example? Or just roll your own?
 Should you use a bundler? How do you use typescript?</p>
 <p><strong>*Record scratch **</strong></p>
-<p>Why don&#x27;t we try starting from scratch and seeing where we can get?</p>
+<p>Why don't we try starting from scratch and seeing where we can get?</p>
 <p>TLDR: here is a github repo with a template package
-https://github.com/cmdcolin/npm-package-tutorial/</p>
+<a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>
 <h2>Introduction</h2>
 <p>An <code>npm</code> package can be very bare bones. In some sense, npmjs.com is just an
 arbitrary file host, and you can upload pretty much anything you want to it.</p>
 <p>The magic is in the package.json file, which tells npm:</p>
 <ul>
 <li>what files are part of your package</li>
-<li>what to use as the &quot;entry point&quot; (e.g. the file that should be referenced
-when you say <code>const lib = require(&#x27;mypackage&#x27;)</code>)</li>
+<li>what to use as the "entry point" (e.g. the file that should be referenced
+when you say <code>const lib = require('mypackage')</code>)</li>
 <li>what pre- and post- processing steps should be done when the package is being
 published</li>
 <li>and more!</li>
 </ul>
-<p>Let&#x27;s try an experiment...</p>
+<p>Let's try an experiment...</p>
 <h2>Initializing a package</h2>
 <p>Open up a terminal, and run</p>
 <pre><code class="language-sh">mkdir mypackage
@@ -35,7 +35,7 @@ It only covers the most common items, and tries to guess sensible defaults.
 See `npm help init` for definitive documentation on these fields
 and exactly what they do.
 
-Use `npm install &lt;pkg&gt;` afterwards to install a package and
+Use `npm install &#x3C;pkg>` afterwards to install a package and
 save it as a dependency in the package.json file.
 
 Press ^C at any time to quit.
@@ -50,25 +50,25 @@ license: (ISC)
 About to write to /home/cdiesh/mypackage/package.json:
 
 {
-  &quot;name&quot;: &quot;mypackage&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  "name": "mypackage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &#x26;&#x26; exit 1"
   },
-  &quot;author&quot;: &quot;Colin&quot;,
-  &quot;license&quot;: &quot;ISC&quot;
+  "author": "Colin",
+  "license": "ISC"
 }
 
 </code></pre>
 <p>Then, you can create a file named <code>index.js</code> (in your package.json it says
-<code>&quot;main&quot;: &quot;index.js&quot;</code> to refer to this file, the entrypoint)</p>
+<code>"main": "index.js"</code> to refer to this file, the entrypoint)</p>
 <p>In your <code>index.js</code> file, generally, you would do things like export a function
 or functions. I will use commonjs exports here for maximum compatibility:</p>
 <pre><code class="language-js">module.exports = {
-  hello: () =&gt; {
-    console.log(&#x27;hello world&#x27;)
+  hello: () => {
+    console.log('hello world')
   },
 }
 </code></pre>
@@ -89,7 +89,7 @@ package.</p>
 yarn add mypackage
 </code></pre>
 <p>Then you can use</p>
-<pre><code class="language-js">import { hello } from &#x27;mypackage&#x27;
+<pre><code class="language-js">import { hello } from 'mypackage'
 </code></pre>
 <p>in any of your other codebases</p>
 <h2>Summary of the simplest NPM package</h2>
@@ -98,22 +98,22 @@ yarn add mypackage
 <li>packages can be very very bare bones</li>
 <li>no transpiler or bundler is needed for publishing an npm package</li>
 <li>our package can consist of a single file and it is uploaded to npm, and the
-&quot;main&quot; field in package.json provides an entry point</li>
+"main" field in package.json provides an entry point</li>
 <li>the filename index.js is not special, probably it is a hangover from the
 name index.html. you can use whatever name you want</li>
 </ol>
 <h2>Adding typescript</h2>
-<p>Let&#x27;s try adding typescript</p>
+<p>Let's try adding typescript</p>
 <p>To do this, we will use the typescript compiler to compile a directory of files
-in our &quot;src&quot; directory and output the compiled files to a directory named
-&quot;dist&quot;</p>
-<p>To start, let&#x27;s add typescript</p>
+in our "src" directory and output the compiled files to a directory named
+"dist"</p>
+<p>To start, let's add typescript</p>
 <pre><code class="language-sh">npm install --save-dev typescript
 # or
 yarn add -D typescript
 </code></pre>
-<p>Our package.json now will have <code>typescript</code> in it&#x27;s <code>devDependencies</code> (this
-means that when someone installs your package, it they don&#x27;t get typescript as
+<p>Our package.json now will have <code>typescript</code> in it's <code>devDependencies</code> (this
+means that when someone installs your package, it they don't get typescript as
 a dependency, it is just a dependency for while you are developing the library
 locally).</p>
 <p>Then we need to create a tsconfig.json for typescript to use</p>
@@ -124,47 +124,47 @@ npx tsc --init
 <p>This will generate a <code>tsconfig.json</code> file (needed by <code>typescript</code>) with a bunch of
 options, but I have stripped it down in my projects to look like this</p>
 <pre><code class="language-json">{
-  &quot;include&quot;: [&quot;src&quot;],
-  &quot;compilerOptions&quot;: {
-    &quot;target&quot;: &quot;es2018&quot;,
-    &quot;moduleResolution&quot;: &quot;node&quot;,
-    &quot;declaration&quot;: true, // generate .d.ts files
-    &quot;sourceMap&quot;: true, // generate source map
-    &quot;outDir&quot;: &quot;dist&quot;, // output compiled js, d.ts, and source map to dist folder
-    &quot;strict&quot;: true,
-    &quot;esModuleInterop&quot;: true
+  "include": ["src"],
+  "compilerOptions": {
+    "target": "es2018",
+    "moduleResolution": "node",
+    "declaration": true, // generate .d.ts files
+    "sourceMap": true, // generate source map
+    "outDir": "dist", // output compiled js, d.ts, and source map to dist folder
+    "strict": true,
+    "esModuleInterop": true
   }
 }
 </code></pre>
-<p>Now, we want to change our <code>js</code> to <code>ts</code> files to use <code>typescript</code>, let&#x27;s change them
+<p>Now, we want to change our <code>js</code> to <code>ts</code> files to use <code>typescript</code>, let's change them
 to use normal ESM import/exports</p>
 <p>util.ts</p>
 <pre><code class="language-typescript">export function getMessage() {
-  return &#x27;hello&#x27;
+  return 'hello'
 }
 </code></pre>
 <p>index.ts</p>
-<pre><code class="language-typescript">import { getMessage } from &#x27;./util&#x27;
+<pre><code class="language-typescript">import { getMessage } from './util'
 export function sayMessage() {
   console.log(getMessage())
 }
 </code></pre>
-<p>And then we will add a <code>&quot;build&quot;</code> script to <code>package.json</code> to compile the
-library, and refer to the <code>&quot;dist&quot;</code> directory for the <code>&quot;files&quot;</code> and <code>&quot;main&quot;</code>
+<p>And then we will add a <code>"build"</code> script to <code>package.json</code> to compile the
+library, and refer to the <code>"dist"</code> directory for the <code>"files"</code> and <code>"main"</code>
 fields in <code>package.json</code></p>
 <pre><code class="language-json">{
-  &quot;name&quot;: &quot;mypackage&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;src/index.js&quot;,
-  &quot;files&quot;: [&quot;dist&quot;],
-  &quot;scripts&quot;: {
-    &quot;build&quot;: &quot;tsc&quot;
+  "name": "mypackage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc"
   },
-  &quot;author&quot;: &quot;Colin&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-    &quot;typescript&quot;: &quot;^4.5.4&quot;
+  "author": "Colin",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.5.4"
   }
 }
 </code></pre>
@@ -173,15 +173,15 @@ fields in <code>package.json</code></p>
 # or
 yarn build
 </code></pre>
-<p>And this will run the <code>&quot;build&quot;</code> script we created, which in turn, just runs
+<p>And this will run the <code>"build"</code> script we created, which in turn, just runs
 <code>tsc</code> with no arguments.</p>
-<p>You can also add a <code>&quot;prebuild&quot;</code> script that clears out the old contents. In fact,
+<p>You can also add a <code>"prebuild"</code> script that clears out the old contents. In fact,
 npm scripts generalizes the naming system -- you can make scripts with whatever name you want, e.g.</p>
 <pre><code class="language-json">{
-  &quot;scripts&quot;: {
-    &quot;preparty&quot;: &quot;echo preparty&quot;,
-    &quot;party&quot;: &quot;echo party&quot;,
-    &quot;postparty&quot;: &quot;echo postparty&quot;
+  "scripts": {
+    "preparty": "echo preparty",
+    "party": "echo party",
+    "postparty": "echo postparty"
   }
 }
 </code></pre>
@@ -200,18 +200,18 @@ yarn add -D rimraf
 <p>and then update your package.json</p>
 <pre><code class="language-json">{
   ...
-  &quot;scripts&quot;: {
-    &quot;clean&quot;: &quot;rimraf dist&quot;,
-    &quot;prebuild&quot;: &quot;npm run clean&quot;,
-    &quot;build&quot;: &quot;tsc&quot;
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc"
   },
-  &quot;devDependencies&quot;: {
-    &quot;rimraf&quot;: &quot;^3.0.2&quot;,
-    &quot;typescript&quot;: &quot;^4.5.4&quot;
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.4"
   }
 }
 </code></pre>
-<p>We could make it say &quot;rm -rf dist&quot; instead of &quot;rimraf dist&quot; (e.g. run arbitrary
+<p>We could make it say "rm -rf dist" instead of "rimraf dist" (e.g. run arbitrary
 shell commands), but rimraf allows it to be cross-platform</p>
 <h2>Making sure you create a fresh build before you publish</h2>
 <p>Without extra instructions, your <code>yarn publish</code> command would not create a
@@ -222,9 +222,9 @@ run <code>yarn publish</code> to make sure you get a fresh build in the <code>di
 before you publish</p>
 <pre><code class="language-json">{
   ...
-  &quot;scripts&quot;: {
+  "scripts": {
     ...
-    &quot;preversion&quot;: &quot;npm run build&quot;,
+    "preversion": "npm run build",
   },
 }
 </code></pre>
@@ -235,9 +235,9 @@ repository.</p>
 <p>Add a <code>postversion</code> script that pushes the tag to your repo after your publish</p>
 <pre><code class="language-json">{
   ...
-  &quot;scripts&quot;: {
+  "scripts": {
     ...
-    &quot;postversion&quot;: &quot;git push --follow-tags&quot;,
+    "postversion": "git push --follow-tags",
   },
 }
 </code></pre>
@@ -263,12 +263,12 @@ yarn ts-jest config:init
 </code></pre>
 <p>We can then create a test</p>
 <p><code>test/util.spec.ts</code></p>
-<pre><code class="language-typescript">import { getMessage } from &#x27;../src/util&#x27;
-test(&#x27;expected message returned&#x27;, () =&gt; {
-  expect(getMessage()).toBe(&#x27;hello&#x27;)
+<pre><code class="language-typescript">import { getMessage } from '../src/util'
+test('expected message returned', () => {
+  expect(getMessage()).toBe('hello')
 })
 </code></pre>
-<p>Then we can then create a script in the package.json that says <code>&quot;test&quot;: &quot;jest&quot;</code>, and then we can say</p>
+<p>Then we can then create a script in the package.json that says <code>"test": "jest"</code>, and then we can say</p>
 <pre><code>npm run test
 # or
 yarn test
@@ -284,7 +284,7 @@ node_modules
 <h2>The future of ESM modules</h2>
 <p>There is a shift happening where modules are changing to be pure ESM rather
 than keeping commonjs equivalents</p>
-<p>https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c</p>
+<p><a href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c</a></p>
 <p>There are many challenges here, and will not be discussed, but it may be a
 useful further reading page</p>
 <h2>Conclusion</h2>
@@ -300,7 +300,7 @@ to <code>npm</code>. This little boilerplate includes these features:</p>
 point. This package does not use any bundling (rollup or webpack or otherwise).
 It just uses <code>tsc</code> is used to compile the files to the <code>dist</code> folder, and the
 dist folder is published to <code>npm</code>! If you need your package to be usable by
-consumers that don&#x27;t themselves use bundlers, consider looking into <code>&lt;script type=&quot;module&quot;&gt;</code> for importing ESM modules in the browser, or you can bundle
+consumers that don't themselves use bundlers, consider looking into <code>&#x3C;script type="module"></code> for importing ESM modules in the browser, or you can bundle
 your library using rollup or webpack and output e.g. a UMD bundle</p>
 <h2>Final product</h2>
-<p>See https://github.com/cmdcolin/npm-package-tutorial/</p><div style="margin-top:200px"></div></article></div></main></div><footer style="margin-top:100px"><a href="/">Home</a> <a href="/archive">Blog archive</a> <a href="https://github.com/cmdcolin/">Github</a> <a href="https://twitter.com/cmdcolin">Twitter</a> <a href="/projects">Projects</a> <a href="/photos">Photos</a> <a href="/rss.xml">RSS</a><a href="/about">About</a> </footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"How to make your own npm package with typescript","date":"2021-12-31","slug":"2021-12-31-npm-package","mdxSource":{"compiledSource":"/*@jsxRuntime automatic @jsxImportSource react*/\nconst {Fragment: _Fragment, jsx: _jsx, jsxs: _jsxs} = arguments[0];\nconst {useMDXComponents: _provideComponents} = arguments[0];\nfunction _createMdxContent(props) {\n  const _components = Object.assign({\n    p: \"p\",\n    code: \"code\",\n    strong: \"strong\",\n    h2: \"h2\",\n    ul: \"ul\",\n    li: \"li\",\n    pre: \"pre\",\n    ol: \"ol\",\n    em: \"em\"\n  }, _provideComponents(), props.components);\n  return _jsxs(_Fragment, {\n    children: [_jsxs(_components.p, {\n      children: [\"There is a lot of mystery around making your own \", _jsx(_components.code, {\n        children: \"npm\"\n      }), \" package. Every package\\nlikely does it a bit differently, and it can be tricky to get a setup you like.\\nShould you use a \\\"starter kit\\\" or a boilerplate example? Or just roll your own?\\nShould you use a bundler? How do you use typescript?\"]\n    }), \"\\n\", _jsx(_components.p, {\n      children: _jsx(_components.strong, {\n        children: \"*Record scratch **\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Why don't we try starting from scratch and seeing where we can get?\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"TLDR: here is a github repo with a template package\\nhttps://github.com/cmdcolin/npm-package-tutorial/\"\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Introduction\"\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"An \", _jsx(_components.code, {\n        children: \"npm\"\n      }), \" package can be very bare bones. In some sense, npmjs.com is just an\\narbitrary file host, and you can upload pretty much anything you want to it.\"]\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"The magic is in the package.json file, which tells npm:\"\n    }), \"\\n\", _jsxs(_components.ul, {\n      children: [\"\\n\", _jsx(_components.li, {\n        children: \"what files are part of your package\"\n      }), \"\\n\", _jsxs(_components.li, {\n        children: [\"what to use as the \\\"entry point\\\" (e.g. the file that should be referenced\\nwhen you say \", _jsx(_components.code, {\n          children: \"const lib = require('mypackage')\"\n        }), \")\"]\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"what pre- and post- processing steps should be done when the package is being\\npublished\"\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"and more!\"\n      }), \"\\n\"]\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Let's try an experiment...\"\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Initializing a package\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Open up a terminal, and run\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"mkdir mypackage\\ncd mypackage\\ngit init # make mypackage version controlled\\nnpm init\\n# or\\nyarn init\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"This init command outputs something like this, and we accept the defaults\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"This utility will walk you through creating a package.json file.\\nIt only covers the most common items, and tries to guess sensible defaults.\\n\\nSee `npm help init` for definitive documentation on these fields\\nand exactly what they do.\\n\\nUse `npm install \u003cpkg\u003e` afterwards to install a package and\\nsave it as a dependency in the package.json file.\\n\\nPress ^C at any time to quit.\\npackage name: (mypackage)\\nversion: (1.0.0)\\ndescription:\\nentry point: (index.js)\\ntest command:\\ngit repository:\\nkeywords:\\nlicense: (ISC)\\nAbout to write to /home/cdiesh/mypackage/package.json:\\n\\n{\\n  \\\"name\\\": \\\"mypackage\\\",\\n  \\\"version\\\": \\\"1.0.0\\\",\\n  \\\"description\\\": \\\"\\\",\\n  \\\"main\\\": \\\"index.js\\\",\\n  \\\"scripts\\\": {\\n    \\\"test\\\": \\\"echo \\\\\\\"Error: no test specified\\\\\\\" \u0026\u0026 exit 1\\\"\\n  },\\n  \\\"author\\\": \\\"Colin\\\",\\n  \\\"license\\\": \\\"ISC\\\"\\n}\\n\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Then, you can create a file named \", _jsx(_components.code, {\n        children: \"index.js\"\n      }), \" (in your package.json it says\\n\", _jsx(_components.code, {\n        children: \"\\\"main\\\": \\\"index.js\\\"\"\n      }), \" to refer to this file, the entrypoint)\"]\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"In your \", _jsx(_components.code, {\n        children: \"index.js\"\n      }), \" file, generally, you would do things like export a function\\nor functions. I will use commonjs exports here for maximum compatibility:\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-js\",\n        children: \"module.exports = {\\n  hello: () =\u003e {\\n    console.log('hello world')\\n  },\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Publishing a package\"\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"This npm package, \", _jsx(_components.code, {\n        children: \"mypackage\"\n      }), \" can now be published to \", _jsx(_components.code, {\n        children: \"npm\"\n      }), \" with a simple\\ncommand.\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm publish\\n# or\\nyarn publish\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"This will prompt you for your npmjs.com username, password, email, and if\\nneeded, 2FA token (highly recommended)\"\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Using your package after it is published\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Once it is published, you can use it in your create-react-app app or other npm\\npackage.\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm install mypackage\\n# or\\nyarn add mypackage\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Then you can use\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-js\",\n        children: \"import { hello } from 'mypackage'\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"in any of your other codebases\"\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Summary of the simplest NPM package\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"This all seems pretty boring thus far but it tells us a couple things\"\n    }), \"\\n\", _jsxs(_components.ol, {\n      children: [\"\\n\", _jsx(_components.li, {\n        children: \"packages can be very very bare bones\"\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"no transpiler or bundler is needed for publishing an npm package\"\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"our package can consist of a single file and it is uploaded to npm, and the\\n\\\"main\\\" field in package.json provides an entry point\"\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"the filename index.js is not special, probably it is a hangover from the\\nname index.html. you can use whatever name you want\"\n      }), \"\\n\"]\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Adding typescript\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Let's try adding typescript\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"To do this, we will use the typescript compiler to compile a directory of files\\nin our \\\"src\\\" directory and output the compiled files to a directory named\\n\\\"dist\\\"\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"To start, let's add typescript\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm install --save-dev typescript\\n# or\\nyarn add -D typescript\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Our package.json now will have \", _jsx(_components.code, {\n        children: \"typescript\"\n      }), \" in it's \", _jsx(_components.code, {\n        children: \"devDependencies\"\n      }), \" (this\\nmeans that when someone installs your package, it they don't get typescript as\\na dependency, it is just a dependency for while you are developing the library\\nlocally).\"]\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Then we need to create a tsconfig.json for typescript to use\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"yarn tsc --init\\n# or\\nnpx tsc --init\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"This will generate a \", _jsx(_components.code, {\n        children: \"tsconfig.json\"\n      }), \" file (needed by \", _jsx(_components.code, {\n        children: \"typescript\"\n      }), \") with a bunch of\\noptions, but I have stripped it down in my projects to look like this\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-json\",\n        children: \"{\\n  \\\"include\\\": [\\\"src\\\"],\\n  \\\"compilerOptions\\\": {\\n    \\\"target\\\": \\\"es2018\\\",\\n    \\\"moduleResolution\\\": \\\"node\\\",\\n    \\\"declaration\\\": true, // generate .d.ts files\\n    \\\"sourceMap\\\": true, // generate source map\\n    \\\"outDir\\\": \\\"dist\\\", // output compiled js, d.ts, and source map to dist folder\\n    \\\"strict\\\": true,\\n    \\\"esModuleInterop\\\": true\\n  }\\n}\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Now, we want to change our \", _jsx(_components.code, {\n        children: \"js\"\n      }), \" to \", _jsx(_components.code, {\n        children: \"ts\"\n      }), \" files to use \", _jsx(_components.code, {\n        children: \"typescript\"\n      }), \", let's change them\\nto use normal ESM import/exports\"]\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"util.ts\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-typescript\",\n        children: \"export function getMessage() {\\n  return 'hello'\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"index.ts\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-typescript\",\n        children: \"import { getMessage } from './util'\\nexport function sayMessage() {\\n  console.log(getMessage())\\n}\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"And then we will add a \", _jsx(_components.code, {\n        children: \"\\\"build\\\"\"\n      }), \" script to \", _jsx(_components.code, {\n        children: \"package.json\"\n      }), \" to compile the\\nlibrary, and refer to the \", _jsx(_components.code, {\n        children: \"\\\"dist\\\"\"\n      }), \" directory for the \", _jsx(_components.code, {\n        children: \"\\\"files\\\"\"\n      }), \" and \", _jsx(_components.code, {\n        children: \"\\\"main\\\"\"\n      }), \"\\nfields in \", _jsx(_components.code, {\n        children: \"package.json\"\n      })]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-json\",\n        children: \"{\\n  \\\"name\\\": \\\"mypackage\\\",\\n  \\\"version\\\": \\\"1.0.0\\\",\\n  \\\"description\\\": \\\"\\\",\\n  \\\"main\\\": \\\"src/index.js\\\",\\n  \\\"files\\\": [\\\"dist\\\"],\\n  \\\"scripts\\\": {\\n    \\\"build\\\": \\\"tsc\\\"\\n  },\\n  \\\"author\\\": \\\"Colin\\\",\\n  \\\"license\\\": \\\"ISC\\\",\\n  \\\"devDependencies\\\": {\\n    \\\"typescript\\\": \\\"^4.5.4\\\"\\n  }\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"We can now run\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm run build\\n# or\\nyarn build\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"And this will run the \", _jsx(_components.code, {\n        children: \"\\\"build\\\"\"\n      }), \" script we created, which in turn, just runs\\n\", _jsx(_components.code, {\n        children: \"tsc\"\n      }), \" with no arguments.\"]\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"You can also add a \", _jsx(_components.code, {\n        children: \"\\\"prebuild\\\"\"\n      }), \" script that clears out the old contents. In fact,\\nnpm scripts generalizes the naming system -- you can make scripts with whatever name you want, e.g.\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-json\",\n        children: \"{\\n  \\\"scripts\\\": {\\n    \\\"preparty\\\": \\\"echo preparty\\\",\\n    \\\"party\\\": \\\"echo party\\\",\\n    \\\"postparty\\\": \\\"echo postparty\\\"\\n  }\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"Then running\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"$ yarn party\\npreparty\\nparty\\npostparty\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"To make this useful, we will use \", _jsx(_components.code, {\n        children: \"rimraf\"\n      }), \" (a node package) to make a\\ncross-platform removal of the \", _jsx(_components.code, {\n        children: \"dist\"\n      }), \" directory\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm install --save-dev rimraf\\n# or\\nyarn add -D rimraf\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"and then update your package.json\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-json\",\n        children: \"{\\n  ...\\n  \\\"scripts\\\": {\\n    \\\"clean\\\": \\\"rimraf dist\\\",\\n    \\\"prebuild\\\": \\\"npm run clean\\\",\\n    \\\"build\\\": \\\"tsc\\\"\\n  },\\n  \\\"devDependencies\\\": {\\n    \\\"rimraf\\\": \\\"^3.0.2\\\",\\n    \\\"typescript\\\": \\\"^4.5.4\\\"\\n  }\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"We could make it say \\\"rm -rf dist\\\" instead of \\\"rimraf dist\\\" (e.g. run arbitrary\\nshell commands), but rimraf allows it to be cross-platform\"\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Making sure you create a fresh build before you publish\"\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Without extra instructions, your \", _jsx(_components.code, {\n        children: \"yarn publish\"\n      }), \" command would not create a\\nfresh build and you could publish an older version that was lingering in the\\n\", _jsx(_components.code, {\n        children: \"dist\"\n      }), \" folder.\"]\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"We can use a \", _jsx(_components.code, {\n        children: \"preversion\"\n      }), \" script that will automatically get invoked when you\\nrun \", _jsx(_components.code, {\n        children: \"yarn publish\"\n      }), \" to make sure you get a fresh build in the \", _jsx(_components.code, {\n        children: \"dist\"\n      }), \" folder\\nbefore you publish\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-json\",\n        children: \"{\\n  ...\\n  \\\"scripts\\\": {\\n    ...\\n    \\\"preversion\\\": \\\"npm run build\\\",\\n  },\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Making sure you push your tag to github after publish\"\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"When you run \", _jsx(_components.code, {\n        children: \"yarn publish\"\n      }), \", npm will automatically create a commit with the\\nversion name and a git tag, it \", _jsx(_components.em, {\n        children: \"will not\"\n      }), \" automatically push tag to your\\nrepository.\"]\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Add a \", _jsx(_components.code, {\n        children: \"postversion\"\n      }), \" script that pushes the tag to your repo after your publish\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-json\",\n        children: \"{\\n  ...\\n  \\\"scripts\\\": {\\n    ...\\n    \\\"postversion\\\": \\\"git push --follow-tags\\\",\\n  },\\n}\\n\"\n      })\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Incremental builds\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"We can use this to do incremental/watch builds\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        children: \"npm run build --watch\\n# or\\nyarn build --watch\\n\"\n      })\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Adding testing with ts-jest\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"You can use ts-jest to test your code. This involves installing jest, typescript, ts-jest, @types/jest, and then initializing a jest.config.json\"\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm i -D jest typescript\\n# or\\nyarn add --dev jest typescript\\n\"\n      })\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npm i -D ts-jest @types/jest\\n# or\\nyarn add --dev ts-jest @types/jest\\n\"\n      })\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-sh\",\n        children: \"npx ts-jest config:init\\n# or\\nyarn ts-jest config:init\\n\"\n      })\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"We can then create a test\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: _jsx(_components.code, {\n        children: \"test/util.spec.ts\"\n      })\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        className: \"language-typescript\",\n        children: \"import { getMessage } from '../src/util'\\ntest('expected message returned', () =\u003e {\\n  expect(getMessage()).toBe('hello')\\n})\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Then we can then create a script in the package.json that says \", _jsx(_components.code, {\n        children: \"\\\"test\\\": \\\"jest\\\"\"\n      }), \", and then we can say\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        children: \"npm run test\\n# or\\nyarn test\\n\"\n      })\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"You can also create an alternative system where you use \", _jsx(_components.code, {\n        children: \"babel-eslint\"\n      }), \" and\\nvarious babel strategies to test your code, but if you are using typescript,\\nts-jest+typescript works great.\"]\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Add a .gitignore\"\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"Create a .gitignore with just a line that references this \", _jsx(_components.code, {\n        children: \"dist\"\n      }), \" folder and \", _jsx(_components.code, {\n        children: \"node_modules\"\n      }), \" folder\"]\n    }), \"\\n\", _jsx(_components.pre, {\n      children: _jsx(_components.code, {\n        children: \"dist\\nnode_modules\\n\"\n      })\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"The future of ESM modules\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"There is a shift happening where modules are changing to be pure ESM rather\\nthan keeping commonjs equivalents\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"There are many challenges here, and will not be discussed, but it may be a\\nuseful further reading page\"\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Conclusion\"\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"This tutorial shows you how you can create a basic package that you can publish\\nto \", _jsx(_components.code, {\n        children: \"npm\"\n      }), \". This little boilerplate includes these features:\"]\n    }), \"\\n\", _jsxs(_components.ul, {\n      children: [\"\\n\", _jsxs(_components.li, {\n        children: [\"Makes clean build when running \", _jsx(_components.code, {\n          children: \"yarn build\"\n        }), \" or \", _jsx(_components.code, {\n          children: \"yarn publish\"\n        })]\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"Pushes to github after publish\"\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"Uses ts-jest for testing\"\n      }), \"\\n\", _jsx(_components.li, {\n        children: \"Uses esm modules\"\n      }), \"\\n\"]\n    }), \"\\n\", _jsxs(_components.p, {\n      children: [\"You also have full control, and understand the decisions we took to get to this\\npoint. This package does not use any bundling (rollup or webpack or otherwise).\\nIt just uses \", _jsx(_components.code, {\n        children: \"tsc\"\n      }), \" is used to compile the files to the \", _jsx(_components.code, {\n        children: \"dist\"\n      }), \" folder, and the\\ndist folder is published to \", _jsx(_components.code, {\n        children: \"npm\"\n      }), \"! If you need your package to be usable by\\nconsumers that don't themselves use bundlers, consider looking into \", _jsx(_components.code, {\n        children: \"\u003cscript type=\\\"module\\\"\u003e\"\n      }), \" for importing ESM modules in the browser, or you can bundle\\nyour library using rollup or webpack and output e.g. a UMD bundle\"]\n    }), \"\\n\", _jsx(_components.h2, {\n      children: \"Final product\"\n    }), \"\\n\", _jsx(_components.p, {\n      children: \"See https://github.com/cmdcolin/npm-package-tutorial/\"\n    })]\n  });\n}\nfunction MDXContent(props = {}) {\n  const {wrapper: MDXLayout} = Object.assign({}, _provideComponents(), props.components);\n  return MDXLayout ? _jsx(MDXLayout, Object.assign({}, props, {\n    children: _jsx(_createMdxContent, props)\n  })) : _createMdxContent(props);\n}\nreturn {\n  default: MDXContent\n};\n","frontmatter":{},"scope":{}}}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2021-12-31-npm-package"},"buildId":"0Ovx-X7QyeRw0lhyzPQbJ","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
+<p>See <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p></div><div style="margin-top:200px"></div></article></div></main></div><footer style="margin-top:100px"><a href="/">Home</a> <a href="/archive">Blog archive</a> <a href="https://github.com/cmdcolin/">Github</a> <a href="https://twitter.com/cmdcolin">Twitter</a> <a href="/projects">Projects</a> <a href="/photos">Photos</a> <a href="/rss.xml">RSS</a><a href="/about">About</a> </footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"How to make your own npm package with typescript","date":"2021-12-31","slug":"2021-12-31-npm-package","html":"\u003cp\u003eThere is a lot of mystery around making your own \u003ccode\u003enpm\u003c/code\u003e package. Every package\nlikely does it a bit differently, and it can be tricky to get a setup you like.\nShould you use a \"starter kit\" or a boilerplate example? Or just roll your own?\nShould you use a bundler? How do you use typescript?\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e*Record scratch **\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eWhy don't we try starting from scratch and seeing where we can get?\u003c/p\u003e\n\u003cp\u003eTLDR: here is a github repo with a template package\n\u003ca href=\"https://github.com/cmdcolin/npm-package-tutorial/\"\u003ehttps://github.com/cmdcolin/npm-package-tutorial/\u003c/a\u003e\u003c/p\u003e\n\u003ch2\u003eIntroduction\u003c/h2\u003e\n\u003cp\u003eAn \u003ccode\u003enpm\u003c/code\u003e package can be very bare bones. In some sense, npmjs.com is just an\narbitrary file host, and you can upload pretty much anything you want to it.\u003c/p\u003e\n\u003cp\u003eThe magic is in the package.json file, which tells npm:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ewhat files are part of your package\u003c/li\u003e\n\u003cli\u003ewhat to use as the \"entry point\" (e.g. the file that should be referenced\nwhen you say \u003ccode\u003econst lib = require('mypackage')\u003c/code\u003e)\u003c/li\u003e\n\u003cli\u003ewhat pre- and post- processing steps should be done when the package is being\npublished\u003c/li\u003e\n\u003cli\u003eand more!\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eLet's try an experiment...\u003c/p\u003e\n\u003ch2\u003eInitializing a package\u003c/h2\u003e\n\u003cp\u003eOpen up a terminal, and run\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003emkdir mypackage\ncd mypackage\ngit init # make mypackage version controlled\nnpm init\n# or\nyarn init\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThis init command outputs something like this, and we accept the defaults\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003eThis utility will walk you through creating a package.json file.\nIt only covers the most common items, and tries to guess sensible defaults.\n\nSee `npm help init` for definitive documentation on these fields\nand exactly what they do.\n\nUse `npm install \u0026#x3C;pkg\u003e` afterwards to install a package and\nsave it as a dependency in the package.json file.\n\nPress ^C at any time to quit.\npackage name: (mypackage)\nversion: (1.0.0)\ndescription:\nentry point: (index.js)\ntest command:\ngit repository:\nkeywords:\nlicense: (ISC)\nAbout to write to /home/cdiesh/mypackage/package.json:\n\n{\n  \"name\": \"mypackage\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" \u0026#x26;\u0026#x26; exit 1\"\n  },\n  \"author\": \"Colin\",\n  \"license\": \"ISC\"\n}\n\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThen, you can create a file named \u003ccode\u003eindex.js\u003c/code\u003e (in your package.json it says\n\u003ccode\u003e\"main\": \"index.js\"\u003c/code\u003e to refer to this file, the entrypoint)\u003c/p\u003e\n\u003cp\u003eIn your \u003ccode\u003eindex.js\u003c/code\u003e file, generally, you would do things like export a function\nor functions. I will use commonjs exports here for maximum compatibility:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003emodule.exports = {\n  hello: () =\u003e {\n    console.log('hello world')\n  },\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2\u003ePublishing a package\u003c/h2\u003e\n\u003cp\u003eThis npm package, \u003ccode\u003emypackage\u003c/code\u003e can now be published to \u003ccode\u003enpm\u003c/code\u003e with a simple\ncommand.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm publish\n# or\nyarn publish\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThis will prompt you for your npmjs.com username, password, email, and if\nneeded, 2FA token (highly recommended)\u003c/p\u003e\n\u003ch2\u003eUsing your package after it is published\u003c/h2\u003e\n\u003cp\u003eOnce it is published, you can use it in your create-react-app app or other npm\npackage.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm install mypackage\n# or\nyarn add mypackage\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThen you can use\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003eimport { hello } from 'mypackage'\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003ein any of your other codebases\u003c/p\u003e\n\u003ch2\u003eSummary of the simplest NPM package\u003c/h2\u003e\n\u003cp\u003eThis all seems pretty boring thus far but it tells us a couple things\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003epackages can be very very bare bones\u003c/li\u003e\n\u003cli\u003eno transpiler or bundler is needed for publishing an npm package\u003c/li\u003e\n\u003cli\u003eour package can consist of a single file and it is uploaded to npm, and the\n\"main\" field in package.json provides an entry point\u003c/li\u003e\n\u003cli\u003ethe filename index.js is not special, probably it is a hangover from the\nname index.html. you can use whatever name you want\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch2\u003eAdding typescript\u003c/h2\u003e\n\u003cp\u003eLet's try adding typescript\u003c/p\u003e\n\u003cp\u003eTo do this, we will use the typescript compiler to compile a directory of files\nin our \"src\" directory and output the compiled files to a directory named\n\"dist\"\u003c/p\u003e\n\u003cp\u003eTo start, let's add typescript\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm install --save-dev typescript\n# or\nyarn add -D typescript\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eOur package.json now will have \u003ccode\u003etypescript\u003c/code\u003e in it's \u003ccode\u003edevDependencies\u003c/code\u003e (this\nmeans that when someone installs your package, it they don't get typescript as\na dependency, it is just a dependency for while you are developing the library\nlocally).\u003c/p\u003e\n\u003cp\u003eThen we need to create a tsconfig.json for typescript to use\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003eyarn tsc --init\n# or\nnpx tsc --init\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThis will generate a \u003ccode\u003etsconfig.json\u003c/code\u003e file (needed by \u003ccode\u003etypescript\u003c/code\u003e) with a bunch of\noptions, but I have stripped it down in my projects to look like this\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-json\"\u003e{\n  \"include\": [\"src\"],\n  \"compilerOptions\": {\n    \"target\": \"es2018\",\n    \"moduleResolution\": \"node\",\n    \"declaration\": true, // generate .d.ts files\n    \"sourceMap\": true, // generate source map\n    \"outDir\": \"dist\", // output compiled js, d.ts, and source map to dist folder\n    \"strict\": true,\n    \"esModuleInterop\": true\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eNow, we want to change our \u003ccode\u003ejs\u003c/code\u003e to \u003ccode\u003ets\u003c/code\u003e files to use \u003ccode\u003etypescript\u003c/code\u003e, let's change them\nto use normal ESM import/exports\u003c/p\u003e\n\u003cp\u003eutil.ts\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-typescript\"\u003eexport function getMessage() {\n  return 'hello'\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eindex.ts\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-typescript\"\u003eimport { getMessage } from './util'\nexport function sayMessage() {\n  console.log(getMessage())\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eAnd then we will add a \u003ccode\u003e\"build\"\u003c/code\u003e script to \u003ccode\u003epackage.json\u003c/code\u003e to compile the\nlibrary, and refer to the \u003ccode\u003e\"dist\"\u003c/code\u003e directory for the \u003ccode\u003e\"files\"\u003c/code\u003e and \u003ccode\u003e\"main\"\u003c/code\u003e\nfields in \u003ccode\u003epackage.json\u003c/code\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-json\"\u003e{\n  \"name\": \"mypackage\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"src/index.js\",\n  \"files\": [\"dist\"],\n  \"scripts\": {\n    \"build\": \"tsc\"\n  },\n  \"author\": \"Colin\",\n  \"license\": \"ISC\",\n  \"devDependencies\": {\n    \"typescript\": \"^4.5.4\"\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eWe can now run\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm run build\n# or\nyarn build\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eAnd this will run the \u003ccode\u003e\"build\"\u003c/code\u003e script we created, which in turn, just runs\n\u003ccode\u003etsc\u003c/code\u003e with no arguments.\u003c/p\u003e\n\u003cp\u003eYou can also add a \u003ccode\u003e\"prebuild\"\u003c/code\u003e script that clears out the old contents. In fact,\nnpm scripts generalizes the naming system -- you can make scripts with whatever name you want, e.g.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-json\"\u003e{\n  \"scripts\": {\n    \"preparty\": \"echo preparty\",\n    \"party\": \"echo party\",\n    \"postparty\": \"echo postparty\"\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThen running\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003e$ yarn party\npreparty\nparty\npostparty\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eTo make this useful, we will use \u003ccode\u003erimraf\u003c/code\u003e (a node package) to make a\ncross-platform removal of the \u003ccode\u003edist\u003c/code\u003e directory\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm install --save-dev rimraf\n# or\nyarn add -D rimraf\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eand then update your package.json\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-json\"\u003e{\n  ...\n  \"scripts\": {\n    \"clean\": \"rimraf dist\",\n    \"prebuild\": \"npm run clean\",\n    \"build\": \"tsc\"\n  },\n  \"devDependencies\": {\n    \"rimraf\": \"^3.0.2\",\n    \"typescript\": \"^4.5.4\"\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eWe could make it say \"rm -rf dist\" instead of \"rimraf dist\" (e.g. run arbitrary\nshell commands), but rimraf allows it to be cross-platform\u003c/p\u003e\n\u003ch2\u003eMaking sure you create a fresh build before you publish\u003c/h2\u003e\n\u003cp\u003eWithout extra instructions, your \u003ccode\u003eyarn publish\u003c/code\u003e command would not create a\nfresh build and you could publish an older version that was lingering in the\n\u003ccode\u003edist\u003c/code\u003e folder.\u003c/p\u003e\n\u003cp\u003eWe can use a \u003ccode\u003epreversion\u003c/code\u003e script that will automatically get invoked when you\nrun \u003ccode\u003eyarn publish\u003c/code\u003e to make sure you get a fresh build in the \u003ccode\u003edist\u003c/code\u003e folder\nbefore you publish\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-json\"\u003e{\n  ...\n  \"scripts\": {\n    ...\n    \"preversion\": \"npm run build\",\n  },\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2\u003eMaking sure you push your tag to github after publish\u003c/h2\u003e\n\u003cp\u003eWhen you run \u003ccode\u003eyarn publish\u003c/code\u003e, npm will automatically create a commit with the\nversion name and a git tag, it \u003cem\u003ewill not\u003c/em\u003e automatically push tag to your\nrepository.\u003c/p\u003e\n\u003cp\u003eAdd a \u003ccode\u003epostversion\u003c/code\u003e script that pushes the tag to your repo after your publish\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-json\"\u003e{\n  ...\n  \"scripts\": {\n    ...\n    \"postversion\": \"git push --follow-tags\",\n  },\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2\u003eIncremental builds\u003c/h2\u003e\n\u003cp\u003eWe can use this to do incremental/watch builds\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003enpm run build --watch\n# or\nyarn build --watch\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2\u003eAdding testing with ts-jest\u003c/h2\u003e\n\u003cp\u003eYou can use ts-jest to test your code. This involves installing jest, typescript, ts-jest, @types/jest, and then initializing a jest.config.json\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm i -D jest typescript\n# or\nyarn add --dev jest typescript\n\u003c/code\u003e\u003c/pre\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpm i -D ts-jest @types/jest\n# or\nyarn add --dev ts-jest @types/jest\n\u003c/code\u003e\u003c/pre\u003e\n\u003cpre\u003e\u003ccode class=\"language-sh\"\u003enpx ts-jest config:init\n# or\nyarn ts-jest config:init\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eWe can then create a test\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003etest/util.spec.ts\u003c/code\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-typescript\"\u003eimport { getMessage } from '../src/util'\ntest('expected message returned', () =\u003e {\n  expect(getMessage()).toBe('hello')\n})\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThen we can then create a script in the package.json that says \u003ccode\u003e\"test\": \"jest\"\u003c/code\u003e, and then we can say\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003enpm run test\n# or\nyarn test\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eYou can also create an alternative system where you use \u003ccode\u003ebabel-eslint\u003c/code\u003e and\nvarious babel strategies to test your code, but if you are using typescript,\nts-jest+typescript works great.\u003c/p\u003e\n\u003ch2\u003eAdd a .gitignore\u003c/h2\u003e\n\u003cp\u003eCreate a .gitignore with just a line that references this \u003ccode\u003edist\u003c/code\u003e folder and \u003ccode\u003enode_modules\u003c/code\u003e folder\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003edist\nnode_modules\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2\u003eThe future of ESM modules\u003c/h2\u003e\n\u003cp\u003eThere is a shift happening where modules are changing to be pure ESM rather\nthan keeping commonjs equivalents\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c\"\u003ehttps://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eThere are many challenges here, and will not be discussed, but it may be a\nuseful further reading page\u003c/p\u003e\n\u003ch2\u003eConclusion\u003c/h2\u003e\n\u003cp\u003eThis tutorial shows you how you can create a basic package that you can publish\nto \u003ccode\u003enpm\u003c/code\u003e. This little boilerplate includes these features:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eMakes clean build when running \u003ccode\u003eyarn build\u003c/code\u003e or \u003ccode\u003eyarn publish\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003ePushes to github after publish\u003c/li\u003e\n\u003cli\u003eUses ts-jest for testing\u003c/li\u003e\n\u003cli\u003eUses esm modules\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eYou also have full control, and understand the decisions we took to get to this\npoint. This package does not use any bundling (rollup or webpack or otherwise).\nIt just uses \u003ccode\u003etsc\u003c/code\u003e is used to compile the files to the \u003ccode\u003edist\u003c/code\u003e folder, and the\ndist folder is published to \u003ccode\u003enpm\u003c/code\u003e! If you need your package to be usable by\nconsumers that don't themselves use bundlers, consider looking into \u003ccode\u003e\u0026#x3C;script type=\"module\"\u003e\u003c/code\u003e for importing ESM modules in the browser, or you can bundle\nyour library using rollup or webpack and output e.g. a UMD bundle\u003c/p\u003e\n\u003ch2\u003eFinal product\u003c/h2\u003e\n\u003cp\u003eSee \u003ca href=\"https://github.com/cmdcolin/npm-package-tutorial/\"\u003ehttps://github.com/cmdcolin/npm-package-tutorial/\u003c/a\u003e\u003c/p\u003e"}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2021-12-31-npm-package"},"buildId":"yT12Vw8jT1FaH99WS-1oF","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
