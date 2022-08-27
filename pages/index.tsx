@@ -6,19 +6,26 @@ import Link from '../components/link'
 import Head from 'next/head'
 import { getAllPosts } from '../lib/api'
 
-## Colin Diesh
-
-I'm a software developer and bioinformatician attempting to blog stuff.
+function Page() {
+  return (
+    <div>
+      <h1>Colin Diesh</h1>
+      <p>
+        I'm a software developer and bioinformatician attempting to blog stuff.
+      </p>
+    </div>
+  )
+}
 
 export async function getStaticProps() {
   const posts = await getAllPosts()
 
-return {
-props: { allPosts: posts.slice(0,8) },
-}
+  return {
+    props: { allPosts: posts.slice(0, 8) },
+  }
 }
 
-export default ({ children, allPosts }) => (
+export default ({ allPosts }: { allPosts: any }) => (
   <>
     <Head>
       <title>Misc scribblings</title>
@@ -26,7 +33,7 @@ export default ({ children, allPosts }) => (
     <Layout>
       <Container>
         <Header />
-        {children}
+        <Page />
         <Posts posts={allPosts} />
         <Link href="/archive">
           <a>More posts...</a>

@@ -24,6 +24,10 @@ export async function getPostBySlug(slug: string) {
   const fullPath = join(postsDirectory, `${realSlug}.md`)
   const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
 
+  const source = 'Some https://google.com text, with a component'
+  const k1 = await serialize(source)
+  console.log({ k1 })
+
   const mdxSource = await serialize(content)
   return {
     ...data,

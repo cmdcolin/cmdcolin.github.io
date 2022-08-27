@@ -1,24 +1,22 @@
+import Head from 'next/head'
+
 import Container from '../components/container'
 import Posts from '../components/posts'
 import { generateRSSFeed, getAllPosts } from '../lib/api'
-import Link from '../components/link'
 import Layout from '../components/layout'
 import Header from '../components/header'
-import Head from 'next/head'
 
 export async function getStaticProps() {
   const allPosts = await getAllPosts()
 
-generateRSSFeed(allPosts);
+  generateRSSFeed(allPosts)
 
-return {
-props: { allPosts },
+  return {
+    props: { allPosts },
+  }
 }
-}
 
-## Blog archive
-
-export default ({ children, allPosts }) => (
+export default ({ allPosts }: { allPosts: any }) => (
   <>
     <Head>
       <title>Misc scribblings - Blog archive</title>
@@ -26,7 +24,7 @@ export default ({ children, allPosts }) => (
     <Layout>
       <Container>
         <Header />
-        {children}
+        <h1>Blog archive</h1>
         <Posts posts={allPosts} />
       </Container>
     </Layout>
