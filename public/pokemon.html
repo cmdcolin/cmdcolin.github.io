@@ -3,9 +3,13 @@
   <body>
     <button id="poke">Get pokemon</button>
     <button id="clear">Clear cache</button>
-    <input type="text" id="pokeid">Pokemon number (e.g. enter a number 1 to 150 for the original 150 pokemon)</input>
+    <label for="pokeid"
+      >Pokemon number (e.g. enter a number 1 to 150 for the original 150
+      pokemon)</label
+    >
+    <input type="text" id="pokeid" />
     <div id="output"></div>
-    <div id="error" style="color:red"></div>
+    <div id="error" style="color: red"></div>
     <script>
       async function getPokemon(id) {
         const url = 'https://pokeapi.co/api/v2/pokemon/' + id
@@ -38,7 +42,9 @@
       async function loadPokemon() {
         try {
           document.getElementById('error').innerHTML = ''
-          const result = await getCachedPokemon(document.getElementById('pokeid').value)
+          const result = await getCachedPokemon(
+            document.getElementById('pokeid').value,
+          )
           document.getElementById('output').innerHTML = result.name
         } catch (e) {
           console.error(e)

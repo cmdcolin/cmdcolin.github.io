@@ -15,7 +15,7 @@ javascript
 
 I use the Chrome DevTools "Performance" profiler, which is a
 statistical/sampling profiler
-[https://en.wikipedia.org/wiki/Profiling\_(computer_programming)#Statistical_profilers](<https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers>)
+https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers
 
 This means it samples at some rate and see's where in the callstack the program
 is executing.
@@ -33,9 +33,9 @@ calls.
 ## Creating a flamegraph from the Chrome profiler results
 
 Note: sometimes, it is also useful to see the results as a "flamegraph" (see
-[https://www.brendangregg.com/flamegraphs.html)](https://www.brendangregg.com/flamegraphs.html))
+https://www.brendangregg.com/flamegraphs.html)
 
-The website [https://www.speedscope.app/](https://www.speedscope.app/) can
+The website https://www.speedscope.app/ can
 create "flamegraph" style figures for Chrome profiling results
 
 ## Stacking up many small optimizations
@@ -70,7 +70,7 @@ run. That is still not instantaneous, but it is saving users a good 10 seconds.
 
 I have tried to keep track of more microoptimizations here, but they are pretty
 specific to small examples and may not generalize across browsers or browser
-versions [https://gist.github.com/cmdcolin/ef57d2783e47b16aa07a03967fd870d8](https://gist.github.com/cmdcolin/ef57d2783e47b16aa07a03967fd870d8)
+versions https://gist.github.com/cmdcolin/ef57d2783e47b16aa07a03967fd870d8
 
 ## Examples of macro optimizations
 
@@ -138,4 +138,4 @@ implications were sussed out, due to Spectre/Meltdown vulnerabilities)
 [2] I still have not found a good way to get automated memory usage profiling
 via puppeteer. You can access window.process.memory in puppeteer, but this
 variable does not provide info about webworker memory usage
-[https://github.com/puppeteer/puppeteer/issues/8258](https://github.com/puppeteer/puppeteer/issues/8258)
+https://github.com/puppeteer/puppeteer/issues/8258

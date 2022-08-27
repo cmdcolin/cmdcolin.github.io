@@ -6,7 +6,7 @@ date: 2022-05-04
 You want to find and replace all instances of a string in your repo, so you
 google "find replace directory linux command". You end up here
 
-[https://stackoverflow.com/a/6759339/2129219](https://stackoverflow.com/a/6759339/2129219)
+https://stackoverflow.com/a/6759339/2129219
 
 They tell us
 
@@ -62,7 +62,7 @@ fatal: unable to read 26cfc5964dfa5355a1747eb6eec6250aab5212d5
 
 ## What is better?
 
-My take: Use ruplacer [https://github.com/dmerejkowsky/ruplacer](https://github.com/dmerejkowsky/ruplacer)
+My take: Use ruplacer https://github.com/dmerejkowsky/ruplacer
 
 This tool won't try to replace stuff in your .git directory. It will also skip
 anything in .gitignore including e.g. node_modules. I was delighted to discover

@@ -209,7 +209,7 @@ example does
 https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
 
 The below github action posts every 5 hours on the hour (see
-[https://crontab.guru/](crontab.guru) for more info on cron syntax)
+https://crontab.guru/ for more info on cron syntax)
 
 ```yaml
 name: Post tweet
