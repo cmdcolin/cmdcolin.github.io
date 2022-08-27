@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 26 Aug 2022 23:28:54 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 27 Aug 2022 00:24:34 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -13,6 +13,13 @@
             <title><![CDATA[Using Rust/WASM in a monorepo with create-react-app]]></title>
             <link>https://cmdcolin.github.io/posts/2022-08-22-rustwasm</link>
             <guid>https://cmdcolin.github.io/posts/2022-08-22-rustwasm</guid>
+            <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
+        <item>
+            <title><![CDATA[Making a twitter bot that posts fractals with Github Actions]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-08-26-twitterbot</link>
+            <guid>https://cmdcolin.github.io/posts/2022-08-26-twitterbot</guid>
             <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
