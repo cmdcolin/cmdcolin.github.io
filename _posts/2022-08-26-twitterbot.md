@@ -27,7 +27,7 @@ After sometime, you should get a screen that looks like this
 
 Make a repo with a couple dependencies
 
-```
+```sh
 mkdir mybot
 cd mybot
 yarn init
@@ -36,10 +36,10 @@ yarn add node-fetch formdata-node oauth dotenv typescript
 
 ### Step 3
 
-Update package.json with a couple scripts to build these typescript files
-(alternatively use ts-node or similar to run the raw ts files)
+Update `package.json` with a couple scripts to build these typescript files
+(alternatively use `ts-node` or similar to run the ts files directly)
 
-```
+```json
 {
   "dependencies": {
     "dotenv": "^16.0.1",
@@ -60,33 +60,26 @@ Update package.json with a couple scripts to build these typescript files
     "post": "node dist/bot.js"
   }
 }
-
 ```
 
-And tsconfig.json file
+And `tsconfig.json` file
 
-```
+```json
 {
   "include": ["src"],
   "compilerOptions": {
     "target": "esnext",
     "outDir": "dist",
-    "types": ["node"],
-    "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": true,
     "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "allowJs": true
+    "esModuleInterop": true
   }
 }
 ```
 
 This compiles the `src` folder and outputs js files to the `dist` directory,
-and we can run the `dist/bot.js` file with node to post the file
+and we can run the `node dist/bot.js` file with node to post the file
 
 ### Step 4
 
@@ -103,9 +96,12 @@ ACCESS_TOKEN="aaaaaaaaaaaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 ACCESS_TOKEN_SECRET="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 ```
 
+Important: Also add the .env to your .gitignore, you don't want to commit this
+to github!
+
 ### Step 5
 
-Make the bot!
+Make the bot! Create `src/bot.ts`
 
 ```typescript
 import fs from "fs";
@@ -115,10 +111,6 @@ import fetch, { RequestInit } from "node-fetch";
 import { FormData, File } from "formdata-node";
 
 dotenv.config();
-
-function p(r: number) {
-  return r.toPrecision(5);
-}
 
 async function mfetch(url: string, params: RequestInit) {
   const response = await fetch(url, params);
@@ -130,7 +122,7 @@ async function mfetch(url: string, params: RequestInit) {
   return response.json() as Promise<Record<string, unknown>>;
 }
 
-function getAuth(oauth: OAuth.OAuth, url: string) {
+function getAuthHeader(oauth: OAuth.OAuth, url: string) {
   return oauth.authHeader(
     url,
     process.env.ACCESS_TOKEN as string,
@@ -164,7 +156,7 @@ function getAuth(oauth: OAuth.OAuth, url: string) {
     // first post a picture
     const response1 = await mfetch(picEndpoint, {
       headers: {
-        Authorization: getAuth(client, picEndpoint),
+        Authorization: getAuthHeader(client, picEndpoint),
         "user-agent": clientName,
       },
       method: "POST",
@@ -175,7 +167,7 @@ function getAuth(oauth: OAuth.OAuth, url: string) {
     // then post a tweet, referring to the media_id_string from response1
     const response2 = await mfetch(tweetEndpoint, {
       headers: {
-        Authorization: getAuth(client, tweetEndpoint),
+        Authorization: getAuthHeader(client, tweetEndpoint),
         "user-agent": clientName,
         "content-type": "application/json",
         accept: "application/json",
@@ -219,7 +211,7 @@ example does
 The below github action posts every 5 hours on the hour (see
 [https://crontab.guru/](crontab.guru) for more info on cron syntax)
 
-```
+```yaml
 name: Post tweet
 on:
   schedule:
@@ -234,7 +226,7 @@ jobs:
       - name: Use Node.js 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
       - name: Install deps (with cache)
         uses: bahmutov/npm-install@v1
       - name: Post tweet
@@ -244,7 +236,6 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         run: yarn post
-
 ```
 
 ## Conclusion
@@ -252,9 +243,31 @@ jobs:
 See
 [https://github.com/cmdcolin/twitter_fractal_bot](https://github.com/cmdcolin/twitter_fractal_bot)
 for working example. I could have, in retrospect, used a library like `twit`
-([https://www.npmjs.com/package/twit](https://www.npmjs.com/package/twit) but
+([https://www.npmjs.com/package/twit](https://www.npmjs.com/package/twit)) but
 this code sample is not substantially more complicated than using the `twit`
 library.
 
 You can also adapt this to post only when you push to your repo, or release a
 new version from your repo!
+
+## Footnote 1: Examples of odd lingo or stumbling blocks you might come across
+
+- Bearer token - The Bearer token is an alternative method of authenticating,
+  but it cannot be used to post tweets
+- Twitter API v1 vs v2 - We use a mix of v1 and v2, it's just the different
+  URLs that we are posting to and can be mixed in our example
+- Consumer key vs API key - they are the same thing in our example. If you look
+  closely at the box 1 in the screenshot it says "Consumer keys" and then gives
+  you an API key below \*
+
+## Footnote 2: Posting on release with a github action
+
+Replace the cron section of the github action with
+
+```
+on: release
+```
+
+## Footnote 3: Additional reading
+
+[https://aaronparecki.com/oauth-2-simplified/](https://aaronparecki.com/oauth-2-simplified/)
