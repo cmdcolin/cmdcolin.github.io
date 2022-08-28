@@ -7,7 +7,7 @@ TL;DR:
 
 add this to your bashrc
 
-```
+```sh
 export TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling
 ```
 

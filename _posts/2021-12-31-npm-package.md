@@ -8,7 +8,7 @@ likely does it a bit differently, and it can be tricky to get a setup you like.
 Should you use a "starter kit" or a boilerplate example? Or just roll your own?
 Should you use a bundler? How do you use typescript?
 
-**\*Record scratch \*\***
+**Record scratch **
 
 Why don't we try starting from scratch and seeing where we can get?
 
@@ -191,7 +191,7 @@ to use normal ESM import/exports
 
 util.ts
 
-```ts
+```typescript
 export function getMessage() {
   return 'hello'
 }

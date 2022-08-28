@@ -98,7 +98,7 @@ export function generateRSSFeed(articles: any) {
 
   // Add each article to the feed
   articles.forEach((post: any) => {
-    const { content, slug, date, description, title } = post
+    const { html, slug, date, description, title } = post
     const url = `${baseUrl}/posts/${slug}`
 
     feed.addItem({
@@ -106,7 +106,7 @@ export function generateRSSFeed(articles: any) {
       id: url,
       link: url,
       description,
-      content,
+      content: html,
       date: new Date(date),
       author: [author],
     })
