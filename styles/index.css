@@ -25,6 +25,7 @@ article img {
 
 article pre {
   max-width: 100%;
+  overflow: auto;
 }
 
 .tiny {
@@ -37,10 +38,7 @@ article pre {
 
 .tiny pre {
   max-width: 100%;
-}
-
-article pre {
-  max-width: 100%;
+  overflow: auto;
 }
 
 @media only screen and (max-width: 600px) {
