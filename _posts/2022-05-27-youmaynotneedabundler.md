@@ -180,7 +180,7 @@ https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 It can be tricky to go pure-ESM, but you can go most of the way there by using
 both the "main" and "module" fields in package.json
 
-- Compile with tsc with `tsc --module commonjs --outDir dist
+- Compile with tsc with `tsc --module commonjs --outDir dist`
 - Compile with tsc again with `tsc --module esnext --outDir esm`
 - Then set "main":"dist/index.js" for node and `"module":"esm/index.js"` for
   bundlers

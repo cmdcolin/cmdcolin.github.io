@@ -3,11 +3,19 @@ import matter from 'gray-matter'
 import { Feed } from 'feed'
 import { join } from 'path'
 import { unified } from 'unified'
-import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
+
+import rehypeSlug from 'rehype-slug'
+
+import sketches from './sketches.json'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeHighlight from 'rehype-highlight'
+
+//@ts-ignore
+import rehypeStarryNight from './rehype-starry-night.js'
+import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
-import sketches from './sketches.json'
 
 const postsDirectory = join(process.cwd(), '_posts')
 
@@ -26,9 +34,24 @@ export async function getPostBySlug(slug: string) {
 
   const html = await unified()
     .use(remarkParse)
-    .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypeStarryNight)
+    .use(remarkGfm)
     .use(rehypeStringify)
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
+      content: arg => {
+        return {
+          type: 'element',
+          tagName: 'a',
+          properties: {
+            href: '#' + arg.properties?.id,
+            style: 'margin-right: 10px',
+          },
+          children: [{ type: 'text', value: '#' }],
+        }
+      },
+    })
     .process(content)
 
   return {

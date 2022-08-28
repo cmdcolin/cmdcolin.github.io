@@ -191,7 +191,7 @@ to use normal ESM import/exports
 
 util.ts
 
-```typescript
+```ts
 export function getMessage() {
   return 'hello'
 }

@@ -103,7 +103,7 @@ to github!
 
 Make the bot! Create `src/bot.ts`
 
-```typescript
+```ts
 import fs from 'fs'
 import * as dotenv from 'dotenv'
 import OAuth from 'oauth'

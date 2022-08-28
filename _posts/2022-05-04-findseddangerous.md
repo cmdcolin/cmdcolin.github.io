@@ -70,6 +70,6 @@ this tool so, just spreading the word
 
 Addendum: Reddit /u/Snarwin also recommended using git ls-files instead of find
 
-```
+```sh
 git ls-files | xargs sed -i -e 's/apple/orange/g'
 ```

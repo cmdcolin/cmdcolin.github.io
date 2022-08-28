@@ -20,7 +20,7 @@ const Post = ({ post }: Props) => {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
-  const { title, date } = post
+  const { title, date, html } = post
   return (
     <>
       <Head>
@@ -37,7 +37,7 @@ const Post = ({ post }: Props) => {
                 <title>{title}</title>
               </Head>
               <PostHeader title={title} date={date} />
-              <div dangerouslySetInnerHTML={{ __html: post.html }} />
+              <div dangerouslySetInnerHTML={{ __html: html }} />
               <div style={{ marginTop: 200 }}>
                 <Giscus
                   id="comments"

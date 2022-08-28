@@ -13,7 +13,7 @@ calling it again after an error retries automatically.
 
 Example async function: fetch from the pokemon API
 
-```javascript
+```js
 async function getPokemon() {
   const id = Math.floor(Math.random() * 150)
   const url = 'https://pokeapi.co/api/v2/pokemon/' + id
@@ -29,7 +29,7 @@ async function getPokemon() {
 
 Here is a technique that can be used to memoize this function
 
-```javascript
+```js
 function getPokemonMemoized() {
   if (!this.promise) {
     this.promise = getPokemon().catch(e => {
@@ -76,7 +76,7 @@ or other methods. I have also found it useful to have a specific function for
 clearing the cache, so you can get a clean slate each time a test runs in unit
 testing or similar
 
-```javascript
+```js
 let promise
 async function getPokemonMemoized() {
   if (!promise) {
@@ -94,7 +94,7 @@ function clearCache() {
 
 You can also make a general purpose utility to memoize any promise function
 
-```javascript
+```js
 function memoize(fn) {
   let promise
   return () => {
@@ -125,7 +125,7 @@ called
 You can detect that it is an AbortError like this, and may choose not to
 display or re-throw the abort exception
 
-```javascript
+```js
 function isAbortException(e) {
   return e instanceof Error && exception.name === 'AbortError'
 }
@@ -136,7 +136,7 @@ signals. What if the first one aborts? Then all the rest will get aborted also.
 But what if we only want to abort the cached call if literally all of them
 aborted? Then we may have to synthesize an abortcontroller inside our function
 
-```javascript
+```js
 let promise
 let abortcontroller
 let listeners = 0
