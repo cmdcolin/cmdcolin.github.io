@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Making a serverless website for photo and video upload pt. 2</title><meta name="next-head-count" content="3"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="preload" href="/_next/static/css/9d066bf523979bbf.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9d066bf523979bbf.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-8b306f51a35d80a9.js" defer=""></script><script src="/_next/static/chunks/framework-c0d8f0fd2eea5ac1.js" defer=""></script><script src="/_next/static/chunks/main-b12cd062888056b2.js" defer=""></script><script src="/_next/static/chunks/pages/_app-d9139de5c3de3b6b.js" defer=""></script><script src="/_next/static/chunks/996-3d2a4318c0ac6f1a.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-586b38a9b3457703.js" defer=""></script><script src="/_next/static/N960rXq5BRJ06uZqtuld9/_buildManifest.js" defer=""></script><script src="/_next/static/N960rXq5BRJ06uZqtuld9/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><main><div><div style="margin-bottom:100px"><a href="/">Misc scribbles</a></div><article><div><h1>Making a serverless website for photo and video upload pt. 2</h1><h4>2020-12-26</h4></div><div><p>This post follows
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Making a serverless website for photo and video upload pt. 2</title><meta name="next-head-count" content="3"/><link rel="shortcut icon" href="favicon.ico"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><meta name="description" content="Blogging for the future"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="preload" href="/_next/static/css/c32b3d2522b06381.css" as="style"/><link rel="stylesheet" href="/_next/static/css/c32b3d2522b06381.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-1b2cde50635286d1.js" defer=""></script><script src="/_next/static/chunks/framework-c0d8f0fd2eea5ac1.js" defer=""></script><script src="/_next/static/chunks/main-b12cd062888056b2.js" defer=""></script><script src="/_next/static/chunks/pages/_app-d9139de5c3de3b6b.js" defer=""></script><script src="/_next/static/chunks/996-3d2a4318c0ac6f1a.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-b6f09b4db8bfc341.js" defer=""></script><script src="/_next/static/Gu_cmNPdFMxUmPA9FwRHq/_buildManifest.js" defer=""></script><script src="/_next/static/Gu_cmNPdFMxUmPA9FwRHq/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div><main><div><div style="margin-bottom:100px"><a href="/">Misc scribbles</a></div><article><div><h1>Making a serverless website for photo and video upload pt. 2</h1><h4>2020-12-26</h4></div><div><p>This post follows
 on <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
 <p>It is possible I zoomed ahead too fast to make this a continuous tutorial, but
 overall I just wanted to post an update</p>
@@ -37,26 +37,26 @@ lambda itself) to directly upload to S3, and also posts a row in the S3
 to the filename that will. It is very similar code in
 to <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
 <p>./lambdas/postFile/app.js</p>
-<pre><code class="language-js">'use strict'
+<div class="highlight highlight-js"><pre><span class="pl-s"><span class="pl-pds">'</span>use strict<span class="pl-pds">'</span></span>
 
-const AWS = require('aws-sdk')
-const multipart = require('./multipart')
-AWS.config.update({ region: process.env.AWS_REGION })
-const s3 = new AWS.S3()
+<span class="pl-k">const</span> <span class="pl-c1">AWS</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>aws-sdk<span class="pl-pds">'</span></span>)
+<span class="pl-k">const</span> <span class="pl-c1">multipart</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./multipart<span class="pl-pds">'</span></span>)
+<span class="pl-c1">AWS</span>.<span class="pl-smi">config</span>.<span class="pl-en">update</span>({ region<span class="pl-k">:</span> <span class="pl-c1">process</span>.<span class="pl-smi">env</span>.<span class="pl-c1">AWS_REGION</span> })
+<span class="pl-k">const</span> <span class="pl-c1">s3</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AWS.S3</span>()
 
-// Change this value to adjust the signed URL's expiration
-const URL_EXPIRATION_SECONDS = 300
+<span class="pl-c">// Change this value to adjust the signed URL's expiration</span>
+<span class="pl-k">const</span> <span class="pl-c1">URL_EXPIRATION_SECONDS</span> <span class="pl-k">=</span> <span class="pl-c1">300</span>
 
-// Main Lambda entry point
-exports.handler = async event => {
-  return await getUploadURL(event)
+<span class="pl-c">// Main Lambda entry point</span>
+<span class="pl-c1">exports</span>.<span class="pl-smi">handler</span> <span class="pl-k">=</span> <span class="pl-k">async</span> <span class="pl-smi">event</span> <span class="pl-k">=></span> {
+  <span class="pl-k">return</span> <span class="pl-k">await</span> <span class="pl-en">getUploadURL</span>(<span class="pl-c1">event</span>)
 }
 
-const { AWS_REGION: region } = process.env
+<span class="pl-k">const</span> { AWS_REGION<span class="pl-k">:</span> <span class="pl-c1">region</span> } <span class="pl-k">=</span> <span class="pl-c1">process</span>.<span class="pl-smi">env</span>
 
-const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10', region })
+<span class="pl-k">const</span> <span class="pl-c1">dynamodb</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AWS.DynamoDB</span>({ apiVersion<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>2012-08-10<span class="pl-pds">'</span></span>, region })
 
-async function uploadPic({
+<span class="pl-k">async</span> <span class="pl-k">function</span> <span class="pl-en">uploadPic</span>({
   timestamp,
   filename,
   message,
@@ -64,105 +64,105 @@ async function uploadPic({
   date,
   contentType,
 }) {
-  const params = {
-    Item: {
-      timestamp: {
-        N: `${timestamp}`,
+  <span class="pl-k">const</span> <span class="pl-c1">params</span> <span class="pl-k">=</span> {
+    Item<span class="pl-k">:</span> {
+      timestamp<span class="pl-k">:</span> {
+        <span class="pl-c1">N</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pse"><span class="pl-s1">${</span></span><span class="pl-s1">timestamp</span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">`</span></span>,
       },
-      filename: {
-        S: filename,
+      filename<span class="pl-k">:</span> {
+        <span class="pl-c1">S</span><span class="pl-k">:</span> filename,
       },
-      message: {
-        S: message,
+      message<span class="pl-k">:</span> {
+        <span class="pl-c1">S</span><span class="pl-k">:</span> message,
       },
-      user: {
-        S: user,
+      user<span class="pl-k">:</span> {
+        <span class="pl-c1">S</span><span class="pl-k">:</span> user,
       },
-      date: {
-        S: date,
+      date<span class="pl-k">:</span> {
+        <span class="pl-c1">S</span><span class="pl-k">:</span> date,
       },
-      contentType: {
-        S: contentType,
+      contentType<span class="pl-k">:</span> {
+        <span class="pl-c1">S</span><span class="pl-k">:</span> contentType,
       },
     },
-    TableName: 'files',
+    TableName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>files<span class="pl-pds">'</span></span>,
   }
-  return dynamodb.putItem(params).promise()
+  <span class="pl-k">return</span> <span class="pl-smi">dynamodb</span>.<span class="pl-en">putItem</span>(params).<span class="pl-en">promise</span>()
 }
 
-const getUploadURL = async function (event) {
-  try {
-    const data = multipart.parse(event)
-    const { filename, contentType, user, message, date } = data
-    const timestamp = +Date.now()
-    const Key = `${timestamp}-${filename}` // Get signed URL from S3
+<span class="pl-k">const</span> <span class="pl-c1">getUploadURL</span> <span class="pl-k">=</span> <span class="pl-k">async</span> <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-k">try</span> {
+    <span class="pl-k">const</span> <span class="pl-c1">data</span> <span class="pl-k">=</span> <span class="pl-smi">multipart</span>.<span class="pl-c1">parse</span>(<span class="pl-c1">event</span>)
+    <span class="pl-k">const</span> { <span class="pl-c1">filename</span>, <span class="pl-c1">contentType</span>, <span class="pl-c1">user</span>, <span class="pl-c1">message</span>, <span class="pl-c1">date</span> } <span class="pl-k">=</span> data
+    <span class="pl-k">const</span> <span class="pl-c1">timestamp</span> <span class="pl-k">=</span> <span class="pl-k">+</span><span class="pl-c1">Date</span>.<span class="pl-en">now</span>()
+    <span class="pl-k">const</span> <span class="pl-c1">Key</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pse"><span class="pl-s1">${</span></span><span class="pl-s1">timestamp</span><span class="pl-pse"><span class="pl-s1">}</span></span>-<span class="pl-pse"><span class="pl-s1">${</span></span><span class="pl-s1">filename</span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">`</span></span> <span class="pl-c">// Get signed URL from S3</span>
 
-    const s3Params = {
-      Bucket: process.env.UploadBucket,
+    <span class="pl-k">const</span> <span class="pl-c1">s3Params</span> <span class="pl-k">=</span> {
+      Bucket<span class="pl-k">:</span> <span class="pl-c1">process</span>.<span class="pl-smi">env</span>.<span class="pl-smi">UploadBucket</span>,
       Key,
-      Expires: URL_EXPIRATION_SECONDS,
-      ContentType: contentType, // This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.
+      Expires<span class="pl-k">:</span> <span class="pl-c1">URL_EXPIRATION_SECONDS</span>,
+      ContentType<span class="pl-k">:</span> contentType, <span class="pl-c">// This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.</span>
 
-      ACL: 'public-read',
+      <span class="pl-c1">ACL</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>public-read<span class="pl-pds">'</span></span>,
     }
 
-    const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params)
+    <span class="pl-k">const</span> <span class="pl-c1">uploadURL</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">s3</span>.<span class="pl-en">getSignedUrlPromise</span>(<span class="pl-s"><span class="pl-pds">'</span>putObject<span class="pl-pds">'</span></span>, s3Params)
 
-    await uploadPic({
+    <span class="pl-k">await</span> <span class="pl-en">uploadPic</span>({
       timestamp,
-      filename: Key,
+      filename<span class="pl-k">:</span> Key,
       message,
       user,
       date,
       contentType,
     })
 
-    return JSON.stringify({
+    <span class="pl-k">return</span> <span class="pl-c1">JSON</span>.<span class="pl-c1">stringify</span>({
       uploadURL,
       Key,
     })
-  } catch (e) {
-    const response = {
-      statusCode: 500,
-      body: JSON.stringify({ message: `${e}` }),
+  } <span class="pl-k">catch</span> (e) {
+    <span class="pl-k">const</span> <span class="pl-c1">response</span> <span class="pl-k">=</span> {
+      statusCode<span class="pl-k">:</span> <span class="pl-c1">500</span>,
+      body<span class="pl-k">:</span> <span class="pl-c1">JSON</span>.<span class="pl-c1">stringify</span>({ message<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pse"><span class="pl-s1">${</span></span><span class="pl-s1">e</span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">`</span></span> }),
     }
-    return response
+    <span class="pl-k">return</span> response
   }
 }
-</code></pre>
+</pre></div>
 <p>./lambdas/getFiles/app.js</p>
-<pre><code class="language-js">// eslint-disable-next-line import/no-unresolved
-const AWS = require('aws-sdk')
+<div class="highlight highlight-js"><pre><span class="pl-c">// eslint-disable-next-line import/no-unresolved</span>
+<span class="pl-k">const</span> <span class="pl-c1">AWS</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>aws-sdk<span class="pl-pds">'</span></span>)
 
-const { AWS_REGION: region } = process.env
+<span class="pl-k">const</span> { AWS_REGION<span class="pl-k">:</span> <span class="pl-c1">region</span> } <span class="pl-k">=</span> <span class="pl-c1">process</span>.<span class="pl-smi">env</span>
 
-const docClient = new AWS.DynamoDB.DocumentClient()
+<span class="pl-k">const</span> <span class="pl-c1">docClient</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AWS.DynamoDB.DocumentClient</span>()
 
-const getItems = function () {
-  const params = {
-    TableName: 'files',
+<span class="pl-k">const</span> <span class="pl-c1">getItems</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+  <span class="pl-k">const</span> <span class="pl-c1">params</span> <span class="pl-k">=</span> {
+    TableName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>files<span class="pl-pds">'</span></span>,
   }
 
-  return docClient.scan(params).promise()
+  <span class="pl-k">return</span> <span class="pl-smi">docClient</span>.<span class="pl-en">scan</span>(params).<span class="pl-en">promise</span>()
 }
 
-exports.handler = async event => {
-  try {
-    const result = await getItems()
-    return {
-      statusCode: 200,
-      body: JSON.stringify(result),
+<span class="pl-c1">exports</span>.<span class="pl-smi">handler</span> <span class="pl-k">=</span> <span class="pl-k">async</span> <span class="pl-smi">event</span> <span class="pl-k">=></span> {
+  <span class="pl-k">try</span> {
+    <span class="pl-k">const</span> <span class="pl-c1">result</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-en">getItems</span>()
+    <span class="pl-k">return</span> {
+      statusCode<span class="pl-k">:</span> <span class="pl-c1">200</span>,
+      body<span class="pl-k">:</span> <span class="pl-c1">JSON</span>.<span class="pl-c1">stringify</span>(result),
     }
-  } catch (e) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ message: `${e}` }),
+  } <span class="pl-k">catch</span> (e) {
+    <span class="pl-k">return</span> {
+      statusCode<span class="pl-k">:</span> <span class="pl-c1">400</span>,
+      body<span class="pl-k">:</span> <span class="pl-c1">JSON</span>.<span class="pl-c1">stringify</span>({ message<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">`</span><span class="pl-pse"><span class="pl-s1">${</span></span><span class="pl-s1">e</span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">`</span></span> }),
     }
   }
 }
-</code></pre>
+</pre></div>
 <p>./frontend/src/App.tsx (excerpt)</p>
-<pre><code class="language-tsx">async function myfetch(params: string, opts?: any) {
+<div class="highlight highlight-text-xml"><pre>async function myfetch(params: string, opts?: any) {
   const response = await fetch(params, opts)
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}
@@ -178,8 +178,8 @@ function UploadDialog({
   open: boolean
   onClose: () => void
 }) {
-  const [images, setImages] = useState&#x3C;FileList>()
-  const [error, setError] = useState&#x3C;Error>()
+  const [images, setImages] = useState&#x3C;<span class="pl-ent">FileList</span>>()
+  const [error, setError] = useState&#x3C;<span class="pl-ent">Error</span>>()
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState(0)
   const [completed, setCompleted] = useState(0)
@@ -198,47 +198,47 @@ function UploadDialog({
   }
 
   return (
-    &#x3C;Dialog onClose={handleClose} open={open}>
-           &#x3C;DialogTitle>upload a file (supports picture or video)&#x3C;/DialogTitle> 
+    &#x3C;<span class="pl-ent">Dialog</span> <span class="pl-e">onClose</span>={handleClose} <span class="pl-e">open</span>={open}>
+           &#x3C;<span class="pl-ent">DialogTitle</span>>upload a file (supports picture or video)&#x3C;/<span class="pl-ent">DialogTitle</span>> 
          
-      &#x3C;DialogContent>
-               &#x3C;label htmlFor="user">name (optional) &#x3C;/label>
-               &#x3C;input
-          type="text"
-          value={user}
-          onChange={event => setUser(event.target.value)}
+      &#x3C;<span class="pl-ent">DialogContent</span>>
+               &#x3C;<span class="pl-ent">label</span> <span class="pl-e">htmlFor</span>=<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>>name (optional) &#x3C;/<span class="pl-ent">label</span>>
+               &#x3C;<span class="pl-ent">input</span>
+          <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>
+          <span class="pl-e">value</span>={user}
+          <span class="pl-e">onChange</span>={event => setUser(event.target.value)}
           id="user"
         />
-               &#x3C;br />       &#x3C;label htmlFor="user">message (optional) &#x3C;/label>
+               &#x3C;<span class="pl-ent">br</span> />       &#x3C;<span class="pl-ent">label</span> <span class="pl-e">htmlFor</span>=<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>>message (optional) &#x3C;/<span class="pl-ent">label</span>>
                
-        &#x3C;input
-          type="text"
-          value={message}
-          onChange={event => setMessage(event.target.value)}
+        &#x3C;<span class="pl-ent">input</span>
+          <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>
+          <span class="pl-e">value</span>={message}
+          <span class="pl-e">onChange</span>={event => setMessage(event.target.value)}
           id="message"
         />
-               &#x3C;br />
+               &#x3C;<span class="pl-ent">br</span> />
                
-        &#x3C;input
+        &#x3C;<span class="pl-ent">input</span>
           multiple
-          type="file"
-          onChange={e => {
+          <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>
+          <span class="pl-e">onChange</span>={e => {
             let files = e.target.files
-            if (files &#x26;&#x26; files.length) {
+            if (files <span class="pl-ii">&#x26;&#x26;</span> files.length) {
               setImages(files)
             }
           }}
         />       {error ? (
-          &#x3C;div className={classes.error}>{`${error}`}&#x3C;/div>
+          &#x3C;<span class="pl-ent">div</span> <span class="pl-e">className</span>={classes.error}>{`${error}`}&#x3C;/<span class="pl-ent">div</span>>
         ) : loading ? (
           `Uploading...${completed}/${total}`
         ) : completed ? (
-          &#x3C;h2>Uploaded &#x3C;/h2>
-        ) : null}       &#x3C;DialogActions>
+          &#x3C;<span class="pl-ent">h2</span>>Uploaded &#x3C;/<span class="pl-ent">h2</span>>
+        ) : null}       &#x3C;<span class="pl-ent">DialogActions</span>>
                    
-          &#x3C;Button
-            style={{ textTransform: 'none' }}
-            onClick={async () => {
+          &#x3C;<span class="pl-ent">Button</span>
+            <span class="pl-e">style</span>={{ textTransform: <span class="pl-s"><span class="pl-pds">'</span>none<span class="pl-pds">'</span></span> }}
+            <span class="pl-e">onClick</span>={async () => {
               try {
                 if (images) {
                   setLoading(true)
@@ -277,140 +277,140 @@ function UploadDialog({
             color="primary"
           >
                        upload          
-          &#x3C;/Button>
-                   &#x3C;Button
-            onClick={handleClose}
-            color="primary"
-            style={{ textTransform: 'none' }}
+          &#x3C;/<span class="pl-ent">Button</span>>
+                   &#x3C;<span class="pl-ent">Button</span>
+            <span class="pl-e">onClick</span>={handleClose}
+            <span class="pl-e">color</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+            <span class="pl-e">style</span>={{ textTransform: <span class="pl-s"><span class="pl-pds">'</span>none<span class="pl-pds">'</span></span> }}
           >
                        cancel          
-          &#x3C;/Button>       
-        &#x3C;/DialogActions>     
-      &#x3C;/DialogContent>
+          &#x3C;/<span class="pl-ent">Button</span>>       
+        &#x3C;/<span class="pl-ent">DialogActions</span>>     
+      &#x3C;/<span class="pl-ent">DialogContent</span>>
          
-    &#x3C;/Dialog>
+    &#x3C;/<span class="pl-ent">Dialog</span>>
   )
 }
-</code></pre>
+</pre></div>
 <p>template.yaml for AWS</p>
-<pre><code class="language-yaml"> AWSTemplateFormatVersion: 2010-09-09
- Transform: AWS::Serverless-2016-10-31
- Description: S3 Uploader
+<div class="highlight highlight-yaml"><pre> <span class="pl-ent">AWSTemplateFormatVersion</span>: <span class="pl-c1">2010-09-09</span>
+ <span class="pl-ent">Transform</span>: <span class="pl-s">AWS::Serverless-2016-10-31</span>
+ <span class="pl-ent">Description</span>: <span class="pl-s">S3 Uploader</span>
 
- Resources:
-  filesDynamoDBTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: "timestamp"
-          AttributeType: "N"
-      KeySchema:
-        - AttributeName: "timestamp"
-          KeyType: "HASH"
-      ProvisionedThroughput:
-        ReadCapacityUnits: "5"
-        WriteCapacityUnits: "5"
-      TableName: "files"
+ <span class="pl-ent">Resources</span>:
+  <span class="pl-ent">filesDynamoDBTable</span>:
+    <span class="pl-ent">Type</span>: <span class="pl-s">AWS::DynamoDB::Table</span>
+    <span class="pl-ent">Properties</span>:
+      <span class="pl-ent">AttributeDefinitions</span>:
+        - <span class="pl-ent">AttributeName</span>: <span class="pl-s"><span class="pl-pds">"</span>timestamp<span class="pl-pds">"</span></span>
+          <span class="pl-ent">AttributeType</span>: <span class="pl-s"><span class="pl-pds">"</span>N<span class="pl-pds">"</span></span>
+      <span class="pl-ent">KeySchema</span>:
+        - <span class="pl-ent">AttributeName</span>: <span class="pl-s"><span class="pl-pds">"</span>timestamp<span class="pl-pds">"</span></span>
+          <span class="pl-ent">KeyType</span>: <span class="pl-s"><span class="pl-pds">"</span>HASH<span class="pl-pds">"</span></span>
+      <span class="pl-ent">ProvisionedThroughput</span>:
+        <span class="pl-ent">ReadCapacityUnits</span>: <span class="pl-s"><span class="pl-pds">"</span>5<span class="pl-pds">"</span></span>
+        <span class="pl-ent">WriteCapacityUnits</span>: <span class="pl-s"><span class="pl-pds">"</span>5<span class="pl-pds">"</span></span>
+      <span class="pl-ent">TableName</span>: <span class="pl-s"><span class="pl-pds">"</span>files<span class="pl-pds">"</span></span>
 
-  # HTTP API
-  MyApi:
-    Type: AWS::Serverless::HttpApi
-    Properties:
-      # CORS configuration - this is open for development only and
- should be restricted in prod.
-      # See
- &#x3C;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html>
-      CorsConfiguration:
-        AllowMethods:
-          - GET
-          - POST
-          - DELETE
-          - OPTIONS
-        AllowHeaders:
-          - "*"
-        AllowOrigins:
-          - "*"
+  <span class="pl-c"># HTTP API</span>
+  <span class="pl-ent">MyApi</span>:
+    <span class="pl-ent">Type</span>: <span class="pl-s">AWS::Serverless::HttpApi</span>
+    <span class="pl-ent">Properties</span>:
+      <span class="pl-c"># CORS configuration - this is open for development only and</span>
+ <span class="pl-s">should be restricted in prod.</span>
+      <span class="pl-c"># See</span>
+ <span class="pl-s">&#x3C;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html></span>
+      <span class="pl-ent">CorsConfiguration</span>:
+        <span class="pl-ent">AllowMethods</span>:
+          - <span class="pl-s">GET</span>
+          - <span class="pl-s">POST</span>
+          - <span class="pl-s">DELETE</span>
+          - <span class="pl-s">OPTIONS</span>
+        <span class="pl-ent">AllowHeaders</span>:
+          - <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>
+        <span class="pl-ent">AllowOrigins</span>:
+          - <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>
 
-  UploadRequestFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: lambdas/postFile/
-      Handler: app.handler
-      Runtime: nodejs12.x
-      Timeout: 3
-      MemorySize: 128
-      Environment:
-        Variables:
-          UploadBucket: !Ref S3UploadBucket
-      Policies:
-        - AmazonDynamoDBFullAccess
-        - S3WritePolicy:
-            BucketName: !Ref S3UploadBucket
-        - Statement:
-            - Effect: Allow
-              Resource: !Sub "arn:aws:s3:::${S3UploadBucket}/"
-              Action:
-                - s3:putObjectAcl
-      Events:
-        UploadAssetAPI:
-          Type: HttpApi
-          Properties:
-            Path: /postFile
-            Method: post
-            ApiId: !Ref MyApi
-
-
-  FileReadFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: lambdas/getFiles/
-      Handler: app.handler
-      Runtime: nodejs12.x
-      Timeout: 3
-      MemorySize: 128
-      Policies:
-        - AmazonDynamoDBFullAccess
-      Events:
-        UploadAssetAPI:
-          Type: HttpApi
-          Properties:
-            Path: /getFiles
-            Method: get
-            ApiId: !Ref MyApi
-
-  ## S3 bucket
-  S3UploadBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      CorsConfiguration:
-        CorsRules:
-          - AllowedHeaders:
-              - "*"
-            AllowedMethods:
-              - GET
-              - PUT
-              - HEAD
-            AllowedOrigins:
-              - "*"
+  <span class="pl-ent">UploadRequestFunction</span>:
+    <span class="pl-ent">Type</span>: <span class="pl-s">AWS::Serverless::Function</span>
+    <span class="pl-ent">Properties</span>:
+      <span class="pl-ent">CodeUri</span>: <span class="pl-s">lambdas/postFile/</span>
+      <span class="pl-ent">Handler</span>: <span class="pl-s">app.handler</span>
+      <span class="pl-ent">Runtime</span>: <span class="pl-s">nodejs12.x</span>
+      <span class="pl-ent">Timeout</span>: <span class="pl-c1">3</span>
+      <span class="pl-ent">MemorySize</span>: <span class="pl-c1">128</span>
+      <span class="pl-ent">Environment</span>:
+        <span class="pl-ent">Variables</span>:
+          <span class="pl-ent">UploadBucket</span>: <span class="pl-s">!Ref S3UploadBucket</span>
+      <span class="pl-ent">Policies</span>:
+        - <span class="pl-s">AmazonDynamoDBFullAccess</span>
+        - <span class="pl-ent">S3WritePolicy</span>:
+            <span class="pl-ent">BucketName</span>: <span class="pl-s">!Ref S3UploadBucket</span>
+        - <span class="pl-ent">Statement</span>:
+            - <span class="pl-ent">Effect</span>: <span class="pl-s">Allow</span>
+              <span class="pl-ent">Resource</span>: <span class="pl-s">!Sub "arn:aws:s3:::${S3UploadBucket}/"</span>
+              <span class="pl-ent">Action</span>:
+                - <span class="pl-s">s3:putObjectAcl</span>
+      <span class="pl-ent">Events</span>:
+        <span class="pl-ent">UploadAssetAPI</span>:
+          <span class="pl-ent">Type</span>: <span class="pl-s">HttpApi</span>
+          <span class="pl-ent">Properties</span>:
+            <span class="pl-ent">Path</span>: <span class="pl-s">/postFile</span>
+            <span class="pl-ent">Method</span>: <span class="pl-s">post</span>
+            <span class="pl-ent">ApiId</span>: <span class="pl-s">!Ref MyApi</span>
 
 
- ## Take a note of the outputs for deploying the workflow templates
- in this sample application
- Outputs:
-  APIendpoint:
-    Description: "HTTP API endpoint URL"
-    Value: !Sub
- "https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com"
-  S3UploadBucketName:
-    Description: "S3 bucket for application uploads"
-    Value: !Ref "S3UploadBucket"
+  <span class="pl-ent">FileReadFunction</span>:
+    <span class="pl-ent">Type</span>: <span class="pl-s">AWS::Serverless::Function</span>
+    <span class="pl-ent">Properties</span>:
+      <span class="pl-ent">CodeUri</span>: <span class="pl-s">lambdas/getFiles/</span>
+      <span class="pl-ent">Handler</span>: <span class="pl-s">app.handler</span>
+      <span class="pl-ent">Runtime</span>: <span class="pl-s">nodejs12.x</span>
+      <span class="pl-ent">Timeout</span>: <span class="pl-c1">3</span>
+      <span class="pl-ent">MemorySize</span>: <span class="pl-c1">128</span>
+      <span class="pl-ent">Policies</span>:
+        - <span class="pl-s">AmazonDynamoDBFullAccess</span>
+      <span class="pl-ent">Events</span>:
+        <span class="pl-ent">UploadAssetAPI</span>:
+          <span class="pl-ent">Type</span>: <span class="pl-s">HttpApi</span>
+          <span class="pl-ent">Properties</span>:
+            <span class="pl-ent">Path</span>: <span class="pl-s">/getFiles</span>
+            <span class="pl-ent">Method</span>: <span class="pl-s">get</span>
+            <span class="pl-ent">ApiId</span>: <span class="pl-s">!Ref MyApi</span>
 
-</code></pre>
+  <span class="pl-c">## S3 bucket</span>
+  <span class="pl-ent">S3UploadBucket</span>:
+    <span class="pl-ent">Type</span>: <span class="pl-s">AWS::S3::Bucket</span>
+    <span class="pl-ent">Properties</span>:
+      <span class="pl-ent">CorsConfiguration</span>:
+        <span class="pl-ent">CorsRules</span>:
+          - <span class="pl-ent">AllowedHeaders</span>:
+              - <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>
+            <span class="pl-ent">AllowedMethods</span>:
+              - <span class="pl-s">GET</span>
+              - <span class="pl-s">PUT</span>
+              - <span class="pl-s">HEAD</span>
+            <span class="pl-ent">AllowedOrigins</span>:
+              - <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>
+
+
+ <span class="pl-c">## Take a note of the outputs for deploying the workflow templates</span>
+ <span class="pl-s">in this sample application</span>
+ <span class="pl-ent">Outputs</span>:
+  <span class="pl-ent">APIendpoint</span>:
+    <span class="pl-ent">Description</span>: <span class="pl-s"><span class="pl-pds">"</span>HTTP API endpoint URL<span class="pl-pds">"</span></span>
+    <span class="pl-ent">Value</span>: <span class="pl-s">!Sub</span>
+ <span class="pl-s"><span class="pl-pds">"</span>https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com<span class="pl-pds">"</span></span>
+  <span class="pl-ent">S3UploadBucketName</span>:
+    <span class="pl-ent">Description</span>: <span class="pl-s"><span class="pl-pds">"</span>S3 bucket for application uploads<span class="pl-pds">"</span></span>
+    <span class="pl-ent">Value</span>: <span class="pl-s">!Ref "S3UploadBucket"</span>
+
+</pre></div>
 <p>To display all the pictures I use a switch from video or img tag based
 on contentType.startsWith('video'). I also use the "figcaption" HTML tag
 to have a little caption on the pics/videos</p>
 <p>./frontend/src/App.tsx</p>
-<pre><code class="language-tsx">function Media({
+<div class="highlight highlight-text-xml"><pre>function Media({
   file,
   style,
   onClick,
@@ -424,30 +424,30 @@ to have a little caption on the pics/videos</p>
   const { filename, contentType } = file
   const src = `${BUCKET}/${filename}`
   return (
-    &#x3C;figure style={{ display: 'inline-block' }}>
+    &#x3C;<span class="pl-ent">figure</span> <span class="pl-e">style</span>={{ display: <span class="pl-s"><span class="pl-pds">'</span>inline-block<span class="pl-pds">'</span></span> }}>
            
-      &#x3C;picture>
+      &#x3C;<span class="pl-ent">picture</span>>
                
         {contentType.startsWith('video') ? (
-          &#x3C;video style={style} src={src} controls onClick={onClick as any} />
+          &#x3C;<span class="pl-ent">video</span> <span class="pl-e">style</span>={style} <span class="pl-e">src</span>={src} controls <span class="pl-e">onClick</span>={onClick as any} />
         ) : (
-          &#x3C;img style={style} src={src} onClick={onClick as any} />
+          &#x3C;<span class="pl-ent">img</span> <span class="pl-e">style</span>={style} <span class="pl-e">src</span>={src} <span class="pl-e">onClick</span>={onClick as any} />
         )}
              
-      &#x3C;/picture>
-           &#x3C;figcaption>{children}&#x3C;/figcaption>   
-    &#x3C;/figure>
+      &#x3C;/<span class="pl-ent">picture</span>>
+           &#x3C;<span class="pl-ent">figcaption</span>>{children}&#x3C;/<span class="pl-ent">figcaption</span>>   
+    &#x3C;/<span class="pl-ent">figure</span>>
   )
 }
-</code></pre>
+</pre></div>
 <p>Now the really fun part: if you get an image of a picture frame
 like <a href="https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T">https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T</a></p>
 <p>You can make it a border for any image or video using border-image CSS</p>
-<pre><code class="language-js">style = {
-  border: '30px solid',
-  borderImage: `url(borders/${border}) 30 round`,
+<div class="highlight highlight-js"><pre>style <span class="pl-k">=</span> {
+  border<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>30px solid<span class="pl-pds">'</span></span>,
+  borderImage<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">`</span>url(borders/<span class="pl-pse"><span class="pl-s1">${</span></span><span class="pl-s1">border</span><span class="pl-pse"><span class="pl-s1">}</span></span>) 30 round<span class="pl-pds">`</span></span>,
 }
-</code></pre>
+</pre></div>
 <p><img src="/media/638602799897329664_0.png" alt=""></p>
 <p>Summary</p>
 <p>The template.yaml automatically deploys the lambdas for postFile/getFile
@@ -468,4 +468,4 @@ aws-sam tutorial from
 a great kick start for me. I am sure the serverless CLI is great too and
 it ensures a bit less vendor lock in, but then is also a little bit
 removed from the native aws config schemas. Probably fine though</p>
-<p>Source code <a href="https://github.com/cmdcolin/aws_photo_gallery/">https://github.com/cmdcolin/aws_photo_gallery/</a></p></div><div style="margin-top:200px"></div></article></div></main></div><footer style="margin-top:100px"><a href="/">Home</a> <a href="/archive">Blog archive</a> <a href="https://github.com/cmdcolin/">Github</a> <a href="https://twitter.com/cmdcolin">Twitter</a> <a href="/projects">Projects</a> <a href="/photos">Photos</a> <a href="/rss.xml">RSS</a><a href="/about">About</a> </footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Making a serverless website for photo and video upload pt. 2","date":"2020-12-26","slug":"2020-12-26","html":"\u003cp\u003eThis post follows\non \u003ca href=\"https://cmdcolin.github.io/2020-12-24.html\"\u003ehttps://cmdcolin.github.io/2020-12-24.html\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eIt is possible I zoomed ahead too fast to make this a continuous tutorial, but\noverall I just wanted to post an update\u003c/p\u003e\n\u003cp\u003eIn pt. 1 I learned how to use the \u003ccode\u003eaws-sam\u003c/code\u003e CLI tool. This was a great insight\nfor me about automating deployments. I can now simply run \u003ccode\u003esam deploy\u003c/code\u003e and it\nwill create new dynamodb tables, lambda functions, etc.\u003c/p\u003e\n\u003cp\u003eAfter writing pt 1. I converted the existing vue-js app that was in the aws\ntutorial and converted it to react. Then I extended the app to allow\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ePosting comments on photos\u003c/li\u003e\n\u003cli\u003eUploading multiple files\u003c/li\u003e\n\u003cli\u003eUploading videos etc.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eIt will be hard to summarize all the changes since now the app has taken off a\nlittle bit but it looks like this:\u003c/p\u003e\n\u003cp\u003eRepo structure\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e ./frontend # created using npx create-react-app frontend --template\n typescript\n ./frontend/src/App.tsx # main frontend app code in react\n ./lambdas/\n ./lambdas/postFile # post a file to the lambda, this uploads a row to\n dynamodb and returns a pre-signed URL for uploading (note that if the\n client failed it's upload, that row in the lambda DB might be in a bad\n state...)\n ./lambdas/getFiles # get all files that were ever posted\n ./lambdas/postComment # post a comment on a picture with POST\n request\n ./lambdas/getComments?file=filename.jpg # get comments on a\n picture/video with GET request\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eHere is a detailed code for uploading the file. We upload one file at a\ntime, but the client code post to the lambda endpoint individually for\neach file\u003c/p\u003e\n\u003cp\u003eThis generates a pre-signed URL to allow the client-side JS (not the\nlambda itself) to directly upload to S3, and also posts a row in the S3\nto the filename that will. It is very similar code in\nto \u003ca href=\"https://cmdcolin.github.io/2020-12-24.html\"\u003ehttps://cmdcolin.github.io/2020-12-24.html\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e./lambdas/postFile/app.js\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003e'use strict'\n\nconst AWS = require('aws-sdk')\nconst multipart = require('./multipart')\nAWS.config.update({ region: process.env.AWS_REGION })\nconst s3 = new AWS.S3()\n\n// Change this value to adjust the signed URL's expiration\nconst URL_EXPIRATION_SECONDS = 300\n\n// Main Lambda entry point\nexports.handler = async event =\u003e {\n  return await getUploadURL(event)\n}\n\nconst { AWS_REGION: region } = process.env\n\nconst dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10', region })\n\nasync function uploadPic({\n  timestamp,\n  filename,\n  message,\n  user,\n  date,\n  contentType,\n}) {\n  const params = {\n    Item: {\n      timestamp: {\n        N: `${timestamp}`,\n      },\n      filename: {\n        S: filename,\n      },\n      message: {\n        S: message,\n      },\n      user: {\n        S: user,\n      },\n      date: {\n        S: date,\n      },\n      contentType: {\n        S: contentType,\n      },\n    },\n    TableName: 'files',\n  }\n  return dynamodb.putItem(params).promise()\n}\n\nconst getUploadURL = async function (event) {\n  try {\n    const data = multipart.parse(event)\n    const { filename, contentType, user, message, date } = data\n    const timestamp = +Date.now()\n    const Key = `${timestamp}-${filename}` // Get signed URL from S3\n\n    const s3Params = {\n      Bucket: process.env.UploadBucket,\n      Key,\n      Expires: URL_EXPIRATION_SECONDS,\n      ContentType: contentType, // This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.\n\n      ACL: 'public-read',\n    }\n\n    const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params)\n\n    await uploadPic({\n      timestamp,\n      filename: Key,\n      message,\n      user,\n      date,\n      contentType,\n    })\n\n    return JSON.stringify({\n      uploadURL,\n      Key,\n    })\n  } catch (e) {\n    const response = {\n      statusCode: 500,\n      body: JSON.stringify({ message: `${e}` }),\n    }\n    return response\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e./lambdas/getFiles/app.js\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003e// eslint-disable-next-line import/no-unresolved\nconst AWS = require('aws-sdk')\n\nconst { AWS_REGION: region } = process.env\n\nconst docClient = new AWS.DynamoDB.DocumentClient()\n\nconst getItems = function () {\n  const params = {\n    TableName: 'files',\n  }\n\n  return docClient.scan(params).promise()\n}\n\nexports.handler = async event =\u003e {\n  try {\n    const result = await getItems()\n    return {\n      statusCode: 200,\n      body: JSON.stringify(result),\n    }\n  } catch (e) {\n    return {\n      statusCode: 400,\n      body: JSON.stringify({ message: `${e}` }),\n    }\n  }\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e./frontend/src/App.tsx (excerpt)\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-tsx\"\u003easync function myfetch(params: string, opts?: any) {\n  const response = await fetch(params, opts)\n  if (!response.ok) {\n    throw new Error(`HTTP ${response.status}\n ${response.statusText}`)\n  }\n  return response.json()\n}\n\nfunction UploadDialog({\n  open,\n  onClose,\n}: {\n  open: boolean\n  onClose: () =\u003e void\n}) {\n  const [images, setImages] = useState\u0026#x3C;FileList\u003e()\n  const [error, setError] = useState\u0026#x3C;Error\u003e()\n  const [loading, setLoading] = useState(false)\n  const [total, setTotal] = useState(0)\n  const [completed, setCompleted] = useState(0)\n  const [user, setUser] = useState('')\n  const [message, setMessage] = useState('')\n  const classes = useStyles()\n\n  const handleClose = () =\u003e {\n    setError(undefined)\n    setLoading(false)\n    setImages(undefined)\n    setCompleted(0)\n    setTotal(0)\n    setMessage('')\n    onClose()\n  }\n\n  return (\n    \u0026#x3C;Dialog onClose={handleClose} open={open}\u003e\n           \u0026#x3C;DialogTitle\u003eupload a file (supports picture or video)\u0026#x3C;/DialogTitle\u003e \n         \n      \u0026#x3C;DialogContent\u003e\n               \u0026#x3C;label htmlFor=\"user\"\u003ename (optional) \u0026#x3C;/label\u003e\n               \u0026#x3C;input\n          type=\"text\"\n          value={user}\n          onChange={event =\u003e setUser(event.target.value)}\n          id=\"user\"\n        /\u003e\n               \u0026#x3C;br /\u003e       \u0026#x3C;label htmlFor=\"user\"\u003emessage (optional) \u0026#x3C;/label\u003e\n               \n        \u0026#x3C;input\n          type=\"text\"\n          value={message}\n          onChange={event =\u003e setMessage(event.target.value)}\n          id=\"message\"\n        /\u003e\n               \u0026#x3C;br /\u003e\n               \n        \u0026#x3C;input\n          multiple\n          type=\"file\"\n          onChange={e =\u003e {\n            let files = e.target.files\n            if (files \u0026#x26;\u0026#x26; files.length) {\n              setImages(files)\n            }\n          }}\n        /\u003e       {error ? (\n          \u0026#x3C;div className={classes.error}\u003e{`${error}`}\u0026#x3C;/div\u003e\n        ) : loading ? (\n          `Uploading...${completed}/${total}`\n        ) : completed ? (\n          \u0026#x3C;h2\u003eUploaded \u0026#x3C;/h2\u003e\n        ) : null}       \u0026#x3C;DialogActions\u003e\n                   \n          \u0026#x3C;Button\n            style={{ textTransform: 'none' }}\n            onClick={async () =\u003e {\n              try {\n                if (images) {\n                  setLoading(true)\n                  setError(undefined)\n                  setCompleted(0)\n                  setTotal(images.length)\n                  await Promise.all(\n                    Array.from(images).map(async image =\u003e {\n                      const data = new FormData()\n                      data.append('message', message)\n                      data.append('user', user)\n                      data.append('date', new Date().toLocaleString())\n                      data.append('filename', image.name)\n                      data.append('contentType', image.type)\n                      const res = await myfetch(API_ENDPOINT + '/postFile', {\n                        method: 'POST',\n                        body: data,\n                      })\n\n                      await myfetch(res.uploadURL, {\n                        method: 'PUT',\n                        body: image,\n                      })\n\n                      setCompleted(completed =\u003e completed + 1)\n                    }),\n                  )\n                  setTimeout(() =\u003e {\n                    handleClose()\n                  }, 500)\n                }\n              } catch (e) {\n                setError(e)\n              }\n            }}\n            color=\"primary\"\n          \u003e\n                       upload          \n          \u0026#x3C;/Button\u003e\n                   \u0026#x3C;Button\n            onClick={handleClose}\n            color=\"primary\"\n            style={{ textTransform: 'none' }}\n          \u003e\n                       cancel          \n          \u0026#x3C;/Button\u003e       \n        \u0026#x3C;/DialogActions\u003e     \n      \u0026#x3C;/DialogContent\u003e\n         \n    \u0026#x3C;/Dialog\u003e\n  )\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003etemplate.yaml for AWS\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-yaml\"\u003e AWSTemplateFormatVersion: 2010-09-09\n Transform: AWS::Serverless-2016-10-31\n Description: S3 Uploader\n\n Resources:\n  filesDynamoDBTable:\n    Type: AWS::DynamoDB::Table\n    Properties:\n      AttributeDefinitions:\n        - AttributeName: \"timestamp\"\n          AttributeType: \"N\"\n      KeySchema:\n        - AttributeName: \"timestamp\"\n          KeyType: \"HASH\"\n      ProvisionedThroughput:\n        ReadCapacityUnits: \"5\"\n        WriteCapacityUnits: \"5\"\n      TableName: \"files\"\n\n  # HTTP API\n  MyApi:\n    Type: AWS::Serverless::HttpApi\n    Properties:\n      # CORS configuration - this is open for development only and\n should be restricted in prod.\n      # See\n \u0026#x3C;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html\u003e\n      CorsConfiguration:\n        AllowMethods:\n          - GET\n          - POST\n          - DELETE\n          - OPTIONS\n        AllowHeaders:\n          - \"*\"\n        AllowOrigins:\n          - \"*\"\n\n  UploadRequestFunction:\n    Type: AWS::Serverless::Function\n    Properties:\n      CodeUri: lambdas/postFile/\n      Handler: app.handler\n      Runtime: nodejs12.x\n      Timeout: 3\n      MemorySize: 128\n      Environment:\n        Variables:\n          UploadBucket: !Ref S3UploadBucket\n      Policies:\n        - AmazonDynamoDBFullAccess\n        - S3WritePolicy:\n            BucketName: !Ref S3UploadBucket\n        - Statement:\n            - Effect: Allow\n              Resource: !Sub \"arn:aws:s3:::${S3UploadBucket}/\"\n              Action:\n                - s3:putObjectAcl\n      Events:\n        UploadAssetAPI:\n          Type: HttpApi\n          Properties:\n            Path: /postFile\n            Method: post\n            ApiId: !Ref MyApi\n\n\n  FileReadFunction:\n    Type: AWS::Serverless::Function\n    Properties:\n      CodeUri: lambdas/getFiles/\n      Handler: app.handler\n      Runtime: nodejs12.x\n      Timeout: 3\n      MemorySize: 128\n      Policies:\n        - AmazonDynamoDBFullAccess\n      Events:\n        UploadAssetAPI:\n          Type: HttpApi\n          Properties:\n            Path: /getFiles\n            Method: get\n            ApiId: !Ref MyApi\n\n  ## S3 bucket\n  S3UploadBucket:\n    Type: AWS::S3::Bucket\n    Properties:\n      CorsConfiguration:\n        CorsRules:\n          - AllowedHeaders:\n              - \"*\"\n            AllowedMethods:\n              - GET\n              - PUT\n              - HEAD\n            AllowedOrigins:\n              - \"*\"\n\n\n ## Take a note of the outputs for deploying the workflow templates\n in this sample application\n Outputs:\n  APIendpoint:\n    Description: \"HTTP API endpoint URL\"\n    Value: !Sub\n \"https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com\"\n  S3UploadBucketName:\n    Description: \"S3 bucket for application uploads\"\n    Value: !Ref \"S3UploadBucket\"\n\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eTo display all the pictures I use a switch from video or img tag based\non contentType.startsWith('video'). I also use the \"figcaption\" HTML tag\nto have a little caption on the pics/videos\u003c/p\u003e\n\u003cp\u003e./frontend/src/App.tsx\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-tsx\"\u003efunction Media({\n  file,\n  style,\n  onClick,\n  children,\n}: {\n  file: File\n  onClick?: Function\n  style?: React.CSSProperties\n  children?: React.ReactNode\n}) {\n  const { filename, contentType } = file\n  const src = `${BUCKET}/${filename}`\n  return (\n    \u0026#x3C;figure style={{ display: 'inline-block' }}\u003e\n           \n      \u0026#x3C;picture\u003e\n               \n        {contentType.startsWith('video') ? (\n          \u0026#x3C;video style={style} src={src} controls onClick={onClick as any} /\u003e\n        ) : (\n          \u0026#x3C;img style={style} src={src} onClick={onClick as any} /\u003e\n        )}\n             \n      \u0026#x3C;/picture\u003e\n           \u0026#x3C;figcaption\u003e{children}\u0026#x3C;/figcaption\u003e   \n    \u0026#x3C;/figure\u003e\n  )\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eNow the really fun part: if you get an image of a picture frame\nlike \u003ca href=\"https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\"\u003ehttps://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eYou can make it a border for any image or video using border-image CSS\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003estyle = {\n  border: '30px solid',\n  borderImage: `url(borders/${border}) 30 round`,\n}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cimg src=\"/media/638602799897329664_0.png\" alt=\"\"\u003e\u003c/p\u003e\n\u003cp\u003eSummary\u003c/p\u003e\n\u003cp\u003eThe template.yaml automatically deploys the lambdas for postFile/getFile\nand the files table in dynamoDB\u003c/p\u003e\n\u003cp\u003eThe React app uses postFile for each file in an \u003ccode\u003e\u0026#x3C;input type=\"file\"/\u003e\u003c/code\u003e,\nthe code uses React hooks and functional components but is hopefully not\ntoo complex\u003c/p\u003e\n\u003cp\u003eI also added commenting on photos. The code is not shown here but you\ncan look in the source code for details\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"/media/638602799897329664_1.png\" alt=\"\"\u003e\u003c/p\u003e\n\u003cp\u003eOverall this has been a good experience learning to develop this app and\nlearning to automate the cloud deployment is really good for ensuring\nreliability and fast iteration.\u003c/p\u003e\n\u003cp\u003eAlso quick note on serverless CLI vs aws-sam. I had tried a serverless\nCLI tutorial from another user but it didn't click with me, while the\naws-sam tutorial from\n\u003ca href=\"https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1%C2%A0was\"\u003ehttps://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1 was\u003c/a\u003e\na great kick start for me. I am sure the serverless CLI is great too and\nit ensures a bit less vendor lock in, but then is also a little bit\nremoved from the native aws config schemas. Probably fine though\u003c/p\u003e\n\u003cp\u003eSource code \u003ca href=\"https://github.com/cmdcolin/aws_photo_gallery/\"\u003ehttps://github.com/cmdcolin/aws_photo_gallery/\u003c/a\u003e\u003c/p\u003e"}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2020-12-26"},"buildId":"N960rXq5BRJ06uZqtuld9","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
+<p>Source code <a href="https://github.com/cmdcolin/aws_photo_gallery/">https://github.com/cmdcolin/aws_photo_gallery/</a></p></div><div style="margin-top:200px"></div></article></div></main></div><footer style="margin-top:100px"><a href="/">Home</a> <a href="/archive">Blog archive</a> <a href="https://github.com/cmdcolin/">Github</a> <a href="https://twitter.com/cmdcolin">Twitter</a> <a href="/projects">Projects</a> <a href="/photos">Photos</a> <a href="/rss.xml">RSS</a><a href="/about">About</a> </footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Making a serverless website for photo and video upload pt. 2","date":"2020-12-26","slug":"2020-12-26","html":"\u003cp\u003eThis post follows\non \u003ca href=\"https://cmdcolin.github.io/2020-12-24.html\"\u003ehttps://cmdcolin.github.io/2020-12-24.html\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eIt is possible I zoomed ahead too fast to make this a continuous tutorial, but\noverall I just wanted to post an update\u003c/p\u003e\n\u003cp\u003eIn pt. 1 I learned how to use the \u003ccode\u003eaws-sam\u003c/code\u003e CLI tool. This was a great insight\nfor me about automating deployments. I can now simply run \u003ccode\u003esam deploy\u003c/code\u003e and it\nwill create new dynamodb tables, lambda functions, etc.\u003c/p\u003e\n\u003cp\u003eAfter writing pt 1. I converted the existing vue-js app that was in the aws\ntutorial and converted it to react. Then I extended the app to allow\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ePosting comments on photos\u003c/li\u003e\n\u003cli\u003eUploading multiple files\u003c/li\u003e\n\u003cli\u003eUploading videos etc.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eIt will be hard to summarize all the changes since now the app has taken off a\nlittle bit but it looks like this:\u003c/p\u003e\n\u003cp\u003eRepo structure\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e ./frontend # created using npx create-react-app frontend --template\n typescript\n ./frontend/src/App.tsx # main frontend app code in react\n ./lambdas/\n ./lambdas/postFile # post a file to the lambda, this uploads a row to\n dynamodb and returns a pre-signed URL for uploading (note that if the\n client failed it's upload, that row in the lambda DB might be in a bad\n state...)\n ./lambdas/getFiles # get all files that were ever posted\n ./lambdas/postComment # post a comment on a picture with POST\n request\n ./lambdas/getComments?file=filename.jpg # get comments on a\n picture/video with GET request\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eHere is a detailed code for uploading the file. We upload one file at a\ntime, but the client code post to the lambda endpoint individually for\neach file\u003c/p\u003e\n\u003cp\u003eThis generates a pre-signed URL to allow the client-side JS (not the\nlambda itself) to directly upload to S3, and also posts a row in the S3\nto the filename that will. It is very similar code in\nto \u003ca href=\"https://cmdcolin.github.io/2020-12-24.html\"\u003ehttps://cmdcolin.github.io/2020-12-24.html\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e./lambdas/postFile/app.js\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-js\"\u003e\u003cpre\u003e\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003euse strict\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eAWS\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003erequire\u003c/span\u003e(\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003eaws-sdk\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e)\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003emultipart\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003erequire\u003c/span\u003e(\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e./multipart\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e)\n\u003cspan class=\"pl-c1\"\u003eAWS\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003econfig\u003c/span\u003e.\u003cspan class=\"pl-en\"\u003eupdate\u003c/span\u003e({ region\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eprocess\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003eenv\u003c/span\u003e.\u003cspan class=\"pl-c1\"\u003eAWS_REGION\u003c/span\u003e })\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003es3\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003enew\u003c/span\u003e \u003cspan class=\"pl-en\"\u003eAWS.S3\u003c/span\u003e()\n\n\u003cspan class=\"pl-c\"\u003e// Change this value to adjust the signed URL's expiration\u003c/span\u003e\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eURL_EXPIRATION_SECONDS\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003e300\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e// Main Lambda entry point\u003c/span\u003e\n\u003cspan class=\"pl-c1\"\u003eexports\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003ehandler\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003easync\u003c/span\u003e \u003cspan class=\"pl-smi\"\u003eevent\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003e\u003c/span\u003e {\n  \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"pl-k\"\u003eawait\u003c/span\u003e \u003cspan class=\"pl-en\"\u003egetUploadURL\u003c/span\u003e(\u003cspan class=\"pl-c1\"\u003eevent\u003c/span\u003e)\n}\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e { AWS_REGION\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eregion\u003c/span\u003e } \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eprocess\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003eenv\u003c/span\u003e\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003edynamodb\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003enew\u003c/span\u003e \u003cspan class=\"pl-en\"\u003eAWS.DynamoDB\u003c/span\u003e({ apiVersion\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e2012-08-10\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e, region })\n\n\u003cspan class=\"pl-k\"\u003easync\u003c/span\u003e \u003cspan class=\"pl-k\"\u003efunction\u003c/span\u003e \u003cspan class=\"pl-en\"\u003euploadPic\u003c/span\u003e({\n  timestamp,\n  filename,\n  message,\n  user,\n  date,\n  contentType,\n}) {\n  \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eparams\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e {\n    Item\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n      timestamp\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n        \u003cspan class=\"pl-c1\"\u003eN\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e${\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-s1\"\u003etimestamp\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003c/span\u003e,\n      },\n      filename\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n        \u003cspan class=\"pl-c1\"\u003eS\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e filename,\n      },\n      message\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n        \u003cspan class=\"pl-c1\"\u003eS\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e message,\n      },\n      user\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n        \u003cspan class=\"pl-c1\"\u003eS\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e user,\n      },\n      date\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n        \u003cspan class=\"pl-c1\"\u003eS\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e date,\n      },\n      contentType\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e {\n        \u003cspan class=\"pl-c1\"\u003eS\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e contentType,\n      },\n    },\n    TableName\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003efiles\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e,\n  }\n  \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"pl-smi\"\u003edynamodb\u003c/span\u003e.\u003cspan class=\"pl-en\"\u003eputItem\u003c/span\u003e(params).\u003cspan class=\"pl-en\"\u003epromise\u003c/span\u003e()\n}\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003egetUploadURL\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003easync\u003c/span\u003e \u003cspan class=\"pl-k\"\u003efunction\u003c/span\u003e (\u003cspan class=\"pl-c1\"\u003eevent\u003c/span\u003e) {\n  \u003cspan class=\"pl-k\"\u003etry\u003c/span\u003e {\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003edata\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-smi\"\u003emultipart\u003c/span\u003e.\u003cspan class=\"pl-c1\"\u003eparse\u003c/span\u003e(\u003cspan class=\"pl-c1\"\u003eevent\u003c/span\u003e)\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e { \u003cspan class=\"pl-c1\"\u003efilename\u003c/span\u003e, \u003cspan class=\"pl-c1\"\u003econtentType\u003c/span\u003e, \u003cspan class=\"pl-c1\"\u003euser\u003c/span\u003e, \u003cspan class=\"pl-c1\"\u003emessage\u003c/span\u003e, \u003cspan class=\"pl-c1\"\u003edate\u003c/span\u003e } \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e data\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003etimestamp\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e+\u003c/span\u003e\u003cspan class=\"pl-c1\"\u003eDate\u003c/span\u003e.\u003cspan class=\"pl-en\"\u003enow\u003c/span\u003e()\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eKey\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e${\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-s1\"\u003etimestamp\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e}\u003c/span\u003e\u003c/span\u003e-\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e${\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-s1\"\u003efilename\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003c/span\u003e \u003cspan class=\"pl-c\"\u003e// Get signed URL from S3\u003c/span\u003e\n\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003es3Params\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e {\n      Bucket\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eprocess\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003eenv\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003eUploadBucket\u003c/span\u003e,\n      Key,\n      Expires\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eURL_EXPIRATION_SECONDS\u003c/span\u003e,\n      ContentType\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e contentType, \u003cspan class=\"pl-c\"\u003e// This ACL makes the uploaded object publicly readable. You must also uncomment // the extra permission for the Lambda function in the SAM template.\u003c/span\u003e\n\n      \u003cspan class=\"pl-c1\"\u003eACL\u003c/span\u003e\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003epublic-read\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e,\n    }\n\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003euploadURL\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003eawait\u003c/span\u003e \u003cspan class=\"pl-smi\"\u003es3\u003c/span\u003e.\u003cspan class=\"pl-en\"\u003egetSignedUrlPromise\u003c/span\u003e(\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003eputObject\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e, s3Params)\n\n    \u003cspan class=\"pl-k\"\u003eawait\u003c/span\u003e \u003cspan class=\"pl-en\"\u003euploadPic\u003c/span\u003e({\n      timestamp,\n      filename\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e Key,\n      message,\n      user,\n      date,\n      contentType,\n    })\n\n    \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eJSON\u003c/span\u003e.\u003cspan class=\"pl-c1\"\u003estringify\u003c/span\u003e({\n      uploadURL,\n      Key,\n    })\n  } \u003cspan class=\"pl-k\"\u003ecatch\u003c/span\u003e (e) {\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eresponse\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e {\n      statusCode\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003e500\u003c/span\u003e,\n      body\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eJSON\u003c/span\u003e.\u003cspan class=\"pl-c1\"\u003estringify\u003c/span\u003e({ message\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e${\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-s1\"\u003ee\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003c/span\u003e }),\n    }\n    \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e response\n  }\n}\n\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003e./lambdas/getFiles/app.js\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-js\"\u003e\u003cpre\u003e\u003cspan class=\"pl-c\"\u003e// eslint-disable-next-line import/no-unresolved\u003c/span\u003e\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eAWS\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003erequire\u003c/span\u003e(\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003eaws-sdk\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e)\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e { AWS_REGION\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eregion\u003c/span\u003e } \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eprocess\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003eenv\u003c/span\u003e\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003edocClient\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003enew\u003c/span\u003e \u003cspan class=\"pl-en\"\u003eAWS.DynamoDB.DocumentClient\u003c/span\u003e()\n\n\u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003egetItems\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003efunction\u003c/span\u003e () {\n  \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eparams\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e {\n    TableName\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003efiles\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e,\n  }\n\n  \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e \u003cspan class=\"pl-smi\"\u003edocClient\u003c/span\u003e.\u003cspan class=\"pl-en\"\u003escan\u003c/span\u003e(params).\u003cspan class=\"pl-en\"\u003epromise\u003c/span\u003e()\n}\n\n\u003cspan class=\"pl-c1\"\u003eexports\u003c/span\u003e.\u003cspan class=\"pl-smi\"\u003ehandler\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003easync\u003c/span\u003e \u003cspan class=\"pl-smi\"\u003eevent\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003e\u003c/span\u003e {\n  \u003cspan class=\"pl-k\"\u003etry\u003c/span\u003e {\n    \u003cspan class=\"pl-k\"\u003econst\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eresult\u003c/span\u003e \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e \u003cspan class=\"pl-k\"\u003eawait\u003c/span\u003e \u003cspan class=\"pl-en\"\u003egetItems\u003c/span\u003e()\n    \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e {\n      statusCode\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003e200\u003c/span\u003e,\n      body\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eJSON\u003c/span\u003e.\u003cspan class=\"pl-c1\"\u003estringify\u003c/span\u003e(result),\n    }\n  } \u003cspan class=\"pl-k\"\u003ecatch\u003c/span\u003e (e) {\n    \u003cspan class=\"pl-k\"\u003ereturn\u003c/span\u003e {\n      statusCode\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003e400\u003c/span\u003e,\n      body\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-c1\"\u003eJSON\u003c/span\u003e.\u003cspan class=\"pl-c1\"\u003estringify\u003c/span\u003e({ message\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e${\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-s1\"\u003ee\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003c/span\u003e }),\n    }\n  }\n}\n\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003e./frontend/src/App.tsx (excerpt)\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-text-xml\"\u003e\u003cpre\u003easync function myfetch(params: string, opts?: any) {\n  const response = await fetch(params, opts)\n  if (!response.ok) {\n    throw new Error(`HTTP ${response.status}\n ${response.statusText}`)\n  }\n  return response.json()\n}\n\nfunction UploadDialog({\n  open,\n  onClose,\n}: {\n  open: boolean\n  onClose: () =\u003e void\n}) {\n  const [images, setImages] = useState\u0026#x3C;\u003cspan class=\"pl-ent\"\u003eFileList\u003c/span\u003e\u003e()\n  const [error, setError] = useState\u0026#x3C;\u003cspan class=\"pl-ent\"\u003eError\u003c/span\u003e\u003e()\n  const [loading, setLoading] = useState(false)\n  const [total, setTotal] = useState(0)\n  const [completed, setCompleted] = useState(0)\n  const [user, setUser] = useState('')\n  const [message, setMessage] = useState('')\n  const classes = useStyles()\n\n  const handleClose = () =\u003e {\n    setError(undefined)\n    setLoading(false)\n    setImages(undefined)\n    setCompleted(0)\n    setTotal(0)\n    setMessage('')\n    onClose()\n  }\n\n  return (\n    \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eDialog\u003c/span\u003e \u003cspan class=\"pl-e\"\u003eonClose\u003c/span\u003e={handleClose} \u003cspan class=\"pl-e\"\u003eopen\u003c/span\u003e={open}\u003e\n           \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eDialogTitle\u003c/span\u003e\u003eupload a file (supports picture or video)\u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eDialogTitle\u003c/span\u003e\u003e \n         \n      \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eDialogContent\u003c/span\u003e\u003e\n               \u0026#x3C;\u003cspan class=\"pl-ent\"\u003elabel\u003c/span\u003e \u003cspan class=\"pl-e\"\u003ehtmlFor\u003c/span\u003e=\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003euser\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\u003ename (optional) \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003elabel\u003c/span\u003e\u003e\n               \u0026#x3C;\u003cspan class=\"pl-ent\"\u003einput\u003c/span\u003e\n          \u003cspan class=\"pl-e\"\u003etype\u003c/span\u003e=\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003etext\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n          \u003cspan class=\"pl-e\"\u003evalue\u003c/span\u003e={user}\n          \u003cspan class=\"pl-e\"\u003eonChange\u003c/span\u003e={event =\u003e setUser(event.target.value)}\n          id=\"user\"\n        /\u003e\n               \u0026#x3C;\u003cspan class=\"pl-ent\"\u003ebr\u003c/span\u003e /\u003e       \u0026#x3C;\u003cspan class=\"pl-ent\"\u003elabel\u003c/span\u003e \u003cspan class=\"pl-e\"\u003ehtmlFor\u003c/span\u003e=\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003euser\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\u003emessage (optional) \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003elabel\u003c/span\u003e\u003e\n               \n        \u0026#x3C;\u003cspan class=\"pl-ent\"\u003einput\u003c/span\u003e\n          \u003cspan class=\"pl-e\"\u003etype\u003c/span\u003e=\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003etext\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n          \u003cspan class=\"pl-e\"\u003evalue\u003c/span\u003e={message}\n          \u003cspan class=\"pl-e\"\u003eonChange\u003c/span\u003e={event =\u003e setMessage(event.target.value)}\n          id=\"message\"\n        /\u003e\n               \u0026#x3C;\u003cspan class=\"pl-ent\"\u003ebr\u003c/span\u003e /\u003e\n               \n        \u0026#x3C;\u003cspan class=\"pl-ent\"\u003einput\u003c/span\u003e\n          multiple\n          \u003cspan class=\"pl-e\"\u003etype\u003c/span\u003e=\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003efile\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n          \u003cspan class=\"pl-e\"\u003eonChange\u003c/span\u003e={e =\u003e {\n            let files = e.target.files\n            if (files \u003cspan class=\"pl-ii\"\u003e\u0026#x26;\u0026#x26;\u003c/span\u003e files.length) {\n              setImages(files)\n            }\n          }}\n        /\u003e       {error ? (\n          \u0026#x3C;\u003cspan class=\"pl-ent\"\u003ediv\u003c/span\u003e \u003cspan class=\"pl-e\"\u003eclassName\u003c/span\u003e={classes.error}\u003e{`${error}`}\u0026#x3C;/\u003cspan class=\"pl-ent\"\u003ediv\u003c/span\u003e\u003e\n        ) : loading ? (\n          `Uploading...${completed}/${total}`\n        ) : completed ? (\n          \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eh2\u003c/span\u003e\u003eUploaded \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eh2\u003c/span\u003e\u003e\n        ) : null}       \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eDialogActions\u003c/span\u003e\u003e\n                   \n          \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eButton\u003c/span\u003e\n            \u003cspan class=\"pl-e\"\u003estyle\u003c/span\u003e={{ textTransform: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003enone\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e }}\n            \u003cspan class=\"pl-e\"\u003eonClick\u003c/span\u003e={async () =\u003e {\n              try {\n                if (images) {\n                  setLoading(true)\n                  setError(undefined)\n                  setCompleted(0)\n                  setTotal(images.length)\n                  await Promise.all(\n                    Array.from(images).map(async image =\u003e {\n                      const data = new FormData()\n                      data.append('message', message)\n                      data.append('user', user)\n                      data.append('date', new Date().toLocaleString())\n                      data.append('filename', image.name)\n                      data.append('contentType', image.type)\n                      const res = await myfetch(API_ENDPOINT + '/postFile', {\n                        method: 'POST',\n                        body: data,\n                      })\n\n                      await myfetch(res.uploadURL, {\n                        method: 'PUT',\n                        body: image,\n                      })\n\n                      setCompleted(completed =\u003e completed + 1)\n                    }),\n                  )\n                  setTimeout(() =\u003e {\n                    handleClose()\n                  }, 500)\n                }\n              } catch (e) {\n                setError(e)\n              }\n            }}\n            color=\"primary\"\n          \u003e\n                       upload          \n          \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eButton\u003c/span\u003e\u003e\n                   \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eButton\u003c/span\u003e\n            \u003cspan class=\"pl-e\"\u003eonClick\u003c/span\u003e={handleClose}\n            \u003cspan class=\"pl-e\"\u003ecolor\u003c/span\u003e=\u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003eprimary\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n            \u003cspan class=\"pl-e\"\u003estyle\u003c/span\u003e={{ textTransform: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003enone\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e }}\n          \u003e\n                       cancel          \n          \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eButton\u003c/span\u003e\u003e       \n        \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eDialogActions\u003c/span\u003e\u003e     \n      \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eDialogContent\u003c/span\u003e\u003e\n         \n    \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003eDialog\u003c/span\u003e\u003e\n  )\n}\n\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003etemplate.yaml for AWS\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-yaml\"\u003e\u003cpre\u003e \u003cspan class=\"pl-ent\"\u003eAWSTemplateFormatVersion\u003c/span\u003e: \u003cspan class=\"pl-c1\"\u003e2010-09-09\u003c/span\u003e\n \u003cspan class=\"pl-ent\"\u003eTransform\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAWS::Serverless-2016-10-31\u003c/span\u003e\n \u003cspan class=\"pl-ent\"\u003eDescription\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eS3 Uploader\u003c/span\u003e\n\n \u003cspan class=\"pl-ent\"\u003eResources\u003c/span\u003e:\n  \u003cspan class=\"pl-ent\"\u003efilesDynamoDBTable\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAWS::DynamoDB::Table\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n      \u003cspan class=\"pl-ent\"\u003eAttributeDefinitions\u003c/span\u003e:\n        - \u003cspan class=\"pl-ent\"\u003eAttributeName\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003etimestamp\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n          \u003cspan class=\"pl-ent\"\u003eAttributeType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003eN\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eKeySchema\u003c/span\u003e:\n        - \u003cspan class=\"pl-ent\"\u003eAttributeName\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003etimestamp\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n          \u003cspan class=\"pl-ent\"\u003eKeyType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003eHASH\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eProvisionedThroughput\u003c/span\u003e:\n        \u003cspan class=\"pl-ent\"\u003eReadCapacityUnits\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e5\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n        \u003cspan class=\"pl-ent\"\u003eWriteCapacityUnits\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e5\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eTableName\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003efiles\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n\n  \u003cspan class=\"pl-c\"\u003e# HTTP API\u003c/span\u003e\n  \u003cspan class=\"pl-ent\"\u003eMyApi\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAWS::Serverless::HttpApi\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n      \u003cspan class=\"pl-c\"\u003e# CORS configuration - this is open for development only and\u003c/span\u003e\n \u003cspan class=\"pl-s\"\u003eshould be restricted in prod.\u003c/span\u003e\n      \u003cspan class=\"pl-c\"\u003e# See\u003c/span\u003e\n \u003cspan class=\"pl-s\"\u003e\u0026#x3C;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html\u003e\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eCorsConfiguration\u003c/span\u003e:\n        \u003cspan class=\"pl-ent\"\u003eAllowMethods\u003c/span\u003e:\n          - \u003cspan class=\"pl-s\"\u003eGET\u003c/span\u003e\n          - \u003cspan class=\"pl-s\"\u003ePOST\u003c/span\u003e\n          - \u003cspan class=\"pl-s\"\u003eDELETE\u003c/span\u003e\n          - \u003cspan class=\"pl-s\"\u003eOPTIONS\u003c/span\u003e\n        \u003cspan class=\"pl-ent\"\u003eAllowHeaders\u003c/span\u003e:\n          - \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e*\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n        \u003cspan class=\"pl-ent\"\u003eAllowOrigins\u003c/span\u003e:\n          - \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e*\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n\n  \u003cspan class=\"pl-ent\"\u003eUploadRequestFunction\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAWS::Serverless::Function\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n      \u003cspan class=\"pl-ent\"\u003eCodeUri\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003elambdas/postFile/\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eHandler\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eapp.handler\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eRuntime\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003enodejs12.x\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eTimeout\u003c/span\u003e: \u003cspan class=\"pl-c1\"\u003e3\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eMemorySize\u003c/span\u003e: \u003cspan class=\"pl-c1\"\u003e128\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eEnvironment\u003c/span\u003e:\n        \u003cspan class=\"pl-ent\"\u003eVariables\u003c/span\u003e:\n          \u003cspan class=\"pl-ent\"\u003eUploadBucket\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Ref S3UploadBucket\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003ePolicies\u003c/span\u003e:\n        - \u003cspan class=\"pl-s\"\u003eAmazonDynamoDBFullAccess\u003c/span\u003e\n        - \u003cspan class=\"pl-ent\"\u003eS3WritePolicy\u003c/span\u003e:\n            \u003cspan class=\"pl-ent\"\u003eBucketName\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Ref S3UploadBucket\u003c/span\u003e\n        - \u003cspan class=\"pl-ent\"\u003eStatement\u003c/span\u003e:\n            - \u003cspan class=\"pl-ent\"\u003eEffect\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAllow\u003c/span\u003e\n              \u003cspan class=\"pl-ent\"\u003eResource\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Sub \"arn:aws:s3:::${S3UploadBucket}/\"\u003c/span\u003e\n              \u003cspan class=\"pl-ent\"\u003eAction\u003c/span\u003e:\n                - \u003cspan class=\"pl-s\"\u003es3:putObjectAcl\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eEvents\u003c/span\u003e:\n        \u003cspan class=\"pl-ent\"\u003eUploadAssetAPI\u003c/span\u003e:\n          \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eHttpApi\u003c/span\u003e\n          \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n            \u003cspan class=\"pl-ent\"\u003ePath\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e/postFile\u003c/span\u003e\n            \u003cspan class=\"pl-ent\"\u003eMethod\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003epost\u003c/span\u003e\n            \u003cspan class=\"pl-ent\"\u003eApiId\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Ref MyApi\u003c/span\u003e\n\n\n  \u003cspan class=\"pl-ent\"\u003eFileReadFunction\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAWS::Serverless::Function\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n      \u003cspan class=\"pl-ent\"\u003eCodeUri\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003elambdas/getFiles/\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eHandler\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eapp.handler\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eRuntime\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003enodejs12.x\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eTimeout\u003c/span\u003e: \u003cspan class=\"pl-c1\"\u003e3\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eMemorySize\u003c/span\u003e: \u003cspan class=\"pl-c1\"\u003e128\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003ePolicies\u003c/span\u003e:\n        - \u003cspan class=\"pl-s\"\u003eAmazonDynamoDBFullAccess\u003c/span\u003e\n      \u003cspan class=\"pl-ent\"\u003eEvents\u003c/span\u003e:\n        \u003cspan class=\"pl-ent\"\u003eUploadAssetAPI\u003c/span\u003e:\n          \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eHttpApi\u003c/span\u003e\n          \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n            \u003cspan class=\"pl-ent\"\u003ePath\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e/getFiles\u003c/span\u003e\n            \u003cspan class=\"pl-ent\"\u003eMethod\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eget\u003c/span\u003e\n            \u003cspan class=\"pl-ent\"\u003eApiId\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Ref MyApi\u003c/span\u003e\n\n  \u003cspan class=\"pl-c\"\u003e## S3 bucket\u003c/span\u003e\n  \u003cspan class=\"pl-ent\"\u003eS3UploadBucket\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eType\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003eAWS::S3::Bucket\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eProperties\u003c/span\u003e:\n      \u003cspan class=\"pl-ent\"\u003eCorsConfiguration\u003c/span\u003e:\n        \u003cspan class=\"pl-ent\"\u003eCorsRules\u003c/span\u003e:\n          - \u003cspan class=\"pl-ent\"\u003eAllowedHeaders\u003c/span\u003e:\n              - \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e*\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n            \u003cspan class=\"pl-ent\"\u003eAllowedMethods\u003c/span\u003e:\n              - \u003cspan class=\"pl-s\"\u003eGET\u003c/span\u003e\n              - \u003cspan class=\"pl-s\"\u003ePUT\u003c/span\u003e\n              - \u003cspan class=\"pl-s\"\u003eHEAD\u003c/span\u003e\n            \u003cspan class=\"pl-ent\"\u003eAllowedOrigins\u003c/span\u003e:\n              - \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e*\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n\n\n \u003cspan class=\"pl-c\"\u003e## Take a note of the outputs for deploying the workflow templates\u003c/span\u003e\n \u003cspan class=\"pl-s\"\u003ein this sample application\u003c/span\u003e\n \u003cspan class=\"pl-ent\"\u003eOutputs\u003c/span\u003e:\n  \u003cspan class=\"pl-ent\"\u003eAPIendpoint\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eDescription\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003eHTTP API endpoint URL\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eValue\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Sub\u003c/span\u003e\n \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003ehttps://${MyApi}.execute-api.${AWS::Region}.amazonaws.com\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n  \u003cspan class=\"pl-ent\"\u003eS3UploadBucketName\u003c/span\u003e:\n    \u003cspan class=\"pl-ent\"\u003eDescription\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003eS3 bucket for application uploads\u003cspan class=\"pl-pds\"\u003e\"\u003c/span\u003e\u003c/span\u003e\n    \u003cspan class=\"pl-ent\"\u003eValue\u003c/span\u003e: \u003cspan class=\"pl-s\"\u003e!Ref \"S3UploadBucket\"\u003c/span\u003e\n\n\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003eTo display all the pictures I use a switch from video or img tag based\non contentType.startsWith('video'). I also use the \"figcaption\" HTML tag\nto have a little caption on the pics/videos\u003c/p\u003e\n\u003cp\u003e./frontend/src/App.tsx\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-text-xml\"\u003e\u003cpre\u003efunction Media({\n  file,\n  style,\n  onClick,\n  children,\n}: {\n  file: File\n  onClick?: Function\n  style?: React.CSSProperties\n  children?: React.ReactNode\n}) {\n  const { filename, contentType } = file\n  const src = `${BUCKET}/${filename}`\n  return (\n    \u0026#x3C;\u003cspan class=\"pl-ent\"\u003efigure\u003c/span\u003e \u003cspan class=\"pl-e\"\u003estyle\u003c/span\u003e={{ display: \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003einline-block\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e }}\u003e\n           \n      \u0026#x3C;\u003cspan class=\"pl-ent\"\u003epicture\u003c/span\u003e\u003e\n               \n        {contentType.startsWith('video') ? (\n          \u0026#x3C;\u003cspan class=\"pl-ent\"\u003evideo\u003c/span\u003e \u003cspan class=\"pl-e\"\u003estyle\u003c/span\u003e={style} \u003cspan class=\"pl-e\"\u003esrc\u003c/span\u003e={src} controls \u003cspan class=\"pl-e\"\u003eonClick\u003c/span\u003e={onClick as any} /\u003e\n        ) : (\n          \u0026#x3C;\u003cspan class=\"pl-ent\"\u003eimg\u003c/span\u003e \u003cspan class=\"pl-e\"\u003estyle\u003c/span\u003e={style} \u003cspan class=\"pl-e\"\u003esrc\u003c/span\u003e={src} \u003cspan class=\"pl-e\"\u003eonClick\u003c/span\u003e={onClick as any} /\u003e\n        )}\n             \n      \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003epicture\u003c/span\u003e\u003e\n           \u0026#x3C;\u003cspan class=\"pl-ent\"\u003efigcaption\u003c/span\u003e\u003e{children}\u0026#x3C;/\u003cspan class=\"pl-ent\"\u003efigcaption\u003c/span\u003e\u003e   \n    \u0026#x3C;/\u003cspan class=\"pl-ent\"\u003efigure\u003c/span\u003e\u003e\n  )\n}\n\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003eNow the really fun part: if you get an image of a picture frame\nlike \u003ca href=\"https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\"\u003ehttps://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eYou can make it a border for any image or video using border-image CSS\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-js\"\u003e\u003cpre\u003estyle \u003cspan class=\"pl-k\"\u003e=\u003c/span\u003e {\n  border\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e30px solid\u003cspan class=\"pl-pds\"\u003e'\u003c/span\u003e\u003c/span\u003e,\n  borderImage\u003cspan class=\"pl-k\"\u003e:\u003c/span\u003e \u003cspan class=\"pl-s\"\u003e\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003eurl(borders/\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e${\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"pl-s1\"\u003eborder\u003c/span\u003e\u003cspan class=\"pl-pse\"\u003e\u003cspan class=\"pl-s1\"\u003e}\u003c/span\u003e\u003c/span\u003e) 30 round\u003cspan class=\"pl-pds\"\u003e`\u003c/span\u003e\u003c/span\u003e,\n}\n\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003e\u003cimg src=\"/media/638602799897329664_0.png\" alt=\"\"\u003e\u003c/p\u003e\n\u003cp\u003eSummary\u003c/p\u003e\n\u003cp\u003eThe template.yaml automatically deploys the lambdas for postFile/getFile\nand the files table in dynamoDB\u003c/p\u003e\n\u003cp\u003eThe React app uses postFile for each file in an \u003ccode\u003e\u0026#x3C;input type=\"file\"/\u003e\u003c/code\u003e,\nthe code uses React hooks and functional components but is hopefully not\ntoo complex\u003c/p\u003e\n\u003cp\u003eI also added commenting on photos. The code is not shown here but you\ncan look in the source code for details\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"/media/638602799897329664_1.png\" alt=\"\"\u003e\u003c/p\u003e\n\u003cp\u003eOverall this has been a good experience learning to develop this app and\nlearning to automate the cloud deployment is really good for ensuring\nreliability and fast iteration.\u003c/p\u003e\n\u003cp\u003eAlso quick note on serverless CLI vs aws-sam. I had tried a serverless\nCLI tutorial from another user but it didn't click with me, while the\naws-sam tutorial from\n\u003ca href=\"https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1%C2%A0was\"\u003ehttps://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1 was\u003c/a\u003e\na great kick start for me. I am sure the serverless CLI is great too and\nit ensures a bit less vendor lock in, but then is also a little bit\nremoved from the native aws config schemas. Probably fine though\u003c/p\u003e\n\u003cp\u003eSource code \u003ca href=\"https://github.com/cmdcolin/aws_photo_gallery/\"\u003ehttps://github.com/cmdcolin/aws_photo_gallery/\u003c/a\u003e\u003c/p\u003e"}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2020-12-26"},"buildId":"Gu_cmNPdFMxUmPA9FwRHq","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
