@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 28 Aug 2022 15:24:10 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 29 Aug 2022 01:21:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3367,9 +3367,14 @@ Is this okay<span class="pl-k">?</span> [y/N]: y<span class="pl-s"><span class="
 <p><img src="/media/638408397901987840_0.png" alt=""></p>
 <p>They then in the tutorial describe trying to use postman to test</p>
 <p>I test with <code>curl</code> instead</p>
-<pre><code>curl 'https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads' {"uploadURL":"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=ASIAU6CQBER6YBNCDDMJ%2F20201224%2Fus-east-2%2Fs3%2Faws4_request&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDIaCXVzLWVhc3QtMiJGMEQCIH65IvgJsofUpIX46lTaG3Pi5WC85ti1lukM3iICh%2BB%2BAiAJEyynPNPhZN8%2Bg1ylO7wthqud9cBcNIChIp2H%2F%2BR7mCryAQjb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDMzOTQ3MDI2MzQyMSIMLqPo1IYyH7udCGZuKsYBSEF3c50YXkmPeSWcLsEzq%2BFBTpeOIrwZTyCUjbJ7fgJUakhM1YRX40jExstN8eJcMXqw00Xd5lYHvZDbU9ajwWPLRAxcEN5BQ0utqn0NGTLyJhibzJUj8cjgm5RguIEKe9GUtMVWa9mi7C5%2FlFpS0i9jK5BSVf74JyPSLETV5mzMMzy5kHBQMGjw1dR66E3MG8PjIqfgKjhVtZmlaicf5OmeqNI2%2F8T5ye%2FICRsH4d7KNEmj4FELa8buW8U%2Fn97ThfH3P7XmMNOok%2F8FOuEBDj1EHluCT4DfZ1jIXjvrJsVv1WtV4POQDn2Dah%2BWosBn%2BFNTtQtw841ACDarYR1ZVbuwcpTjfBPlGuSOncPsbzOhzDy7wYyumsPKsXoPdxTncMWbx4BQkbU5SeF9hjpfIKRMSOqkJBN7%2BtgHXwuW1rfYMDN2OAlQZpTj7uWMPWojUMbvMzyHvI2pfgcRAlrBdGGYDigyjWl9QXP%2Bdi6WiR7XCSXbWcIAJDZh%2Beb%2BIH1asmMJtpAK6nMP8gWczaYh7PMeYyVOIs2B20xQBy%2Bz7oe%2BYQ2GfdEr2hgqPH3jd%2B7c&#x26;X-Amz-Signature=11b8cd524c25ef51193e3b3fc4816760ebcde8bfc74bd52f3f91d8bf409620f5&#x26;X-Amz-SignedHeaders=host","Key":"112162.jpg"}%
+<div class="highlight highlight-shell"><pre>curl <span class="pl-s"><span class="pl-pds">'</span>https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads<span class="pl-pds">'</span></span>
 
-</code></pre>
+</pre></div>
+<div class="highlight highlight-json"><pre>{
+  <span class="pl-ent">"uploadURL"</span>: <span class="pl-s"><span class="pl-pds">"</span>https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"Key"</span>: <span class="pl-s"><span class="pl-pds">"</span>112162.jpg<span class="pl-pds">"</span></span>
+}
+</pre></div>
 <p>The premise of this is you make a request, and then the response from
 the API is a pre-signed URL that then allows you to upload directly to
 S3. You can use <code>curl &#x3C;url> --upload-file yourfile.jpg</code>. This
@@ -3377,16 +3382,14 @@ automatically does a PUT request to the s3 bucket (yes, this is talking
 directly to s3 now, not the lambda! the lambda is just for generating
 the "pre-signed URL" to let you upload). Careful to copy it exactly as
 is</p>
-<pre><code> curl "https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=ASIAU6CQBER6YBNCDDMJ%2F20201224%2Fus-east-2%2Fs3%2Faws4_request&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDIaCXVzLWVhc3QtMiJGMEQCIH65IvgJsofUpIX46lTaG3Pi5WC85ti1lukM3iICh%2BB%2BAiAJEyynPNPhZN8%2Bg1ylO7wthqud9cBcNIChIp2H%2F%2BR7mCryAQjb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDMzOTQ3MDI2MzQyMSIMLqPo1IYyH7udCGZuKsYBSEF3c50YXkmPeSWcLsEzq%2BFBTpeOIrwZTyCUjbJ7fgJUakhM1YRX40jExstN8eJcMXqw00Xd5lYHvZDbU9ajwWPLRAxcEN5BQ0utqn0NGTLyJhibzJUj8cjgm5RguIEKe9GUtMVWa9mi7C5%2FlFpS0i9jK5BSVf74JyPSLETV5mzMMzy5kHBQMGjw1dR66E3MG8PjIqfgKjhVtZmlaicf5OmeqNI2%2F8T5ye%2FICRsH4d7KNEmj4FELa8buW8U%2Fn97ThfH3P7XmMNOok%2F8FOuEBDj1EHluCT4DfZ1jIXjvrJsVv1WtV4POQDn2Dah%2BWosBn%2BFNTtQtw841ACDarYR1ZVbuwcpTjfBPlGuSOncPsbzOhzDy7wYyumsPKsXoPdxTncMWbx4BQkbU5SeF9hjpfIKRMSOqkJBN7%2BtgHXwuW1rfYMDN2OAlQZpTj7uWMPWojUMbvMzyHvI2pfgcRAlrBdGGYDigyjWl9QXP%2Bdi6WiR7XCSXbWcIAJDZh%2Beb%2BIH1asmMJtpAK6nMP8gWczaYh7PMeYyVOIs2B20xQBy%2Bz7oe%2BYQ2GfdEr2hgqPH3jd%2B7c&#x26;X-Amz-Signature=11b8cd524c25ef51193e3b3fc4816760ebcde8bfc74bd52f3f91d8bf409620f5&#x26;X-Amz-SignedHeaders=host" --upload-file test.jpg
-</code></pre>
+<div class="highlight highlight-shell"><pre>curl <span class="pl-s"><span class="pl-pds">"</span>https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host<span class="pl-pds">"</span></span> --upload-file test.jpg
+</pre></div>
 <p>There is no response, but I can then check the s3 console and see the
 file upload is successful (all files are renamed)</p>
 <p><img src="/media/638408397901987840_1.png" alt=""></p>
 <p>Figure shows that the file upload is successful :)</p>
 <p>Then we can edit the file frontend/index.html from the repo we cloned to
 contain the lambda with the /uploads/ suffix</p>
-<p><img src="/media/638408397901987840_2.png" alt=""></p>
-<p>Figure shows editing the index.html with the lambda endpoint</p>
 <p>Then we manually upload this file to another s3 bucket or test it
 locally</p>
 <div class="highlight highlight-shell"><pre>aws s3 cp index.html s3://mybucket/
