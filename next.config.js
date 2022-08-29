@@ -1,4 +1,4 @@
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
@@ -8,5 +8,3 @@ const nextConfig = {
     path: '/',
   },
 }
-
-export default nextConfig
