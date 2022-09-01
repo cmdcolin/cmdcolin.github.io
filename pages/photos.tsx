@@ -18,7 +18,7 @@ function Contents() {
           A big old{' '}
           <a href="https://raw.githubusercontent.com/cmdcolin/logistic_chaos_map/master/img/2.png">
             logistic fractal
-          </a>
+          </a>{' '}
           from my renderer (see projects)
         </li>
         <li>

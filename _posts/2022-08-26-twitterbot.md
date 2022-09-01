@@ -19,7 +19,8 @@ Get your keys. I forget the exact procedure for this but go to
 https://developer.twitter.com and sign up, register an "app" with them, and
 poke around for awhile.
 
-After sometime, you should get a screen that looks like this
+After sometime, you should get a screen that looks like this. Keep this around
+for Step 4
 
 ![](https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true)
 
