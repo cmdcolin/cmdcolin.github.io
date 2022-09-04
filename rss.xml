@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Thu, 01 Sep 2022 01:34:19 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 04 Sep 2022 14:30:16 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -26,7 +26,8 @@ steps, you can make a bot!</p>
 <p>Get your keys. I forget the exact procedure for this but go to
 <a href="https://developer.twitter.com">https://developer.twitter.com</a> and sign up, register an "app" with them, and
 poke around for awhile.</p>
-<p>After sometime, you should get a screen that looks like this</p>
+<p>After sometime, you should get a screen that looks like this. Keep this around
+for Step 4</p>
 <p><img src="https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true" alt=""></p>
 <h3 id="step-2"><a aria-hidden="true" tabindex="-1" href="#step-2"><a href="#step-2" style="margin-right: 10px">#</a></a>Step 2</h3>
 <p>Make a repo with a couple dependencies</p>
