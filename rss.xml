@@ -4,11 +4,19 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 04 Sep 2022 14:30:16 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Sep 2022 21:03:23 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
+        <item>
+            <title><![CDATA[Diving into rust - creating a music player using gtk4-rs]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</link>
+            <guid>https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</guid>
+            <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[<p>I</p>]]></content:encoded>
+            <author>colin.diesh@gmail.com (Colin Diesh)</author>
+        </item>
         <item>
             <title><![CDATA[Making a twitter bot in the year 2022 with node.js]]></title>
             <link>https://cmdcolin.github.io/posts/2022-08-26-twitterbot</link>
@@ -1467,8 +1475,9 @@ column of <code>SAM</code>).</p>
 record is marked as "representative", I call this the "primary" record, while
 the other components of the split read are maked supplementary, given the 2048
 flag. Only the "primary" record generally has a <code>SEQ</code> field. The split
-alignments are generally also all given a <code>SA</code> tag that gives info on where all
-the other parts of the split are. See
+alignments are given a <code>SA</code> tag that gives info on where all the other parts of
+the split are. The supplementary alignments may not have a <code>SEQ</code> field
+(secondary alignments also may not have a <code>SEQ</code> field). See
 <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more info
 on the <code>SA</code> tag.</p>
 <p>Note: split alignments are different from "multi-mappers" where the entire read
