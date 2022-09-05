@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 05 Sep 2022 21:28:26 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Sep 2022 21:30:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1484,7 +1484,7 @@ all the other parts of the split are. The supplementary alignments may not have
 a <code>SEQ</code> field. See
 <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more info
 on the <code>SA</code> tag.</p>
-<h2 id="what-are-secondary-alignmentsmulti-mappers"><a aria-hidden="true" tabindex="-1" href="#what-are-secondary-alignmentsmulti-mappers"><a href="#what-are-secondary-alignmentsmulti-mappers" style="margin-right: 10px">#</a></a>What are secondary alignments/multi-mappers</h2>
+<h3 id="what-are-secondary-alignmentsmulti-mappers"><a aria-hidden="true" tabindex="-1" href="#what-are-secondary-alignmentsmulti-mappers"><a href="#what-are-secondary-alignmentsmulti-mappers" style="margin-right: 10px">#</a></a>What are secondary alignments/multi-mappers</h3>
 <p>Secondary alignments generally come from "multi-mappers" where the entire read
 maps equally well to, say, somewhere on both <code>chr4</code> and <code>chr1</code>. "Multi mapping"
 results in secondary alignments, while split reads result in supplementary
