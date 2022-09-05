@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 05 Sep 2022 21:05:04 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Sep 2022 21:22:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1474,18 +1474,24 @@ column of <code>SAM</code>).</p>
 <p>As <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAMv1.pdf</a> tells us, one
 record is marked as "representative", I call this the "primary" record, while
 the other components of the split read are maked supplementary, given the 2048
-flag. Only the "primary" record generally has a <code>SEQ</code> field. The split
-alignments are given a <code>SA</code> tag that gives info on where all the other parts of
-the split are. The supplementary alignments may not have a <code>SEQ</code> field
-(secondary alignments also may not have a <code>SEQ</code> field). See
+flag. The "primary" record generally has a <code>SEQ</code> field that represents the
+entirety of the original read's sequence (with CIGAR soft clipping operators
+saying which part of that sequence aligned), and the "supplementary alignments"
+will have <code>SEQ</code> field but sometimes just segments of the original read's
+sequence with CIGAR hard clipping operators indicating that it is partial. The
+"supplementary alignments" are also given a <code>SA</code> tag that gives info on where
+all the other parts of the split are. The supplementary alignments may not have
+a <code>SEQ</code> field. See
 <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more info
 on the <code>SA</code> tag.</p>
 <p>Note: split alignments are different from "multi-mappers" where the entire read
 maps maps equally well to, say, <code>chr4</code> and <code>chr1</code>. "Multi mapping" results in
-secondary alignments, while split reads result in supplementary alignments.
-See "Multiple mapping" in the
+secondary alignments, while split reads result in supplementary alignments. See
+"Multiple mapping" in the
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAMv1.pdf</a> for the definition
-of multi-mapping.</p>
+of multi-mapping. Note also that secondary alignments are often missing the
+<code>SEQ</code> field entirely too, see
+<a href="https://github.com/lh3/minimap2/issues/458#issuecomment-516661855">https://github.com/lh3/minimap2/issues/458#issuecomment-516661855</a></p>
 <h3 id="what-is-the-sa-tag"><a aria-hidden="true" tabindex="-1" href="#what-is-the-sa-tag"><a href="#what-is-the-sa-tag" style="margin-right: 10px">#</a></a>What is the <code>SA</code> tag?</h3>
 <p>The <code>SA</code> tag is outputted on each part of the split alignment, e.g. the primary
 contains an <code>SA</code> tag that refers to all the locations, <code>CIGAR</code> strings, and
