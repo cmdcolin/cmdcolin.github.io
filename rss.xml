@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 05 Sep 2022 21:30:51 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Sep 2022 21:38:06 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1460,30 +1460,25 @@ read may map to <code>chr1</code> and part of it maps to <code>chr4</code>. It i
 definition of "Chimeric alignment" from
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAMv1.pdf</a> when you get the
 chance.</p>
-<p>Split alignments are especially common with long reads, and it can indicate
-large structural variants. There may be a structural variant where the two
-chromosomes are fused together, and parts of the read align to multiple
-chromosomes, or the split alignment may align to either side of a large
-deletion, or they may be split to align through an inversion (part of it aligns
-to the forward strand, part of it to the reverse strand, and again the forward
-strand)</p>
+<p>As <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAMv1.pdf</a> tells us, one
+record is marked as "representative", sometimes also called the "primary"
+record, while the other components of the split read are marked
+"supplementary", given the 2048 flag. The "primary" record generally has a
+<code>SEQ</code> field that represents the entirety of the original read's sequence (with
+CIGAR soft clipping operators saying which part of that sequence aligned), and
+the "supplementary alignments" will have <code>SEQ</code> field but sometimes just
+segments of the original read's sequence with CIGAR hard clipping operators
+indicating that it is partial.</p>
+<p>Supplementary alignments are especially common with long reads, and it can be a
+signal for structural variants e.g. where two chromosomes are fused together,
+and parts of the read align to multiple chromosomes, or the split alignment may
+align to either side of a large deletion, or they may be split to align through
+an inversion (part of it aligns to the forward strand, part of it to the
+reverse strand, and again the forward strand)</p>
 <p>There is no limitation on how many splits might occur so the split can align to
 3, 4, or more different places. Each part of the split puts a new line in the
-SAM file, and note that all the records also have the same read name, or <code>QNAME</code> (first
-column of <code>SAM</code>).</p>
-<p>As <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAMv1.pdf</a> tells us, one
-record is marked as "representative", I call this the "primary" record, while
-the other components of the split read are maked supplementary, given the 2048
-flag. The "primary" record generally has a <code>SEQ</code> field that represents the
-entirety of the original read's sequence (with CIGAR soft clipping operators
-saying which part of that sequence aligned), and the "supplementary alignments"
-will have <code>SEQ</code> field but sometimes just segments of the original read's
-sequence with CIGAR hard clipping operators indicating that it is partial. The
-"supplementary alignments" are also given a <code>SA</code> tag that gives info on where
-all the other parts of the split are. The supplementary alignments may not have
-a <code>SEQ</code> field. See
-<a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more info
-on the <code>SA</code> tag.</p>
+SAM file, and note that all the records also have the same read name, or
+<code>QNAME</code> (first column of <code>SAM</code>).</p>
 <h3 id="what-are-secondary-alignmentsmulti-mappers"><a aria-hidden="true" tabindex="-1" href="#what-are-secondary-alignmentsmulti-mappers"><a href="#what-are-secondary-alignmentsmulti-mappers" style="margin-right: 10px">#</a></a>What are secondary alignments/multi-mappers</h3>
 <p>Secondary alignments generally come from "multi-mappers" where the entire read
 maps equally well to, say, somewhere on both <code>chr4</code> and <code>chr1</code>. "Multi mapping"
@@ -1494,11 +1489,11 @@ of multi-mapping. Note also that secondary alignments sometimes are missing the
 <code>SEQ</code> field entirely too, see
 <a href="https://github.com/lh3/minimap2/issues/458#issuecomment-516661855">https://github.com/lh3/minimap2/issues/458#issuecomment-516661855</a></p>
 <h3 id="what-is-the-sa-tag"><a aria-hidden="true" tabindex="-1" href="#what-is-the-sa-tag"><a href="#what-is-the-sa-tag" style="margin-right: 10px">#</a></a>What is the <code>SA</code> tag?</h3>
-<p>The <code>SA</code> tag is outputted on each part of the split alignment, e.g. the primary
-contains an <code>SA</code> tag that refers to all the locations, <code>CIGAR</code> strings, and
-more for all the supplementary reads, and each of the supplementary reads also
-contains an <code>SA</code> tag that refers to the primary alignment and each other
-supplementary alignment.</p>
+<p>The <code>SA</code> tag is outputted on each part of the supplementary/split/chimeric
+alignment, e.g. the primary contains an <code>SA</code> tag that refers to all the
+locations, <code>CIGAR</code> strings, and more for all the supplementary reads, and each
+of the supplementary reads also contains an <code>SA</code> tag that refers to the primary
+alignment and each other supplementary alignment.</p>
 <p>Fun fact: The <code>SA</code> tag conceptually can result in a 'quadratic explosion' of
 data, because each part of the split contains references to every other part.
 For example, if a read is split into 4 pieces, then each record would would
@@ -1506,6 +1501,8 @@ have an <code>SA</code> tag with 3 segments, so 3*4 segments will be documented 
 <code>SA</code> tag. In many cases, this is not a problem, but if you imagine a finished
 chromosome aligned to a draft assembly, it may get split so many times
 this could be a factor.</p>
+<p>See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
+info on the <code>SA</code> tag.</p>
 <h3 id="visualizing-split-reads-across-a-breakend-or-translocation"><a aria-hidden="true" tabindex="-1" href="#visualizing-split-reads-across-a-breakend-or-translocation"><a href="#visualizing-split-reads-across-a-breakend-or-translocation" style="margin-right: 10px">#</a></a>Visualizing split reads across a breakend or translocation</h3>
 <p>This is a specialized JBrowse 2 feature, but if there is an inter-chromosomal
 translocation, you can load this into JBrowse and visualize support for this
