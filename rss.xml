@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 05 Sep 2022 21:38:06 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 05 Sep 2022 21:41:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1490,17 +1490,17 @@ of multi-mapping. Note also that secondary alignments sometimes are missing the
 <a href="https://github.com/lh3/minimap2/issues/458#issuecomment-516661855">https://github.com/lh3/minimap2/issues/458#issuecomment-516661855</a></p>
 <h3 id="what-is-the-sa-tag"><a aria-hidden="true" tabindex="-1" href="#what-is-the-sa-tag"><a href="#what-is-the-sa-tag" style="margin-right: 10px">#</a></a>What is the <code>SA</code> tag?</h3>
 <p>The <code>SA</code> tag is outputted on each part of the supplementary/split/chimeric
-alignment, e.g. the primary contains an <code>SA</code> tag that refers to all the
-locations, <code>CIGAR</code> strings, and more for all the supplementary reads, and each
-of the supplementary reads also contains an <code>SA</code> tag that refers to the primary
-alignment and each other supplementary alignment.</p>
+alignment, e.g. the primary contains an <code>SA</code> tag that refers to information
+(e.g. the location) of where all the supplementary alignments where placed, and
+each of the supplementary alignments also contains an <code>SA</code> tag that refers to
+the primary alignment and each other supplementary alignment.</p>
 <p>Fun fact: The <code>SA</code> tag conceptually can result in a 'quadratic explosion' of
 data, because each part of the split contains references to every other part.
 For example, if a read is split into 4 pieces, then each record would would
 have an <code>SA</code> tag with 3 segments, so 3*4 segments will be documented in the
 <code>SA</code> tag. In many cases, this is not a problem, but if you imagine a finished
-chromosome aligned to a draft assembly, it may get split so many times
-this could be a factor.</p>
+chromosome aligned to a draft assembly, it may get split so many times this
+could be a factor.</p>
 <p>See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
 info on the <code>SA</code> tag.</p>
 <h3 id="visualizing-split-reads-across-a-breakend-or-translocation"><a aria-hidden="true" tabindex="-1" href="#visualizing-split-reads-across-a-breakend-or-translocation"><a href="#visualizing-split-reads-across-a-breakend-or-translocation" style="margin-right: 10px">#</a></a>Visualizing split reads across a breakend or translocation</h3>
