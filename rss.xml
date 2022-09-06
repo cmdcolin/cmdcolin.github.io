@@ -4,17 +4,50 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 05 Sep 2022 21:47:04 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 06 Sep 2022 21:37:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Diving into rust - creating a music player using gtk4-rs]]></title>
+            <title><![CDATA[Creating a music player using Rust/GTK4 - fml9000]]></title>
             <link>https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</link>
             <guid>https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</guid>
             <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p>I</p>]]></content:encoded>
+            <content:encoded><![CDATA[<p>I have started endeavoring to learn Rust. I did the rustlings exercises but I
+knew the concepts would fade rapidly from my brain without some practice. I
+have now started making a music player using Rust+GTK4.</p>
+<p>I chose GTK4 is to have a linux native GUI to scratch the itch that I've had in
+lacking foobar2000 on linux. I have a particular foobar2000 setup that uses
+default UI with four quadrants. I have used foobar2000 under wine and it's not
+terrible, but it has background CPU consumption of about 14% idle and is just a
+little "off". I have also used a variety of other GUI (quodlibet) and CLI
+(cmus) apps on linux, but they didn't really feel quite right.</p>
+<p>My first hurdle was getting started with GTK and Rust. I started by attempting
+with Relm4, which I may return to at some point, but trying to juggle learning
+Relm4-style widgets, GTK, and rust all at once was a bit much. I stepped to
+using gtk4-rs directly.</p>
+<p>Then, I wanted to create a data grid showing to display e.g. a table with
+artist, track, album, etc. I chose to use the
+<a href="https://docs.gtk.org/gtk4/class.ColumnView.html">Gtk::ColumnView</a> to drive
+this. There was no example code for this so I stuggled with this (for a couple
+days) before realizing that the ListView example in the gtk4-rs codebase has
+similar concepts (factory to create grid cells, etc). I created a PR
+(<a href="https://github.com/gtk-rs/gtk4-rs/pull/1111">https://github.com/gtk-rs/gtk4-rs/pull/1111</a>) to demonstrate simple ColumnView
+usage.</p>
+<p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset.
+I would just search for various components and they often already existed which
+was great. There was even one called Gtk::MediaFile which should to be able to
+play e.g. mp3s, making my job of making a media player much simpler, but it
+produced an error <a href="https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;aqs=chrome..69i57.267j0j7&#x26;sourceid=chrome&#x26;ie=UTF-8">"GTK could not find a media module. Check your
+installation."</a>
+which had very few references on the internet. So, I am trying out symphonia
+(<a href="https://github.com/pdeljanov/Symphonia/">https://github.com/pdeljanov/Symphonia/</a>), with the hope being that it is
+easier to package these for consumers of the app.</p>
+<p>The current work is at <a href="https://github.com/cmdcolin/fml9000">https://github.com/cmdcolin/fml9000</a></p>
+<p><img src="/media/fml9000_1.png" alt=""></p>
+<p>Some stuff in the screenshot is mocked and not fully functional, but it has
+been a great adventure</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
