@@ -17,10 +17,15 @@ steps, you can make a bot!
 
 Get your keys. I forget the exact procedure for this but go to
 https://developer.twitter.com and sign up, register an "app" with them, and
-poke around for awhile.
+poke around for awhile. This github repo provides a couple more details about
+the process of registering
+https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal
 
 After sometime, you should get a screen that looks like this. Keep this around
-for Step 4
+for Step 4. Note: I did not have to apply for any elevated access for this
+article, just the basic level you get from the initial registration! I believe
+in twitter terms, this article only requires "Essential" access and not any
+"Elevated" access.
 
 ![](https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true)
 
