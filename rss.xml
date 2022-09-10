@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 10 Sep 2022 19:43:14 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 10 Sep 2022 19:53:10 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -28,14 +28,13 @@ right.</p>
 <p>I started by attempting with <code>Relm4</code>, which I may return to at some point, but
 trying to juggle learning Relm4-style widgets, GTK, and rust all at once was a
 bit much. I stepped to using <code>gtk4-rs</code> directly.</p>
-<h3 id="trying-to-create-a-spreadsheet-style-or-data-grid-of-tracks"><a aria-hidden="true" tabindex="-1" href="#trying-to-create-a-spreadsheet-style-or-data-grid-of-tracks"><a href="#trying-to-create-a-spreadsheet-style-or-data-grid-of-tracks" style="margin-right: 10px">#</a></a>Trying to create a "spreadsheet style" or data grid of tracks</h3>
+<h3 id="create-a-spreadsheet-style-data-grid-of-tracks-with-gtk-columnview"><a aria-hidden="true" tabindex="-1" href="#create-a-spreadsheet-style-data-grid-of-tracks-with-gtk-columnview"><a href="#create-a-spreadsheet-style-data-grid-of-tracks-with-gtk-columnview" style="margin-right: 10px">#</a></a>Create a "spreadsheet style" data grid of tracks with GTK ColumnView</h3>
 <p>Then, I wanted to create a data grid showing to display e.g. a table with
 artist, track, album, etc. I chose to use the GTK
 <a href="https://docs.gtk.org/gtk4/class.ColumnView.html"><code>ColumnView</code></a> to drive this.
 I stumbled around looking for example code, but there was none specifically for
 the <code>ColumnView</code>. I also realized the <code>ListView</code> example from the <code>gtk4-rs</code>
 examples with it's factory function had similar needs that the <code>ColumnView</code>.</p>
-<h3 id="how-set-up-the-columnview"><a aria-hidden="true" tabindex="-1" href="#how-set-up-the-columnview"><a href="#how-set-up-the-columnview" style="margin-right: 10px">#</a></a>How set up the <code>ColumnView</code></h3>
 <p>I found out that I basically needed to create a <code>ListStore</code>. I thought if
 I could make my own <code>GObject</code> subclass, it would solve everything, but I had
 trouble getting making this work (rust doesn't have the concept of extending a
@@ -44,63 +43,62 @@ stumbled on this link using a <code>BoxedAnyObject</code> with a good example of
 data in a ListStore
 <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/struct.BoxedAnyObject.html">https://gtk-rs.org/gtk-rs-core/git/docs/glib/struct.BoxedAnyObject.html</a></p>
 <p>The <code>BoxedAnyObject</code> is a <code>GObject</code>, so this was an good route to storing the
-<code>ListView</code> items.</p>
-<h3 id="accessing-the-liststore-in-the-columnview-factory-function"><a aria-hidden="true" tabindex="-1" href="#accessing-the-liststore-in-the-columnview-factory-function"><a href="#accessing-the-liststore-in-the-columnview-factory-function" style="margin-right: 10px">#</a></a>Accessing the <code>ListStore</code> in the <code>ColumnView</code> factory function</h3>
-<p>There was no example code for this so I stuggled for awhile before realizing
-that the ListView example in the gtk4-rs codebase has similar concepts (factory
-to create grid cells, etc).</p>
-<h3 id="creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a aria-hidden="true" tabindex="-1" href="#creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a href="#creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage" style="margin-right: 10px">#</a></a>Creating a PR to the <code>gtk4-rs</code> repo to demonstrate example ColumnView usage</h3>
-<p>I created a PR (<a href="https://github.com/gtk-rs/gtk4-rs/pull/1111">https://github.com/gtk-rs/gtk4-rs/pull/1111</a>) to demonstrate
-simple ColumnView usage. The code review that was given on the PR was
-excellent. They explained how to simplify the code I submitted so that each
-grid cell was very minimal (starting from a <code>gtk::Box</code> with a <code>gtk::Label</code>
-inside of it, to just being a <code>gtk::Inscription</code> which is very fast). Big
-thanks to the team for helping out with this!</p>
-<p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
-and I quickly fleshed out some more UI for the app
-a</p>
+<code>ListView</code> items. There was no example code for connecting the <code>ListStore</code> with
+the <code>ColumnView</code>, so I stuggled for awhile before realizing that the <code>ListView</code>
+example in the <code>gtk4-rs</code> codebase has similar concepts.</p>
+<p>See [1] for minimal usage of <code>ColumnView</code> that I contributed to the <code>gtk4-rs</code>
+repo!</p>
 <h3 id="choosing-an-audio-library"><a aria-hidden="true" tabindex="-1" href="#choosing-an-audio-library"><a href="#choosing-an-audio-library" style="margin-right: 10px">#</a></a>Choosing an audio library</h3>
 <p>To actually play audio, I looked at a couple options. There was even one option
-called Gtk::MediaFile which should to be able to play e.g. mp3s, making my job
+called <code>Gtk::MediaFile</code> which should to be able to play e.g. mp3s, making my job
 of making a media player much simpler, but it produced an error <a href="https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;aqs=chrome..69i57.267j0j7&#x26;sourceid=chrome&#x26;ie=UTF-8">"GTK could not
 find a media module. Check your
 installation."</a>
 which had very few references on the internet. I figured this could be
 difficult to solve or point to issues I could face later on making minimal
 executables for users.</p>
-<p>So, next I tried out symphonia (<a href="https://github.com/pdeljanov/Symphonia/">https://github.com/pdeljanov/Symphonia/</a>), with
-the hope being that it is easier to package these for consumers of the app.
-This requires a lot more code to work (~1000 lines so far, copying from the
-<code>symphonia-play</code> example) but it has broad file format support, pure-rust audio
-stack, etc.</p>
-<h3 id="reading-audio-metadata-and-storing-in-a-sqlite-database"><a aria-hidden="true" tabindex="-1" href="#reading-audio-metadata-and-storing-in-a-sqlite-database"><a href="#reading-audio-metadata-and-storing-in-a-sqlite-database" style="margin-right: 10px">#</a></a>Reading audio metadata and storing in a sqlite database</h3>
+<p>So, next I tried out <code>symphonia</code> (<a href="https://github.com/pdeljanov/Symphonia/">https://github.com/pdeljanov/Symphonia/</a>).
+Symphonia requires a lot more code to work (~1000 lines so far, copying from
+the <code>symphonia-play</code> example) but it has broad file format support, pure-rust
+audio stack, etc.</p>
+<h3 id="reading-audio-metadata-into-an-sqlite-db"><a aria-hidden="true" tabindex="-1" href="#reading-audio-metadata-into-an-sqlite-db"><a href="#reading-audio-metadata-into-an-sqlite-db" style="margin-right: 10px">#</a></a>Reading audio metadata into an <code>sqlite</code> DB</h3>
 <p>I also wanted to have the option of reading and writing audio metadata.
 Symphonia only reads metadata, so I found the <code>lofty</code> crate.</p>
 <p>I also realized that reading tens of thousands of file's metadata at each app
-startup would be slow, so I endeavored to store that data in an sqlite
-database. I found that music players like foobar2000 and 0xdeadbeef have
-databases of track metadata also (Example folder on foobar2000 (1.x) for this
+startup would be slow, so I endeavored to store that data in an <code>sqlite</code>
+database. I found that music players like <code>foobar2000</code> and <code>0xdeadbeef</code> have
+databases of track metadata also (Example folder on <code>foobar2000</code> (1.x) for this
 snap/foobar2000/433/foobar2000/profile/library/74E45640B1C695CC/meta-0001,
 meta-0002, etc.)</p>
 <p>I used the <code>walkdir</code> crate to walk a directory for files, <code>lofty</code> to read the
-metadata, and then finally inserted the data into the sqlite db. I am still
+metadata, and then finally inserted the data into the <code>sqlite</code> db. I am still
 working out the schema for the database but it provisionally associates data
 with a primary key of filename.</p>
 <h3 id="learning-about-reference-counting-and-move-semantics"><a aria-hidden="true" tabindex="-1" href="#learning-about-reference-counting-and-move-semantics"><a href="#learning-about-reference-counting-and-move-semantics" style="margin-right: 10px">#</a></a>Learning about reference counting and move semantics</h3>
-<p>Originally I queried the sqlite database and stored a Vec, where Track
+<p>Originally I queried the sqlite database and stored a <code>Vec&#x3C;Track></code>, where <code>Track</code>
 is a struct with artist, album, song title, etc. I realized that this causes
 issues passing this around to different functions, and storing them in the
-BoxedAnyObject, (example thread discussing issue
+<code>BoxedAnyObject</code>, (example thread discussing issue
 <a href="https://stackoverflow.com/questions/42954008/how-to-pass-one-vec-to-multiple-functions-in-rust">https://stackoverflow.com/questions/42954008/how-to-pass-one-vec-to-multiple-functions-in-rust</a>)
 so I changed functions to accept slices of the Vec, and to make it a
-Vec&#x3C;Rc> instead of just Vec (another related thread
+<code>Vec&#x3C;Rc&#x3C;Track>></code> instead of just <code>Vec&#x3C;Track></code> (another related thread
 <a href="https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3">https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3</a>).</p>
 <h3 id="result"><a aria-hidden="true" tabindex="-1" href="#result"><a href="#result" style="margin-right: 10px">#</a></a>Result</h3>
 <p>The current work is at <a href="https://github.com/cmdcolin/fml9000">https://github.com/cmdcolin/fml9000</a></p>
 <p><img src="/media/fml9000_1.png" alt=""></p>
 <p>Screenshot shows the current look and feel. Some stuff in the screenshot is
 mocked and not fully functional, but it has been a great learning experience
-thus far</p>]]></content:encoded>
+thus far</p>
+<h2 id="footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a aria-hidden="true" tabindex="-1" href="#footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a href="#footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage" style="margin-right: 10px">#</a></a>Footnote 1: Creating a PR to the <code>gtk4-rs</code> repo to demonstrate example ColumnView usage</h2>
+<p>I created a PR (<a href="https://github.com/gtk-rs/gtk4-rs/pull/1111">https://github.com/gtk-rs/gtk4-rs/pull/1111</a>) to demonstrate
+simple <code>ColumnView</code> usage. The code review that was given on the PR was
+excellent. They explained how to simplify the code I submitted so that each
+grid cell was very minimal (starting from a <code>gtk::Box</code> with a <code>gtk::Label</code>
+inside of it, to just being a <code>gtk::Inscription</code> which is very fast). Big
+thanks to the team for helping out with this!</p>
+<p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
+and I quickly fleshed out some more UI for the app
+a</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
