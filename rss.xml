@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 10 Sep 2022 19:39:19 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 10 Sep 2022 19:43:14 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -59,28 +59,33 @@ thanks to the team for helping out with this!</p>
 <p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
 and I quickly fleshed out some more UI for the app
 a</p>
-<h3 id="choosing-a-audio-tech-stack"><a aria-hidden="true" tabindex="-1" href="#choosing-a-audio-tech-stack"><a href="#choosing-a-audio-tech-stack" style="margin-right: 10px">#</a></a>Choosing a audio tech stack</h3>
+<h3 id="choosing-an-audio-library"><a aria-hidden="true" tabindex="-1" href="#choosing-an-audio-library"><a href="#choosing-an-audio-library" style="margin-right: 10px">#</a></a>Choosing an audio library</h3>
 <p>To actually play audio, I looked at a couple options. There was even one option
 called Gtk::MediaFile which should to be able to play e.g. mp3s, making my job
 of making a media player much simpler, but it produced an error <a href="https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;aqs=chrome..69i57.267j0j7&#x26;sourceid=chrome&#x26;ie=UTF-8">"GTK could not
 find a media module. Check your
 installation."</a>
-which had very few references on the internet. I figured this could be difficult to solve or point to issues I could face later on making minimal executables for usersSo</p>
+which had very few references on the internet. I figured this could be
+difficult to solve or point to issues I could face later on making minimal
+executables for users.</p>
 <p>So, next I tried out symphonia (<a href="https://github.com/pdeljanov/Symphonia/">https://github.com/pdeljanov/Symphonia/</a>), with
 the hope being that it is easier to package these for consumers of the app.
 This requires a lot more code to work (~1000 lines so far, copying from the
-<code>symphonia-play</code> example).</p>
+<code>symphonia-play</code> example) but it has broad file format support, pure-rust audio
+stack, etc.</p>
 <h3 id="reading-audio-metadata-and-storing-in-a-sqlite-database"><a aria-hidden="true" tabindex="-1" href="#reading-audio-metadata-and-storing-in-a-sqlite-database"><a href="#reading-audio-metadata-and-storing-in-a-sqlite-database" style="margin-right: 10px">#</a></a>Reading audio metadata and storing in a sqlite database</h3>
-<p>I also wanted to have the option of reading and writing metadata. Symphonia
-only reads metadata, so I used the <code>lofty</code> crate to read metadata for now. I
-also realized that reading tens of thousands of file's metadata at each app
+<p>I also wanted to have the option of reading and writing audio metadata.
+Symphonia only reads metadata, so I found the <code>lofty</code> crate.</p>
+<p>I also realized that reading tens of thousands of file's metadata at each app
 startup would be slow, so I endeavored to store that data in an sqlite
 database. I found that music players like foobar2000 and 0xdeadbeef have
 databases of track metadata also (Example folder on foobar2000 (1.x) for this
 snap/foobar2000/433/foobar2000/profile/library/74E45640B1C695CC/meta-0001,
 meta-0002, etc.)</p>
 <p>I used the <code>walkdir</code> crate to walk a directory for files, <code>lofty</code> to read the
-metadata, and then finally inserted the data into the sqlite db.</p>
+metadata, and then finally inserted the data into the sqlite db. I am still
+working out the schema for the database but it provisionally associates data
+with a primary key of filename.</p>
 <h3 id="learning-about-reference-counting-and-move-semantics"><a aria-hidden="true" tabindex="-1" href="#learning-about-reference-counting-and-move-semantics"><a href="#learning-about-reference-counting-and-move-semantics" style="margin-right: 10px">#</a></a>Learning about reference counting and move semantics</h3>
 <p>Originally I queried the sqlite database and stored a Vec, where Track
 is a struct with artist, album, song title, etc. I realized that this causes
