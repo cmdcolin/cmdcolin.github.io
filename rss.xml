@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 06 Sep 2022 21:37:22 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 10 Sep 2022 18:52:04 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -23,20 +23,37 @@ default UI with four quadrants. I have used foobar2000 under wine and it's not
 terrible, but it has background CPU consumption of about 14% idle and is just a
 little "off". I have also used a variety of other GUI (quodlibet) and CLI
 (cmus) apps on linux, but they didn't really feel quite right.</p>
-<p>My first hurdle was getting started with GTK and Rust. I started by attempting
-with Relm4, which I may return to at some point, but trying to juggle learning
-Relm4-style widgets, GTK, and rust all at once was a bit much. I stepped to
-using gtk4-rs directly.</p>
+<h2 id="hurdles-experienced"><a aria-hidden="true" tabindex="-1" href="#hurdles-experienced"><a href="#hurdles-experienced" style="margin-right: 10px">#</a></a>Hurdles experienced</h2>
+<h3 id="choosing-a-tech-stack"><a aria-hidden="true" tabindex="-1" href="#choosing-a-tech-stack"><a href="#choosing-a-tech-stack" style="margin-right: 10px">#</a></a>Choosing a tech stack</h3>
+<p>I started by attempting with Relm4, which I may return to at some point, but
+trying to juggle learning Relm4-style widgets, GTK, and rust all at once was a
+bit much. I stepped to using gtk4-rs directly.</p>
+<h3 id="trying-to-create-a-spreadsheet-style-or-data-grid-of-tracks"><a aria-hidden="true" tabindex="-1" href="#trying-to-create-a-spreadsheet-style-or-data-grid-of-tracks"><a href="#trying-to-create-a-spreadsheet-style-or-data-grid-of-tracks" style="margin-right: 10px">#</a></a>Trying to create a "spreadsheet style" or data grid of tracks</h3>
 <p>Then, I wanted to create a data grid showing to display e.g. a table with
 artist, track, album, etc. I chose to use the
 <a href="https://docs.gtk.org/gtk4/class.ColumnView.html">Gtk::ColumnView</a> to drive
-this. There was no example code for this so I stuggled with this (for a couple
+this. I stumbled around looking for example code, but there was none
+specifically for the ColumnView. Soon, I realized the ListView example from the
+gtk4-rs examples with it's factory function was similar in concept.</p>
+<h3 id="how-to-store-data-in-a-liststore"><a aria-hidden="true" tabindex="-1" href="#how-to-store-data-in-a-liststore"><a href="#how-to-store-data-in-a-liststore" style="margin-right: 10px">#</a></a>How to store data in a ListStore</h3>
+<p>Then, I wanted to get the data for the songs into a ListStore, but I thought if
+I could make my own GObject subclass, it would solve everything, but I had
+trouble getting this. Finally, I randomly stumbled on this link using a
+BoxedAnyObject with a good example of storing data in a ListStore
+<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/struct.BoxedAnyObject.html">https://gtk-rs.org/gtk-rs-core/git/docs/glib/struct.BoxedAnyObject.html</a></p>
+<p>The BoxedAnyObject is a GObject, so my troubles got automatically solved
+essentially</p>
+<h3 id="accessing-the-liststore-in-the-columnview-factory-functions"><a aria-hidden="true" tabindex="-1" href="#accessing-the-liststore-in-the-columnview-factory-functions"><a href="#accessing-the-liststore-in-the-columnview-factory-functions" style="margin-right: 10px">#</a></a>Accessing the ListStore in the ColumnView factory functions</h3>
+<p>There was no example code for this so I stuggled with this (for a couple
 days) before realizing that the ListView example in the gtk4-rs codebase has
 similar concepts (factory to create grid cells, etc). I created a PR
 (<a href="https://github.com/gtk-rs/gtk4-rs/pull/1111">https://github.com/gtk-rs/gtk4-rs/pull/1111</a>) to demonstrate simple ColumnView
 usage.</p>
-<p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset.
-I would just search for various components and they often already existed which
+<p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
+and I quickly fleshed out some more UI for the app</p>
+<h3 id="choosing-a-audio-tech-stack"><a aria-hidden="true" tabindex="-1" href="#choosing-a-audio-tech-stack"><a href="#choosing-a-audio-tech-stack" style="margin-right: 10px">#</a></a>Choosing a audio tech stack</h3>
+<p>I</p>
+<p>I would just search for various components and they often already existed which
 was great. There was even one called Gtk::MediaFile which should to be able to
 play e.g. mp3s, making my job of making a media player much simpler, but it
 produced an error <a href="https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;aqs=chrome..69i57.267j0j7&#x26;sourceid=chrome&#x26;ie=UTF-8">"GTK could not find a media module. Check your
@@ -66,7 +83,9 @@ steps, you can make a bot!</p>
 <h3 id="step-1"><a aria-hidden="true" tabindex="-1" href="#step-1"><a href="#step-1" style="margin-right: 10px">#</a></a>Step 1</h3>
 <p>Get your keys. I forget the exact procedure for this but go to
 <a href="https://developer.twitter.com">https://developer.twitter.com</a> and sign up, register an "app" with them, and
-poke around for awhile.</p>
+poke around for awhile. This github repo provides a couple more details about
+the process of registering
+<a href="https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal">https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal</a></p>
 <p>After sometime, you should get a screen that looks like this. Keep this around
 for Step 4</p>
 <p><img src="https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true" alt=""></p>
