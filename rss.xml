@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 11 Sep 2022 18:29:29 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 11 Sep 2022 18:31:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -124,7 +124,9 @@ the process of registering
 <a href="https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal">https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal</a></p>
 <p>After sometime, you should get a screen that looks like this. Keep this around
 for Step 4. Note: I did not have to apply for any elevated access for this
-article, just the basic level you get from the initial registration!</p>
+article, just the basic level you get from the initial registration! I believe
+in twitter terms, this article only requires "Essential" access and not any
+"Elevated" access.</p>
 <p><img src="https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true" alt=""></p>
 <h3 id="step-2"><a aria-hidden="true" tabindex="-1" href="#step-2"><a href="#step-2" style="margin-right: 10px">#</a></a>Step 2</h3>
 <p>Make a repo with a couple dependencies</p>
