@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 10 Sep 2022 19:53:10 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 11 Sep 2022 18:29:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -18,17 +18,17 @@
 knew the concepts would fade rapidly from my brain without some practice. I
 have now started making a music player using Rust+GTK4.</p>
 <p>I chose GTK4 to have a linux native GUI music player. Particularly, I have a
-particular foobar2000 setup that I wanted to emulate. I have used foobar2000
-under wine (windows emulator on linux) and it's not terrible, but it has
-background CPU consumption of about 15% idle and doesn't feel quite right
-sometimes. I have used a variety of other linux music players such as quodlibet
-(GUI/GTK based) and cmus (command line) but they didn't really feel quite
-right.</p>
+particular <code>foobar2000</code> setup that I wanted to emulate. I have used
+<code>foobar2000</code> under wine (windows emulator on linux) and it's not terrible, but
+it has background CPU consumption of about 15% idle and doesn't feel quite
+right sometimes. I have used a variety of other linux music players such as
+<code>quodlibet</code> (GUI/GTK based) and <code>cmus</code> (command line) but they didn't really
+feel quite right.</p>
 <h3 id="choosing-a-tech-stack"><a aria-hidden="true" tabindex="-1" href="#choosing-a-tech-stack"><a href="#choosing-a-tech-stack" style="margin-right: 10px">#</a></a>Choosing a tech stack</h3>
 <p>I started by attempting with <code>Relm4</code>, which I may return to at some point, but
 trying to juggle learning Relm4-style widgets, GTK, and rust all at once was a
 bit much. I stepped to using <code>gtk4-rs</code> directly.</p>
-<h3 id="create-a-spreadsheet-style-data-grid-of-tracks-with-gtk-columnview"><a aria-hidden="true" tabindex="-1" href="#create-a-spreadsheet-style-data-grid-of-tracks-with-gtk-columnview"><a href="#create-a-spreadsheet-style-data-grid-of-tracks-with-gtk-columnview" style="margin-right: 10px">#</a></a>Create a "spreadsheet style" data grid of tracks with GTK ColumnView</h3>
+<h3 id="create-a-spreadsheet-style-data-grid-of-tracks-with-columnview"><a aria-hidden="true" tabindex="-1" href="#create-a-spreadsheet-style-data-grid-of-tracks-with-columnview"><a href="#create-a-spreadsheet-style-data-grid-of-tracks-with-columnview" style="margin-right: 10px">#</a></a>Create a "spreadsheet style" data grid of tracks with <code>ColumnView</code></h3>
 <p>Then, I wanted to create a data grid showing to display e.g. a table with
 artist, track, album, etc. I chose to use the GTK
 <a href="https://docs.gtk.org/gtk4/class.ColumnView.html"><code>ColumnView</code></a> to drive this.
@@ -50,9 +50,11 @@ example in the <code>gtk4-rs</code> codebase has similar concepts.</p>
 repo!</p>
 <h3 id="choosing-an-audio-library"><a aria-hidden="true" tabindex="-1" href="#choosing-an-audio-library"><a href="#choosing-an-audio-library" style="margin-right: 10px">#</a></a>Choosing an audio library</h3>
 <p>To actually play audio, I looked at a couple options. There was even one option
-called <code>Gtk::MediaFile</code> which should to be able to play e.g. mp3s, making my job
-of making a media player much simpler, but it produced an error <a href="https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;aqs=chrome..69i57.267j0j7&#x26;sourceid=chrome&#x26;ie=UTF-8">"GTK could not
-find a media module. Check your
+called GTK
+<a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.MediaFile.html"><code>MediaFile</code></a>
+which should to be able to play e.g. mp3s, making my job of making a media
+player much simpler, but it produced an error <a href="https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&#x26;aqs=chrome..69i57.267j0j7&#x26;sourceid=chrome&#x26;ie=UTF-8">"GTK could not find a media
+module. Check your
 installation."</a>
 which had very few references on the internet. I figured this could be
 difficult to solve or point to issues I could face later on making minimal
@@ -121,7 +123,8 @@ poke around for awhile. This github repo provides a couple more details about
 the process of registering
 <a href="https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal">https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal</a></p>
 <p>After sometime, you should get a screen that looks like this. Keep this around
-for Step 4</p>
+for Step 4. Note: I did not have to apply for any elevated access for this
+article, just the basic level you get from the initial registration!</p>
 <p><img src="https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true" alt=""></p>
 <h3 id="step-2"><a aria-hidden="true" tabindex="-1" href="#step-2"><a href="#step-2" style="margin-right: 10px">#</a></a>Step 2</h3>
 <p>Make a repo with a couple dependencies</p>
