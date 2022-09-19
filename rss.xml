@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 11 Sep 2022 18:31:29 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 19 Sep 2022 20:45:30 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1579,6 +1579,8 @@ split reads result in supplementary alignments. See "Multiple mapping" in the
 of multi-mapping. Note also that secondary alignments sometimes are missing the
 <code>SEQ</code> field entirely too, see
 <a href="https://github.com/lh3/minimap2/issues/458#issuecomment-516661855">https://github.com/lh3/minimap2/issues/458#issuecomment-516661855</a></p>
+<p>I wrote a tool called secondary_rewriter to add the <code>SEQ</code> field back to
+secondary alignments, which may help in some cases</p>
 <h3 id="what-is-the-sa-tag"><a aria-hidden="true" tabindex="-1" href="#what-is-the-sa-tag"><a href="#what-is-the-sa-tag" style="margin-right: 10px">#</a></a>What is the <code>SA</code> tag?</h3>
 <p>The <code>SA</code> tag is outputted on each part of the supplementary/split/chimeric
 alignment, e.g. the primary contains an <code>SA</code> tag that refers to information
