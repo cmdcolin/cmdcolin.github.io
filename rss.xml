@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 20 Sep 2022 02:06:32 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Sep 2022 02:08:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -517,7 +517,8 @@ recommend reading the <a href="https://rustwasm.github.io/wasm-bindgen/">https:/
 are getting started with rust, read the Rust Book along with doing rustlings
 <a href="https://github.com/rust-lang/rustlings">https://github.com/rust-lang/rustlings</a></p>
 <h2 id="footnote-7-another-resource"><a aria-hidden="true" tabindex="-1" href="#footnote-7-another-resource"><a href="#footnote-7-another-resource" style="margin-right: 10px">#</a></a>Footnote 7: Another resource</h2>
-<p>This article was posted on reddit and is also a great resource</p>
+<p>This article was posted on reddit and is also a great resource especially about
+sync vs async webpack loading schemes for wasm</p>
 <p><a href="https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/">https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
