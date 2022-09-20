@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 20 Sep 2022 02:08:11 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Sep 2022 05:42:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -62,7 +62,21 @@ executables for users.</p>
 <p>So, next I tried out <code>symphonia</code> (<a href="https://github.com/pdeljanov/Symphonia/">https://github.com/pdeljanov/Symphonia/</a>).
 Symphonia requires a lot more code to work (~1000 lines so far, copying from
 the <code>symphonia-play</code> example) but it has broad file format support, pure-rust
-audio stack, etc.</p>
+audio stack, etc. I got confused about how to package it into an easy-to-use system though, having to create a symphonia player on a separate thread, so I looked elsewhere...</p>
+<p>Next I turned to <code>rodio</code>. This works well, and automatically plays on a
+separate thread, but I found two issues 1) I have to initialize the rodio
+player in "fn main" and not anywhere else, or it would just play a short blip
+of audio (<a href="https://github.com/RustAudio/rodio/issues/381">https://github.com/RustAudio/rodio/issues/381</a>). Then, it turned out
+that the <code>rodio</code>
+<a href="https://docs.rs/rodio/0.14.0/rodio/struct.Sink.html#method.stop"><code>Sink</code></a>
+instance (which you pass audio to) cannot stop and then play new song xref
+(<a href="https://github.com/RustAudio/rodio/issues/315">https://github.com/RustAudio/rodio/issues/315</a>). To workaround, I replace it
+with a new <code>Sink</code>.</p>
+<p>This required me to learn about <code>RefCell</code>. I googled probably about 50 things
+just grasping at straws for awhile, but then landed on the solution of putting
+the <code>Sink</code> in a <code>Rc&#x3C;RefCell&#x3C;Sink>></code>, then that allows me to pass it into my
+callback that handles double clicking the songs in the <code>ColumnView</code>, and then I
+borrow the <code>RefCell</code> mutably to replace it with a new <code>Sink</code>.</p>
 <h3 id="reading-audio-metadata-into-an-sqlite-db"><a aria-hidden="true" tabindex="-1" href="#reading-audio-metadata-into-an-sqlite-db"><a href="#reading-audio-metadata-into-an-sqlite-db" style="margin-right: 10px">#</a></a>Reading audio metadata into an <code>sqlite</code> DB</h3>
 <p>I also wanted to have the option of reading and writing audio metadata.
 Symphonia only reads metadata, so I found the <code>lofty</code> crate.</p>
@@ -77,14 +91,15 @@ metadata, and then finally inserted the data into the <code>sqlite</code> db. I 
 working out the schema for the database but it provisionally associates data
 with a primary key of filename.</p>
 <h3 id="learning-about-reference-counting-and-move-semantics"><a aria-hidden="true" tabindex="-1" href="#learning-about-reference-counting-and-move-semantics"><a href="#learning-about-reference-counting-and-move-semantics" style="margin-right: 10px">#</a></a>Learning about reference counting and move semantics</h3>
-<p>Originally I queried the sqlite database and stored a <code>Vec&#x3C;Track></code>, where <code>Track</code>
-is a struct with artist, album, song title, etc. I realized that this causes
-issues passing this around to different functions, and storing them in the
-<code>BoxedAnyObject</code>, (example thread discussing issue
+<p>Originally I queried the sqlite database and stored a <code>Vec&#x3C;Track></code>, where
+<code>Track</code> is a struct with artist, album, song title, etc. I realized that this
+causes issues passing this around to different functions, and storing them in
+the <code>BoxedAnyObject</code>, (example thread discussing issue
 <a href="https://stackoverflow.com/questions/42954008/how-to-pass-one-vec-to-multiple-functions-in-rust">https://stackoverflow.com/questions/42954008/how-to-pass-one-vec-to-multiple-functions-in-rust</a>)
 so I changed functions to accept slices of the Vec, and to make it a
 <code>Vec&#x3C;Rc&#x3C;Track>></code> instead of just <code>Vec&#x3C;Track></code> (another related thread
 <a href="https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3">https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3</a>).</p>
+<h3 id=""><a aria-hidden="true" tabindex="-1" href="#"><a href="#" style="margin-right: 10px">#</a></a></h3>
 <h3 id="result"><a aria-hidden="true" tabindex="-1" href="#result"><a href="#result" style="margin-right: 10px">#</a></a>Result</h3>
 <p>The current work is at <a href="https://github.com/cmdcolin/fml9000">https://github.com/cmdcolin/fml9000</a></p>
 <p><img src="/media/fml9000_1.png" alt=""></p>
