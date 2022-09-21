@@ -12,8 +12,8 @@ Here are some questions in the form of comments
   your libraries?
 
 - Did you realize this means that your perfectly running test suite with your
-  yarn.lock could be a failing case for consumers of your app unless you don’t
-  use semver strings like ^1.0.0 and just hardcode it to 1.0.0?
+  yarn.lock could be a failing case for consumers of your library unless you
+  don’t use semver strings like ^1.0.0 and just hardcode it to 1.0.0?
 
 - Did you realize the default of ^1.0.0 automatically gets minor version bumps
   which are often fairly substantial changes, e.g. even breaking possibly?

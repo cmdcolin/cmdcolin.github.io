@@ -108,8 +108,6 @@ so I changed functions to accept slices of the Vec, and to make it a
 `Vec<Rc<Track>>` instead of just `Vec<Track>` (another related thread
 https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3).
 
-###
-
 ### Result
 
 The current work is at https://github.com/cmdcolin/fml9000
@@ -120,7 +118,7 @@ Screenshot shows the current look and feel. Some stuff in the screenshot is
 mocked and not fully functional, but it has been a great learning experience
 thus far
 
-## Footnote 1: Creating a PR to the `gtk4-rs` repo to demonstrate example ColumnView usage
+### Footnote 1: Creating a PR to the `gtk4-rs` repo to demonstrate example ColumnView usage
 
 I created a PR (https://github.com/gtk-rs/gtk4-rs/pull/1111) to demonstrate
 simple `ColumnView` usage. The code review that was given on the PR was
@@ -131,4 +129,3 @@ thanks to the team for helping out with this!
 
 After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
 and I quickly fleshed out some more UI for the app
-a

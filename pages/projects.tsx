@@ -6,36 +6,20 @@ import Head from 'next/head'
 function Contents() {
   return (
     <div>
-      <h2 id="bioinformatics">Bioinformatics</h2>
-      <ul>
-        <li>
-          <a href="https://cmdcolin.github.io/graphgenomeviewer">
-            graphgenomeviewer
-          </a>{' '}
-          BCC2020 hackathon project to visualize GFA graph genome files (2020)
-        </li>
-        <li>
-          <a href="https://github.com/gmod/jbrowse">jbrowse 1</a> and{' '}
-          <a href="https://gmod.github.io/jbrowse-registry">
-            jbrowse 1 plugins
-          </a>{' '}
-          such as multibigwig, multivariantviewer, and more
-        </li>
-        <li>
-          <a href="https://github.com/gmod/jbrowse-components">jbrowse 2</a>
-        </li>
-      </ul>
+      <h2 id="bioinformatics">Work</h2>
+
       <p>
-        See also my{' '}
+        I have worked on a variety of bioinformatics applications including
+        model organism databases, genome browsers, and data analysis pipelines.
+        See my{' '}
         <a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=--FwzsgAAAAJ">
           google scholar
         </a>{' '}
-        for publications. My first &quot;first author&quot; publication was
-        recently published here! [
+        for publications. Our jbrowse 2 paper was{' '}
         <a href="https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)(https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1">
-          https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)(https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1
-        </a>
-        )
+          recently published
+        </a>{' '}
+        which I was proud to be first author of.
       </p>
       <h2 id="awesome-lists">Awesome lists</h2>
       <p>
@@ -69,7 +53,65 @@ function Contents() {
           </a>
         </li>
       </ul>
-      <h2 id="visualizers">Visualizers</h2>
+
+      <h2 id="other">Utilities</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/cmdcolin/fml9000">fml9000</a>- A music
+          player made using Rust and GTK4 (2022)
+        </li>
+      </ul>
+      <h2 id="art">Visual art/code sketches</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/cmdcolin/twitter_fractal_bot">
+            chaosbot80
+          </a>{' '}
+          - A twitter bot to post fractals (2022)
+        </li>
+        <li>
+          <a href="https://cmdcolin.github.io/sm_u20">sm u20</a> - A submarine
+          inspired audio/visual page (2022)
+        </li>
+        <li>
+          <a href="https://cmdcolin.github.io/nightskies/">nightskies</a> - An
+          audio/visual webpage (2022)
+        </li>
+        <li>
+          <a href="https://cmdcolin.github.io/interaction_shadow/">
+            interaction shadow
+          </a>{' '}
+          - An noise/visual webpage (2021)
+        </li>
+        <li>
+          <a href="https://cmdcolin.github.io/reclaimedspace/">
+            reclaimed space
+          </a>{' '}
+          - A visual webpage (2021)
+        </li>
+        <li>
+          <a href="https://cmdcolin.github.io/spiralzone/">spiralzone</a> - A
+          visual webpage (2021)
+        </li>
+        <li>
+          <a href="https://cmdcolin.github.io/logistic_chaos_map/">
+            logistic map fractal viewer
+          </a>{' '}
+          using Rust/WASM/React (2020)
+        </li>
+      </ul>
+      <h2 id="mem">Memorial</h2>
+      <ul>
+        <li>
+          <a href="https://myloveydove.com">myloveydove.com</a> - a page for
+          dixie{' '}
+          <a href="https://github.com/cmdcolin/aws_serverless_photo_gallery">
+            code
+          </a>
+          , using AWS lambda/S3 (2020)
+        </li>
+      </ul>
+      <h2 id="misc">Small projects</h2>
       <ul>
         <li>
           <a href="https://colindiesh.shinyapps.io/github_burndown/">
@@ -99,57 +141,11 @@ function Contents() {
           visualize ontology (OBO) files (2016)
         </li>
       </ul>
-      <h2 id="dotfiles-setup">Dotfiles/setup</h2>
+      <h2 id="dotfiles-setup">Setup</h2>
       <ul>
         <li>
           <a href="https://github.com/cmdcolin/dotfiles/">dotfiles</a> - also
           has various other details on my setup
-        </li>
-      </ul>
-      <h2 id="code-art">Code/art</h2>
-      <ul>
-        <li>
-          <a href="https://github.com/twitter_fractal_bot">chaosbot80</a> - A
-          twitter bot to post fractals (2022)
-        </li>
-        <li>
-          <a href="https://cmdcolin.github.io/sm_u20">sm u20</a> - A submarine
-          inspired audio/visual page (2022)
-        </li>
-        <li>
-          <a href="https://cmdcolin.github.io/nightskies/">nightskies</a> - An
-          audio/visual webpage (2022)
-        </li>
-        <li>
-          <a href="https://cmdcolin.github.io/interaction_shadow/">
-            interaction shadow
-          </a>{' '}
-          - An noise/visual webpage (2021)
-        </li>
-        <li>
-          <a href="https://cmdcolin.github.io/reclaimedspace/">
-            reclaimed space
-          </a>{' '}
-          - A visual webpage (2021)
-        </li>
-        <li>
-          <a href="https://cmdcolin.github.io/spiralzone/">spiralzone</a> - A
-          visual webpage (2021)
-        </li>
-        <li>
-          <a href="https://cmdcolin.github.io/logistic_chaos_map/">
-            logistic_chaos_map
-          </a>{' '}
-          logistic map fractal viewer, using Rust + WASM + React (2020)
-        </li>
-        <li>
-          <a href="https://myloveydove.com">myloveydove.com</a> - a page for our
-          dixie (RIP) a &quot;serverless&quot; website built with AWS lambda +
-          S3{' '}
-          <a href="https://github.com/cmdcolin/aws_serverless_photo_gallery">
-            code
-          </a>{' '}
-          (2020)
         </li>
       </ul>
       <h2 id="games">Games</h2>
