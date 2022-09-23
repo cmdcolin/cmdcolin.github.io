@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 21 Sep 2022 19:23:21 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Sep 2022 23:14:03 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -99,14 +99,13 @@ the <code>BoxedAnyObject</code>, (example thread discussing issue
 so I changed functions to accept slices of the Vec, and to make it a
 <code>Vec&#x3C;Rc&#x3C;Track>></code> instead of just <code>Vec&#x3C;Track></code> (another related thread
 <a href="https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3">https://users.rust-lang.org/t/self-has-an-anonymous-lifetime-but-it-needs-to-satisfy-a-static-lifetime-requirement/58641/3</a>).</p>
-<h3 id=""><a aria-hidden="true" tabindex="-1" href="#"><a href="#" style="margin-right: 10px">#</a></a></h3>
 <h3 id="result"><a aria-hidden="true" tabindex="-1" href="#result"><a href="#result" style="margin-right: 10px">#</a></a>Result</h3>
 <p>The current work is at <a href="https://github.com/cmdcolin/fml9000">https://github.com/cmdcolin/fml9000</a></p>
 <p><img src="/media/fml9000_1.png" alt=""></p>
 <p>Screenshot shows the current look and feel. Some stuff in the screenshot is
 mocked and not fully functional, but it has been a great learning experience
 thus far</p>
-<h2 id="footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a aria-hidden="true" tabindex="-1" href="#footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a href="#footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage" style="margin-right: 10px">#</a></a>Footnote 1: Creating a PR to the <code>gtk4-rs</code> repo to demonstrate example ColumnView usage</h2>
+<h3 id="footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a aria-hidden="true" tabindex="-1" href="#footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage"><a href="#footnote-1-creating-a-pr-to-the-gtk4-rs-repo-to-demonstrate-example-columnview-usage" style="margin-right: 10px">#</a></a>Footnote 1: Creating a PR to the <code>gtk4-rs</code> repo to demonstrate example ColumnView usage</h3>
 <p>I created a PR (<a href="https://github.com/gtk-rs/gtk4-rs/pull/1111">https://github.com/gtk-rs/gtk4-rs/pull/1111</a>) to demonstrate
 simple <code>ColumnView</code> usage. The code review that was given on the PR was
 excellent. They explained how to simplify the code I submitted so that each
