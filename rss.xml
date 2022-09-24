@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 23 Sep 2022 23:14:03 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 24 Sep 2022 20:01:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -722,14 +722,14 @@ some photos of everyday things</p>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
-            <title><![CDATA[Watch out for your pinky finger]]></title>
+            <title><![CDATA[Watch out for your pinky finger (AND elbow posture)]]></title>
             <link>https://cmdcolin.github.io/posts/2022-07-08-pinky</link>
             <guid>https://cmdcolin.github.io/posts/2022-07-08-pinky</guid>
             <pubDate>Fri, 08 Jul 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I have, for several months, suffered a twinge in my left pinky finger from
 excessive strain due to hand contortions largely caused by keyboard use.</p>
 <p>Particularly brutal in my opinion has been the use of the left-ctrl key for
-keyboard shortcuts</p>
+keyboard shortcuts.</p>
 <h3 id="programs-that-are-particularly-troublesome-for-the-left-pinky"><a aria-hidden="true" tabindex="-1" href="#programs-that-are-particularly-troublesome-for-the-left-pinky"><a href="#programs-that-are-particularly-troublesome-for-the-left-pinky" style="margin-right: 10px">#</a></a>Programs that are particularly troublesome for the left pinky</h3>
 <ul>
 <li>many programs: ctrl+c, ctrl+v, ctrl+x, ctrl+f</li>
@@ -749,12 +749,26 @@ there is a mild pain from almost any keyboard usage</p>
 <h3 id="general-approaches-to-help-out"><a aria-hidden="true" tabindex="-1" href="#general-approaches-to-help-out"><a href="#general-approaches-to-help-out" style="margin-right: 10px">#</a></a>General approaches to help out</h3>
 <ul>
 <li>Take time out of my day e.g. pomodoro to take rests</li>
-<li>Taking a vacation</li>
 <li>Do hand exercises and stretches when idle</li>
 <li>Massages to the muscles</li>
 <li>Using touch typing, making my hands float above the keyboard when typing</li>
-<li>Avoiding curling up the pinky while typing (this may just be me suffering at this point)</li>
+<li>Avoiding curling up the pinky while typing, keep hand relaxed</li>
 <li>Use both hands to execute shortcuts instead of contorting left hand</li>
+</ul>
+<h3 id="update-avoiding-elbowulnar-nerve-strain"><a aria-hidden="true" tabindex="-1" href="#update-avoiding-elbowulnar-nerve-strain"><a href="#update-avoiding-elbowulnar-nerve-strain" style="margin-right: 10px">#</a></a>Update: Avoiding elbow/ulnar nerve strain</h3>
+<p>I have come to realize that the pinky finger and ring finger are strongly
+related to the elbow and ulnar nerve. This can cause issues sometimes called
+"ulnar tunnel" or "cubital tunnel" which is relatively distinct from "carpal
+tunnel" and is more strongly related to the ring and pinky fingers!</p>
+<ul>
+<li>Not applying too much pressure to elbows on armrests (ulnar nerve) while at
+desk</li>
+<li>Avoid typing with elbows bent e.g. straighten arms (often related to using
+laptop on lap, couch, etc)</li>
+<li>Avoid sleeping with elbows super bent e.g. I get this sleeping on my stomach
+with my elbows under my body</li>
+<li>Use ulner/elbow brace for sleeping or daytime usage. I am ordering one of
+these to try out</li>
 </ul>
 <h3 id="technical-approaches-and-key-remappings"><a aria-hidden="true" tabindex="-1" href="#technical-approaches-and-key-remappings"><a href="#technical-approaches-and-key-remappings" style="margin-right: 10px">#</a></a>Technical approaches and key remappings</h3>
 <ul>
@@ -768,24 +782,39 @@ pinky for shortcuts. I don't have many of these but will look into retraining
 myself for some of these. I am testing out right ctrl+] for leader in tmux,
 and - and = for split window horizontal and vertical</li>
 </ul>
+<h3 id="things-still-to-try-better-ergonomics-and-gadgets"><a aria-hidden="true" tabindex="-1" href="#things-still-to-try-better-ergonomics-and-gadgets"><a href="#things-still-to-try-better-ergonomics-and-gadgets" style="margin-right: 10px">#</a></a>Things still to try: better ergonomics and gadgets</h3>
+<p>In truth, I type a lot on a laptop with a poor keyboard layout, and often use
+it away from a desk. I think improving my desk ergonomics could help, and
+getting a fancy keyboard and maybe mouse (though I much prefer a touchpad)
+could be a next frontier, along with ensuring proper desk height, chair height,
+etc.</p>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
 <p>It is not great to get to this point. My hand posture and body posture at the
-keyboard has been bad for years, and it has caught up to me. I recommend people
-be aware of contorting their hand too much, and use good keyboard etiquette
-lest they suffer the same!</p>
+keyboard has been bad for years, and it has caught up to me. Learning the
+connection with my elbow and ulnar nerve was very enlightening for my
+situation. The common problem many people discuss is carpal tunnel related, but
+the ulner is actually a relatively separate problem, though related in many
+ways too.I recommend people be aware of contorting their hand or applying
+pressure on their elbows too much, lest they suffer the same!</p>
 <h2 id="any-more-ideas"><a aria-hidden="true" tabindex="-1" href="#any-more-ideas"><a href="#any-more-ideas" style="margin-right: 10px">#</a></a>Any more ideas?</h2>
 <p>Let me know of ways you take care of your hands (hardware, software, or
 otherwise)</p>
 <h2 id="other-resources"><a aria-hidden="true" tabindex="-1" href="#other-resources"><a href="#other-resources" style="margin-right: 10px">#</a></a>Other resources</h2>
+<ul>
+<li>
 <p>See this post by Matt Might for some more resources
 <a href="https://matt.might.net/articles/preventing-and-managing-rsi/">https://matt.might.net/articles/preventing-and-managing-rsi/</a></p>
+</li>
+<li>
+<p>Ulnar tunnel <a href="https://en.wikipedia.org/wiki/Ulnar_tunnel_syndrome">https://en.wikipedia.org/wiki/Ulnar_tunnel_syndrome</a></p>
+</li>
+</ul>
 <h2 id="extenuating-circumstances"><a aria-hidden="true" tabindex="-1" href="#extenuating-circumstances"><a href="#extenuating-circumstances" style="margin-right: 10px">#</a></a>Extenuating circumstances</h2>
 <p>I am not sure if it really affects my typing, but I was bitten by a dog several
 years ago. The dog clamped down on both my hands one after the other and got my
 left especially bad, which required stitches. One fairly deep puncture was on
-the left side of my left hand, which could plausibly affect my pinky. Photo
-below</p>
-<p><img src="/photos/pinky.jpg" alt=""></p>]]></content:encoded>
+the left side of my left hand, which could plausibly affect my pinky, but
+ergonomics other factors more relevant.</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
