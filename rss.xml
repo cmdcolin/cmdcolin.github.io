@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 24 Sep 2022 20:08:10 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 24 Sep 2022 20:13:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -728,8 +728,10 @@ some photos of everyday things</p>
             <pubDate>Fri, 08 Jul 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I have, for several months, suffered a twinge in my left pinky finger from
 excessive strain due to hand contortions largely caused by keyboard use.</p>
-<p>Particularly brutal in my opinion has been the use of the left-ctrl key for
-keyboard shortcuts.</p>
+<p>Particularly troublesome in my opinion has been the use of the left-ctrl key
+for keyboard shortcuts.</p>
+<p>Update Sep 2022: I have also come to realize that this can be strongly related
+to elbow posture, so I added sections on this.</p>
 <h3 id="programs-that-are-particularly-troublesome-for-the-left-pinky"><a aria-hidden="true" tabindex="-1" href="#programs-that-are-particularly-troublesome-for-the-left-pinky"><a href="#programs-that-are-particularly-troublesome-for-the-left-pinky" style="margin-right: 10px">#</a></a>Programs that are particularly troublesome for the left pinky</h3>
 <ul>
 <li>many programs: ctrl+c, ctrl+v, ctrl+x, ctrl+f</li>
