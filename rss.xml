@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 27 Sep 2022 15:12:18 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Sep 2022 02:44:04 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1941,6 +1941,8 @@ Mate pair reads are "rf"</p>
 </pre></div>
 <h3 id="appendix-b---cigar-parsing"><a aria-hidden="true" tabindex="-1" href="#appendix-b---cigar-parsing"><a href="#appendix-b---cigar-parsing" style="margin-right: 10px">#</a></a>Appendix B - <code>CIGAR</code> parsing</h3>
 <div class="highlight highlight-ts"><pre><span class="pl-c">// @param cigar: CIGAR string in text form</span>
+<span class="pl-c">// @returns an array of elements like ['30','M', '2','I', '50','M', '40','D']</span>
+<span class="pl-c">// which you can consume in a loop two elements at a time</span>
 <span class="pl-k">function</span> <span class="pl-en">parseCigar</span>(<span class="pl-v">cigar</span><span class="pl-k">:</span> <span class="pl-c1">string</span>) {
   <span class="pl-k">return</span> <span class="pl-smi">cigar</span>.<span class="pl-c1">split</span>(<span class="pl-s"><span class="pl-sr"><span class="pl-pds">/</span>(<span class="pl-c1">[MIDNSHPX=]</span>)<span class="pl-pds">/</span></span></span>)
 }
