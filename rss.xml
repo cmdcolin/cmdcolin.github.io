@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 28 Sep 2022 02:44:04 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Sep 2022 17:04:03 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -113,8 +113,7 @@ grid cell was very minimal (starting from a <code>gtk::Box</code> with a <code>g
 inside of it, to just being a <code>gtk::Inscription</code> which is very fast). Big
 thanks to the team for helping out with this!</p>
 <p>After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
-and I quickly fleshed out some more UI for the app
-a</p>]]></content:encoded>
+and I quickly fleshed out some more UI for the app</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
@@ -1964,6 +1963,13 @@ Mate pair reads are "rf"</p>
     <span class="pl-c">// "consume reference" to see whether to increment</span>
     <span class="pl-k">if</span> (<span class="pl-smi">op</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>M<span class="pl-pds">'</span></span> <span class="pl-k">||</span> <span class="pl-smi">op</span> <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>=<span class="pl-pds">'</span></span>) {
       <span class="pl-c">// matches consume query and reference</span>
+      <span class="pl-k">const</span> <span class="pl-c1">refMatch</span> <span class="pl-k">=</span> <span class="pl-smi">refSeq</span>.<span class="pl-c1">slice</span>(<span class="pl-smi">tpos</span>, <span class="pl-smi">tpos</span> <span class="pl-k">+</span> <span class="pl-smi">len</span>)
+      <span class="pl-k">const</span> <span class="pl-c1">readMatch</span> <span class="pl-k">=</span> <span class="pl-smi">readSeq</span>.<span class="pl-c1">slice</span>(<span class="pl-smi">qpos</span>, <span class="pl-smi">qpos</span> <span class="pl-k">+</span> <span class="pl-smi">len</span>)
+      <span class="pl-k">for</span> (<span class="pl-k">let</span> <span class="pl-smi">i</span> <span class="pl-k">=</span> <span class="pl-c1">0</span>; <span class="pl-smi">i</span> <span class="pl-k">&#x3C;</span> <span class="pl-smi">len</span>; <span class="pl-smi">i</span><span class="pl-k">++</span>) {
+        <span class="pl-k">if</span> (<span class="pl-smi">refMatch</span>[<span class="pl-smi">i</span>] <span class="pl-k">!==</span> <span class="pl-smi">readMatch</span>[<span class="pl-smi">i</span>]) {
+          <span class="pl-c">// SNP at this position</span>
+        }
+      }
       <span class="pl-smi">qpos</span> <span class="pl-k">+=</span> <span class="pl-smi">len</span>
       <span class="pl-smi">tpos</span> <span class="pl-k">+=</span> <span class="pl-smi">len</span>
     }
