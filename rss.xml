@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 02 Oct 2022 14:52:25 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 02 Oct 2022 16:54:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2907,8 +2907,8 @@ your libraries?</p>
 </li>
 <li>
 <p>Did you realize this means that your perfectly running test suite with your
-yarn.lock could be a failing case for consumers of your app unless you don’t
-use semver strings like ^1.0.0 and just hardcode it to 1.0.0?</p>
+yarn.lock could be a failing case for consumers of your library unless you
+don’t use semver strings like ^1.0.0 and just hardcode it to 1.0.0?</p>
 </li>
 <li>
 <p>Did you realize the default of ^1.0.0 automatically gets minor version bumps
