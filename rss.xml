@@ -4,13 +4,13 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 08 Oct 2022 17:10:07 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 08 Oct 2022 21:35:41 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Making a audio slideshow with ffmpeg]]></title>
+            <title><![CDATA[Making an audio slideshow with ffmpeg]]></title>
             <link>https://cmdcolin.github.io/posts/2022-10-08-ffmpeg-slideshow</link>
             <guid>https://cmdcolin.github.io/posts/2022-10-08-ffmpeg-slideshow</guid>
             <pubDate>Sat, 08 Oct 2022 00:00:00 GMT</pubDate>
