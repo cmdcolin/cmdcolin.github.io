@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 04:26:06 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 04:27:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3665,10 +3665,11 @@ monkey-see monkey-do type coding. I copy a bunch of files and just put them in
 the right place, tweak some lines, and start to figure out how to make things
 run. By the end of January 2019 I get my first code change merged.</p>
 <p>I also suggested that we start doing <strong>pair-programming sessions</strong>. Once I
-started these it made a huge difference for me in learning how to code. The
-pair programming often still way over my head due to how my coworker presented
-stuff or how much he assumed I understood. Nevertheless, these were extremely
-helpful for me to help get caught up.</p>
+started doing this, meeting weekly with my coworkers, it made a huge difference
+for me in learning how to code. The things we discussed in these sessions often
+still way over my head due to how my coworkers presented stuff or how much they
+assumed I understood. Nevertheless, these were extremely helpful for me to help
+get caught up.</p>
 <h2 id="reading-learning-react"><a aria-hidden="true" tabindex="-1" href="#reading-learning-react"><a href="#reading-learning-react" style="margin-right: 10px">#</a></a>Reading "Learning React"</h2>
 <p>In March 2019, I got the book "Learning React" (O'Reilly2017
 <a href="https://www.oreilly.com/library/view/learning-react/9781491954614/">https://www.oreilly.com/library/view/learning-react/9781491954614/</a>) for my
