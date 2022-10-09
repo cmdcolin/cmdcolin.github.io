@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 03:51:03 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 03:54:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3678,8 +3678,8 @@ time I clicked on internet tutorials and stuff before this.</p>
 pretty complicated and alien. We use mobx-state-tree and the glue for
 mobx-state-tree to React e.g. the mobx-react doesn't really make sense to me. I
 remember asking my coworkers why my component was not updating and they
-eventually find out it's because I keep not using the observe() wrapper around
-my components.</p>
+eventually find out it's because I keep not using the observer() wrapper around
+my components, which would be clear if you understood how mobx worked.</p>
 <h2 id="trying-out-typescript"><a aria-hidden="true" tabindex="-1" href="#trying-out-typescript"><a href="#trying-out-typescript" style="margin-right: 10px">#</a></a>Trying out Typescript</h2>
 <p>In April 2019, I start to experiment with Typescript and release a Typescript
 version of some data parsing code. I start by explicity specifying a lot of
@@ -3687,26 +3687,27 @@ types but I eventually start getting into the zen of "type inference" and I
 turn off the @typescript-eslint/explicit-function-return-type so I get implied
 return types.</p>
 <h2 id="using-react-hooks"><a aria-hidden="true" tabindex="-1" href="#using-react-hooks"><a href="#using-react-hooks" style="margin-right: 10px">#</a></a>Using React hooks</h2>
-<p>In May 2019 I try out my first React hook, a useState. It worked well. I
-couldn't really figure out why I would use it instead of the mobx state
-management we used elsewhere, but the example was that it was a click and drag
-and it made sense to keep that click and drag state local to the component
-rather than the "app". The book "Learning React" also helped me to understand
-hooks but only indirectly...it helped me understand function components vs
-class components, and now, we all just write only function components with
-hooks and rarely see class components.</p>
-<h2 id="using-react-testing-library"><a aria-hidden="true" tabindex="-1" href="#using-react-testing-library"><a href="#using-react-testing-library" style="margin-right: 10px">#</a></a>Using react-testing-library</h2>
+<p>In May 2019, I try out my first React hook, a useState. It worked well. I
+couldn't really figure out why I would use it instead of using mobx for state
+management we used elsewhere, but the example was that it was a click-and-drag
+and it made sense to keep that click-and-drag mouse position state local to the
+component rather than the "app".</p>
+<p>The book "Learning React" also helped me to understand hooks but only
+indirectly. The book had examples of pure function components, but was written
+pre-hooks. With hooks added in React 16.8, it took a little brain exercising,
+but I understood how hooks can be applied to function components.</p>
+<h2 id="using-react-testing-library"><a aria-hidden="true" tabindex="-1" href="#using-react-testing-library"><a href="#using-react-testing-library" style="margin-right: 10px">#</a></a>Using <code>react-testing-library</code></h2>
 <p>In June 2019, I create "integration test" level tests for our app. I had used
-react-testing-library for some components before this, but this was using
-react-testing-library to render the entire "app level" component. I was happy
+<code>react-testing-library</code> for some components before this, but this was using
+<code>react-testing-library</code> to render the entire "app level" component. I was happy
 to pioneer this and was happy to try this out instead of doing true browser
 tests, and I think this has worked out well.</p>
 <p>Some caveats: I got very caught up with trying to do canvas tests initially. I
-really wanted to use jest-mock-canvas but we were using offscreencanvas via a
-pretty complicated string of things, so I don't make progress here, and I also
-got confused about the relationship between node-canvas and jest-mock-canvas
-(they are basically totally different approaches). Later on, I find using
-jest-image-snapshot of the canvas contents works nice (ref
+really wanted to use <code>jest-mock-canvas</code> but we were using <code>OffscreenCanvas</code> via
+a pretty complicated string of things, so I don't make progress here, and I
+also got confused about the relationship between <code>node-canvas</code> and
+<code>jest-mock-canvas</code> (they are basically totally different approaches). Later on, I
+find using <code>jest-image-snapsho</code>t of the canvas contents works nice (ref
 <a href="https://stackoverflow.com/questions/33269093/how-to-add-canvas-support-to-my-tests-in-jest">https://stackoverflow.com/questions/33269093/how-to-add-canvas-support-to-my-tests-in-jest</a>)</p>
 <p>Other random note: when building out the integration tests, we got a lot
 of "act warnings" which were confusing. These were fixed in React 16.9
