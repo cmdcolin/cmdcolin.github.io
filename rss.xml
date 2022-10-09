@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 03:54:57 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 04:03:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3619,8 +3619,10 @@ in 2019. It was a difficult experience overall, but I wanted to go over my
 learning experience</p>
 <p>If I were to take away anything from this</p>
 <ul>
-<li>pair programming was really useful especially as a remote worker, I had
-nothing before that except weekly standups where I felt really depressed</li>
+<li>"pairing" (not strictly pair programming, just meeting with other people at
+structured times during the week) was really useful especially as a remote
+worker, I had nothing before that except weekly standups where I felt really
+depressed [2]</li>
 <li>reading the book "Learning React" was also very helpful, it helped provide
 some mental structure</li>
 </ul>
