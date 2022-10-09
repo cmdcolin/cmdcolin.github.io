@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 04:06:11 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 04:12:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3739,7 +3739,23 @@ binding react" and variants of this. I had never used Angular but I heard of
 two-way data binding from Angular, and I just felt like it was what I needed. I
 even posted about my frustrations about this on the React subreddit and was
 downvoted. Felt bad. I was just really confused. I abandoned the project in
-React and just used our normal jqueryish thing.</p>]]></content:encoded>
+React and just used our normal jqueryish thing.</p>
+<h2 id="footnote-2"><a aria-hidden="true" tabindex="-1" href="#footnote-2"><a href="#footnote-2" style="margin-right: 10px">#</a></a>Footnote 2</h2>
+<p>Why did I have such a poor grasp on React? I felt like I was a competant
+developer, but the combination of learning several things at once really didn't
+make sense to me</p>
+<p>I wish someone would have just told me something like "React is basically like functions that
+can return HTML" e.g.</p>
+<div class="highlight highlight-js"><pre><span class="pl-k">function</span> <span class="pl-en">HelloWorld</span>() {
+  <span class="pl-k">return</span> <span class="pl-k">&#x3C;</span>div<span class="pl-k">></span>Hello world<span class="pl-k">&#x3C;/</span>div<span class="pl-k">></span>
+}
+</pre></div>
+<p>Certainly there is more to it than that, but I don't think even that simple
+fact sunk in when I was trying to figure it out. Secondly, the concept of
+controlled components also confused me. I would cover those two topics early on
+for React learners, since forms are often very important.</p>
+<p>I wrote this short guide for learning for people who join our project now
+<a href="https://gist.github.com/cmdcolin/94d1cbc285e6319cc3af4b9a8556f03f">https://gist.github.com/cmdcolin/94d1cbc285e6319cc3af4b9a8556f03f</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
