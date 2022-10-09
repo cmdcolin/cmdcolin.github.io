@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 04:24:29 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 04:26:06 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3673,11 +3673,11 @@ helpful for me to help get caught up.</p>
 <p>In March 2019, I got the book "Learning React" (O'Reilly2017
 <a href="https://www.oreilly.com/library/view/learning-react/9781491954614/">https://www.oreilly.com/library/view/learning-react/9781491954614/</a>) for my
 kindle. Reading this book was a big help I felt, and provided a needed "brain
-reset" for me. The book worked well for me, I read it each night on my kindle,
-and the function component concepts were super enlightening. To me it was so
-much better reading a book than, say, an internet tutorial. With the book, I
-could focus, not have distractions, etc. My eyes would just glaze over every
-time I clicked on internet tutorials and stuff before this.</p>
+reset" for me. The book worked well for me, I read it each night on my kindle.
+To me it was so much better reading a book than, say, an internet tutorial.
+With the book, I could focus, not have distractions, etc. My eyes would just
+glaze over every time I clicked on internet tutorials. I did not try to live
+code any of the examples of "Learning React", I just read it as is before bed.</p>
 <p>So anyways, March 2019 goes on, and I'm learning, but our codebase still feels
 pretty complicated and alien. We use mobx-state-tree and the glue for
 mobx-state-tree to React e.g. the mobx-react doesn't really make sense to me. I
