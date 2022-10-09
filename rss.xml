@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 04:46:08 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 05:00:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3758,7 +3758,9 @@ something like "React is basically like functions that can return HTML" e.g.</p>
 <p>Certainly there is more to it than that, but boiling it down to just that core
 idea I think would have helped me.</p>
 <h2 id="footnote-3"><a aria-hidden="true" tabindex="-1" href="#footnote-3"><a href="#footnote-3" style="margin-right: 10px">#</a></a>Footnote 3</h2>
-<p>I am not sure if I would recommend Learning React to all learners. I think it helped me, and made me understand things like how ES6</p>]]></content:encoded>
+<p>I am not sure if I would recommend Learning React to all learners. I think it
+helped me, but there may be other options that work better for you. Look around
+and find what what looks right.</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
