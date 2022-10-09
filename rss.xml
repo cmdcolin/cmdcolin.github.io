@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 04:27:24 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 04:46:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3675,22 +3675,26 @@ get caught up.</p>
 <a href="https://www.oreilly.com/library/view/learning-react/9781491954614/">https://www.oreilly.com/library/view/learning-react/9781491954614/</a>) for my
 kindle. Reading this book was a big help I felt, and provided a needed "brain
 reset" for me. The book worked well for me, I read it each night on my kindle.
-To me it was so much better reading a book than, say, an internet tutorial.
-With the book, I could focus, not have distractions, etc. My eyes would just
-glaze over every time I clicked on internet tutorials. I did not try to live
-code any of the examples of "Learning React", I just read it as is before bed.</p>
-<p>So anyways, March 2019 goes on, and I'm learning, but our codebase still feels
-pretty complicated and alien. We use mobx-state-tree and the glue for
-mobx-state-tree to React e.g. the mobx-react doesn't really make sense to me. I
+The book was good at showing how things like ES6 syntax like destructuring,
+arrow functions, etc help fit into the React ecosystem (I was still steeped in
+ES5). Also, with the book, I could focus, not have distractions, etc. My eyes
+would just glaze over every time I clicked on internet tutorials. I did not try
+to live code any of the examples of "Learning React", I just read it as is
+before bed.</p>
+<h2 id="applying-lessons-to-work-is-still-a-slow-going-process"><a aria-hidden="true" tabindex="-1" href="#applying-lessons-to-work-is-still-a-slow-going-process"><a href="#applying-lessons-to-work-is-still-a-slow-going-process" style="margin-right: 10px">#</a></a>Applying lessons to work is still a slow going process</h2>
+<p>So anyways, work goes on, and I'm learning, but our codebase still feels pretty
+complicated and alien. React is one thing, but mobx is another. I tried
+downloading the mobx-state-tree book but it goes over my head
+(<a href="https://subscription.packtpub.com/book/web-development/9781789344837/8/ch08lvl1sec47/an-opinionated-mobx-with-mobx-state-tree">https://subscription.packtpub.com/book/web-development/9781789344837/8/ch08lvl1sec47/an-opinionated-mobx-with-mobx-state-tree</a>)
+and the way mobx is glued to React via mobx-react doesn't really click. I
 remember asking my coworkers why my component was not updating and they
 eventually find out it's because I keep not using the observer() wrapper around
-my components, which would be clear if you understood how mobx worked.</p>
+my components, which is obvious when you understand the system but it stumped
+me as a learner.</p>
 <h2 id="trying-out-typescript"><a aria-hidden="true" tabindex="-1" href="#trying-out-typescript"><a href="#trying-out-typescript" style="margin-right: 10px">#</a></a>Trying out Typescript</h2>
 <p>In April 2019, I start to experiment with Typescript and release a Typescript
 version of some data parsing code. I start by explicity specifying a lot of
-types but I eventually start getting into the zen of "type inference" and I
-turn off the @typescript-eslint/explicit-function-return-type so I get implied
-return types.</p>
+types but I eventually start getting into the zen of "type inference".</p>
 <h2 id="using-react-hooks"><a aria-hidden="true" tabindex="-1" href="#using-react-hooks"><a href="#using-react-hooks" style="margin-right: 10px">#</a></a>Using React hooks</h2>
 <p>In May 2019, I try out my first React hook, a useState. It worked well. I
 couldn't really figure out why I would use it instead of using mobx for state
@@ -3752,9 +3756,9 @@ something like "React is basically like functions that can return HTML" e.g.</p>
 }
 </pre></div>
 <p>Certainly there is more to it than that, but boiling it down to just that core
-idea I think would have helped me. I wrote this short guide for learning for
-people who join our project now
-<a href="https://gist.github.com/cmdcolin/94d1cbc285e6319cc3af4b9a8556f03f">https://gist.github.com/cmdcolin/94d1cbc285e6319cc3af4b9a8556f03f</a></p>]]></content:encoded>
+idea I think would have helped me.</p>
+<h2 id="footnote-3"><a aria-hidden="true" tabindex="-1" href="#footnote-3"><a href="#footnote-3" style="margin-right: 10px">#</a></a>Footnote 3</h2>
+<p>I am not sure if I would recommend Learning React to all learners. I think it helped me, and made me understand things like how ES6</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
