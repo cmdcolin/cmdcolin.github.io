@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 03:46:11 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 03:51:03 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3633,28 +3633,28 @@ PHP, Perl CGI, Java servlets, and client side JS. I am pretty steeped in the
 <h2 id="my-new-job"><a aria-hidden="true" tabindex="-1" href="#my-new-job"><a href="#my-new-job" style="margin-right: 10px">#</a></a>My new job!</h2>
 <p>When I got a call about a new job in 2018, I was really happy and started in
 June 2018. They decided they are going to do "the big rewrite" and are going to
-use React.</p>
-<p>My coworker started building the new React app prototype. My coworker keeps
-asking me "what state management library should we use". I just had no idea
-about React still, I had not ever looked into state management, and basically
-just was like "I dunno!". I had no way to form an opinion.</p>
+use React. I start out as a remote worker. I fly into Berkeley for a single day
+to sign HR paperwork!</p>
+<p>Soon, my coworker starts building the new React app prototype. He keeps asking
+me "what state management library should we use". I had no idea about React
+still, and had no concept of what state management even is, and basically just
+was like "I dunno!". I had no way to form an opinion.</p>
 <p>I was also working on some stuff unrelated to the rewrite as the rest of the
 team started prototyping in React, and I remained pretty out of the loop. We
 would have weekly meetings but I just wouldn't really understand the goings
-ons. I saw them start to write fresh code for the project but there were these
-PropTypes, and mobx-state-tree model types, and it was still the days of
-class-based React components, and I had no idea how React worked at all. I
-couldn't get any clear idea of what was happening.</p>
-<p>I had actually tried out React in 2016 and was very confused at that time too
-[Footnote 1], I had a bad taste in my mouth about React entirely!</p>
+ons. I saw PropTypes, and mobx-state-tree model types, and class-based React
+components, but nothing sunk in.</p>
+<p>Sidenote: I had actually tried out React in 2016 and was very confused at that
+time too, I had a bad taste in my mouth about React entirely! See Footnote 1.</p>
 <h2 id="i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite"><a aria-hidden="true" tabindex="-1" href="#i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite"><a href="#i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite" style="margin-right: 10px">#</a></a>I am floundering...not understanding what's going on with the rewrite</h2>
 <p>It's December 2018, I go home for Christmas and I have an honest talk with my
 parents and tell them "I don't get what is happening in the new codebase, I'm
 honestly unhappy, and it just does all this 'React' stuff" but I can't explain
-React to them I just say the code is automatically reacting to other things. My
-parents say "well if you are unhappy you might have to leave your job" and they
-are not like, cheering for me to leave, but they tell me that. At this point,
-it really hit me that I do like this job and I decided to try to focus on work.</p>
+React to them I just say the code is automatically reacting to other things.</p>
+<p>My parents say "well if you are unhappy, you might have to leave your job!".
+They were not cheering for me to leave, but they understood that this wasn't
+really sustainable. At this point, it really hit me that I do like this job and
+I decided to try to focus on work.</p>
 <h2 id="i-try-and-make-an-honest-attempt-to-get-involved-in-the-project"><a aria-hidden="true" tabindex="-1" href="#i-try-and-make-an-honest-attempt-to-get-involved-in-the-project"><a href="#i-try-and-make-an-honest-attempt-to-get-involved-in-the-project" style="margin-right: 10px">#</a></a>I try and make an honest attempt to get involved in the project</h2>
 <p>On January 10th 2019, I make my first commit to the rewrite by doing some
 monkey-see monkey-do type coding. I copy a bunch of files and just put them in
