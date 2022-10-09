@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 08 Oct 2022 21:35:41 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 03:44:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3637,14 +3637,16 @@ use React.</p>
 <p>My coworker started building the new React app prototype. My coworker keeps
 asking me "what state management library should we use". I just had no idea
 about React still, I had not ever looked into state management, and basically
-just was like "I dunno!". I had no way to form an opinion. I was also working
-on some misc stuff sort of unrelated to the rewrite and remained pretty out of
-the loop. We would have weekly meetings but I just wouldn't really understand
-the goings ons. The project started using mobx-state-tree and I saw them start
-to write fresh code for the project but things like prop-types just were
-confusing to me, e.g. there were the mobx-state-tree model types, and suddenly
-and the React prop-types and it was still the days of class-based React
-components. I couldn't get any clear idea of what was happening</p>
+just was like "I dunno!". I had no way to form an opinion.</p>
+<p>I was also working on some stuff unrelated to the rewrite as the rest of the
+team started prototyping in React, and I remained pretty out of the loop. We
+would have weekly meetings but I just wouldn't really understand the goings
+ons. I saw them start to write fresh code for the project but there were these
+PropTypes, and mobx-state-tree model types, and it was still the days of
+class-based React components, and I had no idea how React worked at all. I
+couldn't get any clear idea of what was happening.</p>
+<p>I had actually tried out React in 2014 and was very confused at that time too
+[Footnote 1], I had a bad taste in my mouth about React entirely!</p>
 <h2 id="i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite"><a aria-hidden="true" tabindex="-1" href="#i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite"><a href="#i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite" style="margin-right: 10px">#</a></a>I am floundering...not understanding what's going on with the rewrite</h2>
 <p>It's December 2018, I go home for Christmas and I have an honest talk with my
 parents and tell them "I don't get what is happening in the new codebase, I'm
@@ -3719,7 +3721,7 @@ anyone else has had struggles learning React, tell your story, and let me know.
 I'd like to also thank everyone who helped me along the way. I feel like a much
 better coder now, yet, I should always keep growing. The feeling of
 uncomfortableness could be a growing experience.</p>
-<h2 id="footnote"><a aria-hidden="true" tabindex="-1" href="#footnote"><a href="#footnote" style="margin-right: 10px">#</a></a>Footnote</h2>
+<h2 id="footnote-1"><a aria-hidden="true" tabindex="-1" href="#footnote-1"><a href="#footnote-1" style="margin-right: 10px">#</a></a>Footnote 1</h2>
 <p>I also had tried using React in 2016... but it was unsuccessful, but maybe for
 interesting reasons?</p>
 <p>I was tasked with making a normal form with text input elements, and I wanted
