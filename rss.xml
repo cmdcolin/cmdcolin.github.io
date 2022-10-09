@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Oct 2022 03:44:31 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Oct 2022 03:46:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3645,7 +3645,7 @@ ons. I saw them start to write fresh code for the project but there were these
 PropTypes, and mobx-state-tree model types, and it was still the days of
 class-based React components, and I had no idea how React worked at all. I
 couldn't get any clear idea of what was happening.</p>
-<p>I had actually tried out React in 2014 and was very confused at that time too
+<p>I had actually tried out React in 2016 and was very confused at that time too
 [Footnote 1], I had a bad taste in my mouth about React entirely!</p>
 <h2 id="i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite"><a aria-hidden="true" tabindex="-1" href="#i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite"><a href="#i-am-flounderingnot-understanding-whats-going-on-with-the-rewrite" style="margin-right: 10px">#</a></a>I am floundering...not understanding what's going on with the rewrite</h2>
 <p>It's December 2018, I go home for Christmas and I have an honest talk with my
