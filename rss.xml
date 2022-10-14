@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 19:08:54 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 19:11:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -21,7 +21,7 @@ your API (or an error occurs). But, the interesting thing to me is</p>
 <p><strong>you have to remember to reset that state, including error state, when your
 props change</strong></p>
 <p>It seems obvious, but I just wanted to write some working examples here</p>
-<h2 id="part-1-having-component-state-for-returned-api-data-or-returned-error"><a aria-hidden="true" tabindex="-1" href="#part-1-having-component-state-for-returned-api-data-or-returned-error"><a href="#part-1-having-component-state-for-returned-api-data-or-returned-error" style="margin-right: 10px">#</a></a>Part 1: Having component state for returned API data or returned error</h2>
+<h2 id="part-1-having-component-state-for-api-response-or-error"><a aria-hidden="true" tabindex="-1" href="#part-1-having-component-state-for-api-response-or-error"><a href="#part-1-having-component-state-for-api-response-or-error" style="margin-right: 10px">#</a></a>Part 1: Having component state for API response or error</h2>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003">https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003</a></p>
 <p>In the below example, we will handle fetching from the Pokemon API, and use a
