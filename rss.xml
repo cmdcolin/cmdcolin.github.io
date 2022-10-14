@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 19:11:31 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 19:28:35 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -135,7 +135,7 @@ interface PokemonType {
 }
 interface PokemonInfo {
   name: string
-  types: PokemonType
+  types: PokemonType[]
 }
 
 // util fetch function to throw if !response.ok, I use this util often
@@ -151,18 +151,18 @@ async function myfetch(url: string, opts?: RequestInit) {
 
 function usePokemonInfo(pokemonName: string) {
   const [error, setError] = useState&#x3C;<span class="pl-ent">unknown</span>>()
-  const [pokemonInfo, setPokemonInfo] = useState&#x3C;<span class="pl-ent">PokemonInfo</span>>()
+  const [pokemonInfo, setItemInfo] = useState&#x3C;<span class="pl-ent">PokemonInfo</span>>()
   useEffect(() => {
     let cancelled = false
     ;(async () => {
       try {
-        setPokemonInfo(undefined) // &#x3C;<span class="pl-ent">--</span> important to reset the state of the app
+        setItemInfo(undefined) // &#x3C;<span class="pl-ent">--</span> important to reset the state of the app
         setError(undefined) // &#x3C;-- important to reset the state of the app
         const data = await myfetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
         )
         if (!cancelled) {
-          setPokemonInfo(data)
+          setItemInfo(data)
         }
       } catch (e) {
         console.error(e)
@@ -177,7 +177,7 @@ function usePokemonInfo(pokemonName: string) {
     }
   }, [pokemonName])
 
-  return [error, pokemonInfo]
+  return [error, pokemonInfo] as const
 }
 
 function ErrorMessage({ error }: { error: unknown }) {
@@ -229,11 +229,79 @@ that an error occured.</p>
 need to reset your component state when props change, which in the code above,
 are the calls to setError(undefined) and setPokemonInfo(undefined) before I
 fetch a new Pokemon from the API.</p>
-<h2 id="footnote-0"><a aria-hidden="true" tabindex="-1" href="#footnote-0"><a href="#footnote-0" style="margin-right: 10px">#</a></a>Footnote 0:</h2>
+<h2 id="footnote-0---web-perf-pontificating"><a aria-hidden="true" tabindex="-1" href="#footnote-0---web-perf-pontificating"><a href="#footnote-0---web-perf-pontificating" style="margin-right: 10px">#</a></a>Footnote 0 - Web perf pontificating</h2>
 <p>I think sometimes, this manner of fetching data inside a component can lead to
 what some web-perf-experts refer to as waterfall. Can you get your state from
 your parent? That might result in fewer individual requests made, but is also
-quite a different architecture.</p>]]></content:encoded>
+quite a different architecture.</p>
+<h2 id="footnote-1---errorboundaries-dont-automatically-save-you-from-manually-handling-error"><a aria-hidden="true" tabindex="-1" href="#footnote-1---errorboundaries-dont-automatically-save-you-from-manually-handling-error"><a href="#footnote-1---errorboundaries-dont-automatically-save-you-from-manually-handling-error" style="margin-right: 10px">#</a></a>Footnote 1 - ErrorBoundaries don't automatically save you from manually handling error</h2>
+<p>You can also consider using an ErrorBoundary, but this does not automatically
+catch errors that happen in e.g. a useEffect. If you want your ErrorBoundary to
+handle your useEffect related error, then you can use something like this. This
+assumes a <code>react-error-boundary</code> type ErrorBoundary.</p>
+<div class="highlight highlight-text-xml"><pre>import { ErrorBoundary } from 'react-error-boundary'
+
+function PokemonCard({ pokemonName }: { pokemonName: string }) {
+  const [error, pokemonInfo] = usePokemonInfo(pokemonName)
+  if (error) {
+    throw error
+  }
+
+  return (
+    &#x3C;<span class="pl-ent">div</span>>
+      {pokemonInfo ? (
+        &#x3C;<span class="pl-ent">div</span>>
+          {pokemonInfo.name} is of type{' '}
+          {pokemonInfo.types.map(t => t.type.name).join(', ')}
+        &#x3C;/<span class="pl-ent">div</span>>
+      ) : (
+        &#x3C;<span class="pl-ent">div</span>>Loading...&#x3C;/<span class="pl-ent">div</span>>
+      )}
+    &#x3C;/<span class="pl-ent">div</span>>
+  )
+}
+
+export default function App() {
+  const [value, setValue] = useState('oddish')
+  return (
+    &#x3C;<span class="pl-ent">ErrorBoundary</span> <span class="pl-e">FallbackComponent</span>={({ error }) => &#x3C;<span class="pl-ent">div</span>>{`${error}`}&#x3C;/<span class="pl-ent">div</span>>}>
+      &#x3C;<span class="pl-ent">PokemonCard</span> <span class="pl-e">pokemonName</span>={value} />
+    &#x3C;/<span class="pl-ent">ErrorBoundary</span>>
+  )
+}
+</pre></div>
+<p>Another trick, instead of throwing in the body of the component is throwing in
+the callback form of the useState-setter. Then you wouldn't necessarily need to
+have a separate useState for the error state, but you would then need an
+ErrorBoundary or something to help display a nice error.</p>
+<div class="highlight highlight-text-xml"><pre>useEffect(() => {
+  let cancelled = false
+  ;(async () => {
+    try {
+      // important: reset the error and item state of the component!
+      setPokemonInfo(undefined)
+
+      const data = await myfetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+      )
+      if (!cancelled) {
+        setPokemonInfo(data)
+      }
+    } catch (e) {
+      console.error(e)
+      if (!cancelled) {
+        setPokemonInfo(() => {
+          throw e
+        })
+      }
+    }
+  })()
+
+  return () => {
+    cancelled = true
+  }
+}, [pokemonName])
+</pre></div>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
