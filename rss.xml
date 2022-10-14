@@ -4,22 +4,23 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 18:48:40 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 18:56:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Handling async errors with React (or, remember that props can change)]]></title>
-            <link>https://cmdcolin.github.io/posts/2022-10-10-reentry-react</link>
-            <guid>https://cmdcolin.github.io/posts/2022-10-10-reentry-react</guid>
+            <title><![CDATA[Handling component state with React (or, remember that props can change)]]></title>
+            <link>https://cmdcolin.github.io/posts/2022-10-10-reacterrorhandling</link>
+            <guid>https://cmdcolin.github.io/posts/2022-10-10-reacterrorhandling</guid>
             <pubDate>Mon, 10 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>If you make a React component that has, say, a prop for a item id, and an async
-action in a useEffect to fetch data for that item from an API, then you will
-likely implement error handling on it most likely. That error handling may be a
-useState.</p>
-<p><strong>The key to remember that the props of your component can change, and you then
-have to reset all the state related to your old props</strong></p>
+action in a <code>useEffect</code> to fetch data for that item from an API, then you may
+probably also have a <code>useState</code> to set data after you get results back from
+your API (or an error occurs). But, the interesting thing to me is</p>
+<p><strong>you have to remember to reset that state, including error state, when your
+props change</strong></p>
+<p>It seems obvious, but I just wanted to write some working examples here</p>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003">https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003</a></p>
 <div class="highlight highlight-text-xml"><pre>import { useState, useEffect } from 'react'
@@ -51,20 +52,20 @@ function ErrorMessage({ error }: { error: unknown }) {
 
 function PokemonCard({ pokemonName }: { pokemonName: string }) {
   const [error, setError] = useState&#x3C;<span class="pl-ent">unknown</span>>()
-  const [pokemonInfo, setItemInfo] = useState&#x3C;<span class="pl-ent">PokemonInfo</span>>()
+  const [pokemonInfo, setPokemonInfo] = useState&#x3C;<span class="pl-ent">PokemonInfo</span>>()
   useEffect(() => {
     let cancelled = false
     ;(async () => {
       try {
-        // important to reset the error and item state of the app
+        // important: reset the error and item state of the component!
         setError(undefined)
-        setItemInfo(undefined)
+        setPokemonInfo(undefined)
 
         const data = await myfetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
         )
         if (!cancelled) {
-          setItemInfo(data)
+          setPokemonInfo(data)
         }
       } catch (e) {
         console.error(e)
@@ -116,6 +117,8 @@ re-usable code but the amount of instances I actually take advantage of this
 are low. This does not drastically affect our approach, but the handling is not
 contained. We can call <code>usePokemonInfo(pokemonName)</code> and error handling and
 fetching is handled for us</p>
+<p>Working codesandbox</p>
+<p><a href="https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234">https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234</a></p>
 <div class="highlight highlight-text-xml"><pre>import { useState, useEffect } from 'react'
 
 interface PokemonType {
@@ -141,18 +144,18 @@ async function myfetch(url: string, opts?: RequestInit) {
 
 function usePokemonInfo(pokemonName: string) {
   const [error, setError] = useState&#x3C;<span class="pl-ent">unknown</span>>()
-  const [pokemonInfo, setItemInfo] = useState&#x3C;<span class="pl-ent">PokemonInfo</span>>()
+  const [pokemonInfo, setPokemonInfo] = useState&#x3C;<span class="pl-ent">PokemonInfo</span>>()
   useEffect(() => {
     let cancelled = false
     ;(async () => {
       try {
-        setItemInfo(undefined) // &#x3C;<span class="pl-ent">--</span> important to reset the state of the app
+        setPokemonInfo(undefined) // &#x3C;<span class="pl-ent">--</span> important to reset the state of the app
         setError(undefined) // &#x3C;-- important to reset the state of the app
         const data = await myfetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
         )
         if (!cancelled) {
-          setItemInfo(data)
+          setPokemonInfo(data)
         }
       } catch (e) {
         console.error(e)
@@ -216,7 +219,12 @@ leaving errors uncaught. If you don't manually handle the error in the
 useEffect, your user will literally never see that an error occured. But, the
 flipside to this, is you also have to reset your "error state", those are the
 key lines where I call setError(undefined) and setPokemonInfo(undefined) before
-I fetch a new pokemon from my API.</p>]]></content:encoded>
+I fetch a new pokemon from my API.</p>
+<h2 id="footnote-0"><a aria-hidden="true" tabindex="-1" href="#footnote-0"><a href="#footnote-0" style="margin-right: 10px">#</a></a>Footnote 0:</h2>
+<p>I think sometimes, this manner of fetching data inside a component can lead to
+what some web-perf-experts refer to as waterfall. Can you get your state from
+your parent? That might result in fewer individual requests made, but is also
+quite a different architecture.</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
