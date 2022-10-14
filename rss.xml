@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 18:58:33 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 19:02:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -117,7 +117,7 @@ export default function App() {
 <p>Can we make a hook to make this easier? I don't often make custom hooks, but
 you can try to "encapsulate" some of the multiple-related hooks (the useStates
 for error, pokemonInfo, and useEffect) into a single hook. This does not
-drastically affect our approach, but the handling is not contained. We can call
+drastically affect our approach, but in the below example, we can call
 <code>usePokemonInfo(pokemonName)</code> and error handling and fetching is handled for us</p>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234">https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234</a></p>
