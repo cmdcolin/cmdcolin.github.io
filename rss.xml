@@ -4,15 +4,15 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 18:56:19 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 18:58:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
             <title><![CDATA[Handling component state with React (or, remember that props can change)]]></title>
-            <link>https://cmdcolin.github.io/posts/2022-10-10-reacterrorhandling</link>
-            <guid>https://cmdcolin.github.io/posts/2022-10-10-reacterrorhandling</guid>
+            <link>https://cmdcolin.github.io/posts/2022-10-10-reactstate</link>
+            <guid>https://cmdcolin.github.io/posts/2022-10-10-reactstate</guid>
             <pubDate>Mon, 10 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>If you make a React component that has, say, a prop for a item id, and an async
 action in a <code>useEffect</code> to fetch data for that item from an API, then you may
@@ -21,6 +21,7 @@ your API (or an error occurs). But, the interesting thing to me is</p>
 <p><strong>you have to remember to reset that state, including error state, when your
 props change</strong></p>
 <p>It seems obvious, but I just wanted to write some working examples here</p>
+<h2 id="part-1-fetching-info-from-the-pokemon-api-with-component-state-for-pokemon-info-or-returned-error"><a aria-hidden="true" tabindex="-1" href="#part-1-fetching-info-from-the-pokemon-api-with-component-state-for-pokemon-info-or-returned-error"><a href="#part-1-fetching-info-from-the-pokemon-api-with-component-state-for-pokemon-info-or-returned-error" style="margin-right: 10px">#</a></a>Part 1: Fetching info from the Pokemon API, with component state for pokemon info or returned error</h2>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003">https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003</a></p>
 <div class="highlight highlight-text-xml"><pre>import { useState, useEffect } from 'react'
@@ -112,11 +113,12 @@ export default function App() {
   )
 }
 </pre></div>
-<p>Can we make a hook to make this easier? Hooks are claimed to allow lots of
-re-usable code but the amount of instances I actually take advantage of this
-are low. This does not drastically affect our approach, but the handling is not
-contained. We can call <code>usePokemonInfo(pokemonName)</code> and error handling and
-fetching is handled for us</p>
+<h2 id="part-2-a-custom-hook"><a aria-hidden="true" tabindex="-1" href="#part-2-a-custom-hook"><a href="#part-2-a-custom-hook" style="margin-right: 10px">#</a></a>Part 2: A custom hook?</h2>
+<p>Can we make a hook to make this easier? I don't often make custom hooks, but
+you can try to "encapsulate" some of the multiple-related hooks (the useStates
+for error, pokemonInfo, and useEffect) into a single hook. This does not
+drastically affect our approach, but the handling is not contained. We can call
+<code>usePokemonInfo(pokemonName)</code> and error handling and fetching is handled for us</p>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234">https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234</a></p>
 <div class="highlight highlight-text-xml"><pre>import { useState, useEffect } from 'react'
