@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 16:41:03 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 16:45:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2679,11 +2679,11 @@ it, decode it, and ... we see an error!!! <strong>LIGHTNING CRACKS</strong></p>
 <div class="highlight highlight-js"><pre><span class="pl-k">const</span> <span class="pl-c1">buf</span> <span class="pl-k">=</span> <span class="pl-en">unzip</span>(file)
 <span class="pl-k">const</span> <span class="pl-c1">str</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">TextDecoder</span>().<span class="pl-en">decode</span>(buf)
 </pre></div>
-<p>We trace it back and run a console.log(str)</p>
-<p>It looks empty. We try running console.log(str.length) ... it prints out 0</p>
-<p>But if we console.log(buffer.length) we get 546,483,710 bytes...</p>
+<p>We trace it back and run a <code>console.log(str)</code></p>
+<p>It looks empty. We try running <code>console.log(str.length)</code> ... it prints out 0</p>
+<p>But if we look at <code>console.log(buffer.length)</code> we get 546,483,710 bytes...</p>
 <p>What could be happening?</p>
-<p>We see in the TextDecoder documentation that it has a note called "fatal". We
+<p>We see in the <code>TextDecoder</code> documentation that it has a note called "fatal". We
 try</p>
 <div class="highlight highlight-js"><pre><span class="pl-k">const</span> <span class="pl-c1">buf</span> <span class="pl-k">=</span> <span class="pl-en">unzip</span>(file)
 <span class="pl-k">const</span> <span class="pl-c1">str</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">TextDecoder</span>(<span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, { fatal<span class="pl-k">:</span> <span class="pl-c1">true</span> }).<span class="pl-en">decode</span>(buf)
@@ -2708,11 +2708,21 @@ wind blows through the rattly windows</p>
 <p>happy halloween!!</p>
 <p>pumpkin photo source:
 <a href="http://mountainbikerak.blogspot.com/2010/11/google-chrome-pumpkin.html">http://mountainbikerak.blogspot.com/2010/11/google-chrome-pumpkin.html</a></p>
+<ul>
+<li>
 <p>chrome 95 tested</p>
+</li>
+<li>
 <p>nodejs 15 - at 512MB+1 bytes it prints an error message <code>Error: Cannot create a string longer than 0x1fffffe8 characters</code> for significantly greater than 512MB
 e.g. 600MB it actually prints a different error <code>TypeError [ERR_ENCODING_INVALID_ENCODED_DATA]: The encoded data was not valid for encoding utf-8</code>)</p>
+</li>
+<li>
 <p>firefox 93 - goes up to ~1GB but then gives Exception <code>{ name: "NS_ERROR_OUT_OF_MEMORY", message: "", result: 2147942414 }</code></p>
-<p>midori 6 (safari-alike/webkit) - goes up to ~2GB fine! will have to test more</p>]]></content:encoded>
+</li>
+<li>
+<p>midori 6 (safari-alike/webkit) - goes up to ~2GB fine! will have to test more</p>
+</li>
+</ul>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
