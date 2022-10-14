@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 19:04:56 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 14 Oct 2022 19:08:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -221,12 +221,14 @@ export default function App() {
 </pre></div>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
 <p>I think it's sometimes common to forget error handling in async JS code
-(useEffect async or many other contexts, etc), and it's not linted well wither,
-leaving errors uncaught. If you don't manually handle the error in the
-useEffect, your user will literally never see that an error occured. But, the
-flipside to this, is you also have to reset your "error state", those are the
-key lines where I call setError(undefined) and setPokemonInfo(undefined) before
-I fetch a new pokemon from my API.</p>
+(useEffect async or many other contexts, etc), and there aren't e.g. lint rules
+to really help, leaving errors uncaught or handled poorly. If you don't
+manually handle the error in the <code>useEffect</code>, your user probably will not see
+that an error occured.</p>
+<p>In addition to this error handling rant, the other point of this article is you
+need to reset your component state when props change, which in the code above,
+are the calls to setError(undefined) and setPokemonInfo(undefined) before I
+fetch a new Pokemon from the API.</p>
 <h2 id="footnote-0"><a aria-hidden="true" tabindex="-1" href="#footnote-0"><a href="#footnote-0" style="margin-right: 10px">#</a></a>Footnote 0:</h2>
 <p>I think sometimes, this manner of fetching data inside a component can lead to
 what some web-perf-experts refer to as waterfall. Can you get your state from
