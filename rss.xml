@@ -4,13 +4,13 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 14 Oct 2022 19:28:35 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 15 Oct 2022 05:57:52 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Handling component state with React (or, remember that props can change)]]></title>
+            <title><![CDATA[Handling component state with React...you gotta reset it sometimes]]></title>
             <link>https://cmdcolin.github.io/posts/2022-10-10-reactstate</link>
             <guid>https://cmdcolin.github.io/posts/2022-10-10-reactstate</guid>
             <pubDate>Mon, 10 Oct 2022 00:00:00 GMT</pubDate>
@@ -301,7 +301,11 @@ ErrorBoundary or something to help display a nice error.</p>
     cancelled = true
   }
 }, [pokemonName])
-</pre></div>]]></content:encoded>
+</pre></div>
+<h2 id="footnote-2-the-future-with-react-data-fetching"><a aria-hidden="true" tabindex="-1" href="#footnote-2-the-future-with-react-data-fetching"><a href="#footnote-2-the-future-with-react-data-fetching" style="margin-right: 10px">#</a></a>Footnote 2: The future with React data fetching</h2>
+<p>See <a href="https://github.com/reactjs/rfcs/pull/229">https://github.com/reactjs/rfcs/pull/229</a></p>
+<p>This was just announced so there is a lot to unpack there, I can update this
+blog post if I come up with an analogous example using this RFC</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
