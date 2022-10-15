@@ -9,13 +9,13 @@ import rehypeSlug from 'rehype-slug'
 
 import sketches from './sketches.json'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeHighlight from 'rehype-highlight'
 
 //@ts-ignore
-import rehypeStarryNight from './rehype-starry-night.js'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
+import rehypeShiki from '@leafac/rehype-shiki'
+import * as shiki from 'shiki'
 
 const postsDirectory = join(process.cwd(), '_posts')
 
@@ -35,8 +35,10 @@ export async function getPostBySlug(slug: string) {
   const html = await unified()
     .use(remarkParse)
     .use(remarkRehype)
-    .use(rehypeStarryNight)
     .use(remarkGfm)
+    .use(rehypeShiki, {
+      highlighter: await shiki.getHighlighter({ theme: 'poimandres' }),
+    })
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
