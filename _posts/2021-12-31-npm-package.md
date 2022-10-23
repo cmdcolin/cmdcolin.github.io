@@ -6,11 +6,8 @@ date: 2021-12-31
 There is a lot of mystery around making your own `npm` package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
 Should you use a "starter kit" or a boilerplate example? Or just roll your own?
-Should you use a bundler? How do you use typescript?
-
-**Record scratch **
-
-Why don't we try starting from scratch and seeing where we can get?
+Should you use a bundler? How do you use typescript? Well, why don't we try
+starting from scratch and seeing where we can get?
 
 TLDR: here is a github repo with a template package
 https://github.com/cmdcolin/npm-package-tutorial/
@@ -22,16 +19,22 @@ arbitrary file host, and you can upload pretty much anything you want to it.
 
 The magic is in the package.json file, which tells npm:
 
-- what files are part of your package
+- what files are part of your package (by default, the whole folder with your
+  package.json is published, with the "files" field you can say what particular
+  folders or files are uploaded or you can use .npmignore to choose which files
+  NOT to publish)
 - what to use as the "entry point" (e.g. the file that should be referenced
-  when you say `const lib = require('mypackage')`)
+  when you say `const lib = require('mypackage')`, this is governed by the
+  "main" field, "module" field which is bundler specific, and "export maps"
+  which are newer but tricky)
 - what pre- and post- processing steps should be done when the package is being
-  published
+  published (the various "scripts", where you can have "clean", "build",
+  "test", "lint", "prebuild", etc)
 - and more!
 
 Let's try an experiment...
 
-## Initializing a package
+# Part 1: the most basic package with plain JS code in commonjs format
 
 Open up a terminal, and run
 
@@ -39,9 +42,7 @@ Open up a terminal, and run
 mkdir mypackage
 cd mypackage
 git init # make mypackage version controlled
-npm init
-# or
-yarn init
+npm init # or yarn init
 ```
 
 This init command outputs something like this, and we accept the defaults
@@ -139,7 +140,7 @@ This all seems pretty boring thus far but it tells us a couple things
 1. the filename index.js is not special, probably it is a hangover from the
    name index.html. you can use whatever name you want
 
-## Adding typescript
+# Part 2: Adding typescript
 
 Let's try adding typescript
 
@@ -176,7 +177,7 @@ options, but I have stripped it down in my projects to look like this
   "include": ["src"],
   "compilerOptions": {
     "target": "es2018",
-    "moduleResolution": "node",
+    "moduleResolution": "node", // don't have to import actual filenames, can import extensionless files
     "declaration": true, // generate .d.ts files
     "sourceMap": true, // generate source map
     "outDir": "dist", // output compiled js, d.ts, and source map to dist folder
@@ -186,8 +187,8 @@ options, but I have stripped it down in my projects to look like this
 }
 ```
 
-Now, we want to change our `js` to `ts` files to use `typescript`, let's change them
-to use normal ESM import/exports
+Now, let's wrote a little typescript. We can now use "ESM" style code, we will
+compile it to commonjs format.
 
 util.ts
 
@@ -216,9 +217,9 @@ fields in `package.json`
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
-  "files": ["dist"],
+  "files": ["dist", "src"], // we publish both dist and src to get proper sourceMaps
   "scripts": {
-    "build": "tsc"
+    "build": "tsc --module commonjs"
   },
   "author": "Colin",
   "license": "ISC",
@@ -278,7 +279,7 @@ and then update your package.json
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "tsc"
+    "build": "tsc --module commonjs"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",
@@ -380,8 +381,8 @@ yarn test
 ```
 
 You can also create an alternative system where you use `babel-eslint` and
-various babel strategies to test your code, but if you are using typescript,
-ts-jest+typescript works great.
+various babel strategies to test your code, but if you are using `typescript`,
+`ts-jest` and `typescript` works great.
 
 ## Add a .gitignore
 
@@ -399,8 +400,33 @@ than keeping commonjs equivalents
 
 https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-There are many challenges here, and will not be discussed, but it may be a
-useful further reading page
+There are many challenges here, but one shortcut that I have used is to
+actually go "halfway to ESM" and just publish a "dual" package: one "main"
+field in the package.json referring to a commonjs file, and one "module" field
+with an ESM style build for bundlers. I do it like this:
+
+```json
+{
+"files":["dist","esm","src"],
+  "scripts": {
+     ...
+    "cleam":"rimraf dist esm",
+    "build:cjs": "tsc --module commonjs --ourDir dist",
+    "build:esm": "tsc --target es2018 --outDir esm",
+    "build": "npm run build:esm && npm run build:cjs"
+  },
+  "main": "dist/index.js",
+  "module": "esm/index.js"
+}
+```
+
+The "module" field is understood by bundlers like webpack and you can do
+slightly less polyfilling/babeling on it (hence the different `--target`
+attributes)
+
+This is not "pure ESM" with the "type":"module" in package.json, but it does
+help to have less "babelification" (which in our case is done by tsc) of your
+source code.
 
 ## Conclusion
 
@@ -409,16 +435,28 @@ to `npm`. This little boilerplate includes these features:
 
 - Makes clean build when running `yarn build` or `yarn publish`
 - Pushes to github after publish
-- Uses ts-jest for testing
+- Uses `ts-jest` for testing
 - Uses esm modules
 
 You also have full control, and understand the decisions we took to get to this
 point. This package does not use any bundling (rollup or webpack or otherwise).
 It just uses `tsc` is used to compile the files to the `dist` folder, and the
-dist folder is published to `npm`! If you need your package to be usable by
-consumers that don't themselves use bundlers, consider looking into `<script type="module">` for importing ESM modules in the browser, or you can bundle
-your library using rollup or webpack and output e.g. a UMD bundle
+dist folder is published to `npm`!
+
+If you need your package to be usable by consumers that don't themselves use
+bundlers, consider looking into `<script type="module">` for importing ESM
+modules in the browser, or you can bundle your library using rollup or webpack
+and output e.g. a UMD bundle
 
 ## Final product
 
 See https://github.com/cmdcolin/npm-package-tutorial/
+
+## Footnote 1
+
+See my follow up rant https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler
+
+## Footnote 2
+
+This is a setup that works for me, but there are many ways to publish a package
+so take it with a grain of salt!
