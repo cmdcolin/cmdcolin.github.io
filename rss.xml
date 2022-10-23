@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 15 Oct 2022 07:38:12 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 23 Oct 2022 16:35:01 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2385,9 +2385,8 @@ are on the read and ref position with the <code>CIGAR</code> string (a la Append
             <content:encoded><![CDATA[<p>There is a lot of mystery around making your own <code>npm</code> package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
 Should you use a "starter kit" or a boilerplate example? Or just roll your own?
-Should you use a bundler? How do you use typescript?</p>
-<p>**Record scratch **</p>
-<p>Why don't we try starting from scratch and seeing where we can get?</p>
+Should you use a bundler? How do you use typescript? Well, why don't we try
+starting from scratch and seeing where we can get?</p>
 <p>TLDR: here is a github repo with a template package
 <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>
 <h2 id="introduction"><a aria-hidden="true" tabindex="-1" href="#introduction"><a href="#introduction" style="margin-right: 10px">#</a></a>Introduction</h2>
@@ -2395,22 +2394,25 @@ Should you use a bundler? How do you use typescript?</p>
 arbitrary file host, and you can upload pretty much anything you want to it.</p>
 <p>The magic is in the package.json file, which tells npm:</p>
 <ul>
-<li>what files are part of your package</li>
+<li>what files are part of your package (by default, the whole folder with your
+package.json is published, with the "files" field you can say what particular
+folders or files are uploaded)</li>
 <li>what to use as the "entry point" (e.g. the file that should be referenced
-when you say <code>const lib = require('mypackage')</code>)</li>
+when you say <code>const lib = require('mypackage')</code>, this is governed by the
+"main" field, "module" field which is bundler specific, and "export maps"
+which are newer but tricky)</li>
 <li>what pre- and post- processing steps should be done when the package is being
-published</li>
+published (the various "scripts", where you can have "clean", "build",
+"test", "lint", "prebuild", etc)</li>
 <li>and more!</li>
 </ul>
 <p>Let's try an experiment...</p>
-<h2 id="initializing-a-package"><a aria-hidden="true" tabindex="-1" href="#initializing-a-package"><a href="#initializing-a-package" style="margin-right: 10px">#</a></a>Initializing a package</h2>
+<h1 id="part-1-the-most-basic-package-with-plain-js-code-in-commonjs-format"><a aria-hidden="true" tabindex="-1" href="#part-1-the-most-basic-package-with-plain-js-code-in-commonjs-format"><a href="#part-1-the-most-basic-package-with-plain-js-code-in-commonjs-format" style="margin-right: 10px">#</a></a>Part 1: the most basic package with plain JS code in commonjs format</h1>
 <p>Open up a terminal, and run</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #A6ACCD">mkdir mypackage</span></span>
 <span class="line"><span style="color: #A6ACCD">cd mypackage</span></span>
 <span class="line"><span style="color: #A6ACCD">git init </span><span style="color: #767C9DB0"># make mypackage version controlled</span></span>
-<span class="line"><span style="color: #A6ACCD">npm init</span></span>
-<span class="line"><span style="color: #767C9DB0"># or</span></span>
-<span class="line"><span style="color: #A6ACCD">yarn init</span></span></code></pre>
+<span class="line"><span style="color: #A6ACCD">npm init </span><span style="color: #767C9DB0"># or yarn init</span></span></code></pre>
 <p>This init command outputs something like this, and we accept the defaults</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #A6ACCD">This utility will walk you through creating a package.json file.</span></span>
 <span class="line"><span style="color: #A6ACCD">It only covers the most common items, and tries to guess sensible defaults.</span></span>
@@ -2480,7 +2482,7 @@ package.</p>
 <li>the filename index.js is not special, probably it is a hangover from the
 name index.html. you can use whatever name you want</li>
 </ol>
-<h2 id="adding-typescript"><a aria-hidden="true" tabindex="-1" href="#adding-typescript"><a href="#adding-typescript" style="margin-right: 10px">#</a></a>Adding typescript</h2>
+<h1 id="part-2-adding-typescript"><a aria-hidden="true" tabindex="-1" href="#part-2-adding-typescript"><a href="#part-2-adding-typescript" style="margin-right: 10px">#</a></a>Part 2: Adding typescript</h1>
 <p>Let's try adding typescript</p>
 <p>To do this, we will use the typescript compiler to compile a directory of files
 in our "src" directory and output the compiled files to a directory named
@@ -2503,7 +2505,7 @@ options, but I have stripped it down in my projects to look like this</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">include</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: [</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">src</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">],</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">compilerOptions</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: {</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">target</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">es2018</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
-<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">moduleResolution</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">node</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">moduleResolution</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">node</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">, </span><span style="color: #767C9DB0">// don't have to import actual filenames, can import extensionless files</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">declaration</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #5DE4C7">true</span><span style="color: #A6ACCD">, </span><span style="color: #767C9DB0">// generate .d.ts files</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">sourceMap</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #5DE4C7">true</span><span style="color: #A6ACCD">, </span><span style="color: #767C9DB0">// generate source map</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">outDir</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">, </span><span style="color: #767C9DB0">// output compiled js, d.ts, and source map to dist folder</span></span>
@@ -2530,7 +2532,7 @@ fields in <code>package.json</code></p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">version</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">1.0.0</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">description</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">""</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">main</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">src/index.js</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
-<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">files</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: [</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">],</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">files</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: [</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">src</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">], </span><span style="color: #767C9DB0">// we publish both dist and src to get proper sourceMaps</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">scripts</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: {</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">tsc</span><span style="color: #A6ACCD">"</span></span>
 <span class="line"><span style="color: #A6ACCD">  },</span></span>
@@ -2635,8 +2637,8 @@ yarn build --watch
 yarn test
 </code></pre>
 <p>You can also create an alternative system where you use <code>babel-eslint</code> and
-various babel strategies to test your code, but if you are using typescript,
-ts-jest+typescript works great.</p>
+various babel strategies to test your code, but if you are using <code>typescript</code>,
+<code>ts-jest</code> and <code>typescript</code> works great.</p>
 <h2 id="add-a-gitignore"><a aria-hidden="true" tabindex="-1" href="#add-a-gitignore"><a href="#add-a-gitignore" style="margin-right: 10px">#</a></a>Add a .gitignore</h2>
 <p>Create a .gitignore with just a line that references this <code>dist</code> folder and <code>node_modules</code> folder</p>
 <pre><code>dist
@@ -2646,25 +2648,49 @@ node_modules
 <p>There is a shift happening where modules are changing to be pure ESM rather
 than keeping commonjs equivalents</p>
 <p><a href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c</a></p>
-<p>There are many challenges here, and will not be discussed, but it may be a
-useful further reading page</p>
+<p>There are many challenges here, but one shortcut that I have used is to
+actually go "halfway to ESM" and just publish a "dual" package: one "main"
+field in the package.json referring to a commonjs file, and one "module" field
+with an ESM style build for bundlers. I do it like this:</p>
+<pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #A6ACCD">{</span></span>
+<span class="line"><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">files</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">:[</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">src</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">],</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">scripts</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: {</span></span>
+<span class="line"><span style="color: #A6ACCD">     </span><span style="color: #D0679D">...</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">cleam</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">:</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">rimraf dist esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build:cjs</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">tsc --module commonjs --target es2015 --ourDir dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build:esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">tsc --target es2018 --outDir esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">npm run build:esm &#x26;&#x26; npm run build:cjs</span><span style="color: #A6ACCD">"</span></span>
+<span class="line"><span style="color: #A6ACCD">  },</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">main</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist/index.js</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">module</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">esm/index.js</span><span style="color: #A6ACCD">"</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<p>The "module" field is understood by bundlers like webpack and you can do
+slightly less polyfilling/babeling on it (hence the different <code>--target</code>
+attributes)</p>
+<p>This is not "pure ESM" with the "type":"module" in package.json, but it does
+help to have less "babelification" (which in our case is done by tsc) of your
+source code.</p>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
 <p>This tutorial shows you how you can create a basic package that you can publish
 to <code>npm</code>. This little boilerplate includes these features:</p>
 <ul>
 <li>Makes clean build when running <code>yarn build</code> or <code>yarn publish</code></li>
 <li>Pushes to github after publish</li>
-<li>Uses ts-jest for testing</li>
+<li>Uses <code>ts-jest</code> for testing</li>
 <li>Uses esm modules</li>
 </ul>
 <p>You also have full control, and understand the decisions we took to get to this
 point. This package does not use any bundling (rollup or webpack or otherwise).
 It just uses <code>tsc</code> is used to compile the files to the <code>dist</code> folder, and the
-dist folder is published to <code>npm</code>! If you need your package to be usable by
-consumers that don't themselves use bundlers, consider looking into <code>&#x3C;script type="module"></code> for importing ESM modules in the browser, or you can bundle
-your library using rollup or webpack and output e.g. a UMD bundle</p>
+dist folder is published to <code>npm</code>!</p>
+<p>If you need your package to be usable by consumers that don't themselves use
+bundlers, consider looking into <code>&#x3C;script type="module"></code> for importing ESM
+modules in the browser, or you can bundle your library using rollup or webpack
+and output e.g. a UMD bundle</p>
 <h2 id="final-product"><a aria-hidden="true" tabindex="-1" href="#final-product"><a href="#final-product" style="margin-right: 10px">#</a></a>Final product</h2>
-<p>See <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>]]></content:encoded>
+<p>See <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>
+<h2 id="footnote"><a aria-hidden="true" tabindex="-1" href="#footnote"><a href="#footnote" style="margin-right: 10px">#</a></a>Footnote</h2>
+<p>See my follow up rant <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
