@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 23 Oct 2022 16:35:01 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 23 Oct 2022 16:35:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2396,7 +2396,8 @@ arbitrary file host, and you can upload pretty much anything you want to it.</p>
 <ul>
 <li>what files are part of your package (by default, the whole folder with your
 package.json is published, with the "files" field you can say what particular
-folders or files are uploaded)</li>
+folders or files are uploaded or you can use .npmignore to choose which files
+NOT to publish)</li>
 <li>what to use as the "entry point" (e.g. the file that should be referenced
 when you say <code>const lib = require('mypackage')</code>, this is governed by the
 "main" field, "module" field which is bundler specific, and "export maps"
