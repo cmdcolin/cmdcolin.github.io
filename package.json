@@ -22,7 +22,7 @@
     "react-dom": "^18.1.0",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-autolink-headings": "^6.1.1",
-    "rehype-highlight": "^5.0.2",
+    "rehype-highlight": "^6.0.0",
     "rehype-slug": "^5.0.1",
     "rehype-stringify": "^9.0.3",
     "remark-gfm": "^3.0.1",
@@ -33,11 +33,11 @@
     "unified": "^10.1.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.1.2",
-    "@types/node": "^18.8.3",
+    "@types/jest": "^29.2.0",
+    "@types/node": "^18.11.4",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.3",
-    "eslint": "^8.25.0",
+    "eslint": "^8.26.0",
     "eslint-config-next": "^12.3.1",
     "gh-pages": "^4.0.0"
   }
