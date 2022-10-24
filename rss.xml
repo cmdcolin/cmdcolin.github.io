@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 23 Oct 2022 16:42:56 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Oct 2022 16:47:02 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2690,8 +2690,11 @@ modules in the browser, or you can bundle your library using rollup or webpack
 and output e.g. a UMD bundle</p>
 <h2 id="final-product"><a aria-hidden="true" tabindex="-1" href="#final-product"><a href="#final-product" style="margin-right: 10px">#</a></a>Final product</h2>
 <p>See <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>
-<h2 id="footnote"><a aria-hidden="true" tabindex="-1" href="#footnote"><a href="#footnote" style="margin-right: 10px">#</a></a>Footnote</h2>
-<p>See my follow up rant <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a></p>]]></content:encoded>
+<h2 id="footnote-1"><a aria-hidden="true" tabindex="-1" href="#footnote-1"><a href="#footnote-1" style="margin-right: 10px">#</a></a>Footnote 1</h2>
+<p>See my follow up rant <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a></p>
+<h2 id="footnote-2"><a aria-hidden="true" tabindex="-1" href="#footnote-2"><a href="#footnote-2" style="margin-right: 10px">#</a></a>Footnote 2</h2>
+<p>This is a setup that works for me, but there are many ways to publish a package
+so take it with a grain of salt!</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
