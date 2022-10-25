@@ -4,7 +4,7 @@ date: 2022-10-10
 ---
 
 If you make a React component that has, say, a prop for a item id, and an async
-action in a `useEffect` to fetch data for that item from an API, then you may
+action in a `useEffect` to fetch data for that item from an API, then you
 probably also have a `useState` to set data after you get results back from
 your API (or an error occurs). But, the interesting thing to me is
 
