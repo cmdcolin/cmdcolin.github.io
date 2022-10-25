@@ -324,3 +324,26 @@ See https://github.com/reactjs/rfcs/pull/229
 
 This was just announced so there is a lot to unpack there, I can update this
 blog post if I come up with an analogous example using this RFC
+
+## Footnote 3: Using react-query or swr
+
+There are helper libraries that try to help
+
+One helper library suggested was called `react-query`, so I made a demo using
+`@tanstack/react-query` v4.
+
+https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx
+
+Another is `swr`, here is a demo for that library
+
+https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx
+
+These libraries definitely **do** a lot of things, so take on some more baggage
+than the simple hooks described above, but may be helpful to you also.
+
+## Footnote 4: Fetching is just one aspect of this blogpost
+
+Really, the thing I wanted to make more clear in general was also how "sticky"
+useState can be. I find other patterns in my codebase besides just fetching
+where I have to "reset" the useState hook to a neutral state, sometimes related
+to controlled components.
