@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 25 Oct 2022 19:53:03 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 01 Nov 2022 18:54:46 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -15,7 +15,7 @@
             <guid>https://cmdcolin.github.io/posts/2022-10-10-reactstate</guid>
             <pubDate>Mon, 10 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>If you make a React component that has, say, a prop for a item id, and an async
-action in a <code>useEffect</code> to fetch data for that item from an API, then you may
+action in a <code>useEffect</code> to fetch data for that item from an API, then you
 probably also have a <code>useState</code> to set data after you get results back from
 your API (or an error occurs). But, the interesting thing to me is</p>
 <p><strong>you have to remember to reset that state, including error state, when your
@@ -1173,7 +1173,9 @@ single or fewer output files) when developing a library</p>
 <li><code>gts</code> - <a href="https://github.com/google/gts">https://github.com/google/gts</a></li>
 <li><code>ts-react-toolbox</code> - <a href="https://github.com/zzarcon/ts-react-toolbox/">https://github.com/zzarcon/ts-react-toolbox/</a></li>
 </ul>
-<p>In summary 2/15 do not use a bundler, 13/15 do use a bundler. Sidenote: webpack notably absent</p>
+<p>In summary 2/15 do not use a bundler, 13/15 do use a bundler. Sidenote: webpack
+notably absent. Sidenote 2: I don't necesarily give praise to the two not using
+bundlers, just saying they exist.</p>
 <h2 id="why-would-you-not-want-a-bundler-for-your-library"><a aria-hidden="true" tabindex="-1" href="#why-would-you-not-want-a-bundler-for-your-library"><a href="#why-would-you-not-want-a-bundler-for-your-library" style="margin-right: 10px">#</a></a>Why would you <em>NOT</em> want a bundler for your library?</h2>
 <p>My main argument is that the consumer of your library is the one that should
 use a bundler if it is relevant to them. If the library uses a bundler:</p>
