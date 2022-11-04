@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 01 Nov 2022 18:54:46 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 04 Nov 2022 17:00:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -301,7 +301,21 @@ ErrorBoundary or something to help display a nice error.</p>
 <h2 id="footnote-2-the-future-with-react-data-fetching"><a aria-hidden="true" tabindex="-1" href="#footnote-2-the-future-with-react-data-fetching"><a href="#footnote-2-the-future-with-react-data-fetching" style="margin-right: 10px">#</a></a>Footnote 2: The future with React data fetching</h2>
 <p>See <a href="https://github.com/reactjs/rfcs/pull/229">https://github.com/reactjs/rfcs/pull/229</a></p>
 <p>This was just announced so there is a lot to unpack there, I can update this
-blog post if I come up with an analogous example using this RFC</p>]]></content:encoded>
+blog post if I come up with an analogous example using this RFC</p>
+<h2 id="footnote-3-using-react-query-or-swr"><a aria-hidden="true" tabindex="-1" href="#footnote-3-using-react-query-or-swr"><a href="#footnote-3-using-react-query-or-swr" style="margin-right: 10px">#</a></a>Footnote 3: Using react-query or swr</h2>
+<p>There are helper libraries that try to help</p>
+<p>One helper library suggested was called <code>react-query</code>, so I made a demo using
+<code>@tanstack/react-query</code> v4.</p>
+<p><a href="https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx">https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx</a></p>
+<p>Another is <code>swr</code>, here is a demo for that library</p>
+<p><a href="https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx">https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx</a></p>
+<p>These libraries definitely <strong>do</strong> a lot of things, so take on some more baggage
+than the simple hooks described above, but may be helpful to you also.</p>
+<h2 id="footnote-4-fetching-is-just-one-aspect-of-this-blogpost"><a aria-hidden="true" tabindex="-1" href="#footnote-4-fetching-is-just-one-aspect-of-this-blogpost"><a href="#footnote-4-fetching-is-just-one-aspect-of-this-blogpost" style="margin-right: 10px">#</a></a>Footnote 4: Fetching is just one aspect of this blogpost</h2>
+<p>Really, the thing I wanted to make more clear in general was also how "sticky"
+useState can be. I find other patterns in my codebase besides just fetching
+where I have to "reset" the useState hook to a neutral state, sometimes related
+to controlled components.</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
