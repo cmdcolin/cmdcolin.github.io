@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 04 Nov 2022 19:28:25 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 04 Nov 2022 19:39:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1614,7 +1614,7 @@ calling it again after an error retries automatically.</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7C0">await</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">fetch</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">url</span><span style="color: #A6ACCD">)</span></span>
 <span class="line"><span style="color: #A6ACCD">  if (</span><span style="color: #91B4D5">!</span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">ok</span><span style="color: #A6ACCD">) {</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #D0679D">throw</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">new</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">Error</span><span style="color: #A6ACCD">(</span></span>
-<span class="line"><span style="color: #A6ACCD">      </span><span style="color: #A6ACCD">`</span><span style="color: #5DE4C7">Failed to fetch </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">url</span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> HTTP </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">status</span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">statusText</span><span style="color: #A6ACCD">}`</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">      </span><span style="color: #A6ACCD">`</span><span style="color: #5DE4C7">Failed to fetch </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">url</span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> HTTP </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">status</span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">${</span><span style="color: #5DE4C7C0">await</span><span style="color: #5DE4C7"> </span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">text</span><span style="color: #A6ACCD">()</span><span style="color: #A6ACCD">}`</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #A6ACCD">    )</span></span>
 <span class="line"><span style="color: #A6ACCD">  }</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">ret</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">json</span><span style="color: #A6ACCD">()</span></span>
@@ -1642,13 +1642,12 @@ your hashmap doesn't grow infinitely in size</p>
 in a Map or Object to do this.</p>
 <p>See <a href="https://github.com/nodeca/promise-memoize">https://github.com/nodeca/promise-memoize</a> for example</p>
 <h2 id="footnote-1-error-handling-of-fetch"><a aria-hidden="true" tabindex="-1" href="#footnote-1-error-handling-of-fetch"><a href="#footnote-1-error-handling-of-fetch" style="margin-right: 10px">#</a></a>Footnote 1: Error handling of <code>fetch</code></h2>
-<p>This demo also demonstrates some basic fetch error handling, and uses
-<code>statusText</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText">which happens to not exist in
-HTTP/2</a>.
-If you want a semblence of status message text in HTTP/2 you can try to use
-await ret.json() (if the API returns json error messages) or await ret.text()
-inside the catch clause, but note that it could cause yet another error to be
-thrown</p>
+<p>This demo also demonstrates some basic fetch error handling, and uses <code>await response.text()</code> to get the error message from the API. Sometimes an api will
+return it's error in JSON format, so you can handle that as is, sometimes you
+have to check both text and json</p>
+<p>Note also, that response.statusText does <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText">not exist in
+HTTP/2</a>
+so it's better to use <code>response.text()</code> or <code>response.json()</code>.</p>
 <h2 id="footnote-2-global-cache"><a aria-hidden="true" tabindex="-1" href="#footnote-2-global-cache"><a href="#footnote-2-global-cache" style="margin-right: 10px">#</a></a>Footnote 2: Global cache</h2>
 <p>You could also keep a cache in a global variable, or as a property on a class,
 or other methods. I have also found it useful to have a specific function for
