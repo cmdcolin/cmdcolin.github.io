@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 04 Nov 2022 18:36:40 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 04 Nov 2022 19:28:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1423,6 +1423,9 @@ calls.</p>
 <a href="https://www.brendangregg.com/flamegraphs.html">https://www.brendangregg.com/flamegraphs.html</a>)</p>
 <p>The website <a href="https://www.speedscope.app/">https://www.speedscope.app/</a> can
 create "flamegraph" style figures for Chrome profiling results</p>
+<p>Update: Firefox actually has the concept of flamegraph built into their
+profiler. In 2022, I switched to using Firefox as my daily driver, so enjoy
+this built-in feature.</p>
 <h2 id="stacking-up-many-small-optimizations"><a aria-hidden="true" tabindex="-1" href="#stacking-up-many-small-optimizations"><a href="#stacking-up-many-small-optimizations" style="margin-right: 10px">#</a></a>Stacking up many small optimizations</h2>
 <p>Working with large datasets, sometimes your program will take a long time to
 complete. Especially if you work with javascript in the browser, it is a
@@ -2729,7 +2732,9 @@ goals</p>
 <ul>
 <li>Flexible</li>
 <li>React-based (as opposed to template-based like jekyll, eleventy, etc.)</li>
-<li>Markdown driven, and can use MDX (edit 2022: I removed MDX, I disliked the complicated that it brought. Now all posts are plain markdown, parsed with <code>remark-gfm</code> for github flavored markdown, and all pages are <code>tsx</code>)</li>
+<li>Markdown driven, and can use MDX (edit 2022: I removed MDX, I disliked the
+complicated that it brought. Now all posts are plain markdown, parsed with
+<code>remark-gfm</code> for github flavored markdown, and all pages are <code>tsx</code>)</li>
 <li>RSS feed (bonus)</li>
 <li>Active community</li>
 </ul>
@@ -2809,6 +2814,8 @@ styles</a></p>
 browser styles, removing "idiomatic HTML" styles, so I removed tailwind for
 now. Perhaps I'll return to it another time</p>
 <h2 id="using-mdx-for-blogposts-in-nextjs"><a aria-hidden="true" tabindex="-1" href="#using-mdx-for-blogposts-in-nextjs"><a href="#using-mdx-for-blogposts-in-nextjs" style="margin-right: 10px">#</a></a>Using MDX for blogposts in next.js</h2>
+<p>(UPDATE 2022) I no longer use MDX in my blog, my blogposts are all plain
+markdown and pages tsx, but leave this here for reference</p>
 <p>In the template from next.js team, the <code>blog-template-typescript</code>, it uses a
 fairly simple <code>lib/markdownToHtml.ts</code> function right in the
 <code>pages/posts/[slug].tsx</code> file (the markdown is statically pre-rendered in the
@@ -2818,7 +2825,11 @@ hydrate the components using react on the client side also</p>
 <p>To fix, the module <a href="https://github.com/hashicorp/next-mdx-remote">https://github.com/hashicorp/next-mdx-remote</a> offers a way to
 load actual MDX files.</p>
 <h2 id="adding-syntax-highlighting-the-nextjs-code-snippets"><a aria-hidden="true" tabindex="-1" href="#adding-syntax-highlighting-the-nextjs-code-snippets"><a href="#adding-syntax-highlighting-the-nextjs-code-snippets" style="margin-right: 10px">#</a></a>Adding syntax highlighting the next.js code snippets</h2>
-<p>(UPDATE 2022) I changed to using plain remark with <a href="https://github.com/wooorm/starry-night">https://github.com/wooorm/starry-night</a></p>
+<p>(UPDATE 2022) I changed to using plain remark with
+<a href="https://github.com/wooorm/starry-night">https://github.com/wooorm/starry-night</a>
+(UPDATE 2022 v2) I changed from
+starry-night to rehype-highlight. starry-night did not have good typescript/tsx
+support</p>
 <p>There are a couple results from google about how to add syntax highlighting to
 next.js but I still found it difficult.</p>
 <p>My method ended up a bit different where I manually included the prism JS and
