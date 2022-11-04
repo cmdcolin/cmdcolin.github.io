@@ -38,6 +38,10 @@ https://www.brendangregg.com/flamegraphs.html)
 The website https://www.speedscope.app/ can
 create "flamegraph" style figures for Chrome profiling results
 
+Update: Firefox actually has the concept of flamegraph built into their
+profiler. In 2022, I switched to using Firefox as my daily driver, so enjoy
+this built-in feature.
+
 ## Stacking up many small optimizations
 
 Working with large datasets, sometimes your program will take a long time to

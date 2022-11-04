@@ -20,7 +20,7 @@ async function getPokemon() {
   const ret = await fetch(url)
   if (!ret.ok) {
     throw new Error(
-      `Failed to fetch ${url} HTTP ${ret.status} ${ret.statusText}`,
+      `Failed to fetch ${url} HTTP ${ret.status} ${await ret.text()}`,
     )
   }
   return ret.json()
@@ -61,13 +61,13 @@ See https://github.com/nodeca/promise-memoize for example
 
 ## Footnote 1: Error handling of `fetch`
 
-This demo also demonstrates some basic fetch error handling, and uses
-`statusText` [which happens to not exist in
-HTTP/2](https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText).
-If you want a semblence of status message text in HTTP/2 you can try to use
-await ret.json() (if the API returns json error messages) or await ret.text()
-inside the catch clause, but note that it could cause yet another error to be
-thrown
+This demo also demonstrates some basic fetch error handling, and uses `await response.text()` to get the error message from the API. Sometimes an api will
+return it's error in JSON format, so you can handle that as is, sometimes you
+have to check both text and json
+
+Note also, that response.statusText does [not exist in
+HTTP/2](https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText)
+so it's better to use `response.text()` or `response.json()`.
 
 ## Footnote 2: Global cache
 
