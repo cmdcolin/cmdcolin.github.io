@@ -37,9 +37,7 @@ export default function Page({ allPosts }: { allPosts: any }) {
           <Header />
           <Contents />
           <Posts posts={allPosts} />
-          <Link href="/archive">
-            <a>More posts...</a>
-          </Link>
+          <Link href="/archive">More posts...</Link>
         </Container>
       </Layout>
     </>

@@ -12,9 +12,7 @@ const PostPreview = ({ post }: { post: Post }) => {
   const { title, date, slug } = post
   return (
     <Link as={`/posts/${slug}`} href="/posts/[slug]">
-      <a>
-        {date} - {title}
-      </a>
+      {date} - {title}
     </Link>
   )
 }

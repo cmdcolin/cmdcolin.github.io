@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 function Contents() {
   return (
-    <div>
+    <div className="tiny">
       <h2 id="bioinformatics">Work</h2>
 
       <p>
@@ -54,6 +54,21 @@ function Contents() {
         </li>
       </ul>
 
+      <h2 id="other">Bioinformatics tools</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/cmdcolin/secondary_rewriter">
+            secondary_rewriter
+          </a>{' '}
+          - Adds SEQ/QUAL tags to secondary alignments in BAM/CRAM, written
+          while learning Rust (2022)
+        </li>
+        <li>
+          <a href="https://github.com/cmdcolin/vcfverifier">vcfverifier</a> -
+          Checks that the REF field in VCF matches an underlying FASTA reference
+          genome, written while learning Rust (2022)
+        </li>
+      </ul>
       <h2 id="other">Utilities</h2>
       <ul>
         <li>
