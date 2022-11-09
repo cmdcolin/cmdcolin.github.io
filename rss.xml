@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 09 Nov 2022 06:46:51 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 09 Nov 2022 07:00:39 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -318,10 +318,9 @@ where I have to "reset" the useState hook to a neutral state, sometimes related
 to controlled components.</p>
 <h2 id="footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state"><a aria-hidden="true" tabindex="-1" href="#footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state"><a href="#footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state" style="margin-right: 10px">#</a></a>Footnote 5: You can also use the "key" prop as an alternative to manually resetting state</h2>
 <p>See <a href="https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx">https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx</a></p>
-<p>I am not sure I recommend this as it forces the behavior of understanding this
-onto the "consumer" of the component, but it is sort of a convenient behavior
-to reset everything by basically forcing the component to unmount. A quote from
-<a href="https://kentcdodds.com/blog/understanding-reacts-key-prop">https://kentcdodds.com/blog/understanding-reacts-key-prop</a> explains</p>
+<p>I am not sure I recommend this as it basically forces the component to unmount,
+which may be ok in some cases but I don't know all the ramifications. A quote
+from <a href="https://kentcdodds.com/blog/understanding-reacts-key-prop">https://kentcdodds.com/blog/understanding-reacts-key-prop</a> explains</p>
 <p>"This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state
 that had existed in the component at the time is completely removed and the
