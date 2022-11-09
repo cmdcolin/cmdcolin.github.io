@@ -16,7 +16,7 @@ function Contents() {
           google scholar
         </a>{' '}
         for publications. Our jbrowse 2 paper was{' '}
-        <a href="https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)(https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1">
+        <a href="https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1">
           recently published
         </a>{' '}
         which I was proud to be first author of.
