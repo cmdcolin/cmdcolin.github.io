@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 04 Nov 2022 19:39:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 09 Nov 2022 01:39:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -1749,7 +1749,8 @@ think of them more fondly</p>
 <p>My first, and so far only, consulting job was with a company in Ukraine, around 2012. I helped them configure JBrowse, and prepared an official looking word
 document with recommendations and hours (a total of like...2 hours) and they
 were very nice.</p>
-<p>Stand strong Ukraine</p>]]></content:encoded>
+<p>Stand strong Ukraine</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Lesser_Coat_of_Arms_of_Ukraine.svg/172px-Lesser_Coat_of_Arms_of_Ukraine.svg.png" alt=""></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
@@ -1763,11 +1764,17 @@ am actually the last photo in the book amongst so many amazing
 artists...totally honored. I forgot I was even in the book when I picked it up
 randomly.</p>
 <p>thank you john cates!!!</p>
+<p><img src="/photos/noise/cover-crop-fs8.png" alt=""></p>
 <p>cover</p>
+<p><img src="/photos/noise/out20-crop-fs8.png" alt=""></p>
 <p>index p1</p>
+<p><img src="/photos/noise/out21-crop-fs8.png" alt=""></p>
 <p>index p2</p>
+<p><img src="/photos/noise/out22-crop-fs8.png" alt=""></p>
 <p>index p3, i'm last as xephedradap</p>
+<p><img src="/photos/noise/out15-crop-fs8.png" alt=""></p>
 <p>me</p>
+<p><img src="/photos/noise/out16-crop-fs8.png" alt=""></p>
 <p>abstract b/w</p>
 <p>some photos from the book here <a href="https://www.johncatesphoto.com/noise">https://www.johncatesphoto.com/noise</a></p>
 <ul>
@@ -2767,7 +2774,7 @@ gets a listing of the files in _posts folder, which I can call from the <code>ge
 <p>The <code>blog-starter-typescript</code> template has many tiny components, I removed some
 of them to make it easier for me to orient myself</p>
 <ul>
-<li><a href="https://github.com/vercel/next.js/tree/canary/examples/blog-starter-typescript/components">theirs</a></li>
+<li><a href="https://github.com/vercel/next.js/tree/canary/examples/blog-starter/components">theirs</a></li>
 <li><a href="https://github.com/cmdcolin/cmdcolin.github.io/tree/master/components">mine</a></li>
 </ul>
 <h3 id="removing-tailwind-css"><a aria-hidden="true" tabindex="-1" href="#removing-tailwind-css"><a href="#removing-tailwind-css" style="margin-right: 10px">#</a></a>Removing tailwind CSS</h3>
