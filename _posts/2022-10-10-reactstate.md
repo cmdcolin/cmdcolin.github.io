@@ -352,10 +352,9 @@ to controlled components.
 
 See https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx
 
-I am not sure I recommend this as it forces the behavior of understanding this
-onto the "consumer" of the component, but it is sort of a convenient behavior
-to reset everything by basically forcing the component to unmount. A quote from
-https://kentcdodds.com/blog/understanding-reacts-key-prop explains
+I am not sure I recommend this as it basically forces the component to unmount,
+which may be ok in some cases but I don't know all the ramifications. A quote
+from https://kentcdodds.com/blog/understanding-reacts-key-prop explains
 
 "This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state

@@ -4,18 +4,15 @@ import { Feed } from 'feed'
 import { join } from 'path'
 import { unified } from 'unified'
 import remarkGfm from 'remark-gfm'
-
 import rehypeSlug from 'rehype-slug'
-
-import sketches from './sketches.json'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-
-//@ts-ignore
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import rehypeShiki from '@leafac/rehype-shiki'
 import * as shiki from 'shiki'
+
+import sketches from './sketches.json'
 
 const postsDirectory = join(process.cwd(), '_posts')
 
@@ -27,12 +24,12 @@ function getSketchFiles() {
   return sketches.map(d => ({ ...d, date: +new Date(d.date) }))
 }
 
-export async function getPostBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, '')
-  const fullPath = join(postsDirectory, `${realSlug}.md`)
-  const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
-
-  const html = await unified()
+// cache the unified parser, this actually takes a significant time to
+// initialize across many blogposts so caching went from ~60s->~10s to run a
+// yarn build
+let p: ReturnType<typeof getParserPre> | undefined
+async function getParserPre() {
+  return unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(remarkGfm)
@@ -42,19 +39,35 @@ export async function getPostBySlug(slug: string) {
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
-      content: arg => {
-        return {
-          type: 'element',
-          tagName: 'a',
-          properties: {
-            href: '#' + arg.properties?.id,
-            style: 'margin-right: 10px',
-          },
-          children: [{ type: 'text', value: '#' }],
-        }
-      },
+      content: arg => ({
+        type: 'element',
+        tagName: 'a',
+        properties: {
+          href: '#' + arg.properties?.id,
+          style: 'margin-right: 10px',
+        },
+        children: [{ type: 'text', value: '#' }],
+      }),
     })
-    .process(content)
+}
+
+function getParser() {
+  if (!p) {
+    p = getParserPre().catch(e => {
+      p = undefined
+      throw e
+    })
+  }
+  return p
+}
+
+export async function getPostBySlug(slug: string) {
+  const realSlug = slug.replace(/\.md$/, '')
+  const fullPath = join(postsDirectory, `${realSlug}.md`)
+  const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
+
+  const parser = await getParser()
+  const html = await parser.process(content)
 
   return {
     ...data,
