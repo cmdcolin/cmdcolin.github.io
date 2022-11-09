@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 09 Nov 2022 04:48:12 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 09 Nov 2022 05:17:38 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -318,8 +318,14 @@ where I have to "reset" the useState hook to a neutral state, sometimes related
 to controlled components.</p>
 <h2 id="footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state"><a aria-hidden="true" tabindex="-1" href="#footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state"><a href="#footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state" style="margin-right: 10px">#</a></a>Footnote 5: You can also use the "key" prop as an alternative to manually resetting state</h2>
 <p>See <a href="https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx">https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx</a></p>
-<p>I am not sure I recommend this as it forces re-rendering the entire component
-tree underneath it, but it may be a hammer that works for you</p>]]></content:encoded>
+<p>I am not sure I recommend this as it forces the behavior of understanding this
+onto the "consumer" of the component, but it is sort of a convenient behavior
+to reset everything by basically forcing the component to unmount. A quote from
+<a href="https://kentcdodds.com/blog/understanding-reacts-key-prop">https://kentcdodds.com/blog/understanding-reacts-key-prop</a> explains</p>
+<p>"This allows you to return the exact same element type, but force React to
+unmount the previous instance, and mount a new one. This means that all state
+that had existed in the component at the time is completely removed and the
+component is "reinitialized" for all intents and purposes. "</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
