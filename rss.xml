@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 09 Nov 2022 04:37:46 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 09 Nov 2022 04:48:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -315,7 +315,11 @@ than the simple hooks described above, but may be helpful to you also.</p>
 <p>Really, the thing I wanted to make more clear in general was also how "sticky"
 useState can be. I find other patterns in my codebase besides just fetching
 where I have to "reset" the useState hook to a neutral state, sometimes related
-to controlled components.</p>]]></content:encoded>
+to controlled components.</p>
+<h2 id="footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state"><a aria-hidden="true" tabindex="-1" href="#footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state"><a href="#footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state" style="margin-right: 10px">#</a></a>Footnote 5: You can also use the "key" prop as an alternative to manually resetting state</h2>
+<p>See <a href="https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx">https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx</a></p>
+<p>I am not sure I recommend this as it forces re-rendering the entire component
+tree underneath it, but it may be a hammer that works for you</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
