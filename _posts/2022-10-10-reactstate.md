@@ -347,3 +347,19 @@ Really, the thing I wanted to make more clear in general was also how "sticky"
 useState can be. I find other patterns in my codebase besides just fetching
 where I have to "reset" the useState hook to a neutral state, sometimes related
 to controlled components.
+
+## Footnote 5: You can also use the "key" prop as an alternative to manually resetting state
+
+See https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx
+
+I am not sure I recommend this as it forces the behavior of understanding this
+onto the "consumer" of the component, but it is sort of a convenient behavior
+to reset everything by basically forcing the component to unmount. A quote from
+https://kentcdodds.com/blog/understanding-reacts-key-prop explains
+
+"This allows you to return the exact same element type, but force React to
+unmount the previous instance, and mount a new one. This means that all state
+that had existed in the component at the time is completely removed and the
+component is "reinitialized" for all intents and purposes. "
+
+
