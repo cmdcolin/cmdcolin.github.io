@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 09 Nov 2022 07:00:39 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 13 Nov 2022 01:15:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2787,8 +2787,9 @@ of them to make it easier for me to orient myself</p>
 <li><a href="https://github.com/cmdcolin/cmdcolin.github.io/tree/master/components">mine</a></li>
 </ul>
 <h3 id="removing-tailwind-css"><a aria-hidden="true" tabindex="-1" href="#removing-tailwind-css"><a href="#removing-tailwind-css" style="margin-right: 10px">#</a></a>Removing tailwind CSS</h3>
-<p>The <code>blog-starter-typescript</code> template uses tailwind CSS and uses "modern web design" (aka:
-gigantic "tiles" instead of links, images that are way too large, etc)</p>
+<p>The <code>blog-starter-typescript</code> template uses tailwind CSS and uses "modern web
+design" (aka: gigantic "tiles" instead of links, images that are way too large,
+etc <a href="https://next-blog-starter.vercel.app/">https://next-blog-starter.vercel.app/</a>)</p>
 <p>I started making a more basic design. I tried to roll with the tailwind CSS for
 a bit, but ended up removing it entirely.</p>
 <p>Tailwind CSS is sort of like a CSS-in-JS system, except every CSS attribute is encoded in a CSS classname. For example, here are some tailwind CSS snippets</p>
