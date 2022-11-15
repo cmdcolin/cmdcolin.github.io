@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 13 Nov 2022 22:25:20 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 15 Nov 2022 03:30:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3905,10 +3905,11 @@ ACL</p>
             <link>https://cmdcolin.github.io/posts/2020-07-04</link>
             <guid>https://cmdcolin.github.io/posts/2020-07-04</guid>
             <pubDate>Sat, 04 Jul 2020 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p>Learning React was a big challenge for me. I started learning React in earnest
-in 2019. It was a difficult experience overall, but I wanted to go over my
-learning experience. I tried to review commit logs to get an accurate timeline,
-instead of relying solely on my memory of the timeline.</p>
+            <content:encoded><![CDATA[<p>I faced many challenges when learning React was a big challenge for me. I
+started learning React in earnest in 2019. It was a difficult experience
+overall, but I wanted to go over my learning experience. I tried to review
+commit logs to get an accurate timeline, instead of relying solely on my memory
+of the timeline.</p>
 <p>TLDR: If I were to take away anything from this</p>
 <ul>
 <li>"pairing" (not strictly pair programming, just meeting with other people at
@@ -3997,23 +3998,23 @@ indirectly. The book had examples of pure function components, but was written
 pre-hooks. With hooks added in React 16.8, it took a little brain exercising,
 but I understood how hooks can be applied to function components.</p>
 <h2 id="using-react-testing-library"><a aria-hidden="true" tabindex="-1" href="#using-react-testing-library"><a href="#using-react-testing-library" style="margin-right: 10px">#</a></a>Using <code>react-testing-library</code></h2>
-<p>In June 2019, I create "integration test" level tests for our app. I had used
-<code>react-testing-library</code> for some components before this, but this was using
+<p>In June 2019, I was tasked with creating "integration test" level tests for our
+app. We had none before this. I had used <code>react-testing-library</code> for some
+components before this, but the integration level test I used
 <code>react-testing-library</code> to render the entire "app level" component. I was happy
-to pioneer this and was happy to try this out instead of doing true browser
-tests, and I think this has worked out well.</p>
+to pioneer this and try this out, and I think this has worked out well.</p>
 <p>Some caveats: I got very caught up with trying to do canvas tests initially. I
 really wanted to use <code>jest-mock-canvas</code> but we were using <code>OffscreenCanvas</code> via
 a pretty complicated string of things, so I don't make progress here, and I
 also got confused about the relationship between <code>node-canvas</code> and
 <code>jest-mock-canvas</code> (they are basically totally different approaches). Later on, I
-find using <code>jest-image-snapsho</code>t of the canvas contents works nice (ref
+find using <code>jest-image-snapshot</code> of the canvas contents works nice (ref
 <a href="https://stackoverflow.com/questions/33269093/how-to-add-canvas-support-to-my-tests-in-jest">https://stackoverflow.com/questions/33269093/how-to-add-canvas-support-to-my-tests-in-jest</a>)</p>
-<p>Other random note: when building out the integration tests, we got a lot
-of "act warnings" which were confusing. These were fixed in React 16.9
-(released August 2019), but we had to ignore them and they basically just
-confused me a lot and made it feel like I was battling a very complex system
-rather than a nice simple one.</p>
+<p>Other random note: when building out the integration tests, we got a lot of
+"act warnings" which were confusing. These were fixed in React 16.9 (released
+August 2019), but we had to ignore them while we developed on 16.8 and the
+warnings basically just confused me a lot and made it feel like I was battling
+a very complex system rather than a nice simple one.</p>
 <h2 id="conclusions"><a aria-hidden="true" tabindex="-1" href="#conclusions"><a href="#conclusions" style="margin-right: 10px">#</a></a>Conclusions</h2>
 <p>Overall, I just wanted to write up my whole experience. It felt really
 difficult for me to make these changes. I also went through a breakup during
@@ -4039,14 +4040,14 @@ downvoted. Felt bad. I was just really confused. I abandoned the project in
 React and just used our normal jqueryish thing.</p>
 <h2 id="footnote-2"><a aria-hidden="true" tabindex="-1" href="#footnote-2"><a href="#footnote-2" style="margin-right: 10px">#</a></a>Footnote 2</h2>
 <p>Why did I have such a poor grasp on React? I can't exactly say. I feel like I
-was a competant developer, but I had some severer mental barriers to
+was a competant developer, but I had some severe mental barriers to
 understanding the way React worked. I wish someone would have just told me
 something like "React is basically like functions that can return HTML" e.g.</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">>Hello world&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
-<p>Certainly there is more to it than that, but boiling it down to just that core
-idea I think would have helped me, and then walking me through some of the
+<p>Certainly there is more to React than that, but boiling it down to just that
+core idea I think would have helped me, and then walking me through some of the
 stuff slowly after I had that base understanding.</p>
 <h2 id="footnote-3"><a aria-hidden="true" tabindex="-1" href="#footnote-3"><a href="#footnote-3" style="margin-right: 10px">#</a></a>Footnote 3</h2>
 <p>I am not sure if I would recommend Learning React to all learners. I think it
