@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:28:23 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 20:35:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -133,10 +133,9 @@ them, I think they are not concise enough.</p>
 the need to get transpilers and compilers for the JSX syntax and such is not
 easy, and has led to an explosion of developer tooling that often needs to be
 run on the command line to do any sort of programming for the web. This is a
-unfortunate consequence of the web becoming more complicated and many users
-have rightly criticized the state of JS. Learning to be comfortable with the
-command line is often an important stepping stone to becoming comfortable
-with modern JS dev tooling.</p>
+unfortunate consequence of the web becoming more complicated. Learning to be
+comfortable with the command line is often an important stepping stone to
+becoming comfortable with modern JS dev tooling.</p>
 </li>
 <li>
 <p>You can be bogged down by "tangential" concepts like state management</p>
