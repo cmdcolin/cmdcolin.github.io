@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:57:28 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 22:56:15 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -43,7 +43,7 @@ component</p>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>It is common to have an "App" level component, that renders all the other
 components in your page</p>
-<h3 id="how-does-these-components-finally-get-rendered-to-html"><a aria-hidden="true" tabindex="-1" href="#how-does-these-components-finally-get-rendered-to-html"><a href="#how-does-these-components-finally-get-rendered-to-html" style="margin-right: 10px">#</a></a>How does these components finally get rendered to HTML?</h3>
+<h3 id="how-do-these-components-get-rendered-to-html"><a aria-hidden="true" tabindex="-1" href="#how-do-these-components-get-rendered-to-html"><a href="#how-do-these-components-get-rendered-to-html" style="margin-right: 10px">#</a></a>How do these components get rendered to HTML?</h3>
 <p>Typically, just once in your app, you use ReactDOM to render the "App" level
 component to the page.</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #5DE4C7">import </span><span style="color: #ADD7FF">ReactDOM</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">from</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">react-dom</span><span style="color: #A6ACCD">'</span></span>
