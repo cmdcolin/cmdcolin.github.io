@@ -4,15 +4,15 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:42:04 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 20:42:38 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
             <title><![CDATA[The React tutorial I wish I had]]></title>
-            <link>https://cmdcolin.github.io/posts/2022-11-20-thereacttutorial</link>
-            <guid>https://cmdcolin.github.io/posts/2022-11-20-thereacttutorial</guid>
+            <link>https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</link>
+            <guid>https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</guid>
             <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I was learning React, I found it very challenging, and my eyes would glaze
 over any time I tried to learn.</p>
