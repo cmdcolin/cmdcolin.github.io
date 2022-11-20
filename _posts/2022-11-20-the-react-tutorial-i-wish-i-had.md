@@ -47,7 +47,7 @@ function App() {
 It is common to have an "App" level component, that renders all the other
 components in your page
 
-### How does these components finally get rendered to HTML?
+### How do these components get rendered to HTML?
 
 Typically, just once in your app, you use ReactDOM to render the "App" level
 component to the page.
