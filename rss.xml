@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:42:38 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 20:45:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -15,8 +15,11 @@
             <guid>https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</guid>
             <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I was learning React, I found it very challenging, and my eyes would glaze
-over any time I tried to learn.</p>
-<p>Here is a short tutorial that could help you get started</p>
+over any time I tried to learn (I wrote about my struggle here
+<a href="https://cmdcolin.github.io/posts/2020-07-04">https://cmdcolin.github.io/posts/2020-07-04</a>)</p>
+<p>Here is a short tutorial that could help you get started. I wrote in my
+blogpost that sitting down with a book could help because the web is very
+distracting, but this blogpost aims to be a sort of TLDR for certain concepts.</p>
 <h3 id="the-simplest-react-component"><a aria-hidden="true" tabindex="-1" href="#the-simplest-react-component"><a href="#the-simplest-react-component" style="margin-right: 10px">#</a></a>The simplest React component</h3>
 <p>Here is a "React component" that prints hello world in a div</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
