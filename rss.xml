@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:50:58 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 20:56:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -134,7 +134,9 @@ converted to code that is like this at runtime</p>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>would get converted to this by babel or other jsx transpiler to something like
 this</p>
-<pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #E4F0FB">React</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">createElement</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">div</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #D0679D">null</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Hello world</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span></code></pre>
+<pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">React</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">createElement</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">div</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #D0679D">null</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Hello world</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>It's not common to write React without jsx, but as seen above, it can be done :)</p>
 <h3 id="footnote-4-things-that-sometimes-complicate-your-react-learning-experience"><a aria-hidden="true" tabindex="-1" href="#footnote-4-things-that-sometimes-complicate-your-react-learning-experience"><a href="#footnote-4-things-that-sometimes-complicate-your-react-learning-experience" style="margin-right: 10px">#</a></a>Footnote 4. Things that sometimes complicate your React learning experience</h3>
 <p>The React learning experience, when it's good, is quite nice. But there can be
