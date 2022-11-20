@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:56:57 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 20:57:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -145,8 +145,7 @@ many roadblocks</p>
 <li>
 <p>You can be bogged down by many different sometimes conflicted learning
 resources - The new <a href="https://beta.reactjs.org">https://beta.reactjs.org</a> are currently being implemented
-and hopefully will make the learning experience better. Myself looking at
-them, I think they are not concise enough.</p>
+and hopefully will make the learning experience better.</p>
 </li>
 <li>
 <p>You can be bogged down by the difficulty in setting up your dev environment -
