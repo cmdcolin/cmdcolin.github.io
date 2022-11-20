@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 20:35:50 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 20:42:04 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -62,15 +62,30 @@ instead of ReactDOM.render) but I'm going for brevity here</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">>Hello {name}!&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>We then pass props using HTML like attributes</p>
-<pre><code>function App() {
-  return (
-    &#x3C;div>
-      &#x3C;Hello name="Colin" />
-    &#x3C;/div>
-  )
-}
-</code></pre>
+<pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">App</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> (</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #E4F0FB">      &#x3C;</span><span style="color: #5DE4C7">Hello</span><span style="color: #E4F0FB"> </span><span style="color: #91B4D5">name</span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">Colin</span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB"> /></span></span>
+<span class="line"><span style="color: #E4F0FB">    &#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #A6ACCD">  )</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>This will print "Hello Colin!"</p>
+<h3 id="rendering-lists-of-items"><a aria-hidden="true" tabindex="-1" href="#rendering-lists-of-items"><a href="#rendering-lists-of-items" style="margin-right: 10px">#</a></a>Rendering lists of items</h3>
+<p>The <code>{name}</code> inside the div is like a little snippet of plain-JS code. It can
+be used to do more complicated things. For example you can render a list of
+items</p>
+<pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">List</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">list</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> [</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Apples</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Oranges</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Pears</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">]</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> (</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">ul</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #E4F0FB">      {list</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">map</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">item </span><span style="color: #91B4D5">=></span><span style="color: #E4F0FB"> </span><span style="color: #A6ACCD">(</span></span>
+<span class="line"><span style="color: #E4F0FB">        &#x3C;</span><span style="color: #5DE4C7">li</span><span style="color: #E4F0FB"> </span><span style="color: #91B4D5">key</span><span style="color: #91B4D5">=</span><span style="color: #E4F0FB">{item}>{item}&#x3C;/</span><span style="color: #5DE4C7">li</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #E4F0FB">      </span><span style="color: #A6ACCD">))</span><span style="color: #E4F0FB">}</span></span>
+<span class="line"><span style="color: #E4F0FB">    &#x3C;/</span><span style="color: #5DE4C7">ul</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #A6ACCD">  )</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<p>Inside the "list" each item has a key prop that is specified. See
+<a href="https://reactjs.org/docs/lists-and-keys.html">https://reactjs.org/docs/lists-and-keys.html</a> for more discussion on this</p>
 <h3 id="how-do-i-use-react-in-my-own-app"><a aria-hidden="true" tabindex="-1" href="#how-do-i-use-react-in-my-own-app"><a href="#how-do-i-use-react-in-my-own-app" style="margin-right: 10px">#</a></a>How do I use React in my own app?</h3>
 <p>Commonly, React is downloaded from npm using your package manager, but often
 requires some extra steps to get JSX to compile which is often done by babel. I
