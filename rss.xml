@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 20 Nov 2022 22:56:15 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 26 Nov 2022 13:02:45 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2213,10 +2213,6 @@ enabled (coloring and sorting by the <code>HP</code> tag) letting us see that on
 haplotype has a deletion. Tutorial for how to do this in JBrowse 2 here
 <a href="https://jbrowse.org/jb2/docs/user_guide/#sort-color-and-filter-by-tag">https://jbrowse.org/jb2/docs/user_guide/#sort-color-and-filter-by-tag</a></p>
 <h2 id="how-do-you-detect-svs-with-paired-end-reads"><a aria-hidden="true" tabindex="-1" href="#how-do-you-detect-svs-with-paired-end-reads"><a href="#how-do-you-detect-svs-with-paired-end-reads" style="margin-right: 10px">#</a></a>How do you detect SVs with paired-end reads?</h2>
-<p>Paired-end reads are short reads, e.g. 150bp each. This makes them unable to
-recover some large structural variants.</p>
-<p>However, paired-end reads have a number of attributes that can be used to
-detect paired end reads</p>
 <h3 id="distance-between-pairs-being-abnormally-large-or-short"><a aria-hidden="true" tabindex="-1" href="#distance-between-pairs-being-abnormally-large-or-short"><a href="#distance-between-pairs-being-abnormally-large-or-short" style="margin-right: 10px">#</a></a>Distance between pairs being abnormally large or short</h3>
 <p>The distance between pairs is encoded by the <code>TLEN</code> column in the <code>SAM</code> format.
 The distance between pairs with good mapping is relatively constant and called
