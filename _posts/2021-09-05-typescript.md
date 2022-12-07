@@ -31,7 +31,7 @@ https://github.com/microsoft/TypeScript/issues/31048
 
 The issue thread shows that it can go from roughly ~7% idle CPU usage to 0.2%.
 This corresponds with what I see too after applying this! Detailed docs for
-typescript discuss some of the reasoning behing not making this the default
+typescript discuss some of the reasoning being not making this the default
 
 https://github.com/microsoft/TypeScript-Handbook/blob/master/pages/Configuring%20Watch.md#background
 

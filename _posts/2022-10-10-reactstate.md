@@ -229,7 +229,7 @@ I think it's sometimes common to forget error handling in async JS code
 (useEffect async or many other contexts, etc), and there aren't e.g. lint rules
 to really help, leaving errors uncaught or handled poorly. If you don't
 manually handle the error in the `useEffect`, your user probably will not see
-that an error occured.
+that an error occurred.
 
 In addition to this error handling rant, the other point of this article is you
 need to reset your component state when props change, which in the code above,

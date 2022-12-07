@@ -40,7 +40,7 @@ Not using bundlers
 - `ts-react-toolbox` - https://github.com/zzarcon/ts-react-toolbox/
 
 In summary 2/15 do not use a bundler, 13/15 do use a bundler. Sidenote: webpack
-notably absent. Sidenote 2: I don't necesarily give praise to the two not using
+notably absent. Sidenote 2: I don't necessarily give praise to the two not using
 bundlers, just saying they exist.
 
 ## Why would you _NOT_ want a bundler for your library?
