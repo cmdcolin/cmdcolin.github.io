@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 26 Nov 2022 13:02:45 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 07 Dec 2022 19:47:55 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -381,7 +381,7 @@ drastically affect our approach, but in the below example, we can call
 (useEffect async or many other contexts, etc), and there aren't e.g. lint rules
 to really help, leaving errors uncaught or handled poorly. If you don't
 manually handle the error in the <code>useEffect</code>, your user probably will not see
-that an error occured.</p>
+that an error occurred.</p>
 <p>In addition to this error handling rant, the other point of this article is you
 need to reset your component state when props change, which in the code above,
 are the calls to setError(undefined) and setPokemonInfo(undefined) before I
@@ -1168,9 +1168,9 @@ some photos of everyday things</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220705_201600095_HDR.resized.jpg" alt=""></p>
 <p>some sun after the rain</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220709_111938701_HDR.resized.jpg" alt=""></p>
-<p>cooking purple potatos</p>
+<p>cooking purple potatoes</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220709_115455797.resized.jpg" alt=""></p>
-<p>after cooking the purple potatos</p>
+<p>after cooking the purple potatoes</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220709_175755642.resized.jpg" alt=""></p>
 <p>hummingbird hanging out in the backyard</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220710_175851539_HDR.resized.jpg" alt=""></p>
@@ -1188,7 +1188,7 @@ some photos of everyday things</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220717_210017665.resized.jpg" alt=""></p>
 <p>bibimbap with pork belly</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220718_174420132_HDR.resized.jpg" alt=""></p>
-<p>some little tomatos. these were eaten by catepillars shortly after taking these. battling these little critters has been a learning experience</p>
+<p>some little tomatoes. these were eaten by caterpillars shortly after taking these. battling these little critters has been a learning experience</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220719_173156813.resized.jpg" alt=""></p>
 <p>chicken thighs</p>
 <p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220719_173426354.resized.jpg" alt=""></p>
@@ -1356,7 +1356,7 @@ single or fewer output files) when developing a library</p>
 <li><code>ts-react-toolbox</code> - <a href="https://github.com/zzarcon/ts-react-toolbox/">https://github.com/zzarcon/ts-react-toolbox/</a></li>
 </ul>
 <p>In summary 2/15 do not use a bundler, 13/15 do use a bundler. Sidenote: webpack
-notably absent. Sidenote 2: I don't necesarily give praise to the two not using
+notably absent. Sidenote 2: I don't necessarily give praise to the two not using
 bundlers, just saying they exist.</p>
 <h2 id="why-would-you-not-want-a-bundler-for-your-library"><a aria-hidden="true" tabindex="-1" href="#why-would-you-not-want-a-bundler-for-your-library"><a href="#why-would-you-not-want-a-bundler-for-your-library" style="margin-right: 10px">#</a></a>Why would you <em>NOT</em> want a bundler for your library?</h2>
 <p>My main argument is that the consumer of your library is the one that should
@@ -2049,7 +2049,7 @@ note that <code>MD</code> tag is tricky</p>
 <p><em>Ambiguity of representation</em>: A <code>CIGAR</code> string with insertions and deletions
 could be <code>50M1D1I50M</code>. This string had a 1bp deletion and a 1bp insertion
 back-to-back. This could be just a mismatch! There is ambiguity in sequence
-alignment representations. Downstream programs must accomodate this.</p>
+alignment representations. Downstream programs must accommodate this.</p>
 </li>
 <li>
 <p><em>Split records and soft-clipping</em>: A <code>CIGAR</code> string with soft-clipping
@@ -3236,7 +3236,7 @@ TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling allows this</p>
 <p><a href="https://github.com/microsoft/TypeScript/issues/31048">https://github.com/microsoft/TypeScript/issues/31048</a></p>
 <p>The issue thread shows that it can go from roughly ~7% idle CPU usage to 0.2%.
 This corresponds with what I see too after applying this! Detailed docs for
-typescript discuss some of the reasoning behing not making this the default</p>
+typescript discuss some of the reasoning being not making this the default</p>
 <p><a href="https://github.com/microsoft/TypeScript-Handbook/blob/master/pages/Configuring%20Watch.md#background">https://github.com/microsoft/TypeScript-Handbook/blob/master/pages/Configuring%20Watch.md#background</a></p>
 <p>It claims that some OS specific behaviors of file watching could be harmful to
 making it the default. For example, that (maybe?) on linux, it may use a large
@@ -4010,7 +4010,7 @@ though!)</p>
 <span class="line"><span style="color: #A6ACCD">cd amazon-s3-presigned-urls-aws-sam</span></span>
 <span class="line"><span style="color: #A6ACCD">sam deploy --guided</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #767C9DB0"># proceeeds with a guided installation, I used all defaults except I</span></span>
+<span class="line"><span style="color: #767C9DB0"># proceeds with a guided installation, I used all defaults except I</span></span>
 <span class="line"><span style="color: #767C9DB0"># made "UploadRequestFunction may not have authorization definedIs</span></span>
 <span class="line"><span style="color: #A6ACCD">Is this okay</span><span style="color: #91B4D5">?</span><span style="color: #A6ACCD"> [y/N]: y</span><span style="color: #A6ACCD">"</span></span></code></pre>
 <p><img src="/media/638408397901987840_0.png" alt=""></p>
@@ -4042,8 +4042,8 @@ locally</p>
 <span class="line"></span>
 <span class="line"></span>
 <span class="line"><span style="color: #767C9DB0"># then ...visit that in the browser</span></span></code></pre>
-<p>At this point the files are getting uploaded but not publically
-accessible. To make them publically accessible we uncomment the
+<p>At this point the files are getting uploaded but not publicly
+accessible. To make them publicly accessible we uncomment the
 ACL: 'public-read' in the getSignedURL/app.js folder in the github repo</p>
 <p><img src="/media/638408397901987840_3.png" alt=""></p>
 <p>Figure showing the public-read uncommented</p>
@@ -4092,8 +4092,8 @@ still, much less what state management even is, and basically just was like "I
 dunno!". I had no way to form an opinion.</p>
 <p>I was also working on some stuff unrelated to the rewrite as the rest of the
 team started prototyping in React, and I remained pretty out of the loop. We
-would have weekly meetings but I just wouldn't really understand the goings
-ons. I saw PropTypes, and mobx-state-tree model types, and class-based React
+would have weekly meetings but I just wouldn't really understand the goings-on.
+I saw PropTypes, and mobx-state-tree model types, and class-based React
 components, but nothing sunk in.</p>
 <p>Sidenote: I had actually tried out React in 2016 and was very confused at that
 time too, I had a bad taste in my mouth about React entirely! See Footnote 1.</p>
@@ -4140,7 +4140,7 @@ my components, which is obvious when you understand the system but it stumped
 me as a learner.</p>
 <h2 id="trying-out-typescript"><a aria-hidden="true" tabindex="-1" href="#trying-out-typescript"><a href="#trying-out-typescript" style="margin-right: 10px">#</a></a>Trying out Typescript</h2>
 <p>In April 2019, I start to experiment with Typescript and release a Typescript
-version of some data parsing code. I start by explicity specifying a lot of
+version of some data parsing code. I start by explicitly specifying a lot of
 types but I eventually start getting into the zen of "type inference".</p>
 <h2 id="using-react-hooks"><a aria-hidden="true" tabindex="-1" href="#using-react-hooks"><a href="#using-react-hooks" style="margin-right: 10px">#</a></a>Using React hooks</h2>
 <p>In May 2019, I try out my first React hook, a useState. It worked well. I
@@ -4195,7 +4195,7 @@ downvoted. Felt bad. I was just really confused. I abandoned the project in
 React and just used our normal jqueryish thing.</p>
 <h2 id="footnote-2"><a aria-hidden="true" tabindex="-1" href="#footnote-2"><a href="#footnote-2" style="margin-right: 10px">#</a></a>Footnote 2</h2>
 <p>Why did I have such a poor grasp on React? I can't exactly say. I feel like I
-was a competant developer, but I had some severe mental barriers to
+was a competent developer, but I had some severe mental barriers to
 understanding the way React worked. I wish someone would have just told me
 something like "React is basically like functions that can return HTML" e.g.</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
@@ -4322,7 +4322,7 @@ componentized versions of our code</p>
 <p>confusion about "what our competitors have". sometimes my team one day
 was like "alright we just do that and then we have everything product X
 has?" and I just had to be clear and be like, no! the competitor has a
-reall pretty intricate complex system that we could never hope to
+really pretty intricate complex system that we could never hope to
 replicate. but does that matter? probably not, but even still, we likely
 don't have even 20% of the full set of functions of a competitor.
 luckily we have our own strengths that make us compelling besides that
@@ -4455,12 +4455,12 @@ babel-preset-2015 but it was not being run correctly. Then I found that even if
 I did get it running correctly, it was unable to properly babel-ify the
 lru-cache module because it used something called
 <code>Object.defineProperty('length', ...)</code> to change how the length property was
-intepreted which was illegal in IE11. The 'util.promisify' NPM module also did
+interpreted which was illegal in IE11. The 'util.promisify' NPM module also did
 this in some contexts. I found that I could use the quick-lru module and the
 es6-promisify module instead of lru-cache and util.promisify as a workaround.
 Then I had to update all <code>@gmod/tabix</code>, <code>@gmod/vcf</code>, <code>@gmod/bgzf-filehandle</code>,
 <code>@gmod/indexedfasta</code>, <code>@gmod/tribble-index</code>, <code>@gmod/bam</code>, and JBrowse proper to
-use these modules instead, and make the bable chain, which typically does not
+use these modules instead, and make the babel chain, which typically does not
 parse node_modules, to build these modules specifically (I didn't want to setup
 babel toolchains for every single one of these modules, just one in the jbrowse
 main codebase...). This was really a lot of work to support IE11 but now that
@@ -4516,7 +4516,7 @@ it is absolutely needed. As it turned out, the incorporation of CRAM in 1.15
 was calling a function to try to get the CRAM's version of CIGAR/MD on the BAM
 features unnecessarily invoking the tag parsing on every feature up front and
 therefore making the feature not really lazy anymore. This restored
-the "lazyness" aspect of BAM.</p>
+the "laziness" aspect of BAM.</p>
 </li>
 <li>
 <p>Fixed issue where CRAM layout and mouseover would be glitchy due to ID
@@ -4806,7 +4806,7 @@ class.</p>
 of this directory structure too. Try running <code>bin/new-plugin.pl MyPlugin</code> and see what happens.</p>
 <h3 id="footnotes"><a aria-hidden="true" tabindex="-1" href="#footnotes"><a href="#footnotes" style="margin-right: 10px">#</a></a>Footnotes:</h3>
 <p>It is important to understand the module format (AMD) which is what the
-"define" function is about and the dojo way of definining classes using
+"define" function is about and the dojo way of defining classes using
 the "declare" function. Together, this allows the dojo to create
 object-oriented programs that are modular in javascript. See
 <a href="http://dojotoolkit.org/reference-guide/1.10/dojo/_base/declare.html">http://dojotoolkit.org/reference-guide/1.10/dojo/_base/declare.html</a>
@@ -5432,7 +5432,7 @@ Pevzner</a>
 and I really liked their quote:</p>
 <p>"Online education should move toward replicating the experience of receiving
 one-on-one tutoring."</p>
-<p>That sounds great, but how can this be acheived? And how can it be done right?
+<p>That sounds great, but how can this be achieved? And how can it be done right?
 I think it really requires the student to "learn how to learn"</p>
 <p>If I think back to a long time ago, I remember being in 4th or 5th grade and I
 did a book report on World War 1, and I went to the library. I remember
@@ -5458,7 +5458,7 @@ but they never get a full meal!</p>]]></content:encoded>
 had been running for 25 DAYS on our server</p>
 <p>Note: If you find this post and you need to follow the hard way, backup
 your data first if possible.</p>
-<p>First I could obviously see the culprit: each postgress query runs it's
+<p>First I could obviously see the culprit: each postgresql query runs it's
 own process so I could see in "htop" that there was this process that
 had been running for 600 hours, or about 25 days</p>
 <p>Next, I opened a psql console and ran this query:</p>
