@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 07 Dec 2022 19:47:55 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 12 Dec 2022 15:11:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2031,9 +2031,7 @@ genome that you are comparing the read to.</p>
 <p><code>50S50M50S</code></p>
 <p>This means that 50bp matched (<code>50M</code> in the middle of the <code>CIGAR</code> string) and
 both sides of the read are soft clipped. The clipping means the aligner was not
-able to align the reads on either side. You could imagine clipping being like
-"an insertion on either side of the read" if you like: basically those bases on
-either side did not align.</p>
+able to align the reads on either side.</p>
 <p>Notes:</p>
 <ul>
 <li>
