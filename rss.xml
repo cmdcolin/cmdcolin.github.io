@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 12 Dec 2022 15:11:08 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 12 Dec 2022 16:36:35 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2220,11 +2220,28 @@ sequencing performs sequencing on both ends of a fragment.</p>
 they are abnormally far apart, say 50kb apart instead of 1kb apart, this may
 indicate there your sample contains a deletion relative to the reference.</p>
 <p><img src="/media/aberrant_size.png" alt=""></p>
-<p>Screenshot of JBrowse 1 with "View as pairs" enabled, and large insert size
-colored as red (from
-<a href="https://jbrowse.org/docs/paired_reads.html">https://jbrowse.org/docs/paired_reads.html</a>.
-Note that some of JBrowse 1's View as pairs features are not yet available in
+<p>Screenshot of JBrowse 1 with "View as pairs" enabled with "mate paired"
+sequencing, and large insert size colored as red (from
+<a href="https://jbrowse.org/docs/paired_reads.html">https://jbrowse.org/docs/paired_reads.html</a>. Note that some of JBrowse 1's View
+as pairs features are not yet available in
 JBrowse 2</p>
+<h3 id="mate-pairs-vs-paired-end-reads"><a aria-hidden="true" tabindex="-1" href="#mate-pairs-vs-paired-end-reads"><a href="#mate-pairs-vs-paired-end-reads" style="margin-right: 10px">#</a></a>Mate pairs vs paired end reads</h3>
+<p>"Mate paired" reads have a larger distance between pairs (aka the insert size
+is larger). Think: mate pairs have 2-5kb between pairs instead of a couple
+hundred bp.</p>
+<p>"Paired-end" reads typically have like 200-500bp distance between pairs (aka, the
+insert size).</p>
+<p>Data sheet <a href="https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf">https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf</a></p>
+<p>The above JBrowse screenshot shows mate pairs. Note that mate pairs have a
+different pair orientation, and pairs don't necessarily point at each other,
+they "point away from each other" in normal conditions due. See Appendix A for
+more info.</p>
+<h3 id="linked-reads-aka-simulated-long-reads"><a aria-hidden="true" tabindex="-1" href="#linked-reads-aka-simulated-long-reads"><a href="#linked-reads-aka-simulated-long-reads" style="margin-right: 10px">#</a></a>Linked reads aka simulated long reads</h3>
+<p>Linked reads are another method that uses short reads but gives long read
+information. I don't have a lot of info on this but will update this section if
+I do. The company, 10x genomics, that originally used this discontinued
+commercial sequencing using this method to focus instead on single cell AFAIK.
+<a href="https://www.10xgenomics.com/products/linked-reads">https://www.10xgenomics.com/products/linked-reads</a></p>
 <h3 id="an-abundance-of-reads-being-clipped-at-a-particular-position"><a aria-hidden="true" tabindex="-1" href="#an-abundance-of-reads-being-clipped-at-a-particular-position"><a href="#an-abundance-of-reads-being-clipped-at-a-particular-position" style="margin-right: 10px">#</a></a>An abundance of reads being "clipped" at a particular position</h3>
 <p>This can indicate that part of the reads map well, but then there was an abrupt
 stop to the mapping. This might mean that there is a sequence that was an
@@ -2343,9 +2360,10 @@ may look a bit different (see <code>cs</code> tag in <code>PAF</code> for exampl
 <code>CIGAR</code>-like string)</li>
 </ul>
 <p>If you have any ideas I should include here, let me know!</p>
-<h3 id="appendix-a-parsing-cigar-strings"><a aria-hidden="true" tabindex="-1" href="#appendix-a-parsing-cigar-strings"><a href="#appendix-a-parsing-cigar-strings" style="margin-right: 10px">#</a></a>Appendix A: Parsing <code>CIGAR</code> strings</h3>
-<p>This is code that can help determine the pair orientation from a single BAM
-record. Might be too much detail but follow along</p>
+<h3 id="appendix-a-interpreting-pair-orientation"><a aria-hidden="true" tabindex="-1" href="#appendix-a-interpreting-pair-orientation"><a href="#appendix-a-interpreting-pair-orientation" style="margin-right: 10px">#</a></a>Appendix A: Interpreting pair orientation</h3>
+<p>This may be unnecessarily low level code for this article, but it could be
+helpful utility to help determine the pair orientation from a single
+SAM/BAM/CRAM record.</p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #767C9DB0">// @param flags - flags from a single read</span></span>
 <span class="line"><span style="color: #767C9DB0">// @param ref - the string of the reference sequence, just used to determine if it matches rnext</span></span>
 <span class="line"><span style="color: #767C9DB0">// @param rnext - the string of the RNEXT, just used to determine if it matches ref</span></span>
@@ -2395,9 +2413,13 @@ record. Might be too much detail but follow along</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #D0679D">null</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>Then this can be broken down further by orientation type</p>
-<p>Paired end reads are "fr"
-Mate pair reads are "rf"</p>
-<p>So you can interpret e.g. F1R2 in relation to being a paired end read (fr) or mate pair (rf) below and with this link <a href="https://software.broadinstitute.org/software/igv/interpreting_pair_orientations">https://software.broadinstitute.org/software/igv/interpreting_pair_orientations</a></p>
+<ul>
+<li>Paired end reads are "fr"</li>
+<li>Mate pair reads are "rf"</li>
+</ul>
+<p>So you can interpret e.g. F1R2 in relation to being a paired end read (fr) or
+mate pair (rf) below and with this link
+<a href="https://software.broadinstitute.org/software/igv/interpreting_pair_orientations">https://software.broadinstitute.org/software/igv/interpreting_pair_orientations</a></p>
 <pre class="shiki" style="background-color: #1b1e28"><code><span class="line"><span style="color: #A6ACCD">{</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">fr</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: {</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">F1R2</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">LR</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
