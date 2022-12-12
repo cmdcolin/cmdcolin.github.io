@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 12 Dec 2022 16:36:35 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 12 Dec 2022 17:10:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2228,7 +2228,9 @@ JBrowse 2</p>
 <h3 id="mate-pairs-vs-paired-end-reads"><a aria-hidden="true" tabindex="-1" href="#mate-pairs-vs-paired-end-reads"><a href="#mate-pairs-vs-paired-end-reads" style="margin-right: 10px">#</a></a>Mate pairs vs paired end reads</h3>
 <p>"Mate paired" reads have a larger distance between pairs (aka the insert size
 is larger). Think: mate pairs have 2-5kb between pairs instead of a couple
-hundred bp.</p>
+hundred bp. Mate pairs can be useful in scaffolding de novo genome assemblies
+since the larger range can span gaps, giving evidence that multiple contigs are
+connected.</p>
 <p>"Paired-end" reads typically have like 200-500bp distance between pairs (aka, the
 insert size).</p>
 <p>Data sheet <a href="https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf">https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf</a></p>
