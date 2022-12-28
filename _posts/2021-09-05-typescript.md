@@ -1,5 +1,7 @@
 ---
-title: Decrease your idle CPU usage when developing typescript apps with this one weird environment variable
+title:
+  Decrease your idle CPU usage when developing typescript apps with this one
+  weird environment variable
 date: 2021-09-05
 ---
 
@@ -13,16 +15,15 @@ export TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling
 
 <hr/>
 
-By default, the typescript watcher configuration e.g. tsc --watch or whatever
-is run internally to a create-react-app typescript app (I see it in the process
-manager as fork-ts-checker-webpack-plugin cpu usage) can have high idling
-(doing nothing...) CPU usage
+By default, the typescript watcher configuration e.g. tsc --watch or whatever is
+run internally to a create-react-app typescript app (I see it in the process
+manager as fork-ts-checker-webpack-plugin cpu usage) can have high idling (doing
+nothing...) CPU usage
 
 This is because the default configuration polls for file changes (constantly
 asks the computer if there are changes every 250ms or so). There is an
-alternative configuration for this to change it to a file watcher so it
-receives file system notifications on file change. There is discussion here on
-this.
+alternative configuration for this to change it to a file watcher so it receives
+file system notifications on file change. There is discussion here on this.
 
 The main summary is that a env variable set to
 TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling allows this
@@ -50,9 +51,9 @@ automatically
 +"start": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start"
 ```
 
-Phew. I can already feel my laptop running cooler...or at least I can sleep
-more soundly knowing that my readers adopt this and save some CPU cycles for
-planet earth...and hopefully don't run into any of the caveats
+Phew. I can already feel my laptop running cooler...or at least I can sleep more
+soundly knowing that my readers adopt this and save some CPU cycles for planet
+earth...and hopefully don't run into any of the caveats
 
 Edit: It may be worth it to note, the 'UseFsEvents' part of this uses the
 node.js fs.watch API and the polling based API is based on fs.watchFile

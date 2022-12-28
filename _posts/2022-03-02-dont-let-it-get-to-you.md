@@ -16,8 +16,8 @@ A lot of it is mental reframing
 - Deep breathing, especially if you feel anxious
 - Try not to drop bombs of negativity during a meeting, and at least consider
   your tone when saying things
-- Don't try to complain about things that are broken too much. It is
-  mean and cruel and demoralizes everyone
+- Don't try to complain about things that are broken too much. It is mean and
+  cruel and demoralizes everyone
 
 ## In your off time
 
@@ -32,6 +32,6 @@ A lot of it is mental reframing
   try to exude positivity in your own life
 - Try not to be a hero programmer https://incident.io/blog/no-capes
 
-This cognitive reframing is extremely important and you can apply it to
-many areas of your life. You tell your own personal story, and what goes on
-in your head makes it to the real world through your behavior.
+This cognitive reframing is extremely important and you can apply it to many
+areas of your life. You tell your own personal story, and what goes on in your
+head makes it to the real world through your behavior.

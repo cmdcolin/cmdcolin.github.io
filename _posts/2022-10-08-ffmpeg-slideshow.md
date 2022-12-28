@@ -4,8 +4,8 @@ date: 2022-10-08
 ---
 
 Inspired by a new trend of posting "playlists" on youtube with visual
-accompaniment (https://www.youtube.com/watch?v=zG92ss_2Vjw&t=1937s), I wanted
-to try to make my own with a slideshow. I used ffmpeg as the heavy lifting tool
+accompaniment (https://www.youtube.com/watch?v=zG92ss_2Vjw&t=1937s), I wanted to
+try to make my own with a slideshow. I used ffmpeg as the heavy lifting tool
 
 ## Step 1 - prepare your playlist
 
@@ -20,9 +20,9 @@ Use "Merge all tracks into one file" in the "Convert..." dialog
 
 ![](/media/foobar2.png)
 
-Note: If you have a folder of mp3's only, you can directly concatenate them
-with `cat *.mp3 > out.mp3` or use ffmpeg to concatenate them for a pure
-command-line alternative.
+Note: If you have a folder of mp3's only, you can directly concatenate them with
+`cat *.mp3 > out.mp3` or use ffmpeg to concatenate them for a pure command-line
+alternative.
 
 ## Step 2 - prepare the slideshow
 
@@ -47,7 +47,8 @@ Done!
 
 ### Footnote 1: What if you just want a single picture?
 
-Common for posting an album to youtube, you post the album art and some audio, you can try searching from stackoverflow for options related to this
+Common for posting an album to youtube, you post the album art and some audio,
+you can try searching from stackoverflow for options related to this
 
 Example https://superuser.com/a/332867/415552
 

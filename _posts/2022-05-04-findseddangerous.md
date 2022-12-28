@@ -20,9 +20,9 @@ is dangerous to use in a git repository. Specifically, this can corrupt your
 
 ## Why?
 
-This command is dangerous because, find . will enumerate dotfiles, including
-the .git directory, and then of course will run the find and replace inside
-them. We can see this in the following session
+This command is dangerous because, find . will enumerate dotfiles, including the
+.git directory, and then of course will run the find and replace inside them. We
+can see this in the following session
 
 ```sh
 > mkdir corruptme
@@ -50,7 +50,8 @@ fatal: index file corrupt
 In this case, you may be able to recover it e.g. with
 https://stackoverflow.com/questions/1115854/how-to-resolve-error-bad-index-fatal-index-file-corrupt-when-using-git
 
-If you happened to replace some random text that is actually in an object file though e.g. .git/objects
+If you happened to replace some random text that is actually in an object file
+though e.g. .git/objects
 
 ```sh
 > find ./ -type f -exec sed -i -e "s/VHTHJM/OOOOOO/g" {} \;

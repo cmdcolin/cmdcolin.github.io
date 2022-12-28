@@ -99,9 +99,8 @@ This will print "Hello Colin!"
 
 ### Rendering lists of items
 
-The `{name}` inside the div is like a little snippet of plain-JS code. It can
-be used to do more complicated things. For example you can render a list of
-items
+The `{name}` inside the div is like a little snippet of plain-JS code. It can be
+used to do more complicated things. For example you can render a list of items
 
 ```jsx
 function List() {
@@ -126,20 +125,19 @@ requires some extra steps to get JSX to compile which is often done by babel. I
 will not cover a minimal React setup here, but I will recommend a couple setups
 that make it easy for starting out.
 
-- Use `create-react-app`. You run `npx create-react-app yourapp` on your
-  command line, this creates a folder named `yourapp` on your computer, and
-  then you `cd yourapp` to go into that directory and run `npm run start`. This
-  starts a "dev server" that runs at http://localhost:3000, and you can then
-  change the js files, and the results are instantly updated in your web
-  browser
+- Use `create-react-app`. You run `npx create-react-app yourapp` on your command
+  line, this creates a folder named `yourapp` on your computer, and then you
+  `cd yourapp` to go into that directory and run `npm run start`. This starts a
+  "dev server" that runs at http://localhost:3000, and you can then change the
+  js files, and the results are instantly updated in your web browser
 - CodeSandbox: this is a 100% web based IDE that you can use to experiment with
   React or other toolkits, visit https://codesandbox.io and run "Create" and
   then click "React app", this is the React app that it creates
   https://codesandbox.io/s/cool-moon-7x96jk
 
-If you are trying to incorporate React into a legacy or existing project, then
-I encourage you to experiment in these starter kit environments first. It can
-be difficult to bolt on React to an existing environment in some ways and
+If you are trying to incorporate React into a legacy or existing project, then I
+encourage you to experiment in these starter kit environments first. It can be
+difficult to bolt on React to an existing environment in some ways and
 understanding the basics will help.
 
 ### Conclusion
@@ -208,7 +206,7 @@ many roadblocks
 
 - You can be bogged down by "tangential" concepts like state management
 
-- You can be bogged down by Typescript or PropTypes - When I was learning
-  React, I was confused by PropTypes in code. PropTypes are fully optional
-  though, and are just used to check the types of props at runtime. TypeScript
-  can be tricky also, and does type checking at "compile time"
+- You can be bogged down by Typescript or PropTypes - When I was learning React,
+  I was confused by PropTypes in code. PropTypes are fully optional though, and
+  are just used to check the types of props at runtime. TypeScript can be tricky
+  also, and does type checking at "compile time"

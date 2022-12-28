@@ -5,8 +5,8 @@ date: 2022-10-10
 
 If you make a React component that has, say, a prop for a item id, and an async
 action in a `useEffect` to fetch data for that item from an API, then you
-probably also have a `useState` to set data after you get results back from
-your API (or an error occurs). But, the interesting thing to me is
+probably also have a `useState` to set data after you get results back from your
+API (or an error occurs). But, the interesting thing to me is
 
 **you have to remember to reset that state, including error state, when your
 props change**
@@ -21,9 +21,9 @@ https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003
 
 In the below example, we will handle fetching from the Pokemon API, and use a
 `useState` to handle the returned data or a returned error. The important thing
-to highlight is: when you go to refetch a new item from the API, you likely
-need to clear the state of what was previously there (unless you want to
-display stale results)
+to highlight is: when you go to refetch a new item from the API, you likely need
+to clear the state of what was previously there (unless you want to display
+stale results)
 
 ```tsx
 import { useState, useEffect } from 'react'
@@ -118,10 +118,10 @@ export default function App() {
 
 ## Part 2: A custom hook?
 
-Can we make a hook to make this easier? I don't often make custom hooks, but
-you can try to "encapsulate" some of the multiple-related hooks (the useStates
-for error, pokemonInfo, and useEffect) into a single hook. This does not
-drastically affect our approach, but in the below example, we can call
+Can we make a hook to make this easier? I don't often make custom hooks, but you
+can try to "encapsulate" some of the multiple-related hooks (the useStates for
+error, pokemonInfo, and useEffect) into a single hook. This does not drastically
+affect our approach, but in the below example, we can call
 `usePokemonInfo(pokemonName)` and error handling and fetching is handled for us
 
 Working codesandbox
@@ -227,9 +227,9 @@ export default function App() {
 
 I think it's sometimes common to forget error handling in async JS code
 (useEffect async or many other contexts, etc), and there aren't e.g. lint rules
-to really help, leaving errors uncaught or handled poorly. If you don't
-manually handle the error in the `useEffect`, your user probably will not see
-that an error occurred.
+to really help, leaving errors uncaught or handled poorly. If you don't manually
+handle the error in the `useEffect`, your user probably will not see that an
+error occurred.
 
 In addition to this error handling rant, the other point of this article is you
 need to reset your component state when props change, which in the code above,
@@ -360,5 +360,3 @@ from https://kentcdodds.com/blog/understanding-reacts-key-prop explains
 unmount the previous instance, and mount a new one. This means that all state
 that had existed in the component at the time is completely removed and the
 component is "reinitialized" for all intents and purposes. "
-
-

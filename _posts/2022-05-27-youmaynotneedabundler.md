@@ -4,8 +4,8 @@ date: 2022-05-27
 ---
 
 I have seen a couple threads on twitter where people complain about the
-difficulty with publishing NPM libraries or ask what starter kit they should
-use (or, people recommended starter packs anyways)
+difficulty with publishing NPM libraries or ask what starter kit they should use
+(or, people recommended starter packs anyways)
 
 Example threads
 
@@ -15,8 +15,8 @@ Example threads
 - https://twitter.com/mpocock1/status/1525075901905522691
 
 One thing that is notable to me in these threads is that people often recommend
-that you use a bundler (a program that combines multiple src files into a
-single or fewer output files) when developing a library
+that you use a bundler (a program that combines multiple src files into a single
+or fewer output files) when developing a library
 
 Examples of starter packs suggested in these threads that use bundlers
 
@@ -26,13 +26,17 @@ Examples of starter packs suggested in these threads that use bundlers
 - `preconstruct` - https://github.com/preconstruct/preconstruct - uses rollup
 - `tsup` - https://github.com/egoist/tsup - uses esbuild
 - `tsdx` - https://github.com/jaredpalmer/tsdx - uses rollup
-- `vite library mode` - https://vitejs.dev/guide/build.html#library-mode - uses rollup
+- `vite library mode` - https://vitejs.dev/guide/build.html#library-mode - uses
+  rollup
 - `packemon` - https://github.com/milesj/packemon - uses rollup
-- `ts-library-template` - https://github.com/shortercode/ts-library-template - uses rollup
-- `parcel` - https://twitter.com/devongovett/status/1524944991402999810 - uses parcel
+- `ts-library-template` - https://github.com/shortercode/ts-library-template -
+  uses rollup
+- `parcel` - https://twitter.com/devongovett/status/1524944991402999810 - uses
+  parcel
 - `dts` - https://weiran-zsd.github.io/dts-cli/ - uses rollup
 - `pkgroll` - https://github.com/privatenumber/pkgroll - uses rollup
-- `mkdist` - https://github.com/unjs/mkdist - referenced by `unbuild`, uses esbuild
+- `mkdist` - https://github.com/unjs/mkdist - referenced by `unbuild`, uses
+  esbuild
 
 Not using bundlers
 
@@ -45,8 +49,8 @@ bundlers, just saying they exist.
 
 ## Why would you _NOT_ want a bundler for your library?
 
-My main argument is that the consumer of your library is the one that should
-use a bundler if it is relevant to them. If the library uses a bundler:
+My main argument is that the consumer of your library is the one that should use
+a bundler if it is relevant to them. If the library uses a bundler:
 
 - in the best case, it has no impact on the consumer
 - in the worst case, it affects the complexity of your library and makes
@@ -54,17 +58,17 @@ use a bundler if it is relevant to them. If the library uses a bundler:
 
 An example where it can actually create limitations, you might consider code
 splitting with async `import()`. If you create a single file bundle, then the
-consumer of your library may not be able to do code splitting properly via
-async `import()`
+consumer of your library may not be able to do code splitting properly via async
+`import()`
 
 ## Why would you _MAYBE_ want a bundler for your library
 
 If you really care about producing a `UMD` bundle that can be used in a script
-tag, maybe you want a bundler, but the future does not seem to be in `UMD`.
-One other possible bundle type is maybe you like the idea of a single file
-`ESM` module. It is similar where you could maybe reference this from a script
-tag with type module, but this seems like a niche usage. For example, you
-would still have to consider:
+tag, maybe you want a bundler, but the future does not seem to be in `UMD`. One
+other possible bundle type is maybe you like the idea of a single file `ESM`
+module. It is similar where you could maybe reference this from a script tag
+with type module, but this seems like a niche usage. For example, you would
+still have to consider:
 
 - If you are not bundling dependencies, then what is the benefit of using a
   bundler?
@@ -137,8 +141,8 @@ directly deploy a `dist` folder of `js` files to NPM.
   resolution can import extensionless paths, but node module resolution
   generally works well with consumers that use bundlers themselves
 - Uses `"target": "es2018"` - This is does a small amount of transpilation of
-  super modern features, but would generally not require your users to
-  babel-ify their `node_modules` if they consume your library
+  super modern features, but would generally not require your users to babel-ify
+  their `node_modules` if they consume your library
 
 ## What about testing?
 
@@ -173,8 +177,7 @@ Do you want to make a pure-ESM package? Then you do not want to use
 with `.js` extensions in your source code, even if you write `.ts`. This is
 awkward, and something the community is still grappling with.
 
-If you have ever stumbled on this topic, you will probably want to see this
-link
+If you have ever stumbled on this topic, you will probably want to see this link
 https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 ## Footnote 2: Shipping ESM and CommonJS side by side without going "pure-ESM"
@@ -245,20 +248,23 @@ Note: We do not need to explicitly say where the typescript types are with
 "types" in `package.json`, many starter packs do this but it is unneeded for
 this package as the d.ts files are automatically found.
 
-See
-https://cmdcolin.github.io/posts/2021-12-31-npm-package
-for my article on creating a typescript package for npm
+See https://cmdcolin.github.io/posts/2021-12-31-npm-package for my article on
+creating a typescript package for npm
 
 ## Footnote 5: Other things people recommend
 
 Other things people recommend in the starter pack threads
 
-- `deno` - not clear to me how this helps when deploying to npm, but I still gotta try deno
+- `deno` - not clear to me how this helps when deploying to npm, but I still
+  gotta try deno
 - `ts-node ` - not clear to me how this helps when deploying to npm
 - `nx` - heavy monorepo-based solution
 - `elm` - that's just a different thing
-- `Typescript-Node-Starter` - https://github.com/microsoft/TypeScript-Node-Starter - not a library, full stack framework
-- `joystick` - https://github.com/CheatCode/joystick - not a library, full stack framework
+- `Typescript-Node-Starter` -
+  https://github.com/microsoft/TypeScript-Node-Starter - not a library, full
+  stack framework
+- `joystick` - https://github.com/CheatCode/joystick - not a library, full stack
+  framework
 
 ## Footnote 6:
 
@@ -268,19 +274,19 @@ things, and can only modify their config with things like `rescripts`, `craco`
 or `rewired`. If you crafted your setup with just `webpack`, you may not be so
 tied down. But, I still use things like `create-react-app` because they do seem
 to help me significantly. Now though, the tide seems to be turning other
-directions like next.js which can do static site generation at a basic level
-and extend to multiple pages more easily.
+directions like next.js which can do static site generation at a basic level and
+extend to multiple pages more easily.
 
 ## Footnote 7:
 
 You may not even need `tsc` to compile your dist folder. You can literally
 publish your source `.js` files as-is to NPM. This suggestion comes from
 @trevmanz [1](https://twitter.com/trevmanz/status/1534962190008172545)
-[2](https://twitter.com/trevmanz/status/1534962940348092417). I don't
-personally use this technique yet but there are many users with this workflow
+[2](https://twitter.com/trevmanz/status/1534962940348092417). I don't personally
+use this technique yet but there are many users with this workflow
 
-An interesting thing is you can write in `.js` but still get `typescript` to
-get type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
+An interesting thing is you can write in `.js` but still get `typescript` to get
+type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
 `tsconfig.json`
 
 ## Footnote 8:

@@ -9,16 +9,16 @@ how!
 
 I found it somewhat tricky to get this working, because there is a lot of odd
 lingo out there. There are libraries that may help you, but this post goes
-through making an OAuth client in node.js to post to the twitter API with
-fairly unabstracted code. OAuth still confuses me, but if you follow these
-steps, you can make a bot!
+through making an OAuth client in node.js to post to the twitter API with fairly
+unabstracted code. OAuth still confuses me, but if you follow these steps, you
+can make a bot!
 
 ### Step 1
 
 Get your keys. I forget the exact procedure for this but go to
-https://developer.twitter.com and sign up, register an "app" with them, and
-poke around for awhile. This github repo provides a couple more details about
-the process of registering
+https://developer.twitter.com and sign up, register an "app" with them, and poke
+around for awhile. This github repo provides a couple more details about the
+process of registering
 https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal
 
 After sometime, you should get a screen that looks like this. Keep this around
@@ -84,16 +84,15 @@ And `tsconfig.json` file
 }
 ```
 
-This compiles the `src` folder and outputs js files to the `dist` directory,
-and we can run the `node dist/bot.js` file with node to post the file
+This compiles the `src` folder and outputs js files to the `dist` directory, and
+we can run the `node dist/bot.js` file with node to post the file
 
 ### Step 4
 
 Create a .env file with your keys that you found in the above screenshot
 corresponding to the box1 (which gives you API_KEY/API_SECRET, sometimes also
 referred to as consumer keys in other documents) and box2 (which gives you
-ACCESS_TOKEN and ACCESS_TOKEN_SECRET) from
-the above screenshot
+ACCESS_TOKEN and ACCESS_TOKEN_SECRET) from the above screenshot
 
 ```
 API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -201,14 +200,15 @@ Now that you have the bot, you can run it locally with `yarn post` (runs the
 
 Now to create a github action to run the bot.
 
-Navigate to your repo's settings page, then go to Secrets->Actions and paste
-the keys one by one, see below screenshot
+Navigate to your repo's settings page, then go to Secrets->Actions and paste the
+keys one by one, see below screenshot
 
 ![](https://user-images.githubusercontent.com/6511937/187038172-80b35e34-03dd-4613-b6f6-9f8e25d2fc34.png)
 
 ### Step 8
 
-Create a file with the path `.github/workflows/post.yml` in your repo to make the post
+Create a file with the path `.github/workflows/post.yml` in your repo to make
+the post
 
 You can use a cron/scheduled workflow in the github action, which the below
 example does
@@ -246,8 +246,8 @@ jobs:
 
 ## Conclusion
 
-See https://github.com/cmdcolin/twitter_fractal_bot for working example. I
-could have, in retrospect, used a library like `twit`
+See https://github.com/cmdcolin/twitter_fractal_bot for working example. I could
+have, in retrospect, used a library like `twit`
 (https://www.npmjs.com/package/twit) but this code sample is not substantially
 more complicated than using the `twit` library.
 
@@ -258,8 +258,8 @@ new version from your repo!
 
 - Bearer token - The Bearer token is an alternative method of authenticating,
   but it cannot be used to post tweets
-- Twitter API v1 vs v2 - We use a mix of v1 and v2, it's just the different
-  URLs that we are posting to and can be mixed in our example
+- Twitter API v1 vs v2 - We use a mix of v1 and v2, it's just the different URLs
+  that we are posting to and can be mixed in our example
 - Consumer key vs API key - they are the same thing in our example. If you look
   closely at the box 1 in the screenshot it says "Consumer keys" and then gives
   you an API key below \*

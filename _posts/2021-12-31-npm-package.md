@@ -23,13 +23,13 @@ The magic is in the package.json file, which tells npm:
   package.json is published, with the "files" field you can say what particular
   folders or files are uploaded or you can use .npmignore to choose which files
   NOT to publish)
-- what to use as the "entry point" (e.g. the file that should be referenced
-  when you say `const lib = require('mypackage')`, this is governed by the
-  "main" field, "module" field which is bundler specific, and "export maps"
-  which are newer but tricky)
+- what to use as the "entry point" (e.g. the file that should be referenced when
+  you say `const lib = require('mypackage')`, this is governed by the "main"
+  field, "module" field which is bundler specific, and "export maps" which are
+  newer but tricky)
 - what pre- and post- processing steps should be done when the package is being
-  published (the various "scripts", where you can have "clean", "build",
-  "test", "lint", "prebuild", etc)
+  published (the various "scripts", where you can have "clean", "build", "test",
+  "lint", "prebuild", etc)
 - and more!
 
 Let's try an experiment...
@@ -137,16 +137,15 @@ This all seems pretty boring thus far but it tells us a couple things
 1. no transpiler or bundler is needed for publishing an npm package
 1. our package can consist of a single file and it is uploaded to npm, and the
    "main" field in package.json provides an entry point
-1. the filename index.js is not special, probably it is a hangover from the
-   name index.html. you can use whatever name you want
+1. the filename index.js is not special, probably it is a hangover from the name
+   index.html. you can use whatever name you want
 
 # Part 2: Adding typescript
 
 Let's try adding typescript
 
 To do this, we will use the typescript compiler to compile a directory of files
-in our "src" directory and output the compiled files to a directory named
-"dist"
+in our "src" directory and output the compiled files to a directory named "dist"
 
 To start, let's add typescript
 
@@ -157,8 +156,8 @@ yarn add -D typescript
 ```
 
 Our package.json now will have `typescript` in it's `devDependencies` (this
-means that when someone installs your package, it they don't get typescript as
-a dependency, it is just a dependency for while you are developing the library
+means that when someone installs your package, it they don't get typescript as a
+dependency, it is just a dependency for while you are developing the library
 locally).
 
 Then we need to create a tsconfig.json for typescript to use
@@ -169,8 +168,8 @@ yarn tsc --init
 npx tsc --init
 ```
 
-This will generate a `tsconfig.json` file (needed by `typescript`) with a bunch of
-options, but I have stripped it down in my projects to look like this
+This will generate a `tsconfig.json` file (needed by `typescript`) with a bunch
+of options, but I have stripped it down in my projects to look like this
 
 ```json
 {
@@ -240,8 +239,9 @@ yarn build
 And this will run the `"build"` script we created, which in turn, just runs
 `tsc` with no arguments.
 
-You can also add a `"prebuild"` script that clears out the old contents. In fact,
-npm scripts generalizes the naming system -- you can make scripts with whatever name you want, e.g.
+You can also add a `"prebuild"` script that clears out the old contents. In
+fact, npm scripts generalizes the naming system -- you can make scripts with
+whatever name you want, e.g.
 
 ```json
 {
@@ -293,9 +293,9 @@ shell commands), but rimraf allows it to be cross-platform
 
 ## Making sure you create a fresh build before you publish
 
-Without extra instructions, your `yarn publish` command would not create a
-fresh build and you could publish an older version that was lingering in the
-`dist` folder.
+Without extra instructions, your `yarn publish` command would not create a fresh
+build and you could publish an older version that was lingering in the `dist`
+folder.
 
 We can use a `preversion` script that will automatically get invoked when you
 run `yarn publish` to make sure you get a fresh build in the `dist` folder
@@ -341,7 +341,8 @@ yarn build --watch
 
 ## Adding testing with ts-jest
 
-You can use ts-jest to test your code. This involves installing jest, typescript, ts-jest, @types/jest, and then initializing a jest.config.json
+You can use ts-jest to test your code. This involves installing jest,
+typescript, ts-jest, @types/jest, and then initializing a jest.config.json
 
 ```sh
 npm i -D jest typescript
@@ -372,7 +373,8 @@ test('expected message returned', () => {
 })
 ```
 
-Then we can then create a script in the package.json that says `"test": "jest"`, and then we can say
+Then we can then create a script in the package.json that says `"test": "jest"`,
+and then we can say
 
 ```
 npm run test
@@ -386,7 +388,8 @@ various babel strategies to test your code, but if you are using `typescript`,
 
 ## Add a .gitignore
 
-Create a .gitignore with just a line that references this `dist` folder and `node_modules` folder
+Create a .gitignore with just a line that references this `dist` folder and
+`node_modules` folder
 
 ```
 dist
@@ -395,15 +398,15 @@ node_modules
 
 ## The future of ESM modules
 
-There is a shift happening where modules are changing to be pure ESM rather
-than keeping commonjs equivalents
+There is a shift happening where modules are changing to be pure ESM rather than
+keeping commonjs equivalents
 
 https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-There are many challenges here, but one shortcut that I have used is to
-actually go "halfway to ESM" and just publish a "dual" package: one "main"
-field in the package.json referring to a commonjs file, and one "module" field
-with an ESM style build for bundlers. I do it like this:
+There are many challenges here, but one shortcut that I have used is to actually
+go "halfway to ESM" and just publish a "dual" package: one "main" field in the
+package.json referring to a commonjs file, and one "module" field with an ESM
+style build for bundlers. I do it like this:
 
 ```json
 {
@@ -454,7 +457,8 @@ See https://github.com/cmdcolin/npm-package-tutorial/
 
 ## Footnote 1
 
-See my follow up rant https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler
+See my follow up rant
+https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler
 
 ## Footnote 2
 

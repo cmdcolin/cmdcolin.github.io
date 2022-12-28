@@ -3,10 +3,10 @@ title: Memoizing async functions so that you don't cache errors
 date: 2022-02-26
 ---
 
-There are two hard problems in computer science: [Cache invalidation and naming
-things](https://martinfowler.com/bliki/TwoHardThings.html). In this post we'll
-show how memoize an async function, and how to invalidate the memoization when
-the promise throws an error.
+There are two hard problems in computer science:
+[Cache invalidation and naming things](https://martinfowler.com/bliki/TwoHardThings.html).
+In this post we'll show how memoize an async function, and how to invalidate the
+memoization when the promise throws an error.
 
 This helps us with being able to re-try because since the error is not cached,
 calling it again after an error retries automatically.
@@ -42,17 +42,17 @@ function getPokemonMemoized() {
 ```
 
 The promise is held in this.promise, and the important part of this function is
-that when I get an error, I clear this.promise and re-throw the error. The caller
-of the function, on error, will receive the error message, but caching will not
-take place, allowing retries to take place later on.
+that when I get an error, I clear this.promise and re-throw the error. The
+caller of the function, on error, will receive the error message, but caching
+will not take place, allowing retries to take place later on.
 
 See https://cmdcolin.github.io/pokemon.html for demo
 
 ## Footnote 0: Arguments to function
 
 If your function takes arguments, then you can use a hashmap associating the
-argument with the promise. You may also consider using an LRU cache so that
-your hashmap doesn't grow infinitely in size
+argument with the promise. You may also consider using an LRU cache so that your
+hashmap doesn't grow infinitely in size
 
 Generally you need a way to stringify or otherwise make them able to be stored
 in a Map or Object to do this.
@@ -61,12 +61,13 @@ See https://github.com/nodeca/promise-memoize for example
 
 ## Footnote 1: Error handling of `fetch`
 
-This demo also demonstrates some basic fetch error handling, and uses `await response.text()` to get the error message from the API. Sometimes an api will
-return it's error in JSON format, so you can handle that as is, sometimes you
-have to check both text and json
+This demo also demonstrates some basic fetch error handling, and uses
+`await response.text()` to get the error message from the API. Sometimes an api
+will return it's error in JSON format, so you can handle that as is, sometimes
+you have to check both text and json
 
-Note also, that response.statusText does [not exist in
-HTTP/2](https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText)
+Note also, that response.statusText does
+[not exist in HTTP/2](https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText)
 so it's better to use `response.text()` or `response.json()`.
 
 ## Footnote 2: Global cache
@@ -114,16 +115,14 @@ If you want to handle aborting, it is a bit trickier. Aborting in javascript is
 handled by
 [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/AbortController).
 This is an object that gives you an
-[AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
-that can be passed to fetch calls and the like to stop a big download from
-happening.
+[AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that
+can be passed to fetch calls and the like to stop a big download from happening.
 
 In our above example, if we passed an abort signal to the first call to fetch,
-and then aborted it, it would abort the fetch, [which throws a DOMException
-called
-"AbortError"](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort).
-You can detect that it is an AbortError like this, and may choose not to
-display or re-throw the abort exception
+and then aborted it, it would abort the fetch,
+[which throws a DOMException called "AbortError"](https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort).
+You can detect that it is an AbortError like this, and may choose not to display
+or re-throw the abort exception
 
 ```js
 function isAbortException(e) {
@@ -173,8 +172,8 @@ tries to help with this scenario with a cleaner abstraction.
 I have been playing through Pokemon Yellow and find it really amusing hence the
 pokemon theme
 
-Fun stuff: The cutting room floor wiki with unused moves, sounds, and sprites
-in Pokemon Yellow https://tcrf.net/Pok%C3%A9mon_Yellow
+Fun stuff: The cutting room floor wiki with unused moves, sounds, and sprites in
+Pokemon Yellow https://tcrf.net/Pok%C3%A9mon_Yellow
 
 ## Footnote 5
 
