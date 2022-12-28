@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 28 Dec 2022 06:16:41 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Dec 2022 06:32:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -100,6 +100,13 @@ productivity - they really take a crap on retros. (Post deleted
 </ul>
 <h3 id="studies-and-interesting-cases"><a aria-hidden="true" tabindex="-1" href="#studies-and-interesting-cases"><a href="#studies-and-interesting-cases" style="margin-right: 10px">#</a></a>Studies and interesting cases</h3>
 <ul>
+<li>
+<p>"Dev burnout drastically decreases when your team actually ships things on a
+regular basis. Burnout primarily comes from toil, rework and never seeing the
+end of projects." This was by far the the best lesson I learned this year and
+finally tracked down the the talk it was from. Hope it helps.
+<a href="https://www.reddit.com/r/programming/comments/zwjxsf/dev_burnout_drastically_decreases_when_your_team/">https://www.reddit.com/r/programming/comments/zwjxsf/dev_burnout_drastically_decreases_when_your_team/</a></p>
+</li>
 <li>
 <p>“The longer a developer assumes a code review will take, the longer they will
 take to respond to it.” Interesting case for adding estimated review times to
