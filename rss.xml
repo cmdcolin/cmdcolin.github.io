@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 28 Dec 2022 05:36:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Dec 2022 05:37:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -68,8 +68,9 @@ a new work commandment or direction for their team.
 <a href="https://www.reddit.com/r/programming/comments/u7dv5m/til_about_the_intentperception_gap_in_programming/">https://www.reddit.com/r/programming/comments/u7dv5m/til_about_the_intentperception_gap_in_programming/</a></p>
 </li>
 <li>
-<p>TIL after auditing 2,000 dev teams, data scientists... (partial result from
-google, post super deleted
+<p>TIL after auditing 2,000 dev teams, data scientists found that programmers are
+waiting on average 4+ days for their review requests to be picked up by
+other ... (partial result from google, post super deleted
 <a href="https://www.reddit.com/r/gamedev/comments/xh649i/deleted_by_user/">https://www.reddit.com/r/gamedev/comments/xh649i/deleted_by_user/</a>)</p>
 </li>
 </ul>
