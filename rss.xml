@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 28 Dec 2022 06:36:37 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 29 Dec 2022 01:57:55 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2987,10 +2987,9 @@ repository.</p>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <h2 id="incremental-builds"><a aria-hidden="true" tabindex="-1" href="#incremental-builds"><a href="#incremental-builds" style="margin-right: 10px">#</a></a>Incremental builds</h2>
 <p>We can use this to do incremental/watch builds</p>
-<pre><code>npm run build --watch
-# or
-yarn build --watch
-</code></pre>
+<pre class="shiki poimandres" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">npm</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">run</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">build</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">--watch</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic"># or</span></span>
+<span class="line"><span style="color: #91B4D5">yarn</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">build</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">--watch</span></span></code></pre>
 <h2 id="adding-testing-with-ts-jest"><a aria-hidden="true" tabindex="-1" href="#adding-testing-with-ts-jest"><a href="#adding-testing-with-ts-jest" style="margin-right: 10px">#</a></a>Adding testing with ts-jest</h2>
 <p>You can use ts-jest to test your code. This involves installing jest,
 typescript, ts-jest, @types/jest, and then initializing a jest.config.json</p>
@@ -3011,10 +3010,9 @@ typescript, ts-jest, @types/jest, and then initializing a jest.config.json</p>
 <span class="line"><span style="color: #A6ACCD">})</span></span></code></pre>
 <p>Then we can then create a script in the package.json that says <code>"test": "jest"</code>,
 and then we can say</p>
-<pre><code>npm run test
-# or
-yarn test
-</code></pre>
+<pre class="shiki poimandres" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">npm</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">run</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">test</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic"># or</span></span>
+<span class="line"><span style="color: #91B4D5">yarn</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">test</span></span></code></pre>
 <p>You can also create an alternative system where you use <code>babel-eslint</code> and
 various babel strategies to test your code, but if you are using <code>typescript</code>,
 <code>ts-jest</code> and <code>typescript</code> works great.</p>
@@ -3033,10 +3031,11 @@ go "halfway to ESM" and just publish a "dual" package: one "main" field in the
 package.json referring to a commonjs file, and one "module" field with an ESM
 style build for bundlers. I do it like this:</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28"><code><span class="line"><span style="color: #A6ACCD">{</span></span>
-<span class="line"><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">files</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">:[</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">src</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">],</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">files</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: [</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">src</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">],</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">scripts</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: {</span></span>
 <span class="line"><span style="color: #A6ACCD">     </span><span style="color: #D0679D">...</span></span>
-<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">cleam</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">:</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">rimraf dist esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">clean</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">rimraf dist esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">prebuild</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">npm run clean</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build:cjs</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">tsc --module commonjs --ourDir dist</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build:esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">tsc --target es2018 --outDir esm</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #A6ACCD">"</span><span style="color: #ADD7FF">build</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD">: </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">npm run build:esm &#x26;&#x26; npm run build:cjs</span><span style="color: #A6ACCD">"</span></span>
