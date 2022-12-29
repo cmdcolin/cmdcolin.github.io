@@ -333,7 +333,7 @@ Add a `postversion` script that pushes the tag to your repo after your publish
 
 We can use this to do incremental/watch builds
 
-```
+```sh
 npm run build --watch
 # or
 yarn build --watch
@@ -376,7 +376,7 @@ test('expected message returned', () => {
 Then we can then create a script in the package.json that says `"test": "jest"`,
 and then we can say
 
-```
+```sh
 npm run test
 # or
 yarn test
@@ -410,10 +410,11 @@ style build for bundlers. I do it like this:
 
 ```json
 {
-"files":["dist","esm","src"],
+  "files": ["dist", "esm", "src"],
   "scripts": {
      ...
-    "cleam":"rimraf dist esm",
+    "clean": "rimraf dist esm",
+    "prebuild": "npm run clean",
     "build:cjs": "tsc --module commonjs --ourDir dist",
     "build:esm": "tsc --target es2018 --outDir esm",
     "build": "npm run build:esm && npm run build:cjs"
