@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 31 Dec 2022 00:28:37 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 31 Dec 2022 20:00:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -4238,11 +4238,10 @@ the github repo that allows putObject in s3 with the public-read ACL</p>
             <link>https://cmdcolin.github.io/posts/2020-07-04</link>
             <guid>https://cmdcolin.github.io/posts/2020-07-04</guid>
             <pubDate>Sat, 04 Jul 2020 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p>I faced many challenges when learning React was a big challenge for me. I
-started learning React in earnest in 2019. It was a difficult experience
-overall, but I wanted to go over my learning experience. I tried to review
-commit logs to get an accurate timeline, instead of relying solely on my memory
-of the timeline.</p>
+            <content:encoded><![CDATA[<p>I faced many challenges when learning React which I had to learn starting a new
+job in 2019. It was a difficult experience overall, but I wanted to go over my
+learning experience. I tried to review commit logs to get an accurate timeline,
+instead of relying solely on my memory of the timeline.</p>
 <p>TLDR: If I were to take away anything from this</p>
 <ul>
 <li>"pairing" (not strictly pair programming, just meeting with other people at
