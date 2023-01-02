@@ -69,9 +69,6 @@ And in your index.html you have e.g.
 </html>
 ```
 
-Note: in React 18, it's a little different than above (React 18 uses createRoot
-instead of ReactDOM.render) but I'm going for brevity here
-
 ### Accepting parameters to your components
 
 React components can accept "props" which are like parameters to your component
@@ -186,6 +183,11 @@ function HelloWorld() {
 ```
 
 It's not common to write React without jsx, but as seen above, it can be done :)
+
+### Footnote 3. Slightly changed in React 18
+
+React 18 uses `createRoot` instead of `ReactDOM.render` and is a little bit more
+verbose, but I'm going for brevity here
 
 ### Footnote 4. Things that sometimes complicate your React learning experience
 
