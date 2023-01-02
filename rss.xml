@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sat, 31 Dec 2022 20:08:03 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 02 Jan 2023 20:46:40 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -192,8 +192,6 @@ component to the page.</p>
 <span class="line"><span style="color: #A6ACCD">    </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB"> </span><span style="color: #5FB3A1; font-style: italic">id</span><span style="color: #A6ACCD">=</span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">root</span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB"> </span><span style="color: #D0679D">/</span><span style="color: #E4F0FB">></span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #E4F0FB">&#x3C;/</span><span style="color: #5DE4C7">body</span><span style="color: #E4F0FB">></span></span>
 <span class="line"><span style="color: #E4F0FB">&#x3C;/</span><span style="color: #5DE4C7">html</span><span style="color: #E4F0FB">></span></span></code></pre>
-<p>Note: in React 18, it's a little different than above (React 18 uses createRoot
-instead of ReactDOM.render) but I'm going for brevity here</p>
 <h3 id="accepting-parameters-to-your-components"><a aria-hidden="true" tabindex="-1" href="#accepting-parameters-to-your-components"><a href="#accepting-parameters-to-your-components" style="margin-right: 10px">#</a></a>Accepting parameters to your components</h3>
 <p>React components can accept "props" which are like parameters to your component</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">Hello</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">props</span><span style="color: #A6ACCD">) {</span></span>
@@ -272,6 +270,9 @@ this</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">React</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">createElement</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">div</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #D0679D">null</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Hello world</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>It's not common to write React without jsx, but as seen above, it can be done :)</p>
+<h3 id="footnote-3-slightly-changed-in-react-18"><a aria-hidden="true" tabindex="-1" href="#footnote-3-slightly-changed-in-react-18"><a href="#footnote-3-slightly-changed-in-react-18" style="margin-right: 10px">#</a></a>Footnote 3. Slightly changed in React 18</h3>
+<p>React 18 uses <code>createRoot</code> instead of <code>ReactDOM.render</code> and is a little bit more
+verbose, but I'm going for brevity here</p>
 <h3 id="footnote-4-things-that-sometimes-complicate-your-react-learning-experience"><a aria-hidden="true" tabindex="-1" href="#footnote-4-things-that-sometimes-complicate-your-react-learning-experience"><a href="#footnote-4-things-that-sometimes-complicate-your-react-learning-experience" style="margin-right: 10px">#</a></a>Footnote 4. Things that sometimes complicate your React learning experience</h3>
 <p>The React learning experience, when it's good, is quite nice. But there can be
 many roadblocks</p>
