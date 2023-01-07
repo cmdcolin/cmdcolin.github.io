@@ -18,6 +18,10 @@ created by sock puppet accounts(?) and promoting a specific company (linearB). I
 gathered as many posts from them as I can, helpfully grouped into clickbait-y
 categories.
 
+Update 2023-01-06: a Reddit user reached out to me who is quite knowledgeable
+about astroturfing campaigns and confirmed my suspicions here that it's all sock
+puppet accounts
+
 ## Titles/links to posts
 
 ### Hot takes and pulling no punches
