@@ -178,6 +178,7 @@ this
 
 ```js
 function HelloWorld() {
+  // null just means no props to the div element
   return React.createElement('div', null, 'Hello world')
 }
 ```
@@ -207,6 +208,9 @@ many roadblocks
   becoming comfortable with modern JS dev tooling.
 
 - You can be bogged down by "tangential" concepts like state management
+
+- You can be confused by weird concepts like "controlled" components (and how
+  React hooks like useState integrate with these)
 
 - You can be bogged down by Typescript or PropTypes - When I was learning React,
   I was confused by PropTypes in code. PropTypes are fully optional though, and
