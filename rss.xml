@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 05 Feb 2023 22:20:36 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Feb 2023 22:24:04 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -24,6 +24,8 @@ for me, but are silly logic errors</p>
 <span class="line"><span style="color: #767C9DB0; font-style: italic">// woops, meant to use Object.fromEntries</span></span>
 <span class="line"><span style="color: #E4F0FB">Object</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">entries</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">stuff</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">map</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">entry</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> [</span><span style="color: #E4F0FB">entry</span><span style="color: #A6ACCD">, {</span><span style="color: #E4F0FB"> </span><span style="color: #ADD7FF">id</span><span style="color: #A6ACCD">:</span><span style="color: #ADD7FF"> </span><span style="color: #E4F0FB">entry</span><span style="color: #ADD7FF"> </span><span style="color: #A6ACCD">}]))</span></span></code></pre>
 <p><a href="https://www.typescriptlang.org/play?#code/FAYw9gdgzgLgBLArgM2QXgNoEYA0AmHAZgF1gB5AIwCsBTEGAOhohgCcBLGqACiVQYC2AQwAO3ZmwCeaAHwYJrSTjgBvdgBMAXAskBfYgEoDQA">playground</a></p>
+<p>Summary: should probably be a lint rule (a "types required" lint rule, a la
+@typescript-eslint) not to accept arrays for Object.entries</p>
 <h2 id="passing-garbage-to-the-third-argument-of-map-accidentally"><a aria-hidden="true" tabindex="-1" href="#passing-garbage-to-the-third-argument-of-map-accidentally"><a href="#passing-garbage-to-the-third-argument-of-map-accidentally" style="margin-right: 10px">#</a></a>Passing garbage to the third argument of map accidentally</h2>
 <pre class="shiki poimandres" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">doStuff</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">arr</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCDC0">number</span><span style="color: #A6ACCD">[], </span><span style="color: #E4F0FB">extra</span><span style="color: #91B4D5">?:</span><span style="color: #A6ACCD"> { sayHiToMom</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCDC0">boolean</span><span style="color: #A6ACCD"> }) {</span></span>
 <span class="line"><span style="color: #A6ACCD">  if (</span><span style="color: #E4F0FB">extra</span><span style="color: #A6ACCD">?.</span><span style="color: #E4F0FB">sayHiToMom</span><span style="color: #A6ACCD">) {</span></span>
@@ -38,7 +40,9 @@ for me, but are silly logic errors</p>
 <span class="line"><span style="color: #E4F0FBD0">doStuff</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">stuff</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">map</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">a</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">a</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">*</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">2</span><span style="color: #A6ACCD">, {</span><span style="color: #E4F0FB"> </span><span style="color: #ADD7FF">sayHiToMom</span><span style="color: #A6ACCD">:</span><span style="color: #ADD7FF"> </span><span style="color: #5DE4C7">true</span><span style="color: #ADD7FF"> </span><span style="color: #A6ACCD">}))</span></span></code></pre>
 <p><a href="https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA">playground</a></p>
 <p>This one would be difficult for typescript to catch, the second arg is
-"thisArg", what the callback refers to as <code>this</code></p>]]></content:encoded>
+"thisArg", what the callback refers to as <code>this</code></p>
+<p>Summary: should probably be a lint rule to avoid this second arg, as it is
+obscure</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
