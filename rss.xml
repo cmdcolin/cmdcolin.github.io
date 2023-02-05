@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 05 Feb 2023 22:37:03 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Feb 2023 22:37:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -45,7 +45,8 @@ for me, but are silly logic errors</p>
 obscure</p>
 <h2 id="any-others"><a aria-hidden="true" tabindex="-1" href="#any-others"><a href="#any-others" style="margin-right: 10px">#</a></a>Any others?</h2>
 <p>Any other ones that you find in your work? This is just from the past week for
-me :)</p>]]></content:encoded>
+me :)</p>
+<p>I will need to learn how to make eslint rules!</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
