@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 05 Feb 2023 21:47:32 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Feb 2023 22:18:06 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -16,7 +16,7 @@
             <pubDate>Sun, 05 Feb 2023 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>This is a short list of silly things that I wish Typescript would have caught
 for me, but are silly logic errors</p>
-<h2 id="using-objectentries-accidentally-instead-of-objectfromentries"><a aria-hidden="true" tabindex="-1" href="#using-objectentries-accidentally-instead-of-objectfromentries"><a href="#using-objectentries-accidentally-instead-of-objectfromentries" style="margin-right: 10px">#</a></a>Using Object.entries accidentally instead of Object.fromEntries</h2>
+<h2 id="using-objectentries-accidentally-instead-of-objectfromentries"><a aria-hidden="true" tabindex="-1" href="#using-objectentries-accidentally-instead-of-objectfromentries"><a href="#using-objectentries-accidentally-instead-of-objectfromentries" style="margin-right: 10px">#</a></a>Using <code>Object.entries</code> accidentally instead of <code>Object.fromEntries</code></h2>
 <p>Typescript will not complain if you use <code>Object.entries</code> instead of
 <code>Object.fromEntries</code></p>
 <pre class="shiki poimandres" style="background-color: #1b1e28"><code><span class="line"><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">stuff</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> [</span><span style="color: #5DE4C7">1</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">2</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">3</span><span style="color: #A6ACCD">]</span></span>
@@ -36,7 +36,9 @@ for me, but are silly logic errors</p>
 <span class="line"></span>
 <span class="line"><span style="color: #767C9DB0; font-style: italic">// woops, meant to pass that as second argument to doStuff</span></span>
 <span class="line"><span style="color: #E4F0FBD0">doStuff</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">stuff</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">map</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">a</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">a</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">*</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">2</span><span style="color: #A6ACCD">, {</span><span style="color: #E4F0FB"> </span><span style="color: #ADD7FF">sayHiToMom</span><span style="color: #A6ACCD">:</span><span style="color: #ADD7FF"> </span><span style="color: #5DE4C7">true</span><span style="color: #ADD7FF"> </span><span style="color: #A6ACCD">}))</span></span></code></pre>
-<p><a href="https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA">https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA</a></p>]]></content:encoded>
+<p><a href="https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA">https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA</a></p>
+<p>This one would be difficult for typescript to catch, the second arg is
+"thisArg", what the callback refers to as <code>this</code></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
