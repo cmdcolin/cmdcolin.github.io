@@ -4,13 +4,13 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 05 Feb 2023 22:35:17 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Feb 2023 22:37:03 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[Things I typescript doesn't catch that I guess should probably be lint rules]]></title>
+            <title><![CDATA[Things typescript didn't catch that should probably be lint rules]]></title>
             <link>https://cmdcolin.github.io/posts/2023-02-05-typescript-gotchas</link>
             <guid>https://cmdcolin.github.io/posts/2023-02-05-typescript-gotchas</guid>
             <pubDate>Sun, 05 Feb 2023 00:00:00 GMT</pubDate>
