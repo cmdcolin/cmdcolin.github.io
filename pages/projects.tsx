@@ -57,6 +57,12 @@ function Contents() {
       <h2 id="other">Bioinformatics tools</h2>
       <ul>
         <li>
+          <a href="https://cmdcolin.github.io/bam_index_visualizer/">
+            bam_index_visualizer
+          </a>{' '}
+          - shows the structure of the binning index of BAI files (2023)
+        </li>
+        <li>
           <a href="https://github.com/cmdcolin/secondary_rewriter">
             secondary_rewriter
           </a>{' '}
