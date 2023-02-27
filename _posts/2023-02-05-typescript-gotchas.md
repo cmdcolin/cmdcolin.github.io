@@ -23,6 +23,9 @@ Object.entries(stuff.map(entry => [entry, { id: entry }]))
 Summary: should probably be a lint rule (a "types required" lint rule, a la
 @typescript-eslint) not to accept arrays for Object.entries
 
+
+Update 02-27-23: Proposing this rule here https://github.com/typescript-eslint/typescript-eslint/issues/6537
+
 ## Passing garbage to the second argument of Array.prototype.map accidentally
 
 ```typescript
@@ -46,6 +49,9 @@ This one would be difficult for typescript to catch, the second arg is
 
 Summary: should probably be a lint rule to avoid this second arg, as it is
 obscure
+
+Update 02-27-23: This lint rule exists already :)
+https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-method-this-argument.md#disallow-using-the-this-argument-in-array-methods
 
 ## Any others?
 
