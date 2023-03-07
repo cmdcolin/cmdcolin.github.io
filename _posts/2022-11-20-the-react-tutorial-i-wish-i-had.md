@@ -164,8 +164,8 @@ components these days
 
 ### Footnote 2. How is this HTML allowed in React?
 
-The HTML-like syntax may look odd in JS code. It is called JSX. It get's
-converted to code that is like this at runtime
+The HTML-like syntax may look odd in JS code. It is called JSX. So code like
+this:
 
 ```js
 function HelloWorld() {
@@ -173,8 +173,7 @@ function HelloWorld() {
 }
 ```
 
-would get converted to this by babel or other jsx transpiler to something like
-this
+would get converted to this by babel or other jsx transpiler:
 
 ```js
 function HelloWorld() {
@@ -208,6 +207,10 @@ many roadblocks
   becoming comfortable with modern JS dev tooling.
 
 - You can be bogged down by "tangential" concepts like state management
+
+- React codebases often use newer features of javascript like destructuring,
+  which can be confusing for newcomers ("Why does this function have curly
+  braces in the place of the arguments?")
 
 - You can be confused by weird concepts like "controlled" components (and how
   React hooks like useState integrate with these)
