@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 07 Mar 2023 14:42:32 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 07 Mar 2023 17:17:49 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -340,6 +340,11 @@ becoming comfortable with modern JS dev tooling.</p>
 </li>
 <li>
 <p>You can be bogged down by "tangential" concepts like state management</p>
+</li>
+<li>
+<p>React codebases often use newer features of javascript like destructuring,
+which can be confusing for newcomers ("Why does this function have curly
+braces in the place of the arguments?")</p>
 </li>
 <li>
 <p>You can be confused by weird concepts like "controlled" components (and how
