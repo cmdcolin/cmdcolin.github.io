@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 27 Feb 2023 08:03:01 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 07 Mar 2023 14:42:32 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -4429,17 +4429,17 @@ React and just used our normal jqueryish thing.</p>
 <p>Why did I have such a poor grasp on React? I can't exactly say. I feel like I
 was a competent developer, but I had some severe mental barriers to
 understanding the way React worked. I wish someone would have just told me
-something like "React is basically like functions that can return HTML" e.g.</p>
-<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
-<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">>Hello world&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
-<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
-<p>Certainly there is more to React than that, but boiling it down to just that
-core idea I think would have helped me, and then walking me through some of the
-stuff slowly after I had that base understanding.</p>
+something like "React is basically like functions that can return HTML". EDIT: I
+wrote
+<a href="https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had">https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</a> to
+try to explain some of the basics that I feel like could have been helpful for
+me</p>
 <h2 id="footnote-3"><a aria-hidden="true" tabindex="-1" href="#footnote-3"><a href="#footnote-3" style="margin-right: 10px">#</a></a>Footnote 3</h2>
 <p>I am not sure if I would recommend Learning React to all learners. I think it
 helped me, but there may be other options that work better for you. Look around
-and find what what looks right.</p>]]></content:encoded>
+and find what what looks right. EDIT: the new beta.reactjs.org might be useful,
+but again, the book is what really helped me as it was less ADHD-inducing than
+the web</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
