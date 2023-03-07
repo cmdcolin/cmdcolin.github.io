@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 07 Mar 2023 17:17:49 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 07 Mar 2023 18:12:17 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -305,13 +305,12 @@ function components, React hooks are used instead.</p>
 <p>You will probably mostly see function components instead of class based
 components these days</p>
 <h3 id="footnote-2-how-is-this-html-allowed-in-react"><a aria-hidden="true" tabindex="-1" href="#footnote-2-how-is-this-html-allowed-in-react"><a href="#footnote-2-how-is-this-html-allowed-in-react" style="margin-right: 10px">#</a></a>Footnote 2. How is this HTML allowed in React?</h3>
-<p>The HTML-like syntax may look odd in JS code. It is called JSX. It get's
-converted to code that is like this at runtime</p>
+<p>The HTML-like syntax may look odd in JS code. It is called JSX. So code like
+this:</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">>Hello world&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
-<p>would get converted to this by babel or other jsx transpiler to something like
-this</p>
+<p>would get converted to this by babel or other jsx transpiler:</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #767C9DB0; font-style: italic">// null just means no props to the div element</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">React</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">createElement</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">div</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #D0679D">null</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Hello world</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
