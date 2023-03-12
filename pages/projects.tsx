@@ -78,6 +78,10 @@ function Contents() {
       <h2 id="other">Utilities</h2>
       <ul>
         <li>
+          <a href="https://cmdcolin.github.io/ytshuffle/">ytshuffle</a> a single
+          page app to make a music library from multiple youtube channels (2023)
+        </li>
+        <li>
           <a href="https://github.com/cmdcolin/fml9000">fml9000</a>- A music
           player made using Rust and GTK4 (2022)
         </li>
