@@ -78,6 +78,19 @@ export async function getPostBySlug(slug: string) {
   }
 }
 
+export async function getProjects() {
+  const fullPath = join('_pages', 'projects.md')
+  const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
+
+  const parser = await getParser()
+  const html = await parser.process(content)
+
+  return {
+    ...data,
+    html: html.value,
+  }
+}
+
 export async function getAllPosts() {
   const posts = await Promise.all(
     getPostFiles().map(slug => getPostBySlug(slug)),
