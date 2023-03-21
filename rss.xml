@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 21 Mar 2023 21:57:03 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 21 Mar 2023 22:08:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -673,7 +673,9 @@ from <a href="https://kentcdodds.com/blog/understanding-reacts-key-prop">https:/
 <p>"This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state
 that had existed in the component at the time is completely removed and the
-component is "reinitialized" for all intents and purposes. "</p>
+component is "reinitialized" for all intents and purposes."</p>
+<p>See also
+<a href="https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes">https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes</a></p>
 <h2 id="footnote-6-the-use-hook"><a aria-hidden="true" tabindex="-1" href="#footnote-6-the-use-hook"><a href="#footnote-6-the-use-hook" style="margin-right: 10px">#</a></a>Footnote 6: The <code>use</code> hook</h2>
 <p>Might also be related <a href="https://blixtdev.com/all-about-reacts-new-use-hook/">https://blixtdev.com/all-about-reacts-new-use-hook/</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
