@@ -359,4 +359,11 @@ from https://kentcdodds.com/blog/understanding-reacts-key-prop explains
 "This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state
 that had existed in the component at the time is completely removed and the
-component is "reinitialized" for all intents and purposes. "
+component is "reinitialized" for all intents and purposes."
+
+See also
+https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes
+
+## Footnote 6: The `use` hook
+
+Might also be related https://blixtdev.com/all-about-reacts-new-use-hook/
