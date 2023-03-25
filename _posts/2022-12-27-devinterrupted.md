@@ -11,10 +11,11 @@ forums.
 Many of these posts come from a blog called devinterrupted. They post things
 related to "engineering management" type topics. And, they often "hit a chord"
 and get highly upvoted and replied to. It's often the type of thing everyone can
-add their two cents on, or offload some steam, or pontificate.
+add their two cents on, or offload some steam. One person called it engagement
+spam and that seems about right.
 
 This wouldn't all be so bad, but it is sometimes posted with formulaic titles,
-created by sock puppet accounts(?) and promoting a specific company (linearB). I
+created by sock puppet accounts and promoting a specific company (linearB). I
 gathered as many posts from them as I can, helpfully grouped into clickbait-y
 categories.
 
@@ -117,10 +118,13 @@ puppet accounts
 
 The devinterrupted blog/podcast appears to be related to the linearB company,
 who advocate a notion of "cycle time" (https://linearb.io/blog/cycle-time/) as a
-developer metric engineering managers should look at, and they pontificate and
-interview interesting people. It's not all bad. But, it's pretty much a ploy to
-get your clicks. They promote the "gitStream" product that linearB makes on all
-the posts on devinterrupted. https://linearb.io/dev/gitstream/
+developer metric engineering managers should look at. They interview some
+interesting people but someone referred to it as "engagement spam". They promote
+the "gitStream" product on all the posts on devinterrupted.
+https://linearb.io/dev/gitstream/
+
+Update 2023: I would bet the "contextkeeper" blog is related because some
+sockpuppet accounts are posting from both blogs
 
 I'd recommend linearB stop posting these things, or pretending that they are not
 behind these posts.
