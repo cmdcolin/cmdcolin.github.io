@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 27 Mar 2023 04:22:25 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 27 Mar 2023 04:28:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -161,12 +161,13 @@ because they give you quite a limited number of API requests, so unless I want
 other users of my app to supply their own key, it seems prudent to get it
 approved</p>
 <h2 id="footnote-1---background"><a aria-hidden="true" tabindex="-1" href="#footnote-1---background"><a href="#footnote-1---background" style="margin-right: 10px">#</a></a>Footnote 1 - Background</h2>
-<p>When I graduated college, I did a fair amount of command line, but also used
-IDEs, and wasn't really tied into GUI</p>
+<p>Before I graduated college, I did a fair amount of command line, but also used a
+lot of IDEs</p>
 <p>When I started my first job in 2013, I had to ssh into machines a lot where I
-ran data analysis and maintained websites. I used vim without any plugins,
-pretty raw experience, hand editing indents, etc. Example of a vimrc I used in
-2018, first commit to my dotfiles repo</p>
+ran data analysis and maintained websites. This made me get much more familiar
+with the command line.</p>
+<p>I used vim without any plugins, pretty raw experience, hand editing indents,
+etc. Example of a vimrc I used in 2018, first commit to my dotfiles repo</p>
 <p><a href="https://github.com/cmdcolin/dotfiles/commit/54ec820891da67faddb82367d581dd39d1806d78#diff-7ab9074b6049f19f707c3afd253acaed88cef43694799887ba8c01c320bc421e">https://github.com/cmdcolin/dotfiles/commit/54ec820891da67faddb82367d581dd39d1806d78#diff-7ab9074b6049f19f707c3afd253acaed88cef43694799887ba8c01c320bc421e</a></p>
 <p>My setup has evolved many times since then. Things change! Even now, I am not
 very vim-literate and don't understand most other people's dotfiles, but it's a
