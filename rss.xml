@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 27 Mar 2023 04:21:28 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 27 Mar 2023 04:22:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -90,11 +90,6 @@ after hitting enter. The <code>console.log({})</code> is very handy because if y
 in <code>console.log({variable})</code> then the output will be <code>{variable:5}</code> so you get
 the variable name and value easily (ref
 <a href="https://github.com/cmdcolin/dotfiles/blob/master/lua/snips.lua">https://github.com/cmdcolin/dotfiles/blob/master/lua/snips.lua</a>)</p>
-</li>
-<li>
-<p>Weird keymap: I hit kk in normal mode it saves current file in neovim and 00
-exits. I like the double tap aliases, and I do not use hjkl for arrow keys.
-Maybe should learn...</p>
 </li>
 </ul>
 <h2 id="typescript"><a aria-hidden="true" tabindex="-1" href="#typescript"><a href="#typescript" style="margin-right: 10px">#</a></a>Typescript</h2>
