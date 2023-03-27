@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 27 Mar 2023 04:18:41 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 27 Mar 2023 04:21:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -21,7 +21,7 @@ information about the work I did at the time
 <h2 id="aliases"><a aria-hidden="true" tabindex="-1" href="#aliases"><a href="#aliases" style="margin-right: 10px">#</a></a>Aliases</h2>
 <p>I use many "double tap" aliases for lots of things. They are not very
 'mnemonic', but I like the action of double tapping a key. Here is a list of
-some favorites</p>
+some of my favorites. I don't expect you will like the shortenings</p>
 <ul>
 <li><code>qq</code> - runs <code>exit</code> to exit shell</li>
 <li><code>ss</code> - runs <code>yarn start</code></li>
@@ -31,12 +31,11 @@ used in a fzf window
 <code>git branch --sort=-committerdate| fzf --height=20% |xargs git checkout</code></li>
 <li><code>ccc</code> - runs <code>yarn test --maxWorkers=50%</code> - my audio glitches out without the
 maxWorkers</li>
-<li><code>ee</code> - runs <code>cargo run</code></li>
 <li><code>g</code> - <code>git status</code>. I will type out <code>git</code> for other subcommands, but I check
 git status a lot and didn't end up liking one letter <code>g</code> + subcommand added</li>
 <li><code>gd</code> - <code>git diff</code></li>
 <li><code>gggg</code> - runs <code>git add . &#x26;&#x26; git commit --amend --no-edit</code> so I can keep adding
-to a commit</li>
+to the last commit instead of making new commits</li>
 </ul>
 <p>Also recommend <a href="https://github.com/rupa/z">https://github.com/rupa/z</a>, very quickly jump to commonly used
 directories. I alias <code>z</code> to <code>p</code> because I try to type with my right hand.</p>
