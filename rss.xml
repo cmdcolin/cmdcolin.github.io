@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 27 Mar 2023 04:15:14 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 27 Mar 2023 04:18:41 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -32,14 +32,14 @@ used in a fzf window
 <li><code>ccc</code> - runs <code>yarn test --maxWorkers=50%</code> - my audio glitches out without the
 maxWorkers</li>
 <li><code>ee</code> - runs <code>cargo run</code></li>
-<li><code>g</code> - <code>git status</code>. i type out git for many other commands but i check git
-status a lot</li>
+<li><code>g</code> - <code>git status</code>. I will type out <code>git</code> for other subcommands, but I check
+git status a lot and didn't end up liking one letter <code>g</code> + subcommand added</li>
 <li><code>gd</code> - <code>git diff</code></li>
 <li><code>gggg</code> - runs <code>git add . &#x26;&#x26; git commit --amend --no-edit</code> so I can keep adding
 to a commit</li>
 </ul>
 <p>Also recommend <a href="https://github.com/rupa/z">https://github.com/rupa/z</a>, very quickly jump to commonly used
-directories. I alias z to p because i try to type with my right hand maxWorkerss</p>
+directories. I alias <code>z</code> to <code>p</code> because I try to type with my right hand.</p>
 <h2 id="neovimeditor-stuff"><a aria-hidden="true" tabindex="-1" href="#neovimeditor-stuff"><a href="#neovimeditor-stuff" style="margin-right: 10px">#</a></a>Neovim/editor stuff</h2>
 <p>I use neovim, I run lots of stuff off nightly, and my setup changes a lot just
 as I like to tweak things, but here are some currently nice things I like about
@@ -55,8 +55,10 @@ enabled, see reason why <code>gw</code> here
 files <a href="https://prettier.io/docs/en/options.html#prose-wrap">https://prettier.io/docs/en/options.html#prose-wrap</a></p>
 </li>
 <li>
-<p>Setting up "LSP support" in vim can be hard, but rewarding...
-<a href="https://github.com/VonHeikemen/lsp-zero.nvim">https://github.com/VonHeikemen/lsp-zero.nvim</a> makes it easier</p>
+<p>Setting up "LSP support" in vim can be hard, but rewarding. I went through a
+whole gammut of using w0rp/ale, then coc.nvim, and then now 'built-in neovim
+LSP'. I like it, but it was to me not easy to set up. I recommend
+<a href="https://github.com/VonHeikemen/lsp-zero.nvim">https://github.com/VonHeikemen/lsp-zero.nvim</a> as it makes it easier</p>
 </li>
 <li>
 <p>Setup format on save. There are many ways to do it, but try to find out some
