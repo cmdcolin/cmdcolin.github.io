@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 27 Mar 2023 14:53:13 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 05 Apr 2023 19:14:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -217,9 +217,10 @@ forums.</p>
 <p>Many of these posts come from a blog called devinterrupted. They post things
 related to "engineering management" type topics. And, they often "hit a chord"
 and get highly upvoted and replied to. It's often the type of thing everyone can
-add their two cents on, or offload some steam, or pontificate.</p>
+add their two cents on, or offload some steam. One person called it engagement
+spam and that seems about right.</p>
 <p>This wouldn't all be so bad, but it is sometimes posted with formulaic titles,
-created by sock puppet accounts(?) and promoting a specific company (linearB). I
+created by sock puppet accounts and promoting a specific company (linearB). I
 gathered as many posts from them as I can, helpfully grouped into clickbait-y
 categories.</p>
 <p>Update 2023-01-06: a Reddit user reached out to me who is quite knowledgeable
@@ -336,10 +337,12 @@ ones doomed to fail.
 <h3 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h3>
 <p>The devinterrupted blog/podcast appears to be related to the linearB company,
 who advocate a notion of "cycle time" (<a href="https://linearb.io/blog/cycle-time/">https://linearb.io/blog/cycle-time/</a>) as a
-developer metric engineering managers should look at, and they pontificate and
-interview interesting people. It's not all bad. But, it's pretty much a ploy to
-get your clicks. They promote the "gitStream" product that linearB makes on all
-the posts on devinterrupted. <a href="https://linearb.io/dev/gitstream/">https://linearb.io/dev/gitstream/</a></p>
+developer metric engineering managers should look at. They interview some
+interesting people but someone referred to it as "engagement spam". They promote
+the "gitStream" product on all the posts on devinterrupted.
+<a href="https://linearb.io/dev/gitstream/">https://linearb.io/dev/gitstream/</a></p>
+<p>Update 2023: I would bet the "contextkeeper" blog is related because some
+sockpuppet accounts are posting from both blogs</p>
 <p>I'd recommend linearB stop posting these things, or pretending that they are not
 behind these posts.</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
