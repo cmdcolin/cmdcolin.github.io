@@ -4,12 +4,11 @@ date: 2022-11-20
 ---
 
 When I was learning React, I found it very challenging, and my eyes would glaze
-over any time I tried to learn (I wrote about my struggle here
-https://cmdcolin.github.io/posts/2020-07-04)
+over any time I tried to learn
 
-Here is a short tutorial that could help you get started. I wrote in my above
-blogpost that sitting down with a book was what finally helped me, but this
-blogpost aims to be a sort of TLDR for certain concepts.
+Here is a short tutorial that could help you get started. Ultimately, for me,
+sitting down with a book was what finally helped me, but this blogpost aims to
+be a sort of TLDR for certain concepts.
 
 ### The simplest React component
 
@@ -28,7 +27,7 @@ started.
 ### Using our `HelloWorld` component in another component
 
 We said React can be thought of as "functions that return HTML" but we can also
-combine these them together.
+combine them together.
 
 For example, we can create a component named "App" that uses our "HelloWorld"
 component
@@ -96,8 +95,8 @@ This will print "Hello Colin!"
 
 ### Rendering lists of items
 
-The `{name}` inside the div is like a little snippet of plain-JS code. It can be
-used to do more complicated things. For example you can render a list of items
+The `{name}` inside the div is a little snippet of plain-JS code. It can be used
+to do more complicated things. For example you can render a list of items
 
 ```jsx
 function List() {
@@ -195,8 +194,8 @@ The React learning experience, when it's good, is quite nice. But there can be
 many roadblocks
 
 - You can be bogged down by many different sometimes conflicted learning
-  resources - The new https://beta.reactjs.org are currently being implemented
-  and hopefully will make the learning experience better.
+  resources - The new docs at https://react.dev should make the learning
+  experience better.
 
 - You can be bogged down by the difficulty in setting up your dev environment -
   the need to get transpilers and compilers for the JSX syntax and such is not
@@ -219,3 +218,66 @@ many roadblocks
   I was confused by PropTypes in code. PropTypes are fully optional though, and
   are just used to check the types of props at runtime. TypeScript can be tricky
   also, and does type checking at "compile time"
+
+### Footnote 5. Brief intro to useState
+
+The component HelloWorld does not do much, it just does a div. How do you make
+dynamic content in React? One way is with React hooks like useState and
+useEffect.
+
+```tsx
+function FormField() {
+  const [value, setValue] = useState('Initial value')
+  return <input value={value} onChange={evt => setValue(evt.target.value)} />
+}
+```
+
+This is a 'controlled component' in React terms: we control the value that is
+displayed by the `<input>` box with the 'value prop' and any time the user types
+something, we run the setValue callback, and then it re-renders. Any time a
+'setter' from the useState is called, React re-renders the component.
+
+### Footnote 6. Brief intro to useEffect
+
+The useEffect method can be thought of as saying: "as a side effect of rendering
+the component, do some stuff". You can use it to fetch data from an API for
+example, and so you'd say "as a side effect of rendering this component, go
+fetch some data from this API". Then you can combine it with a useState and make
+it re-render after the fetch has completed.
+
+example
+
+```tsx
+// I use this myfetch helper a lot, many examples with fetch neglect to handle
+// !result.ok
+async function myfetch(url: string) {
+  const result = await fetch(url)
+  if (!result.ok) {
+    throw new Error(
+      `HTTP ${result.status} fetching ${url} ${await result.text()}`,
+    )
+  }
+  return result.json()
+}
+function FetchStuff() {
+  const [data, setData] = useState()
+  const [error, setError] = useState()
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const result = await myfetch('/my/api')
+        setData(result)
+      } catch (e) {
+        setError(e)
+      }
+    })()
+  })
+  if (data) {
+    return <div>Got some data {JSON.stringify(data)}</div>
+  } else if (error) {
+    return <div style={{ background: 'red' }}>Error {`${error}`}</div>
+  } else {
+    return <div>Loading...</div>
+  }
+}
+```
