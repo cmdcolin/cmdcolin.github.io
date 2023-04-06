@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Thu, 06 Apr 2023 01:02:53 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Apr 2023 01:06:01 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -354,9 +354,9 @@ behind these posts.</p>]]></content:encoded>
             <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I was learning React, I found it very challenging, and my eyes would glaze
 over any time I tried to learn</p>
-<p>Here is a short tutorial that could help you get started. I wrote in my above
-blogpost that sitting down with a book was what finally helped me, but this
-blogpost aims to be a sort of TLDR for certain concepts.</p>
+<p>Here is a short tutorial that could help you get started. Ultimately, for me,
+sitting down with a book was what finally helped me, but this blogpost aims to
+be a sort of TLDR for certain concepts.</p>
 <h3 id="the-simplest-react-component"><a aria-hidden="true" tabindex="-1" href="#the-simplest-react-component"><a href="#the-simplest-react-component" style="margin-right: 10px">#</a></a>The simplest React component</h3>
 <p>Here is a "React component" that prints hello world in a div</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">HelloWorld</span><span style="color: #A6ACCD">() {</span></span>
@@ -480,8 +480,8 @@ many roadblocks</p>
 <ul>
 <li>
 <p>You can be bogged down by many different sometimes conflicted learning
-resources - The new <a href="https://beta.reactjs.org">https://beta.reactjs.org</a> are currently being implemented
-and hopefully will make the learning experience better.</p>
+resources - The new docs at <a href="https://react.dev">https://react.dev</a> should make the learning
+experience better.</p>
 </li>
 <li>
 <p>You can be bogged down by the difficulty in setting up your dev environment -
