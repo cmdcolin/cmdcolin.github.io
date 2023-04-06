@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Thu, 06 Apr 2023 01:09:10 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Apr 2023 01:10:07 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -409,8 +409,8 @@ component to the page.</p>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>This will print "Hello Colin!"</p>
 <h3 id="rendering-lists-of-items"><a aria-hidden="true" tabindex="-1" href="#rendering-lists-of-items"><a href="#rendering-lists-of-items" style="margin-right: 10px">#</a></a>Rendering lists of items</h3>
-<p>The <code>{name}</code> inside the div is like a little snippet of plain-JS code. It can be
-used to do more complicated things. For example you can render a list of items</p>
+<p>The <code>{name}</code> inside the div is a little snippet of plain-JS code. It can be used
+to do more complicated things. For example you can render a list of items</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">List</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">list</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> [</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Apples</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Oranges</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">, </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Pears</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">]</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> (</span></span>
