@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 05 Apr 2023 19:22:09 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Apr 2023 01:02:53 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -353,8 +353,7 @@ behind these posts.</p>]]></content:encoded>
             <guid>https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</guid>
             <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I was learning React, I found it very challenging, and my eyes would glaze
-over any time I tried to learn (I wrote about my struggle here
-<a href="https://cmdcolin.github.io/posts/2020-07-04">https://cmdcolin.github.io/posts/2020-07-04</a>)</p>
+over any time I tried to learn</p>
 <p>Here is a short tutorial that could help you get started. I wrote in my above
 blogpost that sitting down with a book was what finally helped me, but this
 blogpost aims to be a sort of TLDR for certain concepts.</p>
@@ -511,7 +510,56 @@ I was confused by PropTypes in code. PropTypes are fully optional though, and
 are just used to check the types of props at runtime. TypeScript can be tricky
 also, and does type checking at "compile time"</p>
 </li>
-</ul>]]></content:encoded>
+</ul>
+<h3 id="footnote-5-brief-intro-to-usestate-and-useeffect"><a aria-hidden="true" tabindex="-1" href="#footnote-5-brief-intro-to-usestate-and-useeffect"><a href="#footnote-5-brief-intro-to-usestate-and-useeffect" style="margin-right: 10px">#</a></a>Footnote 5. Brief intro to useState and useEffect</h3>
+<p>The component HelloWorld does not do much, it just does a div. How do make
+dynamic content in React? One way is with React hooks like useState and
+useEffect.</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">FormField</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> [</span><span style="color: #E4F0FB">value</span><span style="color: #A6ACCD">, </span><span style="color: #E4F0FB">setValue</span><span style="color: #A6ACCD">] </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">useState</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Initial value</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">input</span><span style="color: #E4F0FB"> </span><span style="color: #91B4D5; font-style: italic">value</span><span style="color: #91B4D5">=</span><span style="color: #E4F0FB">{value} </span><span style="color: #91B4D5; font-style: italic">onChange</span><span style="color: #91B4D5">=</span><span style="color: #E4F0FB">{evt </span><span style="color: #91B4D5">=></span><span style="color: #E4F0FB"> </span><span style="color: #E4F0FBD0">setValue</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">evt</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">target</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">value</span><span style="color: #A6ACCD">)</span><span style="color: #E4F0FB">} /></span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<p>This is a 'controlled component' in React terms: we control the value that is
+displayed by the <code>&#x3C;input></code> box with the 'value prop' and any time the user types
+something, we run the setValue callback, and then it re-renders. Any time a
+'setter' from the useState is called, React re-renders the component.</p>
+<p>The useEffect method is another interesting one. The naming is odd but you can
+think of it like "as a side effect of rendering the component, do some stuff".
+You can use it to fetch data from an API for example, and you would say "as a
+side effect of rendering this component, go fetch some data from this API". Then
+you can combine it with a useState and make it re-render after the fetch has
+completed.</p>
+<p>example</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #5DE4C7">async</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">myfetch</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">fetch</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">/my/api</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">  if (</span><span style="color: #91B4D5">!</span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">ok</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #D0679D">throw</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">new</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">Error</span><span style="color: #A6ACCD">(</span></span>
+<span class="line"><span style="color: #A6ACCD">      </span><span style="color: #A6ACCD">`</span><span style="color: #5DE4C7">HTTP </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">status</span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> fetching </span><span style="color: #A6ACCD">${</span><span style="color: #E4F0FB">url</span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">${</span><span style="color: #5DE4C7C0">await</span><span style="color: #5DE4C7"> </span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">text</span><span style="color: #A6ACCD">()</span><span style="color: #A6ACCD">}`</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #A6ACCD">    )</span></span>
+<span class="line"><span style="color: #A6ACCD">  }</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">json</span><span style="color: #A6ACCD">()</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span>
+<span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">FetchStuff</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> [</span><span style="color: #E4F0FB">data</span><span style="color: #A6ACCD">, </span><span style="color: #E4F0FB">setData</span><span style="color: #A6ACCD">] </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">useState</span><span style="color: #A6ACCD">()</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> [</span><span style="color: #E4F0FB">error</span><span style="color: #A6ACCD">, </span><span style="color: #E4F0FB">setError</span><span style="color: #A6ACCD">] </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">useState</span><span style="color: #A6ACCD">()</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #E4F0FBD0">useEffect</span><span style="color: #A6ACCD">(() </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> {</span></span>
+<span class="line"><span style="color: #A6ACCD">    ;(</span><span style="color: #5DE4C7">async</span><span style="color: #A6ACCD"> () </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> {</span></span>
+<span class="line"><span style="color: #A6ACCD">      </span><span style="color: #D0679D">try</span><span style="color: #A6ACCD"> {</span></span>
+<span class="line"><span style="color: #A6ACCD">        </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7C0">await</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">myfetch</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">/my/api</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">        </span><span style="color: #E4F0FBD0">setData</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">      } </span><span style="color: #D0679D">catch</span><span style="color: #A6ACCD"> (</span><span style="color: #E4F0FB">e</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">        </span><span style="color: #E4F0FBD0">setError</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">e</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">      }</span></span>
+<span class="line"><span style="color: #A6ACCD">    })()</span></span>
+<span class="line"><span style="color: #A6ACCD">  })</span></span>
+<span class="line"><span style="color: #A6ACCD">  if (</span><span style="color: #E4F0FB">data</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">>Got some data {</span><span style="color: #ADD7FF">JSON</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">stringify</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">data</span><span style="color: #A6ACCD">)</span><span style="color: #E4F0FB">}&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #A6ACCD">  } else if (</span><span style="color: #E4F0FB">error</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB"> </span><span style="color: #91B4D5; font-style: italic">style</span><span style="color: #91B4D5">=</span><span style="color: #E4F0FB">{</span><span style="color: #A6ACCD">{</span><span style="color: #E4F0FB"> </span><span style="color: #ADD7FF">background</span><span style="color: #A6ACCD">:</span><span style="color: #ADD7FF"> </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">red</span><span style="color: #A6ACCD">'</span><span style="color: #ADD7FF"> </span><span style="color: #A6ACCD">}</span><span style="color: #E4F0FB">}>Error {</span><span style="color: #A6ACCD">`${</span><span style="color: #E4F0FB">error</span><span style="color: #A6ACCD">}`</span><span style="color: #E4F0FB">}&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #A6ACCD">  } else {</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">&#x3C;</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">>Loading...&#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
+<span class="line"><span style="color: #A6ACCD">  }</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
