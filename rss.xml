@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Thu, 06 Apr 2023 01:06:01 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Apr 2023 01:09:10 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -511,8 +511,8 @@ are just used to check the types of props at runtime. TypeScript can be tricky
 also, and does type checking at "compile time"</p>
 </li>
 </ul>
-<h3 id="footnote-5-brief-intro-to-usestate-and-useeffect"><a aria-hidden="true" tabindex="-1" href="#footnote-5-brief-intro-to-usestate-and-useeffect"><a href="#footnote-5-brief-intro-to-usestate-and-useeffect" style="margin-right: 10px">#</a></a>Footnote 5. Brief intro to useState and useEffect</h3>
-<p>The component HelloWorld does not do much, it just does a div. How do make
+<h3 id="footnote-5-brief-intro-to-usestate"><a aria-hidden="true" tabindex="-1" href="#footnote-5-brief-intro-to-usestate"><a href="#footnote-5-brief-intro-to-usestate" style="margin-right: 10px">#</a></a>Footnote 5. Brief intro to useState</h3>
+<p>The component HelloWorld does not do much, it just does a div. How do you make
 dynamic content in React? One way is with React hooks like useState and
 useEffect.</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">FormField</span><span style="color: #A6ACCD">() {</span></span>
@@ -523,12 +523,12 @@ useEffect.</p>
 displayed by the <code>&#x3C;input></code> box with the 'value prop' and any time the user types
 something, we run the setValue callback, and then it re-renders. Any time a
 'setter' from the useState is called, React re-renders the component.</p>
-<p>The useEffect method is another interesting one. The naming is odd but you can
-think of it like "as a side effect of rendering the component, do some stuff".
-You can use it to fetch data from an API for example, and you would say "as a
-side effect of rendering this component, go fetch some data from this API". Then
-you can combine it with a useState and make it re-render after the fetch has
-completed.</p>
+<h3 id="footnote-6-brief-intro-to-useeffect"><a aria-hidden="true" tabindex="-1" href="#footnote-6-brief-intro-to-useeffect"><a href="#footnote-6-brief-intro-to-useeffect" style="margin-right: 10px">#</a></a>Footnote 6. Brief intro to useEffect</h3>
+<p>The useEffect method can be thought of as saying: "as a side effect of rendering
+the component, do some stuff". You can use it to fetch data from an API for
+example, and so you'd say "as a side effect of rendering this component, go
+fetch some data from this API". Then you can combine it with a useState and make
+it re-render after the fetch has completed.</p>
 <p>example</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #5DE4C7">async</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">myfetch</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">result</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">fetch</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">/my/api</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
