@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Thu, 06 Apr 2023 01:10:07 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Apr 2023 01:33:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -367,7 +367,7 @@ oversimplification, but it can be a helpful thinking tool to help you get
 started.</p>
 <h3 id="using-our-helloworld-component-in-another-component"><a aria-hidden="true" tabindex="-1" href="#using-our-helloworld-component-in-another-component"><a href="#using-our-helloworld-component-in-another-component" style="margin-right: 10px">#</a></a>Using our <code>HelloWorld</code> component in another component</h3>
 <p>We said React can be thought of as "functions that return HTML" but we can also
-combine these them together.</p>
+combine them together.</p>
 <p>For example, we can create a component named "App" that uses our "HelloWorld"
 component</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">App</span><span style="color: #A6ACCD">() {</span></span>
