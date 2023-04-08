@@ -12,7 +12,7 @@ import rehypeStringify from 'rehype-stringify'
 import rehypeShiki from '@leafac/rehype-shiki'
 import * as shiki from 'shiki'
 
-import sketches from './sketches.json'
+import sketches from './sketches.json' assert { type: 'json' }
 
 const postsDirectory = join(process.cwd(), '_posts')
 
@@ -65,7 +65,7 @@ function getParser() {
 export async function getPostById(id: string) {
   const realId = id.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realId}.md`)
-  const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
+  const { data, content } = matter(await fs.promises.readFile(fullPath, 'utf8'))
 
   const parser = await getParser()
   const html = await parser.process(content)
@@ -75,7 +75,7 @@ export async function getPostById(id: string) {
     title: data.title,
     id: realId,
     date: `${data.date?.toISOString().slice(0, 10)}`,
-    html: html.value,
+    html: html.value.toString(),
   }
 }
 
@@ -88,7 +88,7 @@ export async function getProjects() {
 
   return {
     ...data,
-    html: html.value,
+    html: html.value.toString(),
   }
 }
 
@@ -101,7 +101,15 @@ export function getAllSketches() {
   return getSketchFiles()
 }
 
-export function generateRSSFeed(articles: any) {
+export function generateRSSFeed(
+  articles: {
+    title: any
+    id: string
+    date: string
+    description?: string
+    html: string
+  }[],
+) {
   const baseUrl = 'https://cmdcolin.github.io'
   const author = {
     name: 'Colin Diesh',
@@ -124,7 +132,7 @@ export function generateRSSFeed(articles: any) {
   })
 
   // Add each article to the feed
-  articles.forEach((post: any) => {
+  articles.forEach(post => {
     const { html, id, date, description, title } = post
     const url = `${baseUrl}/posts/${id}`
 

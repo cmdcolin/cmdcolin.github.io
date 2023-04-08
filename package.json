@@ -1,11 +1,12 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next dev",
     "lint": "next lint",
-    "predeploy": "npm run build && touch out/.nojekyll",
+    "predeploy": "npm run build && touch out/.nojekyll && npx ts-node --esm generateRSS.ts",
     "deploy": "gh-pages -d out -t true",
     "postdeploy": "git push --follow-tags"
   },

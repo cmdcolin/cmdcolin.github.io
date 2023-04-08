@@ -24,7 +24,7 @@ export default async function Post({
         <h1>{title}</h1>
         <h4>{date}</h4>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: html.toString() }} />
+      <div dangerouslySetInnerHTML={{ __html: html }} />
       <GiscusBox />
     </article>
   )
