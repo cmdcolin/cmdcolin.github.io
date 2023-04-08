@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import PostHeader from '@/components/post-header'
 import { getPostById, getAllPosts } from '@/lib/api'
 import GiscusBox from '@/components/giscus'
 
@@ -11,7 +10,11 @@ export default async function Post({ params }: { params: { id: string } }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <PostHeader title={title} date={date} />
+
+      <div>
+        <h1>{title}</h1>
+        <h4>{date}</h4>
+      </div>
       <div dangerouslySetInnerHTML={{ __html: html.toString() }} />
       <GiscusBox />
     </article>
