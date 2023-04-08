@@ -1,6 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Container from '@/components/container'
-import Posts from '@/components/posts'
 import Layout from '@/components/layout'
 import Header from '@/components/header'
 import { getAllPosts } from '@/lib/api'
@@ -16,7 +16,22 @@ export default async function Page() {
         <Container>
           <Header />
           <h1>Blog archive</h1>
-          <Posts posts={allPosts} />
+
+          <section>
+            <h1>Posts</h1>
+            <ul>
+              {allPosts.map(post => {
+                const { id, date, title } = post
+                return (
+                  <li key={id}>
+                    <Link href={`/posts/${id}`}>
+                      {date}-{title}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </section>
         </Container>
       </Layout>
     </>

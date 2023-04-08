@@ -1,11 +1,9 @@
-import Link from '../components/link'
+import Link from 'next/link'
 
-const Header = () => {
+export default function Header() {
   return (
     <div style={{ marginBottom: 100 }}>
       <Link href="/">Misc scribbles</Link>
     </div>
   )
 }
-
-export default Header

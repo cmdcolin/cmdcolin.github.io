@@ -1,9 +1,10 @@
-type Props = {
+export default function PostHeader({
+  title,
+  date,
+}: {
   title: string
   date: string
-}
-
-const PostHeader = ({ title, date }: Props) => {
+}) {
   return (
     <div>
       <h1>{title}</h1>
@@ -11,5 +12,3 @@ const PostHeader = ({ title, date }: Props) => {
     </div>
   )
 }
-
-export default PostHeader

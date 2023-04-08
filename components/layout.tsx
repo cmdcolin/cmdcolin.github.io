@@ -1,18 +1,10 @@
 import Footer from './footer'
 
-type Props = {
-  children: React.ReactNode
-}
-
-const Layout = ({ children }: Props) => {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div>
-        <main>{children}</main>
-      </div>
+      <main>{children}</main>
       <Footer />
     </>
   )
 }
-
-export default Layout

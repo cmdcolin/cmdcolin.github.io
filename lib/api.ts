@@ -62,9 +62,9 @@ function getParser() {
   return p
 }
 
-export async function getPostBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, '')
-  const fullPath = join(postsDirectory, `${realSlug}.md`)
+export async function getPostById(id: string) {
+  const realId = id.replace(/\.md$/, '')
+  const fullPath = join(postsDirectory, `${realId}.md`)
   const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
 
   const parser = await getParser()
@@ -72,7 +72,7 @@ export async function getPostBySlug(slug: string) {
 
   return {
     ...data,
-    slug: realSlug,
+    id: realId,
     date: `${data.date?.toISOString().slice(0, 10)}`,
     html: html.value,
   }
@@ -92,10 +92,7 @@ export async function getProjects() {
 }
 
 export async function getAllPosts() {
-  const posts = await Promise.all(
-    getPostFiles().map(slug => getPostBySlug(slug)),
-  )
-
+  const posts = await Promise.all(getPostFiles().map(id => getPostById(id)))
   return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
 
@@ -127,8 +124,8 @@ export function generateRSSFeed(articles: any) {
 
   // Add each article to the feed
   articles.forEach((post: any) => {
-    const { html, slug, date, description, title } = post
-    const url = `${baseUrl}/posts/${slug}`
+    const { html, id, date, description, title } = post
+    const url = `${baseUrl}/posts/${id}`
 
     feed.addItem({
       title,

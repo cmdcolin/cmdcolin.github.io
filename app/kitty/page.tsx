@@ -1,5 +1,5 @@
-import Container from '@/components/container'
 import Head from 'next/head'
+import Container from '@/components/container'
 import Layout from '@/components/layout'
 import Header from '@/components/header'
 

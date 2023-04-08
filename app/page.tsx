@@ -1,9 +1,8 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Container from '@/components/container'
-import Posts from '@/components/posts'
 import Layout from '@/components/layout'
 import Header from '@/components/header'
-import Link from '@/components/link'
 import { getAllPosts } from '@/lib/api'
 
 function Contents() {
@@ -19,7 +18,7 @@ function Contents() {
 }
 
 export default async function Page() {
-  const allPosts = await getAllPosts()
+  const posts = await getAllPosts()
 
   return (
     <>
@@ -30,7 +29,21 @@ export default async function Page() {
         <Container>
           <Header />
           <Contents />
-          <Posts posts={allPosts.slice(0, 8)} />
+          <section>
+            <h1>Posts</h1>
+            <ul>
+              {posts.slice(0, 8).map(post => {
+                const { id, date, title } = post
+                return (
+                  <li key={id}>
+                    <Link href={`/posts/${id}`}>
+                      {date}-{title}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </section>
           <Link href="/archive">More posts...</Link>
         </Container>
       </Layout>
