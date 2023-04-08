@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Photos',
+}
+
 export default function Page() {
   return (
     <div className="tiny">

@@ -1,5 +1,9 @@
 import { getAllSketches } from '@/lib/api'
 
+export const metadata = {
+  title: 'Sketches',
+}
+
 interface Post {
   title: string
   date: number

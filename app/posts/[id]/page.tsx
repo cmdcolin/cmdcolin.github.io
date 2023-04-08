@@ -1,16 +1,25 @@
-import Head from 'next/head'
 import { getPostById, getAllPosts } from '@/lib/api'
 import GiscusBox from '@/components/giscus'
 
-export default async function Post({ params }: { params: { id: string } }) {
-  const { id } = params
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+  const { title } = await getPostById(id)
+  return {
+    title,
+  }
+}
+
+export default async function Post({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
   const { html, title, date } = await getPostById(id)
   return (
     <article>
-      <Head>
-        <title>{title}</title>
-      </Head>
-
       <div>
         <h1>{title}</h1>
         <h4>{date}</h4>

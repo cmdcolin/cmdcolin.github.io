@@ -22,7 +22,7 @@ export default async function Page() {
             return (
               <li key={id}>
                 <Link href={`/posts/${id}`}>
-                  {date}-{title}
+                  {date} - {title}
                 </Link>
               </li>
             )

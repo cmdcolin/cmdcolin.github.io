@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Kitty',
+}
+
 export default function Contents() {
   return (
     <div className="tiny">
