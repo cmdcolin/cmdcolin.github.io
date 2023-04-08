@@ -1,7 +1,7 @@
-import Container from '../components/container'
+import Container from '@/components/container'
 import Head from 'next/head'
-import Layout from '../components/layout'
-import Header from '../components/header'
+import Layout from '@/components/layout'
+import Header from '@/components/header'
 
 function Contents() {
   return (

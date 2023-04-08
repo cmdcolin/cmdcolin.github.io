@@ -1,10 +1,10 @@
-import Container from '../components/container'
-import Posts from '../components/posts'
-import Layout from '../components/layout'
-import Header from '../components/header'
-import Link from '../components/link'
 import Head from 'next/head'
-import { getAllPosts } from '../lib/api'
+import Container from '@/components/container'
+import Posts from '@/components/posts'
+import Layout from '@/components/layout'
+import Header from '@/components/header'
+import Link from '@/components/link'
+import { getAllPosts } from '@/lib/api'
 
 function Contents() {
   return (
@@ -18,15 +18,9 @@ function Contents() {
   )
 }
 
-export async function getStaticProps() {
-  const posts = await getAllPosts()
+export default async function Page() {
+  const allPosts = await getAllPosts()
 
-  return {
-    props: { allPosts: posts.slice(0, 8) },
-  }
-}
-
-export default function Page({ allPosts }: { allPosts: any }) {
   return (
     <>
       <Head>
@@ -36,7 +30,7 @@ export default function Page({ allPosts }: { allPosts: any }) {
         <Container>
           <Header />
           <Contents />
-          <Posts posts={allPosts} />
+          <Posts posts={allPosts.slice(0, 8)} />
           <Link href="/archive">More posts...</Link>
         </Container>
       </Layout>
