@@ -1,11 +1,6 @@
-import Head from 'next/head'
-import Container from '@/components/container'
-import Layout from '@/components/layout'
-import Header from '@/components/header'
-
-function Contents() {
+export default function Contents() {
   return (
-    <div>
+    <div className="tiny">
       <h1>Kitty</h1>
       <p>
         We adopted a cat in late 2021. His name is beezlebub. Beezle for short.
@@ -18,23 +13,5 @@ function Contents() {
       <img src="/media/kitty5.jpg" />
       <img src="/media/socks.jpg" />
     </div>
-  )
-}
-
-export default function Page() {
-  return (
-    <>
-      <Head>
-        <title>Misc scribblings - Kitty</title>
-      </Head>
-      <Layout>
-        <Container>
-          <Header />
-          <div className="tiny">
-            <Contents />
-          </div>
-        </Container>
-      </Layout>
-    </>
   )
 }

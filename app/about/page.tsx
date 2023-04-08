@@ -1,11 +1,6 @@
-import Head from 'next/head'
-import Container from '@/components/container'
-import Layout from '@/components/layout'
-import Header from '@/components/header'
-
-function Contents() {
+export default function Contents() {
   return (
-    <div>
+    <div className="tiny">
       <h2 id="about-me">About me</h2>
       <p>
         I am currently working for UC Berkeley on the{' '}
@@ -26,23 +21,5 @@ function Contents() {
         </a>
       </p>
     </div>
-  )
-}
-
-export default function Page() {
-  return (
-    <>
-      <Head>
-        <title>Misc scribblings - About me</title>
-      </Head>
-      <Layout>
-        <Container>
-          <Header />
-          <div className="tiny">
-            <Contents />
-          </div>
-        </Container>
-      </Layout>
-    </>
   )
 }

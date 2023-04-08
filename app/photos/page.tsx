@@ -1,11 +1,6 @@
-import Head from 'next/head'
-import Container from '@/components/container'
-import Layout from '@/components/layout'
-import Header from '@/components/header'
-
-function Contents() {
+export default function Page() {
   return (
-    <div>
+    <div className="tiny">
       <h1>Photos</h1>
       <ul>
         <li>
@@ -26,23 +21,5 @@ function Contents() {
         </li>
       </ul>
     </div>
-  )
-}
-
-export default function Page() {
-  return (
-    <>
-      <Head>
-        <title>Misc scribblings - Kitty</title>
-      </Head>
-      <Layout>
-        <Container>
-          <Header />
-          <div className="tiny">
-            <Contents />
-          </div>
-        </Container>
-      </Layout>
-    </>
   )
 }
