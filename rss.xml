@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Apr 2023 01:02:22 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Apr 2023 01:07:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -185,7 +185,7 @@ for more info. So first install these</p>
 <span class="line"><span style="color: #A6ACCD">  )</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">posts</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">sort</span><span style="color: #A6ACCD">((</span><span style="color: #E4F0FB">post1</span><span style="color: #A6ACCD">, </span><span style="color: #E4F0FB">post2</span><span style="color: #A6ACCD">) </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> (</span><span style="color: #E4F0FB">post1</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">date</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">></span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">post2</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">date</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">?</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">-</span><span style="color: #5DE4C7">1</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">1</span><span style="color: #A6ACCD">))</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
-<h3 id="step-5-create-a-blog-index-showing-all-your-blogposts"><a aria-hidden="true" tabindex="-1" href="#step-5-create-a-blog-index-showing-all-your-blogposts"><a href="#step-5-create-a-blog-index-showing-all-your-blogposts" style="margin-right: 10px">#</a></a>Step 5. Create a 'blog index' showing all your blogposts</h3>
+<h2 id="step-5-create-a-blog-index-showing-all-your-blogposts"><a aria-hidden="true" tabindex="-1" href="#step-5-create-a-blog-index-showing-all-your-blogposts"><a href="#step-5-create-a-blog-index-showing-all-your-blogposts" style="margin-right: 10px">#</a></a>Step 5. Create a 'blog index' showing all your blogposts</h2>
 <p>Edit the <code>app/page.tsx</code> file, and replace with the below: this is the root of
 your site</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #767C9DB0; font-style: italic">// app/page.tsx</span></span>
@@ -215,16 +215,15 @@ your site</p>
 <span class="line"><span style="color: #E4F0FB">    &#x3C;/</span><span style="color: #5DE4C7">div</span><span style="color: #E4F0FB">></span></span>
 <span class="line"><span style="color: #5DE4C7">  </span><span style="color: #A6ACCD">)</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
-<p>Step 6. Put markdown files in the <code>_posts</code> dir</p>
+<h2 id="step-6-put-markdown-files-in-the-_posts-dir"><a aria-hidden="true" tabindex="-1" href="#step-6-put-markdown-files-in-the-_posts-dir"><a href="#step-6-put-markdown-files-in-the-_posts-dir" style="margin-right: 10px">#</a></a>Step 6. Put markdown files in the <code>_posts</code> dir</h2>
 <p>Example</p>
 <p>_posts/2023-04-08-first-post.md</p>
-<pre><code>---
-title: First post
-date: 2023-04-08
----
-
-Hello world!
-</code></pre>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #E4F0FB">---</span></span>
+<span class="line"><span style="color: #5DE4C7">title</span><span style="color: #A6ACCD">:</span><span style="color: #E4F0FB"> </span><span style="color: #ADD7FF">First post</span></span>
+<span class="line"><span style="color: #5DE4C7">date</span><span style="color: #A6ACCD">:</span><span style="color: #E4F0FB"> 2023-04-08</span></span>
+<span class="line"><span style="color: #E4F0FB">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E4F0FBD0">Hello world!</span></span></code></pre>
 <h2 id="step-7-deploy-to-github-pages"><a aria-hidden="true" tabindex="-1" href="#step-7-deploy-to-github-pages"><a href="#step-7-deploy-to-github-pages" style="margin-right: 10px">#</a></a>Step 7. Deploy to Github Pages</h2>
 <p>Create your repo named <code>yourname.github.io</code> under yourname account</p>
 <p>Then run</p>
@@ -247,6 +246,10 @@ Hello world!
 <p>Then when you use <code>npm run deploy</code> it will build, push to github pages, and push
 to the the regular content to the main branch too</p>
 <h2 id="result"><a aria-hidden="true" tabindex="-1" href="#result"><a href="#result" style="margin-right: 10px">#</a></a>Result</h2>
+<p>Source <a href="https://github.com/cmdcolin/next13-appdir-blog">https://github.com/cmdcolin/next13-appdir-blog</a></p>
+<p>Deployed <a href="https://cmdcolin.github.io/next13-appdir-blog">https://cmdcolin.github.io/next13-appdir-blog</a></p>
+<p>I manually added <code>basePath: "/next13-appdir-blog",</code> to <code>next.config.js</code> to
+deploy it to that sub-URI, if you deploy without a sub-URI, you won't need this</p>
 <h2 id="footnote-1-the-unifiedremarkrehype-stack"><a aria-hidden="true" tabindex="-1" href="#footnote-1-the-unifiedremarkrehype-stack"><a href="#footnote-1-the-unifiedremarkrehype-stack" style="margin-right: 10px">#</a></a>Footnote 1. The unified/remark/rehype stack</h2>
 <p>I use the 'unified/remark/rehype' stack for parsing my blogpost markdown. There
 may be some temptation to use things like MDX for your blog, but I tried this
