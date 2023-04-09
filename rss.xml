@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Apr 2023 01:01:03 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Apr 2023 01:02:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3599,7 +3599,9 @@ so take it with a grain of salt!</p>]]></content:encoded>
             <link>https://cmdcolin.github.io/posts/2021-12-26-nextjs</link>
             <guid>https://cmdcolin.github.io/posts/2021-12-26-nextjs</guid>
             <pubDate>Sun, 26 Dec 2021 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p>TLDR src here <a href="https://github.com/cmdcolin/cmdcolin.github.io">https://github.com/cmdcolin/cmdcolin.github.io</a></p>
+            <content:encoded><![CDATA[<p>TL;DR src here <a href="https://github.com/cmdcolin/cmdcolin.github.io">https://github.com/cmdcolin/cmdcolin.github.io</a></p>
+<p>Update 2023: converted to app directory mode, see
+<a href="https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog">https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog</a></p>
 <p>My personal homepage originally used statocles, a perl-based static site
 generator (<a href="http://preaction.me/statocles/">http://preaction.me/statocles/</a>). I didn't really blog using it, just
 a homepage for myself plus some links to my tumblr blog. But, if I linked people
@@ -3637,7 +3639,7 @@ and get rendered by the file <code>pages/posts/[slug].tsx</code> (yes, the filen
 includes square brackets).</p>
 </li>
 <li>
-<p>getAllPosts in<br>
+<p>getAllPosts in
 <a href="https://github.com/cmdcolin/cmdcolin.github.io/blob/master/lib/api.ts"><code>lib/api.ts</code></a>
 gets a listing of the files in _posts folder, which I can call from the
 <code>getStaticProps</code> method on next.js pages</p>
