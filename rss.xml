@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 11 Apr 2023 19:56:43 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Apr 2023 20:00:15 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -91,7 +91,8 @@ brackets in the directory name</p>
 <span class="line"><span style="color: #E4F0FB">  </span><span style="color: #A6ACCD">}</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #767C9DB0; font-style: italic">// Generate the post, note that this is a "react server component"! it is allowed to be async</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// Generate the post, note that this is a "react server component"! it is</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// allowed to be async</span></span>
 <span class="line"><span style="color: #5DE4C7">export default async </span><span style="color: #91B4D5">function</span><span style="color: #5DE4C7"> </span><span style="color: #ADD7FF">Post</span><span style="color: #A6ACCD">({</span></span>
 <span class="line"><span style="color: #5DE4C7">  params</span><span style="color: #A6ACCD">:</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">{</span><span style="color: #5DE4C7"> </span><span style="color: #E4F0FB">id</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">},</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span><span style="color: #91B4D5">:</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">{</span></span>
@@ -107,7 +108,8 @@ brackets in the directory name</p>
 <span class="line"><span style="color: #5DE4C7">  </span><span style="color: #A6ACCD">)</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #767C9DB0; font-style: italic">// This function can statically allow nextjs to find all the posts that you have made, and statically generate them</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// This function can statically allow nextjs to find all the posts that you</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// have made, and statically generate them</span></span>
 <span class="line"><span style="color: #5DE4C7">export</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">async</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">generateStaticParams</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">posts</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7C0">await</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">getAllPosts</span><span style="color: #A6ACCD">()</span></span>
 <span class="line"></span>
