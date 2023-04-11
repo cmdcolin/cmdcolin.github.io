@@ -14,6 +14,17 @@ See here
 
 https://github.com/cmdcolin/next13-appdir-blog
 
+If you take nothing else away from this article, let it be that
+
+- The 'app' dir, with react server components, can be used to create static
+  websites
+
+- That react server components can be just like, async function components. It's
+  quite interesting
+
+The exact step-by-step here is probably unnecessary but just trying to show the
+raw basics
+
 ## Step 1. Run create-next-app
 
 I accepted all defaults but added "YES" to the use experimental app directory
@@ -77,20 +88,8 @@ Then on this page, fill in with this
 ```tsx
 import { getPostById, getAllPosts } from '@/lib/api'
 
-// Set the title of the page to be the post title, note that we no longer use
-// e.g. next/head in app dir
-export async function generateMetadata({
-  params: { id },
-}: {
-  params: { id: string }
-}) {
-  const { title } = await getPostById(id)
-  return {
-    title,
-  }
-}
-
-// Generate the post, note that this is a "react server component"! it is allowed to be async
+// Generate the post, note that this is a "react server component"! it is
+// allowed to be async
 export default async function Post({
   params: { id },
 }: {
@@ -106,13 +105,28 @@ export default async function Post({
   )
 }
 
-// This function can statically allow nextjs to find all the posts that you have made, and statically generate them
+// This function can statically allow nextjs to find all the posts that you
+// have made, and statically generate them
 export async function generateStaticParams() {
   const posts = await getAllPosts()
 
   return posts.map(post => ({
     id: post.id,
   }))
+}
+
+// Set the title of the page to be the post title, note that we no longer use
+// e.g. next/head in app dir, and this can be async just like the server
+// component
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+  const { title } = await getPostById(id)
+  return {
+    title,
+  }
 }
 ```
 
@@ -300,7 +314,7 @@ deploy it to that sub-URI, if you deploy without a sub-URI, you won't need this
 
 ## Footnote 1. The unified/remark/rehype stack
 
-I use the 'unified/remark/rehype' stack for parsing my blogpost markdown.My
+I use the 'unified/remark/rehype' stack for parsing my blogpost markdown. My
 unified/remark/rehype setup allows github flavored markdown (so e.g. links are
 automatically converted to `<a href>`s) and code will be highlighted by
 https://github.com/shikijs/shiki which I found did a pretty good job with e.g.
