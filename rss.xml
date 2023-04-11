@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 11 Apr 2023 20:43:30 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Apr 2023 20:44:40 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -79,19 +79,6 @@ brackets in the directory name</p>
 <p>Then on this page, fill in with this</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #5DE4C7">import </span><span style="color: #A6ACCD">{</span><span style="color: #5DE4C7"> </span><span style="color: #ADD7FF">getPostById</span><span style="color: #A6ACCD">,</span><span style="color: #5DE4C7"> </span><span style="color: #ADD7FF">getAllPosts</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">}</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">from</span><span style="color: #5DE4C7"> </span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">@/lib/api</span><span style="color: #A6ACCD">'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #767C9DB0; font-style: italic">// Set the title of the page to be the post title, note that we no longer use</span></span>
-<span class="line"><span style="color: #767C9DB0; font-style: italic">// e.g. next/head in app dir</span></span>
-<span class="line"><span style="color: #5DE4C7">export</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">async</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">generateMetadata</span><span style="color: #A6ACCD">({</span></span>
-<span class="line"><span style="color: #A6ACCD">  params: { </span><span style="color: #E4F0FB">id</span><span style="color: #A6ACCD"> },</span></span>
-<span class="line"><span style="color: #A6ACCD">}</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> {</span></span>
-<span class="line"><span style="color: #A6ACCD">  params</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> { id</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCDC0">string</span><span style="color: #A6ACCD"> }</span></span>
-<span class="line"><span style="color: #A6ACCD">}) {</span></span>
-<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> { </span><span style="color: #E4F0FB">title</span><span style="color: #A6ACCD"> } </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7C0">await</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">getPostById</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">id</span><span style="color: #A6ACCD">)</span></span>
-<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> {</span></span>
-<span class="line"><span style="color: #E4F0FB">    title</span><span style="color: #A6ACCD">,</span></span>
-<span class="line"><span style="color: #E4F0FB">  </span><span style="color: #A6ACCD">}</span></span>
-<span class="line"><span style="color: #A6ACCD">}</span></span>
-<span class="line"></span>
 <span class="line"><span style="color: #767C9DB0; font-style: italic">// Generate the post, note that this is a "react server component"! it is</span></span>
 <span class="line"><span style="color: #767C9DB0; font-style: italic">// allowed to be async</span></span>
 <span class="line"><span style="color: #5DE4C7">export default async </span><span style="color: #91B4D5">function</span><span style="color: #5DE4C7"> </span><span style="color: #ADD7FF">Post</span><span style="color: #A6ACCD">({</span></span>
@@ -117,6 +104,20 @@ brackets in the directory name</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">posts</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">map</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">post</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> ({</span></span>
 <span class="line"><span style="color: #E4F0FB">    </span><span style="color: #ADD7FF">id</span><span style="color: #A6ACCD">:</span><span style="color: #ADD7FF"> </span><span style="color: #E4F0FB">post</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">id</span><span style="color: #A6ACCD">,</span></span>
 <span class="line"><span style="color: #E4F0FB">  </span><span style="color: #A6ACCD">}))</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// Set the title of the page to be the post title, note that we no longer use</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// e.g. next/head in app dir, and this can be async just like the server</span></span>
+<span class="line"><span style="color: #767C9DB0; font-style: italic">// component</span></span>
+<span class="line"><span style="color: #5DE4C7">export</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">async</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">generateMetadata</span><span style="color: #A6ACCD">({</span></span>
+<span class="line"><span style="color: #A6ACCD">  params: { </span><span style="color: #E4F0FB">id</span><span style="color: #A6ACCD"> },</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> {</span></span>
+<span class="line"><span style="color: #A6ACCD">  params</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> { id</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCDC0">string</span><span style="color: #A6ACCD"> }</span></span>
+<span class="line"><span style="color: #A6ACCD">}) {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> { </span><span style="color: #E4F0FB">title</span><span style="color: #A6ACCD"> } </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7C0">await</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">getPostById</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">id</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> {</span></span>
+<span class="line"><span style="color: #E4F0FB">    title</span><span style="color: #A6ACCD">,</span></span>
+<span class="line"><span style="color: #E4F0FB">  </span><span style="color: #A6ACCD">}</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <h2 id="step-4-fix-the-cart-being-ahead-of-the-horse-parse-the-markdown-blogposts"><a aria-hidden="true" tabindex="-1" href="#step-4-fix-the-cart-being-ahead-of-the-horse-parse-the-markdown-blogposts"><a href="#step-4-fix-the-cart-being-ahead-of-the-horse-parse-the-markdown-blogposts" style="margin-right: 10px">#</a></a>Step 4. Fix the cart being ahead of the horse: parse the markdown blogposts</h2>
 <p>In the last post, I use functions "getAllPosts" and "getPostById", these are
