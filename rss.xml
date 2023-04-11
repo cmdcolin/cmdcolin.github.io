@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Apr 2023 06:27:56 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Apr 2023 19:56:43 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -21,6 +21,18 @@ show how you can make your own static site with it. Static export of the Next.js
 <h2 id="tldr"><a aria-hidden="true" tabindex="-1" href="#tldr"><a href="#tldr" style="margin-right: 10px">#</a></a>TL;DR</h2>
 <p>See here</p>
 <p><a href="https://github.com/cmdcolin/next13-appdir-blog">https://github.com/cmdcolin/next13-appdir-blog</a></p>
+<p>Also, if you take nothing else away from this article let it be that</p>
+<ul>
+<li>
+<p>The 'app' dir can be used to create static websites</p>
+</li>
+<li>
+<p>That react server components can be just like, async function components. It's
+quite interesting</p>
+</li>
+</ul>
+<p>The exact step-by-step here is probably unnecessary but just trying to show the
+raw basics</p>
 <h2 id="step-1-run-create-next-app"><a aria-hidden="true" tabindex="-1" href="#step-1-run-create-next-app"><a href="#step-1-run-create-next-app" style="margin-right: 10px">#</a></a>Step 1. Run create-next-app</h2>
 <p>I accepted all defaults but added "YES" to the use experimental app directory</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"></span>
