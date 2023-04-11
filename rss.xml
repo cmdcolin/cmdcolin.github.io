@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 09 Apr 2023 01:07:25 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Apr 2023 06:27:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -251,13 +251,19 @@ to the the regular content to the main branch too</p>
 <p>I manually added <code>basePath: "/next13-appdir-blog",</code> to <code>next.config.js</code> to
 deploy it to that sub-URI, if you deploy without a sub-URI, you won't need this</p>
 <h2 id="footnote-1-the-unifiedremarkrehype-stack"><a aria-hidden="true" tabindex="-1" href="#footnote-1-the-unifiedremarkrehype-stack"><a href="#footnote-1-the-unifiedremarkrehype-stack" style="margin-right: 10px">#</a></a>Footnote 1. The unified/remark/rehype stack</h2>
-<p>I use the 'unified/remark/rehype' stack for parsing my blogpost markdown. There
-may be some temptation to use things like MDX for your blog, but I tried this
-already, and to me it is overkill, as my blogposts are just plain markdown. My
-setup uses github flavored markdown (so e.g. links are automatically converted
-to <code>&#x3C;a href></code>s) and code will be highlighted by <a href="https://github.com/shikijs/shiki">https://github.com/shikijs/shiki</a>
-which I found did a pretty good job with e.g. typescript (I look forward to
-maybe a treesitter powered coloring, if you find this let me know)</p>]]></content:encoded>
+<p>I use the 'unified/remark/rehype' stack for parsing my blogpost markdown.My
+unified/remark/rehype setup allows github flavored markdown (so e.g. links are
+automatically converted to <code>&#x3C;a href></code>s) and code will be highlighted by
+<a href="https://github.com/shikijs/shiki">https://github.com/shikijs/shiki</a> which I found did a pretty good job with e.g.
+typescript (I look forward to maybe a treesitter powered coloring, if you find
+this let me know)</p>
+<h2 id="footnote-2-why-not-mdx"><a aria-hidden="true" tabindex="-1" href="#footnote-2-why-not-mdx"><a href="#footnote-2-why-not-mdx" style="margin-right: 10px">#</a></a>Footnote 2. Why not MDX?</h2>
+<p>There may be some temptation to use things like MDX for your blog, and indeed, I
+used MDX with my original blog setup with the <code>pages</code> directory
+(<a href="https://cmdcolin.github.io/posts/2021-12-26-nextjs#using-mdx-for-blogposts-in-nextjs">https://cmdcolin.github.io/posts/2021-12-26-nextjs#using-mdx-for-blogposts-in-nextjs</a>)
+but to me it is overkill and harder to understand. If it is desirable or needed
+to use it for your setup, see
+<a href="https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support">https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
