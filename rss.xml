@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 11 Apr 2023 20:00:15 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Apr 2023 20:00:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -21,7 +21,7 @@ show how you can make your own static site with it. Static export of the Next.js
 <h2 id="tldr"><a aria-hidden="true" tabindex="-1" href="#tldr"><a href="#tldr" style="margin-right: 10px">#</a></a>TL;DR</h2>
 <p>See here</p>
 <p><a href="https://github.com/cmdcolin/next13-appdir-blog">https://github.com/cmdcolin/next13-appdir-blog</a></p>
-<p>Also, if you take nothing else away from this article let it be that</p>
+<p>If you take nothing else away from this article, let it be that</p>
 <ul>
 <li>
 <p>The 'app' dir can be used to create static websites</p>
