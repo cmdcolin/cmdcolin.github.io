@@ -7,7 +7,7 @@ export default function Footer() {
       <Link href="https://github.com/cmdcolin/">Github</Link>{' '}
       <Link href="https://twitter.com/cmdcolin">Twitter</Link>{' '}
       <Link href="/projects">Projects</Link> <Link href="/photos">Photos</Link>{' '}
-      <Link href="/rss.xml">RSS</Link> <Link href="/about">About</Link>
+      <Link href="/about">About</Link>
     </footer>
   )
 }
