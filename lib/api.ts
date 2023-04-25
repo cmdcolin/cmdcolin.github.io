@@ -79,10 +79,8 @@ export async function getPostById(id: string) {
   }
 }
 
-export async function getProjects() {
-  const fullPath = join('_pages', 'projects.md')
-  const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
-
+export async function getPageMarkdown(str: string) {
+  const { data, content } = matter(fs.readFileSync(join('_pages', str), 'utf8'))
   const parser = await getParser()
   const html = await parser.process(content)
 
