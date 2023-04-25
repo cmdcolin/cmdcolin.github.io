@@ -1,7 +1,7 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import matter from 'gray-matter'
 import { Feed } from 'feed'
-import { join } from 'path'
+import { join } from 'node:path'
 import { unified } from 'unified'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
@@ -40,11 +40,11 @@ async function getParserPre() {
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
-      content: arg => ({
+      content: argument => ({
         type: 'element',
         tagName: 'a',
         properties: {
-          href: '#' + arg.properties?.id,
+          href: `#${String(argument.properties?.id)}`,
           style: 'margin-right: 10px',
         },
         children: [{ type: 'text', value: '#' }],
@@ -54,9 +54,9 @@ async function getParserPre() {
 
 function getParser() {
   if (!p) {
-    p = getParserPre().catch(e => {
+    p = getParserPre().catch(error => {
       p = undefined
-      throw e
+      throw error
     })
   }
   return p
@@ -69,18 +69,21 @@ export async function getPostById(id: string) {
 
   const parser = await getParser()
   const html = await parser.process(content)
+  const date = data.date as Date
 
   return {
     ...data,
-    title: data.title,
+    title: data.title as string,
     id: realId,
-    date: `${data.date?.toISOString().slice(0, 10)}`,
+    date: `${date.toISOString().slice(0, 10)}`,
     html: html.value.toString(),
   }
 }
 
-export async function getPageMarkdown(str: string) {
-  const { data, content } = matter(fs.readFileSync(join('_pages', str), 'utf8'))
+export async function getPageMarkdown(string_: string) {
+  const { data, content } = matter(
+    fs.readFileSync(join('_pages', string_), 'utf8'),
+  )
   const parser = await getParser()
   const html = await parser.process(content)
 
@@ -101,7 +104,7 @@ export function getAllSketches() {
 
 export function generateRSSFeed(
   articles: {
-    title: any
+    title: string
     id: string
     date: string
     description?: string
@@ -130,7 +133,7 @@ export function generateRSSFeed(
   })
 
   // Add each article to the feed
-  articles.forEach(post => {
+  for (const post of articles) {
     const { html, id, date, description, title } = post
     const url = `${baseUrl}/posts/${id}`
 
@@ -143,7 +146,7 @@ export function generateRSSFeed(
       date: new Date(date),
       author: [author],
     })
-  })
+  }
 
   // Write the RSS output to a public file
   fs.writeFileSync('public/rss.xml', feed.rss2())
