@@ -456,12 +456,38 @@ and output e.g. a UMD bundle
 
 See https://github.com/cmdcolin/npm-package-tutorial/
 
-## Footnote 1
-
-See my follow up rant
-https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler
-
-## Footnote 2
-
 This is a setup that works for me, but there are many ways to publish a package
 so take it with a grain of salt!
+
+Also see my follow up rant: you may not need a bundler
+https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler
+
+## Footnote 1 - what about monorepos?
+
+There are many high powered "monorepo" setups like lerna, nx, turborepo, etc.
+
+I think for many purposes, these can be a bit overkill. I would start with yarn
+workspaces. Basically, the way this works is you can have e.g. in your root
+package.json in your repo something likely
+
+```json
+{
+  "name": "root",
+  "private": true,
+  "workspaces": ["lib", "app"]
+}
+```
+
+And then in your `lib` directory you can have your library as we created above
+and `app` for example can be an instance of a `vite` app that uses your library.
+You can reference your lib by name in the `app` folders package.json, and it
+will automatically get the latest version of it that you have built from the
+`lib` directory e.g. your `app` will look at the libs "dist" folder: it's
+compiled outputs. That means you can run `yarn tsc --watch` in the lib folder to
+continuously build it, and then e.g. when you are running e.g. `yarn dev` in the
+`app` directory, it will see updates to the `lib` dist directory and auto-update
+via hot module refresh
+
+High powered solutions like nx, turborepo, etc may have solutions for
+'automatically building all the stuff' without you explicitly having to run the
+build in the `lib` directory, but for simple monorepo setups, this works ok
