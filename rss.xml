@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 03 May 2023 15:50:33 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 03 May 2023 15:52:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3613,10 +3613,9 @@ and output e.g. a UMD bundle</p>
 <p>See <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>
 <p>This is a setup that works for me, but there are many ways to publish a package
 so take it with a grain of salt!</p>
-<h2 id="footnote-1---you-may-not-need-a-bundler"><a aria-hidden="true" tabindex="-1" href="#footnote-1---you-may-not-need-a-bundler"><a href="#footnote-1---you-may-not-need-a-bundler" style="margin-right: 10px">#</a></a>Footnote 1 - you may not need a bundler</h2>
-<p>See my follow up rant
+<p>Also see my follow up rant: you may not need a bundler
 <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a></p>
-<h2 id="footnote-2---what-about-monorepos"><a aria-hidden="true" tabindex="-1" href="#footnote-2---what-about-monorepos"><a href="#footnote-2---what-about-monorepos" style="margin-right: 10px">#</a></a>Footnote 2 - what about monorepo's?</h2>
+<h2 id="footnote-1---what-about-monorepos"><a aria-hidden="true" tabindex="-1" href="#footnote-1---what-about-monorepos"><a href="#footnote-1---what-about-monorepos" style="margin-right: 10px">#</a></a>Footnote 1 - what about monorepos?</h2>
 <p>There are many high powered "monorepo" setups like lerna, nx, turborepo, etc.</p>
 <p>I think for many purposes, these can be a bit overkill. I would start with yarn
 workspaces. Basically, the way this works is you can have e.g. in your root
