@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Wed, 03 May 2023 15:52:51 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 03 May 2023 16:28:17 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3628,14 +3628,15 @@ package.json in your repo something likely</p>
 <p>And then in your <code>lib</code> directory you can have your library as we created above
 and <code>app</code> for example can be an instance of a <code>vite</code> app that uses your library.
 You can reference your lib by name in the <code>app</code> folders package.json, and it
-will automatically get the latest version of it.</p>
-<p>Your app will look at the libs "dist" folder: it's compiled outputs, so you can
-run <code>yarn tsc --watch</code> in the lib folder to continuously build it, and then e.g.
-when you are running <code>yarn dev</code> in the app directory, it will see updates to
-it's dist directory and update</p>
+will automatically get the latest version of it that you have built from the
+<code>lib</code> directory e.g. your <code>app</code> will look at the libs "dist" folder: it's
+compiled outputs. That means you can run <code>yarn tsc --watch</code> in the lib folder to
+continuously build it, and then e.g. when you are running e.g. <code>yarn dev</code> in the
+<code>app</code> directory, it will see updates to the <code>lib</code> dist directory and auto-update
+via hot module refresh</p>
 <p>High powered solutions like nx, turborepo, etc may have solutions for
 'automatically building all the stuff' without you explicitly having to run the
-build in the lib directory, but for simple monorepo setups, this works ok</p>]]></content:encoded>
+build in the <code>lib</code> directory, but for simple monorepo setups, this works ok</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
