@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next dev",
     "lint": "next lint",
-    "predeploy": "npm run build && touch out/.nojekyll && npx ts-node --esm generateRSS.ts",
+    "predeploy": "npm run build && touch out/.nojekyll",
     "deploy": "gh-pages -d out -t true",
     "postdeploy": "git push --follow-tags"
   },
@@ -34,13 +34,14 @@
   },
   "devDependencies": {
     "@types/jest": "^29.2.0",
-    "@types/node": "^18.14.0",
+    "@types/node": "^20.1.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.7",
     "eslint": "^8.38.0",
     "eslint-config-next": "^13.3.0",
-    "eslint-plugin-unicorn": "^46.0.0",
+    "eslint-plugin-unicorn": "^47.0.0",
     "gh-pages": "^5.0.0"
   }
 }

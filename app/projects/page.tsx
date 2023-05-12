@@ -5,5 +5,9 @@ export const metadata = {
 }
 export default async function Post() {
   const { html } = await getPageMarkdown('projects.md')
-  return <div className="tiny" dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <div className="tiny">
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </div>
+  )
 }
