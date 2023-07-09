@@ -1,9 +1,69 @@
-1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
-0:[[["",{"children":["posts",{"children":[["id","2016-03-28","d"],{"children":["__PAGE__?{\"id\":\"2016-03-28\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],["$L3",null]]]]
-4:I{"id":"414","chunks":["414:static/chunks/414-6d6e10881f5d1a2e.js","467:static/chunks/app/archive/page-b9afc96c23d1c7f9.js"],"name":"","async":false}
-5:I{"id":"9544","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-6:I{"id":"99","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2016-03-28","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2016-03-28\"}"},"styles":[]}],"segment":["id","2016-03-28","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
-8:I{"id":"6677","chunks":["722:static/chunks/app/posts/[id]/page-29425205b46f5335.js"],"name":"","async":false}
-7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"Running nginx on containerised travis-CI pt 2"}],["$","h4",null,{"children":"2016-03-28"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"<p>There are several guides out there about how to setup nginx on travis-CI but I\nstill found it to be a challenge, especially finding a modern one that works\nwith the containerized builds. I was frustrated that things like\n<code>SimpleHTTPServer</code> from python and http-server from npm did not have fully\nenough features to run our app either (a complex \"static-site generator\" type\nthing you might say), and I was also too lazy to setup \"sauce labs\" (which I\nhave not used, but presume has some better ability to run functional/browser\ntests).</p>\n<p>Essentially, the problem with running nginx under the containerized build is\nthat it \"likes to be sudo\", with many logfiles by default going to different\nplaces that only sudo has access to.</p>\n<p>This link is probably the most similar to the technique I use here, but it is\nnow gone (?) and must be accessed through the internet archive!</p>\n<p><a href=\"https://web.archive.org/web/20150919050719/http://www.doublesignal.com/running-nginx-on-containerised-travis-ci\">http://www.doublesignal.com/running-nginx-on-containerised-travis-ci</a></p>\n<p>My technique is very similar, however I use an extra trick to set the file root\nto the current directory (instead of /tmp/nowhere as in the link) by using\n\"envsubst\" to replace variables in the nginx config file.</p>\n<p>Without further ado, the .travis.yml can look like this</p>\n<pre class=\"shiki poimandres\" style=\"background-color: #1b1e28\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color: #5DE4C7\">sudo</span><span style=\"color: #A6ACCD\">: </span><span style=\"color: #5DE4C7\">false</span></span>\n<span class=\"line\"><span style=\"color: #5DE4C7\">addons</span><span style=\"color: #A6ACCD\">:</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">  </span><span style=\"color: #5DE4C7\">apt</span><span style=\"color: #A6ACCD\">:</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">    </span><span style=\"color: #5DE4C7\">packages</span><span style=\"color: #A6ACCD\">:</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">      - </span><span style=\"color: #ADD7FF\">nginx</span></span>\n<span class=\"line\"><span style=\"color: #5DE4C7\">install</span><span style=\"color: #A6ACCD\">:</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">  - </span><span style=\"color: #ADD7FF\">cat tests/travis.conf | envsubst > tests/travis-envsubst.conf</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">  - </span><span style=\"color: #ADD7FF\">nginx -c `pwd`/tests/travis-envsubst.conf</span></span>\n<span class=\"line\"><span style=\"color: #5DE4C7\">script</span><span style=\"color: #A6ACCD\">:</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">  - </span><span style=\"color: #ADD7FF\">wget http://localhost:9000/yourfiles</span></span></code></pre>\n<p>Then your nginx config file can look like this</p>\n<pre><code>    worker_processes 10;\n    pid /tmp/nginx.pid;\n\n    error_log /tmp/error.log;\n\n    events {\n        worker_connections 768;\n    }\n\n    http {\n        client_body_temp_path /tmp/nginx_client_body;\n        fastcgi_temp_path     /tmp/nginx_fastcgi_temp;\n        proxy_temp_path       /tmp/nginx_proxy_temp;\n        scgi_temp_path        /tmp/nginx_scgi_temp;\n        uwsgi_temp_path       /tmp/nginx_uwsgi_temp;\n\n        server {\n            listen 9000 default_server;\n\n            server_name localhost;\n            location / {\n                root $TRAVIS_BUILD_DIR;\n                index  index.html index.htm;\n            }\n            error_log /tmp/error.log;\n            access_log /tmp/access.log;\n        }\n    }\n\n</code></pre>\n<p>Then, when travis-CI is run, it uses envsubst to replace <code>$TRAVIS_BUILD_DIR</code> in\nthe <code>tests/travis.conf</code> file, and then boots up nginx</p>"}}],["$","$L8",null,{}]]}]
-3:[[["$","meta",null,{"charSet":"utf-8"}],["$","title",null,{"children":"Running nginx on containerised travis-CI pt 2"}],["$","meta",null,{"name":"description","content":"A blog"}],null,null,null,null,null,null,null,null,["$","meta",null,{"name":"viewport","content":"width=device-width, initial-scale=1"}],null,null,null,null,null,null,null,null,null,null,[]],[null,null,null,null],null,null,[null,null,null,null,null],null,null,null,null,[null,[["$","link",null,{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]],[],null]]
+1:HL["/_next/static/css/e813e5fb1b51ad26.css",{"as":"style"}]
+0:["64kXID8DVbqGk_FooXDz7",[[["",{"children":["posts",{"children":[["id","2016-03-28","d"],{"children":["__PAGE__?{\"id\":\"2016-03-28\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e813e5fb1b51ad26.css","precedence":"next"}]],["$L3",null]]]]]
+4:I{"id":7095,"chunks":["95:static/chunks/95-fe2423899271355b.js","467:static/chunks/app/archive/page-27a5d9689f809faa.js"],"name":"","async":false}
+5:I{"id":9180,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+6:I{"id":2306,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2016-03-28","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2016-03-28\"}"},"styles":[]}],"segment":["id","2016-03-28","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
+9:I{"id":8298,"chunks":["722:static/chunks/app/posts/[id]/page-e495db9298e19bb0.js"],"name":"","async":false}
+8:Teb0,<p>There are several guides out there about how to setup nginx on travis-CI but I
+still found it to be a challenge, especially finding a modern one that works
+with the containerized builds. I was frustrated that things like
+<code>SimpleHTTPServer</code> from python and http-server from npm did not have fully
+enough features to run our app either (a complex "static-site generator" type
+thing you might say), and I was also too lazy to setup "sauce labs" (which I
+have not used, but presume has some better ability to run functional/browser
+tests).</p>
+<p>Essentially, the problem with running nginx under the containerized build is
+that it "likes to be sudo", with many logfiles by default going to different
+places that only sudo has access to.</p>
+<p>This link is probably the most similar to the technique I use here, but it is
+now gone (?) and must be accessed through the internet archive!</p>
+<p><a href="https://web.archive.org/web/20150919050719/http://www.doublesignal.com/running-nginx-on-containerised-travis-ci">http://www.doublesignal.com/running-nginx-on-containerised-travis-ci</a></p>
+<p>My technique is very similar, however I use an extra trick to set the file root
+to the current directory (instead of /tmp/nowhere as in the link) by using
+"envsubst" to replace variables in the nginx config file.</p>
+<p>Without further ado, the .travis.yml can look like this</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #5DE4C7">sudo</span><span style="color: #A6ACCD">: </span><span style="color: #5DE4C7">false</span></span>
+<span class="line"><span style="color: #5DE4C7">addons</span><span style="color: #A6ACCD">:</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7">apt</span><span style="color: #A6ACCD">:</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #5DE4C7">packages</span><span style="color: #A6ACCD">:</span></span>
+<span class="line"><span style="color: #A6ACCD">      - </span><span style="color: #ADD7FF">nginx</span></span>
+<span class="line"><span style="color: #5DE4C7">install</span><span style="color: #A6ACCD">:</span></span>
+<span class="line"><span style="color: #A6ACCD">  - </span><span style="color: #ADD7FF">cat tests/travis.conf | envsubst > tests/travis-envsubst.conf</span></span>
+<span class="line"><span style="color: #A6ACCD">  - </span><span style="color: #ADD7FF">nginx -c `pwd`/tests/travis-envsubst.conf</span></span>
+<span class="line"><span style="color: #5DE4C7">script</span><span style="color: #A6ACCD">:</span></span>
+<span class="line"><span style="color: #A6ACCD">  - </span><span style="color: #ADD7FF">wget http://localhost:9000/yourfiles</span></span></code></pre>
+<p>Then your nginx config file can look like this</p>
+<pre><code>    worker_processes 10;
+    pid /tmp/nginx.pid;
+
+    error_log /tmp/error.log;
+
+    events {
+        worker_connections 768;
+    }
+
+    http {
+        client_body_temp_path /tmp/nginx_client_body;
+        fastcgi_temp_path     /tmp/nginx_fastcgi_temp;
+        proxy_temp_path       /tmp/nginx_proxy_temp;
+        scgi_temp_path        /tmp/nginx_scgi_temp;
+        uwsgi_temp_path       /tmp/nginx_uwsgi_temp;
+
+        server {
+            listen 9000 default_server;
+
+            server_name localhost;
+            location / {
+                root $TRAVIS_BUILD_DIR;
+                index  index.html index.htm;
+            }
+            error_log /tmp/error.log;
+            access_log /tmp/access.log;
+        }
+    }
+
+</code></pre>
+<p>Then, when travis-CI is run, it uses envsubst to replace <code>$TRAVIS_BUILD_DIR</code> in
+the <code>tests/travis.conf</code> file, and then boots up nginx</p>7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"Running nginx on containerised travis-CI pt 2"}],["$","h4",null,{"children":"2016-03-28"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$8"}}],["$","$L9",null,{}]]}]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Running nginx on containerised travis-CI pt 2"}],["$","meta","2",{"name":"description","content":"A blog"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]]

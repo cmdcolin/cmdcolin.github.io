@@ -1,9 +1,114 @@
-1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
-0:[[["",{"children":["posts",{"children":[["id","2022-08-21-vacation","d"],{"children":["__PAGE__?{\"id\":\"2022-08-21-vacation\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],["$L3",null]]]]
-4:I{"id":"414","chunks":["414:static/chunks/414-6d6e10881f5d1a2e.js","467:static/chunks/app/archive/page-b9afc96c23d1c7f9.js"],"name":"","async":false}
-5:I{"id":"9544","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-6:I{"id":"99","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2022-08-21-vacation","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2022-08-21-vacation\"}"},"styles":[]}],"segment":["id","2022-08-21-vacation","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
-8:I{"id":"6677","chunks":["722:static/chunks/app/posts/[id]/page-29425205b46f5335.js"],"name":"","async":false}
-7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"Photos of vacation"}],["$","h4",null,{"children":"2022-08-21"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"<p>From Aug 1st->Aug 18 I did a road trip from the South Carolina to New Mexico. I\nflew out and met my partner who had driven there earlier to help her mom out at\nthe house.</p>\n<p>It was a great trip</p>\n<p>Route stops</p>\n<ul>\n<li>Charleston, SC (Several days)</li>\n<li>Charlotte, NC (Several days, Wedding)</li>\n<li>Montgomery, AL (One night)</li>\n<li>New Orleans, LA (Several days)</li>\n<li>Houston, TX (One night)</li>\n<li>Junction, TX (One night)</li>\n<li>Alpine, TX (One night)</li>\n<li>Valentine, TX (One night)</li>\n<li>Truth or Consequences, NM (One night)</li>\n<li>Albuquerque, NM (Home)</li>\n</ul>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220803_155653295.resized.jpg\" alt=\"\"></p>\n<p>amazing results from the sea turtle rescue at the charleston, SC aquarium</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_145459605_HDR.resized.jpg\" alt=\"\"></p>\n<p>my partner Leah at edisto beach state park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_151340018_HDR.resized.jpg\" alt=\"\"></p>\n<p>more edisto, the beach has many dead and standing dead trees on the beach</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_151800531_HDR.resized.jpg\" alt=\"\"></p>\n<p>more edisto</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_151805593_HDR.resized.jpg\" alt=\"\"></p>\n<p>more edisto</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220806_093129359.resized.jpg\" alt=\"\"></p>\n<p>wetlands near bowen's island SC</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220806_094813656_HDR.resized.jpg\" alt=\"\"></p>\n<p>a worn down house with a mural, and fallen traffic signal in SC</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220807_173529613_HDR.resized.jpg\" alt=\"\"></p>\n<p>photo of a butterfly from wedding site near charlotte, NC</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220808_103832831_HDR.resized.jpg\" alt=\"\"></p>\n<p>our weird airbnb cabin in near charlotte, SC which was a civil war era cabin\nfrom virginia moved in it's entirety to NC</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220809_174740904_HDR.resized.jpg\" alt=\"\"></p>\n<p>new orleans skyline from a weird industrial art park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220809_182035943_HDR.resized.jpg\" alt=\"\"></p>\n<p>care bear in new orleans</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220809_190950114.resized.jpg\" alt=\"\"></p>\n<p>reality continues to ruin my life</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220810_121137729.resized.jpg\" alt=\"\"></p>\n<p>wild \"surf n turf po boy\" (right) and a more conventional muffalata sandwich\n(left) in new orleans, had while hiding from a rain storm</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_140043783_HDR.resized.jpg\" alt=\"\"></p>\n<p>city park, new orleans</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_140543522_HDR.resized.jpg\" alt=\"\"></p>\n<p>large oak, new orleans city park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_142427022.resized.jpg\" alt=\"\"></p>\n<p>apple snail eggs in new orleans city park, an invasive species\n<a href=\"https://www.theadvocate.com/baton_rouge/entertainment_life/home_garden/article_775fb018-5268-11ea-8f75-f7e8fb8525fe.html\">https://www.theadvocate.com/baton_rouge/entertainment_life/home_garden/article_775fb018-5268-11ea-8f75-f7e8fb8525fe.html</a></p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_153012540.resized.jpg\" alt=\"\"></p>\n<p>placard describing \"pit beef\", a baltimore sandwich from the southern museum of\ncooking</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_154040098.resized.jpg\" alt=\"\"></p>\n<p>engraving describing some native american beach early \"bbq\" method (gator and\ndog possibly visible) from the southern museum of cooking</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_154404713.resized.jpg\" alt=\"\"></p>\n<p>history of bbq from the southern museum of cooking</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_154549161.resized.jpg\" alt=\"\"></p>\n<p>hot brown sandwich, placard from the southern museum of cooking</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_110617743.resized.jpg\" alt=\"\"></p>\n<p>our airbnb in new orleans, in a very cool mansion in the garden district</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_113038243.resized.jpg\" alt=\"\"></p>\n<p>more airbnb</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_113224854.resized.jpg\" alt=\"\"></p>\n<p>more airbnb</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_113234259.resized.jpg\" alt=\"\"></p>\n<p>more airbnb</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220813_211534759.resized.jpg\" alt=\"\"></p>\n<p>our airbnb hosts in junction, TX gave us tickets to the rodeo there, a one night\nonly event. lot's of cowboy hats</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220814_133823204_HDR.resized.jpg\" alt=\"\"></p>\n<p>goats near socorro caverns</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220814_135951677_HDR.resized.jpg\" alt=\"\"></p>\n<p>peacocks (including an albino?) near socorro caverns</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_092445801_HDR.resized.jpg\" alt=\"\"></p>\n<p>mule ears, big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_101452396_HDR.resized.jpg\" alt=\"\"></p>\n<p>dung beetle, big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_102214238_HDR.resized.jpg\" alt=\"\"></p>\n<p>canyon at big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_191014795_HDR.resized.jpg\" alt=\"\"></p>\n<p>fire in valentine, tx. note, my feet are very muddy from trying to wade in the\nrio grande</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_203037340.resized.jpg\" alt=\"\"></p>\n<p>cooking on the fire in valentine, TX</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220816_125951579_HDR.resized.jpg\" alt=\"\"></p>\n<p>metal grave placard, el paso, TX</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220817_092022789_HDR.resized.jpg\" alt=\"\"></p>\n<p>duck pond, truth or consequences, NM</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_20220820_185137107.resized.jpg\" alt=\"\"></p>\n<p>back in ABQ, fermenting some hot peppers we got on trip</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_7091.jpg\" alt=\"\"></p>\n<p>me in city park, new orleans</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_7378.jpg\" alt=\"\"></p>\n<p>me at the mule ears, big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_7384.JPG\" alt=\"\"></p>\n<p>cows at big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_7391.jpg\" alt=\"\"></p>\n<p>(wild?) horses at big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_7403.jpg\" alt=\"\"></p>\n<p>me in the canyon at big bend nat'l park</p>\n<p><img src=\"https://cmdcolinphotos.s3.amazonaws.com/IMG_7663.jpg\" alt=\"\"></p>\n<p>beezle celebrating my birthday (8/17) on return to ABQ</p>"}}],["$","$L8",null,{}]]}]
-3:[[["$","meta",null,{"charSet":"utf-8"}],["$","title",null,{"children":"Photos of vacation"}],["$","meta",null,{"name":"description","content":"A blog"}],null,null,null,null,null,null,null,null,["$","meta",null,{"name":"viewport","content":"width=device-width, initial-scale=1"}],null,null,null,null,null,null,null,null,null,null,[]],[null,null,null,null],null,null,[null,null,null,null,null],null,null,null,null,[null,[["$","link",null,{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]],[],null]]
+1:HL["/_next/static/css/e813e5fb1b51ad26.css",{"as":"style"}]
+0:["64kXID8DVbqGk_FooXDz7",[[["",{"children":["posts",{"children":[["id","2022-08-21-vacation","d"],{"children":["__PAGE__?{\"id\":\"2022-08-21-vacation\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e813e5fb1b51ad26.css","precedence":"next"}]],["$L3",null]]]]]
+4:I{"id":7095,"chunks":["95:static/chunks/95-fe2423899271355b.js","467:static/chunks/app/archive/page-27a5d9689f809faa.js"],"name":"","async":false}
+5:I{"id":9180,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+6:I{"id":2306,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2022-08-21-vacation","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2022-08-21-vacation\"}"},"styles":[]}],"segment":["id","2022-08-21-vacation","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
+9:I{"id":8298,"chunks":["722:static/chunks/app/posts/[id]/page-e495db9298e19bb0.js"],"name":"","async":false}
+8:T1c90,<p>From Aug 1st->Aug 18 I did a road trip from the South Carolina to New Mexico. I
+flew out and met my partner who had driven there earlier to help her mom out at
+the house.</p>
+<p>It was a great trip</p>
+<p>Route stops</p>
+<ul>
+<li>Charleston, SC (Several days)</li>
+<li>Charlotte, NC (Several days, Wedding)</li>
+<li>Montgomery, AL (One night)</li>
+<li>New Orleans, LA (Several days)</li>
+<li>Houston, TX (One night)</li>
+<li>Junction, TX (One night)</li>
+<li>Alpine, TX (One night)</li>
+<li>Valentine, TX (One night)</li>
+<li>Truth or Consequences, NM (One night)</li>
+<li>Albuquerque, NM (Home)</li>
+</ul>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220803_155653295.resized.jpg" alt=""></p>
+<p>amazing results from the sea turtle rescue at the charleston, SC aquarium</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_145459605_HDR.resized.jpg" alt=""></p>
+<p>my partner Leah at edisto beach state park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_151340018_HDR.resized.jpg" alt=""></p>
+<p>more edisto, the beach has many dead and standing dead trees on the beach</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_151800531_HDR.resized.jpg" alt=""></p>
+<p>more edisto</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220805_151805593_HDR.resized.jpg" alt=""></p>
+<p>more edisto</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220806_093129359.resized.jpg" alt=""></p>
+<p>wetlands near bowen's island SC</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220806_094813656_HDR.resized.jpg" alt=""></p>
+<p>a worn down house with a mural, and fallen traffic signal in SC</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220807_173529613_HDR.resized.jpg" alt=""></p>
+<p>photo of a butterfly from wedding site near charlotte, NC</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220808_103832831_HDR.resized.jpg" alt=""></p>
+<p>our weird airbnb cabin in near charlotte, SC which was a civil war era cabin
+from virginia moved in it's entirety to NC</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220809_174740904_HDR.resized.jpg" alt=""></p>
+<p>new orleans skyline from a weird industrial art park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220809_182035943_HDR.resized.jpg" alt=""></p>
+<p>care bear in new orleans</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220809_190950114.resized.jpg" alt=""></p>
+<p>reality continues to ruin my life</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220810_121137729.resized.jpg" alt=""></p>
+<p>wild "surf n turf po boy" (right) and a more conventional muffalata sandwich
+(left) in new orleans, had while hiding from a rain storm</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_140043783_HDR.resized.jpg" alt=""></p>
+<p>city park, new orleans</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_140543522_HDR.resized.jpg" alt=""></p>
+<p>large oak, new orleans city park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_142427022.resized.jpg" alt=""></p>
+<p>apple snail eggs in new orleans city park, an invasive species
+<a href="https://www.theadvocate.com/baton_rouge/entertainment_life/home_garden/article_775fb018-5268-11ea-8f75-f7e8fb8525fe.html">https://www.theadvocate.com/baton_rouge/entertainment_life/home_garden/article_775fb018-5268-11ea-8f75-f7e8fb8525fe.html</a></p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_153012540.resized.jpg" alt=""></p>
+<p>placard describing "pit beef", a baltimore sandwich from the southern museum of
+cooking</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_154040098.resized.jpg" alt=""></p>
+<p>engraving describing some native american beach early "bbq" method (gator and
+dog possibly visible) from the southern museum of cooking</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_154404713.resized.jpg" alt=""></p>
+<p>history of bbq from the southern museum of cooking</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220811_154549161.resized.jpg" alt=""></p>
+<p>hot brown sandwich, placard from the southern museum of cooking</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_110617743.resized.jpg" alt=""></p>
+<p>our airbnb in new orleans, in a very cool mansion in the garden district</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_113038243.resized.jpg" alt=""></p>
+<p>more airbnb</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_113224854.resized.jpg" alt=""></p>
+<p>more airbnb</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220812_113234259.resized.jpg" alt=""></p>
+<p>more airbnb</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220813_211534759.resized.jpg" alt=""></p>
+<p>our airbnb hosts in junction, TX gave us tickets to the rodeo there, a one night
+only event. lot's of cowboy hats</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220814_133823204_HDR.resized.jpg" alt=""></p>
+<p>goats near socorro caverns</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220814_135951677_HDR.resized.jpg" alt=""></p>
+<p>peacocks (including an albino?) near socorro caverns</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_092445801_HDR.resized.jpg" alt=""></p>
+<p>mule ears, big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_101452396_HDR.resized.jpg" alt=""></p>
+<p>dung beetle, big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_102214238_HDR.resized.jpg" alt=""></p>
+<p>canyon at big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_191014795_HDR.resized.jpg" alt=""></p>
+<p>fire in valentine, tx. note, my feet are very muddy from trying to wade in the
+rio grande</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220815_203037340.resized.jpg" alt=""></p>
+<p>cooking on the fire in valentine, TX</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220816_125951579_HDR.resized.jpg" alt=""></p>
+<p>metal grave placard, el paso, TX</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220817_092022789_HDR.resized.jpg" alt=""></p>
+<p>duck pond, truth or consequences, NM</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_20220820_185137107.resized.jpg" alt=""></p>
+<p>back in ABQ, fermenting some hot peppers we got on trip</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_7091.jpg" alt=""></p>
+<p>me in city park, new orleans</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_7378.jpg" alt=""></p>
+<p>me at the mule ears, big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_7384.JPG" alt=""></p>
+<p>cows at big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_7391.jpg" alt=""></p>
+<p>(wild?) horses at big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_7403.jpg" alt=""></p>
+<p>me in the canyon at big bend nat'l park</p>
+<p><img src="https://cmdcolinphotos.s3.amazonaws.com/IMG_7663.jpg" alt=""></p>
+<p>beezle celebrating my birthday (8/17) on return to ABQ</p>7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"Photos of vacation"}],["$","h4",null,{"children":"2022-08-21"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$8"}}],["$","$L9",null,{}]]}]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Photos of vacation"}],["$","meta","2",{"name":"description","content":"A blog"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]]

@@ -1,9 +1,154 @@
-1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
-0:[[["",{"children":["posts",{"children":[["id","2023-03-25-commandlinestuff","d"],{"children":["__PAGE__?{\"id\":\"2023-03-25-commandlinestuff\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],["$L3",null]]]]
-4:I{"id":"414","chunks":["414:static/chunks/414-6d6e10881f5d1a2e.js","467:static/chunks/app/archive/page-b9afc96c23d1c7f9.js"],"name":"","async":false}
-5:I{"id":"9544","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-6:I{"id":"99","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-03-25-commandlinestuff","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2023-03-25-commandlinestuff\"}"},"styles":[]}],"segment":["id","2023-03-25-commandlinestuff","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
-8:I{"id":"6677","chunks":["722:static/chunks/app/posts/[id]/page-29425205b46f5335.js"],"name":"","async":false}
-7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"Command line productivity stuff"}],["$","h4",null,{"children":"2023-03-25"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"<p>In 2016, I wrote a list of things that I found to be useful or interesting\ninformation about the work I did at the time\n<a href=\"https://cmdcolin.github.io/posts/2016-04-06\">https://cmdcolin.github.io/posts/2016-04-06</a></p>\n<p>I thought it would be interesting to do the same now</p>\n<h2 id=\"aliases\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#aliases\"><a href=\"#aliases\" style=\"margin-right: 10px\">#</a></a>Aliases</h2>\n<p>I use many \"double tap\" aliases for lots of things. They are not very\n'mnemonic', but I like the action of double tapping a key. Here is a list of\nsome of my favorites. I don't expect you will like the shortenings</p>\n<ul>\n<li><code>qq</code> - runs <code>exit</code> to exit shell</li>\n<li><code>ss</code> - runs <code>yarn start</code></li>\n<li><code>yy</code> - runs <code>yarn lint</code></li>\n<li><code>bb</code> - one of my favorite non-obvious ones, it lists all git branches recently\nused in a fzf window\n<code>git branch --sort=-committerdate| fzf --height=20% |xargs git checkout</code></li>\n<li><code>ccc</code> - runs <code>yarn test --maxWorkers=50%</code> - my audio glitches out without the\nmaxWorkers</li>\n<li><code>g</code> - <code>git status</code>. I will type out <code>git</code> for other subcommands, but I check\ngit status a lot and didn't end up liking one letter <code>g</code> + subcommand added</li>\n<li><code>gd</code> - <code>git diff</code></li>\n<li><code>gggg</code> - runs <code>git add . &#x26;&#x26; git commit --amend --no-edit</code> so I can keep adding\nto the last commit instead of making new commits</li>\n</ul>\n<p>Also recommend <a href=\"https://github.com/rupa/z\">https://github.com/rupa/z</a>, very quickly jump to commonly used\ndirectories. I alias <code>z</code> to <code>p</code> because I try to type with my right hand.</p>\n<h2 id=\"neovimeditor-stuff\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#neovimeditor-stuff\"><a href=\"#neovimeditor-stuff\" style=\"margin-right: 10px\">#</a></a>Neovim/editor stuff</h2>\n<p>I use neovim, I run lots of stuff off nightly, and my setup changes a lot just\nas I like to tweak things, but here are some currently nice things I like about\nmy workflow</p>\n<ul>\n<li>\n<p>Visual select block, use <code>gq</code> to wrap code comments in vim (or <code>gw</code> with lsp\nenabled, see reason why <code>gw</code> here\n<a href=\"https://vi.stackexchange.com/questions/39200/wrapping-comment-in-visual-mode-not-working-with-gq\">https://vi.stackexchange.com/questions/39200/wrapping-comment-in-visual-mode-not-working-with-gq</a>)</p>\n</li>\n<li>\n<p>Add <code>proseWrap: always</code> to your .prettierrc to wrap e.g. the lines in markdown\nfiles <a href=\"https://prettier.io/docs/en/options.html#prose-wrap\">https://prettier.io/docs/en/options.html#prose-wrap</a></p>\n</li>\n<li>\n<p>Setting up \"LSP support\" in vim can be hard, but rewarding. I went through a\nwhole gammut of using w0rp/ale, then coc.nvim, and then now 'built-in neovim\nLSP'. I like it, but it was to me not easy to set up. I recommend\n<a href=\"https://github.com/VonHeikemen/lsp-zero.nvim\">https://github.com/VonHeikemen/lsp-zero.nvim</a> as it makes it easier</p>\n</li>\n<li>\n<p>Setup format on save. There are many ways to do it, but try to find out some\nway that works for you! For me, I use formatter.nvim to run prettier on most\nweb dev filetypes. I use formatter.nvim and not a LSP-based format like\nnull-ls because I just haven't gotten it to work with null-ls, but I don't\nthink the formatter.nvim is a bad approach either -- formatter.nvim is a bit\n'simpler' compared to LSP based setups</p>\n</li>\n<li>\n<p>To search files in a current directory, I hit <code>,gg</code> (comma is my leader key)\nwhich triggers\n<code>map('n', '&#x3C;leader>gg', '&#x3C;cmd>Telescope git_files&#x3C;cr>', default_opts)</code>, to\nsearch by text, I use <code>,ff</code> (comma is my leader key) which triggers\n<code>map('n', '&#x3C;leader>ff', '&#x3C;cmd>Telescope live_grep&#x3C;cr>', default_opts)</code></p>\n</li>\n<li>\n<p>I do not use a 'sidebar file browser' like nerdtree or similar. As mentioned\nabove, I primarily navigate with <code>,gg</code> but I also use <code>vim-vinegar</code>, which\nlet's me hit <code>-</code> and that opens a file browser of the current directory, and I\ncan hop around and hit keys to rename (R), delete (D), create (%) new files in\nthe directory. I often go back to the zsh shell to do more sophisticated\noperations</p>\n</li>\n<li>\n<p>Snippets: to <code>console.log</code>, I created a snippet where I can type <code>cl</code>, then it\nwill popup an autocomplete window, which let's me choose to insert\n<code>console.log({|})</code> or <code>console.log(|)</code> where | indicates where the cursor goes\nafter hitting enter. The <code>console.log({})</code> is very handy because if you fill\nin <code>console.log({variable})</code> then the output will be <code>{variable:5}</code> so you get\nthe variable name and value easily (ref\n<a href=\"https://github.com/cmdcolin/dotfiles/blob/master/lua/snips.lua\">https://github.com/cmdcolin/dotfiles/blob/master/lua/snips.lua</a>)</p>\n</li>\n</ul>\n<h2 id=\"typescript\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#typescript\"><a href=\"#typescript\" style=\"margin-right: 10px\">#</a></a>Typescript</h2>\n<ul>\n<li>\n<p>Use <code>ts-expect-error</code> instead of <code>ts-ignore</code> -- probably a better intention\nmost of the time</p>\n</li>\n<li>\n<p>Use type inference as much as possible -- personal opinion but even things\nlike explicit function return type are often worse than the inferred type</p>\n</li>\n</ul>\n<h2 id=\"web-dev\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#web-dev\"><a href=\"#web-dev\" style=\"margin-right: 10px\">#</a></a>Web dev</h2>\n<ul>\n<li>Try firefox profiler, it has built-in flamegraph style visualization. For\nChrome profiler, you can use an external tool <a href=\"https://speedscope.app/\">https://speedscope.app/</a> for\nsimilar</li>\n</ul>\n<h2 id=\"tmux\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#tmux\"><a href=\"#tmux\" style=\"margin-right: 10px\">#</a></a>Tmux</h2>\n<ul>\n<li>\n<p><code>Ctrl+]</code> is my prefix in tmux. I use my right hand entirely to type it, then I\nsplit horizontally with <code>-</code> and vertically with <code>=</code>. My general coding\ngenerally has my screen split vertically with a horizontal on one or both\nsides</p>\n</li>\n<li>\n<p>Add the weather in your tmux footer I use\n<code>set -g status-left '#(curl \"wttr.in/Albuquerque?u&#x26;format=3\") ' </code></p>\n</li>\n<li>\n<p>Enable truecolors in tmux! On my machine, I needed the following in my\ntmux.conf:</p>\n</li>\n</ul>\n<pre><code>set -g default-terminal \"tmux-256color\"\nset -ag terminal-overrides \",xterm-256color:RGB\"\n</code></pre>\n<p>Without this, all the neovim color schemes I tried looked not just subtly off,\nbut significantly off, because it had only 256 colors without it (way less than\nthe millions with true color). Resources</p>\n<p><a href=\"https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6\">https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6</a>\n<a href=\"https://jdhao.github.io/2018/10/19/tmux_nvim_true_color/\">https://jdhao.github.io/2018/10/19/tmux_nvim_true_color/</a></p>\n<h2 id=\"music-related\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#music-related\"><a href=\"#music-related\" style=\"margin-right: 10px\">#</a></a>Music related</h2>\n<ul>\n<li><code>yda</code> - alias for getting a song from youtube\n<code>\"youtube-dl -f 'bestaudio[ext=m4a]' \"</code></li>\n<li><code>vaporwave</code> - a function to slow down the audio for a track with ffmpeg</li>\n</ul>\n<pre class=\"shiki poimandres\" style=\"background-color: #1b1e28\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color: #91B4D5\">function</span><span style=\"color: #A6ACCD\"> </span><span style=\"color: #ADD7FF\">vaporwave</span><span style=\"color: #A6ACCD\">() {</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">  </span><span style=\"color: #91B4D5\">ffmpeg</span><span style=\"color: #A6ACCD\"> </span><span style=\"color: #ADD7FF\">-i</span><span style=\"color: #A6ACCD\"> </span><span style=\"color: #A6ACCD\">\"</span><span style=\"color: #E4F0FB\">$1</span><span style=\"color: #A6ACCD\">\"</span><span style=\"color: #A6ACCD\"> </span><span style=\"color: #ADD7FF\">-af</span><span style=\"color: #A6ACCD\"> </span><span style=\"color: #A6ACCD\">\"</span><span style=\"color: #5DE4C7\">asetrate=44100*</span><span style=\"color: #E4F0FB\">${2</span><span style=\"color: #91B4D5\">:-</span><span style=\"color: #E4F0FB\">0</span><span style=\"color: #5DE4C7\">.</span><span style=\"color: #E4F0FB\">66}</span><span style=\"color: #5DE4C7\">,aresample=44100</span><span style=\"color: #A6ACCD\">\"</span><span style=\"color: #A6ACCD\"> </span><span style=\"color: #A6ACCD\">\"`</span><span style=\"color: #91B4D5\">basename</span><span style=\"color: #5DE4C7\"> </span><span style=\"color: #E4F0FB\">$1</span><span style=\"color: #5DE4C7\"> </span><span style=\"color: #ADD7FF\">.m4a</span><span style=\"color: #A6ACCD\">`</span><span style=\"color: #5DE4C7\">.vaporwave.m4a</span><span style=\"color: #A6ACCD\">\"</span></span>\n<span class=\"line\"><span style=\"color: #A6ACCD\">}</span></span></code></pre>\n<p>example usage:</p>\n<pre><code>vaporwave file.mp3 # default slowdown factor of 0.66, outputs file.vaporwave.mp3\nvaporwave file.mp3 0.5 # custom slowdown factor, outputs file.vaporwave.mp3\n</code></pre>\n<h2 id=\"audio-players\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#audio-players\"><a href=\"#audio-players\" style=\"margin-right: 10px\">#</a></a>Audio players</h2>\n<p>I worked on a couple projects to make custom music players to scratch my own\nitch. I made a Rust one, to try to replace foobar2000, hoping to go back to the\ndays of yore when I used a desktop player, and then a web based one when I\nrealized I just listen to alot of youtube anyways now</p>\n<ul>\n<li>Rust+GTK4 app <a href=\"https://github.com/cmdcolin/fml9000\">https://github.com/cmdcolin/fml9000</a></li>\n<li>Web based <a href=\"https://cmdcolin.github.io/ytshuffle/\">https://cmdcolin.github.io/ytshuffle/</a></li>\n</ul>\n<p>Currently attempting to get the web based version approved by youtube compliance\nbecause they give you quite a limited number of API requests, so unless I want\nother users of my app to supply their own key, it seems prudent to get it\napproved</p>"}}],["$","$L8",null,{}]]}]
-3:[[["$","meta",null,{"charSet":"utf-8"}],["$","title",null,{"children":"Command line productivity stuff"}],["$","meta",null,{"name":"description","content":"A blog"}],null,null,null,null,null,null,null,null,["$","meta",null,{"name":"viewport","content":"width=device-width, initial-scale=1"}],null,null,null,null,null,null,null,null,null,null,[]],[null,null,null,null],null,null,[null,null,null,null,null],null,null,null,null,[null,[["$","link",null,{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]],[],null]]
+1:HL["/_next/static/css/e813e5fb1b51ad26.css",{"as":"style"}]
+0:["64kXID8DVbqGk_FooXDz7",[[["",{"children":["posts",{"children":[["id","2023-03-25-commandlinestuff","d"],{"children":["__PAGE__?{\"id\":\"2023-03-25-commandlinestuff\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e813e5fb1b51ad26.css","precedence":"next"}]],["$L3",null]]]]]
+4:I{"id":7095,"chunks":["95:static/chunks/95-fe2423899271355b.js","467:static/chunks/app/archive/page-27a5d9689f809faa.js"],"name":"","async":false}
+5:I{"id":9180,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+6:I{"id":2306,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-03-25-commandlinestuff","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2023-03-25-commandlinestuff\"}"},"styles":[]}],"segment":["id","2023-03-25-commandlinestuff","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
+9:I{"id":8298,"chunks":["722:static/chunks/app/posts/[id]/page-e495db9298e19bb0.js"],"name":"","async":false}
+8:T27f8,<p>In 2016, I wrote a list of things that I found to be useful or interesting
+information about the work I did at the time
+<a href="https://cmdcolin.github.io/posts/2016-04-06">https://cmdcolin.github.io/posts/2016-04-06</a></p>
+<p>I thought it would be interesting to do the same now</p>
+<h2 id="aliases"><a aria-hidden="true" tabindex="-1" href="#aliases"><a href="#aliases" style="margin-right: 10px">#</a></a>Aliases</h2>
+<p>I use many "double tap" aliases for lots of things. They are not very
+'mnemonic', but I like the action of double tapping a key. Here is a list of
+some of my favorites. I don't expect you will like the shortenings</p>
+<ul>
+<li><code>qq</code> - runs <code>exit</code> to exit shell</li>
+<li><code>ss</code> - runs <code>yarn start</code></li>
+<li><code>yy</code> - runs <code>yarn lint</code></li>
+<li><code>bb</code> - one of my favorite non-obvious ones, it lists all git branches recently
+used in a fzf window
+<code>git branch --sort=-committerdate| fzf --height=20% |xargs git checkout</code></li>
+<li><code>ccc</code> - runs <code>yarn test --maxWorkers=50%</code> - my audio glitches out without the
+maxWorkers</li>
+<li><code>g</code> - <code>git status</code>. I will type out <code>git</code> for other subcommands, but I check
+git status a lot and didn't end up liking one letter <code>g</code> + subcommand added</li>
+<li><code>gd</code> - <code>git diff</code></li>
+<li><code>gggg</code> - runs <code>git add . &#x26;&#x26; git commit --amend --no-edit</code> so I can keep adding
+to the last commit instead of making new commits</li>
+</ul>
+<p>Also recommend <a href="https://github.com/rupa/z">https://github.com/rupa/z</a>, very quickly jump to commonly used
+directories. I alias <code>z</code> to <code>p</code> because I try to type with my right hand.</p>
+<h2 id="neovimeditor-stuff"><a aria-hidden="true" tabindex="-1" href="#neovimeditor-stuff"><a href="#neovimeditor-stuff" style="margin-right: 10px">#</a></a>Neovim/editor stuff</h2>
+<p>I use neovim, I run lots of stuff off nightly, and my setup changes a lot just
+as I like to tweak things, but here are some currently nice things I like about
+my workflow</p>
+<ul>
+<li>
+<p>Visual select block, use <code>gq</code> to wrap code comments in vim (or <code>gw</code> with lsp
+enabled, see reason why <code>gw</code> here
+<a href="https://vi.stackexchange.com/questions/39200/wrapping-comment-in-visual-mode-not-working-with-gq">https://vi.stackexchange.com/questions/39200/wrapping-comment-in-visual-mode-not-working-with-gq</a>)</p>
+</li>
+<li>
+<p>Add <code>proseWrap: always</code> to your .prettierrc to wrap e.g. the lines in markdown
+files <a href="https://prettier.io/docs/en/options.html#prose-wrap">https://prettier.io/docs/en/options.html#prose-wrap</a></p>
+</li>
+<li>
+<p>Setting up "LSP support" in vim can be hard, but rewarding. I went through a
+whole gammut of using w0rp/ale, then coc.nvim, and then now 'built-in neovim
+LSP'. I like it, but it was to me not easy to set up. I recommend
+<a href="https://github.com/VonHeikemen/lsp-zero.nvim">https://github.com/VonHeikemen/lsp-zero.nvim</a> as it makes it easier</p>
+</li>
+<li>
+<p>Setup format on save. There are many ways to do it, but try to find out some
+way that works for you! For me, I use formatter.nvim to run prettier on most
+web dev filetypes. I use formatter.nvim and not a LSP-based format like
+null-ls because I just haven't gotten it to work with null-ls, but I don't
+think the formatter.nvim is a bad approach either -- formatter.nvim is a bit
+'simpler' compared to LSP based setups</p>
+</li>
+<li>
+<p>To search files in a current directory, I hit <code>,gg</code> (comma is my leader key)
+which triggers
+<code>map('n', '&#x3C;leader>gg', '&#x3C;cmd>Telescope git_files&#x3C;cr>', default_opts)</code>, to
+search by text, I use <code>,ff</code> (comma is my leader key) which triggers
+<code>map('n', '&#x3C;leader>ff', '&#x3C;cmd>Telescope live_grep&#x3C;cr>', default_opts)</code></p>
+</li>
+<li>
+<p>I do not use a 'sidebar file browser' like nerdtree or similar. As mentioned
+above, I primarily navigate with <code>,gg</code> but I also use <code>vim-vinegar</code>, which
+let's me hit <code>-</code> and that opens a file browser of the current directory, and I
+can hop around and hit keys to rename (R), delete (D), create (%) new files in
+the directory. I often go back to the zsh shell to do more sophisticated
+operations</p>
+</li>
+<li>
+<p>Snippets: to <code>console.log</code>, I created a snippet where I can type <code>cl</code>, then it
+will popup an autocomplete window, which let's me choose to insert
+<code>console.log({|})</code> or <code>console.log(|)</code> where | indicates where the cursor goes
+after hitting enter. The <code>console.log({})</code> is very handy because if you fill
+in <code>console.log({variable})</code> then the output will be <code>{variable:5}</code> so you get
+the variable name and value easily (ref
+<a href="https://github.com/cmdcolin/dotfiles/blob/master/lua/snips.lua">https://github.com/cmdcolin/dotfiles/blob/master/lua/snips.lua</a>)</p>
+</li>
+</ul>
+<h2 id="typescript"><a aria-hidden="true" tabindex="-1" href="#typescript"><a href="#typescript" style="margin-right: 10px">#</a></a>Typescript</h2>
+<ul>
+<li>
+<p>Use <code>ts-expect-error</code> instead of <code>ts-ignore</code> -- probably a better intention
+most of the time</p>
+</li>
+<li>
+<p>Use type inference as much as possible -- personal opinion but even things
+like explicit function return type are often worse than the inferred type</p>
+</li>
+</ul>
+<h2 id="web-dev"><a aria-hidden="true" tabindex="-1" href="#web-dev"><a href="#web-dev" style="margin-right: 10px">#</a></a>Web dev</h2>
+<ul>
+<li>Try firefox profiler, it has built-in flamegraph style visualization. For
+Chrome profiler, you can use an external tool <a href="https://speedscope.app/">https://speedscope.app/</a> for
+similar</li>
+</ul>
+<h2 id="tmux"><a aria-hidden="true" tabindex="-1" href="#tmux"><a href="#tmux" style="margin-right: 10px">#</a></a>Tmux</h2>
+<ul>
+<li>
+<p><code>Ctrl+]</code> is my prefix in tmux. I use my right hand entirely to type it, then I
+split horizontally with <code>-</code> and vertically with <code>=</code>. My general coding
+generally has my screen split vertically with a horizontal on one or both
+sides</p>
+</li>
+<li>
+<p>Add the weather in your tmux footer I use
+<code>set -g status-left '#(curl "wttr.in/Albuquerque?u&#x26;format=3") ' </code></p>
+</li>
+<li>
+<p>Enable truecolors in tmux! On my machine, I needed the following in my
+tmux.conf:</p>
+</li>
+</ul>
+<pre><code>set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+</code></pre>
+<p>Without this, all the neovim color schemes I tried looked not just subtly off,
+but significantly off, because it had only 256 colors without it (way less than
+the millions with true color). Resources</p>
+<p><a href="https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6">https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6</a>
+<a href="https://jdhao.github.io/2018/10/19/tmux_nvim_true_color/">https://jdhao.github.io/2018/10/19/tmux_nvim_true_color/</a></p>
+<h2 id="music-related"><a aria-hidden="true" tabindex="-1" href="#music-related"><a href="#music-related" style="margin-right: 10px">#</a></a>Music related</h2>
+<ul>
+<li><code>yda</code> - alias for getting a song from youtube
+<code>"youtube-dl -f 'bestaudio[ext=m4a]' "</code></li>
+<li><code>vaporwave</code> - a function to slow down the audio for a track with ffmpeg</li>
+</ul>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">vaporwave</span><span style="color: #A6ACCD">() {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">ffmpeg</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">-i</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCD">"</span><span style="color: #E4F0FB">$1</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">-af</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCD">"</span><span style="color: #5DE4C7">asetrate=44100*</span><span style="color: #E4F0FB">${2</span><span style="color: #91B4D5">:-</span><span style="color: #E4F0FB">0</span><span style="color: #5DE4C7">.</span><span style="color: #E4F0FB">66}</span><span style="color: #5DE4C7">,aresample=44100</span><span style="color: #A6ACCD">"</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCD">"`</span><span style="color: #91B4D5">basename</span><span style="color: #5DE4C7"> </span><span style="color: #E4F0FB">$1</span><span style="color: #5DE4C7"> </span><span style="color: #ADD7FF">.m4a</span><span style="color: #A6ACCD">`</span><span style="color: #5DE4C7">.vaporwave.m4a</span><span style="color: #A6ACCD">"</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<p>example usage:</p>
+<pre><code>vaporwave file.mp3 # default slowdown factor of 0.66, outputs file.vaporwave.mp3
+vaporwave file.mp3 0.5 # custom slowdown factor, outputs file.vaporwave.mp3
+</code></pre>
+<h2 id="audio-players"><a aria-hidden="true" tabindex="-1" href="#audio-players"><a href="#audio-players" style="margin-right: 10px">#</a></a>Audio players</h2>
+<p>I worked on a couple projects to make custom music players to scratch my own
+itch. I made a Rust one, to try to replace foobar2000, hoping to go back to the
+days of yore when I used a desktop player, and then a web based one when I
+realized I just listen to alot of youtube anyways now</p>
+<ul>
+<li>Rust+GTK4 app <a href="https://github.com/cmdcolin/fml9000">https://github.com/cmdcolin/fml9000</a></li>
+<li>Web based <a href="https://cmdcolin.github.io/ytshuffle/">https://cmdcolin.github.io/ytshuffle/</a></li>
+</ul>
+<p>Currently attempting to get the web based version approved by youtube compliance
+because they give you quite a limited number of API requests, so unless I want
+other users of my app to supply their own key, it seems prudent to get it
+approved</p>7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"Command line productivity stuff"}],["$","h4",null,{"children":"2023-03-25"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$8"}}],["$","$L9",null,{}]]}]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Command line productivity stuff"}],["$","meta","2",{"name":"description","content":"A blog"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]]

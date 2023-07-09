@@ -1,0 +1,23 @@
+1:HL["/_next/static/css/e813e5fb1b51ad26.css",{"as":"style"}]
+0:["64kXID8DVbqGk_FooXDz7",[[["",{"children":["hobbies",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e813e5fb1b51ad26.css","precedence":"next"}]],["$L3",null]]]]]
+4:I{"id":7095,"chunks":["95:static/chunks/95-fe2423899271355b.js","467:static/chunks/app/archive/page-27a5d9689f809faa.js"],"name":"","async":false}
+5:I{"id":9180,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+6:I{"id":2306,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","hobbies","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__"},"styles":[]}],"segment":"hobbies"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Hobbies"}],["$","meta","2",{"name":"description","content":"A blog"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]]
+8:T604,<h2 id="hobbies"><a aria-hidden="true" tabindex="-1" href="#hobbies"><a href="#hobbies" style="margin-right: 10px">#</a></a>Hobbies</h2>
+<h3 id="cast-iron-reseasoning"><a aria-hidden="true" tabindex="-1" href="#cast-iron-reseasoning"><a href="#cast-iron-reseasoning" style="margin-right: 10px">#</a></a>Cast iron reseasoning</h3>
+<p>I love cooking and cast iron and enjoy the whole reseasoning process</p>
+<p><img src="/hobbies/castiron.jpg" alt=""></p>
+<h3 id="hand-made-belt"><a aria-hidden="true" tabindex="-1" href="#hand-made-belt"><a href="#hand-made-belt" style="margin-right: 10px">#</a></a>Hand-made belt</h3>
+<p>I got a strap of leather from a shop in Toronto after visiting OICR, made a belt
+from it</p>
+<p><img src="/hobbies/belt.jpg" alt=""></p>
+<h3 id="refinished-handle-using-stacked-leather"><a aria-hidden="true" tabindex="-1" href="#refinished-handle-using-stacked-leather"><a href="#refinished-handle-using-stacked-leather" style="margin-right: 10px">#</a></a>Refinished handle using stacked leather</h3>
+<p>An axe with a stacked leather handle was laying around and got to be in poor
+condition. I created a new handle for it</p>
+<p><img src="/hobbies/axe.jpg" alt=""></p>
+<h3 id="refinished-spatula-handle"><a aria-hidden="true" tabindex="-1" href="#refinished-spatula-handle"><a href="#refinished-spatula-handle" style="margin-right: 10px">#</a></a>Refinished spatula handle</h3>
+<p>I refinished the handle of a wooden spatula after it caught fire, just sanding
+it down</p>
+<p><img src="/hobbies/handle.jpg" alt=""></p>7:["$","div",null,{"className":"tiny","dangerouslySetInnerHTML":{"__html":"$8"}}]

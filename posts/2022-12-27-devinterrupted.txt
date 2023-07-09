@@ -1,9 +1,143 @@
-1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
-0:[[["",{"children":["posts",{"children":[["id","2022-12-27-devinterrupted","d"],{"children":["__PAGE__?{\"id\":\"2022-12-27-devinterrupted\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],["$L3",null]]]]
-4:I{"id":"414","chunks":["414:static/chunks/414-6d6e10881f5d1a2e.js","467:static/chunks/app/archive/page-b9afc96c23d1c7f9.js"],"name":"","async":false}
-5:I{"id":"9544","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-6:I{"id":"99","chunks":["272:static/chunks/webpack-3224743bbfce757e.js","667:static/chunks/2443530c-b193ff79fd6a1567.js","139:static/chunks/139-a55d005ec0ce8e4f.js"],"name":"","async":false}
-2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2022-12-27-devinterrupted","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","asNotFound":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2022-12-27-devinterrupted\"}"},"styles":[]}],"segment":["id","2022-12-27-devinterrupted","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
-8:I{"id":"6677","chunks":["722:static/chunks/app/posts/[id]/page-29425205b46f5335.js"],"name":"","async":false}
-7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"The devinterrupted'ening of /r/programming"}],["$","h4",null,{"children":"2022-12-27"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"<p>Complaining about spammers is kind of a futile endeavor, and in this case, it\neven seems that there are people behind it which kinda makes me feel bad to\ncomplain about it, but I keep seeing this spam-type substance on my sacred\nforums.</p>\n<p>Many of these posts come from a blog called devinterrupted. They post things\nrelated to \"engineering management\" type topics. And, they often \"hit a chord\"\nand get highly upvoted and replied to. It's often the type of thing everyone can\nadd their two cents on, or offload some steam. One person called it engagement\nspam and that seems about right.</p>\n<p>This wouldn't all be so bad, but it is sometimes posted with formulaic titles,\ncreated by sock puppet accounts and promoting a specific company (linearB). I\ngathered as many posts from them as I can, helpfully grouped into clickbait-y\ncategories.</p>\n<p>Update 2023-01-06: a Reddit user reached out to me who is quite knowledgeable\nabout astroturfing campaigns and confirmed my suspicions here that it's all sock\npuppet accounts</p>\n<h2 id=\"titleslinks-to-posts\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#titleslinks-to-posts\"><a href=\"#titleslinks-to-posts\" style=\"margin-right: 10px\">#</a></a>Titles/links to posts</h2>\n<h3 id=\"hot-takes-and-pulling-no-punches\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#hot-takes-and-pulling-no-punches\"><a href=\"#hot-takes-and-pulling-no-punches\" style=\"margin-right: 10px\">#</a></a>Hot takes and pulling no punches</h3>\n<ul>\n<li>\n<p>“There should never be coding exercises in technical interviews. It favors\npeople who have time to do them. Disfavors people with FT jobs and families.\nPlus, your job won’t have people over your shoulder watching you code.” My\nfavorite hot take from a panel on 'Treating Devs Like Human Beings.'\n<a href=\"https://www.reddit.com/r/programming/comments/zkj6pb/there_should_never_be_coding_exercises_in/\">https://www.reddit.com/r/programming/comments/zkj6pb/there_should_never_be_coding_exercises_in/</a>\n(14k comments, 8.7k, Dec 12 2022, one of the most upvoted articles of the year\non reddit /r/programming)</p>\n</li>\n<li>\n<p>“We all use products that are amazing when the company is like 5 devs, just\nbuilding what makes sense. They grow &#x26; through failures of leadership, they\nend up with bloated product teams that don't understand the work of\ndevelopers.\" Former GitHub VP pulling no punches in recent pod on state of\ntech (413 comments, 3.2k, Dec 20, 2022)\n<a href=\"https://www.reddit.com/r/programming/comments/zr9tsr/we_all_use_products_that_are_amazing_when_the/\">https://www.reddit.com/r/programming/comments/zr9tsr/we_all_use_products_that_are_amazing_when_the/</a></p>\n</li>\n</ul>\n<h3 id=\"tils\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#tils\"><a href=\"#tils\" style=\"margin-right: 10px\">#</a></a>TIL's</h3>\n<ul>\n<li>\n<p>TIL That developers in larger companies spend 2.5 more hours a week/10 more\nhours a month in meetings than devs in smaller orgs. It's been dubbed the\n\"coordination tax.\"\n(<a href=\"https://www.reddit.com/r/programming/comments/zg6ec9/til_that_developers_in_larger_companies_spend_25/\">https://www.reddit.com/r/programming/comments/zg6ec9/til_that_developers_in_larger_companies_spend_25/</a>,\n517 comments, 4.5k, Dec 8, 2022)</p>\n</li>\n<li>\n<p>TIL 9 out of 10 devs said they would give up 24% of their lifetime earnings if\nthey got more meaning in their jobs. Also, 84% say they're disengaged at work\nand don't trust their company leaders.\n<a href=\"https://www.reddit.com/r/webdev/comments/u9ogin/til_9_out_of_10_devs_said_they_would_give_up_24/\">https://www.reddit.com/r/webdev/comments/u9ogin/til_9_out_of_10_devs_said_they_would_give_up_24/</a></p>\n</li>\n<li>\n<p>TIL about the \"Intent-Perception Gap\" in programming. Best exemplified when a\nCTO or manager casually suggests something to their developers they take it as\na new work commandment or direction for their team.\n<a href=\"https://www.reddit.com/r/programming/comments/u7dv5m/til_about_the_intentperception_gap_in_programming/\">https://www.reddit.com/r/programming/comments/u7dv5m/til_about_the_intentperception_gap_in_programming/</a></p>\n</li>\n<li>\n<p>TIL after auditing 2,000 dev teams, data scientists found that programmers are\nwaiting on average 4+ days for their review requests to be picked up by\nother ... (partial result from google, post super deleted\n<a href=\"https://www.reddit.com/r/gamedev/comments/xh649i/deleted_by_user/\">https://www.reddit.com/r/gamedev/comments/xh649i/deleted_by_user/</a>)</p>\n</li>\n</ul>\n<h3 id=\"cool-convos\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#cool-convos\"><a href=\"#cool-convos\" style=\"margin-right: 10px\">#</a></a>Cool convos</h3>\n<ul>\n<li>\n<p>\"Dev burnout drastically decreases when you actually ship things regularly.\nBurnout is caused by crap like toil, rework and spending too much mental\nenergy on bottlenecks.\" Cool conversation with the head engineer of Slack on\nhow burnout is caused by all the things that keep devs from coding.\n(<a href=\"https://www.reddit.com/r/programming/comments/vold1e/dev_burnout_drastically_decreases_when_you/\">https://www.reddit.com/r/programming/comments/vold1e/dev_burnout_drastically_decreases_when_you/</a>\nalso\n<a href=\"https://www.reddit.com/r/programming/comments/zwjxsf/dev_burnout_drastically_decreases_when_your_team/\">https://www.reddit.com/r/programming/comments/zwjxsf/dev_burnout_drastically_decreases_when_your_team/</a>)</p>\n</li>\n<li>\n<p>\"Dev managers' most overlooked responsibility is to treat dev bandwidth as a\nvaluable, limited resource. It's the highest leverage for every\nsoftware-driven company and needs to be calculated as such.\" Cool convo with\nStripe's top engineer on how the dev org connects to the rest of the company\n<a href=\"https://www.reddit.com/r/webdev/comments/wwsrw5/dev_managers_most_overlooked_responsibility_is_to/\">https://www.reddit.com/r/webdev/comments/wwsrw5/dev_managers_most_overlooked_responsibility_is_to/</a></p>\n</li>\n<li>\n<p>\"Developers do nothing good after 45 hours of work.\" Fun conversation with\nhead developer of Netflix on the dumbest things engineering orgs do to kill\nproductivity - they really take a crap on retros. (Post deleted\n<a href=\"https://www.reddit.com/r/Python/comments/umhf4v/developers_do_nothing_good_after_45_hours_of_work/\">https://www.reddit.com/r/Python/comments/umhf4v/developers_do_nothing_good_after_45_hours_of_work/</a>)</p>\n</li>\n</ul>\n<h3 id=\"studies-and-interesting-cases\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#studies-and-interesting-cases\"><a href=\"#studies-and-interesting-cases\" style=\"margin-right: 10px\">#</a></a>Studies and interesting cases</h3>\n<ul>\n<li>\n<p>“The longer a developer assumes a code review will take, the longer they will\ntake to respond to it.” Interesting case for adding estimated review times to\npull requests (Post deleted after being called a sock puppet account\n<a href=\"https://www.reddit.com/r/programming/comments/z2bo70/comment/ixgfn2x/?utm_source=share&#x26;utm_medium=web2x&#x26;context=3\">https://www.reddit.com/r/programming/comments/z2bo70/comment/ixgfn2x/?utm_source=share&#x26;utm_medium=web2x&#x26;context=3</a>\n)</p>\n</li>\n<li>\n<p>Study: Developers spend over 2 days a week just waiting for other developers\nto review their code (Post deleted)\n<a href=\"https://www.reddit.com/r/java/comments/t5f6i7/study_developers_spend_over_2_days_a_week_just/\">https://www.reddit.com/r/java/comments/t5f6i7/study_developers_spend_over_2_days_a_week_just/</a></p>\n</li>\n<li>\n<p>\"The modern pull-request process has caused inefficiencies, particularly\nreview delays, as it isn't automated, so speed depends on the availability of\nthe right code reviewer.\" Interesting blog arguing for filtering pull requests\nbased on risk in order to promote \"continuous merge.\" (Post deleted, called\nout as a spammer account\n<a href=\"https://www.reddit.com/r/programming/comments/zdbtfr/the_modern_pullrequest_process_has_caused/\">https://www.reddit.com/r/programming/comments/zdbtfr/the_modern_pullrequest_process_has_caused/</a>)</p>\n</li>\n<li>\n<p>\"Too many companies treat dev burnout like a 24-hour flu where they can just\nsend a person home or tell them to take the day off.\" A trained\ntherapist-turned-engineer reveals how she diagnoses healthy dev teams from\nones doomed to fail.\n<a href=\"https://www.reddit.com/r/webdev/comments/wonkt6/too_many_companies_treat_dev_burnout_like_a/\">https://www.reddit.com/r/webdev/comments/wonkt6/too_many_companies_treat_dev_burnout_like_a/</a></p>\n</li>\n<li>\n<p>There was another highly upvoted post about \"cycle time\" posted to\n/r/programming probably that I cannot find now</p>\n</li>\n</ul>\n<h3 id=\"conclusion\"><a aria-hidden=\"true\" tabindex=\"-1\" href=\"#conclusion\"><a href=\"#conclusion\" style=\"margin-right: 10px\">#</a></a>Conclusion</h3>\n<p>The devinterrupted blog/podcast appears to be related to the linearB company,\nwho advocate a notion of \"cycle time\" (<a href=\"https://linearb.io/blog/cycle-time/\">https://linearb.io/blog/cycle-time/</a>) as a\ndeveloper metric engineering managers should look at. They interview some\ninteresting people but someone referred to it as \"engagement spam\". They promote\nthe \"gitStream\" product on all the posts on devinterrupted.\n<a href=\"https://linearb.io/dev/gitstream/\">https://linearb.io/dev/gitstream/</a></p>\n<p>Update 2023: I would bet the \"contextkeeper\" blog is related because some\nsockpuppet accounts are posting from both blogs</p>\n<p>I'd recommend linearB stop posting these things, or pretending that they are not\nbehind these posts.</p>"}}],["$","$L8",null,{}]]}]
-3:[[["$","meta",null,{"charSet":"utf-8"}],["$","title",null,{"children":"The devinterrupted'ening of /r/programming"}],["$","meta",null,{"name":"description","content":"A blog"}],null,null,null,null,null,null,null,null,["$","meta",null,{"name":"viewport","content":"width=device-width, initial-scale=1"}],null,null,null,null,null,null,null,null,null,null,[]],[null,null,null,null],null,null,[null,null,null,null,null],null,null,null,null,[null,[["$","link",null,{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]],[],null]]
+1:HL["/_next/static/css/e813e5fb1b51ad26.css",{"as":"style"}]
+0:["64kXID8DVbqGk_FooXDz7",[[["",{"children":["posts",{"children":[["id","2022-12-27-devinterrupted","d"],{"children":["__PAGE__?{\"id\":\"2022-12-27-devinterrupted\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e813e5fb1b51ad26.css","precedence":"next"}]],["$L3",null]]]]]
+4:I{"id":7095,"chunks":["95:static/chunks/95-fe2423899271355b.js","467:static/chunks/app/archive/page-27a5d9689f809faa.js"],"name":"","async":false}
+5:I{"id":9180,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+6:I{"id":2306,"chunks":["272:static/chunks/webpack-6ceb684ef8a65d5e.js","253:static/chunks/bce60fc1-8c4748991edb1ec4.js","698:static/chunks/698-a688277c97192edd.js"],"name":"default","async":false}
+2:[["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2022-12-27-devinterrupted","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"id\":\"2022-12-27-devinterrupted\"}"},"styles":[]}],"segment":["id","2022-12-27-devinterrupted","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"The devinterrupted'ening of /r/programming"}],["$","meta","2",{"name":"description","content":"A blog"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}]]
+9:I{"id":8298,"chunks":["722:static/chunks/app/posts/[id]/page-e495db9298e19bb0.js"],"name":"","async":false}
+8:T2524,<p>Complaining about spammers is kind of a futile endeavor, and in this case, it
+even seems that there are people behind it which kinda makes me feel bad to
+complain about it, but I keep seeing this spam-type substance on my sacred
+forums.</p>
+<p>Many of these posts come from a blog called devinterrupted. They post things
+related to "engineering management" type topics. And, they often "hit a chord"
+and get highly upvoted and replied to. It's often the type of thing everyone can
+add their two cents on, or offload some steam. One person called it engagement
+spam and that seems about right.</p>
+<p>This wouldn't all be so bad, but it is sometimes posted with formulaic titles,
+created by sock puppet accounts and promoting a specific company (linearB). I
+gathered as many posts from them as I can, helpfully grouped into clickbait-y
+categories.</p>
+<p>Update 2023-01-06: a Reddit user reached out to me who is quite knowledgeable
+about astroturfing campaigns and confirmed my suspicions here that it's all sock
+puppet accounts</p>
+<h2 id="titleslinks-to-posts"><a aria-hidden="true" tabindex="-1" href="#titleslinks-to-posts"><a href="#titleslinks-to-posts" style="margin-right: 10px">#</a></a>Titles/links to posts</h2>
+<h3 id="hot-takes-and-pulling-no-punches"><a aria-hidden="true" tabindex="-1" href="#hot-takes-and-pulling-no-punches"><a href="#hot-takes-and-pulling-no-punches" style="margin-right: 10px">#</a></a>Hot takes and pulling no punches</h3>
+<ul>
+<li>
+<p>“There should never be coding exercises in technical interviews. It favors
+people who have time to do them. Disfavors people with FT jobs and families.
+Plus, your job won’t have people over your shoulder watching you code.” My
+favorite hot take from a panel on 'Treating Devs Like Human Beings.'
+<a href="https://www.reddit.com/r/programming/comments/zkj6pb/there_should_never_be_coding_exercises_in/">https://www.reddit.com/r/programming/comments/zkj6pb/there_should_never_be_coding_exercises_in/</a>
+(14k comments, 8.7k, Dec 12 2022, one of the most upvoted articles of the year
+on reddit /r/programming)</p>
+</li>
+<li>
+<p>“We all use products that are amazing when the company is like 5 devs, just
+building what makes sense. They grow &#x26; through failures of leadership, they
+end up with bloated product teams that don't understand the work of
+developers." Former GitHub VP pulling no punches in recent pod on state of
+tech (413 comments, 3.2k, Dec 20, 2022)
+<a href="https://www.reddit.com/r/programming/comments/zr9tsr/we_all_use_products_that_are_amazing_when_the/">https://www.reddit.com/r/programming/comments/zr9tsr/we_all_use_products_that_are_amazing_when_the/</a></p>
+</li>
+</ul>
+<h3 id="tils"><a aria-hidden="true" tabindex="-1" href="#tils"><a href="#tils" style="margin-right: 10px">#</a></a>TIL's</h3>
+<ul>
+<li>
+<p>TIL That developers in larger companies spend 2.5 more hours a week/10 more
+hours a month in meetings than devs in smaller orgs. It's been dubbed the
+"coordination tax."
+(<a href="https://www.reddit.com/r/programming/comments/zg6ec9/til_that_developers_in_larger_companies_spend_25/">https://www.reddit.com/r/programming/comments/zg6ec9/til_that_developers_in_larger_companies_spend_25/</a>,
+517 comments, 4.5k, Dec 8, 2022)</p>
+</li>
+<li>
+<p>TIL 9 out of 10 devs said they would give up 24% of their lifetime earnings if
+they got more meaning in their jobs. Also, 84% say they're disengaged at work
+and don't trust their company leaders.
+<a href="https://www.reddit.com/r/webdev/comments/u9ogin/til_9_out_of_10_devs_said_they_would_give_up_24/">https://www.reddit.com/r/webdev/comments/u9ogin/til_9_out_of_10_devs_said_they_would_give_up_24/</a></p>
+</li>
+<li>
+<p>TIL about the "Intent-Perception Gap" in programming. Best exemplified when a
+CTO or manager casually suggests something to their developers they take it as
+a new work commandment or direction for their team.
+<a href="https://www.reddit.com/r/programming/comments/u7dv5m/til_about_the_intentperception_gap_in_programming/">https://www.reddit.com/r/programming/comments/u7dv5m/til_about_the_intentperception_gap_in_programming/</a></p>
+</li>
+<li>
+<p>TIL after auditing 2,000 dev teams, data scientists found that programmers are
+waiting on average 4+ days for their review requests to be picked up by
+other ... (partial result from google, post super deleted
+<a href="https://www.reddit.com/r/gamedev/comments/xh649i/deleted_by_user/">https://www.reddit.com/r/gamedev/comments/xh649i/deleted_by_user/</a>)</p>
+</li>
+</ul>
+<h3 id="cool-convos"><a aria-hidden="true" tabindex="-1" href="#cool-convos"><a href="#cool-convos" style="margin-right: 10px">#</a></a>Cool convos</h3>
+<ul>
+<li>
+<p>"Dev burnout drastically decreases when you actually ship things regularly.
+Burnout is caused by crap like toil, rework and spending too much mental
+energy on bottlenecks." Cool conversation with the head engineer of Slack on
+how burnout is caused by all the things that keep devs from coding.
+(<a href="https://www.reddit.com/r/programming/comments/vold1e/dev_burnout_drastically_decreases_when_you/">https://www.reddit.com/r/programming/comments/vold1e/dev_burnout_drastically_decreases_when_you/</a>
+also
+<a href="https://www.reddit.com/r/programming/comments/zwjxsf/dev_burnout_drastically_decreases_when_your_team/">https://www.reddit.com/r/programming/comments/zwjxsf/dev_burnout_drastically_decreases_when_your_team/</a>)</p>
+</li>
+<li>
+<p>"Dev managers' most overlooked responsibility is to treat dev bandwidth as a
+valuable, limited resource. It's the highest leverage for every
+software-driven company and needs to be calculated as such." Cool convo with
+Stripe's top engineer on how the dev org connects to the rest of the company
+<a href="https://www.reddit.com/r/webdev/comments/wwsrw5/dev_managers_most_overlooked_responsibility_is_to/">https://www.reddit.com/r/webdev/comments/wwsrw5/dev_managers_most_overlooked_responsibility_is_to/</a></p>
+</li>
+<li>
+<p>"Developers do nothing good after 45 hours of work." Fun conversation with
+head developer of Netflix on the dumbest things engineering orgs do to kill
+productivity - they really take a crap on retros. (Post deleted
+<a href="https://www.reddit.com/r/Python/comments/umhf4v/developers_do_nothing_good_after_45_hours_of_work/">https://www.reddit.com/r/Python/comments/umhf4v/developers_do_nothing_good_after_45_hours_of_work/</a>)</p>
+</li>
+</ul>
+<h3 id="studies-and-interesting-cases"><a aria-hidden="true" tabindex="-1" href="#studies-and-interesting-cases"><a href="#studies-and-interesting-cases" style="margin-right: 10px">#</a></a>Studies and interesting cases</h3>
+<ul>
+<li>
+<p>“The longer a developer assumes a code review will take, the longer they will
+take to respond to it.” Interesting case for adding estimated review times to
+pull requests (Post deleted after being called a sock puppet account
+<a href="https://www.reddit.com/r/programming/comments/z2bo70/comment/ixgfn2x/?utm_source=share&#x26;utm_medium=web2x&#x26;context=3">https://www.reddit.com/r/programming/comments/z2bo70/comment/ixgfn2x/?utm_source=share&#x26;utm_medium=web2x&#x26;context=3</a>
+)</p>
+</li>
+<li>
+<p>Study: Developers spend over 2 days a week just waiting for other developers
+to review their code (Post deleted)
+<a href="https://www.reddit.com/r/java/comments/t5f6i7/study_developers_spend_over_2_days_a_week_just/">https://www.reddit.com/r/java/comments/t5f6i7/study_developers_spend_over_2_days_a_week_just/</a></p>
+</li>
+<li>
+<p>"The modern pull-request process has caused inefficiencies, particularly
+review delays, as it isn't automated, so speed depends on the availability of
+the right code reviewer." Interesting blog arguing for filtering pull requests
+based on risk in order to promote "continuous merge." (Post deleted, called
+out as a spammer account
+<a href="https://www.reddit.com/r/programming/comments/zdbtfr/the_modern_pullrequest_process_has_caused/">https://www.reddit.com/r/programming/comments/zdbtfr/the_modern_pullrequest_process_has_caused/</a>)</p>
+</li>
+<li>
+<p>"Too many companies treat dev burnout like a 24-hour flu where they can just
+send a person home or tell them to take the day off." A trained
+therapist-turned-engineer reveals how she diagnoses healthy dev teams from
+ones doomed to fail.
+<a href="https://www.reddit.com/r/webdev/comments/wonkt6/too_many_companies_treat_dev_burnout_like_a/">https://www.reddit.com/r/webdev/comments/wonkt6/too_many_companies_treat_dev_burnout_like_a/</a></p>
+</li>
+<li>
+<p>There was another highly upvoted post about "cycle time" posted to
+/r/programming probably that I cannot find now</p>
+</li>
+</ul>
+<h3 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h3>
+<p>The devinterrupted blog/podcast appears to be related to the linearB company,
+who advocate a notion of "cycle time" (<a href="https://linearb.io/blog/cycle-time/">https://linearb.io/blog/cycle-time/</a>) as a
+developer metric engineering managers should look at. They interview some
+interesting people but someone referred to it as "engagement spam". They promote
+the "gitStream" product on all the posts on devinterrupted.
+<a href="https://linearb.io/dev/gitstream/">https://linearb.io/dev/gitstream/</a></p>
+<p>Update 2023: I would bet the "contextkeeper" blog is related because some
+sockpuppet accounts are posting from both blogs</p>
+<p>I'd recommend linearB stop posting these things, or pretending that they are not
+behind these posts.</p>7:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"The devinterrupted'ening of /r/programming"}],["$","h4",null,{"children":"2022-12-27"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$8"}}],["$","$L9",null,{}]]}]
