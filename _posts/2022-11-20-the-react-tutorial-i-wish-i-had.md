@@ -60,7 +60,7 @@ ReactDOM.render(<App />, document.getElementById('root'))
 And in your index.html you have e.g.
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <body>
     <div id="root" />
