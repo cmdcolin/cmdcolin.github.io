@@ -1,12 +1,13 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
-0:["lGKng2nWHutXw0mb2hSf9",[[["",{"children":["posts",{"children":[["id","2023-08-20-typescriptlint","d"],{"children":["__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],"$L3"]]]]
+0:["kEvTha8bt5GBxE_5yfm7_",[[["",{"children":["posts",{"children":[["id","2023-08-20-typescriptlint","d"],{"children":["__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],"$L3"]]]]
 4:I{"id":6685,"chunks":["685:static/chunks/685-869e9938cb1ebda6.js","185:static/chunks/app/layout-3759995e3b279a75.js"],"name":"","async":false}
 5:I{"id":7767,"chunks":["272:static/chunks/webpack-40edba06f6f71edb.js","971:static/chunks/fd9d1056-442c50ae6fbbd388.js","596:static/chunks/596-e461af40035e62db.js"],"name":"default","async":false}
 6:I{"id":7920,"chunks":["272:static/chunks/webpack-40edba06f6f71edb.js","971:static/chunks/fd9d1056-442c50ae6fbbd388.js","596:static/chunks/596-e461af40035e62db.js"],"name":"default","async":false}
 2:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-08-20-typescriptlint","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7","$L8",null],"segment":"__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}"},"styles":[]}],"segment":["id","2023-08-20-typescriptlint","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
 a:I{"id":6306,"chunks":["722:static/chunks/app/posts/[id]/page-8cf76b3c924a344e.js"],"name":"","async":false}
-9:T5df5,<p>Do you think of your linter as a piece of crap that makes annoying suggestions
+9:T64ee,<p>Do you think of your linter as a piece of crap that makes annoying suggestions
 that are best ignored?</p>
+<p><img src="https://res.cloudinary.com/graham-media-group/image/upload/f_auto/q_auto/c_scale,w_900/v1/production/public/IX6HECNTUFEVDCC5VJM2LF3ML4.jpg?_a=AJFJtWIA" alt=""></p>
 <p>Well, after you enable some of these amazing new rules you'll probably continue
 to do so with renewed gusto, but maybe thank it just a lil bit</p>
 <h3 id="typescript-eslintno-unsafe-"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-unsafe-"><a href="#typescript-eslintno-unsafe-" style="margin-right: 10px">#</a></a>@typescript-eslint/no-unsafe-*</h3>
@@ -18,15 +19,16 @@ absolutely crush the usage of type <code>any</code> out of your codebase in a wa
 tsconfig setting can.</p>
 <p>Full set of no-unsafe rules relating to type <code>any</code>:</p>
 <ul>
-<li><code>@typescript-eslint/no-unsafe-argument</code> - Disallow calling a function with a
-value with type any</li>
-<li><code>@typescript-eslint/no-unsafe-assignment</code> - Disallow assigning a value with
-type any to variables and properties</li>
-<li><code>@typescript-eslint/no-unsafe-call</code> - Disallow calling a value with type any</li>
-<li><code>@typescript-eslint/no-unsafe-member-access</code> - Disallow member access on a
-value with type any</li>
-<li><code>@typescript-eslint/no-unsafe-return</code> - Disallow returning a value with type
-any from a function</li>
+<li><a href="https://typescript-eslint.io/rules/no-unsafe-argument"><code>@typescript-eslint/no-unsafe-argument</code></a> -
+Disallow calling a function with a value with type <code>any</code></li>
+<li><a href="https://typescript-eslint.io/rules/no-unsafe-assignment"><code>@typescript-eslint/no-unsafe-assignment</code></a> -
+Disallow assigning a value with type <code>any</code> to variables and properties</li>
+<li><a href="https://typescript-eslint.io/rules/no-unsafe-call"><code>@typescript-eslint/no-unsafe-call</code></a> -
+Disallow calling a value with type <code>any</code></li>
+<li><a href="https://typescript-eslint.io/rules/no-unsafe-member-access"><code>@typescript-eslint/no-unsafe-member-access</code></a> -
+Disallow member access on a value with type <code>any</code></li>
+<li><a href="https://typescript-eslint.io/rules/no-unsafe-return"><code>@typescript-eslint/no-unsafe-return</code></a> -
+Disallow returning a value with type <code>any</code> from a function</li>
 </ul>
 <p>Fail</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">test</span><span style="color: #A6ACCD">() {</span></span>
@@ -37,15 +39,18 @@ any from a function</li>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">test</span><span style="color: #A6ACCD">() {</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">x</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">JSON</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">parse</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">stuff.json</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">) </span><span style="color: #A6ACCDC0">as</span><span style="color: #A6ACCD"> { a</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCDC0">number</span><span style="color: #A6ACCD">; b</span><span style="color: #91B4D5">:</span><span style="color: #A6ACCD"> </span><span style="color: #A6ACCDC0">number</span><span style="color: #A6ACCD"> }</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
-<p>Whether it's truly better to use the <code>as</code> casts is up to you...</p>
-<p>Note 1: These are part of the "types required"
+<p>Whether it's truly better to use the <code>as</code> casts is up to you, but it may be
+better than insidious type <code>any</code> flowing through your type system!</p>
+<p>Note 1: The no-unsafe rule set is part of the "types required"
 <code>@typescript-eslint/recommended-type-checked</code> rule set which is separate from
 <code>@typescript-eslint/recommended</code>!</p>
 <p>Note 2: These rules might be difficult to enable because your code has been such
-a bad mess for so long that you will have to incrementally work towards enabling
-it... if it is even possible at this point (smdh)</p>
+a bad mess for so long that you will have to incrementally work towards
+enabling, if it even is possible at this point (smdh)</p>
 <h3 id="typescript-eslintno-explicit-any"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-explicit-any"><a href="#typescript-eslintno-explicit-any" style="margin-right: 10px">#</a></a>@typescript-eslint/no-explicit-any</h3>
-<p>A true classic if I do say so myself</p>
+<p>Link:
+<a href="https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-explicit-any.md">https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-explicit-any.md</a></p>
+<p>This rule is a true typescript classic if I do say so myself</p>
 <p>If you ever explicitly write the type <code>any</code>, you have to additionally,
 SHAEMFULLY, write out
 <code>// eslint-disable-next-line @typescript-eslint/no-explicit-any</code> to allow it to
@@ -62,6 +67,8 @@ done this many times.</p>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #5DE4C7C0">return</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">x</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">+</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">1</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <h3 id="typescript-eslintno-floating-promises"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-floating-promises"><a href="#typescript-eslintno-floating-promises" style="margin-right: 10px">#</a></a>@typescript-eslint/no-floating-promises</h3>
+<p>Link:
+<a href="https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-floating-promises.md">https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-floating-promises.md</a></p>
 <p>Do you ever look in your web console and see a "Uncaught (in promise)" error? Do
 you sheepishly blush, knowing your code is a terrible amalgamation of chaos?
 Well you SHOULD.</p>
@@ -81,6 +88,8 @@ you forget to handle a promise</p>
 themselves "Uncaught (in promise)". Enjoy
 <a href="https://uncaughtinpromise.bandcamp.com/track/hamilton-leliumoj">https://uncaughtinpromise.bandcamp.com/track/hamilton-leliumoj</a></p>
 <h3 id="unicornprefer-set-has"><a aria-hidden="true" tabindex="-1" href="#unicornprefer-set-has"><a href="#unicornprefer-set-has" style="margin-right: 10px">#</a></a>unicorn/prefer-set-has</h3>
+<p>Link:
+<a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-set-has.md">https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-set-has.md</a></p>
 <p>Coming to us from the land of eslint-plugin-unicorn, which has a number of
 delightful rules that don't really belong anywhere else, we have a rule that
 could save you from making accidentally quadratic code.</p>
@@ -106,9 +115,9 @@ matter, but it avoids you from becoming
 <span class="line"><span style="color: #A6ACCD">  }</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <h3 id="curly"><a aria-hidden="true" tabindex="-1" href="#curly"><a href="#curly" style="margin-right: 10px">#</a></a>curly</h3>
-<p>Coming to us from the land of weird built-in eslint rules, this is one of the
-few "stylistic" rules I care about eslint performing, because prettier won't do
-it</p>
+<p>Link: <a href="https://eslint.org/docs/latest/rules/curly">https://eslint.org/docs/latest/rules/curly</a></p>
+<p>Coming to us from the land of ancient built-in eslint rules, this is one of the
+few "stylistic" rules I like eslint performing, because prettier won't do it</p>
 <p>Fail</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #A6ACCD">if (</span><span style="color: #E4F0FB">test</span><span style="color: #A6ACCD">) </span><span style="color: #E4F0FB">console</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">log</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">do thing</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span></code></pre>
 <p>Pass (autofixed from above!)</p>
@@ -121,6 +130,8 @@ it</p>
 <a href="https://en.wikipedia.org/wiki/Indentation_style">OG Horstmann style indentation</a>,
 but we can't have nice things</p>
 <h3 id="unicornno-array-for-each"><a aria-hidden="true" tabindex="-1" href="#unicornno-array-for-each"><a href="#unicornno-array-for-each" style="margin-right: 10px">#</a></a>unicorn/no-array-for-each</h3>
+<p>Link:
+<a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md">https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md</a></p>
 <p>This is perhaps a controversial one, but this rule bans use of
 Array.prototype.forEach and calls JS programmers back 'round to the fire of the
 for loop. Specifically: the for-of loop</p>
