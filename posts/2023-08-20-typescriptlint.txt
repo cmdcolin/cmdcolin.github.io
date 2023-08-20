@@ -1,11 +1,11 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
-0:["gviwOQnP5mZcRPTc8G7DG",[[["",{"children":["posts",{"children":[["id","2023-08-20-typescriptlint","d"],{"children":["__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],"$L3"]]]]
+0:["ekzOAxOfnQf9b0utshI3i",[[["",{"children":["posts",{"children":[["id","2023-08-20-typescriptlint","d"],{"children":["__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],"$L3"]]]]
 4:I{"id":6685,"chunks":["685:static/chunks/685-3ae734227e2e8975.js","185:static/chunks/app/layout-3759995e3b279a75.js"],"name":"","async":false}
 5:I{"id":7767,"chunks":["272:static/chunks/webpack-40edba06f6f71edb.js","971:static/chunks/fd9d1056-2b15443312687f8a.js","596:static/chunks/596-adeabdb313a347d9.js"],"name":"default","async":false}
 6:I{"id":7920,"chunks":["272:static/chunks/webpack-40edba06f6f71edb.js","971:static/chunks/fd9d1056-2b15443312687f8a.js","596:static/chunks/596-adeabdb313a347d9.js"],"name":"default","async":false}
 2:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-08-20-typescriptlint","d"],"children"],"loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7","$L8",null],"segment":"__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}"},"styles":[]}],"segment":["id","2023-08-20-typescriptlint","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
 a:I{"id":6306,"chunks":["722:static/chunks/app/posts/[id]/page-8cf76b3c924a344e.js"],"name":"","async":false}
-9:T64c2,<p>Do you think of your linter as a piece of crap that makes annoying suggestions
+9:T650c,<p>Do you think of your linter as a piece of crap that makes annoying suggestions
 that are best ignored?</p>
 <p>Well, after you enable some of these amazing new rules you'll probably continue
 to do so with renewed gusto, but maybe thank it just a lil bit</p>
@@ -15,11 +15,12 @@ the codebase</p>
 <h3 id="typescript-eslintno-unsafe-"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-unsafe-"><a href="#typescript-eslintno-unsafe-" style="margin-right: 10px">#</a></a>@typescript-eslint/no-unsafe-*</h3>
 <p>You think your codebase is safe? You got <code>noImplicitAny</code> and you feel cozy in
 bed at night?</p>
-<p>Then you better wake up little one, the rumble and tumble of the linter is now
-beginning with the <code>@typescript-eslint/no-unsafe-*</code> combo pack. These rules will
-absolutely crush the usage of type <code>any</code> out of your codebase in a way that no
-tsconfig setting can.</p>
-<p>Full set of no-unsafe rules relating to type <code>any</code>:</p>
+<p>Then you better wake up! The rumble and tumble of the linter starts off with the
+<code>@typescript-eslint/no-unsafe-*</code> rule pack*. These rules will absolutely crush
+the usage of type <code>any</code> out of your codebase in a way that no tsconfig.json
+setting can.</p>
+<p>The no-unsafe-* rule pack is made of ~5 rules aimed at removing usage of type
+<code>any</code>, explicit or implicit in your code</p>
 <ul>
 <li><a href="https://typescript-eslint.io/rules/no-unsafe-argument"><code>@typescript-eslint/no-unsafe-argument</code></a> -
 Disallow calling a function with a value with type <code>any</code></li>
@@ -34,7 +35,7 @@ Disallow returning a value with type <code>any</code> from a function</li>
 </ul>
 <p>Fail</p>
 <pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">function</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">test</span><span style="color: #A6ACCD">() {</span></span>
-<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #767C9DB0; font-style: italic">// no-unsafe-assignment balks because JSON.parse returns type any</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #767C9DB0; font-style: italic">// @typescript-eslint/no-unsafe-assignment balks because JSON.parse returns type any</span></span>
 <span class="line"><span style="color: #A6ACCD">  </span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">x</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #ADD7FF">JSON</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">parse</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">stuff.json</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
 <span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
 <p>Pass</p>
