@@ -1,0 +1,116 @@
+1:HL["/_next/static/css/97dc5fe527f5d592.css",{"as":"style"}]
+0:["_38BEQIx8uNlxHissYTkN",[[["",{"children":["posts",{"children":[["id","2023-08-20-typescriptlint","d"],{"children":["__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next"}]],"$L3"]]]]
+4:I{"id":6685,"chunks":["685:static/chunks/685-869e9938cb1ebda6.js","185:static/chunks/app/layout-3759995e3b279a75.js"],"name":"","async":false}
+5:I{"id":7767,"chunks":["272:static/chunks/webpack-40edba06f6f71edb.js","971:static/chunks/fd9d1056-442c50ae6fbbd388.js","596:static/chunks/596-e461af40035e62db.js"],"name":"default","async":false}
+6:I{"id":7920,"chunks":["272:static/chunks/webpack-40edba06f6f71edb.js","971:static/chunks/fd9d1056-442c50ae6fbbd388.js","596:static/chunks/596-e461af40035e62db.js"],"name":"default","async":false}
+2:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-08-20-typescriptlint","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7","$L8",null],"segment":"__PAGE__?{\"id\":\"2023-08-20-typescriptlint\"}"},"styles":[]}],"segment":["id","2023-08-20-typescriptlint","d"]},"styles":[]}],"segment":"posts"},"styles":[]}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}]," ",["$","$L4",null,{"href":"/archive","children":"Blog archive"}]," ",["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}]," ",["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}]," ",["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}]," ",["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
+a:I{"id":6306,"chunks":["722:static/chunks/app/posts/[id]/page-8cf76b3c924a344e.js"],"name":"","async":false}
+9:T3b22,<p>Do you think of your linter as a piece of crap that makes annoying suggestions
+that are best ignored? Well you will absolutely think more bad things about your
+linter after you enable some of these rules (and maybe thank it for other ones)</p>
+<h3 id="typescript-eslintno-unsafe-"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-unsafe-"><a href="#typescript-eslintno-unsafe-" style="margin-right: 10px">#</a></a>@typescript-eslint/no-unsafe-*</h3>
+<p>You think your codebase is safe? You got <code>noImplicitAny</code> and you feel cozy in
+bed at night? Then you better wake up little one, the rumble and tumble of the
+linter is now beginning with this combo pack of @typescript-eslint rules:</p>
+<ul>
+<li><code>@typescript-eslint/no-unsafe-argument</code> - Disallow calling a function with a
+value with type any</li>
+<li><code>@typescript-eslint/no-unsafe-assignment</code> - Disallow assigning a value with
+type any to variables and properties</li>
+<li><code>@typescript-eslint/no-unsafe-call</code> - Disallow calling a value with type any</li>
+<li><code>@typescript-eslint/no-unsafe-member-access</code> - Disallow member access on a
+value with type any</li>
+<li><code>@typescript-eslint/no-unsafe-return</code> - Disallow returning a value with type
+any from a function</li>
+</ul>
+<p>These rules will absolutely crush the usage of type <code>any</code> out of your codebase
+in a way that no tsconfig setting can.</p>
+<p>These are part of the "types required"
+<code>@typescript-eslint/recommended-type-checked</code> rule set which is separate from
+<code>@typescript-eslint/recommended</code>!</p>
+<p>These rules might be difficult to enable because your code has been such a bad
+mess for so long that you will have to incrementally work towards enabling it if
+it is even possible.</p>
+<h3 id="typescript-eslintno-explicit-any"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-explicit-any"><a href="#typescript-eslintno-explicit-any" style="margin-right: 10px">#</a></a>@typescript-eslint/no-explicit-any</h3>
+<p>A true classic if I do say so myself. If you ever explicitly write the type
+<code>any</code>, you have to additionally, SHAEMFULLY, write out
+<code>// eslint-disable-next-line @typescript-eslint/no-explicit-any</code> to allow it to
+continue living on living as a line of code in your codebase. I happen to have
+done this many times.</p>
+<h3 id="typescript-eslintno-floating-promises"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintno-floating-promises"><a href="#typescript-eslintno-floating-promises" style="margin-right: 10px">#</a></a>@typescript-eslint/no-floating-promises</h3>
+<p>Do you ever look in your web console and see a "Uncaught (in promise)" error? Do
+you sheepishly blush, knowing your code is a terrible amalgamation of chaos?
+Well you SHOULD.</p>
+<p>But a shining light could come to you from this lint rule...you can turn on
+<code>@typescript-eslint/no-floating-promises</code> and it will actually alert you when
+you forget to handle a promise</p>
+<p>Also note: there is also apparently a code-themed darkwave band that named
+themselves "Uncaught (in promise)". Enjoy
+<a href="https://uncaughtinpromise.bandcamp.com/track/hamilton-leliumoj">https://uncaughtinpromise.bandcamp.com/track/hamilton-leliumoj</a></p>
+<h3 id="unicornprefer-set-has"><a aria-hidden="true" tabindex="-1" href="#unicornprefer-set-has"><a href="#unicornprefer-set-has" style="margin-right: 10px">#</a></a>unicorn/prefer-set-has</h3>
+<p>Coming to us from the land of eslint-plugin-unicorn, which has a number of
+delightful rules that don't really belong anywhere else, we have a rule that
+could save you from making accidentally quadratic code.</p>
+<p>While most usages of javascript don't have big enough datasets for this to
+matter, imagine for a moment that you write some code that does something like
+this</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">arr1</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> [</span><span style="color: #5DE4C7">1</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">2</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">3</span><span style="color: #A6ACCD">]</span></span>
+<span class="line"><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">arr2</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> [</span><span style="color: #5DE4C7">4</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">5</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">6</span><span style="color: #A6ACCD">]</span></span>
+<span class="line"><span style="color: #A6ACCD">for (</span><span style="color: #91B4D5">let</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">i</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">0</span><span style="color: #A6ACCD">; </span><span style="color: #E4F0FB">i</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">&#x3C;</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">arr1</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">length</span><span style="color: #A6ACCD">; </span><span style="color: #E4F0FB">i</span><span style="color: #91B4D5">++</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">  if (</span><span style="color: #E4F0FB">arr2</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">includes</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">arr1</span><span style="color: #A6ACCD">[</span><span style="color: #E4F0FB">i</span><span style="color: #A6ACCD">])) {</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #E4F0FBD0">alert</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Found an element in arr1 that matches arr2</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">  }</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<p>This is bad because the <code>includes</code> statement is linear in time and your loop
+itself is linear in time, so you get
+<a href="https://accidentallyquadratic.tumblr.com/">accidentally quadratic</a> behavior.</p>
+<p>But unicorn/prefer-set-has can not just warn you, but actually can auto-fix your
+code to use <code>Set</code> pretty reliably. It fixed several instances of this in a
+larger project</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">arr1</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> [</span><span style="color: #5DE4C7">1</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">2</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">3</span><span style="color: #A6ACCD">]</span></span>
+<span class="line"><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">arr2</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">new</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FBD0">Set</span><span style="color: #A6ACCD">([</span><span style="color: #5DE4C7">4</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">5</span><span style="color: #A6ACCD">, </span><span style="color: #5DE4C7">6</span><span style="color: #A6ACCD">])</span></span>
+<span class="line"><span style="color: #A6ACCD">for (</span><span style="color: #91B4D5">let</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">i</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=</span><span style="color: #A6ACCD"> </span><span style="color: #5DE4C7">0</span><span style="color: #A6ACCD">; </span><span style="color: #E4F0FB">i</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">&#x3C;</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">arr1</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FB">length</span><span style="color: #A6ACCD">; </span><span style="color: #E4F0FB">i</span><span style="color: #91B4D5">++</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">  if (</span><span style="color: #E4F0FB">arr2</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">has</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">arr1</span><span style="color: #A6ACCD">[</span><span style="color: #E4F0FB">i</span><span style="color: #A6ACCD">])) {</span></span>
+<span class="line"><span style="color: #A6ACCD">    </span><span style="color: #E4F0FBD0">alert</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">Found an element in arr1 that matches arr2</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">  }</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<h3 id="curly"><a aria-hidden="true" tabindex="-1" href="#curly"><a href="#curly" style="margin-right: 10px">#</a></a>curly</h3>
+<p>Coming to us from the land of weird built-in eslint rules, this is one of the
+few "stylistic" rules I care about eslint performing, because prettier won't do
+it</p>
+<p>Fail</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #A6ACCD">if (</span><span style="color: #E4F0FB">test</span><span style="color: #A6ACCD">) </span><span style="color: #E4F0FB">console</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">log</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">do thing</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span></code></pre>
+<p>This drives me crazy. This eslint rule auto-fixes to add curlies. Yay</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #A6ACCD">if (</span><span style="color: #E4F0FB">test</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #E4F0FB">console</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">log</span><span style="color: #A6ACCD">(</span><span style="color: #A6ACCD">'</span><span style="color: #5DE4C7">do thing</span><span style="color: #A6ACCD">'</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<p>rule about prettier and curlies <a href="https://github.com/prettier/prettier/issues/7659">https://github.com/prettier/prettier/issues/7659</a></p>
+<p>I know, I know, we all want OG Horstmann style, but we can't have nice things
+all the time <a href="https://en.wikipedia.org/wiki/Indentation_style">https://en.wikipedia.org/wiki/Indentation_style</a></p>
+<h3 id="unicornno-array-for-each"><a aria-hidden="true" tabindex="-1" href="#unicornno-array-for-each"><a href="#unicornno-array-for-each" style="margin-right: 10px">#</a></a>unicorn/no-array-for-each</h3>
+<p>This is a controversial one, but this rule calls js programmers back 'round to
+the fire of the for loop. Specifically: the for-of loop</p>
+<p>It is very nice and easy way to loop over your elements, can be auto-fixed by
+this eslint rule, and is as a bonus, and is sometimes a
+non-trivial-amount-faster</p>
+<p>Fail</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #E4F0FB">array</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">forEach</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">elt</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">=></span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">console</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">log</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">elt</span><span style="color: #A6ACCD">))</span></span></code></pre>
+<p>Pass</p>
+<pre class="shiki poimandres" style="background-color: #1b1e28" tabindex="0"><code><span class="line"><span style="color: #A6ACCD">for (</span><span style="color: #91B4D5">const</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">elt</span><span style="color: #A6ACCD"> </span><span style="color: #91B4D5">of</span><span style="color: #A6ACCD"> </span><span style="color: #E4F0FB">array</span><span style="color: #A6ACCD">) {</span></span>
+<span class="line"><span style="color: #A6ACCD">  </span><span style="color: #E4F0FB">console</span><span style="color: #A6ACCD">.</span><span style="color: #E4F0FBD0">log</span><span style="color: #A6ACCD">(</span><span style="color: #E4F0FB">elt</span><span style="color: #A6ACCD">)</span></span>
+<span class="line"><span style="color: #A6ACCD">}</span></span></code></pre>
+<h3 id="typescript-eslintprefer-ts-expect-error"><a aria-hidden="true" tabindex="-1" href="#typescript-eslintprefer-ts-expect-error"><a href="#typescript-eslintprefer-ts-expect-error" style="margin-right: 10px">#</a></a>@typescript-eslint/prefer-ts-expect-error</h3>
+<p>This is one for the machete wielding hackers of the javascript jungle who add,
+despite the best of your intentions, one or more <code>// @ts-ignore</code> statements to
+their code. Change those to <code>.. @ts-expect-error</code> statements! The wilderness of
+your javascript jungle might just one day cause that expect-error to one day be
+unneeded.</p>
+<h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion?</h2>
+<p>There are many cool eslint rules. I think turning on the types-required
+@typescript-eslint rule set is important to try out. Try out the
+unicorn/recommended set also, and let me know if you have any other favorites</p>
+<h3 id="footnote"><a aria-hidden="true" tabindex="-1" href="#footnote"><a href="#footnote" style="margin-right: 10px">#</a></a>Footnote</h3>
+<p>Run your eslint with --report-unused-disable-directives --max-warnings 0. Don't
+accept warnings, and auto-remove unused eslint disables!</p>8:["$","article",null,{"children":[["$","div",null,{"children":[["$","h1",null,{"children":"~7 eslint rules that will tumble the lint right off your lil socks"}],["$","h4",null,{"children":"2023-08-20"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$9"}}],["$","$La",null,{}]]}]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"~7 eslint rules that will tumble the lint right off your lil socks"}],["$","meta","2",{"name":"description","content":"A blog"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"128x128"}]]
+7:null
