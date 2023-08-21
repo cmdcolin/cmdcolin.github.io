@@ -138,13 +138,23 @@ function getSomeStuff() {
 Pass
 
 ```typescript
-function getSomeStuff() {
+async function getSomeStuff() {
   // properly awaited
   const result = await fetch('http://google.com')
 }
 ```
 
-Also note: there is also apparently a code-themed darkwave band that named
+Note 1: this issue happens more than you might think. It is a 'types required'
+rule and part of the recommended-type-checked pack, but even if you don't enable
+the full recommended-type-checked pack, I highly recommend enabling it. It could
+have been my number one in the list.
+
+Note 2: If you have an async "IIFE" (immediately invoked function expression),
+you may have to explicitly disable this warning. This is common in useEffect in
+React for example. But be aware, by ignoring the error you should have full
+error handling built into your IIFE (see Footnote 3)
+
+Note 3: there is also apparently a code-themed darkwave band that named
 themselves "Uncaught (in promise)". Enjoy
 https://uncaughtinpromise.bandcamp.com/track/hamilton-leliumoj
 
@@ -242,6 +252,11 @@ for (const elt of array) {
 }
 ```
 
+There is also an explanation at the rule link
+(https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md)
+that there is improved "type narrowing" and better detection of unused variables
+with the for-loop for typescript users.
+
 ### @typescript-eslint/prefer-ts-expect-error
 
 Link: https://typescript-eslint.io/rules/prefer-ts-expect-error/
@@ -284,3 +299,50 @@ accept warnings, and auto-remove unused eslint disables!
 
 The @typescript-eslint/recommended-type-checked is called
 @typescript-eslint/recommended-requiring-type-checking in older versions
+
+### Footnote 3. Example of the "full error handling" in IIFE
+
+```typescript
+const [data, setData] = useState<MyData>()
+const [data, setError] = useState<unknown>()
+useEffect(() => {
+  // gotta ignore the warning in this case
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  ;(async () => {
+    // do full try/catch error handling in here because the "buck stops here"
+    // as far as the promise is concerned
+    try {
+      const response = await fetch('http://google.com')
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} ${await response.text()}`)
+      }
+      const result = await response.json()
+      setData(result)
+    } catch (e) {
+      setError(e)
+    }
+  })()
+}, [])
+```
+
+### Footnote 4. Example of the type narrowing
+
+```typescript
+export function typeNarrowingForLoop() {
+  let x
+  const arr = [1, 2, 3]
+  for (const elt of arr) {
+    x = elt
+  }
+  return x // some type inference took place from usage inside for loop, type is number|undefined
+}
+
+export function nonTypeNarrowingForEach() {
+  let x
+  const arr = [1, 2, 3]
+  arr.forEach(elt => {
+    x = elt
+  })
+  return x // no type inference took place from the forEach, type is undefined
+}
+```
