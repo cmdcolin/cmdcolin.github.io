@@ -227,6 +227,9 @@ but we can't have nice things
 
 ### unicorn/no-array-for-each
 
+Update: see also https://typescript-eslint.io/rules/prefer-for-of/ part of the
+stylistic typescript-eslint rule pack in v6
+
 Link:
 https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md
 
