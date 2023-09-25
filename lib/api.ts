@@ -30,26 +30,29 @@ function getSketchFiles() {
 let p: ReturnType<typeof getParserPre> | undefined
 
 async function getParserPre() {
-  return unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(remarkGfm)
-    .use(rehypeShiki, {
-      highlighter: await shiki.getHighlighter({ theme: 'poimandres' }),
-    })
-    .use(rehypeStringify)
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      content: argument => ({
-        type: 'element',
-        tagName: 'a',
-        properties: {
-          href: `#${String(argument.properties?.id)}`,
-          style: 'margin-right: 10px',
-        },
-        children: [{ type: 'text', value: '#' }],
-      }),
-    })
+  return (
+    unified()
+      .use(remarkParse)
+      .use(remarkRehype)
+      .use(remarkGfm)
+      // @ts-expect-error wow
+      .use(rehypeShiki, {
+        highlighter: await shiki.getHighlighter({ theme: 'poimandres' }),
+      })
+      .use(rehypeStringify)
+      .use(rehypeSlug)
+      .use(rehypeAutolinkHeadings, {
+        content: argument => ({
+          type: 'element',
+          tagName: 'a',
+          properties: {
+            href: `#${String(argument.properties?.id)}`,
+            style: 'margin-right: 10px',
+          },
+          children: [{ type: 'text', value: '#' }],
+        }),
+      })
+  )
 }
 
 function getParser() {
