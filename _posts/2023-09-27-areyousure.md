@@ -1,27 +1,55 @@
 ---
 title:
-  I see you don't have noUncheckedIndexedAccess:true. Are you sure you didn't
-  mean Record<string, X|undefined>?
+  I see that noUncheckedIndexedAccess is false. Did you want to use
+  Record<string, T|undefined>?
 date: 2023-09-27
 ---
 
-It is common in typescript to write Record<string,X> for whatever type X you
-store in an object (or {[key:string]:X}).
+![](/clippy.jpg)
 
-But, are you sure you're actually going to get a string back?
+It is common in typescript to write `Record<string,T>` for whatever type `T` you
+store in an object.
 
-There is an actually quite cool Typescript setting called
-noUncheckedIndexedAccess that will always make the return type of any access you
-make X|undefined, but very few people use this setting, it is default false.
+But, are you sure you're actually going to get an `T` back? What if some random
+user provided string is provided and it produces undefined? You might think, as
+a typescripter "do I really have to add undefined to the signature, shouldn't
+Typescript check this for me"? Well..
 
-Therefore: ask yourself. Do you have a Record<string,X> or
-Record<string,X|undefined>?
+## `noUncheckedIndexedAccess`
 
-Or should you consider using noUncheckedIndexedAccess??!!! In my current
-project, turning it on produces
+There is actually a built-in Typescript setting called
+[`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)
+that will basically change your usage of a `Record<string,T>` into a
+`Record<string,T|undefined>`. It actually makes the return type of accessing
+both objects and arrays into an `T|undefined`.
 
-```
-[10:06:14 PM] Found 1006 errors.
-```
+The catch?
+
+- It is default false
+- It is probably too "annoying" (or produces too many "false positives") for
+  most projects to warrant it being turned on
+- Hence, very few people use this setting
+
+Therefore: you really do have to ask yourself. Do you feel lucky punk? Sorry
+wrong line. I mean, do you want to use a `Record<string,T>` or a
+`Record<string,T|undefined>`?
 
 Enjoy! https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess
+
+Discussion on why this is not on by default:
+https://github.com/microsoft/TypeScript/issues/49169
+
+## Footnote 1: Should `noUncheckedIndexedAccess` be split into two settings?
+
+I feel like using 'untrusted input' or 'runtime values' to access a Record is
+more common than using 'untrusted input' to access an array index, so it would
+be sort of nice if `noUncheckedIndexedAccess` was split into two separate
+settings...one for Records, one for Arrays. A common complaint is that the
+'array access' part of this setting is a little too strict, and requires
+non-null assertions
+
+## Footnote 2: Consider using a Map instead
+
+The Map .get method has the signature T|undefined, so it forces you to consider
+this. Slightly more cumbersome to use than plain old objects, but has this
+benefit amongst others!
