@@ -1,5 +1,5 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css","style",{"crossOrigin":""}]
-0:["jWCMhXI2p2l5_me5xo7pW",[[["",{"children":["posts",{"children":[["id","2021-07-27-npm-dependencies","d"],{"children":["__PAGE__?{\"id\":\"2021-07-27-npm-dependencies\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
+0:["tDkfGaT-pKESnHzYO60C7",[[["",{"children":["posts",{"children":[["id","2021-07-27-npm-dependencies","d"],{"children":["__PAGE__?{\"id\":\"2021-07-27-npm-dependencies\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
 4:I{"id":4724,"chunks":["724:static/chunks/724-f777e11942c9f205.js","931:static/chunks/app/page-dc728b3619945451.js"],"name":"","async":false}
 5:I{"id":1443,"chunks":["272:static/chunks/webpack-19ac6e418b88dab7.js","971:static/chunks/fd9d1056-e43fdc25c1167267.js","864:static/chunks/864-f0261ea346b46dc5.js"],"name":"","async":false}
 6:I{"id":8639,"chunks":["272:static/chunks/webpack-19ac6e418b88dab7.js","971:static/chunks/fd9d1056-e43fdc25c1167267.js","864:static/chunks/864-f0261ea346b46dc5.js"],"name":"","async":false}
