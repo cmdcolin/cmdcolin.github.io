@@ -7,12 +7,18 @@ export const metadata = {
 const ret = `2023	Kazuo Ishiguro	A Pale View of Hills
 2023	Otessa Moshfegh	My Year of Rest and Relaxation
 2023	Kazuo Ishiguro	Never Let Me Go
+2023	Osamu Dazai	No Longer Human
+2023	Haruki Murakami	Norwegian Wood
 2023	David Sedaris	Me Talk Pretty One Day
 2023	Siddhartha Mukherjee	The Emperor of All Maladies: A Biography of Cancer
+2023	John Williams	Stoner
 2022	John Steinbeck	Tortilla Flat
 2022	Erich Maria Remarque	All Quiet on The Western Front
+2022	Ernest Hemingway	The Sun Also Rises
 2022	Ernest Hemingway	A Farewell to Arms
+2022	Fyodor Dostoevsky	Crime and Punishment
 2022	Anne Frank	Diary of a Young Girl
+2022	David De Jong	Nazi Billionaires
 2022	Erik Larson	Dead Wake
 2022	Erik Larson	In the Garden of Beasts
 2021	Bill Bryson	A Short History of Nearly Everything
@@ -29,7 +35,9 @@ const ret = `2023	Kazuo Ishiguro	A Pale View of Hills
 2020	Victor Frankl	Man's Search for Meaning
 2020	Yuval Harari	Sapiens: A Brief History of Humankind
 2020	Jeffrey Euenides	Middlesex
-2020	Pat Conroy	The Prince of Tides`
+2020	Pat Conroy	The Prince of Tides
+2019	Tennesee William	A Streetcar Named Desire`
+
 export default function Contents() {
   return (
     <div className="tiny">
