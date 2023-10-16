@@ -11,9 +11,9 @@ It is common in typescript to write `Record<string,T>` for whatever type `T` you
 store in an object.
 
 But, are you sure you're actually going to get an `T` back? What if some random
-user provided string is provided and it produces undefined? You might think, as
-a typescripter "do I really have to add undefined to the signature, shouldn't
-Typescript check this for me"? Well..
+user provided string is used to index the Record, and it produces undefined? You
+might think, as a typescripter "do I really have to add undefined to the
+signature, shouldn't Typescript check this for me"? Well..
 
 ## `noUncheckedIndexedAccess`
 
