@@ -9,6 +9,8 @@ which I was proud to be first author of.
 
 ## Small bioinformatics tools
 
+- [maf2bed](https://github.com/cmdcolin/maf2bed) - A small rust tool to convert
+  MAF to bedtabix, used along with mafviewer jbrowse plugin (2023)
 - [bam_index_visualizer](https://cmdcolin.github.io/bam_index_visualizer/) -
   Visualize the structure of the binning index of BAI files (2023)
 - [secondary_rewriter](https://github.com/cmdcolin/secondary_rewriter) - Adds
