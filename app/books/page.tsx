@@ -4,7 +4,8 @@ export const metadata = {
   title: 'Books',
 }
 
-const ret = `2023	Kazuo Ishiguro	A Pale View of Hills
+const ret = `2023	Sylvia Plath	The Bell Jar
+2023	Kazuo Ishiguro	A Pale View of Hills
 2023	Otessa Moshfegh	My Year of Rest and Relaxation
 2023	Kazuo Ishiguro	Never Let Me Go
 2023	Osamu Dazai	No Longer Human
