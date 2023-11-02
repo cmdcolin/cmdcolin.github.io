@@ -4,40 +4,80 @@ export const metadata = {
   title: 'Books',
 }
 
-const ret = `2023	Sylvia Plath	The Bell Jar
-2023	Kazuo Ishiguro	A Pale View of Hills
-2023	Otessa Moshfegh	My Year of Rest and Relaxation
-2023	Kazuo Ishiguro	Never Let Me Go
-2023	Osamu Dazai	No Longer Human
-2023	Haruki Murakami	Norwegian Wood
-2023	David Sedaris	Me Talk Pretty One Day
-2023	Siddhartha Mukherjee	The Emperor of All Maladies: A Biography of Cancer
-2023	John Williams	Stoner
-2022	John Steinbeck	Tortilla Flat
-2022	Erich Maria Remarque	All Quiet on The Western Front
-2022	Ernest Hemingway	The Sun Also Rises
-2022	Ernest Hemingway	A Farewell to Arms
-2022	Fyodor Dostoevsky	Crime and Punishment
-2022	Anne Frank	Diary of a Young Girl
-2022	David De Jong	Nazi Billionaires
-2022	Erik Larson	Dead Wake
-2022	Erik Larson	In the Garden of Beasts
-2021	Bill Bryson	A Short History of Nearly Everything
-2021	John Steinbeck	Of Mice and Men
-2021	Barbara Demick	Nothing to Envy: Ordinary Lives in North Korea
-2021	David Green	Killers of the Flower Moon
-2021	Erik Larson	The Devil in the White City
-2021	Erik Larson	Thunderstruck
-2021	Scott F Fitzgerald	The Great Gatsby
-2021	Robert Kolker	Lost Girls: The Unsolved American Mystery of the Gilgo Beach Serial Killer Murders
-2021	Robert Kolker	Hidden Valley Road: Inside the Mind of an American Family
-2021	Erik Larson	The Splendid and the Vile
-2021	Carl Zimmer	She Has Her Mother's Laugh: What Heredity Is, Is Not, and May Become
-2020	Victor Frankl	Man's Search for Meaning
-2020	Yuval Harari	Sapiens: A Brief History of Humankind
-2020	Jeffrey Euenides	Middlesex
-2020	Pat Conroy	The Prince of Tides
-2019	Tennesee William	A Streetcar Named Desire`
+const ret = [
+  { year: 2023, author: 'Sylvia Plath', title: 'The Bell Jar' },
+  { year: 2023, author: 'Kazuo Ishiguro', title: 'A Pale View of Hills' },
+  {
+    year: 2023,
+    author: 'Otessa Moshfegh',
+    title: 'My Year of Rest and Relaxation',
+  },
+  { year: 2023, author: 'Kazuo Ishiguro', title: 'Never Let Me Go' },
+  { year: 2023, author: 'Osamu Dazai', title: 'No Longer Human' },
+  { year: 2023, author: 'Haruki Murakami', title: 'Norwegian Wood' },
+  { year: 2023, author: 'David Sedaris', title: 'Me Talk Pretty One Day' },
+  {
+    year: 2023,
+    author: 'Siddhartha Mukherjee',
+    title: 'The Emperor of All Maladies: A Biography of Cancer',
+  },
+  { year: 2023, author: 'John Williams', title: 'Stoner' },
+  { year: 2022, author: 'John Steinbeck', title: 'Tortilla Flat' },
+  {
+    year: 2022,
+    author: 'Erich Maria Remarque',
+    title: 'All Quiet on The Western Front',
+  },
+  { year: 2022, author: 'Ernest Hemingway', title: 'The Sun Also Rises' },
+  { year: 2022, author: 'Ernest Hemingway', title: 'A Farewell to Arms' },
+  { year: 2022, author: 'Fyodor Dostoevsky', title: 'Crime and Punishment' },
+  { year: 2022, author: 'Anne Frank', title: 'Diary of a Young Girl' },
+  { year: 2022, author: 'David De Jong', title: 'Nazi Billionaires' },
+  { year: 2022, author: 'Erik Larson', title: 'Dead Wake' },
+  { year: 2022, author: 'Erik Larson', title: 'In the Garden of Beasts' },
+  {
+    year: 2021,
+    author: 'Bill Bryson',
+    title: 'A Short History of Nearly Everything',
+  },
+  { year: 2021, author: 'John Steinbeck', title: 'Of Mice and Men' },
+  {
+    year: 2021,
+    author: 'Barbara Demick',
+    title: 'Nothing to Envy: Ordinary Lives in North Korea',
+  },
+  { year: 2021, author: 'David Green', title: 'Killers of the Flower Moon' },
+  { year: 2021, author: 'Erik Larson', title: 'The Devil in the White City' },
+  { year: 2021, author: 'Erik Larson', title: 'Thunderstruck' },
+  { year: 2021, author: 'Scott F Fitzgerald', title: 'The Great Gatsby' },
+  {
+    year: 2021,
+    author: 'Robert Kolker',
+    title:
+      'Lost Girls: The Unsolved American Mystery of the Gilgo Beach Serial Killer Murders',
+  },
+  {
+    year: 2021,
+    author: 'Robert Kolker',
+    title: 'Hidden Valley Road: Inside the Mind of an American Family',
+  },
+  { year: 2021, author: 'Erik Larson', title: 'The Splendid and the Vile' },
+  {
+    year: 2021,
+    author: 'Carl Zimmer',
+    title:
+      "She Has Her Mother's Laugh: What Heredity Is, Is Not, and May Become",
+  },
+  { year: 2020, author: 'Victor Frankl', title: "Man's Search for Meaning" },
+  {
+    year: 2020,
+    author: 'Yuval Harari',
+    title: 'Sapiens: A Brief History of Humankind',
+  },
+  { year: 2020, author: 'Jeffrey Eugenides', title: 'Middlesex' },
+  { year: 2020, author: 'Pat Conroy', title: 'The Prince of Tides' },
+  { year: 2019, author: 'Tennesee William', title: 'A Streetcar Named Desire' },
+]
 
 export default function Contents() {
   return (
@@ -52,15 +92,18 @@ export default function Contents() {
           </tr>
         </thead>
         <tbody>
-          {ret.split('\n').map((line, idx) => (
+          {ret.map((line, idx) => (
             <tr key={idx}>
-              {line.split('\t').map(elt => (
-                <td key={elt}>{elt}</td>
-              ))}
+              <td>{line.year}</td>
+              <td>{line.author}</td>
+              <td>{line.title}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <a href="https://github.com/cmdcolin/cmdcolin.github.io/discussions/15">
+        Recommend me a book
+      </a>
     </div>
   )
 }
