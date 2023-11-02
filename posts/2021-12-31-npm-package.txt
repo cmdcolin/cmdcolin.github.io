@@ -1,5 +1,5 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css","style",{"crossOrigin":""}]
-0:["s4HiC5SvrRvMR-FL3suRx",[[["",{"children":["posts",{"children":[["id","2021-12-31-npm-package","d"],{"children":["__PAGE__?{\"id\":\"2021-12-31-npm-package\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
+0:["ZBa_0wEHcGvwDiFwe-kav",[[["",{"children":["posts",{"children":[["id","2021-12-31-npm-package","d"],{"children":["__PAGE__?{\"id\":\"2021-12-31-npm-package\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
 4:I[8326,["326","static/chunks/326-f70436363102ecf4.js","931","static/chunks/app/page-0c1302a539e2db94.js"],""]
 5:I[6954,[],""]
 6:I[7264,[],""]
