@@ -1,26 +1,25 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css","style",{"crossOrigin":""}]
-0:["WsNHpJ1bOWzQLrKQOoOzk",[[["",{"children":["posts",{"children":[["id","2023-09-27-areyousure","d"],{"children":["__PAGE__?{\"id\":\"2023-09-27-areyousure\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
+0:["z0g4RAH4MSbt03RMOVP0x",[[["",{"children":["posts",{"children":[["id","2023-09-27-areyousure","d"],{"children":["__PAGE__?{\"id\":\"2023-09-27-areyousure\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
 4:I[8326,["326","static/chunks/326-fbc8335c152e7254.js","931","static/chunks/app/page-0c1302a539e2db94.js"],""]
 5:I[6954,[],""]
 6:I[7264,[],""]
 2:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"initialChildNode":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","initialChildNode":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-09-27-areyousure","d"],"children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","initialChildNode":["$L7","$L8",null],"childPropSegment":"__PAGE__?{\"id\":\"2023-09-27-areyousure\"}","styles":null}],"childPropSegment":["id","2023-09-27-areyousure","d"],"styles":null}],"childPropSegment":"posts","styles":null}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}],["$","$L4",null,{"href":"/archive","children":"Blog archive"}],["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}],["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}],["$","$L4",null,{"href":"/books","children":"Books"}],["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
 a:I[5854,["722","static/chunks/app/posts/%5Bid%5D/page-e330a42958005b01.js"],""]
-9:T134f,<p><img src="/clippy.jpg" alt=""></p>
+9:T1378,<p><img src="/clippy.jpg" alt=""></p>
 <p>It is common in typescript to write <code>Record&#x3C;string,T></code> for whatever type <code>T</code> you
 store in an object.</p>
 <p>But, are you sure you're actually going to get an <code>T</code> back? What if some random
 user provided string is used to index the Record, and it produces undefined? You
 might think, as a typescripter "do I really have to add undefined to the
 signature, shouldn't Typescript check this for me"? Well..</p>
-<h2 id="nouncheckedindexedaccess"><a aria-hidden="true" tabindex="-1" href="#nouncheckedindexedaccess"><a href="#nouncheckedindexedaccess" style="margin-right: 10px">#</a></a><code>noUncheckedIndexedAccess</code></h2>
+<h2 id="introducing-the-nouncheckedindexedaccess-tsconfigjson-setting"><a aria-hidden="true" tabindex="-1" href="#introducing-the-nouncheckedindexedaccess-tsconfigjson-setting"><a href="#introducing-the-nouncheckedindexedaccess-tsconfigjson-setting" style="margin-right: 10px">#</a></a>Introducing: the <code>noUncheckedIndexedAccess</code> tsconfig.json setting</h2>
 <p>There is actually a built-in Typescript setting called
-<a href="https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess"><code>noUncheckedIndexedAccess</code></a>
-that will basically change your usage of a <code>Record&#x3C;string,T></code> into a
-<code>Record&#x3C;string,T|undefined></code>. It actually makes the return type of accessing
-both objects and arrays into an <code>T|undefined</code>.</p>
+<a href="https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess"><code>noUncheckedIndexedAccess</code></a></p>
+<p>This setting makes the return type of accessing any Record or Array into an
+<code>T|undefined</code>.</p>
 <p>The catch?</p>
 <ul>
-<li>It is default false</li>
+<li>This setting is turned off by default</li>
 <li>It is probably too "annoying" (or produces too many "false positives") for
 most projects to warrant it being turned on</li>
 <li>Hence, very few people use this setting</li>
