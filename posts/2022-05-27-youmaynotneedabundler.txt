@@ -1,5 +1,5 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css","style",{"crossOrigin":""}]
-0:["OtWNRsgEJTvoGgfQy4spB",[[["",{"children":["posts",{"children":[["id","2022-05-27-youmaynotneedabundler","d"],{"children":["__PAGE__?{\"id\":\"2022-05-27-youmaynotneedabundler\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
+0:["26L-vt4Je-8yBIjRHfRBV",[[["",{"children":["posts",{"children":[["id","2022-05-27-youmaynotneedabundler","d"],{"children":["__PAGE__?{\"id\":\"2022-05-27-youmaynotneedabundler\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
 4:I[8326,["326","static/chunks/326-fbc8335c152e7254.js","931","static/chunks/app/page-0c1302a539e2db94.js"],""]
 5:I[6954,[],""]
 6:I[7264,[],""]
