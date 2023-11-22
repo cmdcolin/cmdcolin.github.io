@@ -1,11 +1,11 @@
 1:HL["/_next/static/css/97dc5fe527f5d592.css","style",{"crossOrigin":""}]
-0:["26L-vt4Je-8yBIjRHfRBV",[[["",{"children":["posts",{"children":[["id","2023-09-27-areyousure","d"],{"children":["__PAGE__?{\"id\":\"2023-09-27-areyousure\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
+0:["WsNHpJ1bOWzQLrKQOoOzk",[[["",{"children":["posts",{"children":[["id","2023-09-27-areyousure","d"],{"children":["__PAGE__?{\"id\":\"2023-09-27-areyousure\"}",{}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/97dc5fe527f5d592.css","precedence":"next","crossOrigin":""}]],"$L3"]]]]
 4:I[8326,["326","static/chunks/326-fbc8335c152e7254.js","931","static/chunks/app/page-0c1302a539e2db94.js"],""]
 5:I[6954,[],""]
 6:I[7264,[],""]
 2:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L4",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"initialChildNode":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","initialChildNode":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children",["id","2023-09-27-areyousure","d"],"children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","initialChildNode":["$L7","$L8",null],"childPropSegment":"__PAGE__?{\"id\":\"2023-09-27-areyousure\"}","styles":null}],"childPropSegment":["id","2023-09-27-areyousure","d"],"styles":null}],"childPropSegment":"posts","styles":null}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L4",null,{"href":"/","children":"Home"}],["$","$L4",null,{"href":"/archive","children":"Blog archive"}],["$","$L4",null,{"href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L4",null,{"href":"https://twitter.com/cmdcolin","children":"Twitter"}],["$","$L4",null,{"href":"/projects","children":"Projects"}]," ",["$","$L4",null,{"href":"/photos","children":"Photos"}],["$","$L4",null,{"href":"/books","children":"Books"}],["$","$L4",null,{"href":"/about","children":"About"}]]}]]}]}],null]
 a:I[5854,["722","static/chunks/app/posts/%5Bid%5D/page-e330a42958005b01.js"],""]
-9:T1240,<p><img src="/clippy.jpg" alt=""></p>
+9:T134f,<p><img src="/clippy.jpg" alt=""></p>
 <p>It is common in typescript to write <code>Record&#x3C;string,T></code> for whatever type <code>T</code> you
 store in an object.</p>
 <p>But, are you sure you're actually going to get an <code>T</code> back? What if some random
@@ -42,15 +42,15 @@ non-null assertions</p>
 <p>The <code>Map::get</code> method returns <code>T|undefined</code>, so it forces you to consider the
 undefined case always. I find Maps slightly more cumbersome to use than plain
 old objects, but has this benefit amongst others!</p>
-<h2 id="foonote-3-small-downside"><a aria-hidden="true" tabindex="-1" href="#foonote-3-small-downside"><a href="#foonote-3-small-downside" style="margin-right: 10px">#</a></a>Foonote 3: Small downside</h2>
+<h2 id="footnote-3-small-downside-to-recordstring-tundefined"><a aria-hidden="true" tabindex="-1" href="#footnote-3-small-downside-to-recordstring-tundefined"><a href="#footnote-3-small-downside-to-recordstring-tundefined" style="margin-right: 10px">#</a></a>Footnote 3: Small downside to <code>Record&#x3C;string, T|undefined></code></h2>
 <p>Maybe you are certain there aren't actually undefined values stored in your
 object, and you just used <code>Record&#x3C;string, T|undefined></code> to be able to say
-<code>obj['randomthing']</code> returns undefined. Well, now calling e.g.
-<code>Object.values(obj)</code> will return <code>(T|undefined)[]</code> (similar for
-<code>Object.entries</code>) which is slightly annoying as a user, why may want it to just
-be <code>T[]</code> but they can non-null assert or filter out potential undefined's as a
-workaround.</p>
-<h2 id="footnote-4-small-upside"><a aria-hidden="true" tabindex="-1" href="#footnote-4-small-upside"><a href="#footnote-4-small-upside" style="margin-right: 10px">#</a></a>Footnote 4: Small upside</h2>
+<code>obj['randomthing']</code> returns undefined.</p>
+<p>Well, now calling e.g. <code>Object.values(obj)</code> will return <code>(T|undefined)[]</code>
+(similar for <code>Object.entries</code>) which is slightly annoying as a user, why may
+want it to just be <code>T[]</code> but they can non-null assert or filter out potential
+undefined's as a workaround.</p>
+<h2 id="footnote-4-small-upside-to-recordstring-tundefined"><a aria-hidden="true" tabindex="-1" href="#footnote-4-small-upside-to-recordstring-tundefined"><a href="#footnote-4-small-upside-to-recordstring-tundefined" style="margin-right: 10px">#</a></a>Footnote 4: Small upside to <code>Record&#x3C;string, T|undefined></code></h2>
 <p>If you read this article and said, ya, I'm gonna use <code>noUncheckedIndexedAccess</code>
 in the tsconfig.json of my library, and you feel all safe and cozy using
 <code>Record&#x3C;string, T></code>, well your users may still have trouble: if the consumers of
