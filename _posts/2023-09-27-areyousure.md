@@ -15,17 +15,17 @@ user provided string is used to index the Record, and it produces undefined? You
 might think, as a typescripter "do I really have to add undefined to the
 signature, shouldn't Typescript check this for me"? Well..
 
-## `noUncheckedIndexedAccess`
+## Introducing: the `noUncheckedIndexedAccess` tsconfig.json setting
 
 There is actually a built-in Typescript setting called
 [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)
-that will basically change your usage of a `Record<string,T>` into a
-`Record<string,T|undefined>`. It actually makes the return type of accessing
-both objects and arrays into an `T|undefined`.
+
+This setting makes the return type of accessing any Record or Array into an
+`T|undefined`.
 
 The catch?
 
-- It is default false
+- This setting is turned off by default
 - It is probably too "annoying" (or produces too many "false positives") for
   most projects to warrant it being turned on
 - Hence, very few people use this setting
@@ -48,8 +48,28 @@ settings...one for Records, one for Arrays. A common complaint is that the
 'array access' part of this setting is a little too strict, and requires
 non-null assertions
 
-## Footnote 2: Consider using a Map instead
+## Footnote 2: Consider using a `Map` instead
 
-The Map .get method has the signature T|undefined, so it forces you to consider
-this. Slightly more cumbersome to use than plain old objects, but has this
-benefit amongst others!
+The `Map::get` method returns `T|undefined`, so it forces you to consider the
+undefined case always. I find Maps slightly more cumbersome to use than plain
+old objects, but has this benefit amongst others!
+
+## Footnote 3: Small downside to `Record<string, T|undefined>`
+
+Maybe you are certain there aren't actually undefined values stored in your
+object, and you just used `Record<string, T|undefined>` to be able to say
+`obj['randomthing']` returns undefined.
+
+Well, now calling e.g. `Object.values(obj)` will return `(T|undefined)[]`
+(similar for `Object.entries`) which is slightly annoying as a user, why may
+want it to just be `T[]` but they can non-null assert or filter out potential
+undefined's as a workaround.
+
+## Footnote 4: Small upside to `Record<string, T|undefined>`
+
+If you read this article and said, ya, I'm gonna use `noUncheckedIndexedAccess`
+in the tsconfig.json of my library, and you feel all safe and cozy using
+`Record<string, T>`, well your users may still have trouble: if the consumers of
+your library don't use the `noUncheckedIndexedAccess` tsconfig.json setting,
+then they will not get the benefit of that undefined condition unless you
+explicitly mark your exported types as `Record<string, T|undefined>`
