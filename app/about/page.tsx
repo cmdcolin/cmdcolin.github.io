@@ -12,8 +12,8 @@ export default function Contents() {
         genome browser.
       </p>
       <p>
-        I&apos;m from Boulder, CO and currently work remotely from ABQ, NM. In
-        previous lives I also lived in Columbia, MO and Detroit, MI
+        I&apos;m from Boulder, CO and currently work remotely from Greenfield,
+        MA. I have also lived in Columbia, MO, Detroit, MI, and ABQ, MM
       </p>
       <p>
         <img src="/me2.jpg" alt="" />
