@@ -175,7 +175,8 @@ Do you want to make a pure-ESM package? Then you do not want to use
 `"moduleResolution": "node"` in `tsconfig.json`, and you will want to set
 `"type": "module"` in `package.json`. You may also need to explicitly import
 with `.js` extensions in your source code, even if you write `.ts`. This is
-awkward, and something the community is still grappling with.
+awkward, and something the community is still grappling with. You will also
+probably use the "exports" field in package.json.
 
 If you have ever stumbled on this topic, you will probably want to see this link
 https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
@@ -200,21 +201,7 @@ I have found this technique can go a long ways towards keeping your package
 compatible with nodeJS and bundlers and it does not require "export maps" or
 anything which I have found to be difficult to configure
 
-## Footnote 3: Learning your tools
-
-Several people on the
-[my recent post](https://cmdcolin.github.io/posts/2022-05-04-findseddangerous)
-post suggested that I did not understand my tools, and that I should just learn
-the tools correctly and I wouldn't have the problem I had.
-
-Indeed, what I am now telling people to do in this post is similar: I am saying
-"just use `tsc` by itself! Understand you tools! You may have to do more
-research and create more boilerplate, but it's **better**".
-
-Ultimately though, it's up to you to choose your tools and starter packs and
-whatnot.
-
-## Footnote 4: What does it look like when you compile with tsc?
+## Footnote 3: What does it look like when you compile with tsc?
 
 When I refer to compiling with tsc above, I compile a `src` directory into a
 `dist` directory
@@ -251,33 +238,7 @@ this package as the d.ts files are automatically found.
 See https://cmdcolin.github.io/posts/2021-12-31-npm-package for my article on
 creating a typescript package for npm
 
-## Footnote 5: Other things people recommend
-
-Other things people recommend in the starter pack threads
-
-- `deno` - not clear to me how this helps when deploying to npm, but I still
-  gotta try deno
-- `ts-node ` - not clear to me how this helps when deploying to npm
-- `nx` - heavy monorepo-based solution
-- `elm` - that's just a different thing
-- `Typescript-Node-Starter` -
-  https://github.com/microsoft/TypeScript-Node-Starter - not a library, full
-  stack framework
-- `joystick` - https://github.com/CheatCode/joystick - not a library, full stack
-  framework
-
-## Footnote 6:
-
-Similar things happen if you take on dependencies of starter kits like
-`create-react-app`. You become very committed to their particular way of doing
-things, and can only modify their config with things like `rescripts`, `craco`
-or `rewired`. If you crafted your setup with just `webpack`, you may not be so
-tied down. But, I still use things like `create-react-app` because they do seem
-to help me significantly. Now though, the tide seems to be turning other
-directions like next.js which can do static site generation at a basic level and
-extend to multiple pages more easily.
-
-## Footnote 7:
+## Footnote 4:
 
 You may not even need `tsc` to compile your dist folder. You can literally
 publish your source `.js` files as-is to NPM. This suggestion comes from
@@ -289,8 +250,9 @@ An interesting thing is you can write in `.js` but still get `typescript` to get
 type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
 `tsconfig.json`
 
-## Footnote 8:
+## Footnote 5:
 
-What about React? Bundlers not needed, and not even babel is needed: you can
-code your library as in `jsx` or `tsx` files and use `tsc` to compile it to
-React.createElement statements or other jsx transforms.
+What about using React in your library? Bundlers are still not needed, and not
+even babel is needed: you can code your library as in `jsx` or `tsx` files and
+use `tsc` to compile it, and it will be converted to React.createElement
+statements (or the newer jsx transform if you elect to use it in your tsconfig).
