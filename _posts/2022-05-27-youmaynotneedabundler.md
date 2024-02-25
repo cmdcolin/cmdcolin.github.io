@@ -173,10 +173,16 @@ the basic tools like `tsc` will help
 
 Do you want to make a pure-ESM package? Then you do not want to use
 `"moduleResolution": "node"` in `tsconfig.json`, and you will want to set
-`"type": "module"` in `package.json`. You may also need to explicitly import
-with `.js` extensions in your source code, even if you write `.ts`. This is
-awkward, and something the community is still grappling with. You will also
-probably use the "exports" field in package.json.
+`"type": "module"` in `package.json`.
+
+You may also need to explicitly import with `.js` extensions in your source
+code, even if you write `.ts`.
+
+This is awkward, and something the community is still grappling with. This is
+ACTUALLY one of the areas that a bundler can help, because by bundling, you
+don't ever encounter any actual imported files in the published artifacts.
+
+You will also probably use the "exports" field in package.json.
 
 If you have ever stumbled on this topic, you will probably want to see this link
 https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
@@ -238,7 +244,7 @@ this package as the d.ts files are automatically found.
 See https://cmdcolin.github.io/posts/2021-12-31-npm-package for my article on
 creating a typescript package for npm
 
-## Footnote 4:
+## Footnote 4: Publishing the raw JS with JSDoc checked types
 
 You may not even need `tsc` to compile your dist folder. You can literally
 publish your source `.js` files as-is to NPM. This suggestion comes from
@@ -250,7 +256,7 @@ An interesting thing is you can write in `.js` but still get `typescript` to get
 type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
 `tsconfig.json`
 
-## Footnote 5:
+## Footnote 5: Using JSX does not require bundler
 
 What about using React in your library? Bundlers are still not needed, and not
 even babel is needed: you can code your library as in `jsx` or `tsx` files and
