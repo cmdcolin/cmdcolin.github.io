@@ -9,8 +9,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
-import rehypeShiki from '@leafac/rehype-shiki'
-import * as shiki from 'shiki'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 import sketches from './sketches.json' assert { type: 'json' }
 
@@ -29,40 +28,30 @@ function getSketchFiles() {
 // yarn build
 let p: ReturnType<typeof getParserPre> | undefined
 
-async function getParserPre() {
-  return (
-    unified()
-      .use(remarkParse)
-      .use(remarkRehype)
-      .use(remarkGfm)
-      // @ts-expect-error wow
-      .use(rehypeShiki, {
-        highlighter: await shiki.getHighlighter({ theme: 'poimandres' }),
-      })
-      .use(rehypeStringify)
-      .use(rehypeSlug)
-      .use(rehypeAutolinkHeadings, {
-        content: argument => ({
-          type: 'element',
-          tagName: 'a',
-          properties: {
-            href: `#${String(argument.properties?.id)}`,
-            style: 'margin-right: 10px',
-          },
-          children: [{ type: 'text', value: '#' }],
-        }),
-      })
-  )
-}
-
 function getParser() {
-  if (!p) {
-    p = getParserPre().catch(error => {
-      p = undefined
-      throw error
+  return unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(remarkGfm)
+    .use(rehypePrettyCode, {
+      // See Options section below.
+      //
+      theme: 'one-dark-pro',
     })
-  }
-  return p
+    .use(rehypeStringify)
+    .use(rehypeStringify)
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
+      content: argument => ({
+        type: 'element',
+        tagName: 'a',
+        properties: {
+          href: `#${String(argument.properties?.id)}`,
+          style: 'margin-right: 10px',
+        },
+        children: [{ type: 'text', value: '#' }],
+      }),
+    })
 }
 
 export async function getPostById(id: string) {
@@ -70,7 +59,7 @@ export async function getPostById(id: string) {
   const fullPath = join(postsDirectory, `${realId}.md`)
   const { data, content } = matter(await fs.promises.readFile(fullPath, 'utf8'))
 
-  const parser = await getParser()
+  const parser = getParser()
   const html = await parser.process(content)
   const date = data.date as Date
 

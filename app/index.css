@@ -51,6 +51,7 @@ li + li {
   margin-top: 10px;
 }
 
-.shiki {
+pre {
   padding: 10px;
+  border-radius: 5px;
 }
