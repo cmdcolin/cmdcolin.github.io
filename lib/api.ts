@@ -1,7 +1,7 @@
-import fs from 'node:fs'
+import fs from 'fs'
+import path from 'path'
 import matter from 'gray-matter'
 import { Feed } from 'feed'
-import { join } from 'node:path'
 import { unified } from 'unified'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
@@ -13,7 +13,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 
 import sketches from './sketches.json' assert { type: 'json' }
 
-const postsDirectory = join(process.cwd(), '_posts')
+const postsDirectory = path.join(process.cwd(), '_posts')
 
 function getPostFiles() {
   return fs.readdirSync(postsDirectory)
@@ -22,11 +22,6 @@ function getPostFiles() {
 function getSketchFiles() {
   return sketches.map(d => ({ ...d, date: +new Date(d.date) }))
 }
-
-// cache the unified parser, this actually takes a significant time to
-// initialize across many blogposts so caching went from ~60s->~10s to run a
-// yarn build
-let p: ReturnType<typeof getParserPre> | undefined
 
 function getParser() {
   return unified()
@@ -42,11 +37,11 @@ function getParser() {
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
-      content: argument => ({
+      content: arg => ({
         type: 'element',
         tagName: 'a',
         properties: {
-          href: `#${String(argument.properties?.id)}`,
+          href: `#${String(arg.properties?.id)}`,
           style: 'margin-right: 10px',
         },
         children: [{ type: 'text', value: '#' }],
@@ -54,12 +49,14 @@ function getParser() {
     })
 }
 
+// small speedup from caching this variable
+const parser = getParser()
+
 export async function getPostById(id: string) {
   const realId = id.replace(/\.md$/, '')
-  const fullPath = join(postsDirectory, `${realId}.md`)
+  const fullPath = path.join(postsDirectory, `${realId}.md`)
   const { data, content } = matter(await fs.promises.readFile(fullPath, 'utf8'))
 
-  const parser = getParser()
   const html = await parser.process(content)
   const date = data.date as Date
 
@@ -74,9 +71,8 @@ export async function getPostById(id: string) {
 
 export async function getPageMarkdown(string_: string) {
   const { data, content } = matter(
-    fs.readFileSync(join('_pages', string_), 'utf8'),
+    fs.readFileSync(path.join('_pages', string_), 'utf8'),
   )
-  const parser = await getParser()
   const html = await parser.process(content)
 
   return {

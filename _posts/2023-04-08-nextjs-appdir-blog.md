@@ -12,15 +12,15 @@ https://nextjs.org/blog/next-13-3#static-export-for-app-router
 
 See here
 
-https://github.com/cmdcolin/next13-appdir-blog
+https://github.com/cmdcolin/nextjs-appdir-blog
 
 If you take nothing else away from this article, let it be that
 
 - The 'app' dir, with react server components, can be used to create static
   websites
 
-- That react server components can be just like, async function components. It's
-  quite interesting
+- That react server components (RSC) can be "async function components" whereas
+  this does not exist on the client side. It's quite interesting
 
 The exact step-by-step here is probably unnecessary but just trying to show the
 raw basics
@@ -63,9 +63,6 @@ Add 'output': 'export' to the next.config.js file
 ```typescript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   output: 'export',
 }
 
@@ -149,7 +146,7 @@ And then, add this code
 // lib/api.ts
 import fs from 'fs'
 import matter from 'gray-matter'
-import { join } from 'path'
+import path from 'path'
 import { unified } from 'unified'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
@@ -157,21 +154,23 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
-import rehypeShiki from '@leafac/rehype-shiki'
-import * as shiki from 'shiki'
+import rehypePrettyCode from 'rehype-pretty-code'
 
-// memoize/cache the creation of the markdown parser, this sped up the
-// building of the blog from ~60s->~10s
-let p: ReturnType<typeof getParserPre> | undefined
+const postsDirectory = path.join(process.cwd(), '_posts')
 
-async function getParserPre() {
+function getPostFiles() {
+  return fs.readdirSync(postsDirectory)
+}
+
+function getParser() {
   return unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(remarkGfm)
-    .use(rehypeShiki, {
-      highlighter: await shiki.getHighlighter({ theme: 'poimandres' }),
+    .use(rehypePrettyCode, {
+      theme: 'one-dark-pro',
     })
+    .use(rehypeStringify)
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
@@ -179,7 +178,7 @@ async function getParserPre() {
         type: 'element',
         tagName: 'a',
         properties: {
-          href: '#' + arg.properties?.id,
+          href: `#${String(arg.properties?.id)}`,
           style: 'margin-right: 10px',
         },
         children: [{ type: 'text', value: '#' }],
@@ -187,37 +186,40 @@ async function getParserPre() {
     })
 }
 
-function getParser() {
-  if (!p) {
-    p = getParserPre().catch(e => {
-      p = undefined
-      throw e
-    })
-  }
-  return p
-}
+// small speedup from caching this parser
+const parser = getParser()
 
 export async function getPostById(id: string) {
   const realId = id.replace(/\.md$/, '')
-  const fullPath = join('_posts', `${realId}.md`)
+  const fullPath = path.join(postsDirectory, `${realId}.md`)
   const { data, content } = matter(await fs.promises.readFile(fullPath, 'utf8'))
 
-  const parser = await getParser()
+  const html = await parser.process(content)
+  const date = data.date as Date
+
+  return {
+    ...data,
+    title: data.title as string,
+    id: realId,
+    date: `${date.toISOString().slice(0, 10)}`,
+    html: html.value.toString(),
+  }
+}
+
+export async function getPageMarkdown(string_: string) {
+  const { data, content } = matter(
+    fs.readFileSync(path.join('_pages', string_), 'utf8'),
+  )
   const html = await parser.process(content)
 
   return {
     ...data,
-    title: data.title,
-    id: realId,
-    date: `${data.date?.toISOString().slice(0, 10)}`,
     html: html.value.toString(),
   }
 }
 
 export async function getAllPosts() {
-  const posts = await Promise.all(
-    fs.readdirSync('_posts').map(id => getPostById(id)),
-  )
+  const posts = await Promise.all(getPostFiles().map(id => getPostById(id)))
   return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
 ```
@@ -305,11 +307,11 @@ to the the regular content to the main branch too
 
 ## Result
 
-Source https://github.com/cmdcolin/next13-appdir-blog
+Source https://github.com/cmdcolin/nextjs-appdir-blog
 
-Deployed https://cmdcolin.github.io/next13-appdir-blog
+Deployed https://cmdcolin.github.io/nextjs-appdir-blog
 
-I manually added `basePath: "/next13-appdir-blog",` to `next.config.js` to
+I manually added `basePath: "/nextjs-appdir-blog",` to `next.config.js` to
 deploy it to that sub-URI, if you deploy without a sub-URI, you won't need this
 
 ## Footnote 1. The unified/remark/rehype stack
