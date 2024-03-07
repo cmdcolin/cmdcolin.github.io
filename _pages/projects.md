@@ -5,20 +5,27 @@ organism databases, genome browsers, and data analysis pipelines. See my
 [google scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&user=--FwzsgAAAAJ)
 for publications. Our jbrowse 2 paper was
 [recently published](https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)
-which I was proud to be first author of.
+which I was proud to be first author of. I am experienced with RNA-seq,
+ChIP-seq, WGS, structural variant analysis, and other types
 
-## Small bioinformatics tools
+## Bioinformatics stuff
 
-- [maf2bed](https://github.com/cmdcolin/maf2bed) - A small rust tool to convert
-  MAF to bedtabix, used along with mafviewer jbrowse plugin (2023)
+- [maf2bed](https://github.com/cmdcolin/maf2bed) - A small rust command line
+  tool to convert MAF to bedtabix, used along with
+  [mafviewer](https://github.com/cmdcolin/jbrowse-plugin-mafviewer) jbrowse
+  plugin (2023)
 - [bam_index_visualizer](https://cmdcolin.github.io/bam_index_visualizer/) -
   Visualize the structure of the binning index of BAI files (2023)
-- [secondary_rewriter](https://github.com/cmdcolin/secondary_rewriter) - Adds
-  SEQ/QUAL tags to secondary alignments in BAM/CRAM, written while learning Rust
+- [secondary_rewriter](https://github.com/cmdcolin/secondary_rewriter) - rust
+  tool to add SEQ/QUAL tags to secondary alignments in BAM/CRAM (2022)
+- [vcfverifier](https://github.com/cmdcolin/vcfverifier) - rust tool to check
+  that a VCF matches an underlying FASTA reference genome using REF column
   (2022)
-- [vcfverifier](https://github.com/cmdcolin/vcfverifier) - Checks that the REF
-  field in VCF matches an underlying FASTA reference genome, written while
-  learning Rust (2022)
+- [sv blog post](https://cmdcolin.github.io/posts/2022-02-06-sv-sam) - My short
+  guide about how SAM files store structural variant (SV) information (2022)
+
+I also work on JBrowse 2 project and have written lots of tools for both JBrowse
+1 and JBrowse 2
 
 ## Music players
 
@@ -32,12 +39,22 @@ which I was proud to be first author of.
 I like to keep track of various awesome or odd or interesting things in these
 repos. Please add your favorites with PRs :)
 
-- [oddgenes](https://github.com/cmdcolin/oddgenes)
-- [genomesignals](https://github.com/cmdcolin/genomesignals)
-- [awesome-jbrowse](https://github.com/cmdcolin/awesome-jbrowse) and
-  [awesome-jbrowse2](https://github.com/cmdcolin/awesome-jbrowse2)
-- [awesome-genome-visualization](https://github.com/cmdcolin/awesome-genome-visualization)
-- [technical-oddities](https://github.com/cmdcolin/technical_oddities)
+- [oddgenes](https://github.com/cmdcolin/oddgenes) - list of interesting
+  genomics/bioinformatics trivia
+- [oddbiology](https://github.com/cmdcolin/oddbiology) - list of interesting
+  more general biology/evolution trivia
+- [genomesignals](https://github.com/cmdcolin/genomesignals) - a list different
+  types of 'signals' that exist in the genome
+- [awesome-jbrowse](https://github.com/cmdcolin/awesome-jbrowse) - list of
+  jbrowse 1 instances
+- [awesome-jbrowse2](https://github.com/cmdcolin/awesome-jbrowse2) - list of
+  jbrowse 2 instances
+- [technical-oddities](https://github.com/cmdcolin/technical_oddities) - list of
+  technical oddities
+- [awesome-genome-visualization](https://cmdcolin.github.io/awesome-genome-visualization/) -
+  large list of genome visualization tools (681 github stars!)
+- [interesting gene names](https://cmdcolin.github.io/genes) - list of gene
+  names from different model organisms and what they stand for
 
 ## Setup
 
