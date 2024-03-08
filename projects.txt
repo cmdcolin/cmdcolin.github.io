@@ -1,17 +1,18 @@
 3:I[5613,[],""]
 4:I[1778,[],""]
-5:I[5250,["250","static/chunks/250-5d3d630e7079fea8.js","931","static/chunks/app/page-df14802d5ca2542f.js"],""]
-0:["wcJGERbrkDC9Sa0rvfyls",[[["",{"children":["projects",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",{"children":["projects",{"children":["__PAGE__",{},["$L1","$L2",null]]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","projects","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}]]},[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L5",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L5",null,{"href":"/","children":"Home"}],["$","$L5",null,{"href":"/archive","children":"Blog archive"}],["$","$L5",null,{"href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L5",null,{"href":"/projects","children":"Projects"}]," ",["$","$L5",null,{"href":"/photos","children":"Photos"}],["$","$L5",null,{"href":"/books","children":"Books"}],["$","$L5",null,{"href":"/about","children":"About"}],["$","$L5",null,{"href":"/uses","children":"Uses"}]]}]]}]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/39906f0ead253838.css","precedence":"next","crossOrigin":""}]],"$L6"]]]]
+5:I[5250,["250","static/chunks/250-f44480ff89778119.js","931","static/chunks/app/page-df14802d5ca2542f.js"],""]
+0:["JG6i6vtphAf7sgcR8N1Hj",[[["",{"children":["projects",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",{"children":["projects",{"children":["__PAGE__",{},["$L1","$L2",null]]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","projects","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}]]},[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L5",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L5",null,{"href":"/","children":"Home"}],["$","$L5",null,{"href":"/archive","children":"Blog archive"}],["$","$L5",null,{"href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L5",null,{"href":"/projects","children":"Projects"}]," ",["$","$L5",null,{"href":"/photos","children":"Photos"}],["$","$L5",null,{"href":"/books","children":"Books"}],["$","$L5",null,{"href":"/about","children":"About"}],["$","$L5",null,{"href":"/uses","children":"Uses"}]]}]]}]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/39906f0ead253838.css","precedence":"next","crossOrigin":""}]],"$L6"]]]]
 6:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"Projects"}],["$","meta","3",{"name":"description","content":"A blog"}]]
 1:null
-7:T1b0a,<h2 id="work"><a aria-hidden="true" tabindex="-1" href="#work"><a href="#work" style="margin-right: 10px">#</a></a>Work</h2>
+7:T1e68,<h2 id="work"><a aria-hidden="true" tabindex="-1" href="#work"><a href="#work" style="margin-right: 10px">#</a></a>Work</h2>
 <p>I have worked on a variety of bioinformatics applications including model
 organism databases, genome browsers, and data analysis pipelines. See my
 <a href="https://scholar.google.com/citations?view_op=list_works&#x26;hl=en&#x26;user=--FwzsgAAAAJ">google scholar</a>
 for publications. Our jbrowse 2 paper was
 <a href="https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1">recently published</a>
-which I was proud to be first author of.</p>
-<h2 id="small-bioinformatics-tools"><a aria-hidden="true" tabindex="-1" href="#small-bioinformatics-tools"><a href="#small-bioinformatics-tools" style="margin-right: 10px">#</a></a>Small bioinformatics tools</h2>
+which I was proud to be first author of. I am experienced with RNA-seq,
+ChIP-seq, WGS, structural variant analysis, and other types</p>
+<h2 id="bioinformatics-stuff"><a aria-hidden="true" tabindex="-1" href="#bioinformatics-stuff"><a href="#bioinformatics-stuff" style="margin-right: 10px">#</a></a>Bioinformatics stuff</h2>
 <ul>
 <li><a href="https://github.com/cmdcolin/maf2bed">maf2bed</a> - A small rust tool to convert
 MAF to bedtabix, used along with mafviewer jbrowse plugin (2023)</li>
@@ -23,7 +24,12 @@ SEQ/QUAL tags to secondary alignments in BAM/CRAM, written while learning Rust
 <li><a href="https://github.com/cmdcolin/vcfverifier">vcfverifier</a> - Checks that the REF
 field in VCF matches an underlying FASTA reference genome, written while
 learning Rust (2022)</li>
+<li><a href="https://cmdcolin.github.io/posts/2022-02-06-sv-sam">SV blog post</a> - My short
+guide about how SAM files store for structural variants (SV) information
+(2022)</li>
 </ul>
+<p>I also work on JBrowse 2 project and have written lots of tools for both JBrowse
+1 and JBrowse 2</p>
 <h2 id="music-players"><a aria-hidden="true" tabindex="-1" href="#music-players"><a href="#music-players" style="margin-right: 10px">#</a></a>Music players</h2>
 <ul>
 <li><a href="https://cmdcolin.github.io/ytshuffle/">ytshuffle</a> - An app to make a music
@@ -35,12 +41,22 @@ Rust and GTK4 (2022)</li>
 <p>I like to keep track of various awesome or odd or interesting things in these
 repos. Please add your favorites with PRs :)</p>
 <ul>
-<li><a href="https://github.com/cmdcolin/oddgenes">oddgenes</a></li>
-<li><a href="https://github.com/cmdcolin/genomesignals">genomesignals</a></li>
-<li><a href="https://github.com/cmdcolin/awesome-jbrowse">awesome-jbrowse</a> and
-<a href="https://github.com/cmdcolin/awesome-jbrowse2">awesome-jbrowse2</a></li>
-<li><a href="https://github.com/cmdcolin/awesome-genome-visualization">awesome-genome-visualization</a></li>
-<li><a href="https://github.com/cmdcolin/technical_oddities">technical-oddities</a></li>
+<li><a href="https://github.com/cmdcolin/oddgenes">oddgenes</a> - list of interesting
+genomics/bioinformatics trivia</li>
+<li><a href="https://github.com/cmdcolin/oddbiology">oddbiology</a> - list of interesting
+more general biology/evolution trivia</li>
+<li><a href="https://github.com/cmdcolin/genomesignals">genomesignals</a> - a list different
+types of 'signals' that exist in the genome</li>
+<li><a href="https://github.com/cmdcolin/awesome-jbrowse">awesome-jbrowse</a> - list of
+jbrowse 1 instances</li>
+<li><a href="https://github.com/cmdcolin/awesome-jbrowse2">awesome-jbrowse2</a> - list of
+jbrowse 2 instances</li>
+<li><a href="https://github.com/cmdcolin/technical_oddities">technical-oddities</a> - list of
+technical oddities</li>
+<li><a href="https://cmdcolin.github.io/awesome-genome-visualization/">awesome-genome-visualization</a> -
+large list of genome visualization tools (681 github stars!)</li>
+<li><a href="https://cmdcolin.github.io/genes">genes</a> - List of gene names and what they
+stand for</li>
 </ul>
 <h2 id="setup"><a aria-hidden="true" tabindex="-1" href="#setup"><a href="#setup" style="margin-right: 10px">#</a></a>Setup</h2>
 <ul>
