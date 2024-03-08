@@ -5,8 +5,7 @@ organism databases, genome browsers, and data analysis pipelines. See my
 [google scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&user=--FwzsgAAAAJ)
 for publications. Our jbrowse 2 paper was
 [recently published](https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)
-which I was proud to be first author of. I am experienced with RNA-seq,
-ChIP-seq, WGS, structural variant analysis, and other types
+which I was proud to be first author of.
 
 ## Bioinformatics stuff
 
@@ -23,9 +22,6 @@ ChIP-seq, WGS, structural variant analysis, and other types
   (2022)
 - [sv blog post](https://cmdcolin.github.io/posts/2022-02-06-sv-sam) - My short
   guide about how SAM files store structural variant (SV) information (2022)
-
-I also work on JBrowse 2 project and have written lots of tools for both JBrowse
-1 and JBrowse 2
 
 ## Music players
 
@@ -113,29 +109,43 @@ repos. Please add your favorites with PRs :)
 
 ## Gallery
 
+---
+
 ![](mafviewer.png)
 
-MAFViewer plugin for JBrowse 1 viewing multiple genome alignment of C. elegans
+[mafviewer](https://github.com/cmdcolin/mafviewer) plugin for JBrowse 1 viewing
+multiple genome alignment of C. elegans
+
+---
 
 ![](gwasviewer.png)
 
-GWASViewer for JBrowse 1
+[gwasviewer](github.com/elsiklab/gwasviewer) plugin for JBrowse 1
+
+---
 
 ![](tumblrgraph.png)
 
-Tumblrgraph showing the reblog graph
+[tumblrgraph](http://cmdcolin.github.io/tumblrgraph2/) showing the reblog graph
+
+---
 
 ![](ontograph.png)
 
-Ontograph showing gene ontology terms
+[ontograph](https://elsiklab.github.io/ontograph/) showing gene ontology terms
+
+---
 
 ![](plots.png)
 
-Github burndown chart showing the closing of issues over time
+[github_burndown](https://colindiesh.shinyapps.io/github_burndown/) chart
+showing the closing of issues over time
+
+---
 
 ![](2sm.png)
 
-A high-resolution export of the logistic map fractal from my logistic_chaos_map
-renderer (
+high resolution export of the logistic map fractal from
+[logistic_chaos_map](https://cmdcolin.github.io/logistic_chaos_map/) (
 [full res](https://raw.githubusercontent.com/cmdcolin/logistic_chaos_map/master/img/2.png)
 )

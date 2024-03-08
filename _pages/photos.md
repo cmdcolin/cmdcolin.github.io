@@ -2,7 +2,7 @@
 
 ### Beezle
 
-We adaopted a stray cat [beezle](kitty) as a kitten
+We adopted a stray cat [beezle](kitty) as a kitten
 
 ### Logistic fractal
 
@@ -17,3 +17,7 @@ Picture of [me](my2.jpg)
 ### Sketches
 
 [sketches](sketches)
+
+### Dixie
+
+See https://myloveydove.com for our boston terrier memorial page
