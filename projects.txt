@@ -1,17 +1,16 @@
 3:I[5613,[],""]
 4:I[1778,[],""]
 5:I[5250,["250","static/chunks/250-f44480ff89778119.js","931","static/chunks/app/page-df14802d5ca2542f.js"],""]
-0:["_mlcbWBcdjUNnV0P0dsiF",[[["",{"children":["projects",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",{"children":["projects",{"children":["__PAGE__",{},["$L1","$L2",null]]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","projects","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}]]},[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L5",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L5",null,{"href":"/","children":"Home"}],["$","$L5",null,{"href":"/archive","children":"Blog archive"}],["$","$L5",null,{"href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L5",null,{"href":"/projects","children":"Projects"}]," ",["$","$L5",null,{"href":"/photos","children":"Photos"}],["$","$L5",null,{"href":"/books","children":"Books"}],["$","$L5",null,{"href":"/about","children":"About"}],["$","$L5",null,{"href":"/uses","children":"Uses"}]]}]]}]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/39906f0ead253838.css","precedence":"next","crossOrigin":""}]],"$L6"]]]]
+0:["RRvF07ROT0D_l8aK7UaQ-",[[["",{"children":["projects",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",{"children":["projects",{"children":["__PAGE__",{},["$L1","$L2",null]]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","projects","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}]]},[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"style":{"marginBottom":100},"children":["$","$L5",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}],["$","footer",null,{"style":{"marginTop":100},"children":[["$","$L5",null,{"href":"/","children":"Home"}],["$","$L5",null,{"href":"/archive","children":"Blog archive"}],["$","$L5",null,{"href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L5",null,{"href":"/projects","children":"Projects"}]," ",["$","$L5",null,{"href":"/photos","children":"Photos"}],["$","$L5",null,{"href":"/books","children":"Books"}],["$","$L5",null,{"href":"/about","children":"About"}],["$","$L5",null,{"href":"/uses","children":"Uses"}]]}]]}]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/39906f0ead253838.css","precedence":"next","crossOrigin":""}]],"$L6"]]]]
 6:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"Projects"}],["$","meta","3",{"name":"description","content":"A blog"}]]
 1:null
-7:T1ec3,<h2 id="work"><a aria-hidden="true" tabindex="-1" href="#work"><a href="#work" style="margin-right: 10px">#</a></a>Work</h2>
+7:T1fc6,<h2 id="work"><a aria-hidden="true" tabindex="-1" href="#work"><a href="#work" style="margin-right: 10px">#</a></a>Work</h2>
 <p>I have worked on a variety of bioinformatics applications including model
 organism databases, genome browsers, and data analysis pipelines. See my
 <a href="https://scholar.google.com/citations?view_op=list_works&#x26;hl=en&#x26;user=--FwzsgAAAAJ">google scholar</a>
 for publications. Our jbrowse 2 paper was
 <a href="https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1">recently published</a>
-which I was proud to be first author of. I am experienced with RNA-seq,
-ChIP-seq, WGS, structural variant analysis, and other types</p>
+which I was proud to be first author of.</p>
 <h2 id="bioinformatics-stuff"><a aria-hidden="true" tabindex="-1" href="#bioinformatics-stuff"><a href="#bioinformatics-stuff" style="margin-right: 10px">#</a></a>Bioinformatics stuff</h2>
 <ul>
 <li><a href="https://github.com/cmdcolin/maf2bed">maf2bed</a> - A small rust command line
@@ -114,18 +113,26 @@ files (2016)</li>
 lambda/S3 (2020)</li>
 </ul>
 <h2 id="gallery"><a aria-hidden="true" tabindex="-1" href="#gallery"><a href="#gallery" style="margin-right: 10px">#</a></a>Gallery</h2>
+<hr>
 <p><img src="mafviewer.png" alt=""></p>
-<p>MAFViewer plugin for JBrowse 1 viewing multiple genome alignment of C. elegans</p>
+<p><a href="https://github.com/cmdcolin/mafviewer">mafviewer</a> plugin for JBrowse 1 viewing
+multiple genome alignment of C. elegans</p>
+<hr>
 <p><img src="gwasviewer.png" alt=""></p>
-<p>GWASViewer for JBrowse 1</p>
+<p><a href="github.com/elsiklab/gwasviewer">gwasviewer</a> plugin for JBrowse 1</p>
+<hr>
 <p><img src="tumblrgraph.png" alt=""></p>
-<p>Tumblrgraph showing the reblog graph</p>
+<p><a href="http://cmdcolin.github.io/tumblrgraph2/">tumblrgraph</a> showing the reblog graph</p>
+<hr>
 <p><img src="ontograph.png" alt=""></p>
-<p>Ontograph showing gene ontology terms</p>
+<p><a href="https://elsiklab.github.io/ontograph/">ontograph</a> showing gene ontology terms</p>
+<hr>
 <p><img src="plots.png" alt=""></p>
-<p>Github burndown chart showing the closing of issues over time</p>
+<p><a href="https://colindiesh.shinyapps.io/github_burndown/">github_burndown</a> chart
+showing the closing of issues over time</p>
+<hr>
 <p><img src="2sm.png" alt=""></p>
-<p>A high-resolution export of the logistic map fractal from my logistic_chaos_map
-renderer (
+<p>high resolution export of the logistic map fractal from
+<a href="https://cmdcolin.github.io/logistic_chaos_map/">logistic_chaos_map</a> (
 <a href="https://raw.githubusercontent.com/cmdcolin/logistic_chaos_map/master/img/2.png">full res</a>
 )</p>2:["$","div",null,{"className":"tiny","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$7"}}]}]
