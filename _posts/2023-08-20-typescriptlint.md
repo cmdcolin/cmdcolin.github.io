@@ -225,13 +225,12 @@ Note: I know, I know, we all want that
 [OG Horstmann style indentation](https://en.wikipedia.org/wiki/Indentation_style),
 but we can't have nice things
 
-### unicorn/no-array-for-each
+### unicorn/no-array-for-each (and @typescript-eslint/prefer-for-of)
 
-Update: see also https://typescript-eslint.io/rules/prefer-for-of/ part of the
-stylistic typescript-eslint rule pack in v6
-
-Link:
+Link 1:
 https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md
+
+Like 2: see also https://typescript-eslint.io/rules/prefer-for-of/
 
 This is perhaps a controversial one, but this rule bans use of
 Array.prototype.forEach and calls JS programmers back 'round to the fire of the
@@ -300,8 +299,8 @@ accept warnings, and auto-remove unused eslint disables!
 
 ### Footnote 2. In older @typescript-eslint versions
 
-The @typescript-eslint/recommended-type-checked is called
-@typescript-eslint/recommended-requiring-type-checking in older versions
+The `@typescript-eslint/recommended-type-checked` is called
+`@typescript-eslint/recommended-requiring-type-checking` in older versions
 
 ### Footnote 3. Example of the "full error handling" in IIFE
 
@@ -325,6 +324,23 @@ useEffect(() => {
       setError(e)
     }
   })()
+}, [])
+```
+
+alternatively, without the disable, you can add a catch handler
+
+```typescript
+const [data, setData] = useState<MyData>()
+const [data, setError] = useState<unknown>()
+useEffect(() => {
+  ;(async () => {
+    const response = await fetch('http://google.com')
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ${await response.text()}`)
+    }
+    const result = await response.json()
+    setData(result)
+  })().catch(e => setError(e))
 }, [])
 ```
 
