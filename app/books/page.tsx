@@ -5,6 +5,7 @@ export const metadata = {
 }
 
 const ret = [
+  { year: 2024, author: 'Kazuo Ishiguro', title: 'Klara and the Sun' },
   { year: 2023, author: 'Chinua Achebe', title: 'Things Fall Apart' },
   { year: 2023, author: 'David Diop', title: 'At Night All Blood Is Black' },
   { year: 2023, author: 'Sylvia Plath', title: 'The Bell Jar' },
