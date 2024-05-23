@@ -3,7 +3,6 @@
  */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   output: 'export',
   productionBrowserSourceMaps: true,
