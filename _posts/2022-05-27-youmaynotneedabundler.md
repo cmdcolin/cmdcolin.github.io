@@ -61,6 +61,10 @@ splitting with async `import()`. If you create a single file bundle, then the
 consumer of your library may not be able to do code splitting properly via async
 `import()`
 
+Another example is the now common usage of 'use client' in source code. A
+library targeted bundler (e.g. rollup) can't reasonably bundle this properly and
+prints error messages (see https://github.com/rollup/rollup/issues/4699)
+
 ## Why would you _MAYBE_ want a bundler for your library
 
 If you really care about producing a `UMD` bundle that can be used in a script
