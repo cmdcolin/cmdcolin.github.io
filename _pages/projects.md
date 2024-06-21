@@ -79,8 +79,11 @@ repos. Please add your favorites with PRs :)
 - [logistic map fractal viewer](https://cmdcolin.github.io/logistic_chaos_map/)
   using Rust/WASM/React (2020)
 
-## Games
+## Games/silly
 
+- [guygrrcounter](https://github.com/cmdcolin/guygrrcounter/) - A raspberry pi
+  device with a microphone that detects when someone says GRRRR nearby. also
+  prints out daily star trek facts (2023)
 - [gratiotquest](https://github.com/vastholdings/gratiotquest) - Multi-player
   websocket RPG where you are a pheasant running around a MS Paint world (2018)
 - [slap happy](https://github.com/cmdcolin/slaphappy) - Retrofitted a arcade
