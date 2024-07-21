@@ -4,7 +4,7 @@ export const metadata = {
 
 export default function Uses() {
   return (
-    <section>
+    <div className="lg:w-1/2 m-auto tiny">
       <h1>Uses</h1>
 
       <p>Hardware</p>
@@ -27,6 +27,6 @@ export default function Uses() {
           <a href="https://github.com/cmdcolin/dotfiles/">My dotfiles</a>
         </li>
       </ul>
-    </section>
+    </div>
   )
 }

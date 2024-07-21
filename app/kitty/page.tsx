@@ -4,7 +4,7 @@ export const metadata = {
 
 export default function Contents() {
   return (
-    <div className="tiny">
+    <div className="lg:w-1/2 m-auto tiny">
       <h1>Kitty</h1>
       <p>
         We adopted a cat in late 2021. His name is beezlebub. Beezle for short.

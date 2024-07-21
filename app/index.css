@@ -1,35 +1,8 @@
+@tailwind components;
+@tailwind utilities;
+
 body {
   font-family: 'Helvetica', 'Arial', sans-serif;
-}
-
-footer > a {
-  margin: 8px;
-}
-
-article {
-  width: 50%;
-  margin: auto;
-  word-break: break-word;
-}
-
-@media only screen and (max-width: 600px) {
-  article {
-    width: 100%;
-    margin: 0px;
-  }
-}
-
-article img {
-  max-width: 100%;
-}
-
-article pre {
-  max-width: 100%;
-  overflow: auto;
-}
-
-.tiny {
-  width: 50%;
 }
 
 .tiny img {
@@ -39,12 +12,6 @@ article pre {
 .tiny pre {
   max-width: 100%;
   overflow: auto;
-}
-
-@media only screen and (max-width: 600px) {
-  .tiny {
-    width: 100%;
-  }
 }
 
 li + li {

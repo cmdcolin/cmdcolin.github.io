@@ -6,5 +6,10 @@ export const metadata = {
 
 export default async function Page() {
   const { html } = await getPageMarkdown('hobbies.md')
-  return <div className="tiny" dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <div
+      className="lg:w-1/2 m-auto tiny"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
 }

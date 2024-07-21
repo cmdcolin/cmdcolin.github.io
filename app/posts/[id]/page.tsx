@@ -19,7 +19,7 @@ export default async function Post({
 }) {
   const { html, title, date } = await getPostById(id)
   return (
-    <article>
+    <article className="lg:w-1/2 m-auto tiny">
       <div>
         <h1>{title}</h1>
         <h4>{date}</h4>

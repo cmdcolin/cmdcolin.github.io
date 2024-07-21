@@ -4,7 +4,7 @@ export const metadata = {
 
 export default function Contents() {
   return (
-    <div className="tiny">
+    <div className="lg:w-1/2 m-auto">
       <h2 id="about-me">About me</h2>
       <p>
         I am currently working for UC Berkeley on the{' '}

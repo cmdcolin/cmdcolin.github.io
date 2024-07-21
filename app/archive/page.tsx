@@ -8,7 +8,7 @@ export const metadata = {
 export default async function Page() {
   const allPosts = await getAllPosts()
   return (
-    <div>
+    <div className="lg:w-1/2 m-auto tiny">
       <h1>Blog archive</h1>
 
       <section>

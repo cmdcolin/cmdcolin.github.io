@@ -1,15 +1,29 @@
 import Link from 'next/link'
 
+function Link2({
+  children,
+  href,
+}: {
+  href: string
+  children: React.ReactNode
+}) {
+  return (
+    <Link className="m-2" href={href}>
+      {children}
+    </Link>
+  )
+}
 export default function Footer() {
   return (
-    <footer style={{ marginTop: 100 }}>
-      <Link href="/">Home</Link>
-      <Link href="/archive">Blog archive</Link>
-      <Link href="https://github.com/cmdcolin/">Github</Link>
-      <Link href="/projects">Projects</Link> <Link href="/photos">Photos</Link>
-      <Link href="/books">Books</Link>
-      <Link href="/about">About</Link>
-      <Link href="/uses">Uses</Link>
+    <footer className="mt-16">
+      <Link2 href="/">Home</Link2>
+      <Link2 href="/archive">Blog archive</Link2>
+      <Link2 href="https://github.com/cmdcolin/">Github</Link2>
+      <Link2 href="/projects">Projects</Link2>
+      <Link2 href="/photos">Photos</Link2>
+      <Link2 href="/books">Books</Link2>
+      <Link2 href="/about">About</Link2>
+      <Link2 href="/uses">Uses</Link2>
     </footer>
   )
 }

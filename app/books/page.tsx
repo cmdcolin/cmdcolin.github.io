@@ -1,5 +1,3 @@
-import './index.css'
-
 export const metadata = {
   title: 'Books',
 }
@@ -84,23 +82,24 @@ const ret = [
 ]
 
 export default function Contents() {
+  const cell = 'border border-solid dark:border-[#555] border-[#aaa] p-1'
   return (
-    <div className="tiny">
+    <div>
       <h2>Books I&apos;ve read lately</h2>
-      <table>
+      <table className="border-collapse">
         <thead>
           <tr>
-            <th>year</th>
-            <th>author</th>
-            <th>title</th>
+            <th className={cell}>year</th>
+            <th className={cell}>author</th>
+            <th className={cell}>title</th>
           </tr>
         </thead>
         <tbody>
           {ret.map((line, idx) => (
             <tr key={idx}>
-              <td>{line.year}</td>
-              <td>{line.author}</td>
-              <td>{line.title}</td>
+              <td className={cell}>{line.year}</td>
+              <td className={cell}>{line.author}</td>
+              <td className={cell}>{line.title}</td>
             </tr>
           ))}
         </tbody>
