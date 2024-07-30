@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://_N_E/app/books/index.css"],"names":[],"mappings":"AAAA,YAGE,gBACF,CACA,MACE,wBACF","file":"static/css/402672a523a4d69e.css","sourcesContent":["table,\nth,\ntd {\n  border: 1px solid;\n}\ntable {\n  border-collapse: collapse;\n}\n"],"sourceRoot":""}
