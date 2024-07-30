@@ -114,39 +114,39 @@ repos. Please add your favorites with PRs :)
 
 ---
 
-![](mafviewer.png)
+![](/mafviewer.png)
 
 [mafviewer](https://github.com/cmdcolin/mafviewer) plugin for JBrowse 1 viewing
 multiple genome alignment of C. elegans
 
 ---
 
-![](gwasviewer.png)
+![](/gwasviewer.png)
 
 [gwasviewer](github.com/elsiklab/gwasviewer) plugin for JBrowse 1
 
 ---
 
-![](tumblrgraph.png)
+![](/tumblrgraph.png)
 
 [tumblrgraph](http://cmdcolin.github.io/tumblrgraph2/) showing the reblog graph
 
 ---
 
-![](ontograph.png)
+![](/ontograph.png)
 
 [ontograph](https://elsiklab.github.io/ontograph/) showing gene ontology terms
 
 ---
 
-![](plots.png)
+![](/plots.png)
 
 [github_burndown](https://colindiesh.shinyapps.io/github_burndown/) chart
 showing the closing of issues over time
 
 ---
 
-![](2sm.png)
+![](/2sm.png)
 
 high resolution export of the logistic map fractal from
 [logistic_chaos_map](https://cmdcolin.github.io/logistic_chaos_map/) (

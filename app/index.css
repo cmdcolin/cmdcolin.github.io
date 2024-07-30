@@ -1,50 +1,23 @@
+@tailwind components;
+@tailwind utilities;
+
 body {
   font-family: 'Helvetica', 'Arial', sans-serif;
+  /*
+   * https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj 
+   */
+  background-color: Canvas;
+  color: CanvasText;
+  color-scheme: light dark;
 }
 
-footer > a {
-  margin: 8px;
-}
-
-article {
-  width: 50%;
-  margin: auto;
-  word-break: break-word;
-}
-
-@media only screen and (max-width: 600px) {
-  article {
-    width: 100%;
-    margin: 0px;
-  }
-}
-
-article img {
+img {
   max-width: 100%;
 }
 
-article pre {
+pre {
   max-width: 100%;
   overflow: auto;
-}
-
-.tiny {
-  width: 50%;
-}
-
-.tiny img {
-  max-width: 100%;
-}
-
-.tiny pre {
-  max-width: 100%;
-  overflow: auto;
-}
-
-@media only screen and (max-width: 600px) {
-  .tiny {
-    width: 100%;
-  }
 }
 
 li + li {

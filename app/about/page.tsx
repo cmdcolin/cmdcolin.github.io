@@ -1,10 +1,12 @@
+import Container from '@/components/container'
+
 export const metadata = {
   title: 'About me',
 }
 
 export default function Contents() {
   return (
-    <div className="tiny">
+    <Container>
       <h2 id="about-me">About me</h2>
       <p>
         I am currently working for UC Berkeley on the{' '}
@@ -24,6 +26,6 @@ export default function Contents() {
           https://github.com/cmdcolin/cmdcolin.github.io
         </a>
       </p>
-    </div>
+    </Container>
   )
 }

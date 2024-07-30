@@ -1,3 +1,4 @@
+import Container from '@/components/container'
 import { getPageMarkdown } from '@/lib/api'
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 
 export default async function Page() {
   const { html } = await getPageMarkdown('hobbies.md')
-  return <div className="tiny" dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <Container>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </Container>
+  )
 }

@@ -1,4 +1,5 @@
 import { getPostById, getAllPosts } from '@/lib/api'
+import Container from '@/components/container'
 import GiscusBox from '@/components/giscus'
 
 export async function generateMetadata({
@@ -19,14 +20,14 @@ export default async function Post({
 }) {
   const { html, title, date } = await getPostById(id)
   return (
-    <article>
+    <Container>
       <div>
         <h1>{title}</h1>
         <h4>{date}</h4>
       </div>
       <div dangerouslySetInnerHTML={{ __html: html }} />
       <GiscusBox />
-    </article>
+    </Container>
   )
 }
 
