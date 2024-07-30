@@ -3,13 +3,19 @@
 
 body {
   font-family: 'Helvetica', 'Arial', sans-serif;
+  /*
+   * https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj 
+   */
+  background-color: Canvas;
+  color: CanvasText;
+  color-scheme: light dark;
 }
 
-.tiny img {
+img {
   max-width: 100%;
 }
 
-.tiny pre {
+pre {
   max-width: 100%;
   overflow: auto;
 }

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/api'
+import Container from '@/components/container'
 
 export const metadata = {
   title: 'Archive',
@@ -8,7 +9,7 @@ export const metadata = {
 export default async function Page() {
   const allPosts = await getAllPosts()
   return (
-    <div className="lg:w-1/2 m-auto tiny">
+    <Container>
       <h1>Blog archive</h1>
 
       <section>
@@ -26,6 +27,6 @@ export default async function Page() {
           })}
         </ul>
       </section>
-    </div>
+    </Container>
   )
 }

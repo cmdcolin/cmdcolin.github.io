@@ -4,7 +4,7 @@ import Giscus from '@giscus/react'
 
 export default function GiscusBox() {
   return (
-    <div className="mt-5">
+    <div className="mt-5 p-8 bg-white rounded-xl">
       <Giscus
         id="comments"
         repo="cmdcolin/cmdcolin.github.io"
