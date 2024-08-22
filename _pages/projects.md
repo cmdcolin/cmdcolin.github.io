@@ -27,7 +27,7 @@ which I was proud to be first author of.
 
 - [ytshuffle](https://cmdcolin.github.io/ytshuffle/) - An app to make a music
   library from multiple youtube channels (2023)
-- [fml9000](https://github.com/cmdcolin/fml9000)\- A music player made using
+- [fml9000](https://github.com/cmdcolin/fml9000) - A music player made using
   Rust and GTK4 (2022)
 
 ## Awesome lists

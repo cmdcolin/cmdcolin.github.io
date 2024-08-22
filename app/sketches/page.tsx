@@ -12,8 +12,9 @@ interface Post {
 }
 
 const PostPreview = ({ post, idx }: { post: Post; idx: number }) => {
-  const k1 = `/sketches/k${idx + 1}.resized.webp`
-  const k2 = `/sketches/j${idx + 1}.resized.webp`
+  const id = String(idx + 1)
+  const k1 = `/sketches/k${id}.resized.webp`
+  const k2 = `/sketches/j${id}.resized.webp`
   return (
     <div className="mb-8">
       <div>

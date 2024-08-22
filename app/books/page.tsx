@@ -2,7 +2,7 @@ export const metadata = {
   title: 'Books',
 }
 
-const ret = [
+const returnValue = [
   { year: 2024, author: 'Jeffrey Eugenides', title: 'The Virgin Suicides' },
   { year: 2024, author: 'Kazuo Ishiguro', title: 'Klara and the Sun' },
   { year: 2023, author: 'Chinua Achebe', title: 'Things Fall Apart' },
@@ -95,8 +95,8 @@ export default function Contents() {
           </tr>
         </thead>
         <tbody>
-          {ret.map((line, idx) => (
-            <tr key={idx}>
+          {returnValue.map((line, index) => (
+            <tr key={index}>
               <td className={cell}>{line.year}</td>
               <td className={cell}>{line.author}</td>
               <td className={cell}>{line.title}</td>

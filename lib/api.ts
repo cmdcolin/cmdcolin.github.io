@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import matter from 'gray-matter'
 import { Feed } from 'feed'
 import { unified } from 'unified'
@@ -37,11 +37,11 @@ function getParser() {
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
-      content: arg => ({
+      content: argument => ({
         type: 'element',
         tagName: 'a',
         properties: {
-          href: `#${String(arg.properties?.id)}`,
+          href: `#${String(argument.properties.id)}`,
           style: 'margin-right: 10px',
         },
         children: [{ type: 'text', value: '#' }],
@@ -64,7 +64,7 @@ export async function getPostById(id: string) {
     ...data,
     title: data.title as string,
     id: realId,
-    date: `${date.toISOString().slice(0, 10)}`,
+    date: date.toISOString().slice(0, 10),
     html: html.value.toString(),
   }
 }
