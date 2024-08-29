@@ -18,6 +18,10 @@ Picture of [me](my2.jpg)
 
 [sketches](sketches)
 
+### Hobbies/crafts
+
+[hobbies](hobbies)
+
 ### Dixie
 
 See https://myloveydove.com for our boston terrier memorial page

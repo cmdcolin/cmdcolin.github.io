@@ -1,8 +1,8 @@
 ## Hobbies
 
-### Cast iron reseasoning
+### Cast iron re-seasoning
 
-I love cooking and cast iron and enjoy the whole reseasoning process
+I love cooking and cast iron and enjoy the whole re-seasoning process
 
 ![](/hobbies/castiron.jpg)
 
@@ -18,7 +18,7 @@ from it
 An axe with a stacked leather handle was laying around and got to be in poor
 condition. I created a new handle for it
 
-![](/hobbies/axe.jpg)
+![](/hobbies/hatchet.jpg)
 
 ### Refinished spatula handle
 
