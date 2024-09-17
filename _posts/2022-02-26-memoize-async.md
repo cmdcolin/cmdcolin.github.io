@@ -11,13 +11,11 @@ memoization when the promise throws an error.
 This helps us with being able to re-try because since the error is not cached,
 calling it again after an error retries automatically.
 
-Example async function: fetch from the pokemon API
+Example async function:
 
 ```js
-async function getPokemon() {
-  const id = Math.floor(Math.random() * 150)
-  const url = 'https://pokeapi.co/api/v2/pokemon/' + id
-  const ret = await fetch(url)
+async function getData() {
+  const ret = await fetch('https://some.hardcoded.resource/file.json')
   if (!ret.ok) {
     throw new Error(
       `Failed to fetch ${url} HTTP ${ret.status} ${await ret.text()}`,
@@ -30,9 +28,9 @@ async function getPokemon() {
 Here is a technique that can be used to memoize this function
 
 ```js
-function getPokemonMemoized() {
+function getDataMemoized() {
   if (!this.promise) {
-    this.promise = getPokemon().catch(e => {
+    this.promise = getData().catch(e => {
       this.promise = undefined
       throw e
     })
@@ -46,18 +44,15 @@ that when I get an error, I clear this.promise and re-throw the error. The
 caller of the function, on error, will receive the error message, but caching
 will not take place, allowing retries to take place later on.
 
-See https://cmdcolin.github.io/pokemon.html for demo
 
 ## Footnote 0: Arguments to function
 
-If your function takes arguments, then you can use a hashmap associating the
+If your function takes arguments, then you can use a hash map associating the
 argument with the promise. You may also consider using an LRU cache so that your
-hashmap doesn't grow infinitely in size
+hash map doesn't grow infinitely in size
 
 Generally you need a way to stringify or otherwise make them able to be stored
 in a Map or Object to do this.
-
-See https://github.com/nodeca/promise-memoize for example
 
 ## Footnote 1: Error handling of `fetch`
 
@@ -79,15 +74,16 @@ testing or similar
 
 ```js
 let promise
-async function getPokemonMemoized() {
+async function getDataMemoized() {
   if (!promise) {
-    promise = getPokemon().catch(e => {
+    promise = getData().catch(e => {
       promise = undefined
       throw e
     })
   }
   return promise
 }
+
 function clearCache() {
   promise = undefined
 }
@@ -130,21 +126,21 @@ function isAbortException(e) {
 }
 ```
 
-Now, what if 5 functions call getPokemonMemoized(), all passing different abort
+Now, what if 5 functions call getDataMemoized(), all passing different abort
 signals. What if the first one aborts? Then all the rest will get aborted also.
 But what if we only want to abort the cached call if literally all of them
-aborted? Then we may have to synthesize an abortcontroller inside our function
+aborted? Then we may have to synthesize an AbortController inside our function
 
 ```js
 let promise
 let abortcontroller
 let listeners = 0
-async function getPokemonMemoized(signal) {
+async function getDataMemoized(signal) {
   if (!promise) {
     abortcontroller = new AbortController()
 
     // synthesize a new signal instead of using the passed in signal
-    promise = getPokemon(abortcontroller.signal).catch(e => {
+    promise = getData(abortcontroller.signal).catch(e => {
       promise = undefined
       throw e
     })
@@ -163,19 +159,11 @@ async function getPokemonMemoized(signal) {
 }
 ```
 
-A library my team created,
+My team created,
 [abortable-promise-cache](https://github.com/GMOD/abortable-promise-cache),
 tries to help with this scenario with a cleaner abstraction.
 
 ## Footnote 4
-
-I have been playing through Pokemon Yellow and find it really amusing hence the
-pokemon theme
-
-Fun stuff: The cutting room floor wiki with unused moves, sounds, and sprites in
-Pokemon Yellow https://tcrf.net/Pok%C3%A9mon_Yellow
-
-## Footnote 5
 
 This blog post mentioned in a comment thread https://zansh.in/memoizer.html has
 great interactive examples and shows the "invalidate on .catch()" behavior!
