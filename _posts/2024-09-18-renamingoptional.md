@@ -77,7 +77,14 @@ Typescript Deep Dive - "Freshness"
 
 https://basarat.gitbook.io/typescript/type-system/freshness
 
-Typescript FAQ: "Why are functions with fewer parameters assignable to functions
-that take more parameters?"
+## Follow up
 
-https://github.com/microsoft/TypeScript/wiki/FAQ#why-are-functions-with-fewer-parameters-assignable-to-functions-that-take-more-parameters
+This post was given lots of downvotes in /r/typescript and sarcasm that "no duh,
+breaking changes are breaking".
+
+However, some helpful comments were made also. Read on
+https://www.reddit.com/r/typescript/comments/1fk1rqe/be_careful_when_you_rename_an_optional_prop_in/
+
+I think maybe people are distracted that I posited this as the "doStuff team" vs
+"you", but keep in mind this could just be your left brain vs right brain in an
+actively developed codebase

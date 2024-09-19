@@ -24,7 +24,8 @@ Summary: should probably be a lint rule (a "types required" lint rule, a la
 @typescript-eslint) not to accept arrays for Object.entries
 
 Update 02-27-23: Proposing this rule here
-https://github.com/typescript-eslint/typescript-eslint/issues/6537
+https://github.com/typescript-eslint/typescript-eslint/issues/6537 (it was
+rejected)
 
 ## Passing garbage to the second argument of Array.prototype.map accidentally
 
