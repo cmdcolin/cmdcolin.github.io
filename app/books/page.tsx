@@ -3,6 +3,12 @@ export const metadata = {
 }
 
 const returnValue = [
+  {
+    year: 2024,
+    author: 'Erik Larson',
+    title:
+      'The Demon of Unrest: A Saga of Hubris, Heartbreak, and Heroism at the Dawn of the Civil War',
+  },
   { year: 2024, author: 'Jeffrey Eugenides', title: 'The Virgin Suicides' },
   { year: 2024, author: 'Kazuo Ishiguro', title: 'Klara and the Sun' },
   { year: 2023, author: 'Chinua Achebe', title: 'Things Fall Apart' },
