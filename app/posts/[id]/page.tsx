@@ -3,10 +3,11 @@ import Container from '@/components/container'
 import GiscusBox from '@/components/giscus'
 
 export async function generateMetadata({
-  params: { id },
+  params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const { title } = await getPostById(id)
   return {
     title,
@@ -14,10 +15,11 @@ export async function generateMetadata({
 }
 
 export default async function Post({
-  params: { id },
+  params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const { html, title, date } = await getPostById(id)
   return (
     <Container>
