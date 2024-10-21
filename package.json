@@ -14,7 +14,7 @@
     "@giscus/react": "^3.0.0",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
-    "next": "next",
+    "next": "^15.0.0",
     "react": "next",
     "react-dom": "next",
     "rehype-autolink-headings": "^7.0.0",
