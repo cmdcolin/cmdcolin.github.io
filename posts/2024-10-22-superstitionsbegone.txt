@@ -7,36 +7,43 @@
 b:I[3120,[],"ViewportBoundary"]
 d:I[6130,[],""]
 1:HL["/_next/static/css/d19cfa26cd1ef694.css","style"]
-0:{"P":null,"b":"5eMq9a7XxHedSvYcS5Cl6","p":"","c":["","posts","2024-10-22-superstitionsbegone"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2024-10-22-superstitionsbegone","d"],{"children":["__PAGE__?{\"id\":\"2024-10-22-superstitionsbegone\"}",{}]}]}]},"$undefined","$undefined",true],["",["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d19cfa26cd1ef694.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L3",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}],["$","footer",null,{"className":"mt-16","children":[["$","$L3",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L3",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L3",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L3",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L3",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L3",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L3",null,{"className":"m-2","href":"/about","children":"About"}]]}]]}]}]]}],{"children":["posts",["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":[["id","2024-10-22-superstitionsbegone","d"],["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":["__PAGE__",["$","$2","c",{"children":["$L6",null,["$","$L7",null,{"children":"$L8"}]]}],{},null]},null]},null]},null],["$","$2","h",{"children":[null,["$","$2","gkFU6JMf49Fq8LyAOzqHB",{"children":[["$","$L9",null,{"children":"$La"}],["$","$Lb",null,{"children":"$Lc"}],null]}]]}]]],"m":"$undefined","G":["$d","$undefined"],"s":false,"S":true}
+0:{"P":null,"b":"EXf8RR6tr2jeda6cX1Srm","p":"","c":["","posts","2024-10-22-superstitionsbegone"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2024-10-22-superstitionsbegone","d"],{"children":["__PAGE__?{\"id\":\"2024-10-22-superstitionsbegone\"}",{}]}]}]},"$undefined","$undefined",true],["",["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d19cfa26cd1ef694.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L3",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}],["$","footer",null,{"className":"mt-16","children":[["$","$L3",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L3",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L3",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L3",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L3",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L3",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L3",null,{"className":"m-2","href":"/about","children":"About"}]]}]]}]}]]}],{"children":["posts",["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":[["id","2024-10-22-superstitionsbegone","d"],["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":["__PAGE__",["$","$2","c",{"children":["$L6",null,["$","$L7",null,{"children":"$L8"}]]}],{},null]},null]},null]},null],["$","$2","h",{"children":[null,["$","$2","3SE_MERTv9Ff1EnFxYFBB",{"children":[["$","$L9",null,{"children":"$La"}],["$","$Lb",null,{"children":"$Lc"}],null]}]]}]]],"m":"$undefined","G":["$d","$undefined"],"s":false,"S":true}
 c:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 f:I[1458,["722","static/chunks/app/posts/%5Bid%5D/page-e50cd2f34f19f050.js"],"default"]
-e:T1a1c,<p><img src="/superstitions.png" alt=""></p>
+e:T1ccb,<p><img src="/superstitions.png" alt=""></p>
 <p><a href="https://creazilla.com/media/emoji/47538/crossed-fingers">adapted from</a></p>
 <h2 id="the-rule"><a aria-hidden="true" tabindex="-1" href="#the-rule"><a href="#the-rule" style="margin-right: 10px">#</a></a>The rule</h2>
-<p>There is a neat typescript-eslint rule called
-<code>@typescript-eslint/no-unnecessary-condition</code> that will tell you, according to
-the types available at the time, to remove 'unnecessary if statements' (or
-similarly, unnecessary usages of nullish coalescing, etc.)</p>
+<p>When a codebase is left unfettered for a long time, it often ends up
+accumulating a lot of what I might call 'superstitious' if statements. They
+might have even 'fixed a bug' a long time ago. But, if your typescript types can
+tell you that such a condition is not even possible, should you even have these
+superstitions anymore?</p>
+<p>By using <code>@typescript-eslint/no-unnecessary-condition</code>, you can begin the
+process of exorcising these superstitious if statements from your codebase!</p>
 <p><a href="https://typescript-eslint.io/rules/no-unnecessary-condition/">https://typescript-eslint.io/rules/no-unnecessary-condition/</a></p>
 <h2 id="how-to-get-it"><a aria-hidden="true" tabindex="-1" href="#how-to-get-it"><a href="#how-to-get-it" style="margin-right: 10px">#</a></a>How to get it</h2>
-<p>You can enable this rule just by itself, but it is also part of the
-<code>strict-type-checked</code> rule set. I myself got it when I "upgraded" from the
-<code>recommended-type-checked</code> rule set to the <code>strict-type-checked</code> ruleset!</p>
-<p>This is a good hint to crank up typescript-eslint strictness as much as you can.
-Even if you have to disable some of the rules, it is full of goodies to turn on
-by default!</p>
-<p>I know it's a bit low effort to blog about this, but it's such a cool condition,
-and I wanted to cover....</p>
-<h2 id="the-catch"><a aria-hidden="true" tabindex="-1" href="#the-catch"><a href="#the-catch" style="margin-right: 10px">#</a></a>The catch?</h2>
-<p>I think in order to use this rule correctly in a lot of codebases, I think you
-should make <code>noUncheckedIndexedAccess: true</code> in your tsconfig.json.</p>
+<p>You can enable this rule just by itself if you have a typescript-eslint config,
+but it is also part of the <code>strict-type-checked</code> rule set.</p>
+<p>I enabled this rule on accident almost when I "upgraded" from the
+<code>recommended-type-checked</code> rule set to the <code>strict-type-checked</code> ruleset. I
+wasn't even aware of the difference between these two rulesets and just sort of
+enabled it randomly one day.</p>
+<p>Generally I think it's good to crank up typescript-eslint strictness as much as
+you can. Even if you have to disable some of the rules, the rule packs are full
+of goodies that are often worth enabling!</p>
+<p>I know it's a bit low effort to blog about a lint rule but I think these rule
+packs are a bit underused and additionally... I also wanted to cover....the
+catch</p>
+<h2 id="to-use-this-rule-you-should-make-nouncheckedindexedaccesstrue"><a aria-hidden="true" tabindex="-1" href="#to-use-this-rule-you-should-make-nouncheckedindexedaccesstrue"><a href="#to-use-this-rule-you-should-make-nouncheckedindexedaccesstrue" style="margin-right: 10px">#</a></a>To use this rule, you should make <code>noUncheckedIndexedAccess:true</code></h2>
+<p>I think in order to use <code>@typescript-eslint/no-unnecessary-condition</code> properly
+in a lot of codebases, I think you should make <code>noUncheckedIndexedAccess: true</code>
+in your tsconfig.json.</p>
 <p>I have previously written about <code>noUncheckedIndexedAccess</code> tsconfig.json
-<a href="https://cmdcolin.github.io/posts/2023-09-27-areyousure">https://cmdcolin.github.io/posts/2023-09-27-areyousure</a></p>
-<p>In my previous article, my conclusion was to not enable it and to make silly
-hacks to emulate it like adding undefined to your object types e.g.
-<code>Record&#x3C;string,T|undefined></code>, but I think it is better if you DO enable it
-because it adds 'undefined' to the return type of all object (and array) indexed
-accesses</p>
+<a href="https://cmdcolin.github.io/posts/2023-09-27-areyousure">https://cmdcolin.github.io/posts/2023-09-27-areyousure</a> and in my previous
+article, my conclusion was to NOT to enable it, but my recent experience now has
+made it so that I think it is better if you DO enable it.</p>
+<p>I am a waffler and sometimes yesterday's "simple" is today's gigantic hack that
+I have to fix now</p>
 <h2 id="what-should-you-expect-after-enabling-everything"><a aria-hidden="true" tabindex="-1" href="#what-should-you-expect-after-enabling-everything"><a href="#what-should-you-expect-after-enabling-everything" style="margin-right: 10px">#</a></a>What should you expect after enabling everything?</h2>
 <p>After you enable <code>noUncheckedIndexedAccess</code> above, you may have to add some well
 placed non-null assertions (e.g. the !, but this is no worse than what your code
