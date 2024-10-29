@@ -1,0 +1,80 @@
+2:"$Sreact.fragment"
+3:I[231,["231","static/chunks/231-fc74e6e791c0837d.js","931","static/chunks/app/page-95d4a906a5a795f0.js"],""]
+4:I[9275,[],""]
+5:I[1343,[],""]
+7:I[3120,[],"OutletBoundary"]
+9:I[3120,[],"MetadataBoundary"]
+b:I[3120,[],"ViewportBoundary"]
+d:I[6130,[],""]
+1:HL["/_next/static/css/d19cfa26cd1ef694.css","style"]
+0:{"P":null,"b":"KqQ5KFrc7TFufuJ1no_sC","p":"","c":["","posts","2024-10-29-superstitionsbegone"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2024-10-29-superstitionsbegone","d"],{"children":["__PAGE__?{\"id\":\"2024-10-29-superstitionsbegone\"}",{}]}]}]},"$undefined","$undefined",true],["",["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d19cfa26cd1ef694.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L3",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}],["$","footer",null,{"className":"mt-16","children":[["$","$L3",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L3",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L3",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L3",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L3",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L3",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L3",null,{"className":"m-2","href":"/about","children":"About"}]]}]]}]}]]}],{"children":["posts",["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":[["id","2024-10-29-superstitionsbegone","d"],["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":["__PAGE__",["$","$2","c",{"children":["$L6",null,["$","$L7",null,{"children":"$L8"}]]}],{},null]},null]},null]},null],["$","$2","h",{"children":[null,["$","$2","o3mcGSYfhWYZFvaN_pJ3g",{"children":[["$","$L9",null,{"children":"$La"}],["$","$Lb",null,{"children":"$Lc"}],null]}]]}]]],"m":"$undefined","G":["$d","$undefined"],"s":false,"S":true}
+c:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+f:I[1458,["722","static/chunks/app/posts/%5Bid%5D/page-e50cd2f34f19f050.js"],"default"]
+e:T1e55,<p><img src="/superstitions.png" alt=""></p>
+<p><a href="https://creazilla.com/media/emoji/47538/crossed-fingers">adapted from</a></p>
+<h2 id="very-superstitious"><a aria-hidden="true" tabindex="-1" href="#very-superstitious"><a href="#very-superstitious" style="margin-right: 10px">#</a></a>Very superstitious</h2>
+<p><strong>Writings on the wall</strong></p>
+<p>When a codebase is left unfettered for a long time, it often ends up
+accumulating a lot of what one might call 'superstitious' if-statements. They
+might have even 'fixed a bug' a long time ago. But, if your typescript types can
+tell you that such a condition is not even possible, should you even have these
+superstitions anymore?</p>
+<p>By using <code>@typescript-eslint/no-unnecessary-condition</code>, you can begin the
+process of exorcising these superstitious if-statements from your codebase!</p>
+<p><a href="https://typescript-eslint.io/rules/no-unnecessary-condition/">https://typescript-eslint.io/rules/no-unnecessary-condition/</a></p>
+<h2 id="enabling-this-rule"><a aria-hidden="true" tabindex="-1" href="#enabling-this-rule"><a href="#enabling-this-rule" style="margin-right: 10px">#</a></a>Enabling this rule</h2>
+<p>You can enable this rule just by itself, or you can enable it as part of the
+<code>strict-type-checked</code> rule set.</p>
+<p>I personally enabled this rule almost on accident almost when I "upgraded" from
+the <code>recommended-type-checked</code> rule set to the <code>strict-type-checked</code> ruleset. I
+wasn't even aware of the difference between these two rulesets and just sort of
+switched to the strict version randomly one day.</p>
+<p>Generally I think it's good to crank up typescript-eslint strictness as much as
+you can. Even if you have to disable some of the rules from the ruleset, the
+rule packs are full of goodies that are often worth enabling!</p>
+<p>Now, I know it's a bit low effort to blog about lint rules as often as I do, but
+I think these rule packs are probably a bit underused by the community, and
+additionally...</p>
+<p>I also wanted to cover...the catch</p>
+<h2 id="you-should-probably-make-nouncheckedindexedaccesstrue-to-use-this-rule"><a aria-hidden="true" tabindex="-1" href="#you-should-probably-make-nouncheckedindexedaccesstrue-to-use-this-rule"><a href="#you-should-probably-make-nouncheckedindexedaccesstrue-to-use-this-rule" style="margin-right: 10px">#</a></a>You should probably make <code>noUncheckedIndexedAccess:true</code> to use this rule</h2>
+<p>To use <code>@typescript-eslint/no-unnecessary-condition</code> properly in a lot of
+codebases, you may need to make <code>noUncheckedIndexedAccess: true</code> in your
+tsconfig.json.</p>
+<p>The reason being is that the rule will otherwise flag your good natured checks
+for <code>if(object[key])</code> since a lot of objects are typed <code>Record&#x3C;string,string></code></p>
+<p>I have previously written about <code>noUncheckedIndexedAccess</code> tsconfig.json
+<a href="https://cmdcolin.github.io/posts/2023-09-27-areyousure">https://cmdcolin.github.io/posts/2023-09-27-areyousure</a> and in my previous
+article, my conclusion was to NOT to enable it, but my recent experience now has
+made it so that I think it is better if you DO enable it.</p>
+<p>I am a waffler and sometimes yesterday's "simple" is today's gigantic hack that
+I have to fix now</p>
+<h2 id="what-should-you-expect-after-enabling-everything"><a aria-hidden="true" tabindex="-1" href="#what-should-you-expect-after-enabling-everything"><a href="#what-should-you-expect-after-enabling-everything" style="margin-right: 10px">#</a></a>What should you expect after enabling everything?</h2>
+<p>After you enable <code>noUncheckedIndexedAccess</code> above, you may have to add some well
+placed non-null assertions (e.g. the !, but this is no worse than what your code
+was before), or alternatively change your code to handle the new undefined part
+of the types.</p>
+<p>In a small number of cases, I had to keep a couple of superstitions if's alive
+with a couple
+<code>// eslint-disable-next-line for @typescript-eslint/no-unnecessary-condition</code>
+but these are generally due to my types not being well done, and is a signal to
+improve the types!</p>
+<h2 id="playground"><a aria-hidden="true" tabindex="-1" href="#playground"><a href="#playground" style="margin-right: 10px">#</a></a>Playground</h2>
+<p>Example code sample, try it in the typescript-eslint playground</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="js" data-theme="one-dark-pro"><code data-language="js" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">const</span><span style="color:#E5C07B"> obj</span><span style="color:#56B6C2"> =</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">a</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">4</span><span style="color:#ABB2BF"> }</span></span>
+<span data-line=""><span style="color:#C678DD">const</span><span style="color:#E5C07B"> key</span><span style="color:#56B6C2"> =</span><span style="color:#98C379"> 'a'</span></span>
+<span data-line=""><span style="color:#C678DD">const</span><span style="color:#E5C07B"> value</span><span style="color:#56B6C2"> =</span><span style="color:#E06C75"> obj</span><span style="color:#ABB2BF">[</span><span style="color:#E06C75">key</span><span style="color:#ABB2BF">]</span></span>
+<span data-line=""><span style="color:#C678DD">if</span><span style="color:#ABB2BF"> (</span><span style="color:#E06C75">value</span><span style="color:#56B6C2"> !==</span><span style="color:#D19A66"> undefined</span><span style="color:#ABB2BF">) {</span></span>
+<span data-line=""><span style="color:#7F848E;font-style:italic">  // no-unnecessary-condition warns on the above if noUncheckedIndexedAccess is</span></span>
+<span data-line=""><span style="color:#7F848E;font-style:italic">  // off, but we may want to keep this condition because if key is a runtime</span></span>
+<span data-line=""><span style="color:#7F848E;font-style:italic">  // value, we do want to check for undefined</span></span>
+<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<ul>
+<li><a href="https://typescript-eslint.io/play/#ts=5.6.2&#x26;fileType=.tsx&#x26;code=MYewdgzgLgBCBGArGBeGBvGBDAXDALDAL7YQwBKApqAE4AmAPNDQJZgDmANGAK4C28SjQB8AKFCRYAa0oBPVDADkWRePDQYANywAbHpQUJEAbRmyAuqJYAzGAAptegwEIUaHmDqVrbSnQCUGKKiREA&#x26;eslintrc=N4KABGBEBOCuA2BTAzpAXGYkACAXAngA4oDG0AlobgLQrzkB2uA9AwPbWwMOIkrIBDaPmok2DACblc5ceiiJo0NtEgBfEGqA&#x26;tsconfig=N4KABGBEDGD2C2AHAlgGwKYCcDyiAuysAdgM6QBcYoEEkJemy0eAcgK6qoDCAFutAGsylBm3QAacDUhFYAVSLQ%2Bg9ABMAkkVXoAHmoCC0aOhLCwAMwCGqEuikBfEPaA&#x26;tokens=false">noUncheckedIndexedAccess:false</a></li>
+<li><a href="https://typescript-eslint.io/play/#ts=5.6.2&#x26;fileType=.tsx&#x26;code=MYewdgzgLgBCBGArGBeGBvGBDAXDALDAL7YQwBKApqAE4AmAPNDQJZgDmANGAK4C28SjQB8AKFCRYAa0oBPVDADkWRePDQYANywAbHpQUJEAbRmyAuqJYAzGAAptegwEIUaHmDqVrbSnQCUGKKiREA&#x26;eslintrc=N4KABGBEBOCuA2BTAzpAXGYkACAXAngA4oDG0AlobgLQrzkB2uA9AwPbWwMOIkrIBDaPmok2DACblc5ceiiJo0NtEgBfEGqA&#x26;tsconfig=N4KABGBEDGD2C2AHAlgGwKYCcDyiAuysAdgM6QBcYoEEkJemy0eAcgK6qoDCAFutAGsylBm3QAacDUhFYAVSLQ%2Bg9ABMAkkVXoAHmoCC0aOhLCwo9FIC%2BIK0A&#x26;tokens=false">noUncheckedIndexedAccess:true</a></li>
+</ul>
+<h2 id="happy-halloween"><a aria-hidden="true" tabindex="-1" href="#happy-halloween"><a href="#happy-halloween" style="margin-right: 10px">#</a></a>Happy halloween!</h2>
+<p>Enjoy this collection of wikimedia of Jack o' Lanterns
+<a href="https://commons.wikimedia.org/wiki/Category:Jack-o%27-lantern">https://commons.wikimedia.org/wiki/Category:Jack-o%27-lantern</a> (make sure to
+visit the subcategories)</p>6:["$","div",null,{"className":"lg:w-1/2","children":[["$","div",null,{"children":[["$","h1",null,{"children":"Begone, superstitious if-statements!"}],["$","h4",null,{"children":"2024-10-29"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$e"}}],["$","$Lf",null,{}]]}]
+a:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Begone, superstitious if-statements!"}],["$","meta","2",{"name":"description","content":"A blog"}]]
+8:null
