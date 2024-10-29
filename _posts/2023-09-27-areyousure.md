@@ -73,3 +73,7 @@ in the tsconfig.json of my library, and you feel all safe and cozy using
 your library don't use the `noUncheckedIndexedAccess` tsconfig.json setting,
 then they will not get the benefit of that undefined condition unless you
 explicitly mark your exported types as `Record<string, T|undefined>`
+
+## Footnote 5: See my updated article
+
+https://cmdcolin.github.io/posts/2024-10-29-superstitionsbegone
