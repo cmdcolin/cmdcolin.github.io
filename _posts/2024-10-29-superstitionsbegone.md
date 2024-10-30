@@ -9,11 +9,10 @@ date: 2024-10-29
 
 ## Very superstitious
 
-When a codebase is left unfettered for a long time, it often ends up
-accumulating a lot of what one might call 'superstitious' if-statements. They
-might have even 'fixed a bug' a long time ago. But, if your typescript types can
-tell you that such a condition is not even possible, should you even have these
-superstitions anymore?
+As a codebase grows, it often ends up accumulating a lot of what one might call
+'superstitious' if-statements. They might have even 'fixed a bug' a long time
+ago. But, if your typescript types can tell you that such a condition is not
+even possible, should you even have these superstitions anymore?
 
 By using `@typescript-eslint/no-unnecessary-condition`, you can begin the
 process of exorcising these superstitious if-statements from your codebase!
