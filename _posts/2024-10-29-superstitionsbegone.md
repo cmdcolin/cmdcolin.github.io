@@ -82,9 +82,3 @@ Example code, try it in the typescript-eslint playground
 Enjoy this collection of wikimedia Jack o' Lanterns
 https://commons.wikimedia.org/wiki/Category:Jack-o%27-lantern (make sure to
 visit the subcategories)
-
-## Footnote 1
-
-I made the header image myself in GIMP and was happy to find a way to make noisy
-textures. You can also do it by using blurs or other operations with the
-"dissolve" blending mode!

@@ -23,6 +23,7 @@ export default function Footer() {
       <Link2 href="/photos">Photos</Link2>
       <Link2 href="/books">Books</Link2>
       <Link2 href="/about">About</Link2>
+      <Link2 href="/rss.xml">RSS</Link2>
     </footer>
   )
 }

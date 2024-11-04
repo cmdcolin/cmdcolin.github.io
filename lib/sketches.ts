@@ -1,4 +1,4 @@
-[
+export default [
   {
     "date": "2/26/22",
     "title": "Taken in Donetsk in 1932-33, this photograph shows a “kulak” woman and her small child being evicted from their home in winter, dispossessed of everything but a small wagonload of their belongings pulled by hand behind them. Photo by Marko Zhelizniak ",
