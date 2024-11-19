@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 00:11:12 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 01:41:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3083,43 +3083,39 @@ links for it, feel free to try it at <a href="https://jbrowse.org">https://jbrow
 <ul>
 <li>
 <p>A <code>SAM</code> file <strong>generally</strong> contains "reads" from a sequencer, with information
-about how they are mapped to a reference genome [1][2].</p>
+about how they are mapped to a reference genome [^1][^2].</p>
 </li>
 <li>
 <p>A <code>SAM</code> file is <strong>generally</strong> produced when an aligner takes in raw unaligned
 reads (often stored in <code>FASTQ</code> format files) and aligns them to a reference
-genome [3].</p>
+genome [^3].</p>
 </li>
 <li>
 <p>A <code>SAM</code> file is a text format that you can read with your text editor. <code>BAM</code>
 and <code>CRAM</code> are compressed representations of the <code>SAM</code> format.</p>
 </li>
 </ul>
-<p>You can convert <code>SAM</code> to <code>BAM</code> with samtools</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#98C379"> file.sam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.bam</span></span></code></pre></figure>
-<p>You can also convert a <code>BAM</code> back to <code>SAM</code> with samtools view</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#D19A66"> -h</span><span style="color:#98C379"> file.bam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.sam</span></span></code></pre></figure>
-<p>The -h just makes sure to preserve the header.</p>
-<p>If you are converting <code>SAM</code> to <code>CRAM</code>, it may require the -T argument to specify
-your reference sequence (this is because the <code>CRAM</code> is "reference compressed")</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#D19A66"> -T</span><span style="color:#98C379"> reference.fa</span><span style="color:#98C379"> file.sam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.cram</span></span></code></pre></figure>
-<p>Also see Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p>
-<p>[1] <code>SAM</code> can contain any type of sequence, not specifically reads. If you
+<p>You generally see <code>BAM</code> or <code>CRAM</code> in the wild instead of <code>SAM</code> since the files
+are very large, so the compressed versions are better to store on disk.</p>
+<p>See Appendix E on how to convert between SAM/BAM/CRAM.</p>
+<p>[^1] <code>SAM</code> can contain any type of sequence, not specifically reads. If you
 created a <em>de novo</em> assembly, you could align the contigs of the <em>de novo</em>
 assembly to a reference genome and store the results in <code>SAM</code>.</p>
-<p>[2] Does not always have to have information about mapping to a reference
+<p>[^2] Does not always have to have information about mapping to a reference
 genome. You can also store unaligned data in <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> (so-called
 <code>uBAM</code> for example) but most of the time, the reads in <code>SAM</code> format are aligned
 to a reference genome.</p>
-<p>[3] Examples of programs that do alignment include <code>bwa</code>, <code>bowtie</code>, and
+<p>[^3] Examples of programs that do alignment include <code>bwa</code>, <code>bowtie</code>, and
 <code>minimap2</code> (there are many others). These programs all can produce <code>SAM</code> outputs</p>
-<h3 id="what-is-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-is-in-a-sam-file"><a href="#what-is-in-a-sam-file" style="margin-right: 10px">#</a></a>What is in a <code>SAM</code> file</h3>
-<p>A <code>SAM</code> file contains a header (<code>BAM</code> and <code>CRAM</code> files also have the <code>SAM</code>
-header) and a series of records.</p>
-<h3 id="what-is-a-sam-record"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-record"><a href="#what-is-a-sam-record" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> record</h3>
+<h3 id="what-is-in-a-sambamcram-file"><a aria-hidden="true" tabindex="-1" href="#what-is-in-a-sambamcram-file"><a href="#what-is-in-a-sambamcram-file" style="margin-right: 10px">#</a></a>What is in a <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> file?</h3>
+<p>A <code>SAM</code> file contains a "header" and a series of "records".</p>
+<h3 id="what-is-a-sam-record"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-record"><a href="#what-is-a-sam-record" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> "record"?</h3>
 <p>A record is a single line in a <code>SAM</code> file, and it generally corresponds to a
 single read, but as we will see, a split alignment may produce multiple records
 that refer to the same source read.</p>
+<p>Note that sometimes the word read and record are sometimes used interchangeably,
+but record has the more specific meaning of being a single line in the <code>SAM</code>
+file</p>
 <h3 id="what-are-tags-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-are-tags-in-a-sam-file"><a href="#what-are-tags-in-a-sam-file" style="margin-right: 10px">#</a></a>What are tags in a <code>SAM</code> file</h3>
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two character abbreviation like <code>MQ</code>
@@ -3175,17 +3171,17 @@ CIGAR operators.</p>
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
 <h3 id="how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record in SAM/BAM/CRAM?</h3>
-<p>Reads in SAM/BAM/CRAM do have easy to interpret "start" and "end" and "strand"
-fields like, say, BED for each record</p>
-<p>Instead, each read has:</p>
+<p>Reads in SAM/BAM/CRAM do now have easy to interpret "start" and "end" and
+"strand" fields like, say, a BED file does</p>
+<p>Instead, each record has:</p>
 <ul>
 <li>A single "POS" coordinate</li>
 <li>A CIGAR string</li>
 </ul>
-<p>Using this, you can find the "end" coordinate of a read by, starting at the POS
-coordinate, and enumerating all the matches and deletions and insertions and
+<p>Using this, you can find the "end" coordinate of a record by, starting at the
+POS coordinate, and enumerating all the matches and deletions and insertions and
 clipping of the CIGAR. Once you have processed the whole CIGAR string, you can
-find where the read "ends" on the reference genome. And the "start" will be
+find where the record "ends" on the reference genome. And the "start" will be
 "POS"</p>
 <h3 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are "forward" and "reverse" strand reads?</h3>
 <p>Reads can align to the "forward strand" of the reference genome (e.g. it matches
@@ -3198,27 +3194,32 @@ SAM flags bitwise flag 16 enabled
 (<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), the flag there is
 referred to as "read reverse strand"</p>
 <h3 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h3>
-<p>As mentioned above, you get the "start" and "end" by processing the CIGAR, so
+<p>As mentioned above, you get the "start" and "end" by processing the <code>CIGAR</code>, so
 one might wonder whether you count "downwards" from POS for reverse strand
 reads. This is actually not correct though</p>
 <p>Here is what the SAM spec has to say about this</p>
 <blockquote>
-<p>"POS is the 1-based leftmost mapping POSition of the first CIGAR operation
+<p>"<code>POS</code> is the 1-based leftmost mapping POSition of the first <code>CIGAR</code> operation
 that “consumes” a reference base"</p>
 </blockquote>
-<p>And regarding CIGAR and other fields:</p>
+<p>And regarding <code>CIGAR</code> and other fields:</p>
 <blockquote>
-<p>"For segments that have been mapped to the reverse strand, the recorded SEQ is
-reverse complemented from the original unmapped sequence and CIGAR, QUAL, and
-strand-sensitive optional fields are reversed and thus recorded consistently
-with the sequence bases as represented"</p>
+<p>"For segments that have been mapped to the reverse strand, the recorded <code>SEQ</code>
+is reverse complemented from the original unmapped sequence and <code>CIGAR</code>,
+<code>QUAL</code>, and strand-sensitive optional fields are reversed and thus recorded
+consistently with the sequence bases as represented"</p>
 </blockquote>
 <p>That is a little bit of a mind boggle but effectively, no matter whether the
 record is forward or reverse strand, you count upwards when processing the
-CIGAR.</p>
+<code>CIGAR</code>.</p>
 <p>You can see in an example of this in SAMv1 section 1.1 that the read <code>r001/2</code> is
-"reverse strand", it's POS is 37, and then the CIGAR (9M) counts upwards from
-there, giving it an end position of 45.</p>
+"reverse strand" read, its <code>POS</code>, or start position, is 37, and then the <code>CIGAR</code>
+(9M, 9 matches) counts upwards from there, giving it an "end" position of 45.</p>
+<h3 id="how-are-reads-ordered-in-a-sam-fil"><a aria-hidden="true" tabindex="-1" href="#how-are-reads-ordered-in-a-sam-fil"><a href="#how-are-reads-ordered-in-a-sam-fil" style="margin-right: 10px">#</a></a>How are reads ordered in a <code>SAM</code> fil</h3>
+<p>Note that the records in a <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> file will often be "position
+sorted" so that they are grouped by chromosome name, and then increasing in
+coordinate start position (see the <code>samtools sort</code> command which does this) and
+indexed which helps enable random access of reads</p>
 <h3 id="what-happens-to-reads-that-dont-align-to-the-genome"><a aria-hidden="true" tabindex="-1" href="#what-happens-to-reads-that-dont-align-to-the-genome"><a href="#what-happens-to-reads-that-dont-align-to-the-genome" style="margin-right: 10px">#</a></a>What happens to reads that don't align to the genome</h3>
 <p>If a read failed to align to the reference genome, it may still be in your <code>SAM</code>
 file, marked as unmapped using the flag column. Sometimes, "dumpster diving"
@@ -3732,22 +3733,33 @@ out.cram.crai, and out.cram.bw (coverage)</p>
 reference genome. This is useful because as I mentioned, <code>CIGAR</code> can say <code>50M</code>
 (50 matches) but some letters inside those 50 matches can be mismatches, it only
 says there are no insertions/deletions in those 50 bases, but you have to
-determine where in those 50 bases where the mismatches are. The <code>MD</code> tag can
-help tell you where those are, but it is somewhat complicated to decode
-(<a href="https://vincebuffalo.com/notes/2014/01/17/md-tags-in-bam-files.html">https://vincebuffalo.com/notes/2014/01/17/md-tags-in-bam-files.html</a>). You have
-to combine it with the <code>CIGAR</code> to get the position of the mismatches on the
-reference genome. If you have a reference genome to look at, you might just
+determine where in those 50 bases where the mismatches are.</p>
+<p>The <code>MD</code> tag can help tell you where those are, but it is somewhat complicated
+to decode (<a href="https://vincebuffalo.com/notes/2014/01/17/md-tags-in-bam-files.html">https://vincebuffalo.com/notes/2014/01/17/md-tags-in-bam-files.html</a>).
+You have to combine it with the <code>CIGAR</code> to get the position of the mismatches on
+the reference genome. If you have a reference genome to look at, you might just
 compare all the bases within the 50M to the reference genome and look for
 mismatches yourself and forget about the <code>MD</code> tag</p>
 <p>The <code>MD</code> tag is also not required to exist, but the command
 <code>samtools calmd yourfile.bam --reference reference.fa</code> can add <code>MD</code> tags to your
 <code>BAM</code> file. It is generally not useful for <code>CRAM</code> because <code>CRAM</code> actually does
-store mismatches with the reference genome in it's compression format. Note that
-there are also some oddities about <code>MD</code> tag representation leading to complaints
-(e.g. <a href="https://github.com/samtools/hts-specs/issues/505">https://github.com/samtools/hts-specs/issues/505</a>) leading more credence to
-"doing it yourself" e.g. finding your own mismatches by comparing the read
-sequence with the reference, keeping track of where you are on the read and ref
-position with the <code>CIGAR</code> string (a la Appendix B)</p>]]></content:encoded>
+store mismatches with the reference genome in it's compression format.</p>
+<p>Note that there are some oddities about <code>MD</code> tag representation leading to
+complaints (e.g. <a href="https://github.com/samtools/hts-specs/issues/505">https://github.com/samtools/hts-specs/issues/505</a>), which could
+lend credence to "doing it yourself" e.g. finding your own mismatches by
+comparing the read sequence with the reference, instead of relying on the <code>MD</code>
+tag. (see Appendix B)</p>
+<h2 id="appendix-e-converting-between-sambamcram"><a aria-hidden="true" tabindex="-1" href="#appendix-e-converting-between-sambamcram"><a href="#appendix-e-converting-between-sambamcram" style="margin-right: 10px">#</a></a>Appendix E: Converting between SAM/BAM/CRAM</h2>
+<p>You can convert <code>SAM</code> to <code>BAM</code> with samtools</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#98C379"> file.sam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.bam</span></span></code></pre></figure>
+<p>You can also convert a <code>BAM</code> back to <code>SAM</code> with samtools view</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#D19A66"> -h</span><span style="color:#98C379"> file.bam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.sam</span></span></code></pre></figure>
+<p>The -h just makes sure to preserve the header.</p>
+<p>If you are converting <code>SAM</code> to <code>CRAM</code>, it may require the -T argument to specify
+your reference sequence (this is because the <code>CRAM</code> is "reference compressed")</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#D19A66"> -T</span><span style="color:#98C379"> reference.fa</span><span style="color:#98C379"> file.sam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.cram</span></span></code></pre></figure>
+<p>Note that in some cases you can pipe data directly from e.g. an aligner straight
+to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
