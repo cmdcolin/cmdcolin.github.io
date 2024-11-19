@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 04 Nov 2024 18:50:16 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 18 Nov 2024 23:50:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3129,7 +3129,7 @@ extra columns called tags. The tags have a two character abbreviation like <code
 (mapping quality) or many others. They can be upper or lower case. Upper case
 are reserved for official usages (except those with X, Y, or Z prefixed). See
 <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more details</p>
-<h3 id="what-is-a-cigar-string"><a aria-hidden="true" tabindex="-1" href="#what-is-a-cigar-string"><a href="#what-is-a-cigar-string" style="margin-right: 10px">#</a></a>What is a <code>CIGAR</code> string</h3>
+<h3 id="what-is-a-cigar-string-and-how-do-you-interpret-it"><a aria-hidden="true" tabindex="-1" href="#what-is-a-cigar-string-and-how-do-you-interpret-it"><a href="#what-is-a-cigar-string-and-how-do-you-interpret-it" style="margin-right: 10px">#</a></a>What is a <code>CIGAR</code> string and how do you interpret it?</h3>
 <p>A <code>CIGAR</code> string is a "compact idiosyncratic gapped alignment report". It tells
 you about insertions, deletions, and clipping. It is a series of "operators"
 with lengths.</p>
@@ -3177,6 +3177,39 @@ CIGAR operators.</p>
 <p>If you are working with <code>SAM</code> data, you will often write loops that directly
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
+<h2 id="how-do-you-determine-start-and-end-of-a-read-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-read-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-read-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a read in SAM/BAM/CRAM?</h2>
+<p>Reads in SAM/BAM/CRAM do have easy to interpret "start" and "end" and "strand"
+fields like, say, BED for each record</p>
+<p>Instead, each read has:</p>
+<ul>
+<li>A single "POS" coordinate</li>
+<li>A CIGAR string</li>
+</ul>
+<p>Using this, you can find the "end" coordinate of a read by, starting at the POS
+coordinate, and enumerating all the matches and deletions and insertions and
+clipping of the CIGAR. Once you have processed the whole CIGAR string, you can
+find where the read "ends" on the reference genome. And the "start" will be
+"POS"</p>
+<h2 id="but-what-about-strandedness"><a aria-hidden="true" tabindex="-1" href="#but-what-about-strandedness"><a href="#but-what-about-strandedness" style="margin-right: 10px">#</a></a>But what about strandedness?</h2>
+<p>Strandedness is determined by having the SAM bitwise flag 16 enabled
+(<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>, called "read
+reverse strand")</p>
+<h2 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h2>
+<p>No! The "POS" is the "leftmost" base. The SAMv1.pdf spec says about</p>
+<p>POS is the 1-based leftmost mapping POSition of the first CIGAR operation that
+“consumes” a reference base</p>
+<p>And regarding CIGAR and other fields: "For segments that have been mapped to the
+reverse strand, the recorded SEQ is reverse complemented from the original
+unmapped sequence and CIGAR, QUAL, and strand-sensitive optional fields are
+reversed and thus recorded consistently with the sequence bases as represented"</p>
+<p>That is a little bit of a mind boggle but it means you count upwards when
+processing the CIGAR. With this method, "POS" is your start coordinate and
+whereever you end up after processing the CIGAR is the "end" which is greater
+than the start, which is pretty common in bioinfo (generally even strand -1
+features are not recorded as end less than start...) and then you just interpret
+strandedness via the flag</p>
+<p>Note utility programs like <code>bedtools bamtobed</code> can do this conversion
+automatically, as well as libraries like GenomicRanges (R)</p>
 <h2 id="detecting-svs-from-long-reads"><a aria-hidden="true" tabindex="-1" href="#detecting-svs-from-long-reads"><a href="#detecting-svs-from-long-reads" style="margin-right: 10px">#</a></a>Detecting SVs from long reads</h2>
 <p>Long reads offer a wide array of methods for detecting SVs</p>
 <ul>
@@ -3377,8 +3410,9 @@ JBrowse 2 and IGV can be used to show visually the bases that extend into the
 insertion (shown on the bottom track).</p>
 <h3 id="unexpected-pair-orientation"><a aria-hidden="true" tabindex="-1" href="#unexpected-pair-orientation"><a href="#unexpected-pair-orientation" style="margin-right: 10px">#</a></a>Unexpected pair orientation</h3>
 <p>With standard paired end sequencing, the pairs normally point at each other</p>
-<pre><code>forward reverse
- --->    &#x3C;---
+<pre><code>
+forward reverse ---> &#x3C;---
+
 </code></pre>
 <p>If the stranded-ness of the pair is off, then it could indicate a structural
 variant. See Appendix A for a handy function for calculating pair orientation.</p>
