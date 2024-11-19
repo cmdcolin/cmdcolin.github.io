@@ -157,7 +157,8 @@ Some options you have include
 - Use `ts-jest`
 - Use `jest` on it's own, plus a `babel` config with `@babel/preset-typescript`
 - Use `jest` on it's own, run over the compiled output without a `babel` config
-- Use `vitest`
+- Use `vitest` (edit 2024: this is probably the most popular way to do things
+  now)
 - Possibly something else? Node now has a built-in test runner. It will be a
   slow road to adoption but might become more popular over time
   https://fusebit.io/blog/node-testing-comes-to-core/
