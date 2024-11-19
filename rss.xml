@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 02:08:21 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 02:10:44 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3170,19 +3170,19 @@ CIGAR operators.</p>
 <p>If you are working with <code>SAM</code> data, you will often write loops that directly
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
-<h3 id="how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record in SAM/BAM/CRAM?</h3>
-<p>Reads in SAM/BAM/CRAM do now have easy to interpret "start" and "end" and
-"strand" fields like, say, a BED file does</p>
+<h3 id="how-do-you-determine-start-and-end-of-a-record"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record"><a href="#how-do-you-determine-start-and-end-of-a-record" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record?</h3>
+<p>Records in <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> do not have easy to interpret "start" and "end"
+and "strand" fields like, say, a <code>BED</code> file does</p>
 <p>Instead, each record has:</p>
 <ul>
-<li>A single "POS" coordinate</li>
-<li>A CIGAR string</li>
+<li>A single <code>POS</code> coordinate</li>
+<li>A <code>CIGAR</code> string</li>
 </ul>
 <p>Using this, you can find the "end" coordinate of a record by, starting at the
 POS coordinate, and enumerating all the matches and deletions and insertions and
-clipping of the CIGAR. Once you have processed the whole CIGAR string, you can
-find where the record "ends" on the reference genome. And the "start" will be
-"POS"</p>
+clipping of the <code>CIGAR</code>. Once you have processed the whole <code>CIGAR</code> string, you
+can find where the record "ends" on the reference genome. And the "start" will
+be <code>POS</code></p>
 <h3 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are "forward" and "reverse" strand reads?</h3>
 <p>Reads can align to the "forward strand" of the reference genome (e.g. it matches
 the DNA letters as written in the reference genome FASTA file), resulting in
@@ -3193,11 +3193,11 @@ resulting in "reverse strand reads".</p>
 SAM flags bitwise flag 16 enabled
 (<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), the flag there is
 referred to as "read reverse strand"</p>
-<h3 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h3>
+<h3 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the <code>CIGAR</code> for reverse strand reads?</h3>
 <p>As mentioned above, you get the "start" and "end" by processing the <code>CIGAR</code>, so
 one might wonder whether you count "downwards" from POS for reverse strand
 reads. This is actually not correct though</p>
-<p>Here is what the SAM spec has to say about this</p>
+<p>Here is what the <code>SAM</code> spec has to say about this</p>
 <blockquote>
 <p>"<code>POS</code> is the 1-based leftmost mapping POSition of the first <code>CIGAR</code> operation
 that “consumes” a reference base"</p>
