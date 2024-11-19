@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 18 Nov 2024 23:50:22 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 00:05:41 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3190,26 +3190,38 @@ coordinate, and enumerating all the matches and deletions and insertions and
 clipping of the CIGAR. Once you have processed the whole CIGAR string, you can
 find where the read "ends" on the reference genome. And the "start" will be
 "POS"</p>
-<h2 id="but-what-about-strandedness"><a aria-hidden="true" tabindex="-1" href="#but-what-about-strandedness"><a href="#but-what-about-strandedness" style="margin-right: 10px">#</a></a>But what about strandedness?</h2>
-<p>Strandedness is determined by having the SAM bitwise flag 16 enabled
-(<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>, called "read
-reverse strand")</p>
+<h2 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are forward and reverse strand reads?</h2>
+<p>Reads can align to the "forward strand" of the reference genome (e.g. it matches
+the DNA letters as written in the reference genome FASTA file), resulting in
+"forward strand reads".</p>
+<p>Or, they can align to the reverse complement of the DNA in the reference genome,
+resulting in "reverse strand reads".</p>
+<p>Strandedness is recorded for each record in the SAM/BAM/CRAM file by having the
+SAM flags bitwise flag 16 enabled
+(<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), the flag there is
+referred to as "read reverse strand"</p>
 <h2 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h2>
-<p>No! The "POS" is the "leftmost" base. The SAMv1.pdf spec says about</p>
-<p>POS is the 1-based leftmost mapping POSition of the first CIGAR operation that
-“consumes” a reference base</p>
-<p>And regarding CIGAR and other fields: "For segments that have been mapped to the
-reverse strand, the recorded SEQ is reverse complemented from the original
-unmapped sequence and CIGAR, QUAL, and strand-sensitive optional fields are
-reversed and thus recorded consistently with the sequence bases as represented"</p>
-<p>That is a little bit of a mind boggle but it means you count upwards when
-processing the CIGAR. With this method, "POS" is your start coordinate and
-whereever you end up after processing the CIGAR is the "end" which is greater
-than the start, which is pretty common in bioinfo (generally even strand -1
-features are not recorded as end less than start...) and then you just interpret
-strandedness via the flag</p>
-<p>Note utility programs like <code>bedtools bamtobed</code> can do this conversion
-automatically, as well as libraries like GenomicRanges (R)</p>
+<p>As mentioned above, you get the start and end by processing the CIGAR, so one
+might wonder whether you count "downwards" from POS for reverse strand reads.
+This is actually not correct though</p>
+<p>Here is what the SAM spec has to say about this</p>
+<blockquote>
+<p>"POS is the 1-based leftmost mapping POSition of the first CIGAR operation
+that “consumes” a reference base"</p>
+</blockquote>
+<p>And regarding CIGAR and other fields:</p>
+<blockquote>
+<p>"For segments that have been mapped to the reverse strand, the recorded SEQ is
+reverse complemented from the original unmapped sequence and CIGAR, QUAL, and
+strand-sensitive optional fields are reversed and thus recorded consistently
+with the sequence bases as represented"</p>
+</blockquote>
+<p>That is a little bit of a mind boggle but effectively, no matter whether the
+record is forward or reverse strand, you count upwards when processing the
+CIGAR.</p>
+<p>You can see in an example of this in SAMv1 section 1.1 that the read <code>r001/2</code> is
+"reverse strand", it's POS is 37, and then the CIGAR (9M) counts upwards from
+there, giving it an end position of 45.</p>
 <h2 id="detecting-svs-from-long-reads"><a aria-hidden="true" tabindex="-1" href="#detecting-svs-from-long-reads"><a href="#detecting-svs-from-long-reads" style="margin-right: 10px">#</a></a>Detecting SVs from long reads</h2>
 <p>Long reads offer a wide array of methods for detecting SVs</p>
 <ul>

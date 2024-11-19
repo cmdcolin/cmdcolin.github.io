@@ -7,10 +7,10 @@
 b:I[6213,[],"ViewportBoundary"]
 d:I[4835,[],""]
 1:HL["/_next/static/css/d19cfa26cd1ef694.css","style"]
-0:{"P":null,"b":"dC1CqC2H5Sd1BmRIaCXG0","p":"","c":["","posts","2022-02-06-sv-sam"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2022-02-06-sv-sam","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d19cfa26cd1ef694.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L3",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}],["$","footer",null,{"className":"mt-16","children":[["$","$L3",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L3",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L3",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L3",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L3",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L3",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L3",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L3",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":[["id","2022-02-06-sv-sam","d"],["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":["__PAGE__",["$","$2","c",{"children":["$L6",null,["$","$L7",null,{"children":"$L8"}]]}],{},null]},null]},null]},null],["$","$2","h",{"children":[null,["$","$2","Pi3cnxJ8LMepCJ1WbmIUy",{"children":[["$","$L9",null,{"children":"$La"}],["$","$Lb",null,{"children":"$Lc"}],null]}]]}]]],"m":"$undefined","G":["$d","$undefined"],"s":false,"S":true}
+0:{"P":null,"b":"A4cqhq3Xe4qrWWOSMPrC5","p":"","c":["","posts","2022-02-06-sv-sam"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2022-02-06-sv-sam","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d19cfa26cd1ef694.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L3",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}],["$","footer",null,{"className":"mt-16","children":[["$","$L3",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L3",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L3",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L3",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L3",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L3",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L3",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L3",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":[["id","2022-02-06-sv-sam","d"],["$","$2","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]]}],{"children":["__PAGE__",["$","$2","c",{"children":["$L6",null,["$","$L7",null,{"children":"$L8"}]]}],{},null]},null]},null]},null],["$","$2","h",{"children":[null,["$","$2","UcI7JcHMGbwBcHfe9xh1L",{"children":[["$","$L9",null,{"children":"$La"}],["$","$Lb",null,{"children":"$Lc"}],null]}]]}]]],"m":"$undefined","G":["$d","$undefined"],"s":false,"S":true}
 c:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 f:I[7928,["880","static/chunks/app/posts/%5Bid%5D/page-6ba20b6c7bd62b9f.js"],"default"]
-e:T13b05,<p>The
+e:T13d1a,<p>The
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"><code>SAM</code> file format and it's specification</a>
 is pretty amazing , but it is also fairly terse and abstract. To really
 understand what is going on with your reads, you probably gotta play around with
@@ -56,14 +56,11 @@ to a reference genome.</p>
 <code>minimap2</code> (there are many others). These programs all can produce <code>SAM</code> outputs</p>
 <h3 id="what-is-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-is-in-a-sam-file"><a href="#what-is-in-a-sam-file" style="margin-right: 10px">#</a></a>What is in a <code>SAM</code> file</h3>
 <p>A <code>SAM</code> file contains a header (<code>BAM</code> and <code>CRAM</code> files also have the <code>SAM</code>
-header) and a series of records. A record is a single line in a <code>SAM</code> file, and
-it generally corresponds to a single read, but as we will see, a split alignment
-may produce multiple records that refer to the same source read.</p>
-<p>Note: if a read failed to align to the reference genome, it may still be in your
-<code>SAM</code> file, marked as unmapped using the flag column. Sometimes, "dumpster
-diving" (looking at the unmapped records from a <code>SAM</code> file) can be used to aid
-structural variant searches (e.g. there may be novel sequence in there not from
-the reference genome that could be assembled)</p>
+header) and a series of records.</p>
+<h3 id="what-is-a-sam-record"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-record"><a href="#what-is-a-sam-record" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> record</h3>
+<p>A record is a single line in a <code>SAM</code> file, and it generally corresponds to a
+single read, but as we will see, a split alignment may produce multiple records
+that refer to the same source read.</p>
 <h3 id="what-are-tags-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-are-tags-in-a-sam-file"><a href="#what-are-tags-in-a-sam-file" style="margin-right: 10px">#</a></a>What are tags in a <code>SAM</code> file</h3>
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two character abbreviation like <code>MQ</code>
@@ -118,7 +115,7 @@ CIGAR operators.</p>
 <p>If you are working with <code>SAM</code> data, you will often write loops that directly
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
-<h2 id="how-do-you-determine-start-and-end-of-a-read-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-read-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-read-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a read in SAM/BAM/CRAM?</h2>
+<h3 id="how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record in SAM/BAM/CRAM?</h3>
 <p>Reads in SAM/BAM/CRAM do have easy to interpret "start" and "end" and "strand"
 fields like, say, BED for each record</p>
 <p>Instead, each read has:</p>
@@ -131,7 +128,7 @@ coordinate, and enumerating all the matches and deletions and insertions and
 clipping of the CIGAR. Once you have processed the whole CIGAR string, you can
 find where the read "ends" on the reference genome. And the "start" will be
 "POS"</p>
-<h2 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are forward and reverse strand reads?</h2>
+<h3 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are "forward" and "reverse" strand reads?</h3>
 <p>Reads can align to the "forward strand" of the reference genome (e.g. it matches
 the DNA letters as written in the reference genome FASTA file), resulting in
 "forward strand reads".</p>
@@ -141,10 +138,10 @@ resulting in "reverse strand reads".</p>
 SAM flags bitwise flag 16 enabled
 (<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), the flag there is
 referred to as "read reverse strand"</p>
-<h2 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h2>
-<p>As mentioned above, you get the start and end by processing the CIGAR, so one
-might wonder whether you count "downwards" from POS for reverse strand reads.
-This is actually not correct though</p>
+<h3 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h3>
+<p>As mentioned above, you get the "start" and "end" by processing the CIGAR, so
+one might wonder whether you count "downwards" from POS for reverse strand
+reads. This is actually not correct though</p>
 <p>Here is what the SAM spec has to say about this</p>
 <blockquote>
 <p>"POS is the 1-based leftmost mapping POSition of the first CIGAR operation
@@ -163,6 +160,12 @@ CIGAR.</p>
 <p>You can see in an example of this in SAMv1 section 1.1 that the read <code>r001/2</code> is
 "reverse strand", it's POS is 37, and then the CIGAR (9M) counts upwards from
 there, giving it an end position of 45.</p>
+<h3 id="what-happens-to-reads-that-dont-align-to-the-genome"><a aria-hidden="true" tabindex="-1" href="#what-happens-to-reads-that-dont-align-to-the-genome"><a href="#what-happens-to-reads-that-dont-align-to-the-genome" style="margin-right: 10px">#</a></a>What happens to reads that don't align to the genome</h3>
+<p>If a read failed to align to the reference genome, it may still be in your <code>SAM</code>
+file, marked as unmapped using the flag column. Sometimes, "dumpster diving"
+(looking at the unmapped records from a <code>SAM</code> file) can be used to aid
+structural variant searches (e.g. there may be novel sequence in there not from
+the reference genome that could be assembled)</p>
 <h2 id="detecting-svs-from-long-reads"><a aria-hidden="true" tabindex="-1" href="#detecting-svs-from-long-reads"><a href="#detecting-svs-from-long-reads" style="margin-right: 10px">#</a></a>Detecting SVs from long reads</h2>
 <p>Long reads offer a wide array of methods for detecting SVs</p>
 <ul>
