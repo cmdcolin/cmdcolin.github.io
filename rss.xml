@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 02:06:41 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 02:08:21 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3212,9 +3212,10 @@ consistently with the sequence bases as represented"</p>
 <p>That is a little bit of a mind boggle but effectively, no matter whether the
 record is forward or reverse strand, you count upwards when processing the
 <code>CIGAR</code>.</p>
-<p>You can see in an example of this in SAMv1 section 1.1 that the read <code>r001/2</code> is
-"reverse strand" read, its <code>POS</code>, or start position, is 37, and then the <code>CIGAR</code>
-(9M, 9 matches) counts upwards from there, giving it an "end" position of 45.</p>
+<p>You can see in an example of this in SAMv1 section 1.1 -- the read <code>r001/2</code> is a
+"reverse strand" read, and its <code>POS</code>, or "start" position, is 37, and then the
+<code>CIGAR</code> (9M, 9 matches) counts upwards from there, giving it an "end" position
+of 45.</p>
 <h3 id="how-are-reads-ordered-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#how-are-reads-ordered-in-a-sam-file"><a href="#how-are-reads-ordered-in-a-sam-file" style="margin-right: 10px">#</a></a>How are reads ordered in a <code>SAM</code> file</h3>
 <p>When you run an aligner program like bwa or minimap2, you type e.g.</p>
 <pre><code>minimap2 -a reference_genom.fa reads.fq > out.sam
