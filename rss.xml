@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 02:10:44 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 14:07:02 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3113,9 +3113,8 @@ to a reference genome.</p>
 <p>A record is a single line in a <code>SAM</code> file, and it generally corresponds to a
 single read, but as we will see, a split alignment may produce multiple records
 that refer to the same source read.</p>
-<p>Note that sometimes the word read and record are sometimes used interchangeably,
-but record has the more specific meaning of being a single line in the <code>SAM</code>
-file</p>
+<p>Note that the word read and record are sometimes used interchangeably, but
+record has the more specific meaning of being a single line in the <code>SAM</code> file.</p>
 <h3 id="what-are-tags-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-are-tags-in-a-sam-file"><a href="#what-are-tags-in-a-sam-file" style="margin-right: 10px">#</a></a>What are tags in a <code>SAM</code> file</h3>
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two character abbreviation like <code>MQ</code>
