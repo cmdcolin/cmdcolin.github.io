@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 00:05:41 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 00:11:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3115,14 +3115,11 @@ to a reference genome.</p>
 <code>minimap2</code> (there are many others). These programs all can produce <code>SAM</code> outputs</p>
 <h3 id="what-is-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-is-in-a-sam-file"><a href="#what-is-in-a-sam-file" style="margin-right: 10px">#</a></a>What is in a <code>SAM</code> file</h3>
 <p>A <code>SAM</code> file contains a header (<code>BAM</code> and <code>CRAM</code> files also have the <code>SAM</code>
-header) and a series of records. A record is a single line in a <code>SAM</code> file, and
-it generally corresponds to a single read, but as we will see, a split alignment
-may produce multiple records that refer to the same source read.</p>
-<p>Note: if a read failed to align to the reference genome, it may still be in your
-<code>SAM</code> file, marked as unmapped using the flag column. Sometimes, "dumpster
-diving" (looking at the unmapped records from a <code>SAM</code> file) can be used to aid
-structural variant searches (e.g. there may be novel sequence in there not from
-the reference genome that could be assembled)</p>
+header) and a series of records.</p>
+<h3 id="what-is-a-sam-record"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-record"><a href="#what-is-a-sam-record" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> record</h3>
+<p>A record is a single line in a <code>SAM</code> file, and it generally corresponds to a
+single read, but as we will see, a split alignment may produce multiple records
+that refer to the same source read.</p>
 <h3 id="what-are-tags-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-are-tags-in-a-sam-file"><a href="#what-are-tags-in-a-sam-file" style="margin-right: 10px">#</a></a>What are tags in a <code>SAM</code> file</h3>
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two character abbreviation like <code>MQ</code>
@@ -3177,7 +3174,7 @@ CIGAR operators.</p>
 <p>If you are working with <code>SAM</code> data, you will often write loops that directly
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
-<h2 id="how-do-you-determine-start-and-end-of-a-read-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-read-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-read-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a read in SAM/BAM/CRAM?</h2>
+<h3 id="how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram"><a href="#how-do-you-determine-start-and-end-of-a-record-in-sambamcram" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record in SAM/BAM/CRAM?</h3>
 <p>Reads in SAM/BAM/CRAM do have easy to interpret "start" and "end" and "strand"
 fields like, say, BED for each record</p>
 <p>Instead, each read has:</p>
@@ -3190,7 +3187,7 @@ coordinate, and enumerating all the matches and deletions and insertions and
 clipping of the CIGAR. Once you have processed the whole CIGAR string, you can
 find where the read "ends" on the reference genome. And the "start" will be
 "POS"</p>
-<h2 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are forward and reverse strand reads?</h2>
+<h3 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are "forward" and "reverse" strand reads?</h3>
 <p>Reads can align to the "forward strand" of the reference genome (e.g. it matches
 the DNA letters as written in the reference genome FASTA file), resulting in
 "forward strand reads".</p>
@@ -3200,10 +3197,10 @@ resulting in "reverse strand reads".</p>
 SAM flags bitwise flag 16 enabled
 (<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), the flag there is
 referred to as "read reverse strand"</p>
-<h2 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h2>
-<p>As mentioned above, you get the start and end by processing the CIGAR, so one
-might wonder whether you count "downwards" from POS for reverse strand reads.
-This is actually not correct though</p>
+<h3 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads"><a href="#do-you-count-backwards-with-the-cigar-for-reverse-strand-reads" style="margin-right: 10px">#</a></a>Do you count backwards with the CIGAR for reverse strand reads?</h3>
+<p>As mentioned above, you get the "start" and "end" by processing the CIGAR, so
+one might wonder whether you count "downwards" from POS for reverse strand
+reads. This is actually not correct though</p>
 <p>Here is what the SAM spec has to say about this</p>
 <blockquote>
 <p>"POS is the 1-based leftmost mapping POSition of the first CIGAR operation
@@ -3222,6 +3219,12 @@ CIGAR.</p>
 <p>You can see in an example of this in SAMv1 section 1.1 that the read <code>r001/2</code> is
 "reverse strand", it's POS is 37, and then the CIGAR (9M) counts upwards from
 there, giving it an end position of 45.</p>
+<h3 id="what-happens-to-reads-that-dont-align-to-the-genome"><a aria-hidden="true" tabindex="-1" href="#what-happens-to-reads-that-dont-align-to-the-genome"><a href="#what-happens-to-reads-that-dont-align-to-the-genome" style="margin-right: 10px">#</a></a>What happens to reads that don't align to the genome</h3>
+<p>If a read failed to align to the reference genome, it may still be in your <code>SAM</code>
+file, marked as unmapped using the flag column. Sometimes, "dumpster diving"
+(looking at the unmapped records from a <code>SAM</code> file) can be used to aid
+structural variant searches (e.g. there may be novel sequence in there not from
+the reference genome that could be assembled)</p>
 <h2 id="detecting-svs-from-long-reads"><a aria-hidden="true" tabindex="-1" href="#detecting-svs-from-long-reads"><a href="#detecting-svs-from-long-reads" style="margin-right: 10px">#</a></a>Detecting SVs from long reads</h2>
 <p>Long reads offer a wide array of methods for detecting SVs</p>
 <ul>
