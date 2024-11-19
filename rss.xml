@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 01:48:15 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 02:06:41 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3215,11 +3215,15 @@ record is forward or reverse strand, you count upwards when processing the
 <p>You can see in an example of this in SAMv1 section 1.1 that the read <code>r001/2</code> is
 "reverse strand" read, its <code>POS</code>, or start position, is 37, and then the <code>CIGAR</code>
 (9M, 9 matches) counts upwards from there, giving it an "end" position of 45.</p>
-<h3 id="how-are-reads-ordered-in-a-sam-fil"><a aria-hidden="true" tabindex="-1" href="#how-are-reads-ordered-in-a-sam-fil"><a href="#how-are-reads-ordered-in-a-sam-fil" style="margin-right: 10px">#</a></a>How are reads ordered in a <code>SAM</code> fil</h3>
-<p>Note that the records in a <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> file will often be "position
-sorted" so that they are grouped by chromosome name, and then increasing in
-coordinate start position (see the <code>samtools sort</code> command which does this) and
-indexed which helps enable random access of reads</p>
+<h3 id="how-are-reads-ordered-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#how-are-reads-ordered-in-a-sam-file"><a href="#how-are-reads-ordered-in-a-sam-file" style="margin-right: 10px">#</a></a>How are reads ordered in a <code>SAM</code> file</h3>
+<p>When you run an aligner program like bwa or minimap2, you type e.g.</p>
+<pre><code>minimap2 -a reference_genom.fa reads.fq > out.sam
+</code></pre>
+<p>out.sam will be ordered in the same order as the fastq. For preparation for
+loading into analysis tools or genome browsers, we will often sort the reads
+using <code>samtools sort</code> which will group by chromosome name, and then increasing
+in coordinate start position. Then <code>samtools index</code> creates an index file (e.g.
+bam.bai, cram.crai) that aids getting the reads in a specific genomic region</p>
 <h3 id="what-happens-to-reads-that-dont-align-to-the-genome"><a aria-hidden="true" tabindex="-1" href="#what-happens-to-reads-that-dont-align-to-the-genome"><a href="#what-happens-to-reads-that-dont-align-to-the-genome" style="margin-right: 10px">#</a></a>What happens to reads that don't align to the genome</h3>
 <p>If a read failed to align to the reference genome, it may still be in your <code>SAM</code>
 file, marked as unmapped using the flag column. Sometimes, "dumpster diving"
