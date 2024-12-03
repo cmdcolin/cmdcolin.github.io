@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 14:19:19 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 16:34:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -3170,8 +3170,8 @@ CIGAR operators.</p>
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
 <h3 id="how-do-you-determine-start-and-end-of-a-record"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record"><a href="#how-do-you-determine-start-and-end-of-a-record" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record?</h3>
-<p>Records in <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> do not have easy to interpret "start" and "end"
-and "strand" fields like, say, a <code>BED</code> file does</p>
+<p>Records do not have easy-to-interpret "start" and "end" and "strand" field like,
+say, lines in a <code>BED</code> file do</p>
 <p>Instead, each record has:</p>
 <ul>
 <li>A single <code>POS</code> coordinate</li>
