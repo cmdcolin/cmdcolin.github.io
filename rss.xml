@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 19 Nov 2024 16:34:59 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 03 Dec 2024 02:13:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2592,7 +2592,8 @@ Some options you have include</p>
 <li>Use <code>ts-jest</code></li>
 <li>Use <code>jest</code> on it's own, plus a <code>babel</code> config with <code>@babel/preset-typescript</code></li>
 <li>Use <code>jest</code> on it's own, run over the compiled output without a <code>babel</code> config</li>
-<li>Use <code>vitest</code></li>
+<li>Use <code>vitest</code> (edit 2024: this is probably the most popular way to do things
+now)</li>
 <li>Possibly something else? Node now has a built-in test runner. It will be a
 slow road to adoption but might become more popular over time
 <a href="https://fusebit.io/blog/node-testing-comes-to-core/">https://fusebit.io/blog/node-testing-comes-to-core/</a></li>
