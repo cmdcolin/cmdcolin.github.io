@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 22 Dec 2024 19:20:48 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 22 Dec 2024 19:27:48 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -5274,10 +5274,10 @@ the github repo that allows putObject in s3 with the public-read ACL</p>
             <link>https://cmdcolin.github.io/posts/2020-07-04</link>
             <guid>https://cmdcolin.github.io/posts/2020-07-04</guid>
             <pubDate>Sat, 04 Jul 2020 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p>When I started a new job that I started in 2018, I faced a huge struggle when
-learning React. It was a weird time, I wanted to go over my learning experience
-to share with others. I tried to review commit logs to get an accurate timeline,
-instead of relying solely on my memory.</p>
+            <content:encoded><![CDATA[<p>When I started a new job in 2018, I faced a huge struggle when learning React.
+It was a weird time, I wanted to go over my learning experience to share with
+others. I tried to review commit logs to get an accurate timeline, instead of
+relying solely on my memory.</p>
 <p>If there are any takeaways or TL;DR's, they might be</p>
 <ul>
 <li>reading the book "Learning React" was very helpful and for me was a turning
