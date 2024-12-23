@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 22 Dec 2024 19:32:27 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 Dec 2024 00:05:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -5390,7 +5390,7 @@ had struggles learning React, tell your story, and let me know. I'd like to also
 thank everyone who helped me along the way. I feel like a much better coder now,
 yet, I should always keep growing. The feeling of uncomfortableness could be a
 growing experience.</p>
-<h2 id="footnote-1---my-earlier-react-attempt"><a aria-hidden="true" tabindex="-1" href="#footnote-1---my-earlier-react-attempt"><a href="#footnote-1---my-earlier-react-attempt" style="margin-right: 10px">#</a></a>Footnote 1 - My earlier React attempt</h2>
+<h3 id="footnote-1---my-earlier-react-attempt"><a aria-hidden="true" tabindex="-1" href="#footnote-1---my-earlier-react-attempt"><a href="#footnote-1---my-earlier-react-attempt" style="margin-right: 10px">#</a></a>Footnote 1 - My earlier React attempt</h3>
 <p>Random aside but I had tried using React in 2016... but it was unsuccessful, but
 maybe for interesting reasons?</p>
 <p>I was tasked with making a normal form with text input elements, and I wanted to
@@ -5405,12 +5405,12 @@ two-way data binding from Angular, and I just felt like it was what I needed. I
 even posted about my frustrations about this on the React subreddit and was
 downvoted. Felt bad. I was just really confused. I abandoned the project in
 React and just used our normal jqueryish thing.</p>
-<h2 id="footnote-2---why-did-i-struggle-so-much"><a aria-hidden="true" tabindex="-1" href="#footnote-2---why-did-i-struggle-so-much"><a href="#footnote-2---why-did-i-struggle-so-much" style="margin-right: 10px">#</a></a>Footnote 2 - why did I struggle so much?</h2>
+<h3 id="footnote-2---why-did-i-struggle-so-much"><a aria-hidden="true" tabindex="-1" href="#footnote-2---why-did-i-struggle-so-much"><a href="#footnote-2---why-did-i-struggle-so-much" style="margin-right: 10px">#</a></a>Footnote 2 - why did I struggle so much?</h3>
 <p>I can't exactly say. I feel like I was a competent developer, but I had some
 severe mental barriers to understanding the way React worked. I wish someone
 would have just told me something like "React is basically like functions that
 can return HTML".</p>
-<h2 id="footnote-3---any-other-suggestions"><a aria-hidden="true" tabindex="-1" href="#footnote-3---any-other-suggestions"><a href="#footnote-3---any-other-suggestions" style="margin-right: 10px">#</a></a>Footnote 3 - any other suggestions?</h2>
+<h3 id="footnote-3---any-other-suggestions"><a aria-hidden="true" tabindex="-1" href="#footnote-3---any-other-suggestions"><a href="#footnote-3---any-other-suggestions" style="margin-right: 10px">#</a></a>Footnote 3 - any other suggestions?</h3>
 <p>I am not sure if I would recommend Learning React to all learners. I think it
 helped me, but there may be other options that work better for you. Look around
 and find what what looks right.</p>
