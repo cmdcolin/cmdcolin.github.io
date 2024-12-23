@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 22 Dec 2024 19:27:48 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 22 Dec 2024 19:32:27 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -5302,8 +5302,8 @@ use React. I start out as a remote worker.</p>
 me what state management library should we use, but I had no idea about React
 still, much less what state management even is, and basically just was like "I
 dunno!". I had no way to form an opinion, because I didn't know React and why
-state management mattered. I just had a lot of mutable DOM and jquery-ish ideas
-in my head, and passed 'state' around in a ad hoc fashion.</p>
+state management mattered. In my previous work, I used a lot of mutable DOM and
+jquery-ish concepts, and passed 'state' around in a ad hoc fashion.</p>
 <h2 id="falling-behind"><a aria-hidden="true" tabindex="-1" href="#falling-behind"><a href="#falling-behind" style="margin-right: 10px">#</a></a>Falling behind</h2>
 <p>I was working on stuff unrelated to the rewrite as the rest of the team started
 prototyping in React, and I remained pretty out of the loop.</p>
