@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 23 Dec 2024 00:05:58 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 Dec 2024 00:08:18 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -5396,15 +5396,15 @@ maybe for interesting reasons?</p>
 <p>I was tasked with making a normal form with text input elements, and I wanted to
 try using React. I tried importing React via a CDN and gave it a shot, and it
 seemed simple enough, but I kept getting really confused about how to even read
-and initialize the value of a textbox for example properly.</p>
-<p>TL;DR: I was not aware of what a <em>controlled component</em> was.</p>
-<p>The idea of controlled components (not a word in my vocabulary at the time) was
-quite unintuitive and instead, I kept googling weird things like "two way data
-binding react" and variants of this. I had never used Angular but I heard of
-two-way data binding from Angular, and I just felt like it was what I needed. I
-even posted about my frustrations about this on the React subreddit and was
+and initialize the value of a textbox for example properly. The idea of
+controlled components (not a word in my vocabulary at the time) was quite
+unintuitive and instead, I kept googling weird things like "two way data binding
+react" and variants of this. I had never used Angular but I heard of two-way
+data binding from Angular, and I just felt like it was what I needed. I even
+posted about my frustrations about this on the React subreddit and was
 downvoted. Felt bad. I was just really confused. I abandoned the project in
 React and just used our normal jqueryish thing.</p>
+<p>TL;DR: I was not aware of what a <em>controlled component</em> was.</p>
 <h3 id="footnote-2---why-did-i-struggle-so-much"><a aria-hidden="true" tabindex="-1" href="#footnote-2---why-did-i-struggle-so-much"><a href="#footnote-2---why-did-i-struggle-so-much" style="margin-right: 10px">#</a></a>Footnote 2 - why did I struggle so much?</h3>
 <p>I can't exactly say. I feel like I was a competent developer, but I had some
 severe mental barriers to understanding the way React worked. I wish someone
