@@ -6,6 +6,12 @@ const returnValue = [
   {
     year: 2024,
     author: 'Erik Larson',
+    title: "Isaac's Storm",
+  },
+
+  {
+    year: 2024,
+    author: 'Erik Larson',
     title:
       'The Demon of Unrest: A Saga of Hubris, Heartbreak, and Heroism at the Dawn of the Civil War',
   },
