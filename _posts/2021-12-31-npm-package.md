@@ -491,3 +491,7 @@ via hot module refresh
 High powered solutions like nx, turborepo, etc may have solutions for
 'automatically building all the stuff' without you explicitly having to run the
 build in the `lib` directory, but for simple monorepo setups, this works ok
+
+## Footnote 2 - 2025 update
+
+See https://cmdcolin.github.io/posts/2025-01-12-pureesm

@@ -267,3 +267,7 @@ What about using React in your library? Bundlers are still not needed, and not
 even babel is needed: you can code your library as in `jsx` or `tsx` files and
 use `tsc` to compile it, and it will be converted to React.createElement
 statements (or the newer jsx transform if you elect to use it in your tsconfig).
+
+## Footnote 6: 2025 update
+
+See https://cmdcolin.github.io/posts/2025-01-12-pureesm
