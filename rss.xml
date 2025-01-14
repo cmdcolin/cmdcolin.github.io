@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 14 Jan 2025 14:37:34 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jan 2025 14:42:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -16,20 +16,18 @@
             <pubDate>Sun, 12 Jan 2025 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In the past, I have written about making NPM packages with just the typscript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
-There, I focused on "CJS" build because it is/was arguably simpler</p>
-<p>TLDR: here is the minimal github repo for a pure ESM package using the tsc
-compiler to generate the distribution files</p>
-<p>Now, I am addressing the ESM case</p>
+There, I focused on "CJS" build because it was arguably simpler</p>
+<p>Now, I am addressing the "ESM" case</p>
+<p>TLDR: here is the minimal github repo for this post
+<a href="https://github.com/cmdcolin/minimal_pureesm_package/">https://github.com/cmdcolin/minimal_pureesm_package/</a></p>
 <h2 id="why-pure-esm-now"><a aria-hidden="true" tabindex="-1" href="#why-pure-esm-now"><a href="#why-pure-esm-now" style="margin-right: 10px">#</a></a>Why pure-ESM now?</h2>
-<ul>
-<li>As my previous article mentions, I like taking a 'bundler-less' approach to
-library distribution</li>
-<li>That means that multiple files might end up in the <code>dist</code> folder which
-reference each other</li>
-<li>Pure ESM requires these files that reference each other to import the actual
-path, with the file extension</li>
-</ul>
-<h2 id="new-tsconfigjson-settings"><a aria-hidden="true" tabindex="-1" href="#new-tsconfigjson-settings"><a href="#new-tsconfigjson-settings" style="margin-right: 10px">#</a></a>New tsconfig.json settings</h2>
+<p>As my previous article mentions, I like taking a 'bundler-less' approach to
+library distribution. That means that multiple files might end up in the <code>dist</code>
+folder which reference each other. However, using "pure ESM" requires these
+files that reference each other to import the actual path, with the file
+extensions</p>
+<p>Which was awkward before...but now</p>
+<h2 id="we-have-some-new-tsconfigjson-settings-to-help"><a aria-hidden="true" tabindex="-1" href="#we-have-some-new-tsconfigjson-settings-to-help"><a href="#we-have-some-new-tsconfigjson-settings-to-help" style="margin-right: 10px">#</a></a>We have some new tsconfig.json settings to help</h2>
 <p>The recent addition of the <code>tsc</code> settings <code>allowImportingTsExtensions</code> and
 <code>rewriteRelativeImportExtensions</code> have now made it sane, or at least less
 awkward now</p>
@@ -51,20 +49,16 @@ total 24K
 
 </code></pre>
 <p>where dist/index.js says</p>
-<pre><code>
-import { foo } from "./bar.js";
-export default function mypackage() {
-    foo();
-}
-//# sourceMappingURL=index.js.map%
-</code></pre>
-<p>and dist/foo.js says</p>
-<pre><code>
-export function foo() {
-    console.log("foo in bar.ts");
-}
-//# sourceMappingURL=bar.js.map%
-</code></pre>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
+<span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> default</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> mypackage</span><span style="color:#ABB2BF">() {</span></span>
+<span data-line=""><span style="color:#61AFEF">  foo</span><span style="color:#ABB2BF">()</span></span>
+<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<p>and dist/bar.js says</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
+<span data-line=""><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
+<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
+have this behavior, but now you can reference the actual file, bar.ts</p>
 <h2 id="the-packagejson"><a aria-hidden="true" tabindex="-1" href="#the-packagejson"><a href="#the-packagejson" style="margin-right: 10px">#</a></a>The package.json</h2>
 <figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="json" data-theme="one-dark-pro"><code data-language="json" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">{</span></span>
 <span data-line=""><span style="color:#E06C75">  "name"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"minimalpackage"</span><span style="color:#ABB2BF">,</span></span>
