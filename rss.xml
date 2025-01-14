@@ -4,15 +4,15 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 14 Jan 2025 14:33:26 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jan 2025 14:36:10 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
             <title><![CDATA[Making a pure-ESM package using `tsc`]]></title>
-            <link>https://cmdcolin.github.io/posts/2025-01-12</link>
-            <guid>https://cmdcolin.github.io/posts/2025-01-12</guid>
+            <link>https://cmdcolin.github.io/posts/2025-01-12-pureesm</link>
+            <guid>https://cmdcolin.github.io/posts/2025-01-12-pureesm</guid>
             <pubDate>Sun, 12 Jan 2025 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In the past, I have written about making NPM packages with just the typscript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
