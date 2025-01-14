@@ -7,25 +7,23 @@
 a:I[6213,[],"ViewportBoundary"]
 c:I[4835,[],""]
 :HL["/_next/static/css/cc26266985a3f391.css","style"]
-0:{"P":null,"b":"RS75djI6QShH5j-mtgfZ2","p":"","c":["","posts","2025-01-12-pureesm"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2025-01-12-pureesm","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/cc26266985a3f391.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2025-01-12-pureesm","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":"$L7"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","1v5I08sGo__7I4oEuilvY",{"children":[["$","$L8",null,{"children":"$L9"}],["$","$La",null,{"children":"$Lb"}],null]}]]}],false]],"m":"$undefined","G":["$c","$undefined"],"s":false,"S":true}
+0:{"P":null,"b":"82dFwpCNHkWKbiW-Zb_11","p":"","c":["","posts","2025-01-12-pureesm"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2025-01-12-pureesm","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/cc26266985a3f391.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2025-01-12-pureesm","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":"$L7"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","xhJeV4YITlhUBE4R7ohWf",{"children":[["$","$L8",null,{"children":"$L9"}],["$","$La",null,{"children":"$Lb"}],null]}]]}],false]],"m":"$undefined","G":["$c","$undefined"],"s":false,"S":true}
 b:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 e:I[7928,["880","static/chunks/app/posts/%5Bid%5D/page-efdb81ac98a36819.js"],"default"]
-d:T3be8,<p>In the past, I have written about making NPM packages with just the typscript
+d:T42e9,<p>In the past, I have written about making NPM packages with just the typscript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
-There, I focused on "CJS" build because it is/was arguably simpler</p>
-<p>TLDR: here is the minimal github repo for a pure ESM package using the tsc
-compiler to generate the distribution files</p>
-<p>Now, I am addressing the ESM case</p>
+There, I focused on "CJS" build because it was arguably simpler</p>
+<p>Now, I am addressing the "ESM" case</p>
+<p>TLDR: here is the minimal github repo for this post
+<a href="https://github.com/cmdcolin/minimal_pureesm_package/">https://github.com/cmdcolin/minimal_pureesm_package/</a></p>
 <h2 id="why-pure-esm-now"><a aria-hidden="true" tabindex="-1" href="#why-pure-esm-now"><a href="#why-pure-esm-now" style="margin-right: 10px">#</a></a>Why pure-ESM now?</h2>
-<ul>
-<li>As my previous article mentions, I like taking a 'bundler-less' approach to
-library distribution</li>
-<li>That means that multiple files might end up in the <code>dist</code> folder which
-reference each other</li>
-<li>Pure ESM requires these files that reference each other to import the actual
-path, with the file extension</li>
-</ul>
-<h2 id="new-tsconfigjson-settings"><a aria-hidden="true" tabindex="-1" href="#new-tsconfigjson-settings"><a href="#new-tsconfigjson-settings" style="margin-right: 10px">#</a></a>New tsconfig.json settings</h2>
+<p>As my previous article mentions, I like taking a 'bundler-less' approach to
+library distribution. That means that multiple files might end up in the <code>dist</code>
+folder which reference each other. However, using "pure ESM" requires these
+files that reference each other to import the actual path, with the file
+extensions</p>
+<p>Which was awkward before...but now</p>
+<h2 id="we-have-some-new-tsconfigjson-settings-to-help"><a aria-hidden="true" tabindex="-1" href="#we-have-some-new-tsconfigjson-settings-to-help"><a href="#we-have-some-new-tsconfigjson-settings-to-help" style="margin-right: 10px">#</a></a>We have some new tsconfig.json settings to help</h2>
 <p>The recent addition of the <code>tsc</code> settings <code>allowImportingTsExtensions</code> and
 <code>rewriteRelativeImportExtensions</code> have now made it sane, or at least less
 awkward now</p>
@@ -47,20 +45,16 @@ total 24K
 
 </code></pre>
 <p>where dist/index.js says</p>
-<pre><code>
-import { foo } from "./bar.js";
-export default function mypackage() {
-    foo();
-}
-//# sourceMappingURL=index.js.map%
-</code></pre>
-<p>and dist/foo.js says</p>
-<pre><code>
-export function foo() {
-    console.log("foo in bar.ts");
-}
-//# sourceMappingURL=bar.js.map%
-</code></pre>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
+<span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> default</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> mypackage</span><span style="color:#ABB2BF">() {</span></span>
+<span data-line=""><span style="color:#61AFEF">  foo</span><span style="color:#ABB2BF">()</span></span>
+<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<p>and dist/bar.js says</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
+<span data-line=""><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
+<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
+have this behavior, but now you can reference the actual file, bar.ts</p>
 <h2 id="the-packagejson"><a aria-hidden="true" tabindex="-1" href="#the-packagejson"><a href="#the-packagejson" style="margin-right: 10px">#</a></a>The package.json</h2>
 <figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="json" data-theme="one-dark-pro"><code data-language="json" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">{</span></span>
 <span data-line=""><span style="color:#E06C75">  "name"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"minimalpackage"</span><span style="color:#ABB2BF">,</span></span>
