@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 14 Jan 2025 14:42:57 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jan 2025 14:49:22 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -31,12 +31,12 @@ extensions</p>
 <p>The recent addition of the <code>tsc</code> settings <code>allowImportingTsExtensions</code> and
 <code>rewriteRelativeImportExtensions</code> have now made it sane, or at least less
 awkward now</p>
-<p>These two settings make it so that if I can write two files e.g.</p>
-<p>src/index.ts</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
+<p>These two settings make it so that we can write two files e.g.</p>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#7F848E;font-style:italic">// src/index.ts</span></span>
+<span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
 <span data-line=""><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
-<p>src/bar.ts</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
+<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#7F848E;font-style:italic">// src/bar.ts</span></span>
+<span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
 <span data-line=""><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
 <span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
 <p>then running tsc over these files will produce</p>
@@ -48,11 +48,9 @@ total 24K
 -rw-rw-r-- 1 cdiesh cdiesh 116 Jan 14 06:07 index.js
 
 </code></pre>
-<p>where dist/index.js says</p>
+<p>where dist/index.js now contains an import with the .js extension</p>
 <figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
-<span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> default</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> mypackage</span><span style="color:#ABB2BF">() {</span></span>
-<span data-line=""><span style="color:#61AFEF">  foo</span><span style="color:#ABB2BF">()</span></span>
-<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<span data-line=""><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
 <p>and dist/bar.js says</p>
 <figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
 <span data-line=""><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
@@ -79,12 +77,20 @@ have this behavior, but now you can reference the actual file, bar.ts</p>
 <span data-line=""><span style="color:#E06C75">    "typescript"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^5.7.3"</span></span>
 <span data-line=""><span style="color:#ABB2BF">  }</span></span>
 <span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
-<p>You can see from the above, I did not need to specify "exports" or "types". I
-use rimraf to clear the dist folder before building. I can use "yarn build
+<p>You can see from the above, I did not need to specify "exports" or "types".</p>
+<p>Other random things you can observe</p>
+<ul>
+<li>
+<p>I use rimraf to clear the dist folder before building. I can use "yarn build
 --watch" for a tsc watcher</p>
-<p>I can run <code>yarn publish</code> to publish to NPM, and it will automatically clean and
-build, via the preversion script, and then will automatically push the version
-and tag to github once done</p>
+</li>
+<li>
+<p>You can run <code>yarn publish</code> to publish to NPM, and it will automatically run
+the clean and build via the preversion script, and then will automatically
+push the updated version and tag to github once it is finished via the
+postversion script</p>
+</li>
+</ul>
 <h2 id="using-minimalpackage"><a aria-hidden="true" tabindex="-1" href="#using-minimalpackage"><a href="#using-minimalpackage" style="margin-right: 10px">#</a></a>Using minimalpackage</h2>
 <figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#E06C75"> thing</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> 'minimalpackage'</span></span>
 <span data-line=""><span style="color:#61AFEF">thing</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
