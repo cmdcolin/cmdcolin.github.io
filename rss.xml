@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 14 Jan 2025 14:49:22 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jan 2025 14:53:32 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -28,10 +28,13 @@ files that reference each other to import the actual path, with the file
 extensions</p>
 <p>Which was awkward before...but now</p>
 <h2 id="we-have-some-new-tsconfigjson-settings-to-help"><a aria-hidden="true" tabindex="-1" href="#we-have-some-new-tsconfigjson-settings-to-help"><a href="#we-have-some-new-tsconfigjson-settings-to-help" style="margin-right: 10px">#</a></a>We have some new tsconfig.json settings to help</h2>
-<p>The recent addition of the <code>tsc</code> settings <code>allowImportingTsExtensions</code> and
-<code>rewriteRelativeImportExtensions</code> have now made it sane, or at least less
-awkward now</p>
-<p>These two settings make it so that we can write two files e.g.</p>
+<p>The recent addition of the <code>tsc</code> settings
+<a href="https://www.typescriptlang.org/tsconfig/allowImportingTsExtensions.html"><code>allowImportingTsExtensions</code></a>
+and
+<a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths"><code>rewriteRelativeImportExtensions</code></a>
+have now allow us to import from the .ts file extension in the src folder, and
+it automatically rewrites to use the .js file extension in the dist folder</p>
+<p>For example we can have</p>
 <figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#7F848E;font-style:italic">// src/index.ts</span></span>
 <span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
 <span data-line=""><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
