@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 14 Jan 2025 14:55:48 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jan 2025 15:12:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2827,7 +2827,9 @@ type checking using <code>jsdoc</code>, just use <code>allowJs</code>/<code>chec
 <p>What about using React in your library? Bundlers are still not needed, and not
 even babel is needed: you can code your library as in <code>jsx</code> or <code>tsx</code> files and
 use <code>tsc</code> to compile it, and it will be converted to React.createElement
-statements (or the newer jsx transform if you elect to use it in your tsconfig).</p>]]></content:encoded>
+statements (or the newer jsx transform if you elect to use it in your tsconfig).</p>
+<h2 id="footnote-6-2025-update"><a aria-hidden="true" tabindex="-1" href="#footnote-6-2025-update"><a href="#footnote-6-2025-update" style="margin-right: 10px">#</a></a>Footnote 6: 2025 update</h2>
+<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
@@ -4261,7 +4263,9 @@ continuously build it, and then e.g. when you are running e.g. <code>yarn dev</c
 via hot module refresh</p>
 <p>High powered solutions like nx, turborepo, etc may have solutions for
 'automatically building all the stuff' without you explicitly having to run the
-build in the <code>lib</code> directory, but for simple monorepo setups, this works ok</p>]]></content:encoded>
+build in the <code>lib</code> directory, but for simple monorepo setups, this works ok</p>
+<h2 id="footnote-2---2025-update"><a aria-hidden="true" tabindex="-1" href="#footnote-2---2025-update"><a href="#footnote-2---2025-update" style="margin-right: 10px">#</a></a>Footnote 2 - 2025 update</h2>
+<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
