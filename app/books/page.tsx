@@ -4,6 +4,18 @@ export const metadata = {
 
 const returnValue = [
   {
+    year: 2025,
+    author: 'Claire Keegan',
+    title: 'Foster',
+  },
+
+  {
+    year: 2025,
+    author: 'Claire Keegan',
+    title: 'Small Things Like These',
+  },
+
+  {
     year: 2024,
     author: 'Erik Larson',
     title: "Isaac's Storm",
