@@ -1,7 +1,7 @@
 ---
 title:
   Vite library mode bundles your library's dependencies (which I don't think is
-  good)
+  good for libraries published to NPM)
 date: 2025-02-23
 ---
 
@@ -83,8 +83,8 @@ to wonder why anyone would do this
 ### Why someone might bundle their dependencies they upload to NPM
 
 - They are anti-toolchain enthusiasts or appeasing anti-toolchain
-  enthusiasts/luddites and want a single javascript file that they can put in a
-  script tag, from unpkg or similar
+  enthusiasts/luddites/non-JS users and want a single javascript file that they
+  can put in a script tag, from unpkg or similar
 - They think they are helping against supply chain attacks by bundling all their
   dependencies to a fixed version. After all, left-pad happened one time
 - They do not care about the opinions of people like me
@@ -154,3 +154,11 @@ from my list https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler)
 For example, the first one on that list, microbundle, has a full wiki page to
 justify doing things this way, but has even more complex subtle behavior
 https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle
+
+## Footnote 2
+
+I changed the title to explicitly say that I think it is bad for libraries that
+are published to NPM.
+
+If you want to make a single file build that people can use in script tag, then
+you can use it
