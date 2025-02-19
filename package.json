@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next --turbo",
     "build": "next build",
-    "postbuild": "tsx generate-rss.ts",
+    "postbuild": "node --experimental-strip-types generate-rss.ts",
     "start": "next dev",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
     "predeploy": "npm run build && touch out/.nojekyll",
@@ -26,7 +26,6 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
     "shiki": "^2.0.0",
-    "tsx": "^4.19.2",
     "typescript": "^5.4.2",
     "unified": "^11.0.4",
     "usehooks-ts": "^3.1.0"
