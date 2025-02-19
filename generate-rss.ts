@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { Feed } from 'feed'
-import { getAllPosts } from './lib/api'
+import { getAllPosts } from './lib/api.ts'
 
 generateRSSFeed(await getAllPosts())
 

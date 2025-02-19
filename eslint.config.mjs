@@ -43,7 +43,7 @@ export default tseslint.config(
     },
     rules: {},
   },
-  eslintPluginUnicorn.configs['flat/recommended'],
+  eslintPluginUnicorn.configs.recommended,
   {
     rules: {
       'react/react-in-jsx-scope': 'off',

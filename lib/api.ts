@@ -7,10 +7,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
-import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeShiki from '@shikijs/rehype'
 import { unified } from 'unified'
 
-import sketches from './sketches'
+import sketches from './sketches.ts'
 
 const postsDirectory = path.join(process.cwd(), '_posts')
 
@@ -27,7 +27,7 @@ function getParser() {
     .use(remarkParse)
     .use(remarkRehype)
     .use(remarkGfm)
-    .use(rehypePrettyCode, {
+    .use(rehypeShiki, {
       theme: 'one-dark-pro',
     })
     .use(rehypeStringify)
