@@ -6,11 +6,11 @@
 8:I[6213,[],"MetadataBoundary"]
 a:I[6213,[],"ViewportBoundary"]
 c:I[4835,[],""]
-:HL["/_next/static/css/bd565d4e998bbd56.css","style"]
-0:{"P":null,"b":"V7jp-Uj2BJoiiCM7ce9Qd","p":"","c":["","posts","2015-10-22"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2015-10-22","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/bd565d4e998bbd56.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2015-10-22","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":"$L7"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","Y8Ur-hI3HLZQ9Ocox7Ahp",{"children":[["$","$L8",null,{"children":"$L9"}],["$","$La",null,{"children":"$Lb"}],null]}]]}],false]],"m":"$undefined","G":["$c","$undefined"],"s":false,"S":true}
+:HL["/_next/static/css/d31ec718d9021c17.css","style"]
+0:{"P":null,"b":"GjtXOGn0u2v-w16SM9Ioy","p":"","c":["","posts","2015-10-22"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2015-10-22","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d31ec718d9021c17.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2015-10-22","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":"$L7"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","VLpiiOYEugyxYcFedG9z5",{"children":[["$","$L8",null,{"children":"$L9"}],["$","$La",null,{"children":"$Lb"}],null]}]]}],false]],"m":"$undefined","G":["$c","$undefined"],"s":false,"S":true}
 b:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 e:I[7928,["880","static/chunks/app/posts/%5Bid%5D/page-cc4771b5e3a551f2.js"],"default"]
-d:T50b0,<p>So today, I finally decided to do something about a query that we saw had been
+d:T4bdd,<p>So today, I finally decided to do something about a query that we saw had been
 running for 25 DAYS on our server</p>
 <p>Note: If you find this post and you need to follow the hard way, backup your
 data first if possible.</p>
@@ -18,7 +18,7 @@ data first if possible.</p>
 process so I could see in "htop" that there was this process that had been
 running for 600 hours, or about 25 days</p>
 <p>Next, I opened a psql console and ran this query:</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sql" data-theme="one-dark-pro"><code data-language="sql" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">SELECT</span><span style="color:#ABB2BF"> datname,procpid,current_query </span><span style="color:#C678DD">FROM</span><span style="color:#ABB2BF"> pg_stat_activity </span><span style="color:#C678DD">WHERE</span><span style="color:#ABB2BF"> datname</span><span style="color:#56B6C2">=</span><span style="color:#98C379">'database_name'</span><span style="color:#C678DD"> ORDER BY</span><span style="color:#ABB2BF"> procpid ;</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">SELECT</span><span style="color:#ABB2BF"> datname,procpid,current_query </span><span style="color:#C678DD">FROM</span><span style="color:#ABB2BF"> pg_stat_activity </span><span style="color:#C678DD">WHERE</span><span style="color:#ABB2BF"> datname</span><span style="color:#56B6C2">=</span><span style="color:#98C379">'database_name'</span><span style="color:#C678DD"> ORDER BY</span><span style="color:#ABB2BF"> procpid ;</span></span></code></pre>
 <p>This returns which actual queries are being run on the database at any given
 time. I could easily see the one problematic query being run, which was a badly
 constructed intermine template query that resulted in a weird "recursion"
@@ -29,7 +29,7 @@ essentially.</p>
 <p>Each time I ran it, it would say it returned one result but it did nothing.</p>
 <p>I also read that you can try to nicely "kill" it from the command line (no kill
 -9) so I ran</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> kill 29033</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> kill 29033</span></span></code></pre>
 <p>This also did not work!</p>
 <p>I thought perhaps all these problems were because tomcat was still active, so we
 shut down tomcat, and retried killing the specific query, but to no avail</p>
@@ -38,138 +38,138 @@ risky move... but I am sort of a risky kind of guy...(that is not a good thing
 with databases). If you are doing this, make backups! I didn't. Luckily I
 suffered no data loss but what follows is kind of intense.</p>
 <p>So first, I try and stop the database service</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> service postgresql-9.1 stop</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> service postgresql-9.1 stop</span></span></code></pre>
 <p>Unfortunately, this <code>[FAILED]</code> ! And of course, even though it failed, the
 database is now unusable. No logging into it anymore, we have to go with the
 hard way now...</p>
 <p>Looking at /etc/init.d/postgres-9.1 told me that the service stop command was
 effectively using something like this:</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> pg_ctl -D /db/postgres/data -m fast stop</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> pg_ctl -D /db/postgres/data -m fast stop</span></span></code></pre>
 <p>After some reading, I learned that you can try using a slightly different flag
 to restart it</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> pg_ctl -D /db/postgres/data -m immediate  stop</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> pg_ctl -D /db/postgres/data -m immediate  stop</span></span></code></pre>
 <p>I ran this and to my horror/surprise, it actually worked! At this point I
 decided to start postgresql back up again!</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> service postgresql-9.1 start</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> service postgresql-9.1 start</span></span></code></pre>
 <p>The service start quickly returned a SUCCESS, which was great, but then I tried
 to start a psql console and the console froze on me! I could not even ctrl+c it!</p>
 <p>I got really worried at this point and I looked at the process manager, and saw
 that there was one postmaster process running but it was not clear what it was
 doing. I actually tried to shutdown the server again in a panic mode but at this
 point it said</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> /usr/pgsql-9.1/bin/pg_ctl stop -D /db/postgres/data/ -m immediate</span></span>
-<span data-line=""><span style="color:#ABB2BF">> waiting </span><span style="color:#C678DD">for</span><span style="color:#ABB2BF"> server to shut</span></span>
-<span data-line=""><span style="color:#ABB2BF">> down...............................................................</span></span>
-<span data-line=""><span style="color:#ABB2BF">> failed</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> /usr/pgsql-9.1/bin/pg_ctl stop -D /db/postgres/data/ -m immediate</span></span>
+<span class="line"><span style="color:#ABB2BF">> waiting </span><span style="color:#C678DD">for</span><span style="color:#ABB2BF"> server to shut</span></span>
+<span class="line"><span style="color:#ABB2BF">> down...............................................................</span></span>
+<span class="line"><span style="color:#ABB2BF">> failed</span></span></code></pre>
 <p>It was probably good that it didn't shut down, because I would quickly find out
 that it was in recovery mode. I looked at the postgresql logs and I saw this,
 reproduced here for full detail (from before the shutdown to the restart)</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
-<span data-line=""><span style="color:#ABB2BF">></span></span>
-<span data-line=""><span style="color:#ABB2BF">> ERROR:  canceling statement due to user request</span></span>
-<span data-line=""><span style="color:#ABB2BF">> STATEMENT:  CREATE TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_id, a2_.id AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a5_.id AS a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a10_id, a1_.id AS a13_, a1_.primaryIdentifier AS a14_,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_.secondaryIdentifier AS a15_, a2_.type AS a16_, a3_.name AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a17_, a4_.primaryIdentifier AS a18_, a5_.primaryIdentifier AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a19_, a6_.shortName AS a20_, a12_.identifier AS a21_, a10_.code</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AS a22_ FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AS a4_, Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> GOEvidence AS a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> OntologyAnnotation AS a11_, OntologyTerm AS a12_, GeneGoAnnotation</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AS indirect0, EvidenceGOAnnotation AS indirect1 WHERE a1_.id =</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a2_.geneId AND a1_.organismId = a3_.id AND a2_.geneId = a4_.id</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AND a2_.homologueId = a5_.id AND a5_.organismId = a6_.id AND</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_.id = indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a7_.id = indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a7_.ontologyTermId = a9_.id AND a8_.codeId = a10_.id AND a9_.id =</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a11_.ontologyTermId AND a11_.ontologyTermId = a12_.id ORDER BY</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_.primaryIdentifier, a1_.secondaryIdentifier, a2_.type,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a3_.name, a4_.primaryIdentifier, a5_.primaryIdentifier,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a6_.shortName, a12_.identifier, a10_.code, a1_.id, a2_.id,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a3_.id, a4_.id, a5_.id, a6_.id, a12_.id, a10_.id</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  could not send data to client: Broken pipe</span></span>
-<span data-line=""><span style="color:#ABB2BF">> STATEMENT:  CREATE TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_id, a2_.id AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a5_.id AS a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a10_id, a1_.id AS a13_, a1_.primaryIdentifier AS a14_,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_.secondaryIdentifier AS a15_, a2_.type AS a16_, a3_.name AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a17_, a4_.primaryIdentifier AS a18_, a5_.primaryIdentifier AS</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a19_, a6_.shortName AS a20_, a12_.identifier AS a21_, a10_.code</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AS a22_ FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AS a4_, Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> GOEvidence AS a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> OntologyAnnotation AS a11_, OntologyTerm AS a12_, GeneGoAnnotation</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AS indirect0, EvidenceGOAnnotation AS indirect1 WHERE a1_.id =</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a2_.geneId AND a1_.organismId = a3_.id AND a2_.geneId = a4_.id</span></span>
-<span data-line=""><span style="color:#ABB2BF">> AND a2_.homologueId = a5_.id AND a5_.organismId = a6_.id AND</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_.id = indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a7_.id = indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a7_.ontologyTermId = a9_.id AND a8_.codeId = a10_.id AND a9_.id =</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a11_.ontologyTermId AND a11_.ontologyTermId = a12_.id ORDER BY</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a1_.primaryIdentifier, a1_.secondaryIdentifier, a2_.type,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a3_.name, a4_.primaryIdentifier, a5_.primaryIdentifier,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a6_.shortName, a12_.identifier, a10_.code, a1_.id, a2_.id,</span></span>
-<span data-line=""><span style="color:#ABB2BF">> a3_.id, a4_.id, a5_.id, a6_.id, a12_.id, a10_.id</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  received fast shutdown request</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  aborting any active transactions</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  autovacuum launcher shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  received immediate shutdown request</span></span>
-<span data-line=""><span style="color:#ABB2BF">> WARNING:  terminating connection because of crash of another server</span></span>
-<span data-line=""><span style="color:#ABB2BF">> process</span></span>
-<span data-line=""><span style="color:#ABB2BF">> DETAIL:  The postmaster has commanded this server process to roll back</span></span>
-<span data-line=""><span style="color:#ABB2BF">> the current transaction and exit, because another server process</span></span>
-<span data-line=""><span style="color:#ABB2BF">> exited abnormally and possibly corrupted shared memory.</span></span>
-<span data-line=""><span style="color:#ABB2BF">> HINT:  In a moment you should be able to reconnect to the database and</span></span>
-<span data-line=""><span style="color:#ABB2BF">> repeat your command.</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  received fast shutdown request</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  database system was interrupted; </span><span style="color:#61AFEF">last</span><span style="color:#98C379"> known</span><span style="color:#98C379"> up</span><span style="color:#98C379"> at</span><span style="color:#98C379"> 2015-10-22</span></span>
-<span data-line=""><span style="color:#ABB2BF">> 15:47:43 CDT</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  received immediate shutdown request</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  database system was interrupted; </span><span style="color:#61AFEF">last</span><span style="color:#98C379"> known</span><span style="color:#98C379"> up</span><span style="color:#98C379"> at</span><span style="color:#98C379"> 2015-10-22</span></span>
-<span data-line=""><span style="color:#ABB2BF">> 15:47:43 CDT</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  database system was not properly shut down; </span><span style="color:#61AFEF">automatic</span><span style="color:#98C379"> recovery</span></span>
-<span data-line=""><span style="color:#ABB2BF">> in progress</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  record with zero length at BBD/1CC2F0C0</span></span>
-<span data-line=""><span style="color:#ABB2BF">> ...</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  pgstat wait timeout</span></span>
+<span class="line"><span style="color:#ABB2BF">></span></span>
+<span class="line"><span style="color:#ABB2BF">> ERROR:  canceling statement due to user request</span></span>
+<span class="line"><span style="color:#ABB2BF">> STATEMENT:  CREATE TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_id, a2_.id AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a5_.id AS a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a10_id, a1_.id AS a13_, a1_.primaryIdentifier AS a14_,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_.secondaryIdentifier AS a15_, a2_.type AS a16_, a3_.name AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a17_, a4_.primaryIdentifier AS a18_, a5_.primaryIdentifier AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a19_, a6_.shortName AS a20_, a12_.identifier AS a21_, a10_.code</span></span>
+<span class="line"><span style="color:#ABB2BF">> AS a22_ FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene</span></span>
+<span class="line"><span style="color:#ABB2BF">> AS a4_, Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,</span></span>
+<span class="line"><span style="color:#ABB2BF">> GOEvidence AS a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,</span></span>
+<span class="line"><span style="color:#ABB2BF">> OntologyAnnotation AS a11_, OntologyTerm AS a12_, GeneGoAnnotation</span></span>
+<span class="line"><span style="color:#ABB2BF">> AS indirect0, EvidenceGOAnnotation AS indirect1 WHERE a1_.id =</span></span>
+<span class="line"><span style="color:#ABB2BF">> a2_.geneId AND a1_.organismId = a3_.id AND a2_.geneId = a4_.id</span></span>
+<span class="line"><span style="color:#ABB2BF">> AND a2_.homologueId = a5_.id AND a5_.organismId = a6_.id AND</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_.id = indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND</span></span>
+<span class="line"><span style="color:#ABB2BF">> a7_.id = indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND</span></span>
+<span class="line"><span style="color:#ABB2BF">> a7_.ontologyTermId = a9_.id AND a8_.codeId = a10_.id AND a9_.id =</span></span>
+<span class="line"><span style="color:#ABB2BF">> a11_.ontologyTermId AND a11_.ontologyTermId = a12_.id ORDER BY</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_.primaryIdentifier, a1_.secondaryIdentifier, a2_.type,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a3_.name, a4_.primaryIdentifier, a5_.primaryIdentifier,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a6_.shortName, a12_.identifier, a10_.code, a1_.id, a2_.id,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a3_.id, a4_.id, a5_.id, a6_.id, a12_.id, a10_.id</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  could not send data to client: Broken pipe</span></span>
+<span class="line"><span style="color:#ABB2BF">> STATEMENT:  CREATE TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_id, a2_.id AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a5_.id AS a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a10_id, a1_.id AS a13_, a1_.primaryIdentifier AS a14_,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_.secondaryIdentifier AS a15_, a2_.type AS a16_, a3_.name AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a17_, a4_.primaryIdentifier AS a18_, a5_.primaryIdentifier AS</span></span>
+<span class="line"><span style="color:#ABB2BF">> a19_, a6_.shortName AS a20_, a12_.identifier AS a21_, a10_.code</span></span>
+<span class="line"><span style="color:#ABB2BF">> AS a22_ FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene</span></span>
+<span class="line"><span style="color:#ABB2BF">> AS a4_, Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,</span></span>
+<span class="line"><span style="color:#ABB2BF">> GOEvidence AS a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,</span></span>
+<span class="line"><span style="color:#ABB2BF">> OntologyAnnotation AS a11_, OntologyTerm AS a12_, GeneGoAnnotation</span></span>
+<span class="line"><span style="color:#ABB2BF">> AS indirect0, EvidenceGOAnnotation AS indirect1 WHERE a1_.id =</span></span>
+<span class="line"><span style="color:#ABB2BF">> a2_.geneId AND a1_.organismId = a3_.id AND a2_.geneId = a4_.id</span></span>
+<span class="line"><span style="color:#ABB2BF">> AND a2_.homologueId = a5_.id AND a5_.organismId = a6_.id AND</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_.id = indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND</span></span>
+<span class="line"><span style="color:#ABB2BF">> a7_.id = indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND</span></span>
+<span class="line"><span style="color:#ABB2BF">> a7_.ontologyTermId = a9_.id AND a8_.codeId = a10_.id AND a9_.id =</span></span>
+<span class="line"><span style="color:#ABB2BF">> a11_.ontologyTermId AND a11_.ontologyTermId = a12_.id ORDER BY</span></span>
+<span class="line"><span style="color:#ABB2BF">> a1_.primaryIdentifier, a1_.secondaryIdentifier, a2_.type,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a3_.name, a4_.primaryIdentifier, a5_.primaryIdentifier,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a6_.shortName, a12_.identifier, a10_.code, a1_.id, a2_.id,</span></span>
+<span class="line"><span style="color:#ABB2BF">> a3_.id, a4_.id, a5_.id, a6_.id, a12_.id, a10_.id</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  unexpected EOF on client connection</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  received fast shutdown request</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  aborting any active transactions</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  autovacuum launcher shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> FATAL:  the database system is shutting down</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  received immediate shutdown request</span></span>
+<span class="line"><span style="color:#ABB2BF">> WARNING:  terminating connection because of crash of another server</span></span>
+<span class="line"><span style="color:#ABB2BF">> process</span></span>
+<span class="line"><span style="color:#ABB2BF">> DETAIL:  The postmaster has commanded this server process to roll back</span></span>
+<span class="line"><span style="color:#ABB2BF">> the current transaction and exit, because another server process</span></span>
+<span class="line"><span style="color:#ABB2BF">> exited abnormally and possibly corrupted shared memory.</span></span>
+<span class="line"><span style="color:#ABB2BF">> HINT:  In a moment you should be able to reconnect to the database and</span></span>
+<span class="line"><span style="color:#ABB2BF">> repeat your command.</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  received fast shutdown request</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  database system was interrupted; </span><span style="color:#61AFEF">last</span><span style="color:#98C379"> known</span><span style="color:#98C379"> up</span><span style="color:#98C379"> at</span><span style="color:#98C379"> 2015-10-22</span></span>
+<span class="line"><span style="color:#ABB2BF">> 15:47:43 CDT</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  received immediate shutdown request</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  database system was interrupted; </span><span style="color:#61AFEF">last</span><span style="color:#98C379"> known</span><span style="color:#98C379"> up</span><span style="color:#98C379"> at</span><span style="color:#98C379"> 2015-10-22</span></span>
+<span class="line"><span style="color:#ABB2BF">> 15:47:43 CDT</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  database system was not properly shut down; </span><span style="color:#61AFEF">automatic</span><span style="color:#98C379"> recovery</span></span>
+<span class="line"><span style="color:#ABB2BF">> in progress</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  record with zero length at BBD/1CC2F0C0</span></span>
+<span class="line"><span style="color:#ABB2BF">> ...</span></span></code></pre>
 <p>You can see all the weird activity that was done here</p>
 <ul>
 <li>first the attempt to "canceling statement due to user request" did not work</li>
@@ -186,9 +186,9 @@ up files in /db/postgres/data/base/pgsql_tmp/, I could see the file system
 <p>There were about 150 large files in /db/postgres/data/base/pgsql_tmp/, and I
 waited about an hour for them to be deleted, and after that, the postgresql log
 file said it was ready, and indeed, it was perfect :)</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="sh" data-theme="one-dark-pro"><code data-language="sh" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">> LOG:  redo is not required</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  database system is ready to accept connections</span></span>
-<span data-line=""><span style="color:#ABB2BF">> LOG:  autovacuum launcher started</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">> LOG:  redo is not required</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  database system is ready to accept connections</span></span>
+<span class="line"><span style="color:#ABB2BF">> LOG:  autovacuum launcher started</span></span></code></pre>
 <p>What a relief!</p>
 <p>I hope this might help any wayward stragglers to see how the postgresql restart
 process works. Sometimes things don't shut down cleanly, but I think it is still

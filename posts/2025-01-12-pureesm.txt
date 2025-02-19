@@ -6,11 +6,11 @@
 8:I[6213,[],"MetadataBoundary"]
 a:I[6213,[],"ViewportBoundary"]
 c:I[4835,[],""]
-:HL["/_next/static/css/bd565d4e998bbd56.css","style"]
-0:{"P":null,"b":"V7jp-Uj2BJoiiCM7ce9Qd","p":"","c":["","posts","2025-01-12-pureesm"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2025-01-12-pureesm","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/bd565d4e998bbd56.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2025-01-12-pureesm","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":"$L7"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","GMBPSJkU_gMzKIzvGxZSq",{"children":[["$","$L8",null,{"children":"$L9"}],["$","$La",null,{"children":"$Lb"}],null]}]]}],false]],"m":"$undefined","G":["$c","$undefined"],"s":false,"S":true}
+:HL["/_next/static/css/d31ec718d9021c17.css","style"]
+0:{"P":null,"b":"GjtXOGn0u2v-w16SM9Ioy","p":"","c":["","posts","2025-01-12-pureesm"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2025-01-12-pureesm","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d31ec718d9021c17.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/photos","children":"Photos"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2025-01-12-pureesm","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","posts","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":"$L7"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","eFErqIz6nheRfvCWnUffQ",{"children":[["$","$L8",null,{"children":"$L9"}],["$","$La",null,{"children":"$Lb"}],null]}]]}],false]],"m":"$undefined","G":["$c","$undefined"],"s":false,"S":true}
 b:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 e:I[7928,["880","static/chunks/app/posts/%5Bid%5D/page-cc4771b5e3a551f2.js"],"default"]
-d:T49c4,<p>In the past, I have written about making NPM packages with just the typscript
+d:T451f,<p>In the past, I have written about making NPM packages with just the typscript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
 There, I focused on "CJS" build because it was arguably simpler</p>
 <p>Now, I am addressing the "ESM" case</p>
@@ -31,13 +31,13 @@ and
 have now allow us to import from the .ts file extension in the src folder, and
 it automatically rewrites to use the .js file extension in the dist folder</p>
 <p>For example we can have</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#7F848E;font-style:italic">// src/index.ts</span></span>
-<span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
-<span data-line=""><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#7F848E;font-style:italic">// src/bar.ts</span></span>
-<span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
-<span data-line=""><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
-<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic">// src/index.ts</span></span>
+<span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
+<span class="line"><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic">// src/bar.ts</span></span>
+<span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
+<span class="line"><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
+<span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <p>then running tsc over these files will produce</p>
 <pre><code> ❯❯❯ ll dist
 total 24K
@@ -48,34 +48,34 @@ total 24K
 
 </code></pre>
 <p>where dist/index.js now contains an import with the .js extension</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
-<span data-line=""><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
+<span class="line"><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre>
 <p>and dist/bar.js says</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="javascript" data-theme="one-dark-pro"><code data-language="javascript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
-<span data-line=""><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
-<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
+<span class="line"><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
+<span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
 have this behavior, but now you can reference the actual file, bar.ts</p>
 <h2 id="the-packagejson"><a aria-hidden="true" tabindex="-1" href="#the-packagejson"><a href="#the-packagejson" style="margin-right: 10px">#</a></a>The package.json</h2>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="json" data-theme="one-dark-pro"><code data-language="json" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">{</span></span>
-<span data-line=""><span style="color:#E06C75">  "name"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"minimalpackage"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "version"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"1.0.0"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "description"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"simple pure-esm package compatible with tsc"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "license"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"MIT"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "type"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"module"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "exports"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./dist/index.js"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "scripts"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">    "build"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"tsc"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "clean"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"rimraf dist"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "prebuild"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn clean"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "preversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn build"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "postversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"git push --follow-tags"</span></span>
-<span data-line=""><span style="color:#ABB2BF">  },</span></span>
-<span data-line=""><span style="color:#E06C75">  "devDependencies"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">    "rimraf"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^6.0.1"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "typescript"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^5.7.3"</span></span>
-<span data-line=""><span style="color:#ABB2BF">  }</span></span>
-<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">{</span></span>
+<span class="line"><span style="color:#E06C75">  "name"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"minimalpackage"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "version"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"1.0.0"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "description"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"simple pure-esm package compatible with tsc"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "license"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"MIT"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "type"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"module"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "exports"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./dist/index.js"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "scripts"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">    "build"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"tsc"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "clean"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"rimraf dist"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "prebuild"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn clean"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "preversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn build"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "postversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"git push --follow-tags"</span></span>
+<span class="line"><span style="color:#ABB2BF">  },</span></span>
+<span class="line"><span style="color:#E06C75">  "devDependencies"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">    "rimraf"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^6.0.1"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "typescript"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^5.7.3"</span></span>
+<span class="line"><span style="color:#ABB2BF">  }</span></span>
+<span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <p>You can see from the above, I did not need to specify "exports" or "types".</p>
 <p>Other random things you can observe</p>
 <ul>
@@ -91,20 +91,20 @@ postversion script</p>
 </li>
 </ul>
 <h2 id="the-tsconfigjson"><a aria-hidden="true" tabindex="-1" href="#the-tsconfigjson"><a href="#the-tsconfigjson" style="margin-right: 10px">#</a></a>The tsconfig.json</h2>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="json" data-theme="one-dark-pro"><code data-language="json" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">{</span></span>
-<span data-line=""><span style="color:#E06C75">  "include"</span><span style="color:#ABB2BF">: [</span><span style="color:#98C379">"src"</span><span style="color:#ABB2BF">],</span></span>
-<span data-line=""><span style="color:#E06C75">  "compilerOptions"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">    "outDir"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"dist"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "target"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"es2020"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "declaration"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "strict"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "allowImportingTsExtensions"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "rewriteRelativeImportExtensions"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span></span>
-<span data-line=""><span style="color:#ABB2BF">  }</span></span>
-<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">{</span></span>
+<span class="line"><span style="color:#E06C75">  "include"</span><span style="color:#ABB2BF">: [</span><span style="color:#98C379">"src"</span><span style="color:#ABB2BF">],</span></span>
+<span class="line"><span style="color:#E06C75">  "compilerOptions"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">    "outDir"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"dist"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "target"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"es2020"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "declaration"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "strict"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "allowImportingTsExtensions"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "rewriteRelativeImportExtensions"</span><span style="color:#ABB2BF">: </span><span style="color:#D19A66">true</span></span>
+<span class="line"><span style="color:#ABB2BF">  }</span></span>
+<span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <h2 id="using-minimalpackage"><a aria-hidden="true" tabindex="-1" href="#using-minimalpackage"><a href="#using-minimalpackage" style="margin-right: 10px">#</a></a>Using minimalpackage</h2>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="typescript" data-theme="one-dark-pro"><code data-language="typescript" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#C678DD">import</span><span style="color:#E06C75"> thing</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> 'minimalpackage'</span></span>
-<span data-line=""><span style="color:#61AFEF">thing</span><span style="color:#ABB2BF">()</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#E06C75"> thing</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> 'minimalpackage'</span></span>
+<span class="line"><span style="color:#61AFEF">thing</span><span style="color:#ABB2BF">()</span></span></code></pre>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
 <p>This article proposes a bundler-less approach to distributing typescript
 packages on NPM. It was possible before, but I think the addition of the
@@ -115,36 +115,36 @@ you were writing .ts which was awkward</p>
 <p>If you want to publish ESM/CJS you can update your package.json to use the
 "exports" field, and run the tsc compiler twice over the code, once using
 --module cjs</p>
-<figure data-rehype-pretty-code-figure=""><pre style="background-color:#282c34;color:#abb2bf" tabindex="0" data-language="json" data-theme="one-dark-pro"><code data-language="json" data-theme="one-dark-pro" style="display: grid;"><span data-line=""><span style="color:#ABB2BF">{</span></span>
-<span data-line=""><span style="color:#E06C75">  "name"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"dualpackage"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "version"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"1.0.0"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "description"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"demo of dual esm/cjs package"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "type"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"module"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "types"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./cjs/index.d.ts"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">  "exports"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">    "import"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">      "import"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./esm/index.js"</span></span>
-<span data-line=""><span style="color:#ABB2BF">    },</span></span>
-<span data-line=""><span style="color:#E06C75">    "require"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">      "require"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./cjs/index.js"</span></span>
-<span data-line=""><span style="color:#ABB2BF">    }</span></span>
-<span data-line=""><span style="color:#ABB2BF">  },</span></span>
-<span data-line=""> </span>
-<span data-line=""><span style="color:#E06C75">  "scripts"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">    "clean"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"rimraf cjs"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "prebuild"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn clean"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "preversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn build"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "postversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"git push --follow-tags"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "build:esm"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"tsc --outDir esm"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "build:cjs"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"tsc --module commonjs --outDir cjs"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "postbuild:cjs"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"echo '{</span><span style="color:#56B6C2">\"</span><span style="color:#98C379">type</span><span style="color:#56B6C2">\"</span><span style="color:#98C379">: </span><span style="color:#56B6C2">\"</span><span style="color:#98C379">commonjs</span><span style="color:#56B6C2">\"</span><span style="color:#98C379">}' > cjs/package.json"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "build"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn build:esm &#x26;&#x26; yarn build:cjs"</span></span>
-<span data-line=""><span style="color:#ABB2BF">  },</span></span>
-<span data-line=""><span style="color:#E06C75">  "devDependencies"</span><span style="color:#ABB2BF">: {</span></span>
-<span data-line=""><span style="color:#E06C75">    "rimraf"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^6.0.1"</span><span style="color:#ABB2BF">,</span></span>
-<span data-line=""><span style="color:#E06C75">    "typescript"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^5.7.3"</span></span>
-<span data-line=""><span style="color:#ABB2BF">  }</span></span>
-<span data-line=""><span style="color:#ABB2BF">}</span></span></code></pre></figure>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">{</span></span>
+<span class="line"><span style="color:#E06C75">  "name"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"dualpackage"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "version"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"1.0.0"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "description"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"demo of dual esm/cjs package"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "type"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"module"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "types"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./cjs/index.d.ts"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">  "exports"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">    "import"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">      "import"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./esm/index.js"</span></span>
+<span class="line"><span style="color:#ABB2BF">    },</span></span>
+<span class="line"><span style="color:#E06C75">    "require"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">      "require"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"./cjs/index.js"</span></span>
+<span class="line"><span style="color:#ABB2BF">    }</span></span>
+<span class="line"><span style="color:#ABB2BF">  },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E06C75">  "scripts"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">    "clean"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"rimraf cjs"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "prebuild"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn clean"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "preversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn build"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "postversion"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"git push --follow-tags"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "build:esm"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"tsc --outDir esm"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "build:cjs"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"tsc --module commonjs --outDir cjs"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "postbuild:cjs"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"echo '{</span><span style="color:#56B6C2">\"</span><span style="color:#98C379">type</span><span style="color:#56B6C2">\"</span><span style="color:#98C379">: </span><span style="color:#56B6C2">\"</span><span style="color:#98C379">commonjs</span><span style="color:#56B6C2">\"</span><span style="color:#98C379">}' > cjs/package.json"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "build"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"yarn build:esm &#x26;&#x26; yarn build:cjs"</span></span>
+<span class="line"><span style="color:#ABB2BF">  },</span></span>
+<span class="line"><span style="color:#E06C75">  "devDependencies"</span><span style="color:#ABB2BF">: {</span></span>
+<span class="line"><span style="color:#E06C75">    "rimraf"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^6.0.1"</span><span style="color:#ABB2BF">,</span></span>
+<span class="line"><span style="color:#E06C75">    "typescript"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^5.7.3"</span></span>
+<span class="line"><span style="color:#ABB2BF">  }</span></span>
+<span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <p>Note that postbuild:cjs (which is automatically run after any invocation of
 build:cjs) outputs a "one line" <strong>extra</strong> package.json to the cjs folder that
 says type:cjs specifically in the cjs distribution (credit:
