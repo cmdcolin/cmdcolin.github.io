@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 14:03:56 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 14:30:46 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2919,7 +2919,8 @@ even babel is needed: you can code your library as in <code>jsx</code> or <code>
 use <code>tsc</code> to compile it, and it will be converted to React.createElement
 statements (or the newer jsx transform if you elect to use it in your tsconfig).</p>
 <h2 id="footnote-6-2025-update"><a aria-hidden="true" tabindex="-1" href="#footnote-6-2025-update"><a href="#footnote-6-2025-update" style="margin-right: 10px">#</a></a>Footnote 6: 2025 update</h2>
-<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>]]></content:encoded>
+<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a> and
+<a href="https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode">https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
