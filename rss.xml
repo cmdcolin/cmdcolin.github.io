@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 14:41:40 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 16:02:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -129,10 +129,10 @@ here <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler"
 <p>I also wrote a small article about a bundler-less way to make a pure-ESM
 typescript packages here <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>
 <h2 id="footnote-1"><a aria-hidden="true" tabindex="-1" href="#footnote-1"><a href="#footnote-1" style="margin-right: 10px">#</a></a>Footnote 1</h2>
-<p>I would bet many other quickstart NPM library creation kits have this same
-trouble (e.g. from my list
-<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>)</p>
-<p>The first one on the list for example, microbundle, has a full wiki page to
+<p>I am not trying to pick on vite here. They do great work for the community. I
+bet many other quickstart NPM library creation kits have this same trouble (e.g.
+from my list <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>)</p>
+<p>For example, the first one on that list, microbundle, has a full wiki page to
 justify doing things this way, but has even more complex subtle behavior
 <a href="https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle">https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
