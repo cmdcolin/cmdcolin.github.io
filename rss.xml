@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:57:30 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 06:03:05 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -110,17 +110,15 @@ error messages the world has ever seen. I only wrote this blogpost because of
 one of these errors. I wasn't able to consume a plain old function component
 that I exported from a package I tried to make with vite library mode.</li>
 <li>Users of your library will have very little recourse to fix the issue
-(particularly combined with the minification), so they can't just e.g. use
-<code>yarn resolution</code> to lock to a working or use <code>yarn link</code> to get a patched
-version</li>
+(particularly combined with the minification), so they will not be able to use
+a yarn <code>resolution</code> to lock to a working version or use <code>yarn link</code> to get a
+patched version</li>
 <li>Couple more reasons listed here
 <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler#why-would-you-not-want-a-bundler-for-your-library">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler#why-would-you-not-want-a-bundler-for-your-library</a></li>
 </ul>
 <h3 id="why-i-think-it-is-bad-to-minify-the-libraries-that-you-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-i-think-it-is-bad-to-minify-the-libraries-that-you-upload-to-npm"><a href="#why-i-think-it-is-bad-to-minify-the-libraries-that-you-upload-to-npm" style="margin-right: 10px">#</a></a>Why I think it is bad to minify the libraries that you upload to NPM</h3>
 <ul>
-<li>It is an obscure mess that is difficult to inspect e.g. it was even hard to
-inspect the vite library output to see if it was actually bundling the
-sub-dependencies due to the minification</li>
+<li>It is an obscure mess that is difficult to inspect</li>
 <li>Consumers of the app should do minification if they need it</li>
 </ul>
 <h2 id="conclusions"><a aria-hidden="true" tabindex="-1" href="#conclusions"><a href="#conclusions" style="margin-right: 10px">#</a></a>Conclusions</h2>
