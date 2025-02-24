@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 06:03:05 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 06:13:20 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -14,7 +14,7 @@
             <link>https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</link>
             <guid>https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</guid>
             <pubDate>Sun, 23 Feb 2025 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[<p><img src="/out.jpg" alt="my cats"></p>
+            <content:encoded><![CDATA[<p><img src="/chiblets.jpg" alt="my cats"></p>
 <p>Vite is a very popular "build tool" for making all sorts of javascript apps. It
 is most commonly used for making single page apps, but it also has a feature
 called <a href="https://vite.dev/guide/build#library-mode">"library mode"</a> which helps
