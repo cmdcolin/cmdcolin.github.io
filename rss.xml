@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:35:16 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 05:40:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -132,7 +132,13 @@ here <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler"
 <p>I wanted to try vite library mode because vite itself is nice, but I don't
 believe I will be using it for my libraries. I made a small article about a
 bundler-less way to make a pure-ESM package here
-<a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>]]></content:encoded>
+<a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>
+<h2 id="footnote"><a aria-hidden="true" tabindex="-1" href="#footnote"><a href="#footnote" style="margin-right: 10px">#</a></a>Footnote</h2>
+<p>I would bet many other NPM library creation starter kits do this (e.g. from my
+list <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>). The
+first one on the list for example, microbundle, has a full wiki page to justify
+doing things this way
+<a href="https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle">https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
