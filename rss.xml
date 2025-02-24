@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:13:17 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 05:18:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -22,14 +22,11 @@ you publish things that you have written on NPM. I imagine it is much less
 commonly used than vite itself, but I wanted to comment on it because it has a
 behavior I'm not a big fan of...</p>
 <h2 id="vite-library-mode-completely-minifiesbundles-all-your-dependencies"><a aria-hidden="true" tabindex="-1" href="#vite-library-mode-completely-minifiesbundles-all-your-dependencies"><a href="#vite-library-mode-completely-minifiesbundles-all-your-dependencies" style="margin-right: 10px">#</a></a>Vite library mode completely minifies+bundles all your dependencies</h2>
-<p>For example</p>
-<h3 id="input"><a aria-hidden="true" tabindex="-1" href="#input"><a href="#input" style="margin-right: 10px">#</a></a>Input</h3>
-<p>If your library that is using vite library mode has</p>
+<p>For example, if your library that is using vite library mode has</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#E06C75"> leftPad</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> 'left-pad'</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#C678DD">const</span><span style="color:#E5C07B"> str</span><span style="color:#56B6C2"> =</span><span style="color:#61AFEF"> leftPad</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foobar'</span><span style="color:#ABB2BF">, </span><span style="color:#D19A66">6</span><span style="color:#ABB2BF">)</span></span></code></pre>
-<h3 id="output-from-vite-library-mode"><a aria-hidden="true" tabindex="-1" href="#output-from-vite-library-mode"><a href="#output-from-vite-library-mode" style="margin-right: 10px">#</a></a>Output from vite library mode</h3>
-<p>then it is turned into this in the dist folder</p>
+<p>then it is turned into this in the dist folder by vite library mode</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">function</span><span style="color:#61AFEF"> d</span><span style="color:#ABB2BF">(</span><span style="color:#E06C75;font-style:italic">t</span><span style="color:#ABB2BF">) {</span></span>
 <span class="line"><span style="color:#C678DD">  return</span><span style="color:#E06C75"> t</span><span style="color:#56B6C2"> &#x26;&#x26;</span><span style="color:#E5C07B"> t</span><span style="color:#ABB2BF">.</span><span style="color:#E06C75">__esModule</span><span style="color:#56B6C2"> &#x26;&#x26;</span><span style="color:#E5C07B"> Object</span><span style="color:#ABB2BF">.</span><span style="color:#E06C75">prototype</span><span style="color:#ABB2BF">.</span><span style="color:#E5C07B">hasOwnProperty</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">call</span><span style="color:#ABB2BF">(</span><span style="color:#E06C75">t</span><span style="color:#ABB2BF">, </span><span style="color:#98C379">'default'</span><span style="color:#ABB2BF">)</span></span>
 <span class="line"><span style="color:#C678DD">    ?</span><span style="color:#E5C07B"> t</span><span style="color:#ABB2BF">.</span><span style="color:#E06C75">default</span></span>
@@ -76,7 +73,7 @@ folder:</p>
 enthusiasts/luddites and want a single javascript file that they can put in a
 script tag, from unpkg or similar</li>
 <li>They think they are helping against supply chain attacks by bundling all their
-dependencies to a fixed version. After all, left-pad was attacked one time.</li>
+dependencies to a fixed version. After all, left-pad happened one time</li>
 <li>They do not care about the opinions of people like me</li>
 <li>They don't realize they are doing it</li>
 </ul>
