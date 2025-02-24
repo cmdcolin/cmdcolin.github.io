@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:18:50 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 05:20:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -88,7 +88,7 @@ minifying could help save the internet (see articles titled "I saved NPM from
 serving 440gb per week by removing THIS ONE LINER")</li>
 <li>They like inscrutable things</li>
 </ul>
-<h3 id="why-is-it-actually-bad-to-bundle-your-dependencies-for-artefacts-that-you-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-is-it-actually-bad-to-bundle-your-dependencies-for-artefacts-that-you-upload-to-npm"><a href="#why-is-it-actually-bad-to-bundle-your-dependencies-for-artefacts-that-you-upload-to-npm" style="margin-right: 10px">#</a></a>Why is it actually bad to bundle your dependencies for artefacts that you upload to NPM</h3>
+<h3 id="why-i-think-it-is-bad-to-bundle-your-dependencies-for-artifacts-that-you-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-i-think-it-is-bad-to-bundle-your-dependencies-for-artifacts-that-you-upload-to-npm"><a href="#why-i-think-it-is-bad-to-bundle-your-dependencies-for-artifacts-that-you-upload-to-npm" style="margin-right: 10px">#</a></a>Why I think it is bad to bundle your dependencies for artifacts that you upload to NPM</h3>
 <ul>
 <li>Consumers of your library will not get semver updates from your
 sub-dependencies</li>
@@ -113,7 +113,7 @@ version</li>
 <li>Couple more reasons listed here
 <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler#why-would-you-not-want-a-bundler-for-your-library">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler#why-would-you-not-want-a-bundler-for-your-library</a></li>
 </ul>
-<h3 id="why-is-it-bad-specifically-to-minify-the-libraries-that-you-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-is-it-bad-specifically-to-minify-the-libraries-that-you-upload-to-npm"><a href="#why-is-it-bad-specifically-to-minify-the-libraries-that-you-upload-to-npm" style="margin-right: 10px">#</a></a>Why is it bad, specifically, to minify the libraries that you upload to NPM</h3>
+<h3 id="why-i-think-it-is-bad-to-minify-the-libraries-that-you-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-i-think-it-is-bad-to-minify-the-libraries-that-you-upload-to-npm"><a href="#why-i-think-it-is-bad-to-minify-the-libraries-that-you-upload-to-npm" style="margin-right: 10px">#</a></a>Why I think it is bad to minify the libraries that you upload to NPM</h3>
 <ul>
 <li>It is an obscure mess that is difficult to inspect e.g. it was even hard to
 inspect the vite library output to see if it was actually bundling the
