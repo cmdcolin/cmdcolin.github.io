@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:20:28 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 05:22:09 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -66,7 +66,6 @@ folder:</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#E06C75"> leftPad</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> 'left-pad'</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#C678DD">const</span><span style="color:#E5C07B"> str</span><span style="color:#56B6C2"> =</span><span style="color:#61AFEF"> leftPad</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foobar'</span><span style="color:#ABB2BF">, </span><span style="color:#D19A66">6</span><span style="color:#ABB2BF">)</span></span></code></pre>
-<p>Why would someone want to do the above</p>
 <h3 id="why-someone-might-bundle-their-dependencies-they-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-someone-might-bundle-their-dependencies-they-upload-to-npm"><a href="#why-someone-might-bundle-their-dependencies-they-upload-to-npm" style="margin-right: 10px">#</a></a>Why someone might bundle their dependencies they upload to NPM</h3>
 <ul>
 <li>They are anti-toolchain enthusiasts or appeasing anti-toolchain
