@@ -102,7 +102,7 @@ const returnValue = [
   },
   { year: 2020, author: 'Jeffrey Eugenides', title: 'Middlesex' },
   { year: 2020, author: 'Pat Conroy', title: 'The Prince of Tides' },
-  { year: 2019, author: 'Tennesee William', title: 'A Streetcar Named Desire' },
+  { year: 2019, author: 'Tennessee William', title: 'A Streetcar Named Desire' },
 ]
 
 export default function Contents() {
