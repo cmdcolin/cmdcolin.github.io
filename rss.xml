@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 06:13:20 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 14:03:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -126,10 +126,9 @@ patched version</li>
 I enjoy getting regular bugfixes and improvements. I like good library hygiene</p>
 <p>I have previously written about why you may NOT need a bundler for your library
 here <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>.</p>
-<p>If you want an alternative to this madness, I made a small article about a
-bundler-less way to make a pure-ESM package here
-<a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>
-<h2 id="footnote"><a aria-hidden="true" tabindex="-1" href="#footnote"><a href="#footnote" style="margin-right: 10px">#</a></a>Footnote</h2>
+<p>I also wrote a small article about a bundler-less way to make a pure-ESM
+typescript packages here <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>
+<h2 id="footnote-1"><a aria-hidden="true" tabindex="-1" href="#footnote-1"><a href="#footnote-1" style="margin-right: 10px">#</a></a>Footnote 1</h2>
 <p>I would bet many other quickstart NPM library creation kits have this same
 trouble (e.g. from my list
 <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>)</p>
