@@ -270,4 +270,5 @@ statements (or the newer jsx transform if you elect to use it in your tsconfig).
 
 ## Footnote 6: 2025 update
 
-See https://cmdcolin.github.io/posts/2025-01-12-pureesm
+See https://cmdcolin.github.io/posts/2025-01-12-pureesm and
+https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode

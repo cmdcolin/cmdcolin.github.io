@@ -143,10 +143,10 @@ typescript packages here https://cmdcolin.github.io/posts/2025-01-12-pureesm
 
 ## Footnote 1
 
-I would bet many other quickstart NPM library creation kits have this same
-trouble (e.g. from my list
-https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler)
+I am not trying to pick on vite here. They do great work for the community. I
+bet many other quickstart NPM library creation kits have this same trouble (e.g.
+from my list https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler)
 
-The first one on the list for example, microbundle, has a full wiki page to
+For example, the first one on that list, microbundle, has a full wiki page to
 justify doing things this way, but has even more complex subtle behavior
 https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle
