@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:40:42 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 05:43:40 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -106,10 +106,10 @@ in insane ways</li>
 dependencies e.g. only externalize React. Personal note: I really don't like
 this. Why do you think that you externalize React in particular? Yes, it is
 because having multiple versions of React on a page causes the most insane
-error messages the world has ever seen. But by bundling all your dependencies
-in your library, particularly if your library uses any non-trivial dependency,
-then increase the chances it will be duplicated by the consuming library in a
-way the package manager cannot deduplicate</li>
+error messages the world has ever seen. I only discovered to write this
+blogpost because of one of these errors. I wasn't able to consume a plain old
+function component that I exported from a package I tried to make with vite
+library mode.</li>
 <li>Users of your library will have very little recourse to fix the issue
 (particularly combined with the minification), so they can't just e.g. use
 <code>yarn resolution</code> to lock to a working or use <code>yarn link</code> to get a patched
