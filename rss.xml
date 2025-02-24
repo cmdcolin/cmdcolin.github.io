@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 14:30:46 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 14:41:40 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -208,11 +208,11 @@ have this behavior, but now you can reference the actual file, bar.ts</p>
 <span class="line"><span style="color:#E06C75">    "typescript"</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">"^5.7.3"</span></span>
 <span class="line"><span style="color:#ABB2BF">  }</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
-<p>You can see from the above, I did not need to specify "exports" or "types". I
-also don't even specify "main" (or "module", which is non-standard), just
-"exports"</p>
-<p>Lots of usages of exports have a complex object but it can simply point to a
-file</p>
+<p>You can see from the above, I did not need to specify the location of "types" or
+set a "main" (or a "module" which is non-standard). I just reference the entry
+point using a string in the "exports" field.</p>
+<p>Lots of usages of "exports" have a complex object but it can simply be a string
+that points to a file</p>
 <p>Other random things you can observe</p>
 <ul>
 <li>
