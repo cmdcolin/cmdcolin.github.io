@@ -4,13 +4,13 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 05:53:11 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 05:56:09 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>n/a</copyright>
         <item>
-            <title><![CDATA[I don't think it is a good idea to use a bundler for your libraries]]></title>
+            <title><![CDATA[Vite library mode bundles your libraries dependencies (which I don't think is good)]]></title>
             <link>https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</link>
             <guid>https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</guid>
             <pubDate>Sun, 23 Feb 2025 00:00:00 GMT</pubDate>
