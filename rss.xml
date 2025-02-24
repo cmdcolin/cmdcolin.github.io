@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 24 Feb 2025 16:20:34 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Feb 2025 17:59:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -167,11 +167,13 @@ have now allow us to import from the .ts file extension in the src folder, and
 it automatically rewrites to use the .js file extension in the dist folder</p>
 <p>For example we can have</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic">// src/index.ts</span></span>
-<span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
-<span class="line"><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre>
-<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic">// src/bar.ts</span></span>
+<span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">bar</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.ts'</span></span>
 <span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
-<span class="line"><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
+<span class="line"><span style="color:#61AFEF">  bar</span><span style="color:#ABB2BF">()</span></span>
+<span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic">// src/bar.ts</span></span>
+<span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> bar</span><span style="color:#ABB2BF">() {</span></span>
+<span class="line"><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'bar in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <p>then running tsc over these files will produce</p>
 <pre><code> ❯❯❯ ll dist
@@ -186,8 +188,9 @@ total 24K
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
 <span class="line"><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre>
 <p>and dist/bar.js says</p>
-<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
-<span class="line"><span style="color:#E5C07B">  console</span><span style="color:#ABB2BF">.</span><span style="color:#61AFEF">log</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">'foo in bar.ts'</span><span style="color:#ABB2BF">)</span></span>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">bar</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> './bar.js'</span></span>
+<span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> function</span><span style="color:#61AFEF"> foo</span><span style="color:#ABB2BF">() {</span></span>
+<span class="line"><span style="color:#61AFEF">  bar</span><span style="color:#ABB2BF">()</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
 have this behavior, but now you can reference the actual file, bar.ts</p>
@@ -242,14 +245,13 @@ postversion script</p>
 <span class="line"><span style="color:#ABB2BF">  }</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span></code></pre>
 <h2 id="using-minimalpackage"><a aria-hidden="true" tabindex="-1" href="#using-minimalpackage"><a href="#using-minimalpackage" style="margin-right: 10px">#</a></a>Using minimalpackage</h2>
-<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#E06C75"> thing</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> 'minimalpackage'</span></span>
-<span class="line"><span style="color:#61AFEF">thing</span><span style="color:#ABB2BF">()</span></span></code></pre>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">foo</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> 'minimalpackage'</span></span>
+<span class="line"><span style="color:#61AFEF">foo</span><span style="color:#ABB2BF">()</span></span></code></pre>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
 <p>This article proposes a bundler-less approach to distributing typescript
 packages on NPM. It was possible before, but I think the addition of the
 <code>allowImportingTsExtensions</code> and <code>rewriteRelativeImportExtensions</code> made it more
-sane. Previously you had to use "import {thing} from './localFile.js'" even when
-you were writing .ts which was awkward</p>
+sane.</p>
 <h2 id="footnote-1---publishing-dual-esmcjs-using-this-technique"><a aria-hidden="true" tabindex="-1" href="#footnote-1---publishing-dual-esmcjs-using-this-technique"><a href="#footnote-1---publishing-dual-esmcjs-using-this-technique" style="margin-right: 10px">#</a></a>Footnote 1 - Publishing dual ESM/CJS using this technique</h2>
 <p>I don't even know if I fully stand behind doing a dual publish this way, but for
 reference, here is a potential way to dual ESM/CJS publish with this method
