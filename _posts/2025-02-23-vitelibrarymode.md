@@ -101,6 +101,9 @@ to wonder why anyone would do this
   serving 440gb per week by removing THIS ONE LINER")
 - They like inscrutable things
 
+(you can likely toggle minification in vite library mode settings, but it
+minifies by default)
+
 ### Why I think it is bad to bundle your dependencies for artifacts that you upload to NPM
 
 - Consumers of your library will not get semver updates from your
@@ -111,13 +114,14 @@ to wonder why anyone would do this
   bundling, they are not getting the updates
 - They may end up with duplicate dependencies, that could even be incompatible
   in insane ways
-- The vite library technique ONLY has the technique of one-by-one externalizing
-  dependencies e.g. only externalize React. Personal note: I really don't like
-  this. Why do you think that you externalize React in particular? Yes, it is
-  because having multiple versions of React on a page causes the most insane
-  error messages the world has ever seen. I only wrote this blogpost because of
-  one of these errors. I wasn't able to consume a plain old function component
-  that I exported from a package I tried to make with vite library mode.
+- The vite library technique only (to my knowledge) has the technique of
+  one-by-one externalizing dependencies e.g. only externalize React. Personal
+  note: I really don't like this. Why do you think that you externalize React in
+  particular? Yes, it is because having multiple versions of React on a page
+  causes the most insane error messages the world has ever seen. I only wrote
+  this blogpost because of one of these errors. I wasn't able to consume a plain
+  old function component that I exported from a package I tried to make with
+  vite library mode.
 - Users of your library will have very little recourse to fix the issue
   (particularly combined with the minification), so they will not be able to use
   a yarn `resolution` to lock to a working version or use `yarn link` to get a
