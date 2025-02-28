@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 28 Feb 2025 15:55:37 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 28 Feb 2025 17:05:09 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -139,9 +139,10 @@ from my list <a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneeda
 justify doing things this way, but has even more complex subtle behavior
 <a href="https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle">https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle</a></p>
 <h2 id="footnote-2"><a aria-hidden="true" tabindex="-1" href="#footnote-2"><a href="#footnote-2" style="margin-right: 10px">#</a></a>Footnote 2</h2>
-<p>I changed to title to explicitly say that I think it is bad for libraries that
-are published to NPM. If you want to make a single file build that people can
-use in script tag, then you can use it.</p>]]></content:encoded>
+<p>I changed the title to explicitly say that I think it is bad for libraries that
+are published to NPM.</p>
+<p>If you want to make a single file build that people can use in script tag, then
+you can use it</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
