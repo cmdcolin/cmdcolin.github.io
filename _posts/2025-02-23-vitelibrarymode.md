@@ -166,4 +166,5 @@ you can use it
 ## Footnote 3
 
 You can also consider
-https://github.com/davidmyersdev/vite-plugin-externalize-deps
+https://github.com/davidmyersdev/vite-plugin-externalize-deps but, again, see
+the entire post above. I don't recommend this.
