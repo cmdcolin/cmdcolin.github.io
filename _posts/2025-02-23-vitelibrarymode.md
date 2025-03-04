@@ -162,3 +162,8 @@ are published to NPM.
 
 If you want to make a single file build that people can use in script tag, then
 you can use it
+
+## Footnote 3
+
+You can also consider
+https://github.com/davidmyersdev/vite-plugin-externalize-deps
