@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 28 Feb 2025 17:05:09 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 28 Feb 2025 17:12:13 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -267,7 +267,9 @@ sane.</p>
 <h2 id="footnote-1---publishing-dual-esmcjs-using-this-technique"><a aria-hidden="true" tabindex="-1" href="#footnote-1---publishing-dual-esmcjs-using-this-technique"><a href="#footnote-1---publishing-dual-esmcjs-using-this-technique" style="margin-right: 10px">#</a></a>Footnote 1 - Publishing dual ESM/CJS using this technique</h2>
 <p>I don't even know if I fully stand behind doing a dual publish this way, but for
 reference, here is a potential way to dual ESM/CJS publish with this method
-<a href="https://gist.github.com/cmdcolin/c3089a4b37f2ff8c8eabce5ebd3b4082">https://gist.github.com/cmdcolin/c3089a4b37f2ff8c8eabce5ebd3b4082</a></p>]]></content:encoded>
+<a href="https://gist.github.com/cmdcolin/c3089a4b37f2ff8c8eabce5ebd3b4082">https://gist.github.com/cmdcolin/c3089a4b37f2ff8c8eabce5ebd3b4082</a></p>
+<p>The 'quick start kit' tshy is also a pretty good minimal approach to publishing.
+You might consider trying it</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
