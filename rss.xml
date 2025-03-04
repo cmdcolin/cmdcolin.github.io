@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Fri, 28 Feb 2025 17:12:13 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 04 Mar 2025 13:53:10 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -142,7 +142,10 @@ justify doing things this way, but has even more complex subtle behavior
 <p>I changed the title to explicitly say that I think it is bad for libraries that
 are published to NPM.</p>
 <p>If you want to make a single file build that people can use in script tag, then
-you can use it</p>]]></content:encoded>
+you can use it</p>
+<h2 id="footnote-3"><a aria-hidden="true" tabindex="-1" href="#footnote-3"><a href="#footnote-3" style="margin-right: 10px">#</a></a>Footnote 3</h2>
+<p>You can also consider
+<a href="https://github.com/davidmyersdev/vite-plugin-externalize-deps">https://github.com/davidmyersdev/vite-plugin-externalize-deps</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
