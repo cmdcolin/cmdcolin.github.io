@@ -261,7 +261,7 @@ An interesting thing is you can write in `.js` but still get `typescript` to get
 type checking using `jsdoc`, just use `allowJs`/`checkJs` flags in
 `tsconfig.json`
 
-## Footnote 5: Using JSX does not require bundler
+## Footnote 5: What about if your library is using JSX/React?
 
 What about using React in your library? Bundlers are still not needed, and not
 even babel is needed: you can code your library as in `jsx` or `tsx` files and
@@ -270,5 +270,7 @@ statements (or the newer jsx transform if you elect to use it in your tsconfig).
 
 ## Footnote 6: 2025 update
 
-See https://cmdcolin.github.io/posts/2025-01-12-pureesm and
-https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode
+- A new article where we make a "Pure ESM" package with just tsc
+  https://cmdcolin.github.io/posts/2025-01-12-pureesm
+- A new article where I complain about vite library mode bundling dependencies
+  https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode
