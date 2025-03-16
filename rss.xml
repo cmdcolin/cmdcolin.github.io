@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 04 Mar 2025 19:15:29 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 10 Mar 2025 17:00:26 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2936,14 +2936,18 @@ use this technique yet but there are many users with this workflow</p>
 <p>An interesting thing is you can write in <code>.js</code> but still get <code>typescript</code> to get
 type checking using <code>jsdoc</code>, just use <code>allowJs</code>/<code>checkJs</code> flags in
 <code>tsconfig.json</code></p>
-<h2 id="footnote-5-using-jsx-does-not-require-bundler"><a aria-hidden="true" tabindex="-1" href="#footnote-5-using-jsx-does-not-require-bundler"><a href="#footnote-5-using-jsx-does-not-require-bundler" style="margin-right: 10px">#</a></a>Footnote 5: Using JSX does not require bundler</h2>
+<h2 id="footnote-5-what-about-if-your-library-is-using-jsxreact"><a aria-hidden="true" tabindex="-1" href="#footnote-5-what-about-if-your-library-is-using-jsxreact"><a href="#footnote-5-what-about-if-your-library-is-using-jsxreact" style="margin-right: 10px">#</a></a>Footnote 5: What about if your library is using JSX/React?</h2>
 <p>What about using React in your library? Bundlers are still not needed, and not
 even babel is needed: you can code your library as in <code>jsx</code> or <code>tsx</code> files and
 use <code>tsc</code> to compile it, and it will be converted to React.createElement
 statements (or the newer jsx transform if you elect to use it in your tsconfig).</p>
 <h2 id="footnote-6-2025-update"><a aria-hidden="true" tabindex="-1" href="#footnote-6-2025-update"><a href="#footnote-6-2025-update" style="margin-right: 10px">#</a></a>Footnote 6: 2025 update</h2>
-<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a> and
-<a href="https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode">https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</a></p>]]></content:encoded>
+<ul>
+<li>A new article where we make a "Pure ESM" package with just tsc
+<a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></li>
+<li>A new article where I complain about vite library mode bundling dependencies
+<a href="https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode">https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</a></li>
+</ul>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
