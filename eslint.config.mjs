@@ -64,6 +64,7 @@ export default tseslint.config(
       curly: 'error',
       semi: ['error', 'never'],
       'unicorn/prevent-abbreviations': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
     },
   },
 )
