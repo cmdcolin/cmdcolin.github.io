@@ -4,7 +4,12 @@ export const metadata = {
 
 const returnValue = [
   {
-    year: 2023,
+    year: 2025,
+    author: 'J.D. Salinger',
+    title: 'Catcher in the Rye',
+  },
+  {
+    year: 2025,
     author: 'Otessa Moshfegh',
     title: 'Eileen',
   },
