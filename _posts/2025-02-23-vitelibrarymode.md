@@ -87,7 +87,6 @@ to wonder why anyone would do this
   can put in a script tag, from unpkg or similar
 - They think they are helping against supply chain attacks by bundling all their
   dependencies to a fixed version. After all, left-pad happened one time
-- They do not care about the opinions of people like me
 - They don't realize they are doing it
 
 ### Why someone might minify the things they upload to NPM

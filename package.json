@@ -14,7 +14,7 @@
   "dependencies": {
     "@giscus/react": "^3.0.0",
     "@shikijs/rehype": "^3.0.0",
-    "feed": "^4.2.2",
+    "feed": "^5.0.1",
     "gray-matter": "^4.0.3",
     "next": "^15.0.4",
     "react": "^19.0.0",
