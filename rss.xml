@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Mon, 28 Apr 2025 16:38:16 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 13 May 2025 14:33:26 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -142,11 +142,7 @@ justify doing things this way, but has even more complex subtle behavior
 <p>I changed the title to explicitly say that I think it is bad for libraries that
 are published to NPM.</p>
 <p>If you want to make a single file build that people can use in script tag, then
-you can use it</p>
-<h2 id="footnote-3"><a aria-hidden="true" tabindex="-1" href="#footnote-3"><a href="#footnote-3" style="margin-right: 10px">#</a></a>Footnote 3</h2>
-<p>You can also consider
-<a href="https://github.com/davidmyersdev/vite-plugin-externalize-deps">https://github.com/davidmyersdev/vite-plugin-externalize-deps</a> but, again, see
-the entire post above. I don't recommend this.</p>]]></content:encoded>
+you can use it</p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
@@ -6359,30 +6355,30 @@ automates some of these features and makes it easier to load the data in R.</p>
 <h2 id="installation"><a aria-hidden="true" tabindex="-1" href="#installation"><a href="#installation" style="margin-right: 10px">#</a></a>Installation</h2>
 <p>One way to install InterMineR is to install from github with hadley/devtools</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#56B6C2">install.packages</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">"devtools"</span><span style="color:#ABB2BF">)</span></span>
-<span class="line"><span style="color:#ABB2BF">devtools</span><span style="color:#C678DD">::</span><span style="color:#61AFEF">install_github</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">"hadley/devtools"</span><span style="color:#ABB2BF">)</span></span>
-<span class="line"><span style="color:#ABB2BF">devtools</span><span style="color:#C678DD">::</span><span style="color:#61AFEF">install_github</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">"intermine/intermineR"</span><span style="color:#ABB2BF">)</span></span></code></pre>
+<span class="line"><span style="color:#ABB2BF">devtools::install_github(</span><span style="color:#98C379">"hadley/devtools"</span><span style="color:#ABB2BF">)</span></span>
+<span class="line"><span style="color:#ABB2BF">devtools::install_github(</span><span style="color:#98C379">"intermine/intermineR"</span><span style="color:#ABB2BF">)</span></span></code></pre>
 <h2 id="usage"><a aria-hidden="true" tabindex="-1" href="#usage"><a href="#usage" style="margin-right: 10px">#</a></a>Usage</h2>
 <p>Basic usage includes loading the "intermine URL" using the initInterMine
 function. Then various functions can be called on this result.</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#56B6C2">library</span><span style="color:#ABB2BF">(InterMineR)</span></span>
-<span class="line"><span style="color:#E06C75;font-style:italic">mine</span><span style="color:#56B6C2">=</span><span style="color:#61AFEF">initInterMine</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">"http://bovinegenome.org/bovinemine/"</span><span style="color:#ABB2BF">)</span></span>
-<span class="line"><span style="color:#61AFEF">getVersion</span><span style="color:#ABB2BF">(mine) </span><span style="color:#7F848E;font-style:italic">#18, intermine API version</span></span>
-<span class="line"><span style="color:#61AFEF">getRelease</span><span style="color:#ABB2BF">(mine) </span><span style="color:#7F848E;font-style:italic">#1.0, our data release version</span></span>
-<span class="line"><span style="color:#61AFEF">getTemplates</span><span style="color:#ABB2BF">(mine) </span><span style="color:#7F848E;font-style:italic"># lists all templates on interminer</span></span></code></pre>
+<span class="line"><span style="color:#ABB2BF">mine</span><span style="color:#56B6C2">=</span><span style="color:#ABB2BF">initInterMine(</span><span style="color:#98C379">"http://bovinegenome.org/bovinemine/"</span><span style="color:#ABB2BF">)</span></span>
+<span class="line"><span style="color:#ABB2BF">getVersion(mine) </span><span style="color:#7F848E;font-style:italic">#18, intermine API version</span></span>
+<span class="line"><span style="color:#ABB2BF">getRelease(mine) </span><span style="color:#7F848E;font-style:italic">#1.0, our data release version</span></span>
+<span class="line"><span style="color:#ABB2BF">getTemplates(mine) </span><span style="color:#7F848E;font-style:italic"># lists all templates on interminer</span></span></code></pre>
 <h2 id="run-a-template-query"><a aria-hidden="true" tabindex="-1" href="#run-a-template-query"><a href="#run-a-template-query" style="margin-right: 10px">#</a></a>Run a template query</h2>
 <p>From the getTemplates function, if you see a template query that you want to
 run, you can use the getTemplateQuery function with it's name, and run it with
 the runQuery function</p>
-<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#61AFEF">getTemplateQuery</span><span style="color:#ABB2BF">(mine,</span><span style="color:#98C379">"TQ_protein_to_gene"</span><span style="color:#ABB2BF">) </span><span style="color:#7F848E;font-style:italic"># see what template looks like</span></span>
-<span class="line"><span style="color:#E06C75;font-style:italic">template</span><span style="color:#56B6C2">=</span><span style="color:#61AFEF">getTemplateQuery</span><span style="color:#ABB2BF">(mine,</span><span style="color:#98C379">"TQ_protein_to_gene"</span><span style="color:#ABB2BF">) </span><span style="color:#7F848E;font-style:italic"># save template</span></span>
-<span class="line"><span style="color:#61AFEF">runQuery</span><span style="color:#ABB2BF">(mine,template) </span><span style="color:#7F848E;font-style:italic"># run the template query with default params, receive data.frame</span></span></code></pre>
+<pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#ABB2BF">getTemplateQuery(mine,</span><span style="color:#98C379">"TQ_protein_to_gene"</span><span style="color:#ABB2BF">) </span><span style="color:#7F848E;font-style:italic"># see what template looks like</span></span>
+<span class="line"><span style="color:#ABB2BF">template</span><span style="color:#56B6C2">=</span><span style="color:#ABB2BF">getTemplateQuery(mine,</span><span style="color:#98C379">"TQ_protein_to_gene"</span><span style="color:#ABB2BF">) </span><span style="color:#7F848E;font-style:italic"># save template</span></span>
+<span class="line"><span style="color:#ABB2BF">runQuery(mine,template) </span><span style="color:#7F848E;font-style:italic"># run the template query with default params, receive data.frame</span></span></code></pre>
 <p>This method is good, but some improvement could be added to change default
 parameters in the template query, etc.</p>
 <h2 id="run-query-xml"><a aria-hidden="true" tabindex="-1" href="#run-query-xml"><a href="#run-query-xml" style="margin-right: 10px">#</a></a>Run query XML</h2>
 <p>Another option for running queries is to use the query XML that you can download
 from the InterMine query result pages.</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic"># get all Ensembl genes on chr28 from bovinemine</span></span>
-<span class="line"><span style="color:#E06C75;font-style:italic">query</span><span style="color:#56B6C2">=</span><span style="color:#98C379">'&#x3C;query model="genomic" view="Gene.primaryIdentifier</span></span>
+<span class="line"><span style="color:#ABB2BF">query</span><span style="color:#56B6C2">=</span><span style="color:#98C379">'&#x3C;query model="genomic" view="Gene.primaryIdentifier</span></span>
 <span class="line"><span style="color:#98C379">Gene.secondaryIdentifier Gene.symbol Gene.name Gene.source</span></span>
 <span class="line"><span style="color:#98C379">Gene.organism.shortName Gene.chromosome.primaryIdentifier"</span></span>
 <span class="line"><span style="color:#98C379">sortOrder="Gene.primaryIdentifier ASC" >&#x3C;constraint</span></span>
@@ -6390,7 +6386,7 @@ from the InterMine query result pages.</p>
 <span class="line"><span style="color:#98C379">/>&#x3C;constraint path="Gene.chromosome.primaryIdentifier" op="="</span></span>
 <span class="line"><span style="color:#98C379">value="GK000028.2" />&#x3C;/query>'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#E06C75;font-style:italic">results</span><span style="color:#56B6C2">=</span><span style="color:#61AFEF">runQuery</span><span style="color:#ABB2BF">(mine, query)</span></span>
+<span class="line"><span style="color:#ABB2BF">results</span><span style="color:#56B6C2">=</span><span style="color:#ABB2BF">runQuery(mine, query)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#56B6C2">head</span><span style="color:#ABB2BF">(results)</span></span></code></pre>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
