@@ -10,16 +10,10 @@ import rehypeStringify from 'rehype-stringify'
 import rehypeShiki from '@shikijs/rehype'
 import { unified } from 'unified'
 
-import sketches from './sketches.ts'
-
 const postsDirectory = path.join(process.cwd(), '_posts')
 
 function getPostFiles() {
   return fs.readdirSync(postsDirectory)
-}
-
-function getSketchFiles() {
-  return sketches.map(d => ({ ...d, date: +new Date(d.date) }))
 }
 
 function getParser() {
@@ -81,8 +75,4 @@ export async function getPageMarkdown(string_: string) {
 export async function getAllPosts() {
   const posts = await Promise.all(getPostFiles().map(id => getPostById(id)))
   return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-}
-
-export function getAllSketches() {
-  return getSketchFiles()
 }

@@ -3,7 +3,7 @@
 I have worked on a variety of bioinformatics applications including model
 organism databases, genome browsers, and data analysis pipelines. See my
 [google scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&user=--FwzsgAAAAJ)
-for publications. Our jbrowse 2 paper was
+for publications. Our JBrowse 2 paper was
 [recently published](https://www.biorxiv.org/content/10.1101/2022.07.28.501447v1)
 which I was proud to be first author of.
 
@@ -60,7 +60,7 @@ repos. Please add your favorites with PRs :)
 
 - Experimental Genome Science, University of Pennsylvania 2013,
   [statement of completion](genomesci.pdf)
-- Computing for Data Analysis, John Hopkins 2013,
+- Computing for Data Analysis, Johns Hopkins 2013,
   [statement of completion, with distinction](compdata.pdf)
 
 ## Visual art/code sketches
@@ -101,8 +101,6 @@ repos. Please add your favorites with PRs :)
   reblogs with cytoscapejs (2017)
 - [resort](https://cmdcolin.github.io/resort/qs.html) - Visualize sorting
   algorithms (2017)
-- [ontograph](https://elsiklab.github.io/ontograph/) - Visualize ontology (OBO)
-  files (2016)
 
 ## Memorial
 
