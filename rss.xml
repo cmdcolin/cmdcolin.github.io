@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 13 May 2025 14:33:26 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 13 May 2025 22:09:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -78,7 +78,6 @@ enthusiasts/luddites/non-JS users and want a single javascript file that they
 can put in a script tag, from unpkg or similar</li>
 <li>They think they are helping against supply chain attacks by bundling all their
 dependencies to a fixed version. After all, left-pad happened one time</li>
-<li>They do not care about the opinions of people like me</li>
 <li>They don't realize they are doing it</li>
 </ul>
 <h3 id="why-someone-might-minify-the-things-they-upload-to-npm"><a aria-hidden="true" tabindex="-1" href="#why-someone-might-minify-the-things-they-upload-to-npm"><a href="#why-someone-might-minify-the-things-they-upload-to-npm" style="margin-right: 10px">#</a></a>Why someone might minify the things they upload to NPM</h3>
