@@ -7,8 +7,8 @@
     "postbuild": "node --experimental-strip-types generate-rss.ts",
     "start": "next dev",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
-    "predeploy": "npm run build && touch out/.nojekyll",
-    "deploy": "gh-pages -d out -t",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out -t --nojekyll",
     "postdeploy": "git push --follow-tags"
   },
   "dependencies": {
@@ -36,8 +36,6 @@
     "@types/node": "^22.5.0",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.0.1",
-    "@typescript-eslint/parser": "^8.0.1",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.2",
     "eslint-plugin-react-hooks": "^5.1.0",
