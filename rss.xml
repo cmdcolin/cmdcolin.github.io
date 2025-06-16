@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Sun, 08 Jun 2025 21:10:20 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 16 Jun 2025 18:14:17 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -2246,6 +2246,9 @@ you an API key below *</li>
 <p>TLDR: visit the final product!
 <a href="https://github.com/cmdcolin/rust_react_monorepo_template">https://github.com/cmdcolin/rust_react_monorepo_template</a>. It is also deployed
 live here <a href="https://cmdcolin.github.io/rust_react_monorepo_template">https://cmdcolin.github.io/rust_react_monorepo_template</a></p>
+<p>2025 update: While this article covers create-react-app, the Vite version is
+simpler and easier. I made a simple Vite app in
+<a href="https://github.com/cmdcolin/logistic_chaos_map">https://github.com/cmdcolin/logistic_chaos_map</a></p>
 <h2 id="steps-to-create-this-type-of-integration-from-scratch"><a aria-hidden="true" tabindex="-1" href="#steps-to-create-this-type-of-integration-from-scratch"><a href="#steps-to-create-this-type-of-integration-from-scratch" style="margin-right: 10px">#</a></a>Steps to create this type of integration from scratch</h2>
 <h3 id="create-repo"><a aria-hidden="true" tabindex="-1" href="#create-repo"><a href="#create-repo" style="margin-right: 10px">#</a></a>Create repo</h3>
 <pre><code>mkdir template
@@ -2409,7 +2412,11 @@ are getting started with rust, read the Rust Book along with doing rustlings
 <h2 id="footnote-7-another-resource"><a aria-hidden="true" tabindex="-1" href="#footnote-7-another-resource"><a href="#footnote-7-another-resource" style="margin-right: 10px">#</a></a>Footnote 7: Another resource</h2>
 <p>This article was posted on reddit and is also a great resource especially about
 sync vs async webpack loading schemes for wasm</p>
-<p><a href="https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/">https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/</a></p>]]></content:encoded>
+<p><a href="https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/">https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/</a></p>
+<h2 id="footnote-8-vite-version"><a aria-hidden="true" tabindex="-1" href="#footnote-8-vite-version"><a href="#footnote-8-vite-version" style="margin-right: 10px">#</a></a>Footnote 8: Vite version</h2>
+<p>2025 update: While this article covers create-react-app, the Vite version is
+simpler and easier. I made a simple Vite app in
+<a href="https://github.com/cmdcolin/logistic_chaos_map">https://github.com/cmdcolin/logistic_chaos_map</a></p>]]></content:encoded>
             <author>colin.diesh@gmail.com (Colin Diesh)</author>
         </item>
         <item>
