@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.7",
-    "@types/jest": "^29.5.4",
     "@types/node": "^22.5.0",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
