@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Blog by Colin Diesh</description>
-        <lastBuildDate>Tue, 13 May 2025 22:09:58 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 08 Jun 2025 21:10:20 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -12,7 +12,7 @@
         <item>
             <title><![CDATA[Vite library mode bundles your library's dependencies (which I don't think is good for libraries published to NPM)]]></title>
             <link>https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</link>
-            <guid>https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2025-02-23-vitelibrarymode</guid>
             <pubDate>Sun, 23 Feb 2025 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p><img src="/chiblets.jpg" alt="my cats"></p>
 <p>Vite is a very popular "build tool" for making all sorts of javascript apps. It
@@ -147,7 +147,7 @@ you can use it</p>]]></content:encoded>
         <item>
             <title><![CDATA[Making a pure-ESM package using `tsc`]]></title>
             <link>https://cmdcolin.github.io/posts/2025-01-12-pureesm</link>
-            <guid>https://cmdcolin.github.io/posts/2025-01-12-pureesm</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2025-01-12-pureesm</guid>
             <pubDate>Sun, 12 Jan 2025 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In the past, I have written about making NPM packages with just the typescript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
@@ -274,7 +274,7 @@ You might consider trying it</p>]]></content:encoded>
         <item>
             <title><![CDATA[Begone, superstitious if-statements!]]></title>
             <link>https://cmdcolin.github.io/posts/2024-10-29-superstitionsbegone</link>
-            <guid>https://cmdcolin.github.io/posts/2024-10-29-superstitionsbegone</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2024-10-29-superstitionsbegone</guid>
             <pubDate>Tue, 29 Oct 2024 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p><img src="/superstitions.png" alt=""></p>
 <p><a href="https://creazilla.com/media/emoji/47538/crossed-fingers">adapted from</a></p>
@@ -337,7 +337,7 @@ visit the subcategories)</p>]]></content:encoded>
         <item>
             <title><![CDATA[Be careful when you rename an optional "prop" in typescript]]></title>
             <link>https://cmdcolin.github.io/posts/2024-09-18-renamingoptional</link>
-            <guid>https://cmdcolin.github.io/posts/2024-09-18-renamingoptional</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2024-09-18-renamingoptional</guid>
             <pubDate>Wed, 18 Sep 2024 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<h2 id="scenario"><a aria-hidden="true" tabindex="-1" href="#scenario"><a href="#scenario" style="margin-right: 10px">#</a></a>Scenario</h2>
 <p>The "doStuff" team at your company created a function for you to use</p>
@@ -397,7 +397,7 @@ actively developed codebase</p>]]></content:encoded>
         <item>
             <title><![CDATA[I see that noUncheckedIndexedAccess is false. Did you want to use Record<string, T|undefined>?]]></title>
             <link>https://cmdcolin.github.io/posts/2023-09-27-areyousure</link>
-            <guid>https://cmdcolin.github.io/posts/2023-09-27-areyousure</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2023-09-27-areyousure</guid>
             <pubDate>Wed, 27 Sep 2023 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p><img src="/clippy.jpg" alt=""></p>
 <p>It is common in typescript to write <code>Record&#x3C;string,T></code> for whatever type <code>T</code> you
@@ -457,7 +457,7 @@ explicitly mark your exported types as <code>Record&#x3C;string, T|undefined></c
         <item>
             <title><![CDATA[~7 eslint rules that will tumble the lint right off your lil sockies]]></title>
             <link>https://cmdcolin.github.io/posts/2023-08-20-typescriptlint</link>
-            <guid>https://cmdcolin.github.io/posts/2023-08-20-typescriptlint</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2023-08-20-typescriptlint</guid>
             <pubDate>Sun, 20 Aug 2023 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Do you think of your linter as a piece of crap that makes annoying suggestions
 that are best ignored?</p>
@@ -707,7 +707,7 @@ accept warnings, and auto-remove unused eslint disables!</p>
         <item>
             <title><![CDATA[Making a static site blog with the Next.js 'app' directory]]></title>
             <link>https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog</link>
-            <guid>https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog</guid>
             <pubDate>Sat, 08 Apr 2023 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I just converted my blog to use the Next.js 'app' directory, and thought I'd
 show how you can make your own static site with it. Static export of the Next.js
@@ -982,7 +982,7 @@ to use it for your setup, see
         <item>
             <title><![CDATA[Command line productivity stuff]]></title>
             <link>https://cmdcolin.github.io/posts/2023-03-25-commandlinestuff</link>
-            <guid>https://cmdcolin.github.io/posts/2023-03-25-commandlinestuff</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2023-03-25-commandlinestuff</guid>
             <pubDate>Sat, 25 Mar 2023 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In 2016, I wrote a list of things that I found to be useful or interesting
 information about the work I did at the time
@@ -1135,7 +1135,7 @@ approved</p>]]></content:encoded>
         <item>
             <title><![CDATA[Things typescript didn't catch that should probably be lint rules]]></title>
             <link>https://cmdcolin.github.io/posts/2023-02-05-typescript-gotchas</link>
-            <guid>https://cmdcolin.github.io/posts/2023-02-05-typescript-gotchas</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2023-02-05-typescript-gotchas</guid>
             <pubDate>Sun, 05 Feb 2023 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>This is a short list of silly things that I wish Typescript would have caught
 for me, but are silly logic errors</p>
@@ -1180,7 +1180,7 @@ me :)</p>
         <item>
             <title><![CDATA[The devinterrupted'ening of /r/programming]]></title>
             <link>https://cmdcolin.github.io/posts/2022-12-27-devinterrupted</link>
-            <guid>https://cmdcolin.github.io/posts/2022-12-27-devinterrupted</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-12-27-devinterrupted</guid>
             <pubDate>Tue, 27 Dec 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Complaining about spammers is kind of a futile endeavor, and in this case, it
 even seems that there are people behind it which kinda makes me feel bad to
@@ -1322,7 +1322,7 @@ behind these posts.</p>]]></content:encoded>
         <item>
             <title><![CDATA[The React tutorial I wish I had]]></title>
             <link>https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</link>
-            <guid>https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-11-20-the-react-tutorial-i-wish-i-had</guid>
             <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I was learning React, I found it very challenging, and my eyes would glaze
 over any time I tried to learn</p>
@@ -1539,7 +1539,7 @@ it re-render after the fetch has completed.</p>
         <item>
             <title><![CDATA[Handling component state with React...you gotta reset it sometimes]]></title>
             <link>https://cmdcolin.github.io/posts/2022-10-10-reactstate</link>
-            <guid>https://cmdcolin.github.io/posts/2022-10-10-reactstate</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-10-10-reactstate</guid>
             <pubDate>Mon, 10 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>If you make a React component that has, say, a prop for a item id, and an async
 action in a <code>useEffect</code> to fetch data for that item from an API, then you
@@ -1861,7 +1861,7 @@ component is "reinitialized" for all intents and purposes."</p>
         <item>
             <title><![CDATA[Making an audio slideshow with ffmpeg]]></title>
             <link>https://cmdcolin.github.io/posts/2022-10-08-ffmpeg-slideshow</link>
-            <guid>https://cmdcolin.github.io/posts/2022-10-08-ffmpeg-slideshow</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-10-08-ffmpeg-slideshow</guid>
             <pubDate>Sat, 08 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Inspired by a new trend of posting "playlists" on youtube with visual
 accompaniment (<a href="https://www.youtube.com/watch?v=zG92ss_2Vjw&#x26;t=1937s">https://www.youtube.com/watch?v=zG92ss_2Vjw&#x26;t=1937s</a>), I wanted to
@@ -1897,7 +1897,7 @@ with options that modify this behavior</p>]]></content:encoded>
         <item>
             <title><![CDATA[Creating a music player using Rust/GTK4 - fml9000]]></title>
             <link>https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</link>
-            <guid>https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-09-05-rustmusicplayer</guid>
             <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I have started endeavoring to learn Rust. I did the rustlings exercises but I
 knew the concepts would fade rapidly from my brain without some practice. I have
@@ -2005,7 +2005,7 @@ and I quickly fleshed out some more UI for the app</p>]]></content:encoded>
         <item>
             <title><![CDATA[Making a twitter bot in the year 2022 with node.js]]></title>
             <link>https://cmdcolin.github.io/posts/2022-08-26-twitterbot</link>
-            <guid>https://cmdcolin.github.io/posts/2022-08-26-twitterbot</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-08-26-twitterbot</guid>
             <pubDate>Fri, 26 Aug 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Recently, we made the logistic map fractal visualizer app, but, how do we keep
 USER ENGAGEMENT METRICS up? Gotta make a twitter bot to post fractals, that's
@@ -2232,7 +2232,7 @@ you an API key below *</li>
         <item>
             <title><![CDATA[Using Rust/WASM in a monorepo with create-react-app]]></title>
             <link>https://cmdcolin.github.io/posts/2022-08-22-rustwasm</link>
-            <guid>https://cmdcolin.github.io/posts/2022-08-22-rustwasm</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-08-22-rustwasm</guid>
             <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Behold, the buzzwords:</p>
 <ul>
@@ -2415,7 +2415,7 @@ sync vs async webpack loading schemes for wasm</p>
         <item>
             <title><![CDATA[Photos of vacation]]></title>
             <link>https://cmdcolin.github.io/posts/2022-08-21-vacation</link>
-            <guid>https://cmdcolin.github.io/posts/2022-08-21-vacation</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-08-21-vacation</guid>
             <pubDate>Sun, 21 Aug 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>From Aug 1st->Aug 18 I did a road trip from the South Carolina to New Mexico. I
 flew out and met my partner who had driven there earlier to help her mom out at
@@ -2528,7 +2528,7 @@ rio grande</p>
         <item>
             <title><![CDATA[Photos of life]]></title>
             <link>https://cmdcolin.github.io/posts/2022-07-29-happy</link>
-            <guid>https://cmdcolin.github.io/posts/2022-07-29-happy</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-07-29-happy</guid>
             <pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I started this post to try to talk about things that make me happy. It's not
 really a happiness though that I wanted to talk about, it's just about living
@@ -2622,7 +2622,7 @@ flowing full...</p>
         <item>
             <title><![CDATA[Watch out for your pinky finger (AND elbow posture)]]></title>
             <link>https://cmdcolin.github.io/posts/2022-07-08-pinky</link>
-            <guid>https://cmdcolin.github.io/posts/2022-07-08-pinky</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-07-08-pinky</guid>
             <pubDate>Fri, 08 Jul 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I have, for several months, suffered a twinge in my left pinky finger from
 excessive strain due to hand contortions largely caused by keyboard use.</p>
@@ -2717,7 +2717,7 @@ otherwise)</p>
         <item>
             <title><![CDATA[You may not need a bundler for your NPM library]]></title>
             <link>https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</link>
-            <guid>https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</guid>
             <pubDate>Fri, 27 May 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I have seen a couple threads on twitter where people complain about the
 difficulty with publishing NPM libraries or ask what starter kit they should use
@@ -2948,7 +2948,7 @@ statements (or the newer jsx transform if you elect to use it in your tsconfig).
         <item>
             <title><![CDATA[Notes on performance profiling JS applications]]></title>
             <link>https://cmdcolin.github.io/posts/2022-05-10-performanceprofiling</link>
-            <guid>https://cmdcolin.github.io/posts/2022-05-10-performanceprofiling</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-05-10-performanceprofiling</guid>
             <pubDate>Tue, 10 May 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Keeping your program fast is important for</p>
 <ul>
@@ -3063,7 +3063,7 @@ variable does not provide info about webworker memory usage
         <item>
             <title><![CDATA[Using find . -exec sed is dangerous in a git repo]]></title>
             <link>https://cmdcolin.github.io/posts/2022-05-04-findseddangerous</link>
-            <guid>https://cmdcolin.github.io/posts/2022-05-04-findseddangerous</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-05-04-findseddangerous</guid>
             <pubDate>Wed, 04 May 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>You want to find and replace all instances of a string in your repo, so you
 google "find replace directory linux command". You end up here</p>
@@ -3118,7 +3118,7 @@ this tool so, just spreading the word</p>
         <item>
             <title><![CDATA[Cognitive reframing]]></title>
             <link>https://cmdcolin.github.io/posts/2022-03-02-dont-let-it-get-to-you</link>
-            <guid>https://cmdcolin.github.io/posts/2022-03-02-dont-let-it-get-to-you</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-03-02-dont-let-it-get-to-you</guid>
             <pubDate>Thu, 03 Mar 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>A big part of my recent career has not been technical but emotional learning</p>
 <p>This has been very hard, but the benefits are worth it</p>
@@ -3154,7 +3154,7 @@ head makes it to the real world through your behavior.</p>]]></content:encoded>
         <item>
             <title><![CDATA[Memoizing async functions so that you don't cache errors]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-26-memoize-async</link>
-            <guid>https://cmdcolin.github.io/posts/2022-02-26-memoize-async</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-02-26-memoize-async</guid>
             <pubDate>Sat, 26 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>There are two hard problems in computer science:
 <a href="https://martinfowler.com/bliki/TwoHardThings.html">Cache invalidation and naming things</a>.
@@ -3286,7 +3286,7 @@ great interactive examples and shows the "invalidate on .catch()" behavior!</p>]
         <item>
             <title><![CDATA[Ukraine]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-24-ukraine</link>
-            <guid>https://cmdcolin.github.io/posts/2022-02-24-ukraine</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-02-24-ukraine</guid>
             <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>As Russia is actively invading Ukraine my heart goes out to them.</p>
 <p>Even if I had no personal connection with Ukraine, I would find this abhorrent,
@@ -3303,7 +3303,7 @@ they were very nice.</p>
         <item>
             <title><![CDATA[Back when I was a noise musician...]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-15-noise</link>
-            <guid>https://cmdcolin.github.io/posts/2022-02-15-noise</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-02-15-noise</guid>
             <pubDate>Tue, 15 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Found this photo of myself from a photo book published by john cates called
 auditory depravation...great documentation of michigan area noise activity. I am
@@ -3337,7 +3337,7 @@ honored. I forgot I was even in the book when I picked it up randomly.</p>
         <item>
             <title><![CDATA[Structural variants and the SAM format - the long (reads) and short (reads) of it]]></title>
             <link>https://cmdcolin.github.io/posts/2022-02-06-sv-sam</link>
-            <guid>https://cmdcolin.github.io/posts/2022-02-06-sv-sam</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2022-02-06-sv-sam</guid>
             <pubDate>Sun, 06 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>The
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"><code>SAM</code> file format and it's specification</a>
@@ -4039,7 +4039,7 @@ to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRA
         <item>
             <title><![CDATA[How to make your own npm package with typescript]]></title>
             <link>https://cmdcolin.github.io/posts/2021-12-31-npm-package</link>
-            <guid>https://cmdcolin.github.io/posts/2021-12-31-npm-package</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-12-31-npm-package</guid>
             <pubDate>Fri, 31 Dec 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>There is a lot of mystery around making your own <code>npm</code> package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
@@ -4384,7 +4384,7 @@ build in the <code>lib</code> directory, but for simple monorepo setups, this wo
         <item>
             <title><![CDATA[My next.js static blog setup]]></title>
             <link>https://cmdcolin.github.io/posts/2021-12-26-nextjs</link>
-            <guid>https://cmdcolin.github.io/posts/2021-12-26-nextjs</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-12-26-nextjs</guid>
             <pubDate>Sun, 26 Dec 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>TL;DR src here <a href="https://github.com/cmdcolin/cmdcolin.github.io">https://github.com/cmdcolin/cmdcolin.github.io</a></p>
 <p>Update 2023: converted to app directory mode, see
@@ -4518,7 +4518,7 @@ occasional programming post is nice too</p>]]></content:encoded>
         <item>
             <title><![CDATA[A spooky error when you have a string bigger than 512MB in Chrome]]></title>
             <link>https://cmdcolin.github.io/posts/2021-10-30-spooky</link>
-            <guid>https://cmdcolin.github.io/posts/2021-10-30-spooky</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-10-30-spooky</guid>
             <pubDate>Sat, 30 Oct 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Now gather round for a spooky story</p>
 <p>Late one night... in the haunted office/castle the midnight candles were burning
@@ -4584,7 +4584,7 @@ error
         <item>
             <title><![CDATA[Jest parallelization, globals, mocks, and squawkless tests]]></title>
             <link>https://cmdcolin.github.io/posts/2021-10-05-jest</link>
-            <guid>https://cmdcolin.github.io/posts/2021-10-05-jest</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-10-05-jest</guid>
             <pubDate>Tue, 05 Oct 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I found that there is a little bit of confusion and misunderstanding around how
 things like parallelization work in jest, which sometimes leads to additional
@@ -4714,7 +4714,7 @@ write cleaner jest tests.</p>]]></content:encoded>
         <item>
             <title><![CDATA[Decrease your idle CPU usage when developing typescript apps with this one weird environment variable]]></title>
             <link>https://cmdcolin.github.io/posts/2021-09-05-typescript</link>
-            <guid>https://cmdcolin.github.io/posts/2021-09-05-typescript</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-09-05-typescript</guid>
             <pubDate>Sun, 05 Sep 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>TL;DR:</p>
 <p>add this to your bashrc</p>
@@ -4770,7 +4770,7 @@ your teammates, but as far as I could tell, it seems ok!</p>]]></content:encoded
         <item>
             <title><![CDATA[An amazing error message if you put more than 2^24 items in a JS Map object]]></title>
             <link>https://cmdcolin.github.io/posts/2021-08-15-map-limit</link>
-            <guid>https://cmdcolin.github.io/posts/2021-08-15-map-limit</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-08-15-map-limit</guid>
             <pubDate>Sun, 15 Aug 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>One of the fun things about working with big data is that you can often hit
 weird limits with a system.</p>
@@ -4887,7 +4887,7 @@ large number of elements <a href="https://github.com/GMOD/ixixx-js">https://gith
         <item>
             <title><![CDATA[Do you understand your NPM dependencies?]]></title>
             <link>https://cmdcolin.github.io/posts/2021-07-27-npm-dependencies</link>
-            <guid>https://cmdcolin.github.io/posts/2021-07-27-npm-dependencies</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2021-07-27-npm-dependencies</guid>
             <pubDate>Tue, 27 Jul 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>You are writing a library...or you are writing an app and you want to publish
 some of the components of it as a library...</p>
@@ -4935,7 +4935,7 @@ downgrade to 6.0.1)</p>]]></content:encoded>
         <item>
             <title><![CDATA[Making a HTTPS accessible S3 powered static site with CloudFront+route 53]]></title>
             <link>https://cmdcolin.github.io/posts/2020-12-26-pt2</link>
-            <guid>https://cmdcolin.github.io/posts/2020-12-26-pt2</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2020-12-26-pt2</guid>
             <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>This is not a very authoritative post because I stumbled though this but I think
 I got it working now on my website :)</p>
@@ -5024,7 +5024,7 @@ is quite fiddly doing all these steps in the web interface</p>]]></content:encod
         <item>
             <title><![CDATA[Making a serverless website for photo and video upload pt. 2]]></title>
             <link>https://cmdcolin.github.io/posts/2020-12-26</link>
-            <guid>https://cmdcolin.github.io/posts/2020-12-26</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2020-12-26</guid>
             <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>This post follows onhttps://cmdcolin.github.io/2020-12-24.html</p>
 <p>It is possible I zoomed ahead too fast to make this a continuous tutorial, but
@@ -5474,7 +5474,7 @@ the native aws config schemas. Probably fine though</p>
         <item>
             <title><![CDATA[Making a serverless website for photo upload pt. 1]]></title>
             <link>https://cmdcolin.github.io/posts/2020-12-24</link>
-            <guid>https://cmdcolin.github.io/posts/2020-12-24</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2020-12-24</guid>
             <pubDate>Thu, 24 Dec 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I set out to make a serverless website for photo uploads. Our dearly departed
 dixie dog needed a place to have photo uploads.</p>
@@ -5543,7 +5543,7 @@ the github repo that allows putObject in s3 with the public-read ACL</p>
         <item>
             <title><![CDATA[Challenges I faced learning React]]></title>
             <link>https://cmdcolin.github.io/posts/2020-07-04</link>
-            <guid>https://cmdcolin.github.io/posts/2020-07-04</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2020-07-04</guid>
             <pubDate>Sat, 04 Jul 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I started a new job in 2018, I faced a huge struggle when learning React.
 It was a weird time, I wanted to go over my learning experience to share with
@@ -5700,7 +5700,7 @@ me</p>]]></content:encoded>
         <item>
             <title><![CDATA[Misconceptions your team might have during The Big Rewrite]]></title>
             <link>https://cmdcolin.github.io/posts/2020-06-03</link>
-            <guid>https://cmdcolin.github.io/posts/2020-06-03</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2020-06-03</guid>
             <pubDate>Wed, 03 Jun 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Disclaimer: I enjoy the project I am working on and this is still a work in
 progress. I just had to rant about the stuff I go through in my job here, but it
@@ -5842,7 +5842,7 @@ are, and more. It's really crazy</p>]]></content:encoded>
         <item>
             <title><![CDATA[Behind the release - the story of the bugs and features in JBrowse 1.16.0]]></title>
             <link>https://cmdcolin.github.io/posts/2018-12-17</link>
-            <guid>https://cmdcolin.github.io/posts/2018-12-17</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2018-12-17</guid>
             <pubDate>Mon, 17 Dec 2018 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Every once in awhile, you might see that your favorite program, JBrowse, has a
 new release. There are a ton of little snippets in the release notes, you might
@@ -6062,7 +6062,7 @@ user feedback!</p>
         <item>
             <title><![CDATA[Problems that I experienced with the HPCC]]></title>
             <link>https://cmdcolin.github.io/posts/2017-04-21</link>
-            <guid>https://cmdcolin.github.io/posts/2017-04-21</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2017-04-21</guid>
             <pubDate>Fri, 21 Apr 2017 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Many of these issues may be due to me being stubborn with a weird build system.
 Nonetheless, they were baffling, and I had very little interest in debugging
@@ -6109,7 +6109,7 @@ these issues. I just wanted to get my science done after all!</p>
         <item>
             <title><![CDATA[How I learned to hate ORM (especially for data import scripts)]]></title>
             <link>https://cmdcolin.github.io/posts/2017-03-12</link>
-            <guid>https://cmdcolin.github.io/posts/2017-03-12</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2017-03-12</guid>
             <pubDate>Sun, 12 Mar 2017 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When I was tasked with making a new application for our websites, I was given
 several CSV files with some expectation that these files could basically be just
@@ -6165,7 +6165,7 @@ COPY command</p>]]></content:encoded>
         <item>
             <title><![CDATA[Plotting a coordinate on the screen]]></title>
             <link>https://cmdcolin.github.io/posts/2017-02-16</link>
-            <guid>https://cmdcolin.github.io/posts/2017-02-16</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2017-02-16</guid>
             <pubDate>Thu, 16 Feb 2017 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I always end up having to remember the math for plotting a coordinate on the
 screen, for example an HTML5 canvas and end up stitching it together manually</p>
@@ -6200,7 +6200,7 @@ that can be a further exercise</p>]]></content:encoded>
         <item>
             <title><![CDATA[Creating a JBrowse plugin]]></title>
             <link>https://cmdcolin.github.io/posts/2016-11-10</link>
-            <guid>https://cmdcolin.github.io/posts/2016-11-10</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-11-10</guid>
             <pubDate>Thu, 10 Nov 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I have been very impressed with peoples creativity and willingness to dig into
 all the details of JBrowse to customize it's features. One great way to do this
@@ -6311,7 +6311,7 @@ helps you understand the "preamble" for declaring a jbrowse plugin)</p>]]></cont
         <item>
             <title><![CDATA[Installing clamav on OSX]]></title>
             <link>https://cmdcolin.github.io/posts/2016-06-20</link>
-            <guid>https://cmdcolin.github.io/posts/2016-06-20</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-06-20</guid>
             <pubDate>Mon, 20 Jun 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>It is a common trope that OSX doesn't need anti-virus because everyone targets
 windows. That is maybe comforting to some but I think it's pretty naive. It
@@ -6344,7 +6344,7 @@ files)</p>
         <item>
             <title><![CDATA[Querying InterMine databases using R]]></title>
             <link>https://cmdcolin.github.io/posts/2016-06-17</link>
-            <guid>https://cmdcolin.github.io/posts/2016-06-17</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-06-17</guid>
             <pubDate>Fri, 17 Jun 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In the past, I had found some ways to do simple queries on InterMine web
 services using basic HTTP commands with R (see
@@ -6400,7 +6400,7 @@ You have to add the lt and gt shortcuts and even after that it gets filtered?!</
         <item>
             <title><![CDATA[How to make your resume.json or resume-cli look great]]></title>
             <link>https://cmdcolin.github.io/posts/2016-04-23</link>
-            <guid>https://cmdcolin.github.io/posts/2016-04-23</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-04-23</guid>
             <pubDate>Sat, 23 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>There are a ton of themes for resume-cli that are not immediately obvious to
 find</p>
@@ -6430,7 +6430,7 @@ need to. See <a href="https://github.com/jsonresume/resume-cli/issues/94">https:
         <item>
             <title><![CDATA[Creating a testing framework for JBrowse plugins]]></title>
             <link>https://cmdcolin.github.io/posts/2016-04-19</link>
-            <guid>https://cmdcolin.github.io/posts/2016-04-19</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-04-19</guid>
             <pubDate>Tue, 19 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Testing client side apps requires a couple of tedious steps: Organizing the git
 clone, the dependencies, wrangling up a web server, the test framework, etc.</p>
@@ -6574,7 +6574,7 @@ recent version of jasmine (2.4)
         <item>
             <title><![CDATA[Creating a docker image]]></title>
             <link>https://cmdcolin.github.io/posts/2016-04-17</link>
-            <guid>https://cmdcolin.github.io/posts/2016-04-17</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-04-17</guid>
             <pubDate>Sun, 17 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Example</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#61AFEF">    brew</span><span style="color:#98C379"> install</span><span style="color:#98C379"> docker</span><span style="color:#98C379"> boot2docker</span><span style="color:#98C379"> docker-machine</span></span>
@@ -6588,7 +6588,7 @@ recent version of jasmine (2.4)
         <item>
             <title><![CDATA[Basic command line productivity tricks and learning experiences]]></title>
             <link>https://cmdcolin.github.io/posts/2016-04-06</link>
-            <guid>https://cmdcolin.github.io/posts/2016-04-06</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-04-06</guid>
             <pubDate>Wed, 06 Apr 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<ul>
 <li>dd deletes line in vim</li>
@@ -6650,7 +6650,7 @@ a --exclude argument too</li>
         <item>
             <title><![CDATA[Running nginx on containerised travis-CI pt 2]]></title>
             <link>https://cmdcolin.github.io/posts/2016-03-28</link>
-            <guid>https://cmdcolin.github.io/posts/2016-03-28</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-03-28</guid>
             <pubDate>Mon, 28 Mar 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>There are several guides out there about how to setup nginx on travis-CI but I
 still found it to be a challenge, especially finding a modern one that works
@@ -6718,7 +6718,7 @@ the <code>tests/travis.conf</code> file, and then boots up nginx</p>]]></content
         <item>
             <title><![CDATA[On over-reproducibility]]></title>
             <link>https://cmdcolin.github.io/posts/2016-03-05</link>
-            <guid>https://cmdcolin.github.io/posts/2016-03-05</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2016-03-05</guid>
             <pubDate>Sat, 05 Mar 2016 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Recently, some posts were made by <a href="https://twitter.com/arjunrajlab">https://twitter.com/arjunrajlab</a> about how
 perhaps we are aiming at "over-reproducibility". I think this is interesting,
@@ -6833,7 +6833,7 @@ but it's not a bad thing to have.</p>]]></content:encoded>
         <item>
             <title><![CDATA[Cheating in your computer science class by copying from stackoverflow]]></title>
             <link>https://cmdcolin.github.io/posts/2015-12-17</link>
-            <guid>https://cmdcolin.github.io/posts/2015-12-17</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-12-17</guid>
             <pubDate>Thu, 17 Dec 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I would like to tell a story about how I provided some personal tutoring help
 for a friend in a computer science class, and talk about a nagging feeling that
@@ -6929,7 +6929,7 @@ never get a full meal!</p>]]></content:encoded>
         <item>
             <title><![CDATA[Killing postgres the hard way]]></title>
             <link>https://cmdcolin.github.io/posts/2015-10-22</link>
-            <guid>https://cmdcolin.github.io/posts/2015-10-22</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-10-22</guid>
             <pubDate>Thu, 22 Oct 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>So today, I finally decided to do something about a query that we saw had been
 running for 25 DAYS on our server</p>
@@ -7123,7 +7123,7 @@ scary</p>]]></content:encoded>
         <item>
             <title><![CDATA[Tomcat memory debugging]]></title>
             <link>https://cmdcolin.github.io/posts/2015-10-15</link>
-            <guid>https://cmdcolin.github.io/posts/2015-10-15</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-10-15</guid>
             <pubDate>Thu, 15 Oct 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In my previous posts, I speculated about the issues that were causing server lag
 and CPU usage spiking with tomcat:
@@ -7177,7 +7177,7 @@ jmap command:</p>
         <item>
             <title><![CDATA[Fixing spiky CPU issues and unresponsiveness with Tomcat]]></title>
             <link>https://cmdcolin.github.io/posts/2015-09-16</link>
-            <guid>https://cmdcolin.github.io/posts/2015-09-16</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-09-16</guid>
             <pubDate>Wed, 16 Sep 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Once upon a time, our server was lagging after light usage of the applications,
 and the CPU usage would start spiking and rapidly cycle from many CPU cores
@@ -7200,7 +7200,7 @@ the old gen, tomcat needs a bunch more for the newgen to make things happy.</p>
         <item>
             <title><![CDATA[Weekend project - graphing tumblr reblogs using cytoscape.js]]></title>
             <link>https://cmdcolin.github.io/posts/2015-08-30</link>
-            <guid>https://cmdcolin.github.io/posts/2015-08-30</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-08-30</guid>
             <pubDate>Sun, 30 Aug 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In the past, I made an app that used RStudio's Shiny platform to plot network
 graphs with RGraphviz. This worked, and gave some nice results, but when I found
@@ -7287,7 +7287,7 @@ based on it's degree</li>
         <item>
             <title><![CDATA[Creating high-resolution screenshots (of jbrowse) with phantomJS]]></title>
             <link>https://cmdcolin.github.io/posts/2015-03-02</link>
-            <guid>https://cmdcolin.github.io/posts/2015-03-02</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-03-02</guid>
             <pubDate>Mon, 02 Mar 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Generating screenshots that are of high quality can be a great benefit for
 things like science publications. PhantomJS is great for automating this in a
@@ -7367,7 +7367,7 @@ be super multi-purposed, so this custom modification helps for our case.</p>
         <item>
             <title><![CDATA[Post graduation survey]]></title>
             <link>https://cmdcolin.github.io/posts/2015-02-01</link>
-            <guid>https://cmdcolin.github.io/posts/2015-02-01</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2015-02-01</guid>
             <pubDate>Sun, 01 Feb 2015 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>I recently received some post-graduation survey results from my class of 2013
 about salaries, job satisfaction, and other things. I thought I'd try to
@@ -7411,7 +7411,7 @@ helps other people searching for the same issue.</p>
         <item>
             <title><![CDATA[High DPI rendering on HTML5 canvas - some problems and solutions]]></title>
             <link>https://cmdcolin.github.io/posts/2014-05-22</link>
-            <guid>https://cmdcolin.github.io/posts/2014-05-22</guid>
+            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2014-05-22</guid>
             <pubDate>Thu, 22 May 2014 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Recently our code has been moving towards the use of HTML5 canvas, as it has
 many benefits. I felt that if we were going to keep this going towards canvas,
