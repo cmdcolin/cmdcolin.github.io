@@ -1,22 +1,18 @@
 1:"$Sreact.fragment"
-2:I[6874,["874","static/chunks/874-cc77e63bbbcd39b2.js","974","static/chunks/app/page-5d40f192aa75eac6.js"],""]
+2:I[6874,["874","static/chunks/874-e7fdbaf82ac68004.js","974","static/chunks/app/page-47abc72aede9475f.js"],""]
 3:I[7555,[],""]
 4:I[1295,[],""]
-6:I[9665,[],"MetadataBoundary"]
-8:I[9665,[],"OutletBoundary"]
-b:I[4911,[],"AsyncMetadataOutlet"]
-d:I[9665,[],"ViewportBoundary"]
-f:I[6614,[],""]
-:HL["/_next/static/css/30a13c37a3e66719.css","style"]
-0:{"P":null,"b":"_op1ki1SYIp5CzobhV_1Z","p":"","c":["","posts","2022-02-06-sv-sam"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2022-02-06-sv-sam","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/30a13c37a3e66719.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2022-02-06-sv-sam","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",["$","$L6",null,{"children":"$L7"}],null,["$","$L8",null,{"children":["$L9","$La",["$","$Lb",null,{"promise":"$@c"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","AzbtIrMWB7hAbX44K05W_",{"children":[["$","$Ld",null,{"children":"$Le"}],null]}],null]}],false]],"m":"$undefined","G":["$f","$undefined"],"s":false,"S":true}
-10:"$Sreact.suspense"
-11:I[4911,[],"AsyncMetadata"]
-7:["$","$10",null,{"fallback":null,"children":["$","$L11",null,{"promise":"$@12"}]}]
-a:null
-e:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-9:null
-14:I[1401,["880","static/chunks/app/posts/%5Bid%5D/page-ea4ed377e9c48f28.js"],"default"]
-13:T13e14,<p>The
+6:I[9665,[],"OutletBoundary"]
+8:I[4911,[],"AsyncMetadataOutlet"]
+a:I[9665,[],"ViewportBoundary"]
+c:I[9665,[],"MetadataBoundary"]
+d:"$Sreact.suspense"
+f:I[8393,[],""]
+:HL["/_next/static/css/fc00ee8e5a95dbad.css","style"]
+0:{"P":null,"b":"UCZm5FPUeZtKjVASF3iDu","p":"","c":["","posts","2022-02-06-sv-sam"],"i":false,"f":[[["",{"children":["posts",{"children":[["id","2022-02-06-sv-sam","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/fc00ee8e5a95dbad.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":[["$","div",null,{"className":"mb-8","children":["$","$L2",null,{"href":"/","children":"Misc scribbles"}]}],["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","footer",null,{"className":"mt-16","children":[["$","$L2",null,{"className":"m-2","href":"/","children":"Home"}],["$","$L2",null,{"className":"m-2","href":"/archive","children":"Blog archive"}],["$","$L2",null,{"className":"m-2","href":"https://github.com/cmdcolin/","children":"Github"}],["$","$L2",null,{"className":"m-2","href":"/projects","children":"Projects"}],["$","$L2",null,{"className":"m-2","href":"/books","children":"Books"}],["$","$L2",null,{"className":"m-2","href":"/about","children":"About"}],["$","$L2",null,{"className":"m-2","href":"/rss.xml","children":"RSS"}]]}]]}]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["id","2022-02-06-sv-sam","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",null,["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],null],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
+b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+7:null
+10:T13f33,<p>The
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"><code>SAM</code> file format and it's specification</a>
 is pretty amazing , but it is also fairly terse and abstract. To really
 understand what is going on with your reads, you probably gotta play around with
@@ -26,14 +22,14 @@ focus on how <code>SAM</code> file concepts can relate to structural variants.</
 <p>Disclaimer: I'm a developer of JBrowse 2. This document has some screenshots and
 links for it, feel free to try it at <a href="https://jbrowse.org">https://jbrowse.org</a>.</p>
 <h2 id="basics"><a aria-hidden="true" tabindex="-1" href="#basics"><a href="#basics" style="margin-right: 10px">#</a></a>Basics</h2>
-<h3 id="what-is-a-sam-file-and-how-does-it-relate-to-bam-and-cram"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-file-and-how-does-it-relate-to-bam-and-cram"><a href="#what-is-a-sam-file-and-how-does-it-relate-to-bam-and-cram" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> file and how does it relate to <code>BAM</code> and <code>CRAM</code>?</h3>
+<h3 id="what-is-a-sam-file-and-how-does-it-relate-to-bam-and-cram"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-file-and-how-does-it-relate-to-bam-and-cram"><a href="#what-is-a-sam-file-and-how-does-it-relate-to-bam-and-cram" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> file, and how does it relate to <code>BAM</code> and <code>CRAM</code>?</h3>
 <ul>
 <li>
 <p>A <code>SAM</code> file <strong>generally</strong> contains "reads" from a sequencer, with information
 about how they are mapped to a reference genome [^1][^2].</p>
 </li>
 <li>
-<p>A <code>SAM</code> file is <strong>generally</strong> produced when an aligner takes in raw unaligned
+<p>A <code>SAM</code> file is <strong>generally</strong> produced when an aligner takes in raw, unaligned
 reads (often stored in <code>FASTQ</code> format files) and aligns them to a reference
 genome [^3].</p>
 </li>
@@ -53,22 +49,23 @@ genome. You can also store unaligned data in <code>SAM</code>/<code>BAM</code>/<
 <code>uBAM</code> for example) but most of the time, the reads in <code>SAM</code> format are aligned
 to a reference genome.</p>
 <p>[^3] Examples of programs that do alignment include <code>bwa</code>, <code>bowtie</code>, and
-<code>minimap2</code> (there are many others). These programs all can produce <code>SAM</code> outputs</p>
+<code>minimap2</code> (there are many others). These programs can all produce <code>SAM</code> outputs</p>
 <h3 id="what-is-in-a-sambamcram-file"><a aria-hidden="true" tabindex="-1" href="#what-is-in-a-sambamcram-file"><a href="#what-is-in-a-sambamcram-file" style="margin-right: 10px">#</a></a>What is in a <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> file?</h3>
 <p>A <code>SAM</code> file contains a "header" and a series of "records".</p>
 <h3 id="what-is-a-sam-record"><a aria-hidden="true" tabindex="-1" href="#what-is-a-sam-record"><a href="#what-is-a-sam-record" style="margin-right: 10px">#</a></a>What is a <code>SAM</code> "record"?</h3>
 <p>A record is a single line in a <code>SAM</code> file, and it generally corresponds to a
 single read, but as we will see, a split alignment may produce multiple records
 that refer to the same source read.</p>
-<p>Note that the word read and record are sometimes used interchangeably, but
+<p>Note that the words "read" and "record" are sometimes used interchangeably, but
 record has the more specific meaning of being a single line in the <code>SAM</code> file.</p>
 <h3 id="what-are-tags-in-a-sam-file"><a aria-hidden="true" tabindex="-1" href="#what-are-tags-in-a-sam-file"><a href="#what-are-tags-in-a-sam-file" style="margin-right: 10px">#</a></a>What are tags in a <code>SAM</code> file</h3>
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
-extra columns called tags. The tags have a two character abbreviation like <code>MQ</code>
+extra columns called tags. The tags have a two-character abbreviation like <code>MQ</code>
 (mapping quality) or many others. They can be upper or lower case. Upper case
-are reserved for official usages (except those with X, Y, or Z prefixed). See
-<a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more details</p>
-<h3 id="what-is-a-cigar-string-and-how-do-you-interpret-it"><a aria-hidden="true" tabindex="-1" href="#what-is-a-cigar-string-and-how-do-you-interpret-it"><a href="#what-is-a-cigar-string-and-how-do-you-interpret-it" style="margin-right: 10px">#</a></a>What is a <code>CIGAR</code> string and how do you interpret it?</h3>
+tags are reserved for official usages (except those with X, Y, or Z prefixed).
+See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
+details</p>
+<h3 id="what-is-a-cigar-string-and-how-do-you-interpret-it"><a aria-hidden="true" tabindex="-1" href="#what-is-a-cigar-string-and-how-do-you-interpret-it"><a href="#what-is-a-cigar-string-and-how-do-you-interpret-it" style="margin-right: 10px">#</a></a>What is a <code>CIGAR</code> string, and how do you interpret it?</h3>
 <p>A <code>CIGAR</code> string is a "compact idiosyncratic gapped alignment report". It tells
 you about insertions, deletions, and clipping. It is a series of "operators"
 with lengths.</p>
@@ -76,12 +73,12 @@ with lengths.</p>
 <p><code>50M50I50M</code></p>
 <p>That would be 50bp of matching bases (<code>50M</code>), followed by a 50bp insertion
 (<code>50I</code>), followed by another 50bp of matches (<code>50M</code>). The 50bp insertion means
-the read contains 50 bases in the middle which did not match the reference
+the read contains 50 bases in the middle, which did not match the reference
 genome that you are comparing the read to.</p>
 <p>Clipping example:</p>
 <p><code>50S50M50S</code></p>
 <p>This means that 50bp matched (<code>50M</code> in the middle of the <code>CIGAR</code> string) and
-both sides of the read are soft clipped. The clipping means the aligner was not
+both sides of the read are soft-clipped. The clipping means the aligner was not
 able to align the reads on either side.</p>
 <p>Notes:</p>
 <ul>
@@ -89,10 +86,10 @@ able to align the reads on either side.</p>
 <p><em>Finding mismatches</em>: A <code>CIGAR</code> string match like <code>50M</code> means 50 bases
 "matched" the reference genome, but that only means that there are no
 insertions or deletions in those 50 bases. There could be underlying
-mismatches in the read compared to the reference. Note: there is also extended
-<code>CIGAR</code> that replaces <code>M</code> with <code>=</code> (exact match) and <code>X</code> (mismatch). Also see
-Appendix D on the <code>MD</code> tag and finding where the mismatches are, but note that
-<code>MD</code> tag is tricky</p>
+mismatches in the read compared to the reference. Note: there is also
+"extended <code>CIGAR</code>" that replaces <code>M</code> with <code>=</code> (exact match) and <code>X</code>
+(mismatch). Also see Appendix D on the <code>MD</code> tag and finding where the
+mismatches are, but note that <code>MD</code> tag is tricky</p>
 </li>
 <li>
 <p><em>Ambiguity of representation</em>: A <code>CIGAR</code> string with insertions and deletions
@@ -116,19 +113,20 @@ CIGAR operators.</p>
 <p>If you are working with <code>SAM</code> data, you will often write loops that directly
 parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR</code>
 strings. Don't fear the <code>CIGAR</code>!</p>
-<h3 id="how-do-you-determine-start-and-end-of-a-record"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-of-a-record"><a href="#how-do-you-determine-start-and-end-of-a-record" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" of a record?</h3>
-<p>Records do not have easy-to-interpret "start" and "end" and "strand" field like,
-say, lines in a <code>BED</code> file do</p>
-<p>Instead, each record has:</p>
+<h3 id="how-do-you-determine-start-and-end-and-strand-of-a-record"><a aria-hidden="true" tabindex="-1" href="#how-do-you-determine-start-and-end-and-strand-of-a-record"><a href="#how-do-you-determine-start-and-end-and-strand-of-a-record" style="margin-right: 10px">#</a></a>How do you determine "start" and "end" and "strand" of a record?</h3>
+<p>SAM records do not have easy-to-interpret "start" and "end" and "strand" fields
+like, say, lines in a <code>BED</code> file do</p>
+<p>Instead, each SAM record has:</p>
 <ul>
 <li>A single <code>POS</code> coordinate</li>
 <li>A <code>CIGAR</code> string</li>
+<li>A flags field, that might say "read reverse complemented"</li>
 </ul>
-<p>Using this, you can find the "end" coordinate of a record by, starting at the
-POS coordinate, and enumerating all the matches and deletions and insertions and
-clipping of the <code>CIGAR</code>. Once you have processed the whole <code>CIGAR</code> string, you
-can find where the record "ends" on the reference genome. And the "start" will
-be <code>POS</code></p>
+<p>Using this, you can find the "end" coordinate of a record by starting at the POS
+coordinate and enumerating the "matches" (M), deletions (D) and insertions (I)
+and clipping (S/H) of the <code>CIGAR</code>. Processing the whole <code>CIGAR</code> effectively
+gives you the "end" coordinate on the reference genome, so "end" is derived from
+the <code>CIGAR</code>. The "start" field corresponds to the <code>POS</code> field</p>
 <h3 id="what-are-forward-and-reverse-strand-reads"><a aria-hidden="true" tabindex="-1" href="#what-are-forward-and-reverse-strand-reads"><a href="#what-are-forward-and-reverse-strand-reads" style="margin-right: 10px">#</a></a>What are "forward" and "reverse" strand reads?</h3>
 <p>Reads can align to the "forward strand" of the reference genome (e.g. it matches
 the DNA letters as written in the reference genome FASTA file), resulting in
@@ -170,7 +168,8 @@ of 45.</p>
 loading into analysis tools or genome browsers, we will often sort the reads
 using <code>samtools sort</code> which will group by chromosome name, and then increasing
 in coordinate start position. Then <code>samtools index</code> creates an index file (e.g.
-bam.bai, cram.crai) that aids getting the reads in a specific genomic region</p>
+bam.bai, cram.crai). The index file lets you quickly query the reads in a
+specific genomic region (e.g. with <code>samtools view myfile chr10:1000-2000</code>)</p>
 <h3 id="what-happens-to-reads-that-dont-align-to-the-genome"><a aria-hidden="true" tabindex="-1" href="#what-happens-to-reads-that-dont-align-to-the-genome"><a href="#what-happens-to-reads-that-dont-align-to-the-genome" style="margin-right: 10px">#</a></a>What happens to reads that don't align to the genome</h3>
 <p>If a read failed to align to the reference genome, it may still be in your <code>SAM</code>
 file, marked as unmapped using the flag column. Sometimes, "dumpster diving"
@@ -186,12 +185,12 @@ insertions and deletions, indicated by <code>I</code> or <code>D</code> in a <co
 insertion or deletion, it may be split aligned on either side of the SV or
 could be soft/hard clipped where it can't align all the way through an
 insertion.</li>
-<li><em>Translocations</em>: A split long alignment can span long range or even
+<li><em>Translocations</em>: A split long alignment can span long-range or even
 inter-chromosomal translocations, so part of the read maps to one chromosome
 and one part maps to the other</li>
-<li><em>Inversions</em>: A split alignment can span an inversion, the long read is split
-into multiple parts, one part of it aligns in the reverse orientation, while
-the other part aligns in the forward orientation</li>
+<li><em>Inversions</em>: A split alignment can span an inversion. In this case, long
+reads can be split into multiple parts, one part of it aligns in the reverse
+orientation, while the other part aligns in the forward orientation</li>
 </ul>
 <p>Note that there are many different methods for detecting SVs from long reads,
 e.g. not all use mapped reads from SAM files, some use <em>de novo</em> assembly, but
@@ -241,11 +240,11 @@ each of the supplementary alignments also contains an <code>SA</code> tag that r
 the primary alignment and each other supplementary alignment.</p>
 <p>Fun fact: The <code>SA</code> tag conceptually can result in a 'quadratic explosion' of
 data, because each part of the split contains references to every other part.
-For example, if a read is split into 4 pieces, then each record would would have
-an <code>SA</code> tag with 3 segments, so 3*4 segments will be documented in the <code>SA</code>
-tag. In many cases, this is not a problem, but if you imagine a finished
-chromosome aligned to a draft assembly, it may get split so many times this
-could be a factor.</p>
+For example, if a read is split into 4 pieces, then each record would have an
+<code>SA</code> tag with 3 segments, so 3*4 segments will be documented in the <code>SA</code> tag.
+In many cases, this is not a problem, but if you imagine a finished chromosome
+aligned to a draft assembly, it may get split so many times that this could be a
+factor.</p>
 <p>See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
 info on the <code>SA</code> tag.</p>
 <h3 id="visualizing-split-reads-across-a-breakend-or-translocation"><a aria-hidden="true" tabindex="-1" href="#visualizing-split-reads-across-a-breakend-or-translocation"><a href="#visualizing-split-reads-across-a-breakend-or-translocation" style="margin-right: 10px">#</a></a>Visualizing split reads across a breakend or translocation</h3>
@@ -261,8 +260,8 @@ section 5.4) and <code>&#x3C;TRA></code> (translocation) events from <code>VCF</
 SV calls, and you can launch the "breakpoint split view" from the "SV inspector"</p>
 <p><img src="/media/breakpoint_split_view.png" alt=""></p>
 <h3 id="visualizing-a-read-vs-reference-view-given-a-split-alignment"><a aria-hidden="true" tabindex="-1" href="#visualizing-a-read-vs-reference-view-given-a-split-alignment"><a href="#visualizing-a-read-vs-reference-view-given-a-split-alignment" style="margin-right: 10px">#</a></a>Visualizing a 'read vs reference' view given a split alignment</h3>
-<p>If we are given the the primary alignment of an arbitrary split read, then we
-can construct what that split looks like compared to the reference genome.</p>
+<p>If we are given the primary alignment of an arbitrary split read, then we can
+construct what that split looks like compared to the reference genome.</p>
 <p>If we are not given the primary alignment (e.g. we are starting from a
 supplementary alignment) then we can search the <code>SA</code> list for the one that is
 primary, because at least one will be.</p>
@@ -270,7 +269,7 @@ primary, because at least one will be.</p>
 read, the supplementary alignments typically have a blank <code>SEQ</code>!) and the <code>SA</code>
 tag containing the <code>CIGAR</code> of all the different parts of the split. We can then
 construct how the entire read, not just a particular record of the split
-alignment, compares to the genome. In JBrowse 2 we implemented this and it uses
+alignment, compares to the genome. In JBrowse 2 we implemented this, and it uses
 a synteny-style rendering. [1]</p>
 <p><img src="/media/linear_alignment.png" alt=""></p>
 <p>Figure showing JBrowse 2 piecing together a long read vs the reference genome
@@ -288,12 +287,12 @@ display.</p>
 <p>An interesting outcome (to me) is that from a single record in a <code>SAM</code> file, I
 can reconstruct the "derived" genome around a region of interest from a single
 read.</p>
-<p>If I was to try to do this with the <code>VCF</code> Breakend specification (section 5.4 of
-<a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a>), it may actually
-be more challenging than from a <code>SAM</code> read. This is because a Breakend in <code>VCF</code>
-format is only an edge in a graph (and the sequences are nodes). Therefore, in
-order to properly reconstruct a structural variant from a <code>VCF</code> with Breakends,
-I would have to construct a graph and decode paths through it.</p>
+<p>If I were to try to do this with the <code>VCF</code> Breakend specification (section 5.4
+of <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a>), it may
+actually be more challenging than from a <code>SAM</code> read. This is because a Breakend
+in <code>VCF</code> format is only an edge in a graph (and the sequences are nodes).
+Therefore, in order to properly reconstruct a structural variant from a <code>VCF</code>
+with Breakends, I would have to construct a graph and decode paths through it.</p>
 <p>I like the ability to reconstruct the derived genome from a single read, but
 individual reads can be noisy (contain errors). That said, <em>de novo</em> assembled
 contigs can also be stored in <code>SAM</code> format and is significantly less noisy
@@ -308,15 +307,15 @@ expect more will need to be created to truly work with this standard. An
 inversion for example may create 4 record in the <code>VCF</code> file (see section 5.4 in
 the <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a> for example),
 and needs careful interpretation.</p>
-<h3 id="haplotype-tagged-reads"><a aria-hidden="true" tabindex="-1" href="#haplotype-tagged-reads"><a href="#haplotype-tagged-reads" style="margin-right: 10px">#</a></a>Haplotype tagged reads</h3>
+<h3 id="haplotype-tagged-reads"><a aria-hidden="true" tabindex="-1" href="#haplotype-tagged-reads"><a href="#haplotype-tagged-reads" style="margin-right: 10px">#</a></a>Haplotype-tagged reads</h3>
 <p>A new trend has been to create <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> files with tagged reads, which
 tells us which haplotype a read was inferred to have come from. This is commonly
 done with the <code>HP</code> tag, which might have <code>HP=0</code> and <code>HP=1</code> for a diploid genome.
 Tools like <code>whatshap</code> can add these tags to a <code>SAM</code> file, and IGV and JBrowse 2
 can color and sort by these tags.</p>
 <p><img src="/media/color_by_tag.png" alt=""></p>
-<p>Screenshot of JBrowse 2 with the "Color by tag" and "Sort by tag" setting
-enabled (coloring and sorting by the <code>HP</code> tag) letting us see that only one
+<p>Screenshot of JBrowse 2 with the "Color by tag" and "Sort by tag" settings
+enabled (coloring and sorting by the <code>HP</code> tag), letting us see that only one
 haplotype has a deletion. Tutorial for how to do this in JBrowse 2 here
 <a href="https://jbrowse.org/jb2/docs/user_guide/#sort-color-and-filter-by-tag">https://jbrowse.org/jb2/docs/user_guide/#sort-color-and-filter-by-tag</a></p>
 <h2 id="how-do-you-detect-svs-with-paired-end-reads"><a aria-hidden="true" tabindex="-1" href="#how-do-you-detect-svs-with-paired-end-reads"><a href="#how-do-you-detect-svs-with-paired-end-reads" style="margin-right: 10px">#</a></a>How do you detect SVs with paired-end reads?</h2>
@@ -348,8 +347,8 @@ they "point away from each other" in normal conditions due. See Appendix A for
 more info.</p>
 <h3 id="linked-reads-aka-simulated-long-reads"><a aria-hidden="true" tabindex="-1" href="#linked-reads-aka-simulated-long-reads"><a href="#linked-reads-aka-simulated-long-reads" style="margin-right: 10px">#</a></a>Linked reads aka simulated long reads</h3>
 <p>Linked reads are another method that uses short reads but gives long read
-information. I don't have a lot of info on this but will update this section if
-I do. The company, 10x genomics, that originally used this discontinued
+information. I don't have a lot of info on this but I will update this section
+if I do. The company, 10x genomics, that originally used this discontinued
 commercial sequencing using this method to focus instead on single cell AFAIK.
 <a href="https://www.10xgenomics.com/products/linked-reads">https://www.10xgenomics.com/products/linked-reads</a></p>
 <h3 id="an-abundance-of-reads-being-clipped-at-a-particular-position"><a aria-hidden="true" tabindex="-1" href="#an-abundance-of-reads-being-clipped-at-a-particular-position"><a href="#an-abundance-of-reads-being-clipped-at-a-particular-position" style="margin-right: 10px">#</a></a>An abundance of reads being "clipped" at a particular position</h3>
@@ -393,7 +392,7 @@ can produce green arrows which have reads pointing in opposite directions e.g.
 <code>&#x3C;--</code> and <code>--></code>, while blue arrows which can indicate an inversion point in the
 same direction e.g. <code>--></code> and <code>--></code></p>
 <h3 id="caveat-about-tlen"><a aria-hidden="true" tabindex="-1" href="#caveat-about-tlen"><a href="#caveat-about-tlen" style="margin-right: 10px">#</a></a>Caveat about TLEN</h3>
-<p>Note that <code>TLEN</code> is a field in the SAM format that is somewhat ill defined, at
+<p>Note that <code>TLEN</code> is a field in the SAM format that is somewhat ill-defined, at
 least in the sense that different tools may use it differently
 <a href="https://github.com/pysam-developers/pysam/issues/667#issuecomment-381521767">https://github.com/pysam-developers/pysam/issues/667#issuecomment-381521767</a></p>
 <p>If needed, you can calculate <code>TLEN</code> yourself if you process the file yourself
@@ -407,9 +406,9 @@ can look for abnormalities that may indicate copy number variants. By using a
 tool like <code>mosdepth</code>, you can quickly get a file showing the coverage across the
 genome.</p>
 <p>Be aware that if you are comparing the coverage counts from different tools,
-that they have different defaults that may affect comparison. Some discard
-<code>QC_FAIL</code>, <code>DUP</code>, and <code>SECONDARY</code> flagged reads. This is probably appropriate,
-and corresponds to what most genome browsers will display (see
+they have different defaults that may affect comparison. Some discard <code>QC_FAIL</code>,
+<code>DUP</code>, and <code>SECONDARY</code> flagged reads. This is probably appropriate, and
+corresponds to what most genome browsers will display (see
 <a href="https://gist.github.com/cmdcolin/9f677eca28448d8a7c5d6e9917fc56af">https://gist.github.com/cmdcolin/9f677eca28448d8a7c5d6e9917fc56af</a> for a short
 summary of depth calculated from different tools)</p>
 <p>Note that both long and short reads can be used for CNV detection. Long reads
@@ -429,7 +428,7 @@ and
 <p>Currently, SV visualization is highly based on comparing data versus a reference
 genome (and the <code>SAM</code> format is a signature of this: it stores data in terms of
 reference genome coordinates). In the future, SV visualization may look more
-similar to comparative genomics, where we compare an SV to a population specific
+similar to comparative genomics, where we compare an SV to a population-specific
 reference from a graph genomes or something like this.</p>
 <p>It is known that <em>de novo</em> assembly has more power to detect SVs than some read
 operations (<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a> as <em>de
@@ -447,10 +446,9 @@ format) by storing graph node labels in the <code>target name</code> slot of <co
 refer to an <code>rGFA</code> (reference genome graph)! Looking forward to the graph genome
 world.</p>
 <h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><a href="#conclusion" style="margin-right: 10px">#</a></a>Conclusion</h2>
-<p>Algorithms that actually call structural variants face many challenges, but
-understanding how the reads are encoded in SAM format, and seeing what they look
-like in the genome browser is a useful first step to gaining a better
-understanding.</p>
+<p>Algorithms that call structural variants face many challenges, but understanding
+how the reads are encoded in SAM format, and seeing what they look like in the
+genome browser is a useful first step to gaining a better understanding.</p>
 <p>In summary, some of the signatures of SVs may include:</p>
 <ul>
 <li>Aberrant insert size (<code>TLEN</code>) detection (longer for deletion, shorter for
@@ -472,7 +470,7 @@ may look a bit different (see <code>cs</code> tag in <code>PAF</code> for exampl
 </ul>
 <p>If you have any ideas I should include here, let me know!</p>
 <h3 id="appendix-a-interpreting-pair-orientation"><a aria-hidden="true" tabindex="-1" href="#appendix-a-interpreting-pair-orientation"><a href="#appendix-a-interpreting-pair-orientation" style="margin-right: 10px">#</a></a>Appendix A: Interpreting pair orientation</h3>
-<p>This may be unnecessarily low level code for this article, but it could be
+<p>This may be unnecessarily low-level code for this article, but it could be
 helpful utility to help determine the pair orientation from a single
 SAM/BAM/CRAM record.</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic">// @param flags - flags from a single read</span></span>
@@ -710,6 +708,8 @@ tag. (see Appendix B)</p>
 your reference sequence (this is because the <code>CRAM</code> is "reference compressed")</p>
 <pre class="shiki one-dark-pro" style="background-color:#282c34;color:#abb2bf" tabindex="0"><code><span class="line"><span style="color:#61AFEF">samtools</span><span style="color:#98C379"> view</span><span style="color:#D19A66"> -T</span><span style="color:#98C379"> reference.fa</span><span style="color:#98C379"> file.sam</span><span style="color:#D19A66"> -o</span><span style="color:#98C379"> file.cram</span></span></code></pre>
 <p>Note that in some cases you can pipe data directly from e.g. an aligner straight
-to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p>5:["$","div",null,{"className":"lg:w-1/2 m-auto","children":[["$","div",null,{"children":[["$","h1",null,{"children":"Structural variants and the SAM format - the long (reads) and short (reads) of it"}],["$","h4",null,{"children":"2022-02-06"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$13"}}],["$","$L14",null,{}]]}]
-12:{"metadata":[["$","title","0",{"children":"Structural variants and the SAM format - the long (reads) and short (reads) of it"}],["$","meta","1",{"name":"description","content":"A blog"}]],"error":null,"digest":"$undefined"}
-c:{"metadata":"$12:metadata","error":null,"digest":"$undefined"}
+to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p>5:["$","div",null,{"className":"lg:w-1/2 m-auto","children":[["$","div",null,{"children":[["$","h1",null,{"children":"Structural variants and the SAM format - the long (reads) and short (reads) of it"}],["$","h4",null,{"children":"2022-02-06"}]]}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$10"}}],"$L11"]}]
+9:{"metadata":[["$","title","0",{"children":"Structural variants and the SAM format - the long (reads) and short (reads) of it"}],["$","meta","1",{"name":"description","content":"A blog"}]],"error":null,"digest":"$undefined"}
+e:"$9:metadata"
+12:I[1401,["880","static/chunks/app/posts/%5Bid%5D/page-1528a3506652b6df.js"],"default"]
+11:["$","$L12",null,{}]
