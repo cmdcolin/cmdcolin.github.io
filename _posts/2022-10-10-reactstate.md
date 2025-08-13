@@ -348,6 +348,9 @@ useState can be. I find other patterns in my codebase besides just fetching
 where I have to "reset" the useState hook to a neutral state, sometimes related
 to controlled components.
 
+See also
+https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/
+
 ## Footnote 5: You can also use the "key" prop as an alternative to manually resetting state
 
 See https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx

@@ -74,5 +74,5 @@ export async function getPageMarkdown(string_: string) {
 
 export async function getAllPosts() {
   const posts = await Promise.all(getPostFiles().map(id => getPostById(id)))
-  return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+  return posts.toSorted((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
