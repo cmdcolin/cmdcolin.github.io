@@ -17,7 +17,8 @@ const { id } = Astro.params;
 const post = await getPostById(id);
 
 // Import the actual markdown module
-const postModule = import.meta.glob<any>('/src/pages/posts/*.md', { eager: true })[`/src/pages/posts/${id}.md`];
+const postModules = import.meta.glob('/src/_posts/*.md', { eager: true });
+const postModule = postModules[`/src/_posts/${id}.md`];
 
 if (!postModule) {
   return Astro.redirect('/404');

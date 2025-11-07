@@ -1,7 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const posts = await Astro.glob('./posts/*.md');
+const postModules = import.meta.glob('../_posts/*.md', { eager: true });
+const posts = Object.entries(postModules).map(([path, module]) => {
+  const filename = path.split('/').pop().replace('.md', '');
+  return {
+    frontmatter: module.frontmatter,
+    url: `/posts/${filename}/`
+  };
+});
 posts.sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
 ---
 
