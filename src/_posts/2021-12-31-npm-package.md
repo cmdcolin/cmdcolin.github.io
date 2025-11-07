@@ -1,7 +1,6 @@
 ---
 title: How to make your own npm package with typescript
 date: 2021-12-31T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 There is a lot of mystery around making your own `npm` package. Every package

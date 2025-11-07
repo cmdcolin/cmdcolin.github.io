@@ -1,7 +1,6 @@
 ---
 title: Notes on performance profiling JS applications
 date: 2022-05-10T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 Keeping your program fast is important for

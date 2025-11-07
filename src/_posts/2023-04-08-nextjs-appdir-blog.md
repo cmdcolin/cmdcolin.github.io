@@ -1,7 +1,6 @@
 ---
 title: Making a static site blog with the Next.js 'app' directory
 date: 2023-04-08T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 I just converted my blog to use the Next.js 'app' directory, and thought I'd

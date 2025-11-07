@@ -1,7 +1,6 @@
 ---
 title: Using find . -exec sed is dangerous in a git repo
 date: 2022-05-04T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 You want to find and replace all instances of a string in your repo, so you

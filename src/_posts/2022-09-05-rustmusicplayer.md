@@ -1,7 +1,6 @@
 ---
 title: Creating a music player using Rust/GTK4 - fml9000
 date: 2022-09-05T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 I have started endeavoring to learn Rust. I did the rustlings exercises but I

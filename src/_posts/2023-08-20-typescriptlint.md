@@ -1,7 +1,6 @@
 ---
 title: ~7 eslint rules that will tumble the lint right off your lil sockies
 date: 2023-08-20T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 Do you think of your linter as a piece of crap that makes annoying suggestions

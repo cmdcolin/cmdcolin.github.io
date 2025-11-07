@@ -1,7 +1,6 @@
 ---
 title: Handling component state with React...you gotta reset it sometimes
 date: 2022-10-10T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 If you make a React component that has, say, a prop for a item id, and an async

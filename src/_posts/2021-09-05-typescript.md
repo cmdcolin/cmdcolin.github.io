@@ -3,7 +3,6 @@ title: >-
   Decrease your idle CPU usage when developing typescript apps with this one
   weird environment variable
 date: 2021-09-05T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 TL;DR:

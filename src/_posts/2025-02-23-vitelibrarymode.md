@@ -3,7 +3,6 @@ title: >-
   Vite library mode bundles your library's dependencies (which I don't think is
   good for libraries published to NPM)
 date: 2025-02-23T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 ![my cats](/chiblets.jpg)

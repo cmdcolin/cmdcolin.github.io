@@ -1,7 +1,6 @@
 ---
 title: Making a twitter bot in the year 2022 with node.js
 date: 2022-08-26T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 Recently, we made the logistic map fractal visualizer app, but, how do we keep

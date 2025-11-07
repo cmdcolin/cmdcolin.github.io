@@ -1,7 +1,6 @@
 ---
 title: Command line productivity stuff
 date: 2023-03-25T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 In 2016, I wrote a list of things that I found to be useful or interesting

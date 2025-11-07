@@ -1,7 +1,6 @@
 ---
 title: You may not need a bundler for your NPM library
 date: 2022-05-27T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 I have seen a couple threads on twitter where people complain about the

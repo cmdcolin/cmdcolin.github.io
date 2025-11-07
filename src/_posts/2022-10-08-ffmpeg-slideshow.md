@@ -1,7 +1,6 @@
 ---
 title: Making an audio slideshow with ffmpeg
 date: 2022-10-08T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 Inspired by a new trend of posting "playlists" on youtube with visual

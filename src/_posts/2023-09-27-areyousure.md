@@ -3,7 +3,6 @@ title: >-
   I see that noUncheckedIndexedAccess is false. Did you want to use
   Record<string, T|undefined>?
 date: 2023-09-27T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 ![](/clippy.jpg)

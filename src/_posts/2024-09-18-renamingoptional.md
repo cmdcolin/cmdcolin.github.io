@@ -1,7 +1,6 @@
 ---
 title: Be careful when you rename an optional "prop" in typescript
 date: 2024-09-18T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 ## Scenario

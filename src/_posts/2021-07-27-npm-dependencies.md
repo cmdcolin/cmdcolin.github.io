@@ -1,7 +1,6 @@
 ---
 title: Do you understand your NPM dependencies?
 date: 2021-07-27T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 You are writing a library...or you are writing an app and you want to publish

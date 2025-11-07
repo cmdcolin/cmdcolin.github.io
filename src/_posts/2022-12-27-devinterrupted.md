@@ -1,7 +1,6 @@
 ---
 title: The devinterrupted'ening of /r/programming
 date: 2022-12-27T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 Complaining about spammers is kind of a futile endeavor, and in this case, it

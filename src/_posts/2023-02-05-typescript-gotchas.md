@@ -1,7 +1,6 @@
 ---
 title: Things typescript didn't catch that should probably be lint rules
 date: 2023-02-05T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 This is a short list of silly things that I wish Typescript would have caught

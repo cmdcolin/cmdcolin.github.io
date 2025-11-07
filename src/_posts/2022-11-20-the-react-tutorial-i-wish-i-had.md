@@ -1,7 +1,6 @@
 ---
 title: The React tutorial I wish I had
 date: 2022-11-20T00:00:00.000Z
-layout: ../layouts/MarkdownLayout.astro
 ---
 
 When I was learning React, I found it very challenging, and my eyes would glaze
