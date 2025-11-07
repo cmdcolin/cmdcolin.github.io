@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><title>Basic command line productivity tricks and learning experiences</title><style>body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <h1>Basic command line productivity tricks and learning experiences</h1> <p>2016-04-06</p> <ul>
+<li>dd deletes line in vim</li>
+<li>Ctrl+d scrolls down in vim</li>
+<li>Learn to love your package manager. Homebrew, NPM, gem, cpanm, gvm/sdkman,
+etc. these all do amazing things</li>
+<li>Once you learn bash, try zsh and oh-my-zsh, they have things like
+case-insensitive tab completion</li>
+<li>Don’t make scripts that hardcode paths, make reusable command line scripts.
+Use bash as your “REPL”, not R.</li>
+<li>git log -p helps analyze your log files in full details (make sure
+autocoloring is turned on in your terminal)</li>
+<li>There are keys to jump forward and backwards on the command line text editor,
+learn them…don’t scroll one char at a time</li>
+<li>Learn how “PATH” works. Generally it is just a set of directories connected by
+”:” separators. You can add things to the path by saying “export
+PATH=$PATH:/new/directory/to/add” and you can add this to ~/.bashrc for
+example</li>
+<li>When your install process for a command line tool seems like nonsense, try
+homebrew instead. barring that, learn PATH, and how to run “make install”,
+etc. Most of your headbashing from installing programs is 90% can be explained
+by not understanding how the developer is intending it to be used, 10% of the
+tool’s install process being wrong</li>
+<li>Get a static analyzer and basic tests going on your codebase and run it on
+travis-ci. Getting started with travis-ci is kind of a learning curve, but it
+is worth it</li>
+<li>Use cpanm instead of cpan for package management</li>
+<li>Vocabulary learning curve: catalina is the same thing as tomcat. CATALINA_HOME
+is the same thing as the tomcat folder</li>
+<li>alias ll=“ls -l”, because I type “ll” hundreds of times a day.</li>
+<li>For irc productivity, run irssi on a server in a “screen” e.g. “screen irssi”
+and then you can come back to conversations later by just logging into the
+server with ssh</li>
+<li>Edit ~/.ssh/config to include your hostnames so you don’t have to type out
+long ssh commands
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/</a></li>
+<li>Use spaces instead of tabs in your source code (>:( yes I think this is the
+one true way)</li>
+<li>Try out nodejs and browserify in your spare time to make a “npm” based app in
+the browser. it’s fun.</li>
+<li>Similarly, try making a simple “api” endpoint on the server side with
+express.js or similar. can get started very quickly.</li>
+<li>Learn how to get a mindset of writing tests. You can write tests proactively
+(i.e. Test driven development), but you can also write them “reactively” too
+(i.e. if have a bug that you fix, you can make a test to make sure this
+doesn’t happen anymore)</li>
+<li>Similar to above, tests in this sense are more “sanity checks” than they are
+formal proofs. Take “assert” logic and “debugging” code out of main codebase
+and put them in tests</li>
+<li>Minimize comments in your code, and also don’t comment out code and leave it
+present. Find a way to delete it and move on!</li>
+<li>When you have a bunch of .orig files after doing a git merge, just use git
+clean -f to get rid of them. Similarly, to get rid of everything, including
+things in your gitignore file (i.e. a super clean) use git clean -fdx. It has
+a —exclude argument too</li>
+</ul>  <footer class="mt-16"> <a class="m-2" href="/">Home</a> <a class="m-2" href="/archive">Blog archive</a> <a class="m-2" href="https://github.com/cmdcolin/">Github</a> <a class="m-2" href="/projects">Projects</a> <a class="m-2" href="/books">Books</a> <a class="m-2" href="/about">About</a> <a class="m-2" href="/rss.xml">RSS</a> </footer> </body></html>

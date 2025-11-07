@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><title>Begone, superstitious if-statements!</title><style>body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <h1>Begone, superstitious if-statements!</h1> <p>2024-10-29</p> <p><img src="/superstitions.png" alt=""></p>
+<p><a href="https://creazilla.com/media/emoji/47538/crossed-fingers">adapted from</a></p>
+<h2 id="very-superstitious">Very superstitious</h2>
+<p>As a codebase grows, it often ends up accumulating a lot of what one might call
+‘superstitious’ if-statements. They might have even ‘fixed a bug’ a long time
+ago. But, if your typescript types can tell you that such a condition is not
+even possible, should you even have these superstitions anymore?</p>
+<p>By using <code>@typescript-eslint/no-unnecessary-condition</code>, you can begin the
+process of exorcising these superstitious if-statements from your codebase!</p>
+<p><a href="https://typescript-eslint.io/rules/no-unnecessary-condition/">https://typescript-eslint.io/rules/no-unnecessary-condition/</a></p>
+<h2 id="enabling-this-rule">Enabling this rule</h2>
+<p>You can enable this rule just by itself, or you can enable it as part of the
+<code>strict-type-checked</code> rule set.</p>
+<p>I personally enabled this rule almost on accident almost when I “upgraded” from
+the <code>recommended-type-checked</code> rule set to the <code>strict-type-checked</code> ruleset. I
+wasn’t even aware of the difference between these two rulesets and just sort of
+switched to the strict version randomly one day.</p>
+<p>Generally I think it’s good to crank up typescript-eslint strictness as much as
+you can. Even if you have to disable some of the rules from the ruleset, the
+rule packs are full of goodies that are often worth enabling!</p>
+<p>Now, I know it’s a bit low effort to blog about lint rules as often as I do, but
+I think these rule packs are probably a bit underused by the community, and
+additionally…</p>
+<p>I also wanted to cover…the catch</p>
+<h2 id="you-should-probably-make-nouncheckedindexedaccesstrue-to-use-this-rule">You should probably make <code>noUncheckedIndexedAccess:true</code> to use this rule</h2>
+<p>To use <code>@typescript-eslint/no-unnecessary-condition</code> properly in a lot of
+codebases, you may need to make <code>noUncheckedIndexedAccess: true</code> in your
+tsconfig.json.</p>
+<p>The reason being is that the rule will otherwise flag your good natured checks
+for <code>if(object[key])</code> since a lot of objects are typed <code>Record&#x3C;string,string></code></p>
+<p>I have previously written about <code>noUncheckedIndexedAccess</code> tsconfig.json
+<a href="https://cmdcolin.github.io/posts/2023-09-27-areyousure">https://cmdcolin.github.io/posts/2023-09-27-areyousure</a> and in my previous
+article, my conclusion was to NOT to enable it, but my recent experience now has
+made it so that I think it is better if you DO enable it.</p>
+<p>I am a waffler and sometimes yesterday’s “simple” is today’s gigantic hack that
+I have to fix now</p>
+<h2 id="what-should-you-expect-after-enabling-everything">What should you expect after enabling everything?</h2>
+<p>After you enable <code>noUncheckedIndexedAccess</code> above, you may have to add some well
+placed non-null assertions (e.g. the !, but this is no worse than what your code
+was before), or alternatively change your code to handle the new undefined part
+of the types.</p>
+<p>In a small number of cases, I had to keep a couple of superstitious
+if-statements alive with a disable-next-line
+<code>// eslint-disable-next-line for @typescript-eslint/no-unnecessary-condition</code></p>
+<p>…but these are generally due to poor typescript typing, and is probably a
+signal to refactor!</p>
+<h2 id="playground">Playground</h2>
+<p>Example code, try it in the typescript-eslint playground</p>
+<ul>
+<li><a href="https://typescript-eslint.io/play/#ts=5.6.2&#x26;fileType=.tsx&#x26;code=MYewdgzgLgBCBGArGBeGBvGBDAXDALDAL7YQwBKApqAE4AmAPNDQJZgDmANGAK4C28SjQB8AKFCRYAa0oBPVDADkWRePDQYANywAbHpQUJEAbRmyAuqJYAzGAAptegwEIUaHmDqVrbSnQCUGKKiREA&#x26;eslintrc=N4KABGBEBOCuA2BTAzpAXGYkACAXAngA4oDG0AlobgLQrzkB2uA9AwPbWwMOIkrIBDaPmok2DACblc5ceiiJo0NtEgBfEGqA&#x26;tsconfig=N4KABGBEDGD2C2AHAlgGwKYCcDyiAuysAdgM6QBcYoEEkJemy0eAcgK6qoDCAFutAGsylBm3QAacDUhFYAVSLQ%2Bg9ABMAkkVXoAHmoCC0aOhLCwAMwCGqEuikBfEPaA&#x26;tokens=false">noUncheckedIndexedAccess:false</a></li>
+<li><a href="https://typescript-eslint.io/play/#ts=5.6.2&#x26;fileType=.tsx&#x26;code=MYewdgzgLgBCBGArGBeGBvGBDAXDALDAL7YQwBKApqAE4AmAPNDQJZgDmANGAK4C28SjQB8AKFCRYAa0oBPVDADkWRePDQYANywAbHpQUJEAbRmyAuqJYAzGAAptegwEIUaHmDqVrbSnQCUGKKiREA&#x26;eslintrc=N4KABGBEBOCuA2BTAzpAXGYkACAXAngA4oDG0AlobgLQrzkB2uA9AwPbWwMOIkrIBDaPmok2DACblc5ceiiJo0NtEgBfEGqA&#x26;tsconfig=N4KABGBEDGD2C2AHAlgGwKYCcDyiAuysAdgM6QBcYoEEkJemy0eAcgK6qoDCAFutAGsylBm3QAacDUhFYAVSLQ%2Bg9ABMAkkVXoAHmoCC0aOhLCwo9FIC%2BIK0A&#x26;tokens=false">noUncheckedIndexedAccess:true</a></li>
+</ul>
+<h2 id="happy-halloween">Happy halloween!</h2>
+<p>Enjoy this collection of wikimedia Jack o’ Lanterns
+<a href="https://commons.wikimedia.org/wiki/Category:Jack-o%27-lantern">https://commons.wikimedia.org/wiki/Category:Jack-o%27-lantern</a> (make sure to
+visit the subcategories)</p>  <footer class="mt-16"> <a class="m-2" href="/">Home</a> <a class="m-2" href="/archive">Blog archive</a> <a class="m-2" href="https://github.com/cmdcolin/">Github</a> <a class="m-2" href="/projects">Projects</a> <a class="m-2" href="/books">Books</a> <a class="m-2" href="/about">About</a> <a class="m-2" href="/rss.xml">RSS</a> </footer> </body></html>

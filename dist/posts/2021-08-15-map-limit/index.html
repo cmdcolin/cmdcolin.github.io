@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><title>An amazing error message if you put more than 2^24 items in a JS Map object</title><style>body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <h1>An amazing error message if you put more than 2^24 items in a JS Map object</h1> <p>2021-08-15</p> <p>One of the fun things about working with big data is that you can often hit
+weird limits with a system.</p>
+<p>I was personally trying to load every ‘common’ single nucleotide polymorphism
+for the human genome into memory (dbSNP), of which there are over 37 million
+entries (there are many more uncommon ones) for the purposes of making a custom
+search index for them [1].</p>
+<p>Turns out, you may run into some hard limits. Note that these are all V8-isms
+and may not apply to all browsers or engines (I was using node.js for this)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> myObject</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 50_000_000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  myObject.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(i, i)</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (i </span><span style="color:#F97583">%</span><span style="color:#79B8FF"> 100000</span><span style="color:#F97583"> ==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(i)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>This will crash after adding approx 16.7M elements and say</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>0</span></span>
+<span class="line"><span>100000</span></span>
+<span class="line"><span>200000</span></span>
+<span class="line"><span>...</span></span>
+<span class="line"><span>16400000</span></span>
+<span class="line"><span>16500000</span></span>
+<span class="line"><span>16600000</span></span>
+<span class="line"><span>16700000</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Uncaught RangeError: Value undefined out of range for undefined options</span></span>
+<span class="line"><span>property undefined</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>That is a very weird error message. It says “undefined” three times! Much better
+than your usual <code>TypeError: Can’t find property ‘lol’ of undefined</code>. See
+<a href="https://bugs.chromium.org/p/v8/issues/detail?id=11852">https://bugs.chromium.org/p/v8/issues/detail?id=11852</a> for a bug filed to help
+improve the error message perhaps.</p>
+<p>Now, also interestingly enough, if you use an Object instead of a Map</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> myObject</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 50_000_000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  myObject[</span><span style="color:#9ECBFF">'myobj_’+i]=i</span><span style="color:#FDAEB7;font-style:italic">;</span></span>
+<span class="line"><span style="color:#B392F0">  if</span><span style="color:#E1E4E8">(i</span><span style="color:#F97583">%</span><span style="color:#79B8FF">100000</span><span style="color:#F97583">==</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">) { console.log(i) }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Then it will print…</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>0</span></span>
+<span class="line"><span>100000</span></span>
+<span class="line"><span>200000</span></span>
+<span class="line"><span>...</span></span>
+<span class="line"><span>8000000</span></span>
+<span class="line"><span>8100000</span></span>
+<span class="line"><span>8200000</span></span>
+<span class="line"><span>8300000</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>And it will actually just hang there…frozen…no error message though! And it
+is failing at ~8.3M elements. Weird right? This is roughly half the amount of
+elements as the 16.7M case</p>
+<p>Turns out there is a precise hard limit for the Map case</p>
+<p>For the Map: 2^24=16,777,216</p>
+<p>For the Object it is around 2^23=8,388,608 HOWEVER, I can actually add more than
+this, e.g. I can add 8,388,609 or 8,388,610 or even more, but the operations
+start taking forever to run, e.g. 8,388,999 was taking many minutes</p>
+<p>Very weird stuff! If you expected me to dig into this and explain it in deep
+technical detail, well, you’d be wrong. However, this helpful post on
+stackoverflow by a V8 js engine developer clarifies the Map case!!
+<a href="https://stackoverflow.com/questions/54452896/maximum-number-of-entries-in-node-js-map">https://stackoverflow.com/questions/54452896/maximum-number-of-entries-in-node-js-map</a></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>V8 developer here. I can confirm that 2^24 is the maximum number of entries in</span></span>
+<span class="line"><span>a Map. That’s not a bug, it’s just the implementation-defined limit.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>The limit is determined by:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>The FixedArray backing store of the Map has a maximum size of 1GB (independent</span></span>
+<span class="line"><span>of the overall heap size limit) On a 64-bit system that means 1GB / 8B = 2^30 /</span></span>
+<span class="line"><span>2^3 = 2^27 ~= 134M maximum elements per FixedArray A Map needs 3 elements per</span></span>
+<span class="line"><span>entry (key, value, next bucket link), and has a maximum load factor of 50% (to</span></span>
+<span class="line"><span>avoid the slowdown caused by many bucket collisions), and its capacity must be</span></span>
+<span class="line"><span>a power of 2. 2^27 / (3 * 2) rounded down to the next power of 2 is 2^24, which</span></span>
+<span class="line"><span>is the limit you observe.  FWIW, there are limits to everything: besides the</span></span>
+<span class="line"><span>maximum heap size, there’s a maximum String length, a maximum Array length, a</span></span>
+<span class="line"><span>maximum ArrayBuffer length, a maximum BigInt size, a maximum stack size, etc.</span></span>
+<span class="line"><span>Any one of those limits is potentially debatable, and sometimes it makes sense</span></span>
+<span class="line"><span>to raise them, but the limits as such will remain. Off the top of my head I</span></span>
+<span class="line"><span>don’t know what it would take to bump this particular limit by, say, a factor</span></span>
+<span class="line"><span>of two – and I also don’t know whether a factor of two would be enough to</span></span>
+<span class="line"><span>satisfy your expectations.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span></code></pre>
+<p>Great details there. It would also be good to know what the behavior is for the
+Object, which has those 100% CPU stalls after ~8.3M, but not the same error
+message…</p>
+<p>Another fun note: if I modify the Object code to use only “integer IDs” the code
+actually works fine, does not hit any errors, and is “blazingly fast” as the
+kids call it</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> myObject</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {}</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 50_000_000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  myObject[i] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> i</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (i </span><span style="color:#F97583">%</span><span style="color:#79B8FF"> 100000</span><span style="color:#F97583"> ==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(i)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>I presume that this code works because it detects that I’m using it like an
+array and it decides to transform how it is working internally and not use a
+hash-map-style data structure, so does not hit a limit. There is a slightly
+higher limit though, e.g. 1 billion elements gives “Uncaught RangeError: Invalid
+array length”</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> myObject</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {}</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 1_000_000_000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  myObject[i] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> i</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (i </span><span style="color:#F97583">%</span><span style="color:#79B8FF"> 100000</span><span style="color:#F97583"> ==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(i)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>This has been another episode of …the twilight zone (other episodes
+catalogued here) <a href="https://github.com/cmdcolin/technical_oddities/">https://github.com/cmdcolin/technical_oddities/</a></p>
+<p>[1] The final product of this adventure was this, to create a search index for a
+large number of elements <a href="https://github.com/GMOD/ixixx-js">https://github.com/GMOD/ixixx-js</a></p>  <footer class="mt-16"> <a class="m-2" href="/">Home</a> <a class="m-2" href="/archive">Blog archive</a> <a class="m-2" href="https://github.com/cmdcolin/">Github</a> <a class="m-2" href="/projects">Projects</a> <a class="m-2" href="/books">Books</a> <a class="m-2" href="/about">About</a> <a class="m-2" href="/rss.xml">RSS</a> </footer> </body></html>

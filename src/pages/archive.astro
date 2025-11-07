@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const posts = await Astro.glob('./posts/*.md');
+posts.sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
+---
+
+<Layout title="Archive">
+  <h1>Blog archive</h1>
+
+  <section>
+    <h1>Posts</h1>
+    <ul>
+      {posts.map(post => {
+        const { frontmatter, url } = post;
+        const { date, title } = frontmatter;
+        return (
+          <li>
+            <a href={url}>
+              {date.slice(0,10)} - {title}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+</Layout>

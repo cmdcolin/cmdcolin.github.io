@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><title>Creating a JBrowse plugin</title><style>body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <h1>Creating a JBrowse plugin</h1> <p>2016-11-10</p> <p>I have been very impressed with peoples creativity and willingness to dig into
+all the details of JBrowse to customize it’s features. One great way to do this
+in a modular way is to create a “JBrowse plugin”. This concept sounds hard but
+you can set up a simple couple of files and refresh your browser and it will
+“just work”!</p>
+<h2 id="introduction-to-the-plugin-mindset">Introduction to the plugin mindset</h2>
+<p>In a plugin, you can define new things like custom track types, custom adaptors
+to new file types, new track selectors, or something really different. A key
+insight about the custom types of tracks and things though is that you can put
+the name of your new custom class in the jbrowse config file which will then
+find the code in your plugin and run it. Plugins can do other things, but the
+ability to just swap out track types or other components in the config file is a
+great benefit.</p>
+<h2 id="a-scenario">A scenario</h2>
+<p>One example that was talked about on the mailing list might involve adding new
+menu items for a given track. We might consider a plugin that defines a custom
+track type to add that functionality.</p>
+<p>Basically, we can use object- oriented principles to “inherit” from some
+existing track type like CanvasFeatures and then extend its functionality by
+overriding the functions.</p>
+<p>If you are not familiar with object-oriented javascript, dojo makes it pretty
+easy (but, especially get a background on this if you need to, see footnotes
+below).</p>
+<p>We can inherit a new track type by using the “define” function to include the
+dependencies needed in a file, and they are listed in an array at the top of
+your file.</p>
+<p>Then the “declare” function creates a new class. The first argument to declare
+is the is your parent class, like CanvasFeatures, and we type “return declare”
+because we are returning our new track class from the module.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">define</span><span style="color:#E1E4E8">([</span><span style="color:#9ECBFF">'dojo/_base/declare'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'JBrowse/View/Track/CanvasFeatures'</span><span style="color:#E1E4E8">], </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#FFAB70">  declare</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  CanvasFeatures</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> declare</span><span style="color:#E1E4E8">(CanvasFeatures, {</span></span>
+<span class="line"><span style="color:#B392F0">    _trackMenuOptions</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> opts </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">inherited</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">arguments</span><span style="color:#E1E4E8">) </span><span style="color:#6A737D">//call the parent classes function</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">      opts.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#6A737D">        // add an extra menu item to the array returned from parent class function</span></span>
+<span class="line"><span style="color:#E1E4E8">        {</span></span>
+<span class="line"><span style="color:#E1E4E8">          label: </span><span style="color:#9ECBFF">'Custom item'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">          type: </span><span style="color:#9ECBFF">'dijit/CheckedMenuItem'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">          onClick</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">            console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Clicked'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">          },</span></span>
+<span class="line"><span style="color:#E1E4E8">          iconClass: </span><span style="color:#9ECBFF">'dijitIconPackage'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        },</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> opts</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"></span></code></pre>
+<p>Code listing 1. an example custom track type, MyTrack.js, that adds an extra
+track menu item</p>
+<h2 id="now-how-do-we-make-this-a-plugin">Now how do we make this a plugin?</h2>
+<p>In the above section, we created a new track subclass with a custom menu option.
+How do we use this track? We want to turn it into part of afine the boilerplate
+code from the
+<a href="http://gmod.org/wiki/JBrowse_Configuration_Guide#Writing_JBrowse_Plugins">Writing plugins</a>
+guide.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">define</span><span style="color:#E1E4E8">([</span><span style="color:#9ECBFF">'dojo/_base/declare'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'JBrowse/Plugin'</span><span style="color:#E1E4E8">], </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#FFAB70">  declare</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  JBrowsePlugin</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> declare</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    JBrowsePlugin, </span><span style="color:#6A737D">// this line says our plugin's main.js derives from the "JBrowse/Plugin" base class</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#B392F0">      constructor</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">args</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">        //don't necessarily have to do any initializing here, but you</span></span>
+<span class="line"><span style="color:#6A737D">        //can get a handle to various jbrowse components if any initialization</span></span>
+<span class="line"><span style="color:#6A737D">        //is needed from the args.browser variable</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"></span></code></pre>
+<p>Code listing 2. Our plugin’s main.js</p>
+<p>After this, we create the plugin directory structure</p>
+<blockquote>
+<p>jbrowse/plugins/MyPlugin</p>
+<blockquote>
+<p>jbrowse/plugins/MyPlugin/js</p>
+<blockquote>
+<p>jbrowse/plugins/MyPlugin/js/main.js</p>
+<p>jbrowse/plugins/MyPlugin/js/MyTrack.js</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Then we can add our new plugin to a config file like <code>jbrowse_conf.json</code> as
+<code>"plugins": ["MyPlugin"]</code> and then make a track in <code>trackList.json</code> have
+<code>"type": "MyPlugin/MyTrack"</code> instead of for example <code>"type": "CanvasFeatures"</code>.
+That will tell jbrowse to load the <code>MyTrack</code> class from your plugin instead of
+the normal <code>CanvasFeatures</code> class.</p>
+<p>That’s about it!</p>
+<p>Note that the <code>bin/new-plugin.pl</code> script can automatically initialize some of
+this directory structure too. Try running <code>bin/new-plugin.pl MyPlugin</code> and see
+what happens.</p>
+<h3 id="footnotes">Footnotes:</h3>
+<p>It is important to understand the module format (AMD) which is what the “define”
+function is about and the dojo way of defining classes using the “declare”
+function. Together, this allows the dojo to create object-oriented programs that
+are modular in javascript. See
+<a href="http://dojotoolkit.org/reference-guide/1.10/dojo/_base/declare.html">http://dojotoolkit.org/reference-guide/1.10/dojo/_base/declare.html</a> and
+<a href="http://dojotoolkit.org/documentation/tutorials/1.9/modules/">http://dojotoolkit.org/documentation/tutorials/1.9/modules/</a> (understanding this
+helps you understand the “preamble” for declaring a jbrowse plugin)</p>  <footer class="mt-16"> <a class="m-2" href="/">Home</a> <a class="m-2" href="/archive">Blog archive</a> <a class="m-2" href="https://github.com/cmdcolin/">Github</a> <a class="m-2" href="/projects">Projects</a> <a class="m-2" href="/books">Books</a> <a class="m-2" href="/about">About</a> <a class="m-2" href="/rss.xml">RSS</a> </footer> </body></html>
