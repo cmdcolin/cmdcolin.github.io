@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Creating high-resolution screenshots (of jbrowse) with phantomJS</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating high-resolution screenshots (of jbrowse) with phantomJS</h1> <h4 data-astro-cid-lvjzyg5v>2015-03-02</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Generating screenshots that are of high quality can be a great benefit for
+things like science publications. PhantomJS is great for automating this in a
+reproducible way. While many HTML pages can be rendered in high resolution
+without modification, HTML5 canvas apps need special considerations (see this
+<a href="http://searchvoidstar.tumblr.com/post/86542847038/high-dpi-rendering-on-html5-canvas-some-problems">previous post on the topic</a>).</p>
+<p>One of the key things that we noticed when we developed the high resolution
+canvas rendering (see above link) is that the “devicePixelRatio” can increase
+based on the browser’s zoom level, and it can also take fractional values. This
+was a difficult problem, to make rendering 100% consistent under all
+devicePixelRatio values, so we created a config parameter called
+highResolutionMode to accept arbitrary resolutions.</p>
+<p>Later, we learned about PhantomJS and how it can be used for creating
+screenshots, it was clear that our design for the settings arbitrary scaling
+factors for the HTML5 canvas was very helpful, as we can set
+highResolutionMode=4 along with the phantomJS variable page.zoomFactor=4, which
+matches the resolutions and creates high-res canvas screenshots.</p>
+<p>One of the reasons that this is important is that it doesn’t look like PhantomJS
+allows “devicePixelRatio” to be emulated, so the page.zoomFactor doesn’t
+necessarily set the devicePixelRatio to a higher number, so being able to set
+the the arbitrary high resolution canvas scalings ourselves is a good solution.
+Reference: issue open Jan 2013 <a href="https://github.com/ariya/phantomjs/issues/10964">https://github.com/ariya/phantomjs/issues/10964</a>
+and we are now in Aug 2015</p>
+<p>Here are some examples of the rendering process.</p>
+<h2 id="examples">Examples</h2>
+<ol>
+<li>
+<p>Rendering screenshots to PNG</p>
+<p>phantomjs rasterize.js
+“<a href="http://localhost/jbrowse/?data=sample_data/json/volvox&#x26;tracklist=0">http://localhost/jbrowse/?data=sample_data/json/volvox&#x26;tracklist=0</a>”
+output.png “3800px*1600px” 2</p>
+<p><a href="http://i.imgur.com/ABLo6WJ.png"><img src="http://i.imgur.com/ABLo6WJ.png" alt=""></a></p>
+<p>Figure 1. A basic image output from phantomJS. It uses a zoomFactor=2 on the
+command line to match highResolutionMode=2 in the config file. `</p>
+</li>
+<li>
+<p>Rendering screenshots to PDF. In JBrowse, this requires PhantomJS 2.0. Also
+see footnote.</p>
+<p>phantomjs rasterize.js
+“<a href="http://localhost/jbrowse/?data=sample_data/json/volvox&#x26;tracklist=0">http://localhost/jbrowse/?data=sample_data/json/volvox&#x26;tracklist=0</a>”
+output.pdf “16in*8in”</p>
+<p><a href="https://www.dropbox.com/s/7pceo4o406dys8s/output.pdf?dl=0">Dropbox PDF 906kb</a></p>
+<p>Figure 2. Outputted PDF from phantomJS. This still requires setting the
+configuration such as highResolutionMode=2 too</p>
+</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>In the future, we want to consider adding highResolutionMode to be specified via
+the URL so that it doesn’t need to be changed manually, although, setting
+highResolutionMode=2 by default is not a bad strategy.</p>
+<p><strong>Footnote</strong></p>
+<p>I used the following patch for rasterize.js to help “fill out” the page space in
+PDF renderings (otherwise, it is a square page, not super pretty for a
+widescreen app). I guess rasterize.js is really just a template and not meant to
+be super multi-purposed, so this custom modification helps for our case.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
+<span class="line"><span>        diff --git a/examples/rasterize.js b/examples/rasterize.js</span></span>
+<span class="line"><span>        index b0e0f67..3b0b6e4 100644</span></span>
+<span class="line"><span>        --- a/examples/rasterize.js</span></span>
+<span class="line"><span>        +++ b/examples/rasterize.js</span></span>
+<span class="line"><span>        _@@ -14,6 +14,7 @@ if (system.args.length &#x3C; 3 || system.args.length > 5) {</span></span>
+<span class="line"><span>            page.viewportSize = { width: 600, height: 600 };</span></span>
+<span class="line"><span>            if (system.args.length > 3 &#x26;&#x26; system.args[2].substr(-4) === ".pdf") {</span></span>
+<span class="line"><span>                size = system.args[3].split('_');</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        +       page.viewportSize.width *= parseInt(size[0])/parseInt(size[1]);</span></span>
+<span class="line"><span>                page.paperSize = size.length === 2 ? { width: size[0], height: size[1], margin: '0px' }</span></span>
+<span class="line"><span></span></span></code></pre>
+<p><strong>Reference</strong></p>
+<p><a href="https://gmod.org/wiki/JBrowse_Configuration_Guide#Rendering_high_resolution_screenshots_using_PhantomJS">https://gmod.org/wiki/JBrowse_Configuration_Guide#Rendering_high_resolution_screenshots_using_PhantomJS</a></p>
+<p><strong>Comparison</strong></p>
+<p><img src="/media/112494997473_0.png" alt="image"></p>
+<p>Big improvement on font rendering</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

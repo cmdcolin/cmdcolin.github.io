@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Things typescript didn&#39;t catch that should probably be lint rules</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Things typescript didn&#39;t catch that should probably be lint rules</h1> <h4 data-astro-cid-lvjzyg5v>2023-02-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>This is a short list of silly things that I wish Typescript would have caught
+for me, but are silly logic errors</p>
+<h2 id="using-objectentries-accidentally-instead-of-objectfromentries">Using <code>Object.entries</code> accidentally instead of <code>Object.fromEntries</code></h2>
+<p>Typescript will not complain if you use <code>Object.entries</code> instead of
+<code>Object.fromEntries</code></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> stuff</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// woops, meant to use Object.fromEntries</span></span>
+<span class="line"><span style="color:#E1E4E8">Object.</span><span style="color:#B392F0">entries</span><span style="color:#E1E4E8">(stuff.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">entry</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [entry, { id: entry }]))</span></span></code></pre>
+<p><a href="https://www.typescriptlang.org/play?#code/FAYw9gdgzgLgBLArgM2QXgNoEYA0AmHAZgF1gB5AIwCsBTEGAOhohgCcBLGqACiVQYC2AQwAO3ZmwCeaAHwYJrSTjgBvdgBMAXAskBfYgEoDQA">playground</a></p>
+<p>Summary: should probably be a lint rule (a “types required” lint rule, a la
+@typescript-eslint) not to accept arrays for Object.entries</p>
+<p>Update 02-27-23: Proposing this rule here
+<a href="https://github.com/typescript-eslint/typescript-eslint/issues/6537">https://github.com/typescript-eslint/typescript-eslint/issues/6537</a> (it was
+rejected)</p>
+<h2 id="passing-garbage-to-the-second-argument-of-arrayprototypemap-accidentally">Passing garbage to the second argument of Array.prototype.map accidentally</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">arr</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">[], </span><span style="color:#FFAB70">extra</span><span style="color:#F97583">?:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">sayHiToMom</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> boolean</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (extra?.sayHiToMom) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hi mom'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> arr</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> stuff</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// woops, meant to pass that as second argument to doStuff</span></span>
+<span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">(stuff.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">a</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">, { sayHiToMom: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> }))</span></span></code></pre>
+<p><a href="https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA">playground</a></p>
+<p>This one would be difficult for typescript to catch, the second arg is
+“thisArg”, what the callback refers to as <code>this</code></p>
+<p>Summary: should probably be a lint rule to avoid this second arg, as it is
+obscure</p>
+<p>Update 02-27-23: This lint rule exists already :)
+<a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-method-this-argument.md#disallow-using-the-this-argument-in-array-methods">https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-method-this-argument.md#disallow-using-the-this-argument-in-array-methods</a></p>
+<h2 id="any-others">Any others?</h2>
+<p>Any other ones that you find in your work? This is just from the past week for
+me :)</p>
+<p>I will need to learn how to make eslint rules!</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

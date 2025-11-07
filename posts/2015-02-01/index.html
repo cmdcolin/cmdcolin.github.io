@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Post graduation survey</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Post graduation survey</h1> <h4 data-astro-cid-lvjzyg5v>2015-02-01</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I recently received some post-graduation survey results from my class of 2013
+about salaries, job satisfaction, and other things. I thought I’d try to
+visualize the data using R and ggplot2 as an exercise.</p>
+<p><a href="http://i.imgur.com/5rVnQHC.png"></a></p>
+<p><img src="/media/109823235838_0.png" alt=""></p>
+<p>Figure 1. The fancy ggplot2 graph of salaries with standard deviation bars
+comparing salaries of BS/MS grads (red) with BS grads (blue).</p>
+<p>As a CS grad, I suppose I’m happy to see that we have the highest average salary
+right out of the gate. CS also has a high standard deviation which I thought was
+interesting. Perhaps CS majors work in a myriad of fields that demand
+computational skills where other engineering majors may be more focused on
+certain types of fields, giving less deviation.</p>
+<p>In the process of making this graph, I was looking for how to do the
+side-by-side bar charts in ggplot and ended up supplying a “correction” to a
+answer on crossvalidated, a stackexchange site. The correction entailed how the
+syntax for using reshape2 vs reshape has changed slightly, so hopefully that
+helps other people searching for the same issue.</p>
+<p>Here is the code for processing</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span> library(xlsx)</span></span>
+<span class="line"><span> library(ggplot2)</span></span>
+<span class="line"><span> library(reshape2)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span> salaries=read.xlsx("workbook.xlsx",1)</span></span>
+<span class="line"><span> df=melt(salaries,measure.vars = c("BS.MS.annual.salary",</span></span>
+<span class="line"><span> "BS.annual.salary"))</span></span>
+<span class="line"><span> #awkward step to merge standard deviations</span></span>
+<span class="line"><span> df[df$variable=="BS.MS.annual.salary","stdev"]=df[df$variable=="BS.MS.annual.salary","stdev.1"]</span></span>
+<span class="line"><span> ggplot(df, aes(NA., value, fill=variable)) +</span></span>
+<span class="line"><span>      geom_bar(position="dodge",stat="identity") +</span></span>
+<span class="line"><span>      geom_errorbar(aes(ymin=value-stdev, ymax=value+stdev),</span></span>
+<span class="line"><span> position=position_dodge(width=0.9)) +</span></span>
+<span class="line"><span>      ggtitle("Salary for 2013 class of Engineering (2014 survey)") +</span></span>
+<span class="line"><span>      xlab("Major") +</span></span>
+<span class="line"><span>      ylab("Salary w/ stddev")</span></span></code></pre>
+<p>Table pictured</p>
+<p><img src="/media/109823235838_1.png" alt=""></p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

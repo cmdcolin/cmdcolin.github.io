@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Creating a testing framework for JBrowse plugins</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating a testing framework for JBrowse plugins</h1> <h4 data-astro-cid-lvjzyg5v>2016-04-19</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Testing client side apps requires a couple of tedious steps: Organizing the git
+clone, the dependencies, wrangling up a web server, the test framework, etc.</p>
+<p>When testing a plugin for jbrowse, the dependency tree is interesting because
+the plugin “depends” on JBrowse to run, but we will use travis-CI and bower
+inside the git repo for our plugin to accomplish this.</p>
+<p>In this scenario, we will</p>
+<ol>
+<li>
+<p>Use bower to install jasmine and JBrowse (our platform that we write the
+plugin for)</p>
+</li>
+<li>
+<p>Use nginx to launch a webserver on travis-CI</p>
+</li>
+<li>
+<p>Use the phantomjs run-jasmine.js script to check jasmine test results</p>
+</li>
+</ol>
+<p>Without further ado</p>
+<p>Here is the .travis.yml</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">sudo</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">addons</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  apt</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    packages</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">nginx</span></span>
+<span class="line"><span style="color:#85E89D">cache</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  apt</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">  directories</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">$HOME/.cache/bower</span></span>
+<span class="line"><span style="color:#85E89D">before_install</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">npm install -g jshint bower</span></span>
+<span class="line"><span style="color:#85E89D">install</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">bower install</span></span>
+<span class="line"><span style="color:#85E89D">before_script</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">cat test/travis.conf | envsubst > test/travis-envsubst.conf</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">nginx -c `pwd`/test/travis-envsubst.conf</span></span>
+<span class="line"><span style="color:#85E89D">script</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">phantomjs test/run-jasmine.js http://localhost:9000/test/</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">jshint js</span></span></code></pre>
+<p>Refer to
+<a href="http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2">http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2</a>
+for details on the nginx setup</p>
+<p>Here is the bower.json</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"sashimiplot"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "homepage"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"https://github.com/cmdcolin/sashimiplot"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Sashimi track type for jbrowse"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "main"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"js/main.js"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "keywords"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"bioinformatics"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"jbrowse"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">  "license"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"MIT"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "ignore"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">    "**/.*"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "node_modules"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "bower_components"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "src"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "test"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "tests"</span></span>
+<span class="line"><span style="color:#E1E4E8">  ],</span></span>
+<span class="line"><span style="color:#79B8FF">  "devDependencies"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "jasmine-core"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"jasmine#^2.4.1"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "jbrowse"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"git://github.com/GMOD/jbrowse.git#master"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>The key thing here is that it installs jasmine and JBrowse. I set .bowerrc to
+install both jasmine and JBrowse to the “test” directory</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "directory"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"test"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>With this setup, bower will make a “flat dependency tree” in the test directory,
+so it will look like this</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> ls</span><span style="color:#79B8FF"> -1</span><span style="color:#9ECBFF"> test</span></span>
+<span class="line"><span style="color:#B392F0">    FileSaver</span></span>
+<span class="line"><span style="color:#B392F0">    dbind</span></span>
+<span class="line"><span style="color:#B392F0">    dgrid</span></span>
+<span class="line"><span style="color:#B392F0">    dijit</span></span>
+<span class="line"><span style="color:#B392F0">    dojo</span></span>
+<span class="line"><span style="color:#B392F0">    dojox</span></span>
+<span class="line"><span style="color:#B392F0">    *index.html*</span></span>
+<span class="line"><span style="color:#B392F0">    jDataView</span></span>
+<span class="line"><span style="color:#B392F0">    jasmine-core</span></span>
+<span class="line"><span style="color:#B392F0">    jbrowse</span></span>
+<span class="line"><span style="color:#B392F0">    json-schema</span></span>
+<span class="line"><span style="color:#B392F0">    jszlib</span></span>
+<span class="line"><span style="color:#B392F0">    lazyload</span></span>
+<span class="line"><span style="color:#B392F0">    put-selector</span></span>
+<span class="line"><span style="color:#B392F0">    *run-jasmine.js*</span></span>
+<span class="line"><span style="color:#B392F0">    *spec*</span></span>
+<span class="line"><span style="color:#B392F0">    *travis.conf*</span></span>
+<span class="line"><span style="color:#B392F0">    util</span></span>
+<span class="line"><span style="color:#B392F0">    xstyle</span></span></code></pre>
+<p>Here the asterisks indicate things that are part of our app, other’s are
+automatically installed by bower (jbrowse, jasmine-core, the dojo dependencies,
+and other things)</p>
+<p>Then we can create the jasmine test/index.html to be something like this</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;!</span><span style="color:#85E89D">DOCTYPE</span><span style="color:#B392F0"> html</span><span style="color:#B392F0"> PUBLIC</span><span style="color:#9ECBFF"> "-//W3C//DTD HTML 4.01 Transitional//EN"</span><span style="color:#9ECBFF"> "http://www.w3.org/TR/html4/loose.dtd"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">meta</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">Jasmine Spec Runner</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">link</span><span style="color:#B392F0"> rel</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"stylesheet"</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"jasmine-core/lib/jasmine-core/jasmine.css"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"jasmine-core/lib/jasmine-core/jasmine.js"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"jasmine-core/lib/jasmine-core/boot.js"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span></span>
+<span class="line"><span style="color:#B392F0">  type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"text/javascript"</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dojo/dojo.js"</span></span>
+<span class="line"><span style="color:#B392F0">  data-dojo-config</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"async: 1"</span></span>
+<span class="line"><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"text/javascript"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#B392F0">  require</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    baseUrl: </span><span style="color:#9ECBFF">'.'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    packages: [</span></span>
+<span class="line"><span style="color:#9ECBFF">      'dojo'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'dijit'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'dojox'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'jszlib'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      { name: </span><span style="color:#9ECBFF">'lazyload'</span><span style="color:#E1E4E8">, location: </span><span style="color:#9ECBFF">'lazyload'</span><span style="color:#E1E4E8">, main: </span><span style="color:#9ECBFF">'lazyload'</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#9ECBFF">      'dgrid'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'xstyle'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'put-selector'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'FileSaver'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      { name: </span><span style="color:#9ECBFF">'jDataView'</span><span style="color:#E1E4E8">, location: </span><span style="color:#9ECBFF">'jDataView/src'</span><span style="color:#E1E4E8">, main: </span><span style="color:#9ECBFF">'jdataview'</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">      { name: </span><span style="color:#9ECBFF">'JBrowse'</span><span style="color:#E1E4E8">, location: </span><span style="color:#9ECBFF">'jbrowse/src/JBrowse'</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">      { name: </span><span style="color:#9ECBFF">'SashimiPlot'</span><span style="color:#E1E4E8">, location: </span><span style="color:#9ECBFF">'../js'</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"text/javascript"</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"spec/SashimiPlot.spec.js"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"sandbox"</span><span style="color:#B392F0"> style</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"overflow:hidden; height:1px;"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p>The “packages” in the require statement puts all these packages in the right
+“namespace” for the AMD includes, and the “specs” are defined like
+<code>&#x3C;script type="text/javascript" src="spec/Projection.spec.js">&#x3C;/script></code></p>
+<p>Finally, run-jasmine.js is used to check the results of the jasmine tests (it is
+run via phantomjs in the travis-CI script). It is a special version for the most
+recent version of jasmine (2.4)
+<a href="https://gist.github.com/vmeln/b6cbb319d9a0efc816be">https://gist.github.com/vmeln/b6cbb319d9a0efc816be</a></p>
+<p>For an example of the project using this, see
+<a href="https://github.com/cmdcolin/sashimiplot">https://github.com/cmdcolin/sashimiplot</a></p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

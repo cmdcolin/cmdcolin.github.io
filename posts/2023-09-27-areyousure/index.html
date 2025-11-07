@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>I see that noUncheckedIndexedAccess is false. Did you want to use Record&lt;string, T|undefined&gt;?</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>I see that noUncheckedIndexedAccess is false. Did you want to use Record&lt;string, T|undefined&gt;?</h1> <h4 data-astro-cid-lvjzyg5v>2023-09-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/clippy.jpg" alt=""></p>
+<p>It is common in typescript to write <code>Record&#x3C;string,T></code> for whatever type <code>T</code> you
+store in an object.</p>
+<p>But, are you sure you’re actually going to get an <code>T</code> back? What if some random
+user provided string is used to index the Record, and it produces undefined? You
+might think, as a typescripter “do I really have to add undefined to the
+signature, shouldn’t Typescript check this for me”? Well..</p>
+<h2 id="introducing-the-nouncheckedindexedaccess-tsconfigjson-setting">Introducing: the <code>noUncheckedIndexedAccess</code> tsconfig.json setting</h2>
+<p>There is actually a built-in Typescript setting called
+<a href="https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess"><code>noUncheckedIndexedAccess</code></a></p>
+<p>This setting makes the return type of accessing any Record or Array into an
+<code>T|undefined</code>.</p>
+<p>The catch?</p>
+<ul>
+<li>This setting is turned off by default</li>
+<li>It is probably too “annoying” (or produces too many “false positives”) for
+most projects to warrant it being turned on</li>
+<li>Hence, very few people use this setting</li>
+</ul>
+<p>Therefore: you really do have to ask yourself. Do you feel lucky punk? Sorry
+wrong line. I mean, do you want to use a <code>Record&#x3C;string,T></code> or a
+<code>Record&#x3C;string,T|undefined></code>?</p>
+<p>Enjoy! <a href="https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess">https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess</a></p>
+<p>Discussion on why this is not on by default:
+<a href="https://github.com/microsoft/TypeScript/issues/49169">https://github.com/microsoft/TypeScript/issues/49169</a></p>
+<h2 id="footnote-1-should-nouncheckedindexedaccess-be-split-into-two-settings">Footnote 1: Should <code>noUncheckedIndexedAccess</code> be split into two settings?</h2>
+<p>I feel like using ‘untrusted input’ or ‘runtime values’ to access a Record is
+more common than using ‘untrusted input’ to access an array index, so it would
+be sort of nice if <code>noUncheckedIndexedAccess</code> was split into two separate
+settings…one for Records, one for Arrays. A common complaint is that the
+‘array access’ part of this setting is a little too strict, and requires
+non-null assertions</p>
+<h2 id="footnote-2-consider-using-a-map-instead">Footnote 2: Consider using a <code>Map</code> instead</h2>
+<p>The <code>Map::get</code> method returns <code>T|undefined</code>, so it forces you to consider the
+undefined case always. I find Maps slightly more cumbersome to use than plain
+old objects, but has this benefit amongst others!</p>
+<h2 id="footnote-3-small-downside-to-recordstring-tundefined">Footnote 3: Small downside to <code>Record&#x3C;string, T|undefined></code></h2>
+<p>Maybe you are certain there aren’t actually undefined values stored in your
+object, and you just used <code>Record&#x3C;string, T|undefined></code> to be able to say
+<code>obj['randomthing']</code> returns undefined.</p>
+<p>Well, now calling e.g. <code>Object.values(obj)</code> will return <code>(T|undefined)[]</code>
+(similar for <code>Object.entries</code>) which is slightly annoying as a user, why may
+want it to just be <code>T[]</code> but they can non-null assert or filter out potential
+undefined’s as a workaround.</p>
+<h2 id="footnote-4-small-upside-to-recordstring-tundefined">Footnote 4: Small upside to <code>Record&#x3C;string, T|undefined></code></h2>
+<p>If you read this article and said, ya, I’m gonna use <code>noUncheckedIndexedAccess</code>
+in the tsconfig.json of my library, and you feel all safe and cozy using
+<code>Record&#x3C;string, T></code>, well your users may still have trouble: if the consumers of
+your library don’t use the <code>noUncheckedIndexedAccess</code> tsconfig.json setting,
+then they will not get the benefit of that undefined condition unless you
+explicitly mark your exported types as <code>Record&#x3C;string, T|undefined></code></p>
+<h2 id="footnote-5-see-my-updated-article">Footnote 5: See my updated article</h2>
+<p><a href="https://cmdcolin.github.io/posts/2024-10-29-superstitionsbegone">https://cmdcolin.github.io/posts/2024-10-29-superstitionsbegone</a></p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

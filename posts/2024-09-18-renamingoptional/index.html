@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Be careful when you rename an optional &quot;prop&quot; in typescript</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Be careful when you rename an optional &quot;prop&quot; in typescript</h1> <h4 data-astro-cid-lvjzyg5v>2024-09-18</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <h2 id="scenario">Scenario</h2>
+<p>The “doStuff” team at your company created a function for you to use</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">x</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">y</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">z</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">y</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">z</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">({ x, y, z })</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>and then you diligently call it in your code like this</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> obj</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { x: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, y: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, z: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">(obj)</span></span></code></pre>
+<p>all fine and good</p>
+<h2 id="later-on-the-optional-prop-is-renamed">Later on, the optional “prop” is renamed</h2>
+<p>The <code>doStuff</code> team says, well, it’s not really a true “z coordinate”…it’s
+more of a “z-index” so they change the function definition to be</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">x</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">y</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">zIndex</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">y</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">zIndex</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">({ x, y, zIndex })</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="now-you-might-have-a-bug">Now you might have a bug</h2>
+<p>Since <code>zIndex</code> is optional, typescript will not warn you about <code>zIndex</code> not
+being supplied by your existing code. Typescript is also not bothered that you
+have this “rider” variable <code>z</code> that “does nothing” in this case.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> obj</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { x: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, y: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, z: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">(obj) </span><span style="color:#6A737D">// no typescript error, z is no longer used, zIndex is optional, and you don't get the behavior you want</span></span></code></pre>
+<h2 id="but-wait-why-didnt-typescript-catch-it">But wait, why didn’t typescript catch it?</h2>
+<p>Here is the funny thing:</p>
+<ul>
+<li>
+<p>Typescript DOES NOT catch this issue when you pass it via this separately
+created “obj” variable.</p>
+</li>
+<li>
+<p>Typescript DOES(!!!) catch this issue when you pass it directly to the
+function (as an “object literal”)</p>
+</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">({ x: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, y: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, z: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> }) </span><span style="color:#6A737D">// ERROR!</span></span>
+<span class="line"><span style="color:#6A737D">// Object literal may only specify known properties, and 'z' does not exist in type '{ x: number; y: number; zIndex?: number | undefined; }'.</span></span></code></pre>
+<p>Demo playground</p>
+<p><a href="https://www.typescriptlang.org/play/?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAb2QA8AaZAT3IC9kBfALmSOKYjAFsAjAUwCcA3JTadeg5NQD8I7v3oBKZsGTIoSAM4IANjwB0WhAHNCJclQkLgdYKEixEKdFhwgATCbKUaASQioexPRMLDJiQhSh-ELUvv7E0sjssnwKSipqEJo6+kYeZj5+AZbWNsBO2LiErACMpBGupNQMAMx08qUA9B1oCDzqqgCGMFAAFshwMGWYFW5VDLX1jS1tNl09fRAA5DCDw2MTwBnqOwhcAFYAvAQ1dQwNTa1Tzrjup2ftpUA">https://www.typescriptlang.org/play/?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAb2QA8AaZAT3IC9kBfALmSOKYjAFsAjAUwCcA3JTadeg5NQD8I7v3oBKZsGTIoSAM4IANjwB0WhAHNCJclQkLgdYKEixEKdFhwgATCbKUaASQioexPRMLDJiQhSh-ELUvv7E0sjssnwKSipqEJo6+kYeZj5+AZbWNsBO2LiErACMpBGupNQMAMx08qUA9B1oCDzqqgCGMFAAFshwMGWYFW5VDLX1jS1tNl09fRAA5DCDw2MTwBnqOwhcAFYAvAQ1dQwNTa1Tzrjup2ftpUA</a></p>
+<h2 id="footnote">Footnote</h2>
+<p>I am certainly not the only person to come across this “topic/issue”, and people
+often come across it in different contexts.</p>
+<p>My particular take away is to “be careful when you rename optional props”. Of
+course, changing any API comes with risks, but this one particularly :)</p>
+<h2 id="more-resources">More resources</h2>
+<p>Typescript Deep Dive - “Freshness”</p>
+<p><a href="https://basarat.gitbook.io/typescript/type-system/freshness">https://basarat.gitbook.io/typescript/type-system/freshness</a></p>
+<h2 id="follow-up">Follow up</h2>
+<p>This post was given lots of downvotes in /r/typescript and sarcasm that “no duh,
+breaking changes are breaking”.</p>
+<p>However, some helpful comments were made also. Read on
+<a href="https://www.reddit.com/r/typescript/comments/1fk1rqe/be_careful_when_you_rename_an_optional_prop_in/">https://www.reddit.com/r/typescript/comments/1fk1rqe/be_careful_when_you_rename_an_optional_prop_in/</a></p>
+<p>I think maybe people are distracted that I posited this as the “doStuff team” vs
+“you”, but keep in mind this could just be your left brain vs right brain in an
+actively developed codebase</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

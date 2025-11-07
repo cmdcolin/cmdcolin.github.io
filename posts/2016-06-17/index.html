@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Querying InterMine databases using R</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Querying InterMine databases using R</h1> <h4 data-astro-cid-lvjzyg5v>2016-06-17</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In the past, I had found some ways to do simple queries on InterMine web
+services using basic HTTP commands with R (see
+<a href="https://gist.github.com/cmdcolin/4758167bdd89e6c9c055">https://gist.github.com/cmdcolin/4758167bdd89e6c9c055</a>)</p>
+<p>However, the InterMineR (<a href="https://github.com/intermine/intermineR">https://github.com/intermine/intermineR</a>) package
+automates some of these features and makes it easier to load the data in R.</p>
+<h2 id="installation">Installation</h2>
+<p>One way to install InterMineR is to install from github with hadley/devtools</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#79B8FF">install.packages</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"devtools"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">devtools::install_github(</span><span style="color:#9ECBFF">"hadley/devtools"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">devtools::install_github(</span><span style="color:#9ECBFF">"intermine/intermineR"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h2 id="usage">Usage</h2>
+<p>Basic usage includes loading the “intermine URL” using the initInterMine
+function. Then various functions can be called on this result.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#79B8FF">library</span><span style="color:#E1E4E8">(InterMineR)</span></span>
+<span class="line"><span style="color:#E1E4E8">mine</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">initInterMine(</span><span style="color:#9ECBFF">"http://bovinegenome.org/bovinemine/"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">getVersion(mine) </span><span style="color:#6A737D">#18, intermine API version</span></span>
+<span class="line"><span style="color:#E1E4E8">getRelease(mine) </span><span style="color:#6A737D">#1.0, our data release version</span></span>
+<span class="line"><span style="color:#E1E4E8">getTemplates(mine) </span><span style="color:#6A737D"># lists all templates on interminer</span></span></code></pre>
+<h2 id="run-a-template-query">Run a template query</h2>
+<p>From the getTemplates function, if you see a template query that you want to
+run, you can use the getTemplateQuery function with it’s name, and run it with
+the runQuery function</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#E1E4E8">getTemplateQuery(mine,</span><span style="color:#9ECBFF">"TQ_protein_to_gene"</span><span style="color:#E1E4E8">) </span><span style="color:#6A737D"># see what template looks like</span></span>
+<span class="line"><span style="color:#E1E4E8">template</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">getTemplateQuery(mine,</span><span style="color:#9ECBFF">"TQ_protein_to_gene"</span><span style="color:#E1E4E8">) </span><span style="color:#6A737D"># save template</span></span>
+<span class="line"><span style="color:#E1E4E8">runQuery(mine,template) </span><span style="color:#6A737D"># run the template query with default params, receive data.frame</span></span></code></pre>
+<p>This method is good, but some improvement could be added to change default
+parameters in the template query, etc.</p>
+<h2 id="run-query-xml">Run query XML</h2>
+<p>Another option for running queries is to use the query XML that you can download
+from the InterMine query result pages.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#6A737D"># get all Ensembl genes on chr28 from bovinemine</span></span>
+<span class="line"><span style="color:#E1E4E8">query</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'&#x3C;query model="genomic" view="Gene.primaryIdentifier</span></span>
+<span class="line"><span style="color:#9ECBFF">Gene.secondaryIdentifier Gene.symbol Gene.name Gene.source</span></span>
+<span class="line"><span style="color:#9ECBFF">Gene.organism.shortName Gene.chromosome.primaryIdentifier"</span></span>
+<span class="line"><span style="color:#9ECBFF">sortOrder="Gene.primaryIdentifier ASC" >&#x3C;constraint</span></span>
+<span class="line"><span style="color:#9ECBFF">path="Gene.organism.shortName" op="=" value="B. taurus"</span></span>
+<span class="line"><span style="color:#9ECBFF">/>&#x3C;constraint path="Gene.chromosome.primaryIdentifier" op="="</span></span>
+<span class="line"><span style="color:#9ECBFF">value="GK000028.2" />&#x3C;/query>'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">results</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">runQuery(mine, query)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">head</span><span style="color:#E1E4E8">(results)</span></span></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>The InterMineR package has a couple of nice features for getting InterMine data
+with a couple of functions for looking at templates. For many use cases, copying
+the Query XML from a InterMine webpage and pasting that into the runQuery
+function is sufficient and produces a data frame that can be analyzed.</p>
+<p>PS it is not easy to post XML on tumblr after editing the post in markdown mode.
+You have to add the lt and gt shortcuts and even after that it gets filtered?!</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

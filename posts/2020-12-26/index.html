@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Making a serverless website for photo and video upload pt. 2</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a serverless website for photo and video upload pt. 2</h1> <h4 data-astro-cid-lvjzyg5v>2020-12-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>This post follows onhttps://cmdcolin.github.io/2020-12-24.html</p>
+<p>It is possible I zoomed ahead too fast to make this a continuous tutorial, but
+overall I just wanted to post an update</p>
+<p>In pt. 1 I learned how to use the <code>aws-sam</code> CLI tool. This was a great insight
+for me about automating deployments. I can now simply run <code>sam deploy</code> and it
+will create new dynamodb tables, lambda functions, etc.</p>
+<p>After writing pt 1. I converted the existing vue-js app that was in the aws
+tutorial and converted it to react. Then I extended the app to allow</p>
+<ul>
+<li>Posting comments on photos</li>
+<li>Uploading multiple files</li>
+<li>Uploading videos etc.</li>
+</ul>
+<p>It will be hard to summarize all the changes since now the app has taken off a
+little bit but it looks like this:</p>
+<p>Repo structure</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">./frontend</span></span>
+<span class="line"><span style="color:#B392F0">./frontend/src/App.tsx</span></span>
+<span class="line"><span style="color:#B392F0">./lambdas/</span></span>
+<span class="line"><span style="color:#B392F0">./lambdas/postFile</span></span>
+<span class="line"><span style="color:#B392F0">./lambdas/getFiles</span></span>
+<span class="line"><span style="color:#B392F0">./lambdas/postComment</span></span>
+<span class="line"><span style="color:#B392F0">./lambdas/getComments</span></span></code></pre>
+<p>Here is a detailed code for uploading the file. We upload one file at a time,
+but the client code post to the lambda endpoint individually for each file</p>
+<p>This generates a pre-signed URL to allow the client-side JS (not the lambda
+itself) to directly upload to S3, and also posts a row in the S3 to the filename
+that will. It is very similar code in to
+<a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
+<p>./lambdas/postFile/app.js</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#9ECBFF">'use strict'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> AWS</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'aws-sdk'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> multipart</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./multipart'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">AWS</span><span style="color:#E1E4E8">.config.</span><span style="color:#B392F0">update</span><span style="color:#E1E4E8">({ region: process.env.</span><span style="color:#79B8FF">AWS_REGION</span><span style="color:#E1E4E8"> })</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> s3</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> AWS</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">S3</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Change this value to adjust the signed URL's expiration</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> URL_EXPIRATION_SECONDS</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 300</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Main Lambda entry point</span></span>
+<span class="line"><span style="color:#79B8FF">exports</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">handler</span><span style="color:#F97583"> =</span><span style="color:#F97583"> async</span><span style="color:#FFAB70"> event</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getUploadURL</span><span style="color:#E1E4E8">(event)</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">AWS_REGION</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">region</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> process.env</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> dynamodb</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> AWS</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">DynamoDB</span><span style="color:#E1E4E8">({ apiVersion: </span><span style="color:#9ECBFF">'2012-08-10'</span><span style="color:#E1E4E8">, region })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> uploadPic</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#FFAB70">  timestamp</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  filename</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  message</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  user</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  date</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  contentType</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> params</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    Item: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      timestamp: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        N: </span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">timestamp</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      filename: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        S: filename,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      message: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        S: message,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      user: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        S: user,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      date: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        S: date,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      contentType: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        S: contentType,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    TableName: </span><span style="color:#9ECBFF">'files'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> dynamodb.</span><span style="color:#B392F0">putItem</span><span style="color:#E1E4E8">(params).</span><span style="color:#B392F0">promise</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> getUploadURL</span><span style="color:#F97583"> =</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> data</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> multipart.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(event)</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">filename</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">contentType</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">user</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">message</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">date</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> data</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> timestamp</span><span style="color:#F97583"> =</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8">Date.</span><span style="color:#B392F0">now</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> Key</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> `${</span><span style="color:#E1E4E8">timestamp</span><span style="color:#9ECBFF">}-${</span><span style="color:#E1E4E8">filename</span><span style="color:#9ECBFF">}`</span><span style="color:#6A737D"> // Get signed URL from S3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> s3Params</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      Bucket: process.env.UploadBucket,</span></span>
+<span class="line"><span style="color:#E1E4E8">      Key,</span></span>
+<span class="line"><span style="color:#E1E4E8">      Expires: </span><span style="color:#79B8FF">URL_EXPIRATION_SECONDS</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      ContentType: contentType,</span></span>
+<span class="line"><span style="color:#6A737D">      // This ACL makes the uploaded object publicly readable. You must also</span></span>
+<span class="line"><span style="color:#6A737D">      // uncomment the extra permission for the Lambda function in the SAM</span></span>
+<span class="line"><span style="color:#6A737D">      // template.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">      ACL: </span><span style="color:#9ECBFF">'public-read'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> uploadURL</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> s3.</span><span style="color:#B392F0">getSignedUrlPromise</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'putObject'</span><span style="color:#E1E4E8">, s3Params)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#B392F0"> uploadPic</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">      timestamp,</span></span>
+<span class="line"><span style="color:#E1E4E8">      filename: Key,</span></span>
+<span class="line"><span style="color:#E1E4E8">      message,</span></span>
+<span class="line"><span style="color:#E1E4E8">      user,</span></span>
+<span class="line"><span style="color:#E1E4E8">      date,</span></span>
+<span class="line"><span style="color:#E1E4E8">      contentType,</span></span>
+<span class="line"><span style="color:#E1E4E8">    })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">      uploadURL,</span></span>
+<span class="line"><span style="color:#E1E4E8">      Key,</span></span>
+<span class="line"><span style="color:#E1E4E8">    })</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      statusCode: </span><span style="color:#79B8FF">500</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      body: </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">({ message: </span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">e</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8"> }),</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> response</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>./lambdas/getFiles/app.js</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// eslint-disable-next-line import/no-unresolved</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> AWS</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'aws-sdk'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">AWS_REGION</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">region</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> process.env</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> docClient</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> AWS</span><span style="color:#E1E4E8">.DynamoDB.</span><span style="color:#B392F0">DocumentClient</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> getItems</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> params</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    TableName: </span><span style="color:#9ECBFF">'files'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> docClient.</span><span style="color:#B392F0">scan</span><span style="color:#E1E4E8">(params).</span><span style="color:#B392F0">promise</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">exports</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">handler</span><span style="color:#F97583"> =</span><span style="color:#F97583"> async</span><span style="color:#FFAB70"> event</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> result</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getItems</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      statusCode: </span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      body: </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">(result),</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      statusCode: </span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      body: </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">({ message: </span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">e</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8"> }),</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>./frontend/src/App.tsx (excerpt)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">params</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">opts</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(params, opts)</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">response.ok) {</span></span>
+<span class="line"><span style="color:#F97583">    throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`HTTP ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">statusText</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> UploadDialog</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#FFAB70">  open</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  onClose</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  open</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> boolean</span></span>
+<span class="line"><span style="color:#B392F0">  onClose</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> void</span></span>
+<span class="line"><span style="color:#E1E4E8">}) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">images</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setImages</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">FileList</span><span style="color:#E1E4E8">>()</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">error</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setError</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Error</span><span style="color:#E1E4E8">>()</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">loading</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setLoading</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">total</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setTotal</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">completed</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setCompleted</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">user</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setUser</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">message</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setMessage</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> classes</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> useStyles</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#B392F0"> handleClose</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    setError</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">    setLoading</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">    setImages</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">    setCompleted</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">    setTotal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">    setMessage</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">    onClose</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">Dialog</span><span style="color:#B392F0"> onClose</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{handleClose} </span><span style="color:#B392F0">open</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{open}></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">DialogTitle</span><span style="color:#E1E4E8">>upload a file (supports picture or video)&#x3C;/</span><span style="color:#79B8FF">DialogTitle</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">DialogContent</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">label</span><span style="color:#B392F0"> htmlFor</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"user"</span><span style="color:#E1E4E8">>name (optional) &#x3C;/</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">input</span></span>
+<span class="line"><span style="color:#B392F0">          type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"text"</span></span>
+<span class="line"><span style="color:#B392F0">          value</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{user}</span></span>
+<span class="line"><span style="color:#B392F0">          onChange</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#FFAB70">event</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setUser</span><span style="color:#E1E4E8">(event.target.value)}</span></span>
+<span class="line"><span style="color:#B392F0">          id</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"user"</span></span>
+<span class="line"><span style="color:#E1E4E8">        /></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">br</span><span style="color:#E1E4E8"> /> &#x3C;</span><span style="color:#85E89D">label</span><span style="color:#B392F0"> htmlFor</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"user"</span><span style="color:#E1E4E8">>message (optional) &#x3C;/</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">input</span></span>
+<span class="line"><span style="color:#B392F0">          type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"text"</span></span>
+<span class="line"><span style="color:#B392F0">          value</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{message}</span></span>
+<span class="line"><span style="color:#B392F0">          onChange</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#FFAB70">event</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setMessage</span><span style="color:#E1E4E8">(event.target.value)}</span></span>
+<span class="line"><span style="color:#B392F0">          id</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"message"</span></span>
+<span class="line"><span style="color:#E1E4E8">        /></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">br</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">input</span></span>
+<span class="line"><span style="color:#B392F0">          multiple</span></span>
+<span class="line"><span style="color:#B392F0">          type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"file"</span></span>
+<span class="line"><span style="color:#B392F0">          onChange</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">            let</span><span style="color:#E1E4E8"> files </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> e.target.files</span></span>
+<span class="line"><span style="color:#F97583">            if</span><span style="color:#E1E4E8"> (files </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> files.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">              setImages</span><span style="color:#E1E4E8">(files)</span></span>
+<span class="line"><span style="color:#E1E4E8">            }</span></span>
+<span class="line"><span style="color:#E1E4E8">          }}</span></span>
+<span class="line"><span style="color:#E1E4E8">        /> {error </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{classes.error}>{</span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> loading </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#9ECBFF">          `Uploading...${</span><span style="color:#E1E4E8">completed</span><span style="color:#9ECBFF">}/${</span><span style="color:#E1E4E8">total</span><span style="color:#9ECBFF">}`</span></span>
+<span class="line"><span style="color:#E1E4E8">        ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> completed </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">>Uploaded &#x3C;/</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        ) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">} &#x3C;</span><span style="color:#79B8FF">DialogActions</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#79B8FF">Button</span></span>
+<span class="line"><span style="color:#B392F0">            style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{ textTransform: </span><span style="color:#9ECBFF">'none'</span><span style="color:#E1E4E8"> }}</span></span>
+<span class="line"><span style="color:#B392F0">            onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">              try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">                if</span><span style="color:#E1E4E8"> (images) {</span></span>
+<span class="line"><span style="color:#B392F0">                  setLoading</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">                  setError</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">                  setCompleted</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">                  setTotal</span><span style="color:#E1E4E8">(images.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">                  await</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">all</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">                    Array.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">(images).</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">async</span><span style="color:#FFAB70"> image</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">                      const</span><span style="color:#79B8FF"> data</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> FormData</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">                      data.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'message'</span><span style="color:#E1E4E8">, message)</span></span>
+<span class="line"><span style="color:#E1E4E8">                      data.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'user'</span><span style="color:#E1E4E8">, user)</span></span>
+<span class="line"><span style="color:#E1E4E8">                      data.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'date'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">new</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">toLocaleString</span><span style="color:#E1E4E8">())</span></span>
+<span class="line"><span style="color:#E1E4E8">                      data.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'filename'</span><span style="color:#E1E4E8">, image.name)</span></span>
+<span class="line"><span style="color:#E1E4E8">                      data.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'contentType'</span><span style="color:#E1E4E8">, image.type)</span></span>
+<span class="line"><span style="color:#F97583">                      const</span><span style="color:#79B8FF"> res</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">API_ENDPOINT</span><span style="color:#F97583"> +</span><span style="color:#9ECBFF"> '/postFile'</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#E1E4E8">                        method: </span><span style="color:#9ECBFF">'POST'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">                        body: data,</span></span>
+<span class="line"><span style="color:#E1E4E8">                      })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">                      await</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(res.uploadURL, {</span></span>
+<span class="line"><span style="color:#E1E4E8">                        method: </span><span style="color:#9ECBFF">'PUT'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">                        body: image,</span></span>
+<span class="line"><span style="color:#E1E4E8">                      })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">                      setCompleted</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">completed</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> completed </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">                    }),</span></span>
+<span class="line"><span style="color:#E1E4E8">                  )</span></span>
+<span class="line"><span style="color:#B392F0">                  setTimeout</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">                    handleClose</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">                  }, </span><span style="color:#79B8FF">500</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">                }</span></span>
+<span class="line"><span style="color:#E1E4E8">              } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
+<span class="line"><span style="color:#B392F0">                setError</span><span style="color:#E1E4E8">(e)</span></span>
+<span class="line"><span style="color:#E1E4E8">              }</span></span>
+<span class="line"><span style="color:#E1E4E8">            }}</span></span>
+<span class="line"><span style="color:#B392F0">            color</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"primary"</span></span>
+<span class="line"><span style="color:#E1E4E8">          ></span></span>
+<span class="line"><span style="color:#E1E4E8">            upload</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#79B8FF">Button</span></span>
+<span class="line"><span style="color:#B392F0">            onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{handleClose}</span></span>
+<span class="line"><span style="color:#B392F0">            color</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"primary"</span></span>
+<span class="line"><span style="color:#B392F0">            style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{ textTransform: </span><span style="color:#9ECBFF">'none'</span><span style="color:#E1E4E8"> }}</span></span>
+<span class="line"><span style="color:#E1E4E8">          ></span></span>
+<span class="line"><span style="color:#E1E4E8">            cancel</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;/</span><span style="color:#79B8FF">Button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#79B8FF">DialogActions</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;/</span><span style="color:#79B8FF">DialogContent</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#79B8FF">Dialog</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>template.yaml for AWS</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">AWSTemplateFormatVersion</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2010-09-09</span></span>
+<span class="line"><span style="color:#85E89D">Transform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AWS::Serverless-2016-10-31</span></span>
+<span class="line"><span style="color:#85E89D">Description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">S3 Uploader</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">Resources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  filesDynamoDBTable</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AWS::DynamoDB::Table</span></span>
+<span class="line"><span style="color:#85E89D">    Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      AttributeDefinitions</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">AttributeName</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'timestamp'</span></span>
+<span class="line"><span style="color:#85E89D">          AttributeType</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'N'</span></span>
+<span class="line"><span style="color:#85E89D">      KeySchema</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">AttributeName</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'timestamp'</span></span>
+<span class="line"><span style="color:#85E89D">          KeyType</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'HASH'</span></span>
+<span class="line"><span style="color:#85E89D">      ProvisionedThroughput</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        ReadCapacityUnits</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'5'</span></span>
+<span class="line"><span style="color:#85E89D">        WriteCapacityUnits</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'5'</span></span>
+<span class="line"><span style="color:#85E89D">      TableName</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'files'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  # HTTP API</span></span>
+<span class="line"><span style="color:#85E89D">  MyApi</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AWS::Serverless::HttpApi</span></span>
+<span class="line"><span style="color:#85E89D">    Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">      # CORS configuration - this is open for development only and should be restricted in prod.</span></span>
+<span class="line"><span style="color:#6A737D">      # See https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html</span></span>
+<span class="line"><span style="color:#85E89D">      CorsConfiguration</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        AllowMethods</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">GET</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">POST</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">DELETE</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">OPTIONS</span></span>
+<span class="line"><span style="color:#85E89D">        AllowHeaders</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">'*'</span></span>
+<span class="line"><span style="color:#85E89D">        AllowOrigins</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">'*'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">  UploadRequestFunction</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AWS::Serverless::Function</span></span>
+<span class="line"><span style="color:#85E89D">    Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      CodeUri</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">lambdas/postFile/</span></span>
+<span class="line"><span style="color:#85E89D">      Handler</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">app.handler</span></span>
+<span class="line"><span style="color:#85E89D">      Runtime</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">nodejs12.x</span></span>
+<span class="line"><span style="color:#85E89D">      Timeout</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">3</span></span>
+<span class="line"><span style="color:#85E89D">      MemorySize</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">128</span></span>
+<span class="line"><span style="color:#85E89D">      Environment</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        Variables</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          UploadBucket</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Ref</span><span style="color:#9ECBFF"> S3UploadBucket</span></span>
+<span class="line"><span style="color:#85E89D">      Policies</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#9ECBFF">AmazonDynamoDBFullAccess</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">S3WritePolicy</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">            BucketName</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Ref</span><span style="color:#9ECBFF"> S3UploadBucket</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">Statement</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">            - </span><span style="color:#85E89D">Effect</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Allow</span></span>
+<span class="line"><span style="color:#85E89D">              Resource</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Sub</span><span style="color:#9ECBFF"> 'arn:aws:s3:::${S3UploadBucket}/'</span></span>
+<span class="line"><span style="color:#85E89D">              Action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">                - </span><span style="color:#9ECBFF">s3:putObjectAcl</span></span>
+<span class="line"><span style="color:#85E89D">      Events</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        UploadAssetAPI</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">HttpApi</span></span>
+<span class="line"><span style="color:#85E89D">          Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">            Path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/postFile</span></span>
+<span class="line"><span style="color:#85E89D">            Method</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">post</span></span>
+<span class="line"><span style="color:#85E89D">            ApiId</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Ref</span><span style="color:#9ECBFF"> MyApi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">  FileReadFunction</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AWS::Serverless::Function</span></span>
+<span class="line"><span style="color:#85E89D">    Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      CodeUri</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">lambdas/getFiles/</span></span>
+<span class="line"><span style="color:#85E89D">      Handler</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">app.handler</span></span>
+<span class="line"><span style="color:#85E89D">      Runtime</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">nodejs12.x</span></span>
+<span class="line"><span style="color:#85E89D">      Timeout</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">3</span></span>
+<span class="line"><span style="color:#85E89D">      MemorySize</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">128</span></span>
+<span class="line"><span style="color:#85E89D">      Policies</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#9ECBFF">AmazonDynamoDBFullAccess</span></span>
+<span class="line"><span style="color:#85E89D">      Events</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        UploadAssetAPI</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">HttpApi</span></span>
+<span class="line"><span style="color:#85E89D">          Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">            Path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/getFiles</span></span>
+<span class="line"><span style="color:#85E89D">            Method</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">get</span></span>
+<span class="line"><span style="color:#85E89D">            ApiId</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Ref</span><span style="color:#9ECBFF"> MyApi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  ## S3 bucket</span></span>
+<span class="line"><span style="color:#85E89D">  S3UploadBucket</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AWS::S3::Bucket</span></span>
+<span class="line"><span style="color:#85E89D">    Properties</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      CorsConfiguration</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        CorsRules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#85E89D">AllowedHeaders</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">              - </span><span style="color:#9ECBFF">'*'</span></span>
+<span class="line"><span style="color:#85E89D">            AllowedMethods</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">              - </span><span style="color:#9ECBFF">GET</span></span>
+<span class="line"><span style="color:#E1E4E8">              - </span><span style="color:#9ECBFF">PUT</span></span>
+<span class="line"><span style="color:#E1E4E8">              - </span><span style="color:#9ECBFF">HEAD</span></span>
+<span class="line"><span style="color:#85E89D">            AllowedOrigins</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">              - </span><span style="color:#9ECBFF">'*'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## Take a note of the outputs for deploying the workflow templates in this sample application</span></span>
+<span class="line"><span style="color:#85E89D">Outputs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  APIendpoint</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'HTTP API endpoint URL'</span></span>
+<span class="line"><span style="color:#85E89D">    Value</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Sub</span><span style="color:#9ECBFF"> 'https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com'</span></span>
+<span class="line"><span style="color:#85E89D">  S3UploadBucketName</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    Description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'S3 bucket for application uploads'</span></span>
+<span class="line"><span style="color:#85E89D">    Value</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">!Ref</span><span style="color:#9ECBFF"> 'S3UploadBucket'</span></span></code></pre>
+<p>To display all the pictures I use a switch from video or img tag based on
+contentType.startsWith(‘video’). I also use the “figcaption” HTML tag to have a
+little caption on the pics/videos</p>
+<p>./frontend/src/App.tsx</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Media</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#FFAB70">  file</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  style</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  onClick</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  children</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  file</span><span style="color:#F97583">:</span><span style="color:#B392F0"> File</span></span>
+<span class="line"><span style="color:#B392F0">  onClick</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> Function</span></span>
+<span class="line"><span style="color:#FFAB70">  style</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">CSSProperties</span></span>
+<span class="line"><span style="color:#FFAB70">  children</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">ReactNode</span></span>
+<span class="line"><span style="color:#E1E4E8">}) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">filename</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">contentType</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> file</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> src</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> `${</span><span style="color:#79B8FF">BUCKET</span><span style="color:#9ECBFF">}/${</span><span style="color:#E1E4E8">filename</span><span style="color:#9ECBFF">}`</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">figure</span><span style="color:#B392F0"> style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{ display: </span><span style="color:#9ECBFF">'inline-block'</span><span style="color:#E1E4E8"> }}></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">picture</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        {contentType.</span><span style="color:#B392F0">startsWith</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'video'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#85E89D">video</span><span style="color:#B392F0"> style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{style} </span><span style="color:#B392F0">src</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{src} </span><span style="color:#B392F0">controls</span><span style="color:#B392F0"> onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{onClick </span><span style="color:#F97583">as</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">} /></span></span>
+<span class="line"><span style="color:#E1E4E8">        ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#85E89D">img</span><span style="color:#B392F0"> style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{style} </span><span style="color:#B392F0">src</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{src} </span><span style="color:#B392F0">onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{onClick </span><span style="color:#F97583">as</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">} /></span></span>
+<span class="line"><span style="color:#E1E4E8">        )}</span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;/</span><span style="color:#85E89D">picture</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">figcaption</span><span style="color:#E1E4E8">>{children}&#x3C;/</span><span style="color:#85E89D">figcaption</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">figure</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Now the really fun part: if you get an image of a picture frame like
+<a href="https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T">https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T</a></p>
+<p>You can make it a border for any image or video using border-image CSS</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">style </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  border: </span><span style="color:#9ECBFF">'30px solid'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  borderImage: </span><span style="color:#9ECBFF">`url(borders/${</span><span style="color:#E1E4E8">border</span><span style="color:#9ECBFF">}) 30 round`</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p><img src="/media/638602799897329664_0.png" alt=""></p>
+<h2 id="summary">Summary</h2>
+<p>The template.yaml automatically deploys the lambdas for postFile/getFile and the
+files table in dynamoDB</p>
+<p>The React app uses postFile for each file in an <code>&#x3C;input type="file"/></code>, the code
+uses React hooks and functional components but is hopefully not too complex</p>
+<p>I also added commenting on photos. The code is not shown here but you can look
+in the source code for details</p>
+<p><img src="/media/638602799897329664_1.png" alt=""></p>
+<p>Overall this has been a good experience learning to develop this app and
+learning to automate the cloud deployment is really good for ensuring
+reliability and fast iteration.</p>
+<p>Also quick note on serverless CLI vs aws-sam. I had tried a serverless CLI
+tutorial from another user but it didn’t click with me, while the aws-sam
+tutorial from
+<a href="https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1">https://searchvoidstar.tumblr.com/post/638408397901987840/making-a-serverless-website-for-photo-upload-pt-1</a>
+was a great kick start for me. I am sure the serverless CLI is great too and it
+ensures a bit less vendor lock in, but then is also a little bit removed from
+the native aws config schemas. Probably fine though</p>
+<h2 id="source-code">Source code</h2>
+<p><a href="https://github.com/cmdcolin/aws_photo_gallery/">https://github.com/cmdcolin/aws_photo_gallery/</a></p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

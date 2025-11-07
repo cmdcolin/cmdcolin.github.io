@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Making a twitter bot in the year 2022 with node.js</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a twitter bot in the year 2022 with node.js</h1> <h4 data-astro-cid-lvjzyg5v>2022-08-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Recently, we made the logistic map fractal visualizer app, but, how do we keep
+USER ENGAGEMENT METRICS up? Gotta make a twitter bot to post fractals, that’s
+how!</p>
+<p>I found it somewhat tricky to get this working, because there is a lot of odd
+lingo out there. There are libraries that may help you, but this post goes
+through making an OAuth client in node.js to post to the twitter API with fairly
+unabstracted code. OAuth still confuses me, but if you follow these steps, you
+can make a bot!</p>
+<h3 id="step-1">Step 1</h3>
+<p>Get your keys. I forget the exact procedure for this but go to
+<a href="https://developer.twitter.com">https://developer.twitter.com</a> and sign up, register an “app” with them, and poke
+around for awhile. This github repo provides a couple more details about the
+process of registering
+<a href="https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal">https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal</a></p>
+<p>After sometime, you should get a screen that looks like this. Keep this around
+for Step 4. Note: I did not have to apply for any elevated access for this
+article, just the basic level you get from the initial registration! I believe
+in twitter terms, this article only requires “Essential” access and not any
+“Elevated” access.</p>
+<p><img src="https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true" alt=""></p>
+<h3 id="step-2">Step 2</h3>
+<p>Make a repo with a couple dependencies</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#9ECBFF"> mybot</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> mybot</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> init</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> node-fetch</span><span style="color:#9ECBFF"> formdata-node</span><span style="color:#9ECBFF"> oauth</span><span style="color:#9ECBFF"> dotenv</span><span style="color:#9ECBFF"> typescript</span></span></code></pre>
+<h3 id="step-3">Step 3</h3>
+<p>Update <code>package.json</code> with a couple scripts to build these typescript files
+(alternatively use <code>ts-node</code> or similar to run the ts files directly)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "dependencies"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "dotenv"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^16.0.1"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "formdata-node"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^4.4.1"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "node-fetch"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^3.2.10"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "oauth"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^0.10.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "typescript"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^4.7.4"</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#79B8FF">  "license"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"MIT"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"module"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "devDependencies"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "@types/node"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^18.7.9"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "@types/oauth"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^0.9.1"</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "prepost"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yarn build"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "post"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"node dist/bot.js"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>And <code>tsconfig.json</code> file</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "include"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">  "compilerOptions"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "target"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"esnext"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "outDir"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "moduleResolution"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"node"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "declaration"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "strict"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "esModuleInterop"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>This compiles the <code>src</code> folder and outputs js files to the <code>dist</code> directory, and
+we can run the <code>node dist/bot.js</code> file with node to post the file</p>
+<h3 id="step-4">Step 4</h3>
+<p>Create a .env file with your keys that you found in the above screenshot
+corresponding to the box1 (which gives you API_KEY/API_SECRET, sometimes also
+referred to as consumer keys in other documents) and box2 (which gives you
+ACCESS_TOKEN and ACCESS_TOKEN_SECRET) from the above screenshot</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span>API_SECRET="yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"</span></span>
+<span class="line"><span>ACCESS_TOKEN="aaaaaaaaaaaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"</span></span>
+<span class="line"><span>ACCESS_TOKEN_SECRET="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"</span></span></code></pre>
+<p>Important: Also add the .env to your .gitignore, you don’t want to commit this
+to github!</p>
+<h3 id="step-5">Step 5</h3>
+<p>Make the bot! Create <code>src/bot.ts</code></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> fs </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> dotenv </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'dotenv'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> OAuth </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'oauth'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> fetch, { RequestInit } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node-fetch'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { FormData, File } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'formdata-node'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">dotenv.</span><span style="color:#B392F0">config</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> mfetch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">url</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">params</span><span style="color:#F97583">:</span><span style="color:#B392F0"> RequestInit</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(url, params)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">response.ok) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> text</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">text</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">    throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`HTTP ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#E1E4E8">text</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">as</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Record</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">>></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getAuthHeader</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">oauth</span><span style="color:#F97583">:</span><span style="color:#B392F0"> OAuth</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">OAuth</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">url</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> oauth.</span><span style="color:#B392F0">authHeader</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    url,</span></span>
+<span class="line"><span style="color:#E1E4E8">    process.env.</span><span style="color:#79B8FF">ACCESS_TOKEN</span><span style="color:#F97583"> as</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    process.env.</span><span style="color:#79B8FF">ACCESS_TOKEN_SECRET</span><span style="color:#F97583"> as</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    'post'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> client</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#E1E4E8"> OAuth.</span><span style="color:#B392F0">OAuth</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">      'https://api.twitter.com/oauth/request_token'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'https://api.twitter.com/oauth/access_token'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      process.env.</span><span style="color:#79B8FF">API_KEY</span><span style="color:#F97583"> as</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      process.env.</span><span style="color:#79B8FF">API_SECRET</span><span style="color:#F97583"> as</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      '1.0A'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      null</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'HMAC-SHA1'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    )</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> picEndpoint</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'https://upload.twitter.com/1.1/media/upload.json'</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> tweetEndpoint</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'https://api.twitter.com/2/tweets'</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> clientName</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'v3CreateTweetJS'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> form</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> FormData</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">    form.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">      'media'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">      new</span><span style="color:#B392F0"> File</span><span style="color:#E1E4E8">([fs.</span><span style="color:#B392F0">readFileSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'yourpicture.png'</span><span style="color:#E1E4E8">)], </span><span style="color:#9ECBFF">'yourpicture.png'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    )</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // first post a picture</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> response1</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> mfetch</span><span style="color:#E1E4E8">(picEndpoint, {</span></span>
+<span class="line"><span style="color:#E1E4E8">      headers: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        Authorization: </span><span style="color:#B392F0">getAuthHeader</span><span style="color:#E1E4E8">(client, picEndpoint),</span></span>
+<span class="line"><span style="color:#9ECBFF">        'user-agent'</span><span style="color:#E1E4E8">: clientName,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      method: </span><span style="color:#9ECBFF">'POST'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">      //@ts-ignore</span></span>
+<span class="line"><span style="color:#E1E4E8">      body: form,</span></span>
+<span class="line"><span style="color:#E1E4E8">    })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // then post a tweet, referring to the media_id_string from response1</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> response2</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> mfetch</span><span style="color:#E1E4E8">(tweetEndpoint, {</span></span>
+<span class="line"><span style="color:#E1E4E8">      headers: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        Authorization: </span><span style="color:#B392F0">getAuthHeader</span><span style="color:#E1E4E8">(client, tweetEndpoint),</span></span>
+<span class="line"><span style="color:#9ECBFF">        'user-agent'</span><span style="color:#E1E4E8">: clientName,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'content-type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'application/json'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        accept: </span><span style="color:#9ECBFF">'application/json'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      body: </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">        media: { media_ids: [response1.media_id_string] },</span></span>
+<span class="line"><span style="color:#E1E4E8">        text: </span><span style="color:#9ECBFF">'Hello world!'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      }),</span></span>
+<span class="line"><span style="color:#E1E4E8">      method: </span><span style="color:#9ECBFF">'post'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    })</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(response2)</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(e)</span></span>
+<span class="line"><span style="color:#E1E4E8">    process.</span><span style="color:#B392F0">exit</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">})()</span></span></code></pre>
+<h3 id="step-6">Step 6</h3>
+<p>Now that you have the bot, you can run it locally with <code>yarn post</code> (runs the
+“post” script in <code>package.json</code>) to test it out</p>
+<h3 id="step-7">Step 7</h3>
+<p>Now to create a github action to run the bot.</p>
+<p>Navigate to your repo’s settings page, then go to Secrets->Actions and paste the
+keys one by one, see below screenshot</p>
+<p><img src="https://user-images.githubusercontent.com/6511937/187038172-80b35e34-03dd-4613-b6f6-9f8e25d2fc34.png" alt=""></p>
+<h3 id="step-8">Step 8</h3>
+<p>Create a file with the path <code>.github/workflows/post.yml</code> in your repo to make
+the post</p>
+<p>You can use a cron/scheduled workflow in the github action, which the below
+example does
+<a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule">https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule</a></p>
+<p>The below github action posts every 5 hours on the hour (see
+<a href="https://crontab.guru/">https://crontab.guru/</a> for more info on cron syntax)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Post tweet</span></span>
+<span class="line"><span style="color:#79B8FF">on</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  schedule</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">cron</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'0 */5 * * *'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">jobs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  test</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Post tweet</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v2</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Use Node.js 14.x</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/setup-node@v2</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          node-version</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'14'</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Install deps (with cache)</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">bahmutov/npm-install@v1</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Post tweet</span></span>
+<span class="line"><span style="color:#85E89D">        env</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          API_KEY</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.API_KEY }}</span></span>
+<span class="line"><span style="color:#85E89D">          API_SECRET</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.API_SECRET }}</span></span>
+<span class="line"><span style="color:#85E89D">          ACCESS_TOKEN</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.ACCESS_TOKEN }}</span></span>
+<span class="line"><span style="color:#85E89D">          ACCESS_TOKEN_SECRET</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.ACCESS_TOKEN_SECRET }}</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">yarn post</span></span></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>See <a href="https://github.com/cmdcolin/twitter_fractal_bot">https://github.com/cmdcolin/twitter_fractal_bot</a> for working example. I could
+have, in retrospect, used a library like <code>twit</code>
+(<a href="https://www.npmjs.com/package/twit">https://www.npmjs.com/package/twit</a>) but this code sample is not substantially
+more complicated than using the <code>twit</code> library.</p>
+<p>You can also adapt this to post only when you push to your repo, or release a
+new version from your repo!</p>
+<h2 id="footnote-1-examples-of-odd-lingo-or-stumbling-blocks-you-might-come-across">Footnote 1: Examples of odd lingo or stumbling blocks you might come across</h2>
+<ul>
+<li>Bearer token - The Bearer token is an alternative method of authenticating,
+but it cannot be used to post tweets</li>
+<li>Twitter API v1 vs v2 - We use a mix of v1 and v2, it’s just the different URLs
+that we are posting to and can be mixed in our example</li>
+<li>Consumer key vs API key - they are the same thing in our example. If you look
+closely at the box 1 in the screenshot it says “Consumer keys” and then gives
+you an API key below *</li>
+</ul>
+<h2 id="footnote-2-posting-on-release-with-a-github-action">Footnote 2: Posting on release with a github action</h2>
+<p>Replace the cron section of the github action with</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>on: release</span></span></code></pre>
+<h2 id="footnote-3-additional-reading">Footnote 3: Additional reading</h2>
+<p><a href="https://aaronparecki.com/oauth-2-simplified/">https://aaronparecki.com/oauth-2-simplified/</a></p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

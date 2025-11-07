@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Problems that I experienced with the HPCC</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Problems that I experienced with the HPCC</h1> <h4 data-astro-cid-lvjzyg5v>2017-04-21</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Many of these issues may be due to me being stubborn with a weird build system.
+Nonetheless, they were baffling, and I had very little interest in debugging
+these issues. I just wanted to get my science done after all!</p>
+<h1 id="module-load-completely-barfs-with-incomprehensible-error">Module load completely barfs with incomprehensible error</h1>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> module</span><span style="color:#9ECBFF"> spider</span><span style="color:#9ECBFF"> bedtools</span></span>
+<span class="line"><span style="color:#B392F0">    Using</span><span style="color:#9ECBFF"> system</span><span style="color:#9ECBFF"> spider</span><span style="color:#9ECBFF"> cache</span><span style="color:#9ECBFF"> file</span></span>
+<span class="line"><span style="color:#B392F0">    /opt/software/lmod/bin/lua:</span><span style="color:#9ECBFF"> /opt/software/lmod/4.1.4icer5/libexec/Spider.lua:662:</span><span style="color:#9ECBFF"> attempt</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> perform</span><span style="color:#9ECBFF"> arithmetic</span><span style="color:#9ECBFF"> on</span><span style="color:#9ECBFF"> a</span><span style="color:#9ECBFF"> nil</span><span style="color:#9ECBFF"> value</span></span>
+<span class="line"><span style="color:#B392F0">    stack</span><span style="color:#9ECBFF"> traceback:</span></span>
+<span class="line"><span style="color:#B392F0">        /opt/software/lmod/4.1.4icer5/libexec/Spider.lua:662:</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> function</span><span style="color:#9ECBFF"> 'Level1'</span></span>
+<span class="line"><span style="color:#B392F0">        /opt/software/lmod/4.1.4icer5/libexec/Spider.lua:640:</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> function</span><span style="color:#9ECBFF"> 'spiderSearch'</span></span>
+<span class="line"><span style="color:#B392F0">        /opt/software/lmod/4.1.4icer5/libexec/lmod:967:</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> function</span><span style="color:#9ECBFF"> 'cmd'</span></span>
+<span class="line"><span style="color:#B392F0">        /opt/software/lmod/4.1.4icer5/libexec/lmod:1195:</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> function</span><span style="color:#9ECBFF"> 'main'</span></span>
+<span class="line"><span style="color:#B392F0">        /opt/software/lmod/4.1.4icer5/libexec/lmod:1222:</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> main</span><span style="color:#9ECBFF"> chunk</span></span>
+<span class="line"><span style="color:#E1E4E8">        [C]</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> ?</span></span></code></pre>
+<h1 id="linuxbrew-is-terribly-confused-by-things-that-depend-on-gcc">Linuxbrew is terribly confused by things that depend on gcc</h1>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">    brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> hello</span></span>
+<span class="line"><span style="color:#9ECBFF">    ==</span><span style="color:#E1E4E8">> </span><span style="color:#9ECBFF">Installing</span><span style="color:#9ECBFF"> dependencies</span><span style="color:#9ECBFF"> for</span><span style="color:#9ECBFF"> hello:</span><span style="color:#9ECBFF"> glibc,</span><span style="color:#9ECBFF"> xz,</span><span style="color:#9ECBFF"> gmp,</span><span style="color:#9ECBFF"> mpfr,</span><span style="color:#9ECBFF"> libmpc,</span><span style="color:#9ECBFF"> isl,</span><span style="color:#9ECBFF"> gcc</span></span>
+<span class="line"><span style="color:#9ECBFF">    ==</span><span style="color:#E1E4E8">> </span><span style="color:#9ECBFF">Installing</span><span style="color:#9ECBFF"> hello</span><span style="color:#9ECBFF"> dependency:</span><span style="color:#9ECBFF"> glibc</span></span>
+<span class="line"><span style="color:#B392F0">    Error:</span><span style="color:#9ECBFF"> glibc</span><span style="color:#9ECBFF"> cannot</span><span style="color:#9ECBFF"> be</span><span style="color:#9ECBFF"> built</span><span style="color:#9ECBFF"> with</span><span style="color:#9ECBFF"> any</span><span style="color:#9ECBFF"> available</span><span style="color:#9ECBFF"> compilers.</span></span>
+<span class="line"><span style="color:#B392F0">    Install</span><span style="color:#9ECBFF"> Clang</span><span style="color:#9ECBFF"> or</span><span style="color:#9ECBFF"> brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> gcc</span></span></code></pre>
+<p>Using module load Clang does not fix problem >_&#x3C;</p>
+<h1 id="compiling-things-manually-on-software-machine-does-not-work-on-interactive-machine">Compiling things manually on software machine does not work on interactive machine</h1>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> mummer</span></span>
+<span class="line"><span style="color:#B392F0">    Illegal</span><span style="color:#9ECBFF"> instruction</span><span style="color:#E1E4E8"> (core </span><span style="color:#9ECBFF">dumped</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Many modules have a secret dependency on loading other modules</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> module</span><span style="color:#9ECBFF"> load</span><span style="color:#9ECBFF"> LASTZ</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    Lmod</span><span style="color:#9ECBFF"> Warning:</span><span style="color:#9ECBFF"> Did</span><span style="color:#9ECBFF"> not</span><span style="color:#9ECBFF"> find:</span><span style="color:#9ECBFF"> LASTZ</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    Try:</span><span style="color:#9ECBFF"> "module spider LASTZ"</span></span>
+<span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> module</span><span style="color:#9ECBFF"> load</span><span style="color:#9ECBFF"> GNU</span></span>
+<span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> module</span><span style="color:#9ECBFF"> load</span><span style="color:#9ECBFF"> LASTZ</span></span>
+<span class="line"><span style="color:#B392F0">    $</span><span style="color:#9ECBFF"> lastz</span></span>
+<span class="line"><span style="color:#B392F0">    You</span><span style="color:#9ECBFF"> must</span><span style="color:#9ECBFF"> specify</span><span style="color:#9ECBFF"> a</span><span style="color:#9ECBFF"> target</span><span style="color:#9ECBFF"> file</span></span>
+<span class="line"><span style="color:#B392F0">    lastz--</span><span style="color:#9ECBFF"> Local</span><span style="color:#9ECBFF"> Alignment</span><span style="color:#9ECBFF"> Search</span><span style="color:#9ECBFF"> Tool,</span><span style="color:#9ECBFF"> blastZ-like</span></span>
+<span class="line"><span style="color:#E1E4E8">      (</span><span style="color:#B392F0">version</span><span style="color:#79B8FF"> 1.03.02</span><span style="color:#9ECBFF"> released</span><span style="color:#79B8FF"> 20110719</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">    ...</span></span></code></pre>
+<p>Etc etc.</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

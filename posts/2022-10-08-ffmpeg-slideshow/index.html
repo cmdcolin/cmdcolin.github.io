@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Making an audio slideshow with ffmpeg</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making an audio slideshow with ffmpeg</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-08</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Inspired by a new trend of posting “playlists” on youtube with visual
+accompaniment (<a href="https://www.youtube.com/watch?v=zG92ss_2Vjw&#x26;t=1937s">https://www.youtube.com/watch?v=zG92ss_2Vjw&#x26;t=1937s</a>), I wanted to
+try to make my own with a slideshow. I used ffmpeg as the heavy lifting tool</p>
+<h2 id="step-1---prepare-your-playlist">Step 1 - prepare your playlist</h2>
+<p>I like foobar2000, because it can combine multiple files into a single output
+file.</p>
+<p>Use right-click -> “Convert …” in the foobar2000 playlist</p>
+<p><img src="/media/foobar1.png" alt=""></p>
+<p>Use “Merge all tracks into one file” in the “Convert…” dialog</p>
+<p><img src="/media/foobar2.png" alt=""></p>
+<p>Note: If you have a folder of mp3’s only, you can directly concatenate them with
+<code>cat *.mp3 > out.mp3</code> or use ffmpeg to concatenate them for a pure command-line
+alternative.</p>
+<h2 id="step-2---prepare-the-slideshow">Step 2 - prepare the slideshow</h2>
+<p>Use 10 seconds per picture. Note the glob pattern is in quotes</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">ffmpeg</span><span style="color:#79B8FF"> -framerate</span><span style="color:#9ECBFF"> 1/10</span><span style="color:#79B8FF"> -pattern_type</span><span style="color:#9ECBFF"> glob</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> '*.jpg'</span><span style="color:#9ECBFF"> pics.mp4</span></span></code></pre>
+<h2 id="step-3---combine-the-slideshow-and-playlist">Step 3 - combine the slideshow and playlist</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">ffmpeg</span><span style="color:#79B8FF"> -stream_loop</span><span style="color:#79B8FF"> -1</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> pics.mp4</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> playlist.wav</span><span style="color:#79B8FF"> -shortest</span><span style="color:#79B8FF"> -vcodec</span><span style="color:#9ECBFF"> copy</span><span style="color:#9ECBFF"> output.mp4</span></span></code></pre>
+<p>Using <code>-stream_loop -1</code> on pics.mp4 will loop the pics until playlist.wav ends,
+but then limit itself to the length of the playlist.wav with <code>-shortest</code></p>
+<h2 id="step-4---upload-to-youtube">Step 4 - upload to youtube</h2>
+<p>Done!</p>
+<h3 id="footnote-1-what-if-you-just-want-a-single-picture">Footnote 1: What if you just want a single picture?</h3>
+<p>Common for posting an album to youtube, you post the album art and some audio,
+you can try searching from stackoverflow for options related to this</p>
+<p>Example <a href="https://superuser.com/a/332867/415552">https://superuser.com/a/332867/415552</a></p>
+<h3 id="footnote-2-distortion">Footnote 2: Distortion</h3>
+<p>The pictures may get distorted to fit the video frame, I haven’t experimented
+with options that modify this behavior</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 

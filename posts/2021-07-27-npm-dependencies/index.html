@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.4"><title>Do you understand your NPM dependencies?</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Do you understand your NPM dependencies?</h1> <h4 data-astro-cid-lvjzyg5v>2021-07-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>You are writing a library…or you are writing an app and you want to publish
+some of the components of it as a library…</p>
+<p>Here are some questions in the form of comments</p>
+<ul>
+<li>
+<p>Did you realize that your yarn.lock will be ignored for anyone who installs
+your libraries?</p>
+</li>
+<li>
+<p>Did you realize this means that your perfectly running test suite with your
+yarn.lock could be a failing case for consumers of your library unless you
+don’t use semver strings like ^1.0.0 and just hardcode it to 1.0.0?</p>
+</li>
+<li>
+<p>Did you realize the default of ^1.0.0 automatically gets minor version bumps
+which are often fairly substantial changes, e.g. even breaking possibly?</p>
+</li>
+<li>
+<p>Did you know that larger libraries like @material-ui/core don’t like to bump
+their major version all the time for example so large changes are often made
+to the minor version?</p>
+</li>
+<li>
+<p>Did you know if you run <code>yarn upgrade</code>, it may update what is in your
+yarn.lock file but will not update what is in your package.json?</p>
+</li>
+<li>
+<p>Did you realize that this means that if you depend on the results of running
+<code>yarn upgrade</code> e.g. it gave you a bugfix, you could be shipping buggy code to
+consumers of your library?</p>
+</li>
+</ul>
+<p>Just something to be aware of! You can always ride the dragon and accept these
+minor breakages from semver bumps, but it can introduce some issues for your
+consumers</p>
+<p>Random fun thing: Adding a yarn package can even downgrade some other packages.
+For example if you have ^6.0.0 in your package.json, you yarn upgrade it so in
+the lockfile it says 6.1.0 but then later install another library that requires
+a hard 6.0.1, yarn will decide to downgrade you to 6.0.1 (it will not have a
+duplicate entry in yarn.lock, just that the 6.1.0 in the yarn.lock will
+downgrade to 6.0.1)</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/books" data-astro-cid-k2f5zb5c>Books</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> <a class="footer-link" href="/rss.xml" data-astro-cid-k2f5zb5c>RSS</a> </footer> </body></html> 
