@@ -1,0 +1,54 @@
+---
+import { getAllPosts, getPostById } from '../../../lib/api.js';
+import Container from '../../components/container.astro';
+import GiscusBox from '../../components/giscus.astro';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post }
+  }));
+}
+
+const { id } = Astro.params;
+const post = await getPostById(id);
+
+// Import the actual markdown module
+const postModules = import.meta.glob('/src/_posts/*.md', { eager: true });
+const postModule = postModules[`/src/_posts/${id}.md`];
+
+if (!postModule) {
+  return Astro.redirect('/404');
+}
+
+const { default: Content } = postModule;
+---
+
+<Layout title={post.title}>
+  <Container>
+    <article>
+      <div>
+        <h1>{post.title}</h1>
+        <h4>{post.date}</h4>
+      </div>
+      <div class="post-content">
+        <Content />
+      </div>
+      <GiscusBox />
+    </article>
+  </Container>
+</Layout>
+
+<style>
+  article {
+    max-width: 100%;
+  }
+
+  .post-content {
+    margin: 2rem 0;
+    line-height: 1.6;
+  }
+</style>

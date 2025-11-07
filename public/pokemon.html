@@ -12,55 +12,55 @@
     <div id="error" style="color: red"></div>
     <script>
       async function getPokemon(id) {
-        const url = 'https://pokeapi.co/api/v2/pokemon/' + id
-        const ret = await fetch(url)
+        const url = "https://pokeapi.co/api/v2/pokemon/" + id;
+        const ret = await fetch(url);
         if (!ret.ok) {
           throw new Error(
             `Failed to fetch ${url} HTTP ${ret.status} ${ret.statusText}`,
-          )
+          );
         }
-        return ret.json()
+        return ret.json();
       }
 
-      let res
-      let cachedid
+      let res;
+      let cachedid;
       async function getCachedPokemon(id) {
         if (cachedid !== id || !res) {
-          cachedid = id
-          res = getPokemon(id).catch(e => {
-            res = undefined
-            throw e
-          })
+          cachedid = id;
+          res = getPokemon(id).catch((e) => {
+            res = undefined;
+            throw e;
+          });
         }
-        return res
+        return res;
       }
 
       function clearCache() {
-        res = undefined
+        res = undefined;
       }
 
       async function loadPokemon() {
         try {
-          document.getElementById('error').innerHTML = ''
+          document.getElementById("error").innerHTML = "";
           const result = await getCachedPokemon(
-            document.getElementById('pokeid').value,
-          )
-          document.getElementById('output').innerHTML = result.name
+            document.getElementById("pokeid").value,
+          );
+          document.getElementById("output").innerHTML = result.name;
         } catch (e) {
-          console.error(e)
-          document.getElementById('error').innerHTML = `${e}`
-          document.getElementById('output').innerHTML = ''
+          console.error(e);
+          document.getElementById("error").innerHTML = `${e}`;
+          document.getElementById("output").innerHTML = "";
         }
       }
 
-      document.getElementById('poke').addEventListener('click', () => {
-        document.getElementById('output').innerHTML = 'Loading...'
-        loadPokemon()
-      })
+      document.getElementById("poke").addEventListener("click", () => {
+        document.getElementById("output").innerHTML = "Loading...";
+        loadPokemon();
+      });
 
-      document.getElementById('clear').addEventListener('click', () => {
-        clearCache()
-      })
+      document.getElementById("clear").addEventListener("click", () => {
+        clearCache();
+      });
     </script>
   </body>
 </html>

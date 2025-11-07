@@ -36,4 +36,8 @@ public/rss.xml
 
 tsconfig.tsbuildinfo
 .vscode
+
+.astro
+
+dist
 .eslintcache
