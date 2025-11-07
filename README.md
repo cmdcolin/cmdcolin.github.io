@@ -1,6 +1,6 @@
 # My blog
 
-Deployed on github pages, made using next.js
+Deployed on github pages, made using astro
 
 https://cmdcolin.github.io/
 
@@ -21,6 +21,8 @@ yarn dev
 Starts locally on http://localhost:3000
 
 ## Note
+
+Blog used to be made with next.js. Converted to astro in 2025
 
 Blogpost on how this site is made, things have changed so it may be of
 historical note https://cmdcolin.github.io/posts/2021-12-26-nextjs

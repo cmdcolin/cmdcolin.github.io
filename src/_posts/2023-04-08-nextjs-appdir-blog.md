@@ -8,6 +8,9 @@ show how you can make your own static site with it. Static export of the Next.js
 'app' directory was added in version 13.3
 https://nextjs.org/blog/next-13-3#static-export-for-app-router
 
+Update 2025: converted the blog to use astro. The next.js rollercoaster was fun
+while it lasted
+
 ## TL;DR
 
 See here
