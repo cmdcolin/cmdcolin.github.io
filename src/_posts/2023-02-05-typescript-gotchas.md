@@ -12,10 +12,10 @@ Typescript will not complain if you use `Object.entries` instead of
 `Object.fromEntries`
 
 ```typescript
-const stuff = [1, 2, 3];
+const stuff = [1, 2, 3]
 
 // woops, meant to use Object.fromEntries
-Object.entries(stuff.map((entry) => [entry, { id: entry }]));
+Object.entries(stuff.map(entry => [entry, { id: entry }]))
 ```
 
 [playground](https://www.typescriptlang.org/play?#code/FAYw9gdgzgLgBLArgM2QXgNoEYA0AmHAZgF1gB5AIwCsBTEGAOhohgCcBLGqACiVQYC2AQwAO3ZmwCeaAHwYJrSTjgBvdgBMAXAskBfYgEoDQA)
@@ -32,15 +32,15 @@ rejected)
 ```typescript
 function doStuff(arr: number[], extra?: { sayHiToMom: boolean }) {
   if (extra?.sayHiToMom) {
-    console.log("Hi mom");
+    console.log('Hi mom')
   }
-  return arr;
+  return arr
 }
 
-const stuff = [1, 2, 3];
+const stuff = [1, 2, 3]
 
 // woops, meant to pass that as second argument to doStuff
-doStuff(stuff.map((a) => a * 2, { sayHiToMom: true }));
+doStuff(stuff.map(a => a * 2, { sayHiToMom: true }))
 ```
 
 [playground](https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA)

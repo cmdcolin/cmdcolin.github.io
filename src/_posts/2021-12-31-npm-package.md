@@ -91,9 +91,9 @@ or functions. I will use commonjs exports here for maximum compatibility:
 ```js
 module.exports = {
   hello: () => {
-    console.log("hello world");
+    console.log('hello world')
   },
-};
+}
 ```
 
 ## Publishing a package
@@ -124,7 +124,7 @@ yarn add mypackage
 Then you can use
 
 ```js
-import { hello } from "mypackage";
+import { hello } from 'mypackage'
 ```
 
 in any of your other codebases
@@ -193,16 +193,16 @@ util.ts
 
 ```typescript
 export function getMessage() {
-  return "hello";
+  return 'hello'
 }
 ```
 
 index.ts
 
 ```typescript
-import { getMessage } from "./util";
+import { getMessage } from './util'
 export function sayMessage() {
-  console.log(getMessage());
+  console.log(getMessage())
 }
 ```
 
@@ -367,10 +367,10 @@ We can then create a test
 `test/util.spec.ts`
 
 ```typescript
-import { getMessage } from "../src/util";
-test("expected message returned", () => {
-  expect(getMessage()).toBe("hello");
-});
+import { getMessage } from '../src/util'
+test('expected message returned', () => {
+  expect(getMessage()).toBe('hello')
+})
 ```
 
 Then we can then create a script in the package.json that says `"test": "jest"`,

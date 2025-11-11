@@ -66,10 +66,10 @@ Add 'output': 'export' to the next.config.js file
 ```typescript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
-};
+  output: 'export',
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
 ```
 
 ## Step 3. Create the page that will display your posts
@@ -86,33 +86,33 @@ Then make a file page.tsx in there so it is 'app/posts/[id]/page.tsx'
 Then on this page, fill in with this
 
 ```tsx
-import { getPostById, getAllPosts } from "@/lib/api";
+import { getPostById, getAllPosts } from '@/lib/api'
 
 // Generate the post, note that this is a "react server component"! it is
 // allowed to be async
 export default async function Post({
   params: { id },
 }: {
-  params: { id: string };
+  params: { id: string }
 }) {
-  const { html, title, date } = await getPostById(id);
+  const { html, title, date } = await getPostById(id)
   return (
     <article>
       <h1>{title}</h1>
       <h4>{date}</h4>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </article>
-  );
+  )
 }
 
 // This function can statically allow nextjs to find all the posts that you
 // have made, and statically generate them
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts()
 
-  return posts.map((post) => ({
+  return posts.map(post => ({
     id: post.id,
-  }));
+  }))
 }
 
 // Set the title of the page to be the post title, note that we no longer use
@@ -121,12 +121,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params: { id },
 }: {
-  params: { id: string };
+  params: { id: string }
 }) {
-  const { title } = await getPostById(id);
+  const { title } = await getPostById(id)
   return {
     title,
-  };
+  }
 }
 ```
 
@@ -147,22 +147,22 @@ And then, add this code
 
 ```typescript
 // lib/api.ts
-import fs from "fs";
-import matter from "gray-matter";
-import path from "path";
-import { unified } from "unified";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import rehypePrettyCode from "rehype-pretty-code";
+import fs from 'fs'
+import matter from 'gray-matter'
+import path from 'path'
+import { unified } from 'unified'
+import remarkGfm from 'remark-gfm'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
+import rehypePrettyCode from 'rehype-pretty-code'
 
-const postsDirectory = path.join(process.cwd(), "_posts");
+const postsDirectory = path.join(process.cwd(), '_posts')
 
 function getPostFiles() {
-  return fs.readdirSync(postsDirectory);
+  return fs.readdirSync(postsDirectory)
 }
 
 function getParser() {
@@ -171,36 +171,34 @@ function getParser() {
     .use(remarkRehype)
     .use(remarkGfm)
     .use(rehypePrettyCode, {
-      theme: "one-dark-pro",
+      theme: 'one-dark-pro',
     })
     .use(rehypeStringify)
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
-      content: (arg) => ({
-        type: "element",
-        tagName: "a",
+      content: arg => ({
+        type: 'element',
+        tagName: 'a',
         properties: {
           href: `#${String(arg.properties?.id)}`,
-          style: "margin-right: 10px",
+          style: 'margin-right: 10px',
         },
-        children: [{ type: "text", value: "#" }],
+        children: [{ type: 'text', value: '#' }],
       }),
-    });
+    })
 }
 
 // small speedup from caching this parser
-const parser = getParser();
+const parser = getParser()
 
 export async function getPostById(id: string) {
-  const realId = id.replace(/\.md$/, "");
-  const fullPath = path.join(postsDirectory, `${realId}.md`);
-  const { data, content } = matter(
-    await fs.promises.readFile(fullPath, "utf8"),
-  );
+  const realId = id.replace(/\.md$/, '')
+  const fullPath = path.join(postsDirectory, `${realId}.md`)
+  const { data, content } = matter(await fs.promises.readFile(fullPath, 'utf8'))
 
-  const html = await parser.process(content);
-  const date = data.date as Date;
+  const html = await parser.process(content)
+  const date = data.date as Date
 
   return {
     ...data,
@@ -208,24 +206,24 @@ export async function getPostById(id: string) {
     id: realId,
     date: `${date.toISOString().slice(0, 10)}`,
     html: html.value.toString(),
-  };
+  }
 }
 
 export async function getPageMarkdown(string_: string) {
   const { data, content } = matter(
-    fs.readFileSync(path.join("_pages", string_), "utf8"),
-  );
-  const html = await parser.process(content);
+    fs.readFileSync(path.join('_pages', string_), 'utf8'),
+  )
+  const html = await parser.process(content)
 
   return {
     ...data,
     html: html.value.toString(),
-  };
+  }
 }
 
 export async function getAllPosts() {
-  const posts = await Promise.all(getPostFiles().map((id) => getPostById(id)));
-  return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+  const posts = await Promise.all(getPostFiles().map(id => getPostById(id)))
+  return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
 ```
 
@@ -236,11 +234,11 @@ your site
 
 ```tsx
 // app/page.tsx
-import Link from "next/link";
-import { getAllPosts } from "@/lib/api";
+import Link from 'next/link'
+import { getAllPosts } from '@/lib/api'
 
 export default async function Page() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts()
 
   return (
     <div>
@@ -248,19 +246,19 @@ export default async function Page() {
 
       <h2>All posts:</h2>
       <ul>
-        {posts.map((post) => {
-          const { id, date, title } = post;
+        {posts.map(post => {
+          const { id, date, title } = post
           return (
             <li key={id}>
               <Link href={`/posts/${id}`}>
                 {date} - {title}
               </Link>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
+  )
 }
 ```
 

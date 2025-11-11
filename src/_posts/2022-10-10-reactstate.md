@@ -26,62 +26,62 @@ to clear the state of what was previously there (unless you want to display
 stale results)
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 interface PokemonType {
   type: {
-    name: string;
-  };
+    name: string
+  }
 }
 interface PokemonInfo {
-  name: string;
-  types: PokemonType;
+  name: string
+  types: PokemonType
 }
 
 // util fetch function to throw if !response.ok, I use this util often
 async function myfetch(url: string, opts?: RequestInit) {
-  const response = await fetch(url, opts);
+  const response = await fetch(url, opts)
   if (!response.ok) {
     throw new Error(
       `Error fetching ${url}: HTTP ${response.status} ${await response.text()}`,
-    );
+    )
   }
-  return response.json();
+  return response.json()
 }
 
 function ErrorMessage({ error }: { error: unknown }) {
-  return <div style={{ background: "red" }}>{`${error}`}</div>;
+  return <div style={{ background: 'red' }}>{`${error}`}</div>
 }
 
 function PokemonCard({ pokemonName }: { pokemonName: string }) {
-  const [error, setError] = useState<unknown>();
-  const [pokemonInfo, setPokemonInfo] = useState<PokemonInfo>();
+  const [error, setError] = useState<unknown>()
+  const [pokemonInfo, setPokemonInfo] = useState<PokemonInfo>()
   useEffect(() => {
-    let cancelled = false;
-    (async () => {
+    let cancelled = false
+    ;(async () => {
       try {
         // important: reset the error and item state of the component!
-        setError(undefined);
-        setPokemonInfo(undefined);
+        setError(undefined)
+        setPokemonInfo(undefined)
 
         const data = await myfetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-        );
+        )
         if (!cancelled) {
-          setPokemonInfo(data);
+          setPokemonInfo(data)
         }
       } catch (e) {
-        console.error(e);
+        console.error(e)
         if (!cancelled) {
-          setError(e);
+          setError(e)
         }
       }
-    })();
+    })()
 
     return () => {
-      cancelled = true;
-    };
-  }, [pokemonName]);
+      cancelled = true
+    }
+  }, [pokemonName])
 
   return (
     <div>
@@ -89,18 +89,18 @@ function PokemonCard({ pokemonName }: { pokemonName: string }) {
         <ErrorMessage error={error} />
       ) : pokemonInfo ? (
         <div>
-          {pokemonInfo.name} is of type{" "}
-          {pokemonInfo.types.map((t) => t.type.name).join(", ")}
+          {pokemonInfo.name} is of type{' '}
+          {pokemonInfo.types.map(t => t.type.name).join(', ')}
         </div>
       ) : (
         <div>Loading...</div>
       )}
     </div>
-  );
+  )
 }
 
 export default function App() {
-  const [value, setValue] = useState("oddish");
+  const [value, setValue] = useState('oddish')
   return (
     <div className="App">
       <label htmlFor="pokemon_name">Pokemon name</label>
@@ -108,11 +108,11 @@ export default function App() {
         id="pokemon_name"
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
       <PokemonCard pokemonName={value} />
     </div>
-  );
+  )
 }
 ```
 
@@ -129,66 +129,66 @@ Working codesandbox
 https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 interface PokemonType {
   type: {
-    name: string;
-  };
+    name: string
+  }
 }
 interface PokemonInfo {
-  name: string;
-  types: PokemonType[];
+  name: string
+  types: PokemonType[]
 }
 
 // util fetch function to throw if !response.ok, I use this util often
 async function myfetch(url: string, opts?: RequestInit) {
-  const response = await fetch(url, opts);
+  const response = await fetch(url, opts)
   if (!response.ok) {
     throw new Error(
       `Error fetching ${url}: HTTP ${response.status} ${await response.text()}`,
-    );
+    )
   }
-  return response.json();
+  return response.json()
 }
 
 function usePokemonInfo(pokemonName: string) {
-  const [error, setError] = useState<unknown>();
-  const [pokemonInfo, setItemInfo] = useState<PokemonInfo>();
+  const [error, setError] = useState<unknown>()
+  const [pokemonInfo, setItemInfo] = useState<PokemonInfo>()
   useEffect(() => {
-    let cancelled = false;
-    (async () => {
+    let cancelled = false
+    ;(async () => {
       try {
-        setItemInfo(undefined); // <-- important to reset the state of the app
-        setError(undefined); // <-- important to reset the state of the app
+        setItemInfo(undefined) // <-- important to reset the state of the app
+        setError(undefined) // <-- important to reset the state of the app
         const data = await myfetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-        );
+        )
         if (!cancelled) {
-          setItemInfo(data);
+          setItemInfo(data)
         }
       } catch (e) {
-        console.error(e);
+        console.error(e)
         if (!cancelled) {
-          setError(e);
+          setError(e)
         }
       }
-    })();
+    })()
 
     return () => {
-      cancelled = true;
-    };
-  }, [pokemonName]);
+      cancelled = true
+    }
+  }, [pokemonName])
 
-  return [error, pokemonInfo] as const;
+  return [error, pokemonInfo] as const
 }
 
 function ErrorMessage({ error }: { error: unknown }) {
-  return <div style={{ background: "red" }}>{`${error}`}</div>;
+  return <div style={{ background: 'red' }}>{`${error}`}</div>
 }
 
 function PokemonCard({ pokemonName }: { pokemonName: string }) {
-  const [error, pokemonInfo] = usePokemonInfo(pokemonName);
+  const [error, pokemonInfo] = usePokemonInfo(pokemonName)
 
   return (
     <div>
@@ -196,18 +196,18 @@ function PokemonCard({ pokemonName }: { pokemonName: string }) {
         <ErrorMessage error={error} />
       ) : pokemonInfo ? (
         <div>
-          {pokemonInfo.name} is of type{" "}
-          {pokemonInfo.types.map((t) => t.type.name).join(", ")}
+          {pokemonInfo.name} is of type{' '}
+          {pokemonInfo.types.map(t => t.type.name).join(', ')}
         </div>
       ) : (
         <div>Loading...</div>
       )}
     </div>
-  );
+  )
 }
 
 export default function App() {
-  const [value, setValue] = useState("oddish");
+  const [value, setValue] = useState('oddish')
   return (
     <div className="App">
       <label htmlFor="pokemon_name">Pokemon name</label>
@@ -215,11 +215,11 @@ export default function App() {
         id="pokemon_name"
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
       <PokemonCard pokemonName={value} />
     </div>
-  );
+  )
 }
 ```
 
@@ -251,35 +251,35 @@ handle your useEffect related error, then you can use something like this. This
 assumes a `react-error-boundary` type ErrorBoundary.
 
 ```tsx
-import { ErrorBoundary } from "react-error-boundary";
+import { ErrorBoundary } from 'react-error-boundary'
 
 function PokemonCard({ pokemonName }: { pokemonName: string }) {
-  const [error, pokemonInfo] = usePokemonInfo(pokemonName);
+  const [error, pokemonInfo] = usePokemonInfo(pokemonName)
   if (error) {
-    throw error;
+    throw error
   }
 
   return (
     <div>
       {pokemonInfo ? (
         <div>
-          {pokemonInfo.name} is of type{" "}
-          {pokemonInfo.types.map((t) => t.type.name).join(", ")}
+          {pokemonInfo.name} is of type{' '}
+          {pokemonInfo.types.map(t => t.type.name).join(', ')}
         </div>
       ) : (
         <div>Loading...</div>
       )}
     </div>
-  );
+  )
 }
 
 export default function App() {
-  const [value, setValue] = useState("oddish");
+  const [value, setValue] = useState('oddish')
   return (
     <ErrorBoundary FallbackComponent={({ error }) => <div>{`${error}`}</div>}>
       <PokemonCard pokemonName={value} />
     </ErrorBoundary>
-  );
+  )
 }
 ```
 
@@ -290,32 +290,32 @@ ErrorBoundary or something to help display a nice error.
 
 ```tsx
 useEffect(() => {
-  let cancelled = false;
-  (async () => {
+  let cancelled = false
+  ;(async () => {
     try {
       // important: reset the error and item state of the component!
-      setPokemonInfo(undefined);
+      setPokemonInfo(undefined)
 
       const data = await myfetch(
         `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-      );
+      )
       if (!cancelled) {
-        setPokemonInfo(data);
+        setPokemonInfo(data)
       }
     } catch (e) {
-      console.error(e);
+      console.error(e)
       if (!cancelled) {
         setPokemonInfo(() => {
-          throw e;
-        });
+          throw e
+        })
       }
     }
-  })();
+  })()
 
   return () => {
-    cancelled = true;
-  };
-}, [pokemonName]);
+    cancelled = true
+  }
+}, [pokemonName])
 ```
 
 ## Footnote 2: The future with React data fetching

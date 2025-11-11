@@ -16,7 +16,7 @@ Here is a "React component" that prints hello world in a div
 
 ```jsx
 function HelloWorld() {
-  return <div>Hello world!</div>;
+  return <div>Hello world!</div>
 }
 ```
 
@@ -39,7 +39,7 @@ function App() {
       <p>This is my app</p>
       <HelloWorld />
     </div>
-  );
+  )
 }
 ```
 
@@ -52,9 +52,9 @@ Typically, just once in your app, you use ReactDOM to render the "App" level
 component to the page.
 
 ```js
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
 And in your index.html you have e.g.
@@ -74,8 +74,8 @@ React components can accept "props" which are like parameters to your component
 
 ```jsx
 function Hello(props) {
-  const name = props.name;
-  return <div>Hello {name}!</div>;
+  const name = props.name
+  return <div>Hello {name}!</div>
 }
 ```
 
@@ -87,7 +87,7 @@ function App() {
     <div>
       <Hello name="Colin" />
     </div>
-  );
+  )
 }
 ```
 
@@ -100,14 +100,14 @@ to do more complicated things. For example you can render a list of items
 
 ```jsx
 function List() {
-  const list = ["Apples", "Oranges", "Pears"];
+  const list = ['Apples', 'Oranges', 'Pears']
   return (
     <ul>
-      {list.map((item) => (
+      {list.map(item => (
         <li key={item}>{item}</li>
       ))}
     </ul>
-  );
+  )
 }
 ```
 
@@ -149,7 +149,7 @@ example as a class based component
 ```js
 class HelloWorld {
   render() {
-    return <div>Hello world!</div>;
+    return <div>Hello world!</div>
   }
 }
 ```
@@ -168,7 +168,7 @@ this:
 
 ```js
 function HelloWorld() {
-  return <div>Hello world</div>;
+  return <div>Hello world</div>
 }
 ```
 
@@ -177,7 +177,7 @@ would get converted to this by babel or other jsx transpiler:
 ```js
 function HelloWorld() {
   // null just means no props to the div element
-  return React.createElement("div", null, "Hello world");
+  return React.createElement('div', null, 'Hello world')
 }
 ```
 
@@ -227,8 +227,8 @@ useEffect.
 
 ```tsx
 function FormField() {
-  const [value, setValue] = useState("Initial value");
-  return <input value={value} onChange={(evt) => setValue(evt.target.value)} />;
+  const [value, setValue] = useState('Initial value')
+  return <input value={value} onChange={evt => setValue(evt.target.value)} />
 }
 ```
 
@@ -251,33 +251,33 @@ example
 // I use this myfetch helper a lot, many examples with fetch neglect to handle
 // !result.ok
 async function myfetch(url: string) {
-  const result = await fetch(url);
+  const result = await fetch(url)
   if (!result.ok) {
     throw new Error(
       `HTTP ${result.status} fetching ${url} ${await result.text()}`,
-    );
+    )
   }
-  return result.json();
+  return result.json()
 }
 function FetchStuff() {
-  const [data, setData] = useState();
-  const [error, setError] = useState();
+  const [data, setData] = useState()
+  const [error, setError] = useState()
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
-        const result = await myfetch("/my/api");
-        setData(result);
+        const result = await myfetch('/my/api')
+        setData(result)
       } catch (e) {
-        setError(e);
+        setError(e)
       }
-    })();
-  });
+    })()
+  })
   if (data) {
-    return <div>Got some data {JSON.stringify(data)}</div>;
+    return <div>Got some data {JSON.stringify(data)}</div>
   } else if (error) {
-    return <div style={{ background: "red" }}>Error {`${error}`}</div>;
+    return <div style={{ background: 'red' }}>Error {`${error}`}</div>
   } else {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 }
 ```

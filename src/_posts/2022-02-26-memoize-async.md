@@ -15,13 +15,13 @@ Example async function:
 
 ```js
 async function getData() {
-  const ret = await fetch("https://some.hardcoded.resource/file.json");
+  const ret = await fetch('https://some.hardcoded.resource/file.json')
   if (!ret.ok) {
     throw new Error(
       `Failed to fetch ${url} HTTP ${ret.status} ${await ret.text()}`,
-    );
+    )
   }
-  return ret.json();
+  return ret.json()
 }
 ```
 
@@ -30,12 +30,12 @@ Here is a technique that can be used to memoize this function
 ```js
 function getDataMemoized() {
   if (!this.promise) {
-    this.promise = getData().catch((e) => {
-      this.promise = undefined;
-      throw e;
-    });
+    this.promise = getData().catch(e => {
+      this.promise = undefined
+      throw e
+    })
   }
-  return this.promise;
+  return this.promise
 }
 ```
 
@@ -72,19 +72,19 @@ clearing the cache, so you can get a clean slate each time a test runs in unit
 testing or similar
 
 ```js
-let promise;
+let promise
 async function getDataMemoized() {
   if (!promise) {
-    promise = getData().catch((e) => {
-      promise = undefined;
-      throw e;
-    });
+    promise = getData().catch(e => {
+      promise = undefined
+      throw e
+    })
   }
-  return promise;
+  return promise
 }
 
 function clearCache() {
-  promise = undefined;
+  promise = undefined
 }
 ```
 
@@ -92,15 +92,15 @@ You can also make a general purpose utility to memoize any promise function
 
 ```js
 function memoize(fn) {
-  let promise;
+  let promise
   return () => {
     if (!promise) {
-      promise = fn().catch((e) => {
-        promise = undefined;
-        throw e;
-      });
+      promise = fn().catch(e => {
+        promise = undefined
+        throw e
+      })
     }
-  };
+  }
 }
 ```
 
@@ -121,7 +121,7 @@ or re-throw the abort exception
 
 ```js
 function isAbortException(e) {
-  return e instanceof Error && exception.name === "AbortError";
+  return e instanceof Error && exception.name === 'AbortError'
 }
 ```
 
@@ -131,30 +131,30 @@ But what if we only want to abort the cached call if literally all of them
 aborted? Then we may have to synthesize an AbortController inside our function
 
 ```js
-let promise;
-let abortcontroller;
-let listeners = 0;
+let promise
+let abortcontroller
+let listeners = 0
 async function getDataMemoized(signal) {
   if (!promise) {
-    abortcontroller = new AbortController();
+    abortcontroller = new AbortController()
 
     // synthesize a new signal instead of using the passed in signal
-    promise = getData(abortcontroller.signal).catch((e) => {
-      promise = undefined;
-      throw e;
-    });
+    promise = getData(abortcontroller.signal).catch(e => {
+      promise = undefined
+      throw e
+    })
   }
   if (signal) {
-    listeners++;
+    listeners++
     // add listener to the passed in signal
-    signal.addEventListener("abort", () => {
-      listeners--;
+    signal.addEventListener('abort', () => {
+      listeners--
       if (listeners === 0) {
-        abortcontroller.abort();
+        abortcontroller.abort()
       }
-    });
+    })
   }
-  return promise;
+  return promise
 }
 ```
 

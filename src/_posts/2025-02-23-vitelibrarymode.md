@@ -19,47 +19,47 @@ behavior I'm not a big fan of...
 For example, if your library that is using vite library mode has
 
 ```typescript
-import leftPad from "left-pad";
+import leftPad from 'left-pad'
 
-const str = leftPad("foobar", 6);
+const str = leftPad('foobar', 6)
 ```
 
 then it is turned into this in the dist folder by vite library mode
 
 ```typescript
 function d(t) {
-  return t && t.__esModule && Object.prototype.hasOwnProperty.call(t, "default")
+  return t && t.__esModule && Object.prototype.hasOwnProperty.call(t, 'default')
     ? t.default
-    : t;
+    : t
 }
-var f, o;
+var f, o
 function n() {
-  if (o) return f;
-  ((o = 1), (f = i));
+  if (o) return f
+  ;((o = 1), (f = i))
   var t = [
-    "",
-    " ",
-    "  ",
-    "   ",
-    "    ",
-    "     ",
-    "      ",
-    "       ",
-    "        ",
-    "         ",
-  ];
+    '',
+    ' ',
+    '  ',
+    '   ',
+    '    ',
+    '     ',
+    '      ',
+    '       ',
+    '        ',
+    '         ',
+  ]
   function i(a, r, e) {
-    if (((a = a + ""), (r = r - a.length), r <= 0)) return a;
-    if ((!e && e !== 0 && (e = " "), (e = e + ""), e === " " && r < 10))
-      return t[r] + a;
-    for (var u = ""; r & 1 && (u += e), (r >>= 1), r; ) e += e;
-    return u + a;
+    if (((a = a + ''), (r = r - a.length), r <= 0)) return a
+    if ((!e && e !== 0 && (e = ' '), (e = e + ''), e === ' ' && r < 10))
+      return t[r] + a
+    for (var u = ''; r & 1 && (u += e), (r >>= 1), r; ) e += e
+    return u + a
   }
-  return f;
+  return f
 }
-var P = n();
-const l = /* @__PURE__ */ d(P);
-l("foobar", 6);
+var P = n()
+const l = /* @__PURE__ */ d(P)
+l('foobar', 6)
 ```
 
 yes, that's the left-pad source code, inlined into your library's distribution
@@ -68,9 +68,9 @@ I personally believe this is bad. It could have just put this into the dist
 folder:
 
 ```typescript
-import leftPad from "left-pad";
+import leftPad from 'left-pad'
 
-const str = leftPad("foobar", 6);
+const str = leftPad('foobar', 6)
 ```
 
 then, any consumer of your library can trace the import from your library to

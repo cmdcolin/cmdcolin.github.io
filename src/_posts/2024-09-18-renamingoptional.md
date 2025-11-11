@@ -9,15 +9,15 @@ The "doStuff" team at your company created a function for you to use
 
 ```typescript
 function doStuff({ x, y, z }: { x: number; y: number; z?: number }) {
-  console.log({ x, y, z });
+  console.log({ x, y, z })
 }
 ```
 
 and then you diligently call it in your code like this
 
 ```typescript
-const obj = { x: 1, y: 2, z: 3 };
-doStuff(obj);
+const obj = { x: 1, y: 2, z: 3 }
+doStuff(obj)
 ```
 
 all fine and good
@@ -29,7 +29,7 @@ more of a "z-index" so they change the function definition to be
 
 ```typescript
 function doStuff({ x, y, zIndex }: { x: number; y: number; zIndex?: number }) {
-  console.log({ x, y, zIndex });
+  console.log({ x, y, zIndex })
 }
 ```
 
@@ -40,8 +40,8 @@ being supplied by your existing code. Typescript is also not bothered that you
 have this "rider" variable `z` that "does nothing" in this case.
 
 ```typescript
-const obj = { x: 1, y: 2, z: 3 };
-doStuff(obj); // no typescript error, z is no longer used, zIndex is optional, and you don't get the behavior you want
+const obj = { x: 1, y: 2, z: 3 }
+doStuff(obj) // no typescript error, z is no longer used, zIndex is optional, and you don't get the behavior you want
 ```
 
 ## But wait, why didn't typescript catch it?
@@ -55,7 +55,7 @@ Here is the funny thing:
   function (as an "object literal")
 
 ```typescript
-doStuff({ x: 1, y: 2, z: 3 }); // ERROR!
+doStuff({ x: 1, y: 2, z: 3 }) // ERROR!
 // Object literal may only specify known properties, and 'z' does not exist in type '{ x: number; y: number; zIndex?: number | undefined; }'.
 ```
 

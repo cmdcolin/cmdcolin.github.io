@@ -33,7 +33,7 @@ your function definition. Example:
 
 ```typescript
 function foo(param) {
-  return param + 1;
+  return param + 1
 }
 ```
 
@@ -59,7 +59,7 @@ Fail
 ```typescript
 function jsonParse(str: string) {
   // @typescript-eslint/no-unsafe-assignment balks because JSON.parse returns type any
-  const x = JSON.parse(str);
+  const x = JSON.parse(str)
 }
 ```
 
@@ -67,7 +67,7 @@ Pass
 
 ```typescript
 function jsonParse(str: string) {
-  const x = JSON.parse(str) as { a: number; b: number };
+  const x = JSON.parse(str) as { a: number; b: number }
 }
 ```
 
@@ -99,7 +99,7 @@ Fail
 
 ```typescript
 function x(param: any) {
-  return param + 1;
+  return param + 1
 }
 ```
 
@@ -109,7 +109,7 @@ Pass
 // big muscle emoji energy, just disable the wimpy error
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function x(param: any) {
-  return param + 1;
+  return param + 1
 }
 ```
 
@@ -131,7 +131,7 @@ Fail
 ```typescript
 function getSomeStuff() {
   // Uncaught (in promise) error if fails to fetch
-  fetch("http://google.com");
+  fetch('http://google.com')
 }
 ```
 
@@ -140,7 +140,7 @@ Pass
 ```typescript
 async function getSomeStuff() {
   // properly awaited
-  const result = await fetch("http://google.com");
+  const result = await fetch('http://google.com')
 }
 ```
 
@@ -170,12 +170,12 @@ save you from making
 Fail
 
 ```typescript
-const arr1 = [1, 2, 3];
-const arr2 = [4, 5, 6];
+const arr1 = [1, 2, 3]
+const arr2 = [4, 5, 6]
 for (let i = 0; i < arr1.length; i++) {
   // bad: includes is linear inside already linear loop
   if (arr2.includes(arr1[i])) {
-    alert("Found an element in arr1 that matches arr2");
+    alert('Found an element in arr1 that matches arr2')
   }
 }
 ```
@@ -183,12 +183,12 @@ for (let i = 0; i < arr1.length; i++) {
 Pass (autofixed from above!)
 
 ```typescript
-const arr1 = [1, 2, 3];
-const arr2 = new Set([4, 5, 6]);
+const arr1 = [1, 2, 3]
+const arr2 = new Set([4, 5, 6])
 for (let i = 0; i < arr1.length; i++) {
   // good: fast set based membership :+1:
   if (arr2.has(arr1[i])) {
-    alert("Found an element in arr1 that matches arr2");
+    alert('Found an element in arr1 that matches arr2')
   }
 }
 ```
@@ -207,14 +207,14 @@ few "stylistic" rules I like eslint performing, because prettier won't do it
 Fail
 
 ```typescript
-if (test) console.log("do thing");
+if (test) console.log('do thing')
 ```
 
 Pass (autofixed from above!)
 
 ```typescript
 if (test) {
-  console.log("do thing");
+  console.log('do thing')
 }
 ```
 
@@ -243,14 +243,14 @@ is sometimes a non-trivial-amount-faster
 Fail
 
 ```typescript
-array.forEach((elt) => console.log(elt));
+array.forEach(elt => console.log(elt))
 ```
 
 Pass
 
 ```typescript
 for (const elt of array) {
-  console.log(elt);
+  console.log(elt)
 }
 ```
 
@@ -275,14 +275,14 @@ Fail
 
 ```typescript
 // ts-ignore
-doSomethingReallyDumb();
+doSomethingReallyDumb()
 ```
 
 Pass
 
 ```typescript
 // ts-expect-error
-doSomethingReallyDumb(); // cool we're ok now
+doSomethingReallyDumb() // cool we're ok now
 ```
 
 ## Conclusion?
@@ -305,63 +305,63 @@ The `@typescript-eslint/recommended-type-checked` is called
 ### Footnote 3. Example of the "full error handling" in IIFE
 
 ```typescript
-const [data, setData] = useState<MyData>();
-const [data, setError] = useState<unknown>();
+const [data, setData] = useState<MyData>()
+const [data, setError] = useState<unknown>()
 useEffect(() => {
   // gotta ignore the warning in this case
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  (async () => {
+  ;(async () => {
     // do full try/catch error handling in here because the "buck stops here"
     // as far as the promise is concerned
     try {
-      const response = await fetch("http://google.com");
+      const response = await fetch('http://google.com')
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status} ${await response.text()}`);
+        throw new Error(`HTTP ${response.status} ${await response.text()}`)
       }
-      const result = await response.json();
-      setData(result);
+      const result = await response.json()
+      setData(result)
     } catch (e) {
-      setError(e);
+      setError(e)
     }
-  })();
-}, []);
+  })()
+}, [])
 ```
 
 alternatively, without the disable, you can add a catch handler
 
 ```typescript
-const [data, setData] = useState<MyData>();
-const [data, setError] = useState<unknown>();
+const [data, setData] = useState<MyData>()
+const [data, setError] = useState<unknown>()
 useEffect(() => {
-  (async () => {
-    const response = await fetch("http://google.com");
+  ;(async () => {
+    const response = await fetch('http://google.com')
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status} ${await response.text()}`);
+      throw new Error(`HTTP ${response.status} ${await response.text()}`)
     }
-    const result = await response.json();
-    setData(result);
-  })().catch((e) => setError(e));
-}, []);
+    const result = await response.json()
+    setData(result)
+  })().catch(e => setError(e))
+}, [])
 ```
 
 ### Footnote 4. Example of the type narrowing
 
 ```typescript
 export function typeNarrowingForLoop() {
-  let x;
-  const arr = [1, 2, 3];
+  let x
+  const arr = [1, 2, 3]
   for (const elt of arr) {
-    x = elt;
+    x = elt
   }
-  return x; // some type inference took place from usage inside for loop, type is number|undefined
+  return x // some type inference took place from usage inside for loop, type is number|undefined
 }
 
 export function nonTypeNarrowingForEach() {
-  let x;
-  const arr = [1, 2, 3];
-  arr.forEach((elt) => {
-    x = elt;
-  });
-  return x; // no type inference took place from the forEach, type is undefined
+  let x
+  const arr = [1, 2, 3]
+  arr.forEach(elt => {
+    x = elt
+  })
+  return x // no type inference took place from the forEach, type is undefined
 }
 ```
