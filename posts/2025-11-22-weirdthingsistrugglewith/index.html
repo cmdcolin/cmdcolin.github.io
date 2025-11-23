@@ -14,10 +14,6 @@ just a ton of static pages</p>
 <p>Web workers are cool. But they are really tough to grapple with. There is a
 large serialization overhead and so you have to design complex systems for the
 main thread and the web worker to communicate partial results</p>
-<h2 id="tension-between-designing-abortability-into-computation-heavy-workflows">Tension between designing abortability into computation heavy workflows</h2>
-<p>Computations frequently statically run for a long time…sometimes minutes. How
-do you abort it?</p>
-<p>How often do you even check?</p>
 <h2 id="tension-between-using-react-and-client-side-js-at-all-versus-just-having-plain-html">Tension between using React and client side JS at all versus just having plain html</h2>
 <p>If you’re a React person shaking your damn head thinking this guy is a damn
 fool, just know I have deeply invested years of my life into react. React
@@ -45,6 +41,7 @@ versus what is volatile and doesn’t need persisting</p>
 <li>Tension about user preferences versus app level configuration</li>
 <li>Tension between assuming something can be resolved statically versus doing
 asynchronous lookup for everything</li>
+<li>Tension between designing abortability into computation heavy workflows</li>
 </ul> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
