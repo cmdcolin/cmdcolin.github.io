@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.16.0"><title>Weird problems I grapple with a lot</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Weird problems I grapple with a lot</h1> <h4 data-astro-cid-lvjzyg5v>2025-11-22</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I solve a lot of problems that kind of approach maybe some universal struggle
+that people have, but a lot of them are way off in nether world too.</p>
+<p>I could elaborate on any one of these points, so this post might get updated
+over time to gain more examples or detail</p>
+<h2 id="limits-of-static-site-systems">Limits of static site systems</h2>
+<p>This is an ongoing saga for me but I generated a static site with over 100,000
+pages. It is kind of ridiculous. There is no login or dynamic behavior really,
+just a ton of static pages</p>
+<h2 id="tension-between-web-worker-and-main-thread-work">Tension between web worker and main thread work</h2>
+<p>Web workers are cool. But they are really tough to grapple with. There is a
+large serialization overhead and so you have to design complex systems for the
+main thread and the web worker to communicate partial results</p>
+<h2 id="tension-between-designing-abortability-into-computation-heavy-workflows">Tension between designing abortability into computation heavy workflows</h2>
+<p>Computations frequently statically run for a long time…sometimes minutes. How
+do you abort it?</p>
+<p>How often do you even check?</p>
+<h2 id="tension-between-using-react-and-client-side-js-at-all-versus-just-having-plain-html">Tension between using React and client side JS at all versus just having plain html</h2>
+<p>If you’re a React person shaking your damn head thinking this guy is a damn
+fool, just know I have deeply invested years of my life into react. React
+enables us to make overly complicated website apps, tons of rope to hang
+ourselves with, and the result is often much slower to boot. People frequently
+talk about “virtualizing” after no more than like 20 items on the page. Fuck
+that</p>
+<h2 id="tension-where-in-the-system-is-best-to-cache">Tension where in the system is best to cache</h2>
+<p>If you cache at too low of a level, how do you know how big the cache can be. If
+you cache at a very high level, you have to wire that through every part of your
+apps code? I don’t use redis, I am thinking about caching client side js things.</p>
+<h2 id="tension-where-in-the-system-is-best-to-parallelize-on">Tension where in the system is best to parallelize on</h2>
+<p>I have a system where data items go through a series of N processing steps</p>
+<p>My first attempt at the system was to make N scripts, each performing the
+processing on each item</p>
+<p>However, now I try to synchronize with the remote, and I now literally re-run
+every processing step on every data item on every update</p>
+<p>You could think of other ways of doing this (a single script that runs all N
+steps, and then only run the update on new files, but there is inertia from my
+early choice to do things this way that makes it hard to change</p>
+<h2 id="other-examples">Other examples</h2>
+<p>Tension about what belongs in an application state (e.g. survives page refresh)
+versus what is volatile and doesn’t need persisting</p>
+<ul>
+<li>Tension about user preferences versus app level configuration</li>
+<li>Tension between assuming something can be resolved statically versus doing
+asynchronous lookup for everything</li>
+</ul> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> </footer> </body></html> 
