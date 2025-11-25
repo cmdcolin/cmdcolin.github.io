@@ -1,11 +1,12 @@
 body {
   font-family: 'Helvetica', 'Arial', sans-serif;
   /*
-   * https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj 
+   * https://dev.to/madsstoumann/dark-mode-in-3-lines-of-css-and-other-adventures-1ljj
    */
   background-color: Canvas;
   color: CanvasText;
   color-scheme: light dark;
+  overflow-wrap: break-word;
 }
 
 img {

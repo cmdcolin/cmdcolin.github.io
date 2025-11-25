@@ -13,7 +13,7 @@ function doStuff({ x, y, z }: { x: number; y: number; z?: number }) {
 }
 ```
 
-and then you diligently call it in your code like this
+Then, you diligently call it in your code like this
 
 ```typescript
 const obj = { x: 1, y: 2, z: 3 }
@@ -24,8 +24,8 @@ all fine and good
 
 ## Later on, the optional "prop" is renamed
 
-The `doStuff` team says, well, it's not really a true "z coordinate"....it's
-more of a "z-index" so they change the function definition to be
+The `doStuff` team says, well, it's not really a true "z coordinate"...it's more
+of a "z-index" so they change the function definition to be
 
 ```typescript
 function doStuff({ x, y, zIndex }: { x: number; y: number; zIndex?: number }) {
@@ -35,7 +35,7 @@ function doStuff({ x, y, zIndex }: { x: number; y: number; zIndex?: number }) {
 
 ## Now you might have a bug
 
-Since `zIndex` is optional, typescript will not warn you about `zIndex` not
+Since `zIndex` is optional, TypeScript will not warn you about `zIndex` not
 being supplied by your existing code. Typescript is also not bothered that you
 have this "rider" variable `z` that "does nothing" in this case.
 
@@ -44,14 +44,14 @@ const obj = { x: 1, y: 2, z: 3 }
 doStuff(obj) // no typescript error, z is no longer used, zIndex is optional, and you don't get the behavior you want
 ```
 
-## But wait, why didn't typescript catch it?
+## But wait, why didn't TypeScript catch it?
 
 Here is the funny thing:
 
-- Typescript DOES NOT catch this issue when you pass it via this separately
+- TypeScript DOES NOT catch this issue when you pass it via this separately
   created "obj" variable.
 
-- Typescript DOES(!!!) catch this issue when you pass it directly to the
+- TypeScript DOES(!!!) catch this issue when you pass it directly to the
   function (as an "object literal")
 
 ```typescript
@@ -82,7 +82,7 @@ https://basarat.gitbook.io/typescript/type-system/freshness
 This post was given lots of downvotes in /r/typescript and sarcasm that "no duh,
 breaking changes are breaking".
 
-However, some helpful comments were made also. Read on
+However, some helpful comments were made. Read on
 https://www.reddit.com/r/typescript/comments/1fk1rqe/be_careful_when_you_rename_an_optional_prop_in/
 
 I think maybe people are distracted that I posited this as the "doStuff team" vs
