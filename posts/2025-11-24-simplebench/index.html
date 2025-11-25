@@ -231,9 +231,10 @@ avoid network variability</p>
 test realistic scenarios</p>
 <h2 id="sidenote-ai-coding">Sidenote: AI coding</h2>
 <p>Formulating tests and benchmarks can work together to allow AI to automatically
-or agentically iterate to find faster solutions. You can tell claude code to
-just keep finding optimizations. You can even tell claude to analyze cpuprofile
-files from <code>node --cpu-prof script.ts</code></p>
+or agentically iterate to find faster solutions. You can tell Claude code to
+just keep finding optimizations. You can even tell Claude to analyze cpuprofile
+files from <code>node --cpu-prof script.ts</code>. It’s not always that good at finding
+very impactful optimizations, but it’s not terrible</p>
 <p>Here is a script that Claude made on the fly to analyze the cpu profile You can
 also browse the cpuprofile yourself with e.g. <code>npx speedscope file.cpuprofile</code></p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> fs </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
