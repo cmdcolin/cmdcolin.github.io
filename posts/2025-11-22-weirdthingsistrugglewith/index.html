@@ -16,11 +16,12 @@ to man, just know I have deeply invested years of my life into React, yet it
 tends to enable us to make overly complicated apps, with tons of rope to hang
 ourselves with</p>
 <h2 id="tension-between-trying-to-show-big-data-in-a-web-page-and-virtualizing">Tension between trying to show big data in a web page and ‘virtualizing’</h2>
-<p>People frequently talk about “virtualizing” after when there’s only like 100
-items on the page when using React. Virtualization (simulating scrolling of a
-datagrid and loading items on the fly using js for example) in my opinion is
-generally a bad compromise with many negative user experience and should not be
-used in most cases, your users will notice the awkwardness of it</p>
+<p>People frequently talk about “virtualizing” when there’s only like 100 items on
+the page when using React. However, “virtualization” is generally a bad
+compromise with many negative user experience consequences (janky scroll, ctrl+f
+not working, etc), and should not be the first thing to reach for. Your users
+will notice the awkwardness of it and you will have to invest a lot of
+engineering work to even make it passable</p>
 <h2 id="tension-where-in-the-system-is-best-to-cache">Tension where in the system is best to cache</h2>
 <p>If you cache at too low of a level, how do you know how big the cache can be. If
 you cache at a very high level, you have to wire that through every part of your
