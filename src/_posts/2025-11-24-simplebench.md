@@ -5,7 +5,9 @@ title:
 date: 2025-11-25
 ---
 
-![](/media/doggo.png)
+![](/media/doggo2.png)
+
+## Background
 
 So, you spend all day making "performance improvements" to make your code go
 faster
@@ -23,7 +25,7 @@ And, just like tests, you can have different levels of benchmarks
 
 Let's evaluate both of these scenarios
 
-## Part 1 - 'unit benchmarks' using `vitest bench`
+## Creating 'unit benchmarks' using `vitest bench`
 
 If you are already using vitest (it is a very popular test library), you might
 be happy to know that there is a subtool called `vitest bench` that is built-in.
@@ -54,40 +56,33 @@ but this can be a little tricky so be aware of it
 set -e
 
 CURRENT_BRANCH=$(git branch --show-current)
-BRANCH1="${1:-main}"
+BRANCH1="${1:-master}"
 BRANCH2="${2:-$CURRENT_BRANCH}"
 
-rm -rf dist_branch1 dist_branch2
-
-echo "Building $BRANCH1 branch..."
-
-STASH_OUTPUT=$(git stash)
-if [[ "$STASH_OUTPUT" != "No local changes to save" ]]; then
-  STASHED=1
-else
-  STASHED=0
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "Error: Uncommitted changes detected. Please commit or stash your changes first."
+  exit 1
 fi
 
+rm -rf esm_branch1 esm_branch2
+
+echo "Building $BRANCH1 branch..."
 git checkout "$BRANCH1"
 yarn
 yarn build
-mv dist dist_branch1
-echo "$BRANCH1" >dist_branch1/branchname.txt
+mv esm esm_branch1
+echo "$BRANCH1" >esm_branch1/branchname.txt
 
 echo "Building $BRANCH2 branch..."
 git checkout "$BRANCH2"
 yarn
 yarn build
-mv dist dist_branch2
-echo "$BRANCH2" >dist_branch2/branchname.txt
+mv esm esm_branch2
+echo "$BRANCH2" >esm_branch2/branchname.txt
 
 echo "Build complete!"
-echo "$BRANCH1 build: dist_branch1/index.js"
-echo "$BRANCH2 build: dist_branch2/index.js"
-
-if [[ $STASHED -eq 1 ]]; then
-  git stash pop
-fi
+echo "$BRANCH1 build: esm_branch1/index.js"
+echo "$BRANCH2 build: esm_branch2/index.js"
 ```
 
 Then in your package.json you can have
@@ -98,7 +93,7 @@ Then in your package.json you can have
   "version": "0.0.0",
   "scripts": {
     "build": "yourbuild",
-    "prebench": "./scripts/build-both-branches.sh \"$BRANCH1\" \"$BRANCH2\""
+    "prebench": "./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"
     "bench": "vitest bench"
   }
 }
@@ -114,9 +109,7 @@ yarn bench
 BRANCH1=branch1 BRANCH2=branch2 yarn bench
 ```
 
-### An example script
-
-Then if you have a function in your code like
+Then if you have a function in your code that you want to optimize, like this...
 
 ```typescript
 // src/index.ts
@@ -125,7 +118,8 @@ export function pow(n: number, exp: number) {
 }
 ```
 
-And you have the genius idea that plain multiplying in a loop would be better
+Then you can make a new branch with a genius idea that plain multiplying in a
+loop would be better
 
 ```typescript
 // src/index.ts
@@ -193,14 +187,17 @@ benchPow({
 })
 ```
 
+That benchmark code is a little more verbose than it needs to be, but it is
+quite re-usable across projects
+
 The resulting benchmark report clearly prints the branchname that is the fastest
 with some nice statistics
 
-## Part 2 - Puppeteer end-to-end tests of your web app
+## Creating 'end-to-end' benchmarks using Puppeteer
 
-The end-to-end tests are where the rubber hits the road. You have spent all f'n
-day making microoptimizations, you are ready for it to make a difference. Time
-to test in the real full build of your webapp
+Creating end-to-end benchmarks are really IMO where the rubber hits the road.
+You have spent all day making microoptimizations, now it's time to confirm it
+makes an impact.
 
 With puppeteer, you can test against live real builds of your webapp. I
 recommend using production builds, no dev servers and localhost only stuff to
@@ -210,7 +207,8 @@ Here is an example setup I have used:
 
 - You create multiple builds of your (web-) app
 - Store each build in a separate sub-directory in the `builds/` folder
-- Create this bash script
+- Create this bash script, which runs hyperfine to measure the total time taken
+  by the puppeteer script
 
 ```bash
 #!/bin/bash
@@ -298,18 +296,20 @@ actions like click around, etc. to test realistic scenarios. It is good to
 confirm that you are visually testing the right thing by checking the outputted
 screenshots.
 
-## Sidenote: AI coding
+## Sidenote: Agentically optimizing your code
 
-Formulating tests and benchmarks like these can allow AI to start automatically
-or agentically iterating to find faster solutions. You can just ask Claude code
-to find optimizations, and see if it comes up with anything that actually
-works.It's not always that good at finding very impactful optimizations, but
-it's not terrible
+Formulating tests and benchmarks like this can allow AI to start automatically
+or agentically iterating to find faster solutions.
 
-You can even tell Claude to analyze cpuprofile files that are generated from
+You can just ask Claude code to "find optimizations", and see if it comes up
+with anything that actually works. It's not always that good at finding very
+impactful optimizations, but with a human in the loop you can guide it towards
+some interesting solutions.
+
+You can even tell Claude to analyze .cpuprofile files that are generated from
 `node --cpu-prof script.ts`.
 
-Here is a script that Claude made on the fly to analyze the .cpuprofile file
+Here is a script that Claude made to analyze a .cpuprofile file
 
 ```typescript
 import fs from 'fs'
@@ -399,6 +399,8 @@ with e.g. `npx speedscope file.cpuprofile`
 
 ![](/media/turkey.jpg)
 
+Wild turkeys can run up to 25 miles per hour
+
 [1] It is probably not absolutely required to use the compiled artifacts to run
 the benchmarks. The benchmarks by default for example can just read from the
 'src' folder. However, using the compiled artifacts is a fairly 'simple' way to
@@ -411,4 +413,5 @@ temporarily
 
 [3] I say this as someone that has superstitiously implemented hundreds of
 microptimizations for it to have absolutely zero effect in a end-to-end
-benchmark
+benchmark. Conversely, these branch comparison tests have allowed me to ratchet
+back-to-back 5-10% improvements to achieve significant gains
