@@ -6,21 +6,21 @@ sure anyone else would really care about</p>
 <p>In any case, here are some struggles that I seem to grapple with a lot. Share
 your own struggles. I may update this post over time with more detail or
 examples</p>
-<h2 id="limits-of-static-site-systems">Limits of static site systems</h2>
-<p>This is an ongoing saga for me but I generated a static site with over 100,000
-pages. It is kind of ridiculous. There is no login or dynamic behavior really,
-just a ton of static pages</p>
 <h2 id="tension-between-web-worker-and-main-thread-work">Tension between web worker and main thread work</h2>
 <p>Web workers are cool. But they are really tough to grapple with. There is a
 large serialization overhead and so you have to design complex systems for the
 main thread and the web worker to communicate partial results</p>
-<h2 id="tension-between-using-react-and-client-side-js-at-all-versus-just-having-plain-html">Tension between using React and client side JS at all versus just having plain html</h2>
-<p>If you’re a React person shaking your damn head thinking this guy is a damn
-fool, just know I have deeply invested years of my life into react. React
-enables us to make overly complicated website apps, tons of rope to hang
-ourselves with, and the result is often much slower to boot. People frequently
-talk about “virtualizing” after no more than like 20 items on the page. Fuck
-that</p>
+<h2 id="tension-between-making-complex-client-side-logic-and-simple-html-pages">Tension between making complex client side logic and simple HTML pages</h2>
+<p>If you’re a React person thinking this guy is a damn fool, React is god’s gift
+to man, just know I have deeply invested years of my life into React, yet it
+tends to enable us to make overly complicated apps, with tons of rope to hang
+ourselves with</p>
+<h2 id="tension-between-trying-to-show-big-data-in-a-web-page-and-virtualizing">Tension between trying to show big data in a web page and ‘virtualizing’</h2>
+<p>People frequently talk about “virtualizing” after when there’s only like 100
+items on the page when using React. Virtualization (simulating scrolling of a
+datagrid and loading items on the fly using js for example) in my opinion is
+generally a bad compromise with many negative user experience and should not be
+used in most cases, your users will notice the awkwardness of it</p>
 <h2 id="tension-where-in-the-system-is-best-to-cache">Tension where in the system is best to cache</h2>
 <p>If you cache at too low of a level, how do you know how big the cache can be. If
 you cache at a very high level, you have to wire that through every part of your
@@ -44,6 +44,8 @@ asynchronous lookup for everything</li>
 <li>Tension between designing abortability into computation heavy workflows</li>
 <li>Tension between building in a function vs relying on an external tool to do
 something</li>
+<li>Tension between seeing something measurably improve performance in a
+microbenchmark, but doing nothing at a automated end-to-end performance test</li>
 </ul> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
