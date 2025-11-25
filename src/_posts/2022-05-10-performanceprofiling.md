@@ -120,7 +120,7 @@ branches were merged and things got faster. [2]
 
 Excessive allocations will increase "GC pressure" (the garbage collector will
 invoke more Minor and Major GC, which you will see in your performance profiling
-reuslts as yellow boxes)
+results as yellow boxes)
 
 ## Conclusion
 

@@ -40,7 +40,7 @@ https://gtk-rs.org/gtk-rs-core/git/docs/glib/struct.BoxedAnyObject.html
 
 The `BoxedAnyObject` is a `GObject`, so this was an good route to storing the
 `ListView` items. There was no example code for connecting the `ListStore` with
-the `ColumnView`, so I stuggled for awhile before realizing that the `ListView`
+the `ColumnView`, so I struggled for awhile before realizing that the `ListView`
 example in the `gtk4-rs` codebase has similar concepts.
 
 See [1] for minimal usage of `ColumnView` that I contributed to the `gtk4-rs`
