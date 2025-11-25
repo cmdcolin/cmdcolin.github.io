@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.16.0"><title>Are your optimizations making any improvement? A simplified setup to benchmark two branches</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Are your optimizations making any improvement? A simplified setup to benchmark two branches</h1> <h4 data-astro-cid-lvjzyg5v>2025-11-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>So, you spend all day making “performance improvements” to make your code go
+faster</p>
+<p>But are you really making a difference? You might ‘feel like it’ but how can you
+really tell? Ultimately systematically measuring the difference using a
+benchmark is very VERY important [3]. For optimization work, it is a level of
+proof that is nearly as important as proving correctness of your code with
+tests. And similarly you can have</p>
+<ul>
+<li>unit tests or unit benchmarks</li>
+<li>end-to-end tests or end-to-end benchmarks</li>
+</ul>
+<p>Let’s evaluate both of these scenarios</p>
+<h2 id="part-1---vitest-bench-and-microbenchmarks-or-unit-benchmarks">Part 1 - <code>vitest bench</code> and microbenchmarks or ‘unit benchmarks’</h2>
+<p>If you are already using vitest (it is a very popular test library), you might
+be happy to know that there is a subtool called <code>vitest bench</code> that is built-in.</p>
+<p>But, these libraries do not immediately answer a simple condition that I
+frequently want to benchmark:</p>
+<p>Is the branch I am working on faster than master?</p>
+<p>This is a somewhat tricky scenario to set up, not automatically solved by nearly
+any benchmarking library, but here is one simple script that can help to do so</p>
+<p>This script uses yarn v1, and assumes that we compile code and output to a
+folder called “dist”[1]</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">set</span><span style="color:#79B8FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">CURRENT_BRANCH</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> branch</span><span style="color:#79B8FF"> --show-current</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">BRANCH1</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">${1</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">master</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">BRANCH2</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">${2</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">$CURRENT_BRANCH</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> dist_branch1</span><span style="color:#9ECBFF"> dist_branch2</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Building </span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> branch..."</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">STASH_OUTPUT</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> stash</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [[ </span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$STASH_OUTPUT</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> !=</span><span style="color:#9ECBFF"> "No local changes to save"</span><span style="color:#E1E4E8"> ]]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#E1E4E8">  STASHED</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">1</span></span>
+<span class="line"><span style="color:#F97583">else</span></span>
+<span class="line"><span style="color:#E1E4E8">  STASHED</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">0</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> dist</span><span style="color:#9ECBFF"> dist_branch1</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">dist_branch1/branchname.txt</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Building </span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> branch..."</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> dist</span><span style="color:#9ECBFF"> dist_branch2</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">dist_branch2/branchname.txt</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Build complete!"</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> build: dist_branch1/index.js"</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> build: dist_branch2/index.js"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [[ $STASHED </span><span style="color:#F97583">-eq</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8"> ]]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#B392F0">  git</span><span style="color:#9ECBFF"> stash</span><span style="color:#9ECBFF"> pop</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span></code></pre>
+<p>Then in your package.json you can have</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourpackage"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"0.0.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourbuild"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "bench"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"./scripts/build-both-branches.sh </span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">$BRANCH1</span><span style="color:#79B8FF">\"</span><span style="color:#79B8FF"> \"</span><span style="color:#9ECBFF">$BRANCH2</span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF"> &#x26;&#x26; vitest bench"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Then you can run your benchmark like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># default: compare current branch against master</span></span>
+<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> bench</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># custom env variables: compare branch1 and branch2</span></span>
+<span class="line"><span style="color:#E1E4E8">BRANCH1</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">branch1</span><span style="color:#E1E4E8"> BRANCH2</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">branch2</span><span style="color:#B392F0"> yarn</span><span style="color:#9ECBFF"> bench</span></span></code></pre>
+<p>Then if you have a function in your code like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> Math.</span><span style="color:#B392F0">pow</span><span style="color:#E1E4E8">(n, exp)</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>And you have the genious idea that you can unroll the loop</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> total </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> n</span></span>
+<span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> exp; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    n </span><span style="color:#F97583">*=</span><span style="color:#E1E4E8"> exp</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Then you can make a benchmark like this</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { readFileSync } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { bench, describe } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'vitest'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { pow </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> pow1 } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../dist_branch1/index.js'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { pow </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> pow2 } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../dist_branch2/index.js'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> branch1Name</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> readFileSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dist_branch1/branchname.txt'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">trim</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> branch2Name</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> readFileSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dist_branch2/branchname.txt'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">trim</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> benchPow</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#FFAB70">  n</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  exp</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  iterations</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  warmupIterations</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span></span>
+<span class="line"><span style="color:#FFAB70">  exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span></span>
+<span class="line"><span style="color:#FFAB70">  iterations</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span></span>
+<span class="line"><span style="color:#FFAB70">  warmupIterations</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span></span>
+<span class="line"><span style="color:#E1E4E8">}) {</span></span>
+<span class="line"><span style="color:#B392F0">  describe</span><span style="color:#E1E4E8">(name, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    bench</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">      branch1Name,</span></span>
+<span class="line"><span style="color:#E1E4E8">      () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">        pow1</span><span style="color:#E1E4E8">(n, exp)</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      opts,</span></span>
+<span class="line"><span style="color:#E1E4E8">    )</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    bench</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">      branch2Name,</span></span>
+<span class="line"><span style="color:#E1E4E8">      () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">        pow2</span><span style="color:#E1E4E8">(n, exp)</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      opts,</span></span>
+<span class="line"><span style="color:#E1E4E8">    )</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">benchPow</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  n: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  exp: </span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  warmupIterations: </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  iterations: </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<p>This system lets you, very easily, test whether the branch you are working on is
+faster than the master branch and the benchmark report output clearly prints
+which branch is which because the branch name is read from a text file in the
+dist directory that the bash script adds</p>
+<h2 id="part-2---puppeteer-end-to-end-tests-of-your-web-app">Part 2 - Puppeteer end-to-end tests of your web app</h2>
+<p>The end-to-end tests are where the rubber hits the road. You have spent all f’n
+day making microoptimizations, you are ready for it to make a difference. Time
+to test in the real full build of your webapp</p>
+<p>With puppeteer, you can test against live real builds of your webapp. I
+recommend using production builds, no dev servers and localhost only stuff to
+avoid network variability</p>
+<p>Here is an example setup I have used:</p>
+<ul>
+<li>You create multiple builds of your webapp</li>
+<li>Store them in a <code>builds/</code> folder</li>
+<li>Create this bash script</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">BASE_PORT</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">8000</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> results</span></span>
+<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> results</span></span>
+<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> screenshots</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## kill background scripts after finished</span></span>
+<span class="line"><span style="color:#6A737D">## https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/</span></span>
+<span class="line"><span style="color:#79B8FF">trap</span><span style="color:#9ECBFF"> "exit"</span><span style="color:#9ECBFF"> INT</span><span style="color:#9ECBFF"> TERM</span></span>
+<span class="line"><span style="color:#79B8FF">trap</span><span style="color:#9ECBFF"> "kill 0"</span><span style="color:#9ECBFF"> EXIT</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$BASE_PORT</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#9ECBFF"> builds/*</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">do</span></span>
+<span class="line"><span style="color:#B392F0">  npx</span><span style="color:#9ECBFF"> http-server</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$i</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$X</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF"> -s</span><span style="color:#E1E4E8"> &#x26;</span></span>
+<span class="line"><span style="color:#79B8FF">  echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$X</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$i</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">  X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$((</span><span style="color:#B392F0">X</span><span style="color:#9ECBFF"> +</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#F97583">done</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">declare</span><span style="color:#79B8FF"> -a</span><span style="color:#E1E4E8"> commands</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">declare</span><span style="color:#79B8FF"> -a</span><span style="color:#E1E4E8"> names</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$BASE_PORT</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#9ECBFF"> builds/*</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">do</span></span>
+<span class="line"><span style="color:#E1E4E8">  build_name</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">basename</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$i</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  screenshot_path</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"screenshots/</span><span style="color:#E1E4E8">$build_name</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">  commands</span><span style="color:#F97583">+=</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"node scripts/profile_app.ts </span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">http://localhost:</span><span style="color:#E1E4E8">$X</span><span style="color:#9ECBFF">/</span><span style="color:#79B8FF">\"</span><span style="color:#79B8FF"> \"</span><span style="color:#E1E4E8">$screenshot_path</span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  names</span><span style="color:#F97583">+=</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"-n"</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$build_name</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$((</span><span style="color:#B392F0">X</span><span style="color:#9ECBFF"> +</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#F97583">done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Running hyperfine with the following commands:"</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> cmd </span><span style="color:#F97583">in</span><span style="color:#9ECBFF"> "${</span><span style="color:#E1E4E8">commands</span><span style="color:#9ECBFF">[</span><span style="color:#F97583">@</span><span style="color:#9ECBFF">]}"</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">do</span></span>
+<span class="line"><span style="color:#79B8FF">  echo</span><span style="color:#9ECBFF"> "  - </span><span style="color:#E1E4E8">$cmd</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#F97583">done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">hyperfine</span><span style="color:#79B8FF"> -i</span><span style="color:#79B8FF"> --export-json</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$output_json</span><span style="color:#9ECBFF">.json"</span><span style="color:#79B8FF"> --warmup</span><span style="color:#79B8FF"> 1</span><span style="color:#79B8FF"> --runs</span><span style="color:#79B8FF"> 8</span><span style="color:#9ECBFF"> "${</span><span style="color:#E1E4E8">names</span><span style="color:#9ECBFF">[</span><span style="color:#F97583">@</span><span style="color:#9ECBFF">]}"</span><span style="color:#9ECBFF"> "${</span><span style="color:#E1E4E8">commands</span><span style="color:#9ECBFF">[</span><span style="color:#F97583">@</span><span style="color:#9ECBFF">]}"</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#79B8FF"> -e</span><span style="color:#9ECBFF"> "\n"</span></span>
+<span class="line"></span></code></pre>
+<p>Then you can have your puppeteer script</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> puppeteer </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'puppeteer'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> WAIT_TIMEOUT</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 30_000</span><span style="color:#6A737D"> // 30 seconds</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> url</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.argv[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> screenshotPath</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.argv[</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> timeoutToken</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> screenshotPath </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> '.timeout'</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> browser</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> puppeteer.</span><span style="color:#B392F0">launch</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    args: [</span><span style="color:#9ECBFF">'--no-sandbox'</span><span style="color:#E1E4E8">], </span><span style="color:#6A737D">// needed on my linux setup, not ideal probably</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> page</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> browser.</span><span style="color:#B392F0">newPage</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">goto</span><span style="color:#E1E4E8">(url)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> params</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> URL</span><span style="color:#E1E4E8">(url).searchParams</span></span>
+<span class="line"><span style="color:#F97583">  try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">waitForFunction</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">      () </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#E1E4E8">        document.</span><span style="color:#B392F0">querySelectorAll</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[data-testid="thing_to_wait_dor"]'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">          .</span><span style="color:#79B8FF">length</span><span style="color:#F97583"> ===</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      { timeout: </span><span style="color:#79B8FF">WAIT_TIMEOUT</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    )</span></span>
+<span class="line"><span style="color:#6A737D">    // create screenshots to confirm visually</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">screenshot</span><span style="color:#E1E4E8">({ path: screenshotPath </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> '.png'</span><span style="color:#E1E4E8"> })</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Error during profiling:'</span><span style="color:#E1E4E8">, e)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> browser.</span><span style="color:#B392F0">close</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">  process.</span><span style="color:#B392F0">exit</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">})()</span></span></code></pre>
+<p>Optionally you can make puppeteer do user actions like click around, etc. to
+test realistic scenarios</p>
+<h2 id="sidenote-ai-coding">Sidenote: AI coding</h2>
+<p>Formulating tests and benchmarks can work together to allow AI to automatically
+or agentically iterate to find faster solutions. You can tell claude code to
+just keep finding optimizations. You can even tell claude to analyze cpuprofile
+files from <code>node --cpu-prof script.ts</code></p>
+<p>Here is a script that Claude made on the fly to analyze the cpu profile You can
+also browse the cpuprofile yourself with e.g. <code>npx speedscope file.cpuprofile</code></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> fs </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> profileFile</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.argv[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">||</span><span style="color:#E1E4E8"> fs.</span><span style="color:#B392F0">readdirSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">find</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">f</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> f.</span><span style="color:#B392F0">endsWith</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.cpuprofile'</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">profileFile) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'No .cpuprofile file found'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  process.</span><span style="color:#B392F0">exit</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Analyzing: ${</span><span style="color:#E1E4E8">profileFile</span><span style="color:#9ECBFF">}</span><span style="color:#79B8FF">\n</span><span style="color:#9ECBFF">`</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> profile</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(fs.</span><span style="color:#B392F0">readFileSync</span><span style="color:#E1E4E8">(profileFile, </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Build a map of node ID to node</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> nodes</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> node</span><span style="color:#F97583"> of</span><span style="color:#E1E4E8"> profile.nodes) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  nodes.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(node.id, node)</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Calculate self time for each node</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> selfTime</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> totalTime</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> sample</span><span style="color:#F97583"> of</span><span style="color:#E1E4E8"> profile.samples) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> nodeId</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> sample</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">selfTime.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(nodeId)) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    selfTime.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(nodeId, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">  selfTime.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(nodeId, selfTime.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(nodeId) </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Get function names</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getFunctionName</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">node</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">node </span><span style="color:#F97583">||</span><span style="color:#F97583"> !</span><span style="color:#E1E4E8">node.callFrame) </span><span style="color:#F97583">return</span><span style="color:#9ECBFF"> 'unknown'</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> funcName</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> node.callFrame.functionName </span><span style="color:#F97583">||</span><span style="color:#9ECBFF"> '(anonymous)'</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> url</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> node.callFrame.url </span><span style="color:#F97583">||</span><span style="color:#9ECBFF"> ''</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> fileName</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> url.</span><span style="color:#B392F0">split</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">pop</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">||</span><span style="color:#E1E4E8"> url</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> location</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> fileName </span><span style="color:#F97583">?</span><span style="color:#9ECBFF"> `${</span><span style="color:#E1E4E8">fileName</span><span style="color:#9ECBFF">}:${</span><span style="color:#E1E4E8">node</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">callFrame</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">lineNumber</span><span style="color:#9ECBFF">}`</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> 'native'</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> `${</span><span style="color:#E1E4E8">funcName</span><span style="color:#9ECBFF">} [${</span><span style="color:#E1E4E8">location</span><span style="color:#9ECBFF">}]`</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Build summary</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> summary</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">nodeId</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">time</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">of</span><span style="color:#E1E4E8"> selfTime.</span><span style="color:#B392F0">entries</span><span style="color:#E1E4E8">()) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> node</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> nodes.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(nodeId)</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">node) </span><span style="color:#F97583">continue</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> funcName</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> getFunctionName</span><span style="color:#E1E4E8">(node)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Skip Node.js internals unless significant</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (funcName.</span><span style="color:#B392F0">includes</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'internal/'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> time </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 50</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">continue</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  summary.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    name: funcName,</span></span>
+<span class="line"><span style="color:#E1E4E8">    selfTime: time,</span></span>
+<span class="line"><span style="color:#E1E4E8">    percentage: (time </span><span style="color:#F97583">/</span><span style="color:#E1E4E8"> profile.samples.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 100</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Sort by self time</span></span>
+<span class="line"><span style="color:#E1E4E8">summary.</span><span style="color:#B392F0">sort</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">a</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">b</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> b.selfTime </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> a.selfTime)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Top time-consuming functions (by self time):</span><span style="color:#79B8FF">\n</span><span style="color:#9ECBFF">'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Rank | Self Time | % Total | Function'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'-----|-----------|---------|----------'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> top30</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> summary.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">30</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> top30.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> item</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> top30[i]</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">    `${</span><span style="color:#B392F0">String</span><span style="color:#9ECBFF">(</span><span style="color:#E1E4E8">i</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> 1</span><span style="color:#9ECBFF">).</span><span style="color:#B392F0">padStart</span><span style="color:#9ECBFF">(</span><span style="color:#79B8FF">4</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">} | ${</span><span style="color:#B392F0">String</span><span style="color:#9ECBFF">(</span><span style="color:#E1E4E8">item</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">selfTime</span><span style="color:#9ECBFF">).</span><span style="color:#B392F0">padStart</span><span style="color:#9ECBFF">(</span><span style="color:#79B8FF">9</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">} | ${</span><span style="color:#E1E4E8">item</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">percentage</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">toFixed</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#9ECBFF">  )</span></span>
+<span class="line"><span style="color:#9ECBFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">console.log(`</span><span style="color:#E1E4E8">\nTotal samples: ${profile.samples.length}</span><span style="color:#9ECBFF">`)</span></span>
+<span class="line"><span style="color:#9ECBFF">console.log(`</span><span style="color:#E1E4E8">Duration: ${(profile.endTime - profile.startTime) / </span><span style="color:#79B8FF">1000000</span><span style="color:#E1E4E8">}</span><span style="color:#B392F0">ms</span><span style="color:#9ECBFF">`)</span></span>
+<span class="line"></span></code></pre>
+<p>[1] It is potentially not absolutely required to produce the compiled artifacts,
+as vitest can work with tsc, but this scenario made logical sense to me while I
+was doing it</p>
+<p>[2] One pitfall is if different sets of libraries are used on the branch and
+master. In that case, you can install the union of the libraries on both
+branches temporarily</p>
+<p>[3] I say this as someone that has supersticiously implemented hundreds of
+microptimizations for it to have absolutely zero effect in a systematic
+benchmark</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span></code></pre> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> </footer> </body></html> 
