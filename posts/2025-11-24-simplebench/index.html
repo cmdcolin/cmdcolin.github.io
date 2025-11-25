@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.16.0"><title>Are your optimizations making any improvement? A simplified setup to benchmark two branches</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 .footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Are your optimizations making any improvement? A simplified setup to benchmark two branches</h1> <h4 data-astro-cid-lvjzyg5v>2025-11-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/media/doggo.png" alt=""></p>
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Are your optimizations making any improvement? A simplified setup to benchmark two branches</h1> <h4 data-astro-cid-lvjzyg5v>2025-11-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/media/doggo2.png" alt=""></p>
+<h2 id="background">Background</h2>
 <p>So, you spend all day making “performance improvements” to make your code go
 faster</p>
 <p>But are you really making a difference? You might ‘feel like it’ but how can you
@@ -14,7 +15,7 @@ tests.</p>
 <li>end-to-end benchmarks</li>
 </ul>
 <p>Let’s evaluate both of these scenarios</p>
-<h2 id="part-1---unit-benchmarks-using-vitest-bench">Part 1 - ‘unit benchmarks’ using <code>vitest bench</code></h2>
+<h2 id="creating-unit-benchmarks-using-vitest-bench">Creating ‘unit benchmarks’ using <code>vitest bench</code></h2>
 <p>If you are already using vitest (it is a very popular test library), you might
 be happy to know that there is a subtool called <code>vitest bench</code> that is built-in.</p>
 <p>Simply make a file like <code>file.bench.ts</code> and it will be invoked by
@@ -153,10 +154,10 @@ but this can be a little tricky so be aware of it</p>
 <span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
 <p>The resulting benchmark report clearly prints the branchname that is the fastest
 with some nice statistics</p>
-<h2 id="part-2---puppeteer-end-to-end-tests-of-your-web-app">Part 2 - Puppeteer end-to-end tests of your web app</h2>
-<p>The end-to-end tests are where the rubber hits the road. You have spent all f’n
-day making microoptimizations, you are ready for it to make a difference. Time
-to test in the real full build of your webapp</p>
+<h2 id="creating-end-to-end-benchmarks-using-puppeteer">Creating ‘end-to-end’ benchmarks using Puppeteer</h2>
+<p>Creating end-to-end benchmarks are really IMO where the rubber hits the road.
+You have spent all day making microoptimizations, now it’s time to confirm it
+makes an impact.</p>
 <p>With puppeteer, you can test against live real builds of your webapp. I
 recommend using production builds, no dev servers and localhost only stuff to
 avoid network variability</p>
@@ -164,7 +165,8 @@ avoid network variability</p>
 <ul>
 <li>You create multiple builds of your (web-) app</li>
 <li>Store each build in a separate sub-directory in the <code>builds/</code> folder</li>
-<li>Create this bash script</li>
+<li>Create this bash script, which runs hyperfine to measure the total time taken
+by the puppeteer script</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
 <span class="line"></span>
@@ -244,15 +246,16 @@ automatically strips types now)! Optionally you can make puppeteer do user
 actions like click around, etc. to test realistic scenarios. It is good to
 confirm that you are visually testing the right thing by checking the outputted
 screenshots.</p>
-<h2 id="sidenote-ai-coding">Sidenote: AI coding</h2>
-<p>Formulating tests and benchmarks like these can allow AI to start automatically
-or agentically iterating to find faster solutions. You can just ask Claude code
-to find optimizations, and see if it comes up with anything that actually
-works.It’s not always that good at finding very impactful optimizations, but
-it’s not terrible</p>
-<p>You can even tell Claude to analyze cpuprofile files that are generated from
+<h2 id="sidenote-agentically-optimizing-your-code">Sidenote: Agentically optimizing your code</h2>
+<p>Formulating tests and benchmarks like this can allow AI to start automatically
+or agentically iterating to find faster solutions.</p>
+<p>You can just ask Claude code to “find optimizations”, and see if it comes up
+with anything that actually works. It’s not always that good at finding very
+impactful optimizations, but with a human in the loop you can guide it towards
+some interesting solutions.</p>
+<p>You can even tell Claude to analyze .cpuprofile files that are generated from
 <code>node --cpu-prof script.ts</code>.</p>
-<p>Here is a script that Claude made on the fly to analyze the .cpuprofile file</p>
+<p>Here is a script that Claude made to analyze a .cpuprofile file</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> fs </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> profileFile</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.argv[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">||</span><span style="color:#E1E4E8"> fs.</span><span style="color:#B392F0">readdirSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">find</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">f</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> f.</span><span style="color:#B392F0">endsWith</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.cpuprofile'</span><span style="color:#E1E4E8">))</span></span>
