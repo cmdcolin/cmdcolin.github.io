@@ -86,13 +86,13 @@ but this can be a little tricky so be aware of it</p>
 <span class="line"></span>
 <span class="line"><span style="color:#6A737D"># or, set custom env variables to compare two arbitrary branches, branch1 and branch2</span></span>
 <span class="line"><span style="color:#E1E4E8">BRANCH1</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">branch1</span><span style="color:#E1E4E8"> BRANCH2</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">branch2</span><span style="color:#B392F0"> yarn</span><span style="color:#9ECBFF"> bench</span></span></code></pre>
-<h3 id="an-example-script">An example script</h3>
-<p>Then if you have a function in your code like</p>
+<p>Then if you have a function in your code that you want to optimize, like this…</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
 <span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
 <span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> Math.</span><span style="color:#B392F0">pow</span><span style="color:#E1E4E8">(n, exp)</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>And you have the genius idea that plain multiplying in a loop would be better</p>
+<p>Then you can make a new branch with a genius idea that plain multiplying in a
+loop would be better</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
 <span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
 <span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> total </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> n</span></span>
@@ -152,6 +152,8 @@ but this can be a little tricky so be aware of it</p>
 <span class="line"><span style="color:#E1E4E8">    iterations: </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#E1E4E8">  },</span></span>
 <span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<p>That benchmark code is a little more verbose than it needs to be, but it is
+quite re-usable across projects</p>
 <p>The resulting benchmark report clearly prints the branchname that is the fastest
 with some nice statistics</p>
 <h2 id="creating-end-to-end-benchmarks-using-puppeteer">Creating ‘end-to-end’ benchmarks using Puppeteer</h2>
