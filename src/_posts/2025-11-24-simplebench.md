@@ -123,7 +123,7 @@ loop would be better
 export function pow(n: number, exp: number) {
   let total = n
   for (let i = 1; i < exp; i++) {
-    n *= exp
+    total *= n
   }
 }
 ```
@@ -190,6 +190,8 @@ quite re-usable across projects
 The resulting benchmark report clearly prints the branchname that is the fastest
 with some nice statistics
 
+An example of this is here https://github.com/cmdcolin/simple_benchmark_example
+
 ## Part 2. Creating 'end-to-end' benchmarks using Puppeteer
 
 Creating end-to-end benchmarks are really IMO where the rubber hits the road.
@@ -198,7 +200,8 @@ makes an impact.
 
 With puppeteer, you can test against live real builds of your webapp. I
 recommend using production builds, no dev servers and localhost only stuff to
-avoid network variability
+avoid network variability. Note that I also said 'simple' but this setup is a
+little more involved generally
 
 Here is an example setup I have used:
 
@@ -404,9 +407,9 @@ the benchmarks. The benchmarks by default for example can just read from the
 avoid collisions otherwise encountered from checking out the code from each
 branch.
 
-[2] One pitfall is if different sets of libraries are used on the branch and
-main. In that case, you can install the union of the libraries on both branches
-temporarily
+[2] You might get errors if different sets of e.g. package.json libraries are
+used on the branch and main. In that case, you can install the union of the
+libraries on your branch temporarily (should only be needed on your "BRANCH2")
 
 [3] I say this as someone that has superstitiously implemented hundreds of
 microptimizations for it to have absolutely zero effect in a end-to-end
