@@ -88,7 +88,7 @@ loop would be better</p>
 <span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
 <span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> total </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> n</span></span>
 <span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> exp; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    n </span><span style="color:#F97583">*=</span><span style="color:#E1E4E8"> exp</span></span>
+<span class="line"><span style="color:#E1E4E8">    total </span><span style="color:#F97583">*=</span><span style="color:#E1E4E8"> n</span></span>
 <span class="line"><span style="color:#E1E4E8">  }</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 <p>Then you can make a benchmark like this</p>
@@ -147,13 +147,15 @@ loop would be better</p>
 quite re-usable across projects</p>
 <p>The resulting benchmark report clearly prints the branchname that is the fastest
 with some nice statistics</p>
+<p>An example of this is here <a href="https://github.com/cmdcolin/simple_benchmark_example">https://github.com/cmdcolin/simple_benchmark_example</a></p>
 <h2 id="part-2-creating-end-to-end-benchmarks-using-puppeteer">Part 2. Creating ‘end-to-end’ benchmarks using Puppeteer</h2>
 <p>Creating end-to-end benchmarks are really IMO where the rubber hits the road.
 You have spent all day making microoptimizations, now it’s time to confirm it
 makes an impact.</p>
 <p>With puppeteer, you can test against live real builds of your webapp. I
 recommend using production builds, no dev servers and localhost only stuff to
-avoid network variability</p>
+avoid network variability. Note that I also said ‘simple’ but this setup is a
+little more involved generally</p>
 <p>Here is an example setup I have used:</p>
 <ul>
 <li>You create multiple builds of your (web-) app</li>
@@ -337,9 +339,9 @@ the benchmarks. The benchmarks by default for example can just read from the
 ‘src’ folder. However, using the compiled artifacts is a fairly ‘simple’ way to
 avoid collisions otherwise encountered from checking out the code from each
 branch.</p>
-<p>[2] One pitfall is if different sets of libraries are used on the branch and
-main. In that case, you can install the union of the libraries on both branches
-temporarily</p>
+<p>[2] You might get errors if different sets of e.g. package.json libraries are
+used on the branch and main. In that case, you can install the union of the
+libraries on your branch temporarily (should only be needed on your “BRANCH2”)</p>
 <p>[3] I say this as someone that has superstitiously implemented hundreds of
 microptimizations for it to have absolutely zero effect in a end-to-end
 benchmark. Conversely, these branch comparison tests have allowed me to ratchet
