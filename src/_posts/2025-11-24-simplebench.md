@@ -47,9 +47,6 @@ branch. Then we can add these folders to our .gitignore easily.
 It also puts the actual branchname in a .txt file in each folder, allowing the
 benchmark itself to report the branchname in the report output.
 
-It also tries to use "git stash" to help avoid issues with uncommitted changes,
-but this can be a little tricky so be aware of it
-
 ```bash
 #!/bin/bash
 
