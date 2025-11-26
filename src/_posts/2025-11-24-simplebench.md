@@ -199,9 +199,9 @@ You have spent all day making microoptimizations, now it's time to confirm it
 makes an impact.
 
 With puppeteer, you can test against live real builds of your webapp. I
-recommend using production builds, no dev servers and localhost only stuff to
-avoid network variability. Note that I also said 'simple' but this setup is a
-little more involved generally
+recommend using production builds (not a dev server) and using localhost only
+stuff to avoid network variability. Note that I also said 'simple' but this
+setup is a little more involved generally
 
 Here is an example setup I have used:
 
