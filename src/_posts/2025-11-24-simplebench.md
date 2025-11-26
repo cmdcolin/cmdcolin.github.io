@@ -1,11 +1,11 @@
 ---
 title:
-  Are your optimizations making any improvement? A simplified setup to benchmark
-  two branches
+  Are your optimizations making any improvement? A simple setup to benchmark two
+  branches with vitest and puppeteer
 date: 2025-11-25
 ---
 
-![](/media/doggo2.png)
+![](/media/doggo3.png)
 
 ## Background
 
@@ -25,7 +25,7 @@ And, just like tests, you can have different levels of benchmarks
 
 Let's evaluate both of these scenarios
 
-## Creating 'unit benchmarks' using `vitest bench`
+## Part 1. Creating 'unit benchmarks' using `vitest bench`
 
 If you are already using vitest (it is a very popular test library), you might
 be happy to know that there is a subtool called `vitest bench` that is built-in.
@@ -193,7 +193,7 @@ quite re-usable across projects
 The resulting benchmark report clearly prints the branchname that is the fastest
 with some nice statistics
 
-## Creating 'end-to-end' benchmarks using Puppeteer
+## Part 2. Creating 'end-to-end' benchmarks using Puppeteer
 
 Creating end-to-end benchmarks are really IMO where the rubber hits the road.
 You have spent all day making microoptimizations, now it's time to confirm it
