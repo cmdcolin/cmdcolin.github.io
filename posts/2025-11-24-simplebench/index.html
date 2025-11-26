@@ -29,8 +29,6 @@ outputs to a folder called “dist” [1] [2].</p>
 branch. Then we can add these folders to our .gitignore easily.</p>
 <p>It also puts the actual branchname in a .txt file in each folder, allowing the
 benchmark itself to report the branchname in the report output.</p>
-<p>It also tries to use “git stash” to help avoid issues with uncommitted changes,
-but this can be a little tricky so be aware of it</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#79B8FF">set</span><span style="color:#79B8FF"> -e</span></span>
