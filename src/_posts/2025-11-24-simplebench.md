@@ -1,7 +1,7 @@
 ---
 title:
   Are your optimizations making any improvement? A simple setup to benchmark two
-  branches with vitest and puppeteer
+  branches
 date: 2025-11-25
 ---
 
@@ -23,7 +23,9 @@ And, just like tests, you can have different levels of benchmarks
 - unit benchmarks
 - end-to-end benchmarks
 
-Let's evaluate both of these scenarios
+Let's evaluate both of these scenarios. We are going to use javascript for
+practical purposes, but you should find a way to take this lesson to any
+language or scenario
 
 ## Part 1. Creating 'unit benchmarks' using `vitest bench`
 
