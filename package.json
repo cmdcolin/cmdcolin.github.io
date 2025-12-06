@@ -17,12 +17,12 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.1.6",
-    "astro": "^5.16.1",
+    "astro": "^5.16.4",
     "feed": "^5.0.1",
     "gray-matter": "^4.0.3",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "shiki": "^3.15.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "shiki": "^3.19.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
@@ -30,7 +30,7 @@
     "eslint": "^9.39.1",
     "eslint-plugin-unicorn": "^62.0.0",
     "gh-pages": "^6.0.0",
-    "prettier": "^3.4.2",
-    "typescript-eslint": "^8.46.3"
+    "prettier": "^3.7.4",
+    "typescript-eslint": "^8.48.1"
   }
 }
