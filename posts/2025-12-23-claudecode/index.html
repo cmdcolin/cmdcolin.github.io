@@ -2,7 +2,9 @@
 .footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
 </style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>My experiences with AI and Claude Code</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-23</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I figured, for the history of the universe, that I would write down some of my
 experiences with AI. I have this feeling that people think that talking about AI
-usage is a little taboo.</p>
+usage is a little taboo. However, these tools have taken our field and the world
+by storm. People should write more about their experiences with them, if only to
+help people understand.</p>
 <h2 id="my-early-impressions-with-ai">My early impressions with AI</h2>
 <p>My first experience with AI was being incredible skeptical. I really disliked
 OpenAI…I still do not use any of their products, and I really dislike seeing
@@ -121,6 +123,11 @@ world is scary, exciting, dystopian…it’s a lot</p>
 competition can use to leapfrog you and your work… so much AI usage is
 derivative drivel that rips off what others do which is sad. We should think
 carefully about how we can uniquely add value with what we work on</p>
+<p>AI is also very easy to use. My current usage does not have any special
+workflows other than talking with a couple Claude Code instances. It’s just
+chatting. My previous experience with coding over the past 20 years certainly
+doesn’t hurt to guide it towards solutions, but my workflow is something anyone
+can do.</p>
 <p>In any event…Good luck out there, and happy holidays</p>
 <h2 id="footnote-1">Footnote 1</h2>
 <p>The complete anti-AI sentiment on reddit, combined with increasing AI generated
@@ -131,7 +138,33 @@ that are asking questions now, but I have more time to</p>
 <h2 id="footnote-2">Footnote 2</h2>
 <p>This was also a little bit of a harbinger of things to come. When the AI is not
 working…or you run out of tokens…you don’t have the wind behind your sails
-anymore</p> </div> <div id="giscus"></div> <script>
+anymore</p>
+<h2 id="footnote-3">Footnote 3</h2>
+<p>This post was inspired by
+<a href="https://nolanlawson.com/2025/12/22/how-i-use-ai-agents-to-write-code/">https://nolanlawson.com/2025/12/22/how-i-use-ai-agents-to-write-code/</a></p>
+<p>His post includes a not about CLAUDE.md</p>
+<p>Mine is fairly minimal, it contains this. I instruct it not to run tests and
+stuff because it can take a long time on the large-ish (100k LOC) codebase I
+work on</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Please do not run tests, lint, format, or build manually. Just ask me to run</span></span>
+<span class="line"><span>them and report results back. Use yarn v1 instead of npm</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>For typescript, avoid adding explicit return types and avoid using 'as' to cast</span></span>
+<span class="line"><span>types where possible</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>We use noUncheckedIndexedAccess in most of our tsconfig, so be aware of this</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Be minimal about commenting code, if the code is self explanatory it needs no</span></span>
+<span class="line"><span>comment</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Prefer node --experimental-strip-types over tsx or other solutions</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>I tend to not like "early return" style code</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Do not use push(...list), it can cause stack overflow</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>If we are in the process of debugging an issue, please do not remove debug</span></span>
+<span class="line"><span>logging unless instructed</span></span></code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
