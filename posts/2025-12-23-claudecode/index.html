@@ -38,20 +38,15 @@ weird bug, and I posted a full chatlog on my early PRs using this (example Dec
 2024, <a href="https://github.com/GMOD/cram-js/pull/150">https://github.com/GMOD/cram-js/pull/150</a>)</p>
 <p>Around February 2025, Claude introduced 3.7 which added tool calling, which are
 basically ‘agentic’ workflows. These were integrated with Avante.nvim but they
-were not super reliable though and I was pretty unhappy with this because it
-seemed like:</p>
-<ol>
-<li>this ‘tool calling’ was an overrreach…I did not like it mucking about, and
-it costed more in API tokens</li>
-<li>it also did not work well. I reported several bugs related to this on the
+were not super reliable. I was pretty unhappy with the tool calling because it
+seemed like it did not work well. I reported several bugs related to this on the
 Avante.nvim github (e.g. “bug: Avante Gets stuck on tool calling and never
-progresses past that point”, “bug: Sonnet just runs in loops, reading the
-same file over and over again”, etc.)</li>
-</ol>
-<p>In any case, one rainy day in May 2025 when Avante.nvim was really not working I
-felt very stuck. On reflection, I think that’s when I realized that maybe
+progresses past that point”, “bug: Sonnet just runs in loops, reading the same
+file over and over again”, etc.). It also costs more in API tokens</p>
+<p>In any case, one rainy day in May 2025 when Avante.nvim was really not working
+and I felt very stuck. On reflection, I think that’s when I realized that maybe
 Avante.nvim was causing me more grief than help…see also Footnote 2</p>
-<h2 id="switching-to-claude-code">Switching to Claude Code</h2>
+<h2 id="switching-to-gemini-cli-and-claude-code">Switching to Gemini CLI and Claude Code</h2>
 <p>Not sure what exact date, but eventually, I decided to try Claude Code. I
 watched a video on YouTube almost right after it came out in February 2025,
 <a href="https://www.youtube.com/watch?v=AJpK3YTTKZ4">https://www.youtube.com/watch?v=AJpK3YTTKZ4</a>, and I immediately saw that Claude
@@ -89,7 +84,7 @@ assign them distinct tasks</p>
 <p>I have seen some people use ‘git worktrees’ to enable parallel Claude Code
 sessions, but I generally just use multiple separate clones of the repo</p>
 <p>This is a little chaotic on the brain, as you have to mentally juggle multiple
-distinct tasks, but it let’s you literally solve like…2-3x the bugs</p>
+distinct tasks, but it lets you literally solve like…2-3x the bugs</p>
 <h3 id="telling-claude-code-to-simplify-and-refactor-repeatedly">Telling Claude Code to simplify and refactor repeatedly</h3>
 <p>After almost every question, I will ask it something like “now that we have a
 working system, are there any simplifications or refactorings that you would
