@@ -6,7 +6,7 @@ usage is a little taboo. However, these tools have taken our field and the world
 by storm. People should write more about their experiences with them, if only to
 help people understand.</p>
 <h2 id="my-early-impressions-with-ai">My early impressions with AI</h2>
-<p>My first experience with AI was being incredible skeptical. I really disliked
+<p>My first experience with AI was being incredibly skeptical. I really disliked
 OpenAI…I still do not use any of their products, and I really dislike seeing
 prose that I can tell was generated with it.</p>
 <p>However, early on I started seeing projects everywhere on GitHub that require an
@@ -61,8 +61,8 @@ integration, so I switched to Claude Code</p>
 <p>I started making Claude Code do very challenging tasks, and it was quite
 successful on many of them. One of the most mindboggling things it has done to
 date for me, and there are many, is that it completely reached into a very
-complex codebase called Bandage, a C++ codebase, and managed to compile it
-usimng emscripten to WASM and use it in Javascript. This produced
+complex codebase called Bandage, a C++ codebase, and managed to compile it using
+emscripten to WASM and use it in Javascript. This produced
 <a href="https://github.com/cmdcolin/bandagejs">https://github.com/cmdcolin/bandagejs</a> It is a demo that I still need to work on,
 but I was pretty mindblown by this</p>
 <h2 id="switching-from-api-billing-to-subscription">Switching from API billing to subscription</h2>
@@ -91,7 +91,7 @@ distinct tasks, but it lets you literally solve like…2-3x the bugs</p>
 <p>After almost every question, I will ask it something like “now that we have a
 working system, are there any simplifications or refactorings that you would
 make”</p>
-<p>Maybe there is more optimial wording but in general it can identify some
+<p>Maybe there is more optimal wording but in general it can identify some
 reasonable simplifications that are good-to-have</p>
 <h3 id="telling-claude-code-to-find-optimizations">Telling Claude Code to find optimizations</h3>
 <p>I work with ‘big data’, and being fast is important. A lot of the optimizations
@@ -99,30 +99,29 @@ that Claude Code recommends do not move the needle at all, but if you set up a
 benchmark, as I wrote about previously
 <a href="https://cmdcolin.github.io/posts/2025-11-24-simplebench/">https://cmdcolin.github.io/posts/2025-11-24-simplebench/</a> you can start to
 measurably achieve speed improvements</p>
-<h3 id="telling-claude-code-to-vendor-entire-npm-packages-and-make-new-modifications-or-simplifications">Telling Claude Code to vendor entire NPM packages, and make new modifications or simplifications</h3>
-<p>Our app uses a variety of NPM packages, and some of them are quite old by now.
-Sometimes this doesn’t really matter, but when you start to ‘ossify’ and you can
+<h3 id="telling-claude-code-to-vendor-entire-npm-packages">Telling Claude Code to vendor entire NPM packages</h3>
+<p>Our app uses a variety of NPM packages, and some of them are quite old by now.</p>
+<p>Sometimes this doesn’t really matter, but when you start to ‘ossify’ and you can
 only use version 1.0.x of some package because of reason Y, it is really
-annoying. You can ask Claude Code to literally vendor the entire package, make
-bugfixes or improvements, update it to use typescript, remove unused
-functionality, and more</p>
-<p>I read this essay sometime in 2025 and it was mildly influential on me:
-<a href="https://htmx.org/essays/vendoring/">https://htmx.org/essays/vendoring/</a></p>
-<p>I am a big fan of using libraries, but this is getting threatened by both AI
-usage being able to generate bespoke solutions (xref
-<a href="https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/">https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/</a>) and the
-threat of using libraries with giant hacks like Shai-Halud
+annoying. One way to plow through this is you can ask Claude Code to vendor the
+entire package, and subsequently make bugfixes or improvements, update it to use
+typescript, remove unused functionality, and more</p>
+<p>I read this essay sometime in 2025 and it was influential to me regarding
+vendoring: <a href="https://htmx.org/essays/vendoring/">https://htmx.org/essays/vendoring/</a></p>
+<p>I am a big fan of using libraries, but the open source library ecosystem
+threatened by giant hacks like Shai-Halud
 (<a href="https://www.cisa.gov/news-events/alerts/2025/09/23/widespread-supply-chain-compromise-impacting-npm-ecosystem">https://www.cisa.gov/news-events/alerts/2025/09/23/widespread-supply-chain-compromise-impacting-npm-ecosystem</a>)</p>
 <p>The reality though is you are now responsible for maintaining this ‘dependency’
 yourself but over time you basically do battle with almost every dependency you
-take on at some level</p>
+take on at some level. See also
+<a href="https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/">https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/</a></p>
 <h2 id="concluding-thoughts">Concluding thoughts</h2>
 <p>This is only a brief snapshot into my Claude Code usage. This new AI coding
 world is scary, exciting, dystopian…it’s a lot</p>
 <p>AI coding is a superpower you can use, but it is also a superpower your
 competition can use to leapfrog you and your work… so much AI usage is
-derivative drivel that rips off what others do which is sad. We should think
-carefully about how we can uniquely add value with what we work on</p>
+derivative drivel that rips off what others create, which is sad. We should
+think carefully about how we can uniquely add value with what we work on</p>
 <p>AI is also very easy to use. My current usage does not have any special
 workflows other than talking with a couple Claude Code instances. It’s just
 chatting. My previous experience with coding over the past 20 years certainly
@@ -130,11 +129,13 @@ doesn’t hurt to guide it towards solutions, but my workflow is something anyon
 can do.</p>
 <p>In any event…Good luck out there, and happy holidays</p>
 <h2 id="footnote-1">Footnote 1</h2>
-<p>The complete anti-AI sentiment on reddit, combined with increasing AI generated
-text on reddit, along with increasing ragebait and engagement bait BS made me
-completely quit social media in 2025. I just watch random youtubes now if I need
-a dopamine hit. I feel bad that I won’t be able to help out random strangers
-that are asking questions now, but I have more time to</p>
+<p>The rabid anti-AI sentiment, generally criticizing it for being inadequate, on
+reddit, combined with increasing AI generated text on reddit, along with
+increasing ragebait and engagementbait made me completely quit reddit and social
+media in general in mid 2025. I just watch random YouTube videos if I need a
+dopamine hit. I feel bad that I won’t be able to help out random strangers that
+are asking questions now, but I have more time and don’t have my brain halfway
+into a random internet argument.</p>
 <h2 id="footnote-2">Footnote 2</h2>
 <p>This was also a little bit of a harbinger of things to come. When the AI is not
 working…or you run out of tokens…you don’t have the wind behind your sails
@@ -142,10 +143,10 @@ anymore</p>
 <h2 id="footnote-3">Footnote 3</h2>
 <p>This post was inspired by
 <a href="https://nolanlawson.com/2025/12/22/how-i-use-ai-agents-to-write-code/">https://nolanlawson.com/2025/12/22/how-i-use-ai-agents-to-write-code/</a></p>
-<p>His post includes a not about CLAUDE.md</p>
-<p>Mine is fairly minimal, it contains this. I instruct it not to run tests and
+<p>His post includes a note about customizing your CLAUDE.md</p>
+<p>My ~/.claude/CLAUDE.md is fairly minimal. I instruct it not to run tests and
 stuff because it can take a long time on the large-ish (100k LOC) codebase I
-work on</p>
+work on. Exact copy of my CLAUDE.md:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Please do not run tests, lint, format, or build manually. Just ask me to run</span></span>
 <span class="line"><span>them and report results back. Use yarn v1 instead of npm</span></span>
 <span class="line"><span></span></span>
