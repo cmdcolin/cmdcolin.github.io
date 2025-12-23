@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v5.16.6"><title>My experiences with AI and Claude Code</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>My experiences with AI and Claude Code</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-23</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I figured, for the history of the universe, that I would write down some of my
+experiences with AI. I have this feeling that people think that talking about AI
+usage is a little taboo.</p>
+<h2 id="my-early-impressions-with-ai">My early impressions with AI</h2>
+<p>My first experience with AI was being incredible skeptical. I really disliked
+OpenAI…I still do not use any of their products. I started seeing projects
+everywhere on GitHub that require an “OPENAI_API_KEY”. I did not use these, and
+did not really feel like I needed to, though there was clearly some “blood in
+the water” making everyone go crazy</p>
+<p>My early feelings about AI also involved being upset that AI couldn’t “cite its
+sources”. I had this idea in my head that AI was a galaxy brain…or should be a
+galaxy brain… that could draw from an immense pool of knowledge. However, one
+thing that shifted my thinking on this was reading “4.2 Gigabytes, or: How to
+Draw Anything” <a href="https://debugti.me/posts/how-to-draw/">https://debugti.me/posts/how-to-draw/</a></p>
+<p>This made me realize AI are ‘compressed representations’ of a lot of
+knowledge…weird!</p>
+<h2 id="my-early-experiences-with-using-ai-chatbots">My early experiences with using AI chatbots</h2>
+<p>Despite my OpenAI stance, once Google came out with Bard, I started asking it
+some questions. It was pretty interesting.</p>
+<p>Some early experiences I had with Bard was trying to get it to convert code from
+one language (python) to another (JS). It was very good at doing this, which was
+wild to me. These language translations would take a lot of time to do by
+hand… and it would spit it out in seconds!</p>
+<h2 id="early-experience-with-text-editor-integration-avantenvim">Early experience with text editor integration: Avante.nvim</h2>
+<p>My first experience with ‘buying’ into the AI was purchasing 20 bucks of API
+tokens from Anthropic, and using it with Avante.nvim.</p>
+<p>I liked the minimalism of Avante.nvim, and got stuck with the keybindings, and
+didn’t really want to try any others like CodeCompanion.</p>
+<p>You could launch a chat sidebar with <leader>aa or get it to edit a block with
+visual select <leader>ae</leader></leader></p>
+<p>I had some pretty unique successes. It fixed some bugs parsing a very complex
+file format (CRAM). I can’t imagine it had much ‘training’ data on this, but it
+came up with a very successful solution to a weird bug, and I posted a full
+chatlog on my early PRs using this (example Dec 2024,
+<a href="https://github.com/GMOD/cram-js/pull/150">https://github.com/GMOD/cram-js/pull/150</a>)</p>
+<p>Around February 2025, Claude introduced 3.7 which added tool calling, which are
+basically ‘agentic’ workflows. These were integrated with Avante.nvim but they
+were not super reliable though and I was pretty unhappy with this because it
+seemed like:</p>
+<ol>
+<li>this ‘tool calling’ was an overrreach…I did not like it mucking about, and
+it costed more in API tokens</li>
+<li>it also did not work well. I reported several bugs related to this on the
+Avante.nvim github (e.g. “bug: Avante Gets stuck on tool calling and never
+progresses past that point”, “bug: Sonnet just runs in loops, reading the
+same file over and over again”, etc.)</li>
+</ol>
+<p>In any case, one rainy day in May 2025 when Avante.nvim was really not working I
+felt very stuck. On reflection, I think that’s when I realized that maybe
+Avante.nvim was causing me more grief than help…see also Footnote 2</p>
+<h2 id="switching-to-claude-code">Switching to Claude Code</h2>
+<p>Not sure what exact date, but eventually, I decided to try Claude Code. I
+watched a video on YouTube almost right after it came out in February 2025,
+<a href="https://www.youtube.com/watch?v=AJpK3YTTKZ4">https://www.youtube.com/watch?v=AJpK3YTTKZ4</a>, and I immediately saw that Claude
+Code could be very powerful, but I didn’t actually jump in and try it. It still
+seemed maybe “not for me” as I had my Avante.nvim integration.</p>
+<p>However, I think once I saw Gemini CLI get released, I was like, ok I should try
+that out. The Gemini CLI has a free tier. Gemini CLI did ok, but it seemed not
+quite as powerful as Claude. I had also already used Claude via the Avante.nvim
+integration, so I switched to Claude Code</p>
+<p>I started making Claude Code do very challenging tasks, and it was quite
+successful on many of them. One of the most mindboggling things it has done to
+date for me, and there are many, is that it completely reached into a very
+complex codebase called Bandage, a C++ codebase, and managed to compile it
+usimng emscripten to WASM and use it in Javascript. This produced
+<a href="https://github.com/cmdcolin/bandagejs">https://github.com/cmdcolin/bandagejs</a> It is a demo that I still need to work on,
+but I was pretty mindblown by this</p>
+<h2 id="switching-from-api-billing-to-subscription">Switching from API billing to subscription</h2>
+<p>I am not a big fan of subscriptions, but I also started burning through a lot of
+API tokens. I’m talking like…it burned through 50+ bucks to do that bandageJS
+project even though it only did it in a couple hours</p>
+<p>The cost was high, but at the same time it would literally make breakthroughs
+that I would (likely) never have done. To try to bring ‘down the cost’ I decided
+to change to a subscription at some point.</p>
+<p>I bought the basic 20 dollar tier of Claude, and ran out of it immediately. Then
+I upgraded to Claude Max and now am at 100 bucks a month. That’s where I am
+“happily” sitting now.</p>
+<p>I can sometimes ‘max out’ the Claude Max tier but it is probably the right level
+for me. This is a weird thing to ‘confess’ but I buy the subscription myself,
+and do not get it re-imbursed through my work. Might need to have that talk at
+some point with my boss.</p>
+<h2 id="how-i-use-claude-code">How I use Claude Code</h2>
+<h3 id="running-multiple-claude-code-sessions-at-once">Running multiple Claude Code sessions at once</h3>
+<p>I frequently have 2-3 Claude Code sessions going in different terminals, and I
+assign them distinct tasks</p>
+<p>I have seen some people use ‘git worktrees’ to enable parallel Claude Code
+sessions, but I generally just use multiple separate clones of the repo</p>
+<p>This is a little chaotic on the brain, as you have to mentally juggle multiple
+distinct tasks, but it let’s you literally solve like…2-3x the bugs</p>
+<h3 id="telling-claude-code-to-simplify-and-refactor-repeatedly">Telling Claude Code to simplify and refactor repeatedly</h3>
+<p>After almost every question, I will ask it something like “now that we have a
+working system, are there any simplifications or refactorings that you would
+make”</p>
+<p>Maybe there is more optimial wording but in general it can identify some
+reasonable simplifications that are good-to-have</p>
+<h3 id="telling-claude-code-to-find-optimizations">Telling Claude Code to find optimizations</h3>
+<p>I work with ‘big data’, and being fast is important. A lot of the optimizations
+that Claude Code recommends do not move the needle at all, but if you set up a
+benchmark, as I wrote about previously
+<a href="https://cmdcolin.github.io/posts/2025-11-24-simplebench/">https://cmdcolin.github.io/posts/2025-11-24-simplebench/</a> you can start to
+measurably achieve speed improvements</p>
+<h3 id="telling-claude-code-to-vendor-entire-npm-packages-and-make-new-modifications-or-simplifications">Telling Claude Code to vendor entire NPM packages, and make new modifications or simplifications</h3>
+<p>Our app uses a variety of NPM packages, and some of them are quite old by now.
+Sometimes this doesn’t really matter, but when you start to ‘ossify’ and you can
+only use version 1.0.x of some package because of reason Y, it is really
+annoying. You can ask Claude Code to literally vendor the entire package, make
+bugfixes or improvements, update it to use typescript, remove unused
+functionality, and more</p>
+<p>I read this essay sometime in 2025 and it was mildly influential on me:
+<a href="https://htmx.org/essays/vendoring/">https://htmx.org/essays/vendoring/</a></p>
+<p>I am a big fan of using libraries, but this is getting threatened by both AI
+usage being able to generate bespoke solutions (xref
+<a href="https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/">https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/</a>) and the
+threat of using libraries with giant hacks like Shai-Halud
+(<a href="https://www.cisa.gov/news-events/alerts/2025/09/23/widespread-supply-chain-compromise-impacting-npm-ecosystem">https://www.cisa.gov/news-events/alerts/2025/09/23/widespread-supply-chain-compromise-impacting-npm-ecosystem</a>)</p>
+<p>The reality though is you are now responsible for maintaining this ‘dependency’
+yourself but over time you basically do battle with almost every dependency you
+take on at some level</p>
+<h2 id="concluding-thoughts">Concluding thoughts</h2>
+<p>This is only a brief snapshot into my Claude Code usage. This new AI coding
+world is scary, exciting, dystopian…it’s a lot</p>
+<p>AI coding is a superpower you can use, but it is also a superpower your
+competition can use to leapfrog you and your work… so much AI usage is
+derivative drivel that rips off what others do which is sad. We should think
+carefully about how we can uniquely add value with what we work on</p>
+<p>In any event…Good luck out there, and happy holidays</p>
+<h2 id="footnote-1">Footnote 1</h2>
+<p>The complete anti-AI sentiment on reddit, combined with increasing AI generated
+text on reddit, along with increasing ragebait and engagement bait BS made me
+completely quit social media in 2025. I just watch random youtubes now if I need
+a dopamine hit. I feel bad that I won’t be able to help out random strangers
+that are asking questions now, but I have more time to</p>
+<h2 id="footnote-2">Footnote 2</h2>
+<p>This was also a little bit of a harbinger of things to come. When the AI is not
+working…or you run out of tokens…you don’t have the wind behind your sails
+anymore</p> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> </footer> </body></html> 
