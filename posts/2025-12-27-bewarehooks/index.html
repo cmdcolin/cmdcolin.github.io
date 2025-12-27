@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v5.16.6"><title>Beware! If you make your own hooks, eslint-plugin-react-hooks is not going to you out as much</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v5.16.6"><title>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 .footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Beware! If you make your own hooks, eslint-plugin-react-hooks is not going to you out as much</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I am reporting to you live from the debugging session…A useEffect in my
+</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I am reporting to you live from the debugging session…A useEffect in my
 codebase has triggered in an infinite loop in my code. But this doesn’t just
 cause trouble for me…</p>
 <h2 id="a-problem-for-everybody">A problem for everybody</h2>
@@ -21,15 +21,14 @@ failed to recover.</p>
 <a href="https://blog.cloudflare.com/deep-dive-into-cloudflares-sept-12-dashboard-and-api-outage/">https://blog.cloudflare.com/deep-dive-into-cloudflares-sept-12-dashboard-and-api-outage/</a></p>
 </blockquote>
 <p>Maybe interestingly, their “takeaways” going forward did not include more static
-analysis of React to identify issues like this.</p>
-<p>Their takeaways were to try to narrow the blast radius of things like this by
-“Reducing impact” and “Improving visibility”.</p>
-<p>That is absolutely good stuff, every postmortem has a complex set of conditions
-that leads to failure, but why can’t this issue just be caught at compile time,
-(the best time!)</p>
+analysis of React to identify issues like this. Their takeaways were to try to
+narrow the blast radius of things like this by “Reducing impact” and “Improving
+visibility”. That is fine, every postmortem has a complex set of conditions that
+leads to failure, but could this issue have been caught at compile time? (the
+best time!)</p>
 <h2 id="i-have-eslint-plugin-react-hooks-its-supposed-to-warn-about-this-why-is-this-happening">I have eslint-plugin-react-hooks, it’s supposed to warn about this, why is this happening???</h2>
-<p>The critical /r/reactjs redditor slaps their forehead and goes…you may not
-NEED a useEffect! don’t you know? <code>&#x3C;link to read docs here></code></p>
+<p>The critical reader may slap their forehead and say…you may not NEED a
+useEffect! don’t you know? <code>&#x3C;link to read docs here></code></p>
 <p>Sometimes you just do though. Ok moving on</p>
 <p>Lets see what eslint-plugin-react-hooks can help catch</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#B392F0">useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {}, [</span><span style="color:#F97583">new</span><span style="color:#B392F0"> Number</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">94</span><span style="color:#E1E4E8">)])</span></span></code></pre>
@@ -73,8 +72,9 @@ typescript-eslint is able to push it even further by adding typed lints, but
 what about this class of bugs. It appears to only be able to be detected via
 heuristics. I was already a bit wary of using custom hooks in my code and this
 will make me think twice or three more times about it, since the heuristic,
-while imperfect, can help</p>
-<p>Any other ways we can fix this issue?</p> </div> <div id="giscus"></div> <script>
+while imperfect, can help. There are of course also other reasons this failure
+case could be triggered… a prop being used probably breaks the heuristic also.</p>
+<p>Are there other ways we can catch or fix this issue? Feel free to let me know</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
