@@ -68,23 +68,19 @@ useEffect! don’t you know? <code>&#x3C;link to react docs here></code></p>
 <span class="line"><span style="color:#E1E4E8">  )</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#E1E4E8"> App</span></span>
-<span class="line"><span style="color:#9ECBFF">```</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">This, as the console.log suggests, is an infinite loop, and we are not informed</span></span>
-<span class="line"><span style="color:#9ECBFF">by the lint rule because we have extracted it to a different file</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">### A thought to leave you with</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">Things like typescript eliminate huge classes of bugs via static analysis, and</span></span>
-<span class="line"><span style="color:#9ECBFF">typescript-eslint is able to push it even further by adding typed lints, but</span></span>
-<span class="line"><span style="color:#9ECBFF">what about this class of bugs. It appears to only be able to be detected via</span></span>
-<span class="line"><span style="color:#9ECBFF">heuristics. I was already a bit wary of using custom hooks in my code and this</span></span>
-<span class="line"><span style="color:#9ECBFF">will make me think twice or three more times about it, since the heuristic,</span></span>
-<span class="line"><span style="color:#9ECBFF">while imperfect, can help. There are of course also other reasons this failure</span></span>
-<span class="line"><span style="color:#9ECBFF">case could be triggered... a prop being used probably breaks the heuristic also.</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">Are there other ways we can catch or fix this issue? Feel free to let me know</span></span></code></pre> </div> <div id="giscus"></div> <script>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#E1E4E8"> App</span></span></code></pre>
+<p>This, as the console.log suggests, is an infinite loop, and we are not informed
+by the lint rule because we have extracted it to a different file</p>
+<h3 id="a-thought-to-leave-you-with">A thought to leave you with</h3>
+<p>Things like typescript eliminate huge classes of bugs via static analysis, and
+typescript-eslint is able to push it even further by adding typed lints, but
+what about this class of bugs. It appears to only be able to be detected via
+heuristics. I was already a bit wary of using custom hooks in my code and this
+will make me think twice or three more times about it, since the heuristic,
+while imperfect, can help. There are of course also other reasons this failure
+case could be triggered… a prop being used probably breaks the heuristic also.</p>
+<p>Are there other ways we can catch or fix this issue? Feel free to let me know</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span></code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
