@@ -63,25 +63,25 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
   exit 1
 fi
 
-rm -rf esm_branch1 esm_branch2
+rm -rf dist_branch1 dist_branch2
 
 echo "Building $BRANCH1 branch..."
 git checkout "$BRANCH1"
 yarn
 yarn build
-mv esm esm_branch1
-echo "$BRANCH1" >esm_branch1/branchname.txt
+mv dist dist_branch1
+echo "$BRANCH1" >dist_branch1/branchname.txt
 
 echo "Building $BRANCH2 branch..."
 git checkout "$BRANCH2"
 yarn
 yarn build
-mv esm esm_branch2
-echo "$BRANCH2" >esm_branch2/branchname.txt
+mv dist dist_branch2
+echo "$BRANCH2" >dist_branch2/branchname.txt
 
 echo "Build complete!"
-echo "$BRANCH1 build: esm_branch1/index.js"
-echo "$BRANCH2 build: esm_branch2/index.js"
+echo "$BRANCH1 build: dist_branch1/index.js"
+echo "$BRANCH2 build: dist_branch2/index.js"
 ```
 
 Then in your package.json you can have
@@ -91,7 +91,7 @@ Then in your package.json you can have
   "name": "yourpackage",
   "version": "0.0.0",
   "scripts": {
-    "build": "yourbuild",
+    "build": "yourbuild that outputs to a folder named dist",
     "prebench": "./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"
     "bench": "vitest bench"
   }
@@ -274,20 +274,17 @@ const page = await browser.newPage()
 await page.goto(url)
 
 const params = new URL(url).searchParams
-try {
-  await page.waitForFunction(
-    () =>
-      document.querySelectorAll('[data-testid="thing_to_wait_for"]')
-        .length === 1,
-    {
-      timeout: WAIT_TIMEOUT,
-    },
-  )
-  // create screenshots to confirm visually
-  await page.screenshot({
-    path: screenshotPath + '.png',
-  })
-
+await page.waitForFunction(
+  () =>
+    document.querySelectorAll('[data-testid="thing_to_wait_for"]').length === 1,
+  {
+    timeout: WAIT_TIMEOUT,
+  },
+)
+// create screenshots to confirm visually
+await page.screenshot({
+  path: screenshotPath + '.png',
+})
 
 await browser.close()
 ```
@@ -308,8 +305,9 @@ with anything that actually works. It's not always that good at finding very
 impactful optimizations, but with a human in the loop you can guide it towards
 some interesting solutions.
 
-You can even tell Claude to analyze .cpuprofile files that are generated from
-`node --cpu-prof script.ts`. See footnote here
+You can even tell Claude to look at a screenshot of a flamegraph or analyze
+.cpuprofile files that are generated from `node --cpu-prof script.ts`. See
+footnote here
 https://github.com/cmdcolin/simple_benchmark_example?tab=readme-ov-file#analyze-cpuprofile
 
 ## Happy thanksgiving
@@ -332,3 +330,6 @@ libraries on your branch temporarily (should only be needed on your "BRANCH2")
 microptimizations for it to have absolutely zero effect in a end-to-end
 benchmark. Conversely, these branch comparison tests have allowed me to ratchet
 back-to-back 5-10% improvements to achieve significant gains
+
+[4] This is not strictly related but some good ideas here by some people who are
+smarter than me https://abseil.io/fast/hints.html

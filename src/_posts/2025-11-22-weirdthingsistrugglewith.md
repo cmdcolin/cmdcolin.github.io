@@ -64,7 +64,9 @@ versus what is volatile and doesn't need persisting
 - Tension about user preferences versus app level configuration
 - Tension between assuming something can be resolved statically versus doing
   asynchronous lookup for everything
-- Tension between designing abortability into computation heavy workflows
+- Tension between designing abortability into synchronous computation heavy
+  workflows
+- Tension between designing abortability and caching
 - Tension between building in a function vs relying on an external tool to do
   something
 - Tension between seeing something measurably improve performance in a
