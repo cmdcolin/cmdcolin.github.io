@@ -55,22 +55,19 @@ useEffect! don’t you know? <code>&#x3C;link to react docs here></code></p>
 <span class="line"><span style="color:#E1E4E8">}</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> ret</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#B392F0">  useMyHook</span><span style="color:#E1E4E8">(ret)</span></span>
+<span class="line"><span style="color:#B392F0">  useMyHook</span><span style="color:#E1E4E8">([</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">])</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
 <span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#B392F0">h1</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      Hello{</span><span style="color:#9ECBFF">' '</span><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#E1E4E8">      {</span><span style="color:#FFAB70">ret</span><span style="color:#E1E4E8">.</span><span style="color:#FFAB70">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">r</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#F97583">        &#x3C;</span><span style="color:#E1E4E8">div key</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{r}</span><span style="color:#F97583">></span><span style="color:#E1E4E8">{r}</span><span style="color:#F97583">&#x3C;/</span><span style="color:#E1E4E8">div</span><span style="color:#F97583">></span></span>
-<span class="line"><span style="color:#E1E4E8">      ))}</span></span>
+<span class="line"><span style="color:#FFAB70">      Hello</span></span>
 <span class="line"><span style="color:#F97583">    &#x3C;/</span><span style="color:#E1E4E8">h1</span><span style="color:#F97583">></span></span>
 <span class="line"><span style="color:#E1E4E8">  )</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#E1E4E8"> App</span></span></code></pre>
-<p>This, as the console.log suggests, is an infinite loop, and we are not informed
-by the lint rule because we have extracted it to a different file</p>
+<p>This, as the console.log suggests, is an infinite loop because [1,2,3] is not a
+stable reference, and we are not informed by the lint rule because we have
+extracted it to a different hook</p>
 <h3 id="a-thought-to-leave-you-with">A thought to leave you with</h3>
 <p>Things like typescript eliminate huge classes of bugs via static analysis, and
 typescript-eslint is able to push it even further by adding typed lints, but
