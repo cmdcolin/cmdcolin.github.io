@@ -222,20 +222,17 @@ by the puppeteer script</li>
 <span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">goto</span><span style="color:#E1E4E8">(url)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> params</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> URL</span><span style="color:#E1E4E8">(url).searchParams</span></span>
-<span class="line"><span style="color:#F97583">try</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">waitForFunction</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#E1E4E8">    () </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#E1E4E8">      document.</span><span style="color:#B392F0">querySelectorAll</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[data-testid="thing_to_wait_for"]'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">        .</span><span style="color:#79B8FF">length</span><span style="color:#F97583"> ===</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    {</span></span>
-<span class="line"><span style="color:#E1E4E8">      timeout: </span><span style="color:#79B8FF">WAIT_TIMEOUT</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    },</span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#6A737D">  // create screenshots to confirm visually</span></span>
-<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">screenshot</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#E1E4E8">    path: screenshotPath </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> '.png'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"></span>
+<span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">waitForFunction</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">  () </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#E1E4E8">    document.</span><span style="color:#B392F0">querySelectorAll</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[data-testid="thing_to_wait_for"]'</span><span style="color:#E1E4E8">).</span><span style="color:#79B8FF">length</span><span style="color:#F97583"> ===</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    timeout: </span><span style="color:#79B8FF">WAIT_TIMEOUT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6A737D">// create screenshots to confirm visually</span></span>
+<span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">screenshot</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  path: screenshotPath </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> '.png'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> browser.</span><span style="color:#B392F0">close</span><span style="color:#E1E4E8">()</span></span></code></pre>
 <p>This can be invoked directly as a .ts file with <code>node file.ts</code> (since node.js
