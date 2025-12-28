@@ -44,31 +44,31 @@ benchmark itself to report the branchname in the report output.</p>
 <span class="line"><span style="color:#79B8FF">  exit</span><span style="color:#79B8FF"> 1</span></span>
 <span class="line"><span style="color:#F97583">fi</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> esm_branch1</span><span style="color:#9ECBFF"> esm_branch2</span></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> dist_branch1</span><span style="color:#9ECBFF"> dist_branch2</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Building </span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> branch..."</span></span>
 <span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span></span>
 <span class="line"><span style="color:#B392F0">yarn</span></span>
 <span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span>
-<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> esm</span><span style="color:#9ECBFF"> esm_branch1</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">esm_branch1/branchname.txt</span></span>
+<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> dist</span><span style="color:#9ECBFF"> dist_branch1</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">dist_branch1/branchname.txt</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Building </span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> branch..."</span></span>
 <span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span></span>
 <span class="line"><span style="color:#B392F0">yarn</span></span>
 <span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span>
-<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> esm</span><span style="color:#9ECBFF"> esm_branch2</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">esm_branch2/branchname.txt</span></span>
+<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> dist</span><span style="color:#9ECBFF"> dist_branch2</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">dist_branch2/branchname.txt</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Build complete!"</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> build: esm_branch1/index.js"</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> build: esm_branch2/index.js"</span></span></code></pre>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> build: dist_branch1/index.js"</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> build: dist_branch2/index.js"</span></span></code></pre>
 <p>Then in your package.json you can have</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
 <span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourpackage"</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"0.0.0"</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourbuild"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourbuild that outputs to a folder named dist"</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#79B8FF">    "prebench"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"</span></span>
 <span class="line"><span style="color:#9ECBFF">    "bench"</span><span style="color:#FDAEB7;font-style:italic">:</span><span style="color:#9ECBFF"> "vitest bench"</span></span>
 <span class="line"><span style="color:#E1E4E8">  }</span></span>
