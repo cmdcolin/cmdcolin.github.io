@@ -119,9 +119,14 @@ I have seen some people use 'git worktrees' to enable parallel Claude Code
 sessions, but I generally just use multiple separate clones of the repo
 
 This is a little chaotic on the brain, as you have to mentally juggle multiple
-distinct tasks, but it lets you literally solve like...2-3x the bugs
+distinct tasks, but it lets you literally solve like...2-3x the tasks
 
-### Asking Claude Code to simplify and refactor and identify correctness issues repeatedly
+There are many new software that try to help manage multiple Claude code
+sessions with this with varying levels of ridiculousness, where
+https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04 is probably the
+top level ridiculousness
+
+### Asking Claude Code to simplify, refactor, identify correctness issues repeatedly
 
 After almost every question, I will ask it something like "now that we have a
 working system, are there any simplifications or refactorings that you would
@@ -129,6 +134,21 @@ make, or correctness issues that you can identify"
 
 Maybe there is more optimal wording but in general it can identify some
 reasonable simplifications that are good-to-have
+
+I also ask it "are there any other changes you would suggest" because if you ask
+it to suggest refactorings, it will only suggest refactorings. I sometimes also
+say "You can create helper functions".
+
+See also: The Rule of Five
+
+"5. The Rule of Five: When in doubt, have the agent review its own work 5 times.
+
+Jeffrey Emanuel discovered this powerful and unintuitive rule. He found that he
+gets the best designs, the best plans, and the best implementations, all by
+forcing agents to review their proposals (and then their work) 4–5 times, at
+which point it “converges”. It typically takes 4 to 5 iterations before the
+agent declares that it’s as good as it can get."
+https://steve-yegge.medium.com/six-new-tips-for-better-coding-with-agents-d4e9c86e42a9
 
 ### Telling Claude Code to find optimizations
 
@@ -144,6 +164,13 @@ Solving merge conflicts by hand is tricky. I have historically used the Meld
 graphical interface, but even so it is finicky, laborious, and I can get into a
 mess. Instead, I can ask Claude to "solve merge conflicts" and it'll do it quite
 well from my experience so far
+
+### Telling Claude Code that it can add debug logging
+
+Often Claude will think very hard about how to solve particular issues which is
+cool and great, however, it is often good to just let Claude know that it can
+add debug logging. Then you can either manually report the debug logging back to
+it, or it can automatically see the logging in tests or whatnot
 
 ### Telling Claude Code to vendor entire NPM packages
 
@@ -240,3 +267,10 @@ Do not use push(...list), it can cause stack overflow
 If we are in the process of debugging an issue, please do not remove debug
 logging unless instructed
 ```
+
+## Footnote 4
+
+I link to Yegge here because his post on CHOP-oriented dev
+(https://sourcegraph.com/blog/the-death-of-the-junior-developer) was one of the
+first posts to make me realize that CHOP aka vibecoding is rapidly changing our
+field. Not sure whether gas town will achieve such inroads but it is funny
