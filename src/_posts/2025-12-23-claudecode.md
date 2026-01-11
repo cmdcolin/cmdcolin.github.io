@@ -137,7 +137,8 @@ reasonable simplifications that are good-to-have
 
 I also ask it "are there any other changes you would suggest" because if you ask
 it to suggest refactorings, it will only suggest refactorings. I sometimes also
-say "You can create helper functions".
+say "You can create helper functions". And for the people who actually write
+tests, you can ask "Are there any tests you would add?"
 
 See also: The Rule of Five
 
