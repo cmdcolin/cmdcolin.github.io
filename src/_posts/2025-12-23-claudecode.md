@@ -121,11 +121,6 @@ sessions, but I generally just use multiple separate clones of the repo
 This is a little chaotic on the brain, as you have to mentally juggle multiple
 distinct tasks, but it lets you literally solve like...2-3x the tasks
 
-There are many new software that try to help manage multiple Claude code
-sessions with this with varying levels of ridiculousness, where
-https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04 is probably the
-top level ridiculousness
-
 ### Asking Claude Code to simplify, refactor, identify correctness issues repeatedly
 
 After almost every question, I will ask it something like "now that we have a
@@ -150,6 +145,10 @@ forcing agents to review their proposals (and then their work) 4–5 times, at
 which point it “converges”. It typically takes 4 to 5 iterations before the
 agent declares that it’s as good as it can get."
 https://steve-yegge.medium.com/six-new-tips-for-better-coding-with-agents-d4e9c86e42a9
+
+Sidenote: the yegge-mobile is somewhat insane in later blogposts. See "agent
+psychosis" https://lucumr.pocoo.org/2026/1/18/agent-psychosis/ but this the rule
+of five is a fairly good tip
 
 ### Telling Claude Code to find optimizations
 
