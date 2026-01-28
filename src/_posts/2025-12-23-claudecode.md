@@ -167,10 +167,17 @@ well from my experience so far
 
 ### Telling Claude Code that it can add debug logging
 
-Often Claude will think very hard about how to solve particular issues which is
-cool and great, however, it is often good to just let Claude know that it can
-add debug logging. Then you can either manually report the debug logging back to
-it, or it can automatically see the logging in tests or whatnot
+This is a _very important_ one
+
+Often, Claude will think very hard about how to solve particular issues. Who
+knows what's going on in that mechabrain.
+
+However, like a human programmer, adding debug logging can reveal a lot of
+useful info
+
+it is often good, and even necessary, to let Claude know that it can add debug
+logging. Then you can either manually report the debug logging back to it, or it
+can automatically see the logging by making it run the tests or whatnot
 
 ### Telling Claude Code to vendor entire NPM packages
 
@@ -195,8 +202,20 @@ https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/
 
 ### Telling Claude Code to solve github issues
 
-You can literally give it a URL of a github issue, and it will do its best to go
-and solve it. Sometimes it actually works. Amazing
+You can literally paste into Claude Code a URL of a github issue, and it will do
+its best to go and solve it. Sometimes it actually works. Amazing
+
+### Don't be too specific in your prompts if you don't actually know what you want
+
+Some people say to be very specific when talking to AI tools, but I have found
+very adequate results from NOT being specific. I just state the problem, even in
+vague terms, and see what the AI comes up with
+
+This can often be better or simpler than what I might have prompted it with.
+
+This is in line with the 'be careful with what you wish for' doctrine: don't
+tell it exactly what to do if you don't actually know what's best, you can just
+see what it suggests
 
 ## Concluding thoughts
 
