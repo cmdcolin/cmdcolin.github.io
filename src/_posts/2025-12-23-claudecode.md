@@ -53,7 +53,8 @@ I had some pretty unique successes with Avante.nvim and Claude. It fixed some
 bugs parsing a very complex file format (CRAM). I can't imagine it had much
 'training' data on this, but it came up with a very successful solution to a
 weird bug, and I posted a full chatlog on my early PRs using this (example Dec
-2024, https://github.com/GMOD/cram-js/pull/150)
+2024, https://github.com/GMOD/cram-js/pull/150 please note that all things
+considered this is now a very basic early example of my AI usage)
 
 Around February 2025, Claude introduced 3.7 which added tool calling, which are
 basically 'agentic' workflows. These were integrated with Avante.nvim but they
