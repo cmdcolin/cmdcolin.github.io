@@ -293,4 +293,4 @@ logging unless instructed
 I link to Yegge here because his post on CHOP-oriented dev
 (https://sourcegraph.com/blog/the-death-of-the-junior-developer) was one of the
 first posts to make me realize that CHOP aka vibecoding is rapidly changing our
-field. Not sure whether gas town will achieve such inroads but it is funny
+field.
