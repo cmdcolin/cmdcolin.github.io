@@ -1,0 +1,232 @@
+/* Adaptive GitHub Theme for Tree-sitter Highlighting
+ * Light/Dark mode via prefers-color-scheme
+ * Based on https://primer.style/primitives/colors
+ */
+
+:root {
+  --hl-bg: #ffffff;
+  --hl-fg: #24292f;
+  --hl-muted: #57606a;
+  --hl-red: #cf222e;
+  --hl-orange: #953800;
+  --hl-blue: #0550ae;
+  --hl-blue-alt: #0a3069;
+  --hl-purple: #8250df;
+  --hl-green: #116329;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hl-bg: #0d1117;
+    --hl-fg: #c9d1d9;
+    --hl-muted: #8b949e;
+    --hl-red: #ff7b72;
+    --hl-orange: #ffa657;
+    --hl-blue: #79c0ff;
+    --hl-blue-alt: #a5d6ff;
+    --hl-purple: #d2a8ff;
+    --hl-green: #7ee787;
+  }
+}
+
+pre:has(> code) {
+  background: var(--hl-bg);
+  color: var(--hl-fg);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+/* Keywords */
+.hl-keyword,
+.hl-keyword-control,
+.hl-keyword-control-conditional,
+.hl-keyword-control-repeat,
+.hl-keyword-control-import,
+.hl-keyword-control-return,
+.hl-keyword-control-exception,
+.hl-keyword-operator,
+.hl-keyword-directive,
+.hl-keyword-function,
+.hl-keyword-return,
+.hl-keyword-storage,
+.hl-keyword-storage-modifier,
+.hl-keyword-storage-modifier-mut,
+.hl-keyword-storage-modifier-ref,
+.hl-keyword-special {
+  color: var(--hl-red);
+}
+
+.hl-keyword-storage-type {
+  color: var(--hl-blue);
+}
+
+/* Functions */
+.hl-function,
+.hl-function-builtin,
+.hl-function-call,
+.hl-function-macro,
+.hl-function-method {
+  color: var(--hl-purple);
+}
+
+/* Types */
+.hl-type,
+.hl-type-parameter {
+  color: var(--hl-orange);
+}
+
+.hl-type-builtin {
+  color: var(--hl-blue);
+}
+
+.hl-type-enum-variant,
+.hl-type-enum-variant-builtin {
+  color: var(--hl-fg);
+  font-style: italic;
+}
+
+/* Constants */
+.hl-constant,
+.hl-constant-builtin,
+.hl-constant-builtin-boolean,
+.hl-constant-character,
+.hl-constant-character-escape,
+.hl-constant-macro,
+.hl-constant-numeric,
+.hl-constant-numeric-integer,
+.hl-constant-numeric-float {
+  color: var(--hl-blue);
+}
+
+/* Strings */
+.hl-string,
+.hl-string-regexp,
+.hl-string-special,
+.hl-string-special-path,
+.hl-string-special-symbol {
+  color: var(--hl-blue-alt);
+}
+
+/* Variables */
+.hl-variable,
+.hl-variable-other {
+  color: var(--hl-fg);
+}
+
+.hl-variable-builtin {
+  color: var(--hl-red);
+}
+
+.hl-variable-parameter {
+  color: var(--hl-orange);
+}
+
+.hl-variable-other-member {
+  color: var(--hl-blue-alt);
+}
+
+/* Comments */
+.hl-comment,
+.hl-comment-line,
+.hl-comment-block,
+.hl-comment-block-documentation,
+.hl-comment-line-documentation {
+  color: var(--hl-muted);
+}
+
+.hl-comment-unused {
+  color: var(--hl-muted);
+  opacity: 0.6;
+}
+
+/* Punctuation */
+.hl-punctuation,
+.hl-punctuation-bracket,
+.hl-punctuation-delimiter {
+  color: var(--hl-fg);
+}
+
+.hl-punctuation-special {
+  color: var(--hl-blue-alt);
+}
+
+/* Operators */
+.hl-operator {
+  color: var(--hl-blue-alt);
+}
+
+/* Other */
+.hl-attribute {
+  color: var(--hl-fg);
+}
+
+.hl-label {
+  color: var(--hl-red);
+}
+
+.hl-namespace {
+  color: var(--hl-orange);
+}
+
+.hl-constructor {
+  color: var(--hl-purple);
+}
+
+.hl-special {
+  color: var(--hl-blue-alt);
+}
+
+.hl-tag {
+  color: var(--hl-green);
+}
+
+.hl-tag-attribute {
+  color: var(--hl-purple);
+}
+
+.hl-tag-delimiter {
+  color: var(--hl-fg);
+}
+
+/* Markup */
+.hl-markup-bold {
+  font-weight: bold;
+}
+
+.hl-markup-italic {
+  font-style: italic;
+}
+
+.hl-markup-strikethrough {
+  text-decoration: line-through;
+}
+
+.hl-markup-heading {
+  color: var(--hl-blue);
+}
+
+.hl-markup-link-text {
+  color: var(--hl-blue-alt);
+  text-decoration: underline;
+}
+
+.hl-markup-link-url {
+  text-decoration: underline;
+}
+
+.hl-markup-list {
+  color: var(--hl-red);
+}
+
+.hl-markup-quote {
+  font-style: italic;
+}
+
+.hl-markup-raw {
+  color: var(--hl-blue);
+}
+
+.hl-unknown {
+  color: var(--hl-fg);
+}
