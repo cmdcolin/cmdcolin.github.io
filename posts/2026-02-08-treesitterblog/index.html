@@ -1,0 +1,355 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Using tree sitter for syntax highlighting on the blog</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Using tree sitter for syntax highlighting on the blog</h1> <h4 data-astro-cid-lvjzyg5v>2026-02-07</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Owners of a programming blogs are obligated to make numerous frivolous tweaks
+and modifications to their blog infrastructure in order to avoid actually
+writing about things.</p>
+<p>However, in certain cases, the blog authors can actually make posts about how
+they modified their blog infrastructure in order to fulfill their blog posting
+quota.</p>
+<p>Here, I will describe an effort in this vein where I used arborium to achieve
+tree-sitter based syntax highlighting for posts on this blog</p>
+<h2 id="what-is-arborium">What is arborium</h2>
+<p>Arborium describes itself as “a tree-sitter distribution”. It is a Rust based
+effort to redistribute tree-sitter grammars for easy syntax highlighting and was
+described here, with a large effort to add highlighting to even non-rust code on
+docs.rs <a href="https://fasterthanli.me/articles/introducing-arborium">https://fasterthanli.me/articles/introducing-arborium</a></p>
+<h2 id="using-the-arborium-npm-packages">Using the arborium NPM packages?</h2>
+<p>There are a number of NPM packages that arborium distributes, which might seem
+like they make sense to use because I am using other js based infrastructure for
+this blog, however assume the use of a ‘window’ object and are made for running
+in the browser, while my goal was to statically generate the highlighted tags in
+order to achieve that minimal javascript and dependencies</p>
+<h2 id="statically-generating-the-tree-sitter-based-highlighting-from-markdown-with-the-arborium-cli">Statically generating the tree-sitter based highlighting from markdown with the arborium CLI</h2>
+<p>Instead of using the NPM packages, we can use the arborium CLI</p>
+<p>Note: I had claude code make a rehype (markdown pre-processor) plugin that runs
+<code>arborium --lang X --html</code> for each fenced code block at build time. The CLI
+reads source code from stdin and outputs HTML with custom elements.</p>
+<p>The plugin parses that into HAST nodes that Astro serializes into the final
+HTML.</p>
+<h2 id="language-showcase">Language showcase</h2>
+<h3 id="typescript">TypeScript</h3>
+<pre><code class="language-typescript"><a-k>interface</a-k> <a-t>User</a-t> <a-p>{</a-p>
+  <a-pr>name</a-pr>: <a-t>string</a-t>
+  <a-pr>email</a-pr>: <a-t>string</a-t>
+  <a-pr>roles</a-pr>: <a-k>readonly</a-k> <a-t>string</a-t><a-p>[]</a-p>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-f>greet</a-f><a-p>(</a-p><a-v>user</a-v>: <a-t>User</a-t><a-p>)</a-p>: <a-t>string</a-t> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> name<a-p>,</a-p> roles <a-p>}</a-p> <a-o>=</a-o> <a-v>user</a-v>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>roles</a-v><a-p>.</a-p><a-f>includes</a-f><a-p>(</a-p><a-s>'admin'</a-s><a-p>))</a-p> <a-p>{</a-p>
+    <a-k>return</a-k> <a-s>`Welcome back, </a-s><a-p>${</a-p><a-v>name</a-v><a-p>}</a-p><a-s>!`</a-s>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-s>`Hello, </a-s><a-p>${</a-p><a-v>name</a-v><a-p>}</a-p><a-s>.`</a-s>
+<a-p>}</a-p>
+
+<a-k>const</a-k> <a-v>users</a-v>: <a-t>Map</a-t><a-p>&#x3C;</a-p><a-t>string</a-t><a-p>,</a-p> <a-t>User</a-t><a-p>></a-p> <a-o>=</a-o> <a-k>new</a-k> <a-t>Map</a-t><a-p>()</a-p>
+</code></pre>
+<h3 id="tsx-typescript-react">TSX (TypeScript React)</h3>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
+
+<a-k>interface</a-k> <a-t>Todo</a-t> <a-p>{</a-p>
+  <a-pr>id</a-pr>: <a-t>number</a-t>
+  <a-pr>text</a-pr>: <a-t>string</a-t>
+  <a-pr>done</a-pr>: <a-t>boolean</a-t>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>default</a-k> <a-k>function</a-k> <a-t>TodoList</a-t><a-p>({</a-p> initialItems <a-p>}</a-p>: <a-p>{</a-p> <a-pr>initialItems</a-pr>: <a-t>Todo</a-t><a-p>[]</a-p> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>todos</a-v><a-p>,</a-p> <a-v>setTodos</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>Todo</a-t><a-p>[]>(</a-p><a-v>initialItems</a-v><a-p>)</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>input</a-v><a-p>,</a-p> <a-v>setInput</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
+
+  <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-v>document</a-v><a-p>.</a-p><a-pr>title</a-pr> <a-o>=</a-o> <a-s>`</a-s><a-p>${</a-p><a-v>todos</a-v><a-p>.</a-p><a-f>filter</a-f><a-p>(</a-p><a-v>t</a-v><a-eb> </a-eb><a-o>=></a-o><a-eb> </a-eb><a-o>!</a-o><a-v>t</a-v><a-p>.</a-p><a-pr>done</a-pr><a-p>).</a-p><a-pr>length</a-pr><a-p>}</a-p><a-s> remaining`</a-s>
+  <a-p>},</a-p> <a-p>[</a-p><a-v>todos</a-v><a-p>])</a-p>
+
+  <a-k>const</a-k> <a-f>addTodo</a-f> <a-o>=</a-o> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>input</a-v><a-p>.</a-p><a-f>trim</a-f><a-p>())</a-p> <a-p>{</a-p>
+      <a-f>setTodos</a-f><a-p>([</a-p>...<a-v>todos</a-v><a-p>,</a-p> <a-p>{</a-p> <a-pr>id</a-pr>: <a-t>Date</a-t><a-p>.</a-p><a-f>now</a-f><a-p>(),</a-p> <a-pr>text</a-pr>: <a-v>input</a-v><a-p>,</a-p> <a-pr>done</a-pr>: <a-co>false</a-co> <a-p>}])</a-p>
+      <a-f>setInput</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
+    <a-p>}</a-p>
+  <a-p>}</a-p>
+
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at><a-o>=</a-o><a-s>"todo-app"</a-s><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>Todos</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>input</a-tg> <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>input</a-v><a-p>}</a-p> <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>e</a-v> <a-o>=></a-o> <a-f>setInput</a-f><a-p>(</a-p><a-v>e</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p> <a-p>/></a-p>
+      <a-p>&#x3C;</a-p><a-tg>button</a-tg> <a-at>onClick</a-at><a-o>=</a-o><a-p>{</a-p><a-v>addTodo</a-v><a-p>}></a-p><a-s>Add</a-s><a-p>&#x3C;/</a-p><a-tg>button</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>ul</a-tg><a-p>></a-p>
+        <a-p>{</a-p><a-v>todos</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>todo</a-v> <a-o>=></a-o> <a-p>(</a-p>
+          <a-p>&#x3C;</a-p><a-tg>li</a-tg> <a-at>key</a-at><a-o>=</a-o><a-p>{</a-p><a-v>todo</a-v><a-p>.</a-p><a-pr>id</a-pr><a-p>}</a-p> <a-at>className</a-at><a-o>=</a-o><a-p>{</a-p><a-v>todo</a-v><a-p>.</a-p><a-pr>done</a-pr> ? <a-s>'done'</a-s> : <a-s>''</a-s><a-p>}></a-p>
+            <a-p>{</a-p><a-v>todo</a-v><a-p>.</a-p><a-pr>text</a-pr><a-p>}</a-p>
+          <a-p>&#x3C;/</a-p><a-tg>li</a-tg><a-p>></a-p>
+        <a-p>))}</a-p>
+      <a-p>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
+<h3 id="rust">Rust</h3>
+<pre><code class="language-rust"><a-k>use</a-k> std<a-p>::</a-p>collections<a-p>::</a-p><a-cr>HashMap</a-cr><a-p>;</a-p>
+
+<a-at>#</a-at><a-p>[</a-p><a-at>derive</a-at><a-p>(</a-p><a-cr>Debug</a-cr><a-p>)]</a-p>
+<a-k>struct</a-k> <a-t>Config</a-t> <a-p>{</a-p>
+    <a-pr>values</a-pr><a-p>:</a-p> <a-t>HashMap</a-t><a-p>&#x3C;</a-p><a-t>String</a-t><a-p>,</a-p> <a-t>String</a-t><a-p>>,</a-p>
+<a-p>}</a-p>
+
+<a-k>impl</a-k> <a-t>Config</a-t> <a-p>{</a-p>
+    <a-k>fn</a-k> <a-f>new</a-f><a-p>()</a-p> -> <a-t>Self</a-t> <a-p>{</a-p>
+        <a-t>Config</a-t> <a-p>{</a-p>
+            <a-pr>values</a-pr><a-p>:</a-p> <a-t>HashMap</a-t><a-p>::</a-p><a-f>new</a-f><a-p>(),</a-p>
+        <a-p>}</a-p>
+    <a-p>}</a-p>
+
+    <a-k>fn</a-k> <a-f>get</a-f><a-p>(</a-p><a-o>&#x26;</a-o><a-v>self</a-v><a-p>,</a-p> <a-v>key</a-v><a-p>:</a-p> <a-o>&#x26;</a-o><a-t>str</a-t><a-p>)</a-p> -> <a-t>Option</a-t><a-p>&#x3C;</a-p><a-o>&#x26;</a-o><a-t>str</a-t><a-p>></a-p> <a-p>{</a-p>
+        <a-v>self</a-v><a-p>.</a-p><a-pr>values</a-pr><a-p>.</a-p><a-f>get</a-f><a-p>(</a-p>key<a-p>).</a-p><a-f>map</a-f><a-p>(</a-p>|s| s<a-p>.</a-p><a-f>as_str</a-f><a-p>())</a-p>
+    <a-p>}</a-p>
+<a-p>}</a-p>
+
+<a-k>fn</a-k> <a-f>main</a-f><a-p>()</a-p> <a-p>{</a-p>
+    <a-k>let</a-k> <a-k>mut</a-k> config = <a-t>Config</a-t><a-p>::</a-p><a-f>new</a-f><a-p>();</a-p>
+    config<a-p>.</a-p><a-pr>values</a-pr><a-p>.</a-p><a-f>insert</a-f><a-p>(</a-p><a-s>"theme"</a-s><a-p>.</a-p><a-f>into</a-f><a-p>(),</a-p> <a-s>"dark"</a-s><a-p>.</a-p><a-f>into</a-f><a-p>());</a-p>
+
+    <a-k>match</a-k> config<a-p>.</a-p><a-f>get</a-f><a-p>(</a-p><a-s>"theme"</a-s><a-p>)</a-p> <a-p>{</a-p>
+        <a-cr>Some</a-cr><a-p>(</a-p>theme<a-p>)</a-p> => <a-m>println!</a-m><a-p>(</a-p><a-s>"Using theme: {theme}"</a-s><a-p>),</a-p>
+        <a-cr>None</a-cr> => <a-m>println!</a-m><a-p>(</a-p><a-s>"No theme set"</a-s><a-p>),</a-p>
+    <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
+<h3 id="python">Python</h3>
+<pre><code class="language-python"><a-k>from</a-k> <a-v>dataclasses</a-v> <a-k>import</a-k> <a-v>dataclass</a-v>
+<a-k>from</a-k> <a-v>typing</a-v> <a-k>import</a-k> <a-cr>Iterator</a-cr>
+
+<a-f>@dataclass</a-f>
+<a-k>class</a-k> <a-cr>Point</a-cr>:
+    <a-v>x</a-v>: <a-t>float</a-t>
+    <a-v>y</a-v>: <a-t>float</a-t>
+
+    <a-k>def</a-k> <a-f>distance_to</a-f>(<a-v>self</a-v>, <a-v>other</a-v>: <a-s>"Point"</a-s>) <a-o>-></a-o> <a-t>float</a-t>:
+        <a-k>return</a-k> ((<a-v>self</a-v>.<a-pr>x</a-pr> <a-o>-</a-o> <a-v>other</a-v>.<a-pr>x</a-pr>) <a-o>**</a-o> <a-n>2</a-n> <a-o>+</a-o> (<a-v>self</a-v>.<a-pr>y</a-pr> <a-o>-</a-o> <a-v>other</a-v>.<a-pr>y</a-pr>) <a-o>**</a-o> <a-n>2</a-n>) <a-o>**</a-o> <a-n>0.5</a-n>
+
+<a-k>def</a-k> <a-f>fibonacci</a-f>() <a-o>-></a-o> <a-cr>Iterator</a-cr>[<a-t>int</a-t>]:
+    <a-v>a</a-v>, <a-v>b</a-v> <a-o>=</a-o> <a-n>0</a-n>, <a-n>1</a-n>
+    <a-k>while</a-k> <a-co>True</a-co>:
+        <a-k>yield</a-k> <a-v>a</a-v>
+        <a-v>a</a-v>, <a-v>b</a-v> <a-o>=</a-o> <a-v>b</a-v>, <a-v>a</a-v> <a-o>+</a-o> <a-v>b</a-v>
+
+<a-v>points</a-v> <a-o>=</a-o> [<a-f>Point</a-f>(<a-v>i</a-v>, <a-v>i</a-v> <a-o>*</a-o> <a-n>2.5</a-n>) <a-k>for</a-k> <a-v>i</a-v> <a-o>in</a-o> <a-f>range</a-f>(<a-n>5</a-n>)]
+<a-k>for</a-k> <a-v>p</a-v> <a-o>in</a-o> <a-v>points</a-v>:
+    <a-f>print</a-f>(<a-s>f"</a-s><a-p>{</a-p><a-v>p</a-v><a-p>}</a-p><a-s> -> distance to origin: </a-s><a-p>{</a-p><a-v>p</a-v><a-eb>.</a-eb><a-pr>distance_to</a-pr><a-eb>(</a-eb><a-f>Point</a-f><a-eb>(</a-eb><a-n>0</a-n><a-eb>, </a-eb><a-n>0</a-n><a-eb>)):.2f</a-eb><a-p>}</a-p><a-s>"</a-s>)
+</code></pre>
+<h3 id="go">Go</h3>
+<pre><code class="language-go"><a-k>package</a-k> main
+
+<a-k>import</a-k> (
+	<a-s>"fmt"</a-s>
+	<a-s>"sync"</a-s>
+)
+
+<a-k>func</a-k> <a-v>worker</a-v>(<a-v>id</a-v> <a-t>int</a-t>, <a-v>jobs</a-v> <a-o>&#x3C;-</a-o><a-k>chan</a-k> <a-t>int</a-t>, <a-v>results</a-v> <a-k>chan</a-k><a-o>&#x3C;-</a-o> <a-t>int</a-t>, <a-v>wg</a-v> <a-o>*</a-o>sync.<a-t>WaitGroup</a-t>) {
+	<a-k>defer</a-k> <a-v>wg</a-v>.<a-pr>Done</a-pr>()
+	<a-k>for</a-k> <a-v>j</a-v> <a-o>:=</a-o> <a-k>range</a-k> <a-v>jobs</a-v> {
+		<a-v>fmt</a-v>.<a-pr>Printf</a-pr>(<a-s>"worker %d processing job %d\n"</a-s>, <a-v>id</a-v>, <a-v>j</a-v>)
+		<a-v>results</a-v> <a-o>&#x3C;-</a-o> <a-v>j</a-v> <a-o>*</a-o> <a-n>2</a-n>
+	}
+}
+
+<a-k>func</a-k> <a-v>main</a-v>() {
+	<a-v>jobs</a-v> <a-o>:=</a-o> <a-v>make</a-v>(<a-k>chan</a-k> <a-t>int</a-t>, <a-n>100</a-n>)
+	<a-v>results</a-v> <a-o>:=</a-o> <a-v>make</a-v>(<a-k>chan</a-k> <a-t>int</a-t>, <a-n>100</a-n>)
+
+	<a-k>var</a-k> <a-v>wg</a-v> sync.<a-t>WaitGroup</a-t>
+	<a-k>for</a-k> <a-v>w</a-v> <a-o>:=</a-o> <a-n>1</a-n>; <a-v>w</a-v> <a-o>&#x3C;=</a-o> <a-n>3</a-n>; <a-v>w</a-v><a-o>++</a-o> {
+		<a-v>wg</a-v>.<a-pr>Add</a-pr>(<a-n>1</a-n>)
+		<a-k>go</a-k> <a-v>worker</a-v>(<a-v>w</a-v>, <a-v>jobs</a-v>, <a-v>results</a-v>, <a-o>&#x26;</a-o><a-v>wg</a-v>)
+	}
+
+	<a-k>for</a-k> <a-v>j</a-v> <a-o>:=</a-o> <a-n>1</a-n>; <a-v>j</a-v> <a-o>&#x3C;=</a-o> <a-n>5</a-n>; <a-v>j</a-v><a-o>++</a-o> {
+		<a-v>jobs</a-v> <a-o>&#x3C;-</a-o> <a-v>j</a-v>
+	}
+	<a-v>close</a-v>(<a-v>jobs</a-v>)
+
+	<a-v>wg</a-v>.<a-pr>Wait</a-pr>()
+	<a-v>close</a-v>(<a-v>results</a-v>)
+}
+</code></pre>
+<h3 id="html">HTML</h3>
+<pre><code class="language-html"><a-co>&#x3C;!doctype html</a-co><a-p>></a-p>
+<a-p>&#x3C;</a-p><a-tg>html</a-tg> <a-at>lang</a-at>="<a-s>en</a-s>"<a-p>></a-p>
+  <a-p>&#x3C;</a-p><a-tg>head</a-tg><a-p>></a-p>
+    <a-p>&#x3C;</a-p><a-tg>meta</a-tg> <a-at>charset</a-at>="<a-s>UTF-8</a-s>" <a-p>/></a-p>
+    <a-p>&#x3C;</a-p><a-tg>title</a-tg><a-p>></a-p>Example<a-p>&#x3C;/</a-p><a-tg>title</a-tg><a-p>></a-p>
+    <a-p>&#x3C;</a-p><a-tg>style</a-tg><a-p>></a-p>
+      <a-tg>body</a-tg> <a-p>{</a-p>
+        <a-pr>font-family</a-pr><a-p>:</a-p> system-ui<a-p>,</a-p> sans-serif<a-p>;</a-p>
+        <a-pr>color-scheme</a-pr><a-p>:</a-p> light dark<a-p>;</a-p>
+      <a-p>}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>style</a-tg><a-p>></a-p>
+  <a-p>&#x3C;/</a-p><a-tg>head</a-tg><a-p>></a-p>
+  <a-p>&#x3C;</a-p><a-tg>body</a-tg><a-p>></a-p>
+    <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p>Hello<a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+    <a-p>&#x3C;</a-p><a-tg>ul</a-tg> <a-at>id</a-at>="<a-s>list</a-s>"<a-p>>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
+    <a-p>&#x3C;</a-p><a-tg>script</a-tg><a-p>></a-p>
+      <a-k>const</a-k> <a-v>items</a-v> <a-o>=</a-o> <a-p>[</a-p><a-s>'Apple'</a-s><a-p>,</a-p> <a-s>'Banana'</a-s><a-p>,</a-p> <a-s>'Cherry'</a-s><a-p>]</a-p>
+      <a-k>const</a-k> <a-v>list</a-v> <a-o>=</a-o> <a-v>document</a-v><a-p>.</a-p><a-f>getElementById</a-f><a-p>(</a-p><a-s>'list'</a-s><a-p>)</a-p>
+
+      <a-k>for</a-k> <a-p>(</a-p><a-k>const</a-k> <a-v>item</a-v> <a-k>of</a-k> <a-v>items</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-k>const</a-k> <a-v>li</a-v> <a-o>=</a-o> <a-v>document</a-v><a-p>.</a-p><a-f>createElement</a-f><a-p>(</a-p><a-s>'li'</a-s><a-p>)</a-p>
+        <a-v>li</a-v><a-p>.</a-p><a-pr>textContent</a-pr> <a-o>=</a-o> <a-v>item</a-v>
+        <a-v>li</a-v><a-p>.</a-p><a-f>addEventListener</a-f><a-p>(</a-p><a-s>'click'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+          <a-v>li</a-v><a-p>.</a-p><a-pr>classList</a-pr><a-p>.</a-p><a-f>toggle</a-f><a-p>(</a-p><a-s>'selected'</a-s><a-p>)</a-p>
+          <a-k>const</a-k> <a-v>selected</a-v> <a-o>=</a-o> <a-v>document</a-v><a-p>.</a-p><a-f>querySelectorAll</a-f><a-p>(</a-p><a-s>'.selected'</a-s><a-p>)</a-p>
+          <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>`</a-s><a-p>${</a-p><a-v>selected</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>}</a-p><a-s> items selected`</a-s><a-p>)</a-p>
+        <a-p>})</a-p>
+        <a-v>list</a-v><a-p>.</a-p><a-f>appendChild</a-f><a-p>(</a-p><a-v>li</a-v><a-p>)</a-p>
+      <a-p>}</a-p>
+
+      <a-k>async</a-k> <a-k>function</a-k> <a-f>fetchData</a-f><a-p>(</a-p><a-v>url</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-v>url</a-v><a-p>)</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+          <a-k>throw</a-k> <a-k>new</a-k> <a-cr>Error</a-cr><a-p>(</a-p><a-s>`HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s>`</a-s><a-p>)</a-p>
+        <a-p>}</a-p>
+        <a-k>return</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
+      <a-p>}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>script</a-tg><a-p>></a-p>
+  <a-p>&#x3C;/</a-p><a-tg>body</a-tg><a-p>></a-p>
+<a-p>&#x3C;/</a-p><a-tg>html</a-tg><a-p>></a-p>
+</code></pre>
+<h3 id="bash">Bash</h3>
+<pre><code class="language-bash"><a-c>#!/bin/bash</a-c>
+<a-f>set</a-f> <a-co>-euo</a-co> pipefail
+
+readonly <a-pr>LOG_DIR</a-pr>=<a-s>"/var/log/myapp"</a-s>
+
+<a-f>rotate_logs</a-f>() {
+  local <a-pr>max_size</a-pr>=$((10 * 1024 * 1024))
+  <a-k>for</a-k> <a-pr>log</a-pr> <a-k>in</a-k> <a-s>"</a-s><a-o>$</a-o><a-pr>LOG_DIR</a-pr><a-s>"</a-s>/*.log; <a-k>do</a-k>
+    <a-k>if</a-k> [[ <a-eb>$(</a-eb><a-f>stat</a-f><a-eb> </a-eb><a-co>-f%z</a-co><a-eb> </a-eb><a-s>"</a-s><a-o>$</a-o><a-pr>log</a-pr><a-s>"</a-s><a-eb> </a-eb><a-n>2</a-n><a-o>></a-o><a-eb>/dev/null || </a-eb><a-f>stat</a-f><a-eb> </a-eb><a-co>-c%s</a-co><a-eb> </a-eb><a-s>"</a-s><a-o>$</a-o><a-pr>log</a-pr><a-s>"</a-s><a-eb>)</a-eb> -gt <a-o>$</a-o><a-pr>max_size</a-pr> ]]; <a-k>then</a-k>
+      <a-f>mv</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>log</a-pr><a-s>"</a-s> <a-s>"</a-s><a-eb>${</a-eb><a-pr>log</a-pr><a-eb>}</a-eb><a-s>.</a-s><a-eb>$(</a-eb><a-f>date</a-f><a-eb> +%Y%m%d%H%M%S)</a-eb><a-s>.bak"</a-s>
+      <a-f>echo</a-f> <a-s>"Rotated: </a-s><a-o>$</a-o><a-pr>log</a-pr><a-s>"</a-s>
+    <a-k>fi</a-k>
+  <a-k>done</a-k>
+}
+
+<a-f>rotate_logs</a-f>
+<a-f>echo</a-f> <a-s>"Done at </a-s><a-eb>$(</a-eb><a-f>date</a-f><a-eb>)</a-eb><a-s>"</a-s>
+</code></pre>
+<h3 id="css">CSS</h3>
+<pre><code class="language-css"><a-p>:</a-p><a-at>root</a-at> <a-p>{</a-p>
+  <a-pr>--bg</a-pr><a-p>:</a-p> <a-p>#</a-p><a-s>ffffff</a-s><a-p>;</a-p>
+  <a-pr>--fg</a-pr><a-p>:</a-p> <a-p>#</a-p><a-s>1a1a1a</a-s><a-p>;</a-p>
+  <a-pr>--accent</a-pr><a-p>:</a-p> <a-p>#</a-p><a-s>0055ff</a-s><a-p>;</a-p>
+<a-p>}</a-p>
+
+<a-k>@media</a-k> <a-p>(</a-p><a-pr>prefers-color-scheme</a-pr><a-p>:</a-p> dark<a-p>)</a-p> <a-p>{</a-p>
+  <a-p>:</a-p><a-at>root</a-at> <a-p>{</a-p>
+    <a-pr>--bg</a-pr><a-p>:</a-p> <a-p>#</a-p><a-s>0d1117</a-s><a-p>;</a-p>
+    <a-pr>--fg</a-pr><a-p>:</a-p> <a-p>#</a-p><a-s>e6edf3</a-s><a-p>;</a-p>
+    <a-pr>--accent</a-pr><a-p>:</a-p> <a-p>#</a-p><a-s>58a6ff</a-s><a-p>;</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+
+<a-p>.</a-p><a-pr>card</a-pr> <a-p>{</a-p>
+  <a-pr>background</a-pr><a-p>:</a-p> <a-f>var</a-f><a-p>(</a-p><a-v>--bg</a-v><a-p>);</a-p>
+  <a-pr>color</a-pr><a-p>:</a-p> <a-f>var</a-f><a-p>(</a-p><a-v>--fg</a-v><a-p>);</a-p>
+  <a-pr>border</a-pr><a-p>:</a-p> <a-n>1</a-n><a-t>px</a-t> solid <a-f>color-mix</a-f><a-p>(</a-p>in srgb<a-p>,</a-p> <a-f>var</a-f><a-p>(</a-p><a-v>--fg</a-v><a-p>)</a-p> <a-n>20</a-n><a-t>%</a-t><a-p>,</a-p> transparent<a-p>);</a-p>
+  <a-pr>border-radius</a-pr><a-p>:</a-p> <a-n>8</a-n><a-t>px</a-t><a-p>;</a-p>
+  <a-pr>padding</a-pr><a-p>:</a-p> <a-n>1.5</a-n><a-t>rem</a-t><a-p>;</a-p>
+
+  <a-tg>&#x26;</a-tg> <a-tg>h2</a-tg> <a-p>{</a-p>
+    <a-pr>color</a-pr><a-p>:</a-p> <a-f>var</a-f><a-p>(</a-p><a-v>--accent</a-v><a-p>);</a-p>
+    <a-pr>margin</a-pr><a-p>:</a-p> <a-n>0</a-n> <a-n>0</a-n> <a-n>0.5</a-n><a-t>rem</a-t><a-p>;</a-p>
+  <a-p>}</a-p>
+
+  <a-tg>&#x26;</a-tg><a-p>:</a-p><a-at>hover</a-at> <a-p>{</a-p>
+    <a-pr>box-shadow</a-pr><a-p>:</a-p> <a-n>0</a-n> <a-n>4</a-n><a-t>px</a-t> <a-n>12</a-n><a-t>px</a-t> <a-f>rgb</a-f><a-p>(</a-p><a-n>0</a-n> <a-n>0</a-n> <a-n>0</a-n> <a-o>/</a-o> <a-n>0.1</a-n><a-p>);</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
+<h3 id="json">JSON</h3>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"my-project"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"dependencies"</a-s>: {
+    <a-s>"astro"</a-s>: <a-s>"^6.0.0"</a-s>,
+    <a-s>"hast-util-to-string"</a-s>: <a-s>"^3.0.1"</a-s>,
+    <a-s>"unist-util-visit"</a-s>: <a-s>"^5.1.0"</a-s>
+  },
+  <a-s>"scripts"</a-s>: {
+    <a-s>"dev"</a-s>: <a-s>"astro dev"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"astro build"</a-s>
+  }
+}
+</code></pre>
+<h3 id="r">R</h3>
+<pre><code class="language-r"><a-f>library</a-f><a-p>(</a-p><a-v>ggplot2</a-v><a-p>)</a-p>
+
+<a-f>fibonacci</a-f> <a-o>&#x3C;-</a-o> <a-k>function</a-k><a-p>(</a-p><a-v>n</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>n</a-v> <a-o>&#x3C;=</a-o> <a-n>1</a-n><a-p>)</a-p> <a-k>return</a-k><a-p>(</a-p><a-v>n</a-v><a-p>)</a-p>
+  <a-v>a</a-v> <a-o>&#x3C;-</a-o> <a-n>0</a-n>
+  <a-v>b</a-v> <a-o>&#x3C;-</a-o> <a-n>1</a-n>
+  <a-k>for</a-k> <a-p>(</a-p><a-v>i</a-v> <a-k>in</a-k> <a-n>2</a-n><a-o>:</a-o><a-v>n</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>temp</a-v> <a-o>&#x3C;-</a-o> <a-v>b</a-v>
+    <a-v>b</a-v> <a-o>&#x3C;-</a-o> <a-v>a</a-v> <a-o>+</a-o> <a-v>b</a-v>
+    <a-v>a</a-v> <a-o>&#x3C;-</a-o> <a-v>temp</a-v>
+  <a-p>}</a-p>
+  <a-v>b</a-v>
+<a-p>}</a-p>
+
+<a-v>fibs</a-v> <a-o>&#x3C;-</a-o> <a-f>sapply</a-f><a-p>(</a-p><a-n>1</a-n><a-o>:</a-o><a-n>20</a-n><a-p>,</a-p> <a-v>fibonacci</a-v><a-p>)</a-p>
+
+<a-v>df</a-v> <a-o>&#x3C;-</a-o> <a-f>data.frame</a-f><a-p>(</a-p>
+  <a-v>n</a-v> <a-o>=</a-o> <a-n>1</a-n><a-o>:</a-o><a-n>20</a-n><a-p>,</a-p>
+  <a-v>value</a-v> <a-o>=</a-o> <a-v>fibs</a-v><a-p>,</a-p>
+  <a-v>is_even</a-v> <a-o>=</a-o> <a-v>fibs</a-v> <a-o>%%</a-o> <a-n>2</a-n> <a-o>==</a-o> <a-n>0</a-n>
+<a-p>)</a-p>
+
+<a-f>ggplot</a-f><a-p>(</a-p><a-v>df</a-v><a-p>,</a-p> <a-f>aes</a-f><a-p>(</a-p><a-v>x</a-v> <a-o>=</a-o> <a-v>n</a-v><a-p>,</a-p> <a-v>y</a-v> <a-o>=</a-o> <a-v>value</a-v><a-p>,</a-p> <a-v>color</a-v> <a-o>=</a-o> <a-v>is_even</a-v><a-p>))</a-p> <a-o>+</a-o>
+  <a-f>geom_point</a-f><a-p>(</a-p><a-v>size</a-v> <a-o>=</a-o> <a-n>3</a-n><a-p>)</a-p> <a-o>+</a-o>
+  <a-f>geom_line</a-f><a-p>(</a-p><a-v>alpha</a-v> <a-o>=</a-o> <a-n>0.5</a-n><a-p>)</a-p> <a-o>+</a-o>
+  <a-f>scale_y_log10</a-f><a-p>()</a-p> <a-o>+</a-o>
+  <a-f>labs</a-f><a-p>(</a-p><a-v>title</a-v> <a-o>=</a-o> <a-s>"Fibonacci Sequence"</a-s><a-p>,</a-p> <a-v>x</a-v> <a-o>=</a-o> <a-s>"n"</a-s><a-p>,</a-p> <a-v>y</a-v> <a-o>=</a-o> <a-s>"F(n)"</a-s><a-p>)</a-p> <a-o>+</a-o>
+  <a-f>theme_minimal</a-f><a-p>()</a-p>
+</code></pre>
+<h3 id="toml">TOML</h3>
+<pre><code class="language-toml"><a-p>[</a-p><a-pr>package</a-pr><a-p>]</a-p>
+<a-pr>name</a-pr> <a-o>=</a-o> <a-s>"arborium-cli"</a-s>
+<a-pr>version</a-pr> <a-o>=</a-o> <a-s>"0.1.0"</a-s>
+<a-pr>edition</a-pr> <a-o>=</a-o> <a-s>"2021"</a-s>
+
+<a-p>[</a-p><a-pr>dependencies</a-pr><a-p>]</a-p>
+<a-pr>arborium</a-pr> <a-o>=</a-o> <a-p>{</a-p> <a-pr>version</a-pr> <a-o>=</a-o> <a-s>"2.12"</a-s><a-p>,</a-p> <a-pr>features</a-pr> <a-o>=</a-o> <a-p>[</a-p><a-s>"cli"</a-s><a-p>]</a-p> <a-p>}</a-p>
+<a-pr>clap</a-pr> <a-o>=</a-o> <a-p>{</a-p> <a-pr>version</a-pr> <a-o>=</a-o> <a-s>"4"</a-s><a-p>,</a-p> <a-pr>features</a-pr> <a-o>=</a-o> <a-p>[</a-p><a-s>"derive"</a-s><a-p>]</a-p> <a-p>}</a-p>
+
+<a-p>[[</a-p><a-pr>bin</a-pr><a-p>]]</a-p>
+<a-pr>name</a-pr> <a-o>=</a-o> <a-s>"arborium"</a-s>
+<a-pr>path</a-pr> <a-o>=</a-o> <a-s>"src/main.rs"</a-s>
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>I thought this might help users who google “tree sitter blog syntax
+highlighting” and variations like this to have a potential solution</p>
+<h3 id="footnote-1-why-does-arboriumarborium-not-work-outside-the-browser-eg-why-does-it">Footnote 1: Why does @arborium/arborium not work outside the browser (e.g. why does it</h3>
+<p>require <code>window</code>)?</p>
+<p>Claude code generated…reasoning…</p>
+<ul>
+<li>The npm package uses <code>window.arboriumHost</code> (in <code>loader.ts:278</code>) as a bridge
+for the Rust/WASM host to call back into JavaScript for grammar loading and
+parsing.</li>
+<li>The WASM host is compiled via <code>wasm-bindgen</code> expecting <code>window</code>, and grammars
+are fetched from a CDN at runtime, making it browser-only.</li>
+</ul> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>   <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> </footer> </body></html> 
