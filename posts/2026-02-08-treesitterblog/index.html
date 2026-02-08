@@ -326,9 +326,10 @@ readonly <a-pr>LOG_DIR</a-pr>=<a-s>"/var/log/myapp"</a-s>
 <h2 id="conclusion">Conclusion</h2>
 <p>I thought this might help users who google “tree sitter blog syntax
 highlighting” and variations like this to have a potential solution</p>
-<h3 id="footnote-1-why-does-arboriumarborium-not-work-outside-the-browser">Footnote 1: Why does @arborium/arborium not work outside the browser</h3>
-<p>Why does @arborium/arborium require <code>window</code> and thus not work well in pure
-node.js environments?</p>
+<h3 id="footnote-1">Footnote 1</h3>
+<p>Why does @arborium/arborium not work outside the browser? Or, why does
+@arborium/arborium require <code>window</code> and thus not work well in pure node.js
+environments?</p>
 <p>Claude code generated…reasoning…</p>
 <ul>
 <li>The npm package uses <code>window.arboriumHost</code> (in <code>loader.ts:278</code>) as a bridge
@@ -336,7 +337,9 @@ for the Rust/WASM host to call back into JavaScript for grammar loading and
 parsing.</li>
 <li>The WASM host is compiled via <code>wasm-bindgen</code> expecting <code>window</code>, and grammars
 are fetched from a CDN at runtime, making it browser-only.</li>
-</ul> </div> <div id="giscus"></div> <script>
+</ul>
+<h2 id="footnote-2">Footnote 2</h2>
+<p>See also <a href="https://en.wikipedia.org/wiki/Tree_sitting">https://en.wikipedia.org/wiki/Tree_sitting</a></p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
