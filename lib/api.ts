@@ -1,10 +1,21 @@
 // Post API utilities for Astro
 
+interface PostModule {
+  frontmatter: {
+    title: string
+    date: string
+    [key: string]: unknown
+  }
+  default: unknown
+}
+
 export async function getAllPosts() {
-  const postModules = import.meta.glob('/src/_posts/*.md', { eager: true })
+  const postModules = import.meta.glob<PostModule>('/src/_posts/*.md', {
+    eager: true,
+  })
 
   return Object.entries(postModules).map(([path, module]) => {
-    const filename = path.split('/').pop().replace('.md', '')
+    const filename = path.split('/').pop()!.replace('.md', '')
     return {
       id: filename,
       title: module.frontmatter.title,
@@ -14,8 +25,10 @@ export async function getAllPosts() {
   })
 }
 
-export async function getPostById(id) {
-  const postModules = import.meta.glob('/src/_posts/*.md', { eager: true })
+export async function getPostById(id: string) {
+  const postModules = import.meta.glob<PostModule>('/src/_posts/*.md', {
+    eager: true,
+  })
   const postPath = `/src/_posts/${id}.md`
   const module = postModules[postPath]
 

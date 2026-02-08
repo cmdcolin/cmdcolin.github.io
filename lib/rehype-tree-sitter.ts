@@ -1,8 +1,9 @@
 import { visit } from 'unist-util-visit'
 import { toString as hastToString } from 'hast-util-to-string'
 import { execFile } from 'node:child_process'
+import type { Element, Text, Root } from 'hast'
 
-const LANG_ALIASES = {
+const LANG_ALIASES: Record<string, string> = {
   sh: 'bash',
   shell: 'bash',
   zsh: 'bash',
@@ -16,32 +17,37 @@ const LANG_ALIASES = {
   md: 'markdown',
 }
 
-function resolveLanguage(lang) {
+function resolveLanguage(lang: string) {
   const lower = lang.toLowerCase()
   return LANG_ALIASES[lower] || lower
 }
 
-function runArborium(lang, code) {
-  return new Promise((resolve, reject) => {
+function runArborium(lang: string, code: string) {
+  return new Promise<string | null>(resolve => {
     const child = execFile(
       'arborium',
       ['--lang', lang, '--html'],
-      (err, stdout, stderr) => {
-        if (err) {
-          resolve(null)
-        } else {
-          resolve(stdout)
-        }
+      (err, stdout) => {
+        resolve(err ? null : stdout)
       },
     )
-    child.stdin.write(code)
-    child.stdin.end()
+    child.stdin!.write(code)
+    child.stdin!.end()
   })
 }
 
+function unescapeHtml(text: string) {
+  return text
+    .replaceAll('&#39;', "'")
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+}
+
 // Parse arborium HTML output (custom elements like <a-k>, <a-v>) into HAST nodes
-function parseArboriumHtml(html) {
-  const children = []
+function parseArboriumHtml(html: string) {
+  const children: (Element | Text)[] = []
   let i = 0
   while (i < html.length) {
     if (html[i] === '<' && html[i + 1] !== '/') {
@@ -57,18 +63,11 @@ function parseArboriumHtml(html) {
         break
       }
       const innerHtml = html.slice(tagEnd + 1, closeIdx)
-      // Unescape HTML entities in inner text
-      const text = innerHtml
-        .replaceAll('&#39;', "'")
-        .replaceAll('&amp;', '&')
-        .replaceAll('&lt;', '<')
-        .replaceAll('&gt;', '>')
-        .replaceAll('&quot;', '"')
       children.push({
         type: 'element',
         tagName,
         properties: {},
-        children: [{ type: 'text', value: text }],
+        children: [{ type: 'text', value: unescapeHtml(innerHtml) }],
       })
       i = closeIdx + closeTag.length
     } else {
@@ -77,13 +76,7 @@ function parseArboriumHtml(html) {
       if (j === -1) {
         j = html.length
       }
-      const text = html
-        .slice(i, j)
-        .replaceAll('&#39;', "'")
-        .replaceAll('&amp;', '&')
-        .replaceAll('&lt;', '<')
-        .replaceAll('&gt;', '>')
-        .replaceAll('&quot;', '"')
+      const text = unescapeHtml(html.slice(i, j))
       if (text) {
         children.push({ type: 'text', value: text })
       }
@@ -93,7 +86,7 @@ function parseArboriumHtml(html) {
   return children
 }
 
-async function highlightCode(lang, code) {
+async function highlightCode(lang: string, code: string) {
   const resolved = resolveLanguage(lang)
   const html = await runArborium(resolved, code)
   if (!html) {
@@ -103,15 +96,15 @@ async function highlightCode(lang, code) {
 }
 
 export default function rehypeTreeSitter() {
-  return async function (tree) {
-    const codeBlocks = []
+  return async function (tree: Root) {
+    const codeBlocks: { codeEl: Element; lang: string; code: string }[] = []
 
     visit(tree, 'element', node => {
       if (node.tagName !== 'pre') {
         return
       }
       const codeEl = node.children.find(
-        c => c.type === 'element' && c.tagName === 'code',
+        (c): c is Element => c.type === 'element' && c.tagName === 'code',
       )
       if (!codeEl) {
         return
@@ -126,7 +119,7 @@ export default function rehypeTreeSitter() {
       if (!langClass) {
         return
       }
-      const lang = langClass.slice('language-'.length)
+      const lang = (langClass as string).slice('language-'.length)
       const code = hastToString(codeEl)
       codeBlocks.push({ codeEl, lang, code })
     })

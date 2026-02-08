@@ -218,6 +218,12 @@ This is in line with the 'be careful with what you wish for' doctrine: don't
 tell it exactly what to do if you don't actually know what's best, you can just
 see what it suggests
 
+It is hard to tell if this has an impact but I am often pretty wishy washy with
+claude, i'll say things like "if needed, do X" or whatnot. I imagine that the
+power of suggestion of even typing that will strongly steer the direction it
+takes but i still like to just give it the option to decide against the
+suggestion
+
 ## Concluding thoughts
 
 This is only a brief snapshot into my Claude Code usage. AI (applied to
@@ -294,3 +300,19 @@ I link to Yegge here because his post on CHOP-oriented dev
 (https://sourcegraph.com/blog/the-death-of-the-junior-developer) was one of the
 first posts to make me realize that CHOP aka vibecoding is rapidly changing our
 field.
+
+## Footnote 5
+
+If you are a AI skeptic, or someone that complains that they always spit out
+garbage, I can only say, you have to use at least Opus 4.5
+
+The other models will frequently come up with bad ideas. Sometimes I will
+downgrade in Claude Code (due to thinking my task is simple or running out of
+credits) and select e.g. Sonnet or Haiku, but if I forget to change it back
+it'll stay making really bad output and I'll be like wtf is this? This is
+terrible!
+
+If you want a good experience, you have to use the most powerful model that you
+can. I imagine this is not environmentally friendly, but you will waste more of
+your time chasing down ridiculous bugs if you do anything non-trivial with
+weaker models
