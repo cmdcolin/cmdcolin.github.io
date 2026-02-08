@@ -326,8 +326,9 @@ readonly <a-pr>LOG_DIR</a-pr>=<a-s>"/var/log/myapp"</a-s>
 <h2 id="conclusion">Conclusion</h2>
 <p>I thought this might help users who google “tree sitter blog syntax
 highlighting” and variations like this to have a potential solution</p>
-<h3 id="footnote-1-why-does-arboriumarborium-not-work-outside-the-browser-eg-why-does-it">Footnote 1: Why does @arborium/arborium not work outside the browser (e.g. why does it</h3>
-<p>require <code>window</code>)?</p>
+<h3 id="footnote-1-why-does-arboriumarborium-not-work-outside-the-browser">Footnote 1: Why does @arborium/arborium not work outside the browser</h3>
+<p>Why does @arborium/arborium require <code>window</code> and thus not work well in pure
+node.js environments?</p>
 <p>Claude code generated…reasoning…</p>
 <ul>
 <li>The npm package uses <code>window.arboriumHost</code> (in <code>loader.ts:278</code>) as a bridge
