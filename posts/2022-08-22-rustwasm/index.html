@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Using Rust/WASM in a monorepo with create-react-app</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Using Rust/WASM in a monorepo with create-react-app</h1> <h4 data-astro-cid-lvjzyg5v>2022-08-22</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Behold, the buzzwords:</p>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Using Rust/WASM in a monorepo with create-react-app</h1> <h4 data-astro-cid-lvjzyg5v>2022-08-22</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Behold, the buzzwords:</p>
 <ul>
 <li>Rust / WASM / wasm-bindgen</li>
 <li>React</li>
@@ -17,19 +17,22 @@ simpler and easier. I made a simple Vite app in
 <a href="https://github.com/cmdcolin/logistic_chaos_map">https://github.com/cmdcolin/logistic_chaos_map</a></p>
 <h2 id="steps-to-create-this-type-of-integration-from-scratch">Steps to create this type of integration from scratch</h2>
 <h3 id="create-repo">Create repo</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>mkdir template</span></span>
-<span class="line"><span>cd template</span></span>
-<span class="line"><span>git init</span></span></code></pre>
+<pre><code>mkdir template
+cd template
+git init
+</code></pre>
 <h3 id="create-root-packagejson">Create root <code>package.json</code></h3>
 <p>Then put this in the monorepo’s root <code>package.json</code></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "private"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "workspaces"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"hello-wasm"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"app"</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"private"</a-s>: <a-co>true</a-co>,
+  <a-s>"workspaces"</a-s>: [<a-s>"hello-wasm"</a-s>, <a-s>"app"</a-s>]
+}
+</code></pre>
 <p>This sets our repo up as a “monorepo” with two “workspaces”. one will be the
 wasm code, in <code>hello-wasm</code>, one will be an instance of <code>create-react-app</code></p>
 <h3 id="add-a-create-react-app-instance-inside-the-monorepo">Add a <code>create-react-app</code> instance inside the monorepo</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> create-react-app</span><span style="color:#79B8FF"> --template</span><span style="color:#9ECBFF"> typescript</span><span style="color:#9ECBFF"> app</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npx</a-f> create-react-app <a-co>--template</a-co> typescript app
+</code></pre>
 <p>This will make an <code>app</code> subfolder inside our monorepo</p>
 <h3 id="download-the-hello-world-rust-wasm-bindgen-example-and-put-it-in-a-folder-named-hello-wasm">Download the hello world rust <code>wasm-bindgen</code> example and put it in a folder named <code>hello-wasm</code></h3>
 <p>Download <a href="https://github.com/rustwasm/wasm-bindgen/tree/main/examples/hello_world">https://github.com/rustwasm/wasm-bindgen/tree/main/examples/hello_world</a>
@@ -37,19 +40,21 @@ to the hello-wasm folder</p>
 <p>This link can help
 <a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Frustwasm%2Fwasm-bindgen%2Ftree%2Fmain%2Fexamples%2Fhello_world">https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Frustwasm%2Fwasm-bindgen%2Ftree%2Fmain%2Fexamples%2Fhello_world</a></p>
 <h3 id="add-some-extra-fields-to-the-packagejson-in-the-hello-wasm-folder">Add some extra fields to the <code>package.json</code> in the <code>hello-wasm</code> folder</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"hello-wasm"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "files"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"pkg"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">  "main"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"pkg/index.js"</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">  ...</span><span style="color:#FDAEB7;font-style:italic"> rest</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"hello-wasm"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"files"</a-s>: [<a-s>"pkg"</a-s>],
+  <a-s>"main"</a-s>: <a-s>"pkg/index.js"</a-s>
+  ... rest
+}
+</code></pre>
 <h3 id="modify-the-hello-wasm-example-to-return-a-value-instead-of-making-an-alert">Modify the <code>hello-wasm</code> example to return a value instead of making an alert</h3>
 <p>I changed the rust code to return a String value instead of making an alert box</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="rust"><code><span class="line"><span style="color:#E1E4E8">#[wasm_bindgen]</span></span>
-<span class="line"><span style="color:#F97583">pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> greet</span><span style="color:#E1E4E8">(name</span><span style="color:#F97583">:</span><span style="color:#F97583"> &#x26;</span><span style="color:#B392F0">str</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> String</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">    format!</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Hello {}"</span><span style="color:#E1E4E8">, name)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-rust"><a-at>#</a-at><a-p>[</a-p><a-at>wasm_bindgen</a-at><a-p>]</a-p>
+<a-k>pub</a-k> <a-k>fn</a-k> <a-f>greet</a-f><a-p>(</a-p><a-v>name</a-v><a-p>:</a-p> <a-o>&#x26;</a-o><a-t>str</a-t><a-p>)</a-p> -> <a-t>String</a-t> <a-p>{</a-p>
+    <a-m>format!</a-m><a-p>(</a-p><a-s>"Hello {}"</a-s><a-p>,</a-p> name<a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h3 id="build-the-hello-wasm-pkg">Build the <code>hello-wasm</code> pkg</h3>
 <p>Go into the <code>hello-wasm</code> folder and run <code>yarn build</code>. This creates a directory
 named <code>pkg</code> which has <code>.wasm</code> files and <code>.js</code> files. Now, the <code>hello-wasm</code>
@@ -63,54 +68,56 @@ This will refer to our local monorepo’s rust wasm package!</p>
 the <code>create-react-app</code> to add extra <code>webpack</code> flags.</p>
 <p>So, <code>yarn add @craco/craco</code> in the app folder, then create this
 <code>craco.config.js</code></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">  webpack: {</span></span>
-<span class="line"><span style="color:#B392F0">    configure</span><span style="color:#E1E4E8">: </span><span style="color:#FFAB70">config</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> wasmExtensionRegExp</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> /</span><span style="color:#85E89D;font-weight:bold">\.</span><span style="color:#DBEDFF">wasm</span><span style="color:#F97583">$</span><span style="color:#9ECBFF">/</span></span>
-<span class="line"><span style="color:#E1E4E8">      config.resolve.extensions.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.wasm'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">      config.experiments </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">        syncWebAssembly: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">      config.module.rules.</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">rule</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">        ;(rule.oneOf </span><span style="color:#F97583">||</span><span style="color:#E1E4E8"> []).</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">oneOf</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">          if</span><span style="color:#E1E4E8"> (oneOf.type </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'asset/resource'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">            oneOf.exclude.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(wasmExtensionRegExp)</span></span>
-<span class="line"><span style="color:#E1E4E8">          }</span></span>
-<span class="line"><span style="color:#E1E4E8">        })</span></span>
-<span class="line"><span style="color:#E1E4E8">      })</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> config</span></span>
-<span class="line"><span style="color:#E1E4E8">    },</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-v>module</a-v><a-p>.</a-p><a-pr>exports</a-pr> <a-o>=</a-o> <a-p>{</a-p>
+  <a-pr>webpack</a-pr>: <a-p>{</a-p>
+    <a-f>configure</a-f>: <a-v>config</a-v> <a-o>=></a-o> <a-p>{</a-p>
+      <a-k>const</a-k> <a-v>wasmExtensionRegExp</a-v> <a-o>=</a-o> <a-o>/</a-o><a-s>\.wasm$</a-s><a-o>/</a-o>
+      <a-v>config</a-v><a-p>.</a-p><a-pr>resolve</a-pr><a-p>.</a-p><a-pr>extensions</a-pr><a-p>.</a-p><a-f>push</a-f><a-p>(</a-p><a-s>'.wasm'</a-s><a-p>)</a-p>
+      <a-v>config</a-v><a-p>.</a-p><a-pr>experiments</a-pr> <a-o>=</a-o> <a-p>{</a-p>
+        <a-pr>syncWebAssembly</a-pr>: <a-co>true</a-co><a-p>,</a-p>
+      <a-p>}</a-p>
+
+      <a-v>config</a-v><a-p>.</a-p><a-pr>module</a-pr><a-p>.</a-p><a-pr>rules</a-pr><a-p>.</a-p><a-f>forEach</a-f><a-p>(</a-p><a-v>rule</a-v> <a-o>=></a-o> <a-p>{</a-p>
+        <a-p>;(</a-p><a-v>rule</a-v><a-p>.</a-p><a-pr>oneOf</a-pr> <a-o>||</a-o> <a-p>[]).</a-p><a-f>forEach</a-f><a-p>(</a-p><a-v>oneOf</a-v> <a-o>=></a-o> <a-p>{</a-p>
+          <a-k>if</a-k> <a-p>(</a-p><a-v>oneOf</a-v><a-p>.</a-p><a-pr>type</a-pr> <a-o>===</a-o> <a-s>'asset/resource'</a-s><a-p>)</a-p> <a-p>{</a-p>
+            <a-v>oneOf</a-v><a-p>.</a-p><a-pr>exclude</a-pr><a-p>.</a-p><a-f>push</a-f><a-p>(</a-p><a-v>wasmExtensionRegExp</a-v><a-p>)</a-p>
+          <a-p>}</a-p>
+        <a-p>})</a-p>
+      <a-p>})</a-p>
+
+      <a-k>return</a-k> <a-v>config</a-v>
+    <a-p>},</a-p>
+  <a-p>},</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Note: this thread helped me to create the craco config
 <a href="https://github.com/Emurgo/cardano-serialization-lib/issues/295">https://github.com/Emurgo/cardano-serialization-lib/issues/295</a></p>
 <p>Also see footnote 2 for more info</p>
 <h3 id="final-step-use-async-import-to-import-the-hello-wasm-greeting">Final step: Use async <code>import()</code> to import the <code>hello-wasm</code> greeting</h3>
 <p>We use a <code>useEffect</code> hook to import the code asynchronously, and can call our
 rust function, <code>greet</code>, from javascript!</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">greeting</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setGreeting</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#B392F0">  useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">    ;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">      try</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">        const</span><span style="color:#79B8FF"> wasm</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#F97583"> import</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello-wasm'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">        const</span><span style="color:#79B8FF"> greeting</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> wasm.</span><span style="color:#B392F0">greet</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Colin'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">        setGreeting</span><span style="color:#E1E4E8">(greeting)</span></span>
-<span class="line"><span style="color:#E1E4E8">      } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
-<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    })()</span></span>
-<span class="line"><span style="color:#E1E4E8">  }, [])</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#B392F0">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#B392F0">h1</span><span style="color:#E1E4E8">>rust monorepo wasm demo</span><span style="color:#F97583">&#x3C;/</span><span style="color:#E1E4E8">h1</span><span style="color:#F97583">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#B392F0">h2</span><span style="color:#E1E4E8">>Greeting from </span><span style="color:#FFAB70">wasm</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {!</span><span style="color:#B392F0">greeting</span><span style="color:#F97583"> ?</span><span style="color:#9ECBFF"> 'Loading...'</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> greeting</span><span style="color:#E1E4E8">}&#x3C;/</span><span style="color:#B392F0">h2</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#F97583">    &#x3C;/</span><span style="color:#E1E4E8">div</span><span style="color:#F97583">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-ts"><a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>greeting</a-v><a-p>,</a-p> <a-v>setGreeting</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>string</a-t><a-p>>()</a-p>
+  <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-k>try</a-k> <a-p>{</a-p>
+        <a-k>const</a-k> <a-v>wasm</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-k>import</a-k><a-p>(</a-p><a-s>'hello-wasm'</a-s><a-p>)</a-p>
+        <a-k>const</a-k> <a-v>greeting</a-v> <a-o>=</a-o> <a-v>wasm</a-v><a-p>.</a-p><a-f>greet</a-f><a-p>(</a-p><a-s>'Colin'</a-s><a-p>)</a-p>
+        <a-f>setGreeting</a-f><a-p>(</a-p><a-v>greeting</a-v><a-p>)</a-p>
+      <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+      <a-p>}</a-p>
+    <a-p>})()</a-p>
+  <a-p>},</a-p> <a-p>[])</a-p>
+
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-t>div</a-t><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-t>h1</a-t><a-p>></a-p><a-v>rust</a-v> <a-v>monorepo</a-v> <a-v>wasm</a-v> <a-v>demo</a-v><a-o>&#x3C;</a-o><a-s>/</a-s><a-s>h1></a-s><a-o>
+      </a-o><a-o>&#x3C;</a-o><a-v>h2</a-v><a-o>></a-o><a-t>Greeting</a-t><a-o> </a-o><a-v>from</a-v><a-o> </a-o><a-v>wasm</a-v><a-o>: </a-o><a-p>{</a-p><a-o>!</a-o><a-pr>greeting</a-pr><a-o> ? </a-o><a-s>'Loading...'</a-s><a-o> : </a-o><a-t>greeting</a-t><a-p>}</a-p><a-o>&#x3C;</a-o><a-s>/</a-s><a-s>h2>
+    </a-s><a-o>&#x3C;/</a-o><a-s>div</a-s><a-o>></a-o><a-o>
+  </a-o><a-p>)</a-p><a-o>
+</a-o><a-p>}</a-p>
+</code></pre>
 <p>In order to greet an arbitrary person, I modified this slightly in the live
 demo. See
 <a href="https://github.com/cmdcolin/rust_react_monorepo_template/blob/master/app/src/App.tsx">https://github.com/cmdcolin/rust_react_monorepo_template/blob/master/app/src/App.tsx</a></p>

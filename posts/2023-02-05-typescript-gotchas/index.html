@@ -1,14 +1,15 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Things typescript didn&#39;t catch that should probably be lint rules</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Things typescript didn&#39;t catch that should probably be lint rules</h1> <h4 data-astro-cid-lvjzyg5v>2023-02-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>This is a short list of silly things that I wish Typescript would have caught
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Things typescript didn&#39;t catch that should probably be lint rules</h1> <h4 data-astro-cid-lvjzyg5v>2023-02-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>This is a short list of silly things that I wish Typescript would have caught
 for me, but are silly logic errors</p>
 <h2 id="using-objectentries-accidentally-instead-of-objectfromentries">Using <code>Object.entries</code> accidentally instead of <code>Object.fromEntries</code></h2>
 <p>Typescript will not complain if you use <code>Object.entries</code> instead of
 <code>Object.fromEntries</code></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> stuff</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// woops, meant to use Object.fromEntries</span></span>
-<span class="line"><span style="color:#E1E4E8">Object.</span><span style="color:#B392F0">entries</span><span style="color:#E1E4E8">(stuff.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">entry</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [entry, { id: entry }]))</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-v>stuff</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>]</a-p>
+
+<a-c>// woops, meant to use Object.fromEntries</a-c>
+<a-t>Object</a-t><a-p>.</a-p><a-f>entries</a-f><a-p>(</a-p><a-v>stuff</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>entry</a-v> <a-o>=></a-o> <a-p>[</a-p><a-v>entry</a-v><a-p>,</a-p> <a-p>{</a-p> <a-pr>id</a-pr>: <a-v>entry</a-v> <a-p>}]))</a-p>
+</code></pre>
 <p><a href="https://www.typescriptlang.org/play?#code/FAYw9gdgzgLgBLArgM2QXgNoEYA0AmHAZgF1gB5AIwCsBTEGAOhohgCcBLGqACiVQYC2AQwAO3ZmwCeaAHwYJrSTjgBvdgBMAXAskBfYgEoDQA">playground</a></p>
 <p>Summary: should probably be a lint rule (a “types required” lint rule, a la
 @typescript-eslint) not to accept arrays for Object.entries</p>
@@ -16,17 +17,18 @@ for me, but are silly logic errors</p>
 <a href="https://github.com/typescript-eslint/typescript-eslint/issues/6537">https://github.com/typescript-eslint/typescript-eslint/issues/6537</a> (it was
 rejected)</p>
 <h2 id="passing-garbage-to-the-second-argument-of-arrayprototypemap-accidentally">Passing garbage to the second argument of Array.prototype.map accidentally</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">arr</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">[], </span><span style="color:#FFAB70">extra</span><span style="color:#F97583">?:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">sayHiToMom</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> boolean</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (extra?.sayHiToMom) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hi mom'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> arr</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> stuff</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// woops, meant to pass that as second argument to doStuff</span></span>
-<span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">(stuff.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">a</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">, { sayHiToMom: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> }))</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>doStuff</a-f><a-p>(</a-p><a-v>arr</a-v>: <a-t>number</a-t><a-p>[],</a-p> <a-v>extra</a-v>?: <a-p>{</a-p> <a-pr>sayHiToMom</a-pr>: <a-t>boolean</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>extra</a-v><a-p>?.</a-p><a-pr>sayHiToMom</a-pr><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'Hi mom'</a-s><a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>arr</a-v>
+<a-p>}</a-p>
+
+<a-k>const</a-k> <a-v>stuff</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>]</a-p>
+
+<a-c>// woops, meant to pass that as second argument to doStuff</a-c>
+<a-f>doStuff</a-f><a-p>(</a-p><a-v>stuff</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>a</a-v> <a-o>=></a-o> <a-v>a</a-v> <a-o>*</a-o> <a-n>2</a-n><a-p>,</a-p> <a-p>{</a-p> <a-pr>sayHiToMom</a-pr>: <a-co>true</a-co> <a-p>}))</a-p>
+</code></pre>
 <p><a href="https://www.typescriptlang.org/play?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAQwCciAuCMAWwCMBTIgbQF0AaZWgDxiIIH5SA3gGcCATwAScACoIAsgkqlqCBABtaBCAF8AlMgHBkyOPk7c+AOhETpchXoNGjUJELW0LqhAHM8AcklkSgU-HUNkLXCiWmwiFGIiYEjgFwghGGR0nBAAXgYARhYAJhYAZiZgdCxsvCzcC0oCAAdCHIA+AgAqEuExSRl5RW4wWl0dIA">playground</a></p>
 <p>This one would be difficult for typescript to catch, the second arg is
 “thisArg”, what the callback refers to as <code>this</code></p>

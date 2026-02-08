@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Command line productivity stuff</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Command line productivity stuff</h1> <h4 data-astro-cid-lvjzyg5v>2023-03-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In 2016, I wrote a list of things that I found to be useful or interesting
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Command line productivity stuff</h1> <h4 data-astro-cid-lvjzyg5v>2023-03-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In 2016, I wrote a list of things that I found to be useful or interesting
 information about the work I did at the time
 <a href="https://cmdcolin.github.io/posts/2016-04-06">https://cmdcolin.github.io/posts/2016-04-06</a></p>
 <p>I thought it would be interesting to do the same now</p>
@@ -112,8 +112,9 @@ sides</p>
 tmux.conf:</p>
 </li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>set -g default-terminal "tmux-256color"</span></span>
-<span class="line"><span>set -ag terminal-overrides ",xterm-256color:RGB"</span></span></code></pre>
+<pre><code>set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+</code></pre>
 <p>Without this, all the neovim color schemes I tried looked not just subtly off,
 but significantly off, because it had only 256 colors without it (way less than
 the millions with true color). Resources</p>
@@ -125,12 +126,14 @@ the millions with true color). Resources</p>
 <code>"youtube-dl -f 'bestaudio[ext=m4a]' "</code></li>
 <li><code>vaporwave</code> - a function to slow down the audio for a track with ffmpeg</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> vaporwave</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#B392F0">  ffmpeg</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF"> -af</span><span style="color:#9ECBFF"> "asetrate=44100*</span><span style="color:#79B8FF">${2</span><span style="color:#F97583">:-</span><span style="color:#79B8FF">0</span><span style="color:#9ECBFF">.</span><span style="color:#79B8FF">66}</span><span style="color:#9ECBFF">,aresample=44100"</span><span style="color:#9ECBFF"> "`</span><span style="color:#B392F0">basename</span><span style="color:#79B8FF"> $1</span><span style="color:#9ECBFF"> .m4a`.vaporwave.m4a"</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-bash"><a-k>function</a-k> <a-f>vaporwave</a-f>() {
+  <a-f>ffmpeg</a-f> <a-co>-i</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-af</a-co> <a-s>"asetrate=44100*</a-s><a-eb>${</a-eb><a-pr>2</a-pr><a-eb>:-0.66}</a-eb><a-s>,aresample=44100"</a-s> <a-s>"</a-s><a-eb>`</a-eb><a-f>basename</a-f><a-eb> </a-eb><a-o>$</a-o><a-pr>1</a-pr><a-eb> .m4a`</a-eb><a-s>.vaporwave.m4a"</a-s>
+}
+</code></pre>
 <p>example usage:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>vaporwave file.mp3 # default slowdown factor of 0.66, outputs file.vaporwave.mp3</span></span>
-<span class="line"><span>vaporwave file.mp3 0.5 # custom slowdown factor, outputs file.vaporwave.mp3</span></span></code></pre>
+<pre><code>vaporwave file.mp3 # default slowdown factor of 0.66, outputs file.vaporwave.mp3
+vaporwave file.mp3 0.5 # custom slowdown factor, outputs file.vaporwave.mp3
+</code></pre>
 <h2 id="audio-players">Audio players</h2>
 <p>I worked on a couple projects to make custom music players to scratch my own
 itch. I made a Rust one, to try to replace foobar2000, hoping to go back to the

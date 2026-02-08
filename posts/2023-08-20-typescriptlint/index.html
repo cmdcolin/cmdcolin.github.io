@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>~7 eslint rules that will tumble the lint right off your lil sockies</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>~7 eslint rules that will tumble the lint right off your lil sockies</h1> <h4 data-astro-cid-lvjzyg5v>2023-08-20</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Do you think of your linter as a piece of crap that makes annoying suggestions
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>~7 eslint rules that will tumble the lint right off your lil sockies</h1> <h4 data-astro-cid-lvjzyg5v>2023-08-20</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Do you think of your linter as a piece of crap that makes annoying suggestions
 that are best ignored?</p>
 <p>Well, after you enable some of these amazing new rules you’ll probably continue
 to do so with renewed gusto, but maybe thank it just a lil bit</p>
@@ -19,9 +19,10 @@ setting can.</p>
 catching all “implied uses of type <code>any</code> in your codebase”; it’s just catching
 narrow usages where e.g. you don’t specify the type of a function parameter in
 your function definition. Example:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> foo</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">param</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> param </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>foo</a-f><a-p>(</a-p><a-v>param</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>param</a-v> <a-o>+</a-o> <a-n>1</a-n>
+<a-p>}</a-p>
+</code></pre>
 <p>That is allowed with noImplicitAny disabled, it just “implicitly sets param to
 type <code>any</code>”</p>
 <p>The no-unsafe-* rule pack is made of ~5 rules aimed at removing usage of type
@@ -39,14 +40,16 @@ Disallow member access on a value with type <code>any</code></li>
 Disallow returning a value with type <code>any</code> from a function</li>
 </ul>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> jsonParse</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">str</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">  // @typescript-eslint/no-unsafe-assignment balks because JSON.parse returns type any</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> x</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(str)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>jsonParse</a-f><a-p>(</a-p><a-v>str</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-c>// @typescript-eslint/no-unsafe-assignment balks because JSON.parse returns type any</a-c>
+  <a-k>const</a-k> <a-v>x</a-v> <a-o>=</a-o> <a-t>JSON</a-t><a-p>.</a-p><a-f>parse</a-f><a-p>(</a-p><a-v>str</a-v><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Pass</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> jsonParse</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">str</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> x</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(str) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">a</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">b</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>jsonParse</a-f><a-p>(</a-p><a-v>str</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>x</a-v> <a-o>=</a-o> <a-t>JSON</a-t><a-p>.</a-p><a-f>parse</a-f><a-p>(</a-p><a-v>str</a-v><a-p>)</a-p> <a-k>as</a-k> <a-p>{</a-p> <a-pr>a</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>b</a-pr>: <a-t>number</a-t> <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Whether it’s truly better to use the <code>as</code> casts is up to you, but it may be
 better than insidious type <code>any</code> flowing through your type system!</p>
 <p>Note 1: The no-unsafe rule set is part of the “types required”
@@ -65,15 +68,17 @@ SHAEMFULLY, write out
 continue living on living as a line of code in your codebase. I happen to have
 done this many times.</p>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> x</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">param</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> param </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>x</a-f><a-p>(</a-p><a-v>param</a-v>: <a-t>any</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>param</a-v> <a-o>+</a-o> <a-n>1</a-n>
+<a-p>}</a-p>
+</code></pre>
 <p>Pass</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// big muscle emoji energy, just disable the wimpy error</span></span>
-<span class="line"><span style="color:#6A737D">// eslint-disable-next-line @typescript-eslint/no-explicit-any</span></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> x</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">param</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> param </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// big muscle emoji energy, just disable the wimpy error</a-c>
+<a-c>// eslint-disable-next-line @typescript-eslint/no-explicit-any</a-c>
+<a-k>function</a-k> <a-f>x</a-f><a-p>(</a-p><a-v>param</a-v>: <a-t>any</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>param</a-v> <a-o>+</a-o> <a-n>1</a-n>
+<a-p>}</a-p>
+</code></pre>
 <h3 id="typescript-eslintno-floating-promises">@typescript-eslint/no-floating-promises</h3>
 <p>Link:
 <a href="https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-floating-promises.md">https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-floating-promises.md</a></p>
@@ -84,15 +89,17 @@ Well you SHOULD.</p>
 <code>@typescript-eslint/no-floating-promises</code> and it will actually alert you when
 you forget to handle a promise</p>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getSomeStuff</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#6A737D">  // Uncaught (in promise) error if fails to fetch</span></span>
-<span class="line"><span style="color:#B392F0">  fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http://google.com'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>getSomeStuff</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-c>// Uncaught (in promise) error if fails to fetch</a-c>
+  <a-f>fetch</a-f><a-p>(</a-p><a-s>'http://google.com'</a-s><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Pass</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getSomeStuff</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#6A737D">  // properly awaited</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> result</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http://google.com'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>async</a-k> <a-k>function</a-k> <a-f>getSomeStuff</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-c>// properly awaited</a-c>
+  <a-k>const</a-k> <a-v>result</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-s>'http://google.com'</a-s><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Note 1: this issue happens more than you might think. It is a ‘types required’
 rule and part of the recommended-type-checked pack, but even if you don’t enable
 the full recommended-type-checked pack, I highly recommend enabling it. It could
@@ -111,23 +118,25 @@ themselves “Uncaught (in promise)”. Enjoy
 save you from making
 <a href="https://accidentallyquadratic.tumblr.com/">accidentally quadratic</a> code</p>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> arr1</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> arr2</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">6</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> arr1.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">  // bad: includes is linear inside already linear loop</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (arr2.</span><span style="color:#B392F0">includes</span><span style="color:#E1E4E8">(arr1[i])) {</span></span>
-<span class="line"><span style="color:#B392F0">    alert</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Found an element in arr1 that matches arr2'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-v>arr1</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>]</a-p>
+<a-k>const</a-k> <a-v>arr2</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>4</a-n><a-p>,</a-p> <a-n>5</a-n><a-p>,</a-p> <a-n>6</a-n><a-p>]</a-p>
+<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>arr1</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+  <a-c>// bad: includes is linear inside already linear loop</a-c>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>arr2</a-v><a-p>.</a-p><a-f>includes</a-f><a-p>(</a-p><a-v>arr1</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]))</a-p> <a-p>{</a-p>
+    <a-f>alert</a-f><a-p>(</a-p><a-s>'Found an element in arr1 that matches arr2'</a-s><a-p>)</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Pass (autofixed from above!)</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> arr1</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> arr2</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Set</span><span style="color:#E1E4E8">([</span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">6</span><span style="color:#E1E4E8">])</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> arr1.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">  // good: fast set based membership :+1:</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (arr2.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(arr1[i])) {</span></span>
-<span class="line"><span style="color:#B392F0">    alert</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Found an element in arr1 that matches arr2'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-v>arr1</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>]</a-p>
+<a-k>const</a-k> <a-v>arr2</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-t>Set</a-t><a-p>([</a-p><a-n>4</a-n><a-p>,</a-p> <a-n>5</a-n><a-p>,</a-p> <a-n>6</a-n><a-p>])</a-p>
+<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>arr1</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+  <a-c>// good: fast set based membership :+1:</a-c>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>arr2</a-v><a-p>.</a-p><a-f>has</a-f><a-p>(</a-p><a-v>arr1</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]))</a-p> <a-p>{</a-p>
+    <a-f>alert</a-f><a-p>(</a-p><a-s>'Found an element in arr1 that matches arr2'</a-s><a-p>)</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Most usages of javascript don’t handle big enough datasets for this to matter,
 but that’s what many accidentally quadratic authors think…before their code
 blows up</p>
@@ -136,11 +145,13 @@ blows up</p>
 <p>Coming to us from the land of ancient built-in eslint rules, this is one of the
 few “stylistic” rules I like eslint performing, because prettier won’t do it</p>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (test) console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'do thing'</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>if</a-k> <a-p>(</a-p><a-v>test</a-v><a-p>)</a-p> <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'do thing'</a-s><a-p>)</a-p>
+</code></pre>
 <p>Pass (autofixed from above!)</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (test) {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'do thing'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>if</a-k> <a-p>(</a-p><a-v>test</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'do thing'</a-s><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Discussion about prettier and curlies
 <a href="https://github.com/prettier/prettier/issues/7659">https://github.com/prettier/prettier/issues/7659</a></p>
 <p>Note: I know, I know, we all want that
@@ -157,11 +168,13 @@ for loop. Specifically: the for-of loop</p>
 pretty easy to write, and can be auto-fixed by this eslint rule, and as a bonus,
 is sometimes a non-trivial-amount-faster</p>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">array.</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">elt</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(elt))</span></span></code></pre>
+<pre><code class="language-typescript"><a-v>array</a-v><a-p>.</a-p><a-f>forEach</a-f><a-p>(</a-p><a-v>elt</a-v> <a-o>=></a-o> <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>elt</a-v><a-p>))</a-p>
+</code></pre>
 <p>Pass</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> elt</span><span style="color:#F97583"> of</span><span style="color:#E1E4E8"> array) {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(elt)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>for</a-k> <a-p>(</a-p><a-k>const</a-k> <a-v>elt</a-v> <a-k>of</a-k> <a-v>array</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>elt</a-v><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>There is also an explanation at the rule link
 (<a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md">https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md</a>)
 that there is improved “type narrowing” and better detection of unused variables
@@ -175,11 +188,13 @@ statements to their code.</p>
 can feel slightly cozier in that bed of yours. The wilderness of your javascript
 jungle might one day change, causing that comment to one day be unneeded.</p>
 <p>Fail</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// ts-ignore</span></span>
-<span class="line"><span style="color:#B392F0">doSomethingReallyDumb</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// ts-ignore</a-c>
+<a-f>doSomethingReallyDumb</a-f><a-p>()</a-p>
+</code></pre>
 <p>Pass</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// ts-expect-error</span></span>
-<span class="line"><span style="color:#B392F0">doSomethingReallyDumb</span><span style="color:#E1E4E8">() </span><span style="color:#6A737D">// cool we're ok now</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// ts-expect-error</a-c>
+<a-f>doSomethingReallyDumb</a-f><a-p>()</a-p> <a-c>// cool we're ok now</a-c>
+</code></pre>
 <h2 id="conclusion">Conclusion?</h2>
 <p>There are many cool eslint rules. I think turning on the
 <code>@typescript-eslint/recommended-type-checked</code> rule set is important to try out.
@@ -192,57 +207,60 @@ accept warnings, and auto-remove unused eslint disables!</p>
 <p>The <code>@typescript-eslint/recommended-type-checked</code> is called
 <code>@typescript-eslint/recommended-requiring-type-checking</code> in older versions</p>
 <h3 id="footnote-3-example-of-the-full-error-handling-in-iife">Footnote 3. Example of the “full error handling” in IIFE</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">data</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setData</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">MyData</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">data</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setError</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#B392F0">useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#6A737D">  // gotta ignore the warning in this case</span></span>
-<span class="line"><span style="color:#6A737D">  // eslint-disable-next-line @typescript-eslint/no-floating-promises</span></span>
-<span class="line"><span style="color:#E1E4E8">  ;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#6A737D">    // do full try/catch error handling in here because the "buck stops here"</span></span>
-<span class="line"><span style="color:#6A737D">    // as far as the promise is concerned</span></span>
-<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http://google.com'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">response.ok) {</span></span>
-<span class="line"><span style="color:#F97583">        throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`HTTP ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> response</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">text</span><span style="color:#9ECBFF">()</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> result</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#B392F0">      setData</span><span style="color:#E1E4E8">(result)</span></span>
-<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
-<span class="line"><span style="color:#B392F0">      setError</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">  })()</span></span>
-<span class="line"><span style="color:#E1E4E8">}, [])</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setData</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>MyData</a-t><a-p>>()</a-p>
+<a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
+<a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-c>// gotta ignore the warning in this case</a-c>
+  <a-c>// eslint-disable-next-line @typescript-eslint/no-floating-promises</a-c>
+  <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-c>// do full try/catch error handling in here because the "buck stops here"</a-c>
+    <a-c>// as far as the promise is concerned</a-c>
+    <a-k>try</a-k> <a-p>{</a-p>
+      <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-s>'http://google.com'</a-s><a-p>)</a-p>
+      <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+        <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p><a-s>`HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-k>await</a-k><a-eb> </a-eb><a-v>response</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()}</a-p><a-s>`</a-s><a-p>)</a-p>
+      <a-p>}</a-p>
+      <a-k>const</a-k> <a-v>result</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
+      <a-f>setData</a-f><a-p>(</a-p><a-v>result</a-v><a-p>)</a-p>
+    <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+      <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+    <a-p>}</a-p>
+  <a-p>})()</a-p>
+<a-p>},</a-p> <a-p>[])</a-p>
+</code></pre>
 <p>alternatively, without the disable, you can add a catch handler</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">data</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setData</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">MyData</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">data</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setError</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#B392F0">useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">  ;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http://google.com'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">response.ok) {</span></span>
-<span class="line"><span style="color:#F97583">      throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`HTTP ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> response</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">text</span><span style="color:#9ECBFF">()</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> result</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#B392F0">    setData</span><span style="color:#E1E4E8">(result)</span></span>
-<span class="line"><span style="color:#E1E4E8">  })().</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setError</span><span style="color:#E1E4E8">(e))</span></span>
-<span class="line"><span style="color:#E1E4E8">}, [])</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setData</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>MyData</a-t><a-p>>()</a-p>
+<a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
+<a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-s>'http://google.com'</a-s><a-p>)</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+      <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p><a-s>`HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-k>await</a-k><a-eb> </a-eb><a-v>response</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()}</a-p><a-s>`</a-s><a-p>)</a-p>
+    <a-p>}</a-p>
+    <a-k>const</a-k> <a-v>result</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
+    <a-f>setData</a-f><a-p>(</a-p><a-v>result</a-v><a-p>)</a-p>
+  <a-p>})().</a-p><a-f>catch</a-f><a-p>(</a-p><a-v>e</a-v> <a-o>=></a-o> <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>))</a-p>
+<a-p>},</a-p> <a-p>[])</a-p>
+</code></pre>
 <h3 id="footnote-4-example-of-the-type-narrowing">Footnote 4. Example of the type narrowing</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> typeNarrowingForLoop</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> x</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> arr</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> elt</span><span style="color:#F97583"> of</span><span style="color:#E1E4E8"> arr) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    x </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> elt</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> x </span><span style="color:#6A737D">// some type inference took place from usage inside for loop, type is number|undefined</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> nonTypeNarrowingForEach</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> x</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> arr</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#E1E4E8">  arr.</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">elt</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">    x </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> elt</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> x </span><span style="color:#6A737D">// no type inference took place from the forEach, type is undefined</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre> </div> <div id="giscus"></div> <script>
+<pre><code class="language-typescript"><a-k>export</a-k> <a-k>function</a-k> <a-f>typeNarrowingForLoop</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>let</a-k> <a-v>x</a-v>
+  <a-k>const</a-k> <a-v>arr</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>]</a-p>
+  <a-k>for</a-k> <a-p>(</a-p><a-k>const</a-k> <a-v>elt</a-v> <a-k>of</a-k> <a-v>arr</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>x</a-v> <a-o>=</a-o> <a-v>elt</a-v>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>x</a-v> <a-c>// some type inference took place from usage inside for loop, type is number|undefined</a-c>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>function</a-k> <a-f>nonTypeNarrowingForEach</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>let</a-k> <a-v>x</a-v>
+  <a-k>const</a-k> <a-v>arr</a-v> <a-o>=</a-o> <a-p>[</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>]</a-p>
+  <a-v>arr</a-v><a-p>.</a-p><a-f>forEach</a-f><a-p>(</a-p><a-v>elt</a-v> <a-o>=></a-o> <a-p>{</a-p>
+    <a-v>x</a-v> <a-o>=</a-o> <a-v>elt</a-v>
+  <a-p>})</a-p>
+  <a-k>return</a-k> <a-v>x</a-v> <a-c>// no type inference took place from the forEach, type is undefined</a-c>
+<a-p>}</a-p>
+</code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');

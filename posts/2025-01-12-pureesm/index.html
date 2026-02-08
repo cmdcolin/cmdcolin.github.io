@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Making a pure-ESM package using `tsc`</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a pure-ESM package using `tsc`</h1> <h4 data-astro-cid-lvjzyg5v>2025-01-12</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In the past, I have written about making NPM packages with just the typescript
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a pure-ESM package using `tsc`</h1> <h4 data-astro-cid-lvjzyg5v>2025-01-12</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In the past, I have written about making NPM packages with just the typescript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
 There, I focused on “CJS” build because it was arguably simpler</p>
 <p>Now, I am addressing the “ESM” case</p>
@@ -21,54 +21,60 @@ and
 have now allow us to import from the .ts file extension in the src folder, and
 it automatically rewrites to use the .js file extension in the dist folder</p>
 <p>For example we can have</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { bar } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './bar.ts'</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> foo</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#B392F0">  bar</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/bar.ts</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> bar</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'bar in bar.ts'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.ts'</a-s>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-f>bar</a-f><a-p>()</a-p>
+<a-p>}</a-p>
+</code></pre>
+<pre><code class="language-typescript"><a-c>// src/bar.ts</a-c>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>then running tsc over these files will produce</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span> ❯❯❯ ll dist</span></span>
-<span class="line"><span>total 24K</span></span>
-<span class="line"><span>-rw-rw-r-- 1 cdiesh cdiesh  37 Jan 14 06:07 bar.d.ts</span></span>
-<span class="line"><span>-rw-rw-r-- 1 cdiesh cdiesh  91 Jan 14 06:07 bar.js</span></span>
-<span class="line"><span>-rw-rw-r-- 1 cdiesh cdiesh  43 Jan 14 06:07 index.d.ts</span></span>
-<span class="line"><span>-rw-rw-r-- 1 cdiesh cdiesh 116 Jan 14 06:07 index.js</span></span>
-<span class="line"><span></span></span></code></pre>
+<pre><code> ❯❯❯ ll dist
+total 24K
+-rw-rw-r-- 1 cdiesh cdiesh  37 Jan 14 06:07 bar.d.ts
+-rw-rw-r-- 1 cdiesh cdiesh  91 Jan 14 06:07 bar.js
+-rw-rw-r-- 1 cdiesh cdiesh  43 Jan 14 06:07 index.d.ts
+-rw-rw-r-- 1 cdiesh cdiesh 116 Jan 14 06:07 index.js
+
+</code></pre>
 <p>where dist/index.js now contains an import with the .js extension</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { foo } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './bar.js'</span></span>
-<span class="line"><span style="color:#B392F0">foo</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>foo</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
+<a-f>foo</a-f><a-p>()</a-p>
+</code></pre>
 <p>and dist/bar.js says</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { bar } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './bar.js'</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> foo</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#B392F0">  bar</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-f>bar</a-f><a-p>()</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
 have this behavior, but now you can reference the actual file, bar.ts</p>
 <h2 id="the-packagejson">The package.json</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"minimalpackage"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"simple pure-esm package compatible with tsc"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "license"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"MIT"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"module"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "exports"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"./dist/index.js"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "main"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"./dist/index.js"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "clean"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"rimraf dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "prebuild"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yarn clean"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "preversion"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yarn build"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "postversion"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"git push --follow-tags"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#79B8FF">  "devDependencies"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "rimraf"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^6.0.1"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "typescript"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^5.7.3"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"minimalpackage"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"description"</a-s>: <a-s>"simple pure-esm package compatible with tsc"</a-s>,
+  <a-s>"license"</a-s>: <a-s>"MIT"</a-s>,
+  <a-s>"type"</a-s>: <a-s>"module"</a-s>,
+  <a-s>"exports"</a-s>: <a-s>"./dist/index.js"</a-s>,
+  <a-s>"main"</a-s>: <a-s>"./dist/index.js"</a-s>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
+    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"yarn clean"</a-s>,
+    <a-s>"preversion"</a-s>: <a-s>"yarn build"</a-s>,
+    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
+  },
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"rimraf"</a-s>: <a-s>"^6.0.1"</a-s>,
+    <a-s>"typescript"</a-s>: <a-s>"^5.7.3"</a-s>
+  }
+}
+</code></pre>
 <p>Some things you can observe</p>
 <ul>
 <li>
@@ -94,20 +100,22 @@ postversion script</p>
 </li>
 </ul>
 <h2 id="the-tsconfigjson">The tsconfig.json</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "include"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">  "compilerOptions"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "outDir"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "target"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"es2020"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "declaration"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "strict"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "allowImportingTsExtensions"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "rewriteRelativeImportExtensions"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
+  <a-s>"compilerOptions"</a-s>: {
+    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
+    <a-s>"target"</a-s>: <a-s>"es2020"</a-s>,
+    <a-s>"declaration"</a-s>: <a-co>true</a-co>,
+    <a-s>"strict"</a-s>: <a-co>true</a-co>,
+    <a-s>"allowImportingTsExtensions"</a-s>: <a-co>true</a-co>,
+    <a-s>"rewriteRelativeImportExtensions"</a-s>: <a-co>true</a-co>
+  }
+}
+</code></pre>
 <h2 id="using-minimalpackage">Using minimalpackage</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { foo } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'minimalpackage'</span></span>
-<span class="line"><span style="color:#B392F0">foo</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>foo</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'minimalpackage'</a-s>
+<a-f>foo</a-f><a-p>()</a-p>
+</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>This article proposes a bundler-less approach to distributing typescript
 packages on NPM. It was possible before, but I think the addition of the
@@ -121,7 +129,8 @@ reference, here is a potential way to dual ESM/CJS publish with this method
 You might consider trying it</p>
 <h2 id="footnote-2---add-the-eslint-plugin-import-with-rule-requiring-file-extension-imports">Footnote 2 - Add the eslint-plugin-import with rule requiring file extension imports</h2>
 <p>Add this to your eslint config</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>'import/extensions': ['error', 'ignorePackages'],</span></span></code></pre>
+<pre><code>'import/extensions': ['error', 'ignorePackages'],
+</code></pre>
 <p>It will enforce importing from specific files, except for package names e.g. you
 need to import from ‘yourfile.ts’ for your code, but can import from packages
 like normal like <code>import {useState} from 'react'</code></p> </div> <div id="giscus"></div> <script>

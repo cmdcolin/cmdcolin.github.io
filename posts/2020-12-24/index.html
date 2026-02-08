@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Making a serverless website for photo upload pt. 1</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a serverless website for photo upload pt. 1</h1> <h4 data-astro-cid-lvjzyg5v>2020-12-24</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I set out to make a serverless website for photo uploads. Our dearly departed
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a serverless website for photo upload pt. 1</h1> <h4 data-astro-cid-lvjzyg5v>2020-12-24</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I set out to make a serverless website for photo uploads. Our dearly departed
 dixie dog needed a place to have photo uploads.</p>
 <p>I didn’t want to get charged dollars per month for a running ec2 instance, so I
 wanted something that was lightweight e.g. serverless, and easy</p>
@@ -14,33 +14,36 @@ me…I couldn’t stay focused (blame ADHD or just my CLI obsession?) and certai
 things like “Execution role” that they say to modify are not there in the web UI
 anymore, so I just gave up (I did try though!)</p>
 <p>To install aws-sam I used homebrew</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> tap</span><span style="color:#9ECBFF"> aws/tap</span></span>
-<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> aws-sam-cli</span></span>
-<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> aws-sam-cli</span><span style="color:#6A737D"> # I had to run the install command twice ref https://github.com/aws/aws-sam-cli/issues/2320#issuecomment-721414971</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/aws-samples/amazon-s3-presigned-urls-aws-sam</span></span>
-<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> amazon-s3-presigned-urls-aws-sam</span></span>
-<span class="line"><span style="color:#B392F0">sam</span><span style="color:#9ECBFF"> deploy</span><span style="color:#79B8FF"> --guided</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D"># proceeds with a guided installation, I used all defaults except I</span></span>
-<span class="line"><span style="color:#6A737D"># made "UploadRequestFunction may not have authorization definedIs</span></span>
-<span class="line"><span style="color:#B392F0">Is</span><span style="color:#9ECBFF"> this</span><span style="color:#9ECBFF"> okay?</span><span style="color:#E1E4E8"> [y/N]: y</span><span style="color:#9ECBFF">"</span></span></code></pre>
+<pre><code class="language-sh"><a-f>brew</a-f> tap aws/tap
+<a-f>brew</a-f> install aws-sam-cli
+<a-f>brew</a-f> install aws-sam-cli <a-c># I had to run the install command twice ref https://github.com/aws/aws-sam-cli/issues/2320#issuecomment-721414971</a-c>
+
+<a-f>git</a-f> clone https://github.com/aws-samples/amazon-s3-presigned-urls-aws-sam
+<a-f>cd</a-f> amazon-s3-presigned-urls-aws-sam
+<a-f>sam</a-f> deploy <a-co>--guided</a-co>
+
+<a-c># proceeds with a guided installation, I used all defaults except I</a-c>
+<a-c># made "UploadRequestFunction may not have authorization definedIs</a-c>
+<a-f>Is</a-f> this okay? [y/N]: y"
+</code></pre>
 <p><img src="/media/638408397901987840_0.png" alt=""></p>
 <p>They then in the tutorial describe trying to use postman to test</p>
 <p>I test with <code>curl</code> instead</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#9ECBFF"> 'https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads'</span></span>
-<span class="line"></span></code></pre>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "uploadURL"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "Key"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"112162.jpg"</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-sh"><a-f>curl</a-f> <a-s>'https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads'</a-s>
+</code></pre>
+<pre><code class="language-json">{
+  <a-s>"uploadURL"</a-s>: <a-s>"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host"</a-s>,
+  <a-s>"Key"</a-s>: <a-s>"112162.jpg"</a-s>
+}
+</code></pre>
 <p>The premise of this is you make a request, and then the response from the API is
 a pre-signed URL that then allows you to upload directly to S3. You can use
 <code>curl &#x3C;url> --upload-file yourfile.jpg</code>. This automatically does a PUT request
 to the s3 bucket (yes, this is talking directly to s3 now, not the lambda! the
 lambda is just for generating the “pre-signed URL” to let you upload). Careful
 to copy it exactly as is</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#9ECBFF"> "https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host"</span><span style="color:#79B8FF"> --upload-file</span><span style="color:#9ECBFF"> test.jpg</span></span></code></pre>
+<pre><code class="language-sh"><a-f>curl</a-f> <a-s>"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host"</a-s> <a-co>--upload-file</a-co> test.jpg
+</code></pre>
 <p>There is no response, but I can then check the s3 console and see the file
 upload is successful (all files are renamed)</p>
 <p><img src="/media/638408397901987840_1.png" alt=""></p>
@@ -48,10 +51,11 @@ upload is successful (all files are renamed)</p>
 <p>Then we can edit the file frontend/index.html from the repo we cloned to contain
 the lambda with the /uploads/ suffix</p>
 <p>Then we manually upload this file to another s3 bucket or test it locally</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">aws</span><span style="color:#9ECBFF"> s3</span><span style="color:#9ECBFF"> cp</span><span style="color:#9ECBFF"> index.html</span><span style="color:#9ECBFF"> s3://mybucket/</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D"># then ...visit that in the browser</span></span></code></pre>
+<pre><code class="language-sh"><a-f>aws</a-f> s3 cp index.html s3://mybucket/
+
+
+<a-c># then ...visit that in the browser</a-c>
+</code></pre>
 <p>At this point the files are getting uploaded but not publicly accessible. To
 make them publicly accessible we uncomment the ACL: ‘public-read’ in the
 getSignedURL/app.js folder in the github repo</p>

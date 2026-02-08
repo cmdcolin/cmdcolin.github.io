@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Structural variants and the SAM format - the long (reads) and short (reads) of it</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Structural variants and the SAM format - the long (reads) and short (reads) of it</h1> <h4 data-astro-cid-lvjzyg5v>2022-02-06</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Structural variants and the SAM format - the long (reads) and short (reads) of it</h1> <h4 data-astro-cid-lvjzyg5v>2022-02-06</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"><code>SAM</code> file format and its specification</a>
 is pretty amazing, but it is also fairly terse and abstract. To really
 understand what is going on with your reads, you probably gotta play around with
@@ -50,7 +50,7 @@ record has the more specific meaning of being a single line in the <code>SAM</co
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two-character abbreviation like <code>MQ</code>
 (mapping quality) or many others. They can be upper or lower case. Upper case
-tags are reserved for official usages (except those with X, Y, or Z prefixed).
+tags are reserved for official usages (except those starting with X, Y, or Z, which are reserved for local/user-defined use).
 See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
 details</p>
 <h3 id="what-is-a-cigar-string-and-how-do-you-interpret-it">What is a <code>CIGAR</code> string, and how do you interpret it?</h3>
@@ -109,8 +109,8 @@ like, say, lines in a <code>BED</code> file do</p>
 <li>A flags field, that might say “read reverse complemented”</li>
 </ul>
 <p>Using this, you can find the “end” coordinate of a record by starting at the POS
-coordinate and enumerating the “matches” (M), deletions (D) and insertions (I)
-and clipping (S/H) of the <code>CIGAR</code>. Processing the whole <code>CIGAR</code> effectively
+coordinate and enumerating the reference-consuming operators of the <code>CIGAR</code>:
+matches (M/=/X), deletions (D), and skips (N). Processing the whole <code>CIGAR</code> effectively
 gives you the “end” coordinate on the reference genome, so “end” is derived from
 the <code>CIGAR</code>. The “start” field corresponds to the <code>POS</code> field</p>
 <h3 id="what-are-forward-and-reverse-strand-reads">What are “forward” and “reverse” strand reads?</h3>
@@ -148,7 +148,8 @@ record is forward or reverse strand, you count upwards when processing the
 of 45.</p>
 <h3 id="how-are-reads-ordered-in-a-sam-file">How are reads ordered in a <code>SAM</code> file</h3>
 <p>When you run an aligner program like bwa or minimap2, you type e.g.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>minimap2 -a reference_genom.fa reads.fq > out.sam</span></span></code></pre>
+<pre><code>minimap2 -a reference_genom.fa reads.fq > out.sam
+</code></pre>
 <p>out.sam will be ordered in the same order as the fastq. For preparation for
 loading into analysis tools or genome browsers, we will often sort the reads
 using <code>samtools sort</code> which will group by chromosome name, and then increasing
@@ -289,13 +290,13 @@ together, and you only need to refer to a single record in the <code>SAM</code> 
 so.</p>
 <p>I am not aware of a lot of tools that work on the <code>VCF</code> Breakend graph, and
 expect more will need to be created to truly work with this standard. An
-inversion for example may create 4 record in the <code>VCF</code> file (see section 5.4 in
+inversion for example may create 4 records in the <code>VCF</code> file (see section 5.4 in
 the <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a> for example),
 and needs careful interpretation.</p>
 <h3 id="haplotype-tagged-reads">Haplotype-tagged reads</h3>
 <p>A new trend has been to create <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> files with tagged reads, which
 tells us which haplotype a read was inferred to have come from. This is commonly
-done with the <code>HP</code> tag, which might have <code>HP=0</code> and <code>HP=1</code> for a diploid genome.
+done with the <code>HP</code> tag, which might have <code>HP=1</code> and <code>HP=2</code> for a diploid genome.
 Tools like <code>whatshap</code> can add these tags to a <code>SAM</code> file, and IGV and JBrowse 2
 can color and sort by these tags.</p>
 <p><img src="/media/color_by_tag.png" alt=""></p>
@@ -328,7 +329,7 @@ the insert size).</p>
 <a href="https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf">https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf</a></p>
 <p>The above JBrowse screenshot shows mate pairs. Note that mate pairs have a
 different pair orientation, and pairs don’t necessarily point at each other,
-they “point away from each other” in normal conditions due. See Appendix A for
+they “point away from each other” in normal conditions due to how the library is constructed. See Appendix A for
 more info.</p>
 <h3 id="linked-reads-aka-simulated-long-reads">Linked reads aka simulated long reads</h3>
 <p>Linked reads are another method that uses short reads but gives long read
@@ -356,14 +357,15 @@ separately from the normal coverage histogram.</p>
 insertion, so the <code>CIGAR</code> string on those have an <code>I</code> operator and are indicated
 by the purple triangle above the reads. For the short reads, the reads near the
 insertion will be clipped since they will not properly map to the reference
-genome and cannot span the sinsertion. The “Show soft clipping” setting in
+genome and cannot span the insertion. The “Show soft clipping” setting in
 JBrowse 2 and IGV can be used to show visually the bases that extend into the
 insertion (shown on the bottom track).</p>
 <h3 id="unexpected-pair-orientation">Unexpected pair orientation</h3>
 <p>With standard paired end sequencing, the pairs normally point at each other</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
-<span class="line"><span>forward reverse ---> &#x3C;---</span></span>
-<span class="line"><span></span></span></code></pre>
+<pre><code>
+forward reverse ---> &#x3C;---
+
+</code></pre>
 <p>If the stranded-ness of the pair is off, then it could indicate a structural
 variant. See Appendix A for a handy function for calculating pair orientation.</p>
 <p>This guide from IGV is helpful for interpreting the pair directionality with
@@ -415,7 +417,7 @@ reference genome coordinates). In the future, SV visualization may look more
 similar to comparative genomics, where we compare an SV to a population-specific
 reference from a graph genomes or something like this.</p>
 <p>It is known that <em>de novo</em> assembly has more power to detect SVs than some read
-operations (<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a> as <em>de
+operations (<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>). As <em>de
 novo</em> assembled genomes improve and become more widespread, we may see a shift
 in how SVs are called</p>
 <p>I would also like to see improved ability to do fast or ‘on the fly’ gene
@@ -457,54 +459,55 @@ may look a bit different (see <code>cs</code> tag in <code>PAF</code> for exampl
 <p>This may be unnecessarily low-level code for this article, but it could be
 helpful utility to help determine the pair orientation from a single
 SAM/BAM/CRAM record.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#6A737D">// @param flags - flags from a single read</span></span>
-<span class="line"><span style="color:#6A737D">// @param ref - the string of the reference sequence, just used to determine if it matches rnext</span></span>
-<span class="line"><span style="color:#6A737D">// @param rnext - the string of the RNEXT, just used to determine if it matches ref</span></span>
-<span class="line"><span style="color:#6A737D">// @param tlen - the TLEN field from SAM</span></span>
-<span class="line"><span style="color:#6A737D">// @return e.g. F1R2 normal paired end orientation</span></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getPairOrientation</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#FFAB70">  flags</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  ref</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  rnext</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  tlen</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">  // this read is not unmapped &#x26;&#x26;</span></span>
-<span class="line"><span style="color:#6A737D">  // this read's mate is also not unmapped &#x26;&#x26;</span></span>
-<span class="line"><span style="color:#6A737D">  // this read's mate is on the same reference genome</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">flags </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 4</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#F97583"> !</span><span style="color:#E1E4E8">flags </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 8</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#E1E4E8"> ref </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> rnext) {</span></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> s1</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> flags </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 16</span><span style="color:#F97583"> ?</span><span style="color:#9ECBFF"> 'R'</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> 'F'</span></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> s2</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> flags </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 32</span><span style="color:#F97583"> ?</span><span style="color:#9ECBFF"> 'R'</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> 'F'</span></span>
-<span class="line"><span style="color:#F97583">    let</span><span style="color:#E1E4E8"> o1 </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ' '</span></span>
-<span class="line"><span style="color:#F97583">    let</span><span style="color:#E1E4E8"> o2 </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ' '</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">    // if first in pair</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (flags </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 64</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">      o1 </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> '1'</span></span>
-<span class="line"><span style="color:#E1E4E8">      o2 </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> '2'</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">    // else if second in pair</span></span>
-<span class="line"><span style="color:#F97583">    else</span><span style="color:#F97583"> if</span><span style="color:#E1E4E8"> (flags </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 128</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">      o1 </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> '2'</span></span>
-<span class="line"><span style="color:#E1E4E8">      o2 </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> '1'</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> tmp</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> []</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (tlen </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> s1</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> o1</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> s2</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> o2</span></span>
-<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> s1</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> o1</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> s2</span></span>
-<span class="line"><span style="color:#E1E4E8">      tmp[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> o2</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> tmp.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#79B8FF"> null</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-ts"><a-c>// @param flags - flags from a single read</a-c>
+<a-c>// @param ref - the string of the reference sequence, just used to determine if it matches rnext</a-c>
+<a-c>// @param rnext - the string of the RNEXT, just used to determine if it matches ref</a-c>
+<a-c>// @param tlen - the TLEN field from SAM</a-c>
+<a-c>// @return e.g. F1R2 normal paired end orientation</a-c>
+<a-k>function</a-k> <a-f>getPairOrientation</a-f><a-p>(</a-p>
+  <a-v>flags</a-v>: <a-t>number</a-t><a-p>,</a-p>
+  <a-v>ref</a-v>: <a-t>string</a-t><a-p>,</a-p>
+  <a-v>rnext</a-v>: <a-t>string</a-t><a-p>,</a-p>
+  <a-v>tlen</a-v>: <a-t>number</a-t><a-p>,</a-p>
+<a-p>)</a-p> <a-p>{</a-p>
+  <a-c>// this read is not unmapped &#x26;&#x26;</a-c>
+  <a-c>// this read's mate is also not unmapped &#x26;&#x26;</a-c>
+  <a-c>// this read's mate is on the same reference genome</a-c>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>4</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>8</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-v>ref</a-v> <a-o>===</a-o> <a-v>rnext</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>s1</a-v> <a-o>=</a-o> <a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>16</a-n> ? <a-s>'R'</a-s> : <a-s>'F'</a-s>
+    <a-k>const</a-k> <a-v>s2</a-v> <a-o>=</a-o> <a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>32</a-n> ? <a-s>'R'</a-s> : <a-s>'F'</a-s>
+    <a-k>let</a-k> <a-v>o1</a-v> <a-o>=</a-o> <a-s>' '</a-s>
+    <a-k>let</a-k> <a-v>o2</a-v> <a-o>=</a-o> <a-s>' '</a-s>
+
+    <a-c>// if first in pair</a-c>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>64</a-n><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>o1</a-v> <a-o>=</a-o> <a-s>'1'</a-s>
+      <a-v>o2</a-v> <a-o>=</a-o> <a-s>'2'</a-s>
+    <a-p>}</a-p>
+
+    <a-c>// else if second in pair</a-c>
+    <a-k>else</a-k> <a-k>if</a-k> <a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>128</a-n><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>o1</a-v> <a-o>=</a-o> <a-s>'2'</a-s>
+      <a-v>o2</a-v> <a-o>=</a-o> <a-s>'1'</a-s>
+    <a-p>}</a-p>
+
+    <a-k>const</a-k> <a-v>tmp</a-v> <a-o>=</a-o> <a-p>[]</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>tlen</a-v> <a-o>></a-o> <a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>0</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>1</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>2</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s2</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>3</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o2</a-v>
+    <a-p>}</a-p> <a-k>else</a-k> <a-p>{</a-p>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>2</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>3</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>0</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s2</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>1</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o2</a-v>
+    <a-p>}</a-p>
+    <a-k>return</a-k> <a-v>tmp</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-co>null</a-co>
+<a-p>}</a-p>
+</code></pre>
 <p>Then this can be broken down further by orientation type</p>
 <ul>
 <li>Paired end reads are “fr”</li>
@@ -513,152 +516,159 @@ SAM/BAM/CRAM record.</p>
 <p>So you can interpret e.g. F1R2 in relation to being a paired end read (fr) or
 mate pair (rf) below and with this link
 <a href="https://software.broadinstitute.org/software/igv/interpreting_pair_orientations">https://software.broadinstitute.org/software/igv/interpreting_pair_orientations</a></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "fr"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "F1R2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "F2R1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">    "F1F2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LL"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "F2F1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LL"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">    "R1R2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "R2R1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">    "R1F2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RL"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "R2F1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RL"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">  "rf"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "R1F2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "R2F1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">    "R1R2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LL"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "R2R1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LL"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">    "F1F2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "F2F1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RR"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">    "F1R2"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RL"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "F2R1"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"RL"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"fr"</a-s>: {
+    <a-s>"F1R2"</a-s>: <a-s>"LR"</a-s>,
+    <a-s>"F2R1"</a-s>: <a-s>"LR"</a-s>,
+
+    <a-s>"F1F2"</a-s>: <a-s>"LL"</a-s>,
+    <a-s>"F2F1"</a-s>: <a-s>"LL"</a-s>,
+
+    <a-s>"R1R2"</a-s>: <a-s>"RR"</a-s>,
+    <a-s>"R2R1"</a-s>: <a-s>"RR"</a-s>,
+
+    <a-s>"R1F2"</a-s>: <a-s>"RL"</a-s>,
+    <a-s>"R2F1"</a-s>: <a-s>"RL"</a-s>
+  },
+
+  <a-s>"rf"</a-s>: {
+    <a-s>"R1F2"</a-s>: <a-s>"LR"</a-s>,
+    <a-s>"R2F1"</a-s>: <a-s>"LR"</a-s>,
+
+    <a-s>"R1R2"</a-s>: <a-s>"LL"</a-s>,
+    <a-s>"R2R1"</a-s>: <a-s>"LL"</a-s>,
+
+    <a-s>"F1F2"</a-s>: <a-s>"RR"</a-s>,
+    <a-s>"F2F1"</a-s>: <a-s>"RR"</a-s>,
+
+    <a-s>"F1R2"</a-s>: <a-s>"RL"</a-s>,
+    <a-s>"F2R1"</a-s>: <a-s>"RL"</a-s>
+  }
+}
+</code></pre>
 <h3 id="appendix-b---cigar-parsing">Appendix B - <code>CIGAR</code> parsing</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#6A737D">// @param cigar: CIGAR string in text form</span></span>
-<span class="line"><span style="color:#6A737D">// @returns an array of elements like ['30','M', '2','I', '50','M', '40','D']</span></span>
-<span class="line"><span style="color:#6A737D">// which you can consume in a loop two elements at a time</span></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> parseCigar</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">cigar</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> cigar.</span><span style="color:#B392F0">split</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">/</span><span style="color:#DBEDFF">(</span><span style="color:#79B8FF">[MIDNSHPX=]</span><span style="color:#DBEDFF">)</span><span style="color:#9ECBFF">/</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-ts"><a-c>// @param cigar: CIGAR string in text form</a-c>
+<a-c>// @returns an array of elements like ['30','M', '2','I', '50','M', '40','D']</a-c>
+<a-c>// which you can consume in a loop two elements at a time</a-c>
+<a-k>function</a-k> <a-f>parseCigar</a-f><a-p>(</a-p><a-v>cigar</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>cigar</a-v><a-p>.</a-p><a-f>split</a-f><a-p>(</a-p><a-o>/</a-o><a-s>([MIDNSHPX=])</a-s><a-o>/</a-o><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Then parse the returned array two at a time</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#6A737D">// this function does nothing, but is informative for how to interpret a</span></span>
-<span class="line"><span style="color:#6A737D">// CIGAR string</span></span>
-<span class="line"><span style="color:#6A737D">// @param cigar - CIGAR string from record</span></span>
-<span class="line"><span style="color:#6A737D">// @param readSeq -  the SEQ from record</span></span>
-<span class="line"><span style="color:#6A737D">// @param refSeq -  the reference sequence underlying the read</span></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> interpretCigar</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">cigar</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">readSeq</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">refSeq</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> opts</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> parseCigar</span><span style="color:#E1E4E8">(cigar)</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> qpos </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#6A737D"> // query position, position on the read</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> tpos </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#6A737D"> // target position, position on the reference sequence</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">  // opts will be an array like this ['30','M', '2','I', '50','M', '40','D']</span></span>
-<span class="line"><span style="color:#6A737D">  // which we parse two elements at a time</span></span>
-<span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> opts.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> len</span><span style="color:#F97583"> =</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8">opts[i]</span></span>
-<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> op</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> opts[i </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#6A737D">    // do things. refer to the CIGAR chart in SAMv1.pdf for which operators</span></span>
-<span class="line"><span style="color:#6A737D">    // "consume reference" to see whether to increment</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'M'</span><span style="color:#F97583"> ||</span><span style="color:#E1E4E8"> op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> '='</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // matches consume query and reference</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> refMatch</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> refSeq.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(tpos, tpos </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> len)</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> readMatch</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> readSeq.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(qpos, qpos </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> len)</span></span>
-<span class="line"><span style="color:#F97583">      for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> len; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (refMatch[i] </span><span style="color:#F97583">!==</span><span style="color:#E1E4E8"> readMatch[i]) {</span></span>
-<span class="line"><span style="color:#6A737D">          // SNP at this position</span></span>
-<span class="line"><span style="color:#E1E4E8">        }</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">      qpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">      tpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'I'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // insertions only consume query</span></span>
-<span class="line"><span style="color:#6A737D">      // sequence of the insertion from the read is</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> insSeq</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> readSeq.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(qpos, qpos </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> len)</span></span>
-<span class="line"><span style="color:#E1E4E8">      qpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'D'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // deletions only consume reference</span></span>
-<span class="line"><span style="color:#6A737D">      // sequence of the deletion from the reference is</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> delSeq</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> refSeq.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(tpos, tpos </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> len)</span></span>
-<span class="line"><span style="color:#E1E4E8">      tpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'N'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // skips only consume reference</span></span>
-<span class="line"><span style="color:#6A737D">      // skips are similar to deletions but are related to spliced alignments</span></span>
-<span class="line"><span style="color:#E1E4E8">      tpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'X'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // mismatch using the extended CIGAR format</span></span>
-<span class="line"><span style="color:#6A737D">      // could lookup the mismatch letter in a string containing the reference</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> mismatch</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> refSeq.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(tpos, tpos </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> len)</span></span>
-<span class="line"><span style="color:#E1E4E8">      qpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">      tpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'H'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // does not consume query or reference</span></span>
-<span class="line"><span style="color:#6A737D">      // hardclip is just an indicator</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (op </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'S'</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">      // softclip consumes query</span></span>
-<span class="line"><span style="color:#6A737D">      // below gets the entire soft clipped portion</span></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> softClipStr</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> readSeq.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(qpos, qpos </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> len)</span></span>
-<span class="line"><span style="color:#E1E4E8">      qpos </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> len</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-ts"><a-c>// this function does nothing, but is informative for how to interpret a</a-c>
+<a-c>// CIGAR string</a-c>
+<a-c>// @param cigar - CIGAR string from record</a-c>
+<a-c>// @param readSeq -  the SEQ from record</a-c>
+<a-c>// @param refSeq -  the reference sequence underlying the read</a-c>
+<a-k>function</a-k> <a-f>interpretCigar</a-f><a-p>(</a-p><a-v>cigar</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>readSeq</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>refSeq</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>opts</a-v> <a-o>=</a-o> <a-f>parseCigar</a-f><a-p>(</a-p><a-v>cigar</a-v><a-p>)</a-p>
+  <a-k>let</a-k> <a-v>qpos</a-v> <a-o>=</a-o> <a-n>0</a-n> <a-c>// query position, position on the read</a-c>
+  <a-k>let</a-k> <a-v>tpos</a-v> <a-o>=</a-o> <a-n>0</a-n> <a-c>// target position, position on the reference sequence</a-c>
+
+  <a-c>// opts will be an array like this ['30','M', '2','I', '50','M', '40','D']</a-c>
+  <a-c>// which we parse two elements at a time</a-c>
+  <a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>opts</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>;</a-p> <a-v>i</a-v> <a-o>+=</a-o> <a-n>2</a-n><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>len</a-v> <a-o>=</a-o> <a-o>+</a-o><a-v>opts</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p>
+    <a-k>const</a-k> <a-v>op</a-v> <a-o>=</a-o> <a-v>opts</a-v><a-p>[</a-p><a-v>i</a-v> <a-o>+</a-o> <a-n>1</a-n><a-p>]</a-p>
+    <a-c>// do things. refer to the CIGAR chart in SAMv1.pdf for which operators</a-c>
+    <a-c>// "consume reference" to see whether to increment</a-c>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'M'</a-s> <a-o>||</a-o> <a-v>op</a-v> <a-o>===</a-o> <a-s>'='</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// matches consume query and reference</a-c>
+      <a-k>const</a-k> <a-v>refMatch</a-v> <a-o>=</a-o> <a-v>refSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>tpos</a-v><a-p>,</a-p> <a-v>tpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-k>const</a-k> <a-v>readMatch</a-v> <a-o>=</a-o> <a-v>readSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>qpos</a-v><a-p>,</a-p> <a-v>qpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>len</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-v>refMatch</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>!==</a-o> <a-v>readMatch</a-v><a-p>[</a-p><a-v>i</a-v><a-p>])</a-p> <a-p>{</a-p>
+          <a-c>// SNP at this position</a-c>
+        <a-p>}</a-p>
+      <a-p>}</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'I'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// insertions only consume query</a-c>
+      <a-c>// sequence of the insertion from the read is</a-c>
+      <a-k>const</a-k> <a-v>insSeq</a-v> <a-o>=</a-o> <a-v>readSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>qpos</a-v><a-p>,</a-p> <a-v>qpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'D'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// deletions only consume reference</a-c>
+      <a-c>// sequence of the deletion from the reference is</a-c>
+      <a-k>const</a-k> <a-v>delSeq</a-v> <a-o>=</a-o> <a-v>refSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>tpos</a-v><a-p>,</a-p> <a-v>tpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'N'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// skips only consume reference</a-c>
+      <a-c>// skips are similar to deletions but are related to spliced alignments</a-c>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'X'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// mismatch using the extended CIGAR format</a-c>
+      <a-c>// could lookup the mismatch letter in a string containing the reference</a-c>
+      <a-k>const</a-k> <a-v>mismatch</a-v> <a-o>=</a-o> <a-v>refSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>tpos</a-v><a-p>,</a-p> <a-v>tpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'H'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// does not consume query or reference</a-c>
+      <a-c>// hardclip is just an indicator</a-c>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'S'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// softclip consumes query</a-c>
+      <a-c>// below gets the entire soft clipped portion</a-c>
+      <a-k>const</a-k> <a-v>softClipStr</a-v> <a-o>=</a-o> <a-v>readSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>qpos</a-v><a-p>,</a-p> <a-v>qpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Note for example, that to determine how long a record is on the reference
 sequence, you have to combine the records start position with the CIGAR string,
 basically parsing the CIGAR string to add up tpos and return tpos</p>
 <h3 id="appendix-c---align-fastq-directly-to-cram">Appendix C - align <code>FASTQ</code> directly to <code>CRAM</code></h3>
 <p>This example from the htslib documentation
-(<a href="http://www.htslib.org/workflow/fastq.html">http://www.htslib.org/workflow/fastq.html</a> shows how you can stream directly
+(<a href="http://www.htslib.org/workflow/fastq.html">http://www.htslib.org/workflow/fastq.html</a>) shows how you can stream directly
 from <code>FASTQ</code> to <code>CRAM</code> (and generate the index file .crai too)</p>
 <p>If you want, you can make this a little shell script, easy_align_shortreads.sh</p>
 <p>easy_align_shortreads.sh</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
-<span class="line"><span style="color:#B392F0">minimap2</span><span style="color:#79B8FF"> -t</span><span style="color:#79B8FF"> 8</span><span style="color:#79B8FF"> -a</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> sr</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$2</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$3</span><span style="color:#9ECBFF">"</span><span style="color:#F97583">  |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> fixmate</span><span style="color:#79B8FF"> -u</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> -</span><span style="color:#9ECBFF"> -</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> sort</span><span style="color:#79B8FF"> -u</span><span style="color:#79B8FF"> -@2</span><span style="color:#9ECBFF"> -</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> markdup</span><span style="color:#79B8FF"> -@8</span><span style="color:#79B8FF"> --reference</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> -</span><span style="color:#79B8FF"> --write-index</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$4</span><span style="color:#9ECBFF">"</span></span></code></pre>
+<pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-co>-x</a-co> sr <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>3</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
+<a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>4</a-pr><a-s>"</a-s>
+</code></pre>
 <p>Similar idea for longreads, except just a single fastq file is generally used
 for longreads</p>
 <p>easy_align_longreads.sh</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
-<span class="line"><span style="color:#B392F0">minimap2</span><span style="color:#79B8FF"> -t</span><span style="color:#79B8FF"> 8</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$2</span><span style="color:#9ECBFF">"</span><span style="color:#F97583">  |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> fixmate</span><span style="color:#79B8FF"> -u</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> -</span><span style="color:#9ECBFF"> -</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> sort</span><span style="color:#79B8FF"> -u</span><span style="color:#79B8FF"> -@2</span><span style="color:#9ECBFF"> -</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> markdup</span><span style="color:#79B8FF"> -@8</span><span style="color:#79B8FF"> --reference</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> -</span><span style="color:#79B8FF"> --write-index</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$3</span><span style="color:#9ECBFF">"</span></span></code></pre>
+<pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
+<a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>3</a-pr><a-s>"</a-s>
+</code></pre>
 <p>Then call</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> easy_align_shortreads.sh</span><span style="color:#9ECBFF"> ref.fa</span><span style="color:#9ECBFF"> reads1.fq</span><span style="color:#9ECBFF"> reads2.fq</span><span style="color:#9ECBFF"> out.cram</span></span>
-<span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> easy_align_longreads.sh</span><span style="color:#9ECBFF"> ref.fa</span><span style="color:#9ECBFF"> reads.fq</span><span style="color:#9ECBFF"> out.cram</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">## output BAM instead</span></span>
-<span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> easy_align_shortreads.sh</span><span style="color:#9ECBFF"> ref.fa</span><span style="color:#9ECBFF"> reads1.fq</span><span style="color:#9ECBFF"> reads2.fq</span><span style="color:#9ECBFF"> out.bam</span></span>
-<span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> easy_align_longreads.sh</span><span style="color:#9ECBFF"> ref.fa</span><span style="color:#9ECBFF"> reads.fq</span><span style="color:#9ECBFF"> out.bam</span></span></code></pre>
+<pre><code class="language-sh"><a-f>bash</a-f> easy_align_shortreads.sh ref.fa reads1.fq reads2.fq out.cram
+<a-f>bash</a-f> easy_align_longreads.sh ref.fa reads.fq out.cram
+
+<a-c>## output BAM instead</a-c>
+<a-f>bash</a-f> easy_align_shortreads.sh ref.fa reads1.fq reads2.fq out.bam
+<a-f>bash</a-f> easy_align_longreads.sh ref.fa reads.fq out.bam
+</code></pre>
 <p>This same concept works with other common aligners as well like bwa</p>
 <p>Bonus: CRAM to bigwig, for looking at CNV/coverage</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
-<span class="line"><span style="color:#6A737D"># quickalign.sh ref.fa 1.fq 2.fq out.cram</span></span>
-<span class="line"><span style="color:#6A737D"># produces out.cram and out.bw</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> faidx</span><span style="color:#FFAB70"> $1</span></span>
-<span class="line"><span style="color:#B392F0">minimap2</span><span style="color:#79B8FF"> -t</span><span style="color:#79B8FF"> 8</span><span style="color:#79B8FF"> -a</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> sr</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$2</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$3</span><span style="color:#9ECBFF">"</span><span style="color:#F97583">  |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> fixmate</span><span style="color:#79B8FF"> -u</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> -</span><span style="color:#9ECBFF"> -</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> sort</span><span style="color:#79B8FF"> -u</span><span style="color:#79B8FF"> -@2</span><span style="color:#9ECBFF"> -</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> \</span></span>
-<span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> markdup</span><span style="color:#79B8FF"> -@8</span><span style="color:#79B8FF"> --reference</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> -</span><span style="color:#79B8FF"> --write-index</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$4</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">mosdepth</span><span style="color:#FFAB70"> $4</span><span style="color:#79B8FF"> -f</span><span style="color:#FFAB70"> $1</span><span style="color:#FFAB70"> $4</span></span>
-<span class="line"><span style="color:#B392F0">gunzip</span><span style="color:#FFAB70"> $4</span><span style="color:#9ECBFF">.per-base.bed.gz</span></span>
-<span class="line"><span style="color:#B392F0">bedGraphToBigWig</span><span style="color:#FFAB70"> $4</span><span style="color:#9ECBFF">.per-base.bed</span><span style="color:#FFAB70"> $1</span><span style="color:#9ECBFF">.fa.fai</span><span style="color:#FFAB70"> $4</span><span style="color:#9ECBFF">.bw</span></span></code></pre>
+<pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-c># quickalign.sh ref.fa 1.fq 2.fq out.cram</a-c>
+<a-c># produces out.cram and out.bw</a-c>
+<a-f>samtools</a-f> faidx <a-o>$</a-o><a-pr>1</a-pr>
+<a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-co>-x</a-co> sr <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>3</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
+<a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>4</a-pr><a-s>"</a-s>
+
+
+<a-f>mosdepth</a-f> <a-o>$</a-o><a-pr>4</a-pr> <a-co>-f</a-co> <a-o>$</a-o><a-pr>1</a-pr> <a-o>$</a-o><a-pr>4</a-pr>
+<a-f>gunzip</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed.gz
+<a-f>bedGraphToBigWig</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed <a-o>$</a-o><a-pr>1</a-pr>.fa.fai <a-o>$</a-o><a-pr>4</a-pr>.bw
+</code></pre>
 <p>Call as “quickalign.sh ref.fa 1.fq 2.fq out.cram” gives you out.cram,
 out.cram.crai, and out.cram.bw (coverage)</p>
 <h3 id="appendix-d---the-md-tag-and-finding-snps-in-reads">Appendix D - the <code>MD</code> tag and finding SNPs in reads</h3>
@@ -684,15 +694,124 @@ comparing the read sequence with the reference, instead of relying on the <code>
 tag. (see Appendix B)</p>
 <h2 id="appendix-e-converting-between-sambamcram">Appendix E: Converting between SAM/BAM/CRAM</h2>
 <p>You can convert <code>SAM</code> to <code>BAM</code> with samtools</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> view</span><span style="color:#9ECBFF"> file.sam</span><span style="color:#79B8FF"> -o</span><span style="color:#9ECBFF"> file.bam</span></span></code></pre>
+<pre><code class="language-sh"><a-f>samtools</a-f> view file.sam <a-co>-o</a-co> file.bam
+</code></pre>
 <p>You can also convert a <code>BAM</code> back to <code>SAM</code> with samtools view</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> view</span><span style="color:#79B8FF"> -h</span><span style="color:#9ECBFF"> file.bam</span><span style="color:#79B8FF"> -o</span><span style="color:#9ECBFF"> file.sam</span></span></code></pre>
+<pre><code class="language-sh"><a-f>samtools</a-f> view <a-co>-h</a-co> file.bam <a-co>-o</a-co> file.sam
+</code></pre>
 <p>The -h just makes sure to preserve the header.</p>
 <p>If you are converting <code>SAM</code> to <code>CRAM</code>, it may require the -T argument to specify
 your reference sequence (this is because the <code>CRAM</code> is “reference compressed”)</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">samtools</span><span style="color:#9ECBFF"> view</span><span style="color:#79B8FF"> -T</span><span style="color:#9ECBFF"> reference.fa</span><span style="color:#9ECBFF"> file.sam</span><span style="color:#79B8FF"> -o</span><span style="color:#9ECBFF"> file.cram</span></span></code></pre>
+<pre><code class="language-sh"><a-f>samtools</a-f> view <a-co>-T</a-co> reference.fa file.sam <a-co>-o</a-co> file.cram
+</code></pre>
 <p>Note that in some cases you can pipe data directly from e.g. an aligner straight
-to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p> </div> <div id="giscus"></div> <script>
+to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p>
+<h2 id="appendix-f-why-is-my-read-alignment-coverage-uneven">Appendix F: Why is my read alignment coverage uneven?</h2>
+<p>When looking at coverage plots, you might notice that coverage is far from
+uniform. There are both biological and technical reasons for this.</p>
+<h3 id="biological-reasons">Biological reasons</h3>
+<ul>
+<li>
+<p><em>GC content bias</em>: Regions with very high or very low GC content tend to have
+lower coverage. This affects both short and long read sequencing, though to
+different degrees. DNA with extreme GC content is harder to denature and
+amplify during library preparation.</p>
+</li>
+<li>
+<p><em>Repetitive regions</em>: Tandem repeats, transposable elements, segmental
+duplications, and other repetitive sequences can cause reads to multi-map,
+leading to apparent coverage drops if multi-mappers are filtered out, or
+inflated coverage if they are randomly assigned. Centromeres and telomeres are
+particularly affected.</p>
+</li>
+<li>
+<p><em>Copy number variation</em>: True biological differences in copy number between
+your sample and the reference genome will show up as coverage differences.
+Duplicated regions will have higher coverage, and deleted regions will have
+lower or zero coverage.</p>
+</li>
+<li>
+<p><em>Heterochromatin and chromatin structure</em>: Tightly packed heterochromatic
+regions can be harder to sequence due to reduced accessibility during library
+preparation, leading to lower coverage.</p>
+</li>
+<li>
+<p><em>Segmental duplications and paralogous sequences</em>: Highly similar duplicated
+regions in the genome can cause reads to map ambiguously, resulting in
+mapping quality drops and uneven coverage.</p>
+</li>
+</ul>
+<h3 id="technical-reasons">Technical reasons</h3>
+<ul>
+<li>
+<p><em>PCR amplification bias</em>: Library preparation protocols that involve PCR can
+introduce amplification bias. Some fragments amplify more efficiently than
+others, leading to uneven representation. PCR-free library prep protocols
+can reduce this.</p>
+</li>
+<li>
+<p><em>Fragmentation bias</em>: Enzymatic or mechanical fragmentation of DNA during
+library preparation is not perfectly uniform, which can lead to some regions
+being over- or under-represented.</p>
+</li>
+<li>
+<p><em>Mappability</em>: Some regions of the genome are inherently difficult to map
+reads to uniquely. Short reads in particular struggle with repetitive
+regions, leading to mapping quality zero reads or unmapped reads. Long reads
+improve this but don’t fully eliminate it.</p>
+</li>
+<li>
+<p><em>Sequencing errors in homopolymers</em>: Nanopore and older PacBio sequencing
+can have higher error rates in homopolymer runs (e.g. AAAAAAA), which can
+cause local alignment artifacts and apparent coverage fluctuations.</p>
+</li>
+<li>
+<p><em>Library complexity</em>: Low input DNA or over-amplified libraries result in
+many duplicate reads. After duplicate marking/removal, the effective coverage
+in some regions can drop significantly.</p>
+</li>
+<li>
+<p><em>Target capture bias</em>: For exome or targeted sequencing, probe hybridization
+efficiency varies across targets, leading to highly uneven coverage across
+the captured regions.</p>
+</li>
+<li>
+<p><em>Edge effects</em>: Coverage tends to drop at the edges of chromosomes
+(telomeres) and near gaps (Ns) in the reference assembly.</p>
+</li>
+<li>
+<p><em>Reference genome quality</em>: Errors or gaps in the reference genome itself can
+cause reads to fail to map in certain regions, or cause pileups of
+misaligned reads in others.</p>
+</li>
+</ul>
+<p>Understanding these sources of coverage variation is important when
+interpreting CNV calls, as not every coverage dip or peak represents a true
+biological copy number change.</p>
+<h3 id="divergent-strains-mapped-to-a-single-reference">Divergent strains mapped to a single reference</h3>
+<p>An extreme case of uneven coverage occurs when you map reads from a
+divergent strain or wild isolate to a reference genome. If the sample is
+highly divergent from the reference in certain genomic regions, reads from
+those regions will either fail to map entirely or map with very high mismatch
+rates, creating dramatic coverage drops and spikes at a fine scale.</p>
+<p>This is particularly well-studied in C. elegans, where wild isolates (e.g.
+DL238, JU2526, EG4725) have “hyper-divergent” regions compared to the
+standard N2 reference. These regions can be so different from N2 that they
+resemble a different species, and the coverage profile when mapping to N2
+looks extremely jagged: sharp transitions between well-mapped conserved
+regions and poorly-mapped or unmapped divergent regions. The read pileup
+in these regions will also show an abundance of colored mismatches.</p>
+<p>These hyper-divergent haplotypes in C. elegans often overlap with genes
+involved in environmental response such as chemoreceptors and innate immunity
+genes, and are thought to be maintained by balancing selection. This
+phenomenon is not unique to C. elegans; any organism with high population
+diversity or where you are mapping a divergent strain to a single reference
+can show similar patterns.</p>
+<p>The solution is not to “fix” the library prep but rather to use a
+strain-specific assembly, a pangenome reference, or a graph genome approach
+that can represent the diversity in these regions. Alternatively, using a
+more lenient aligner setting may recover some reads, but at the cost of
+noisier alignments.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');

@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Making a static site blog with the Next.js &#39;app&#39; directory</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a static site blog with the Next.js &#39;app&#39; directory</h1> <h4 data-astro-cid-lvjzyg5v>2023-04-08</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I just converted my blog to use the Next.js ‘app’ directory, and thought I’d
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a static site blog with the Next.js &#39;app&#39; directory</h1> <h4 data-astro-cid-lvjzyg5v>2023-04-08</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I just converted my blog to use the Next.js ‘app’ directory, and thought I’d
 show how you can make your own static site with it. Static export of the Next.js
 ‘app’ directory was added in version 13.3
 <a href="https://nextjs.org/blog/next-13-3#static-export-for-app-router">https://nextjs.org/blog/next-13-3#static-export-for-app-router</a></p>
@@ -24,230 +24,240 @@ this does not exist on the client side. It’s quite interesting</p>
 raw basics</p>
 <h2 id="step-1-run-create-next-app">Step 1. Run create-next-app</h2>
 <p>I accepted all defaults but added “YES” to the use experimental app directory</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"></span>
-<span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> npx</span><span style="color:#9ECBFF"> create-next-app</span><span style="color:#9ECBFF"> myblog</span></span>
-<span class="line"><span style="color:#B392F0">✔</span><span style="color:#9ECBFF"> Would</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> like</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> TypeScript</span><span style="color:#9ECBFF"> with</span><span style="color:#9ECBFF"> this</span><span style="color:#9ECBFF"> project?</span><span style="color:#9ECBFF"> …</span><span style="color:#9ECBFF"> No</span><span style="color:#9ECBFF"> /</span><span style="color:#9ECBFF"> YES</span></span>
-<span class="line"><span style="color:#B392F0">✔</span><span style="color:#9ECBFF"> Would</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> like</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> ESLint</span><span style="color:#9ECBFF"> with</span><span style="color:#9ECBFF"> this</span><span style="color:#9ECBFF"> project?</span><span style="color:#9ECBFF"> …</span><span style="color:#9ECBFF"> No</span><span style="color:#9ECBFF"> /</span><span style="color:#9ECBFF"> YES</span></span>
-<span class="line"><span style="color:#B392F0">✔</span><span style="color:#9ECBFF"> Would</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> like</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> `</span><span style="color:#B392F0">src/</span><span style="color:#9ECBFF">`</span><span style="color:#B392F0"> directory</span><span style="color:#9ECBFF"> with</span><span style="color:#9ECBFF"> this</span><span style="color:#9ECBFF"> project?</span><span style="color:#9ECBFF"> …</span><span style="color:#9ECBFF"> NO</span><span style="color:#9ECBFF"> /</span><span style="color:#9ECBFF"> Yes</span></span>
-<span class="line"><span style="color:#B392F0">✔</span><span style="color:#9ECBFF"> Would</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> like</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> experimental</span><span style="color:#9ECBFF"> `</span><span style="color:#B392F0">app/</span><span style="color:#9ECBFF">`</span><span style="color:#B392F0"> directory</span><span style="color:#9ECBFF"> with</span><span style="color:#9ECBFF"> this</span><span style="color:#9ECBFF"> project?</span><span style="color:#9ECBFF"> …</span><span style="color:#9ECBFF"> No</span><span style="color:#9ECBFF"> /</span><span style="color:#9ECBFF"> YES</span></span>
-<span class="line"><span style="color:#B392F0">✔</span><span style="color:#9ECBFF"> What</span><span style="color:#9ECBFF"> import</span><span style="color:#9ECBFF"> alias</span><span style="color:#9ECBFF"> would</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> like</span><span style="color:#9ECBFF"> configured?</span><span style="color:#9ECBFF"> …</span><span style="color:#9ECBFF"> @/</span><span style="color:#79B8FF">*</span></span>
-<span class="line"><span style="color:#B392F0">Creating</span><span style="color:#9ECBFF"> a</span><span style="color:#9ECBFF"> new</span><span style="color:#9ECBFF"> Next.js</span><span style="color:#9ECBFF"> app</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> /home/cdiesh/myblog.</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">Using</span><span style="color:#9ECBFF"> npm.</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">Initializing</span><span style="color:#9ECBFF"> project</span><span style="color:#9ECBFF"> with</span><span style="color:#9ECBFF"> template:</span><span style="color:#9ECBFF"> app</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">Installing</span><span style="color:#9ECBFF"> dependencies:</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> react</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> react-dom</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> next</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> typescript</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> @types/react</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> @types/node</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> @types/react-dom</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> eslint</span></span>
-<span class="line"><span style="color:#B392F0">-</span><span style="color:#9ECBFF"> eslint-config-next</span></span></code></pre>
+<pre><code class="language-bash">
+<a-o>$</a-o><a-f> </a-f><a-pr>npx</a-pr> create-next-app myblog
+<a-f>✔</a-f> Would you like to use TypeScript with this project? … No / YES
+<a-f>✔</a-f> Would you like to use ESLint with this project? … No / YES
+<a-f>✔</a-f> Would you like to use <a-eb>`</a-eb><a-f>src/</a-f><a-eb>`</a-eb> directory with this project? … NO / Yes
+<a-f>✔</a-f> Would you like to use experimental <a-eb>`</a-eb><a-f>app/</a-f><a-eb>`</a-eb> directory with this project? … No / YES
+<a-f>✔</a-f> What import alias would you like configured? … @/*
+<a-f>Creating</a-f> a new Next.js app in /home/cdiesh/myblog.
+
+<a-f>Using</a-f> npm.
+
+<a-f>Initializing</a-f> project with template: app
+
+
+<a-f>Installing</a-f> dependencies:
+<a-co>-</a-co> react
+<a-co>-</a-co> react-dom
+<a-co>-</a-co> next
+<a-co>-</a-co> typescript
+<a-co>-</a-co> @types/react
+<a-co>-</a-co> @types/node
+<a-co>-</a-co> @types/react-dom
+<a-co>-</a-co> eslint
+<a-co>-</a-co> eslint-config-next
+</code></pre>
 <h2 id="step-2-edit-nextconfigjs">Step 2. Edit next.config.js</h2>
 <p>Add ‘output’: ‘export’ to the next.config.js file</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">/** </span><span style="color:#F97583">@type</span><span style="color:#B392F0"> {import('next').NextConfig}</span><span style="color:#6A737D"> */</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> nextConfig</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">  output: </span><span style="color:#9ECBFF">'export'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> nextConfig</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>/** @type {import('next').NextConfig} */</a-c>
+<a-k>const</a-k> <a-v>nextConfig</a-v> <a-o>=</a-o> <a-p>{</a-p>
+  <a-pr>output</a-pr>: <a-s>'export'</a-s><a-p>,</a-p>
+<a-p>}</a-p>
+
+<a-v>module</a-v><a-p>.</a-p><a-pr>exports</a-pr> <a-o>=</a-o> <a-v>nextConfig</a-v>
+</code></pre>
 <h2 id="step-3-create-the-page-that-will-display-your-posts">Step 3. Create the page that will display your posts</h2>
 <p>Create a new directory like this on the command line, yes there are square
 brackets in the directory name</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> app/posts/</span><span style="color:#79B8FF">\[</span><span style="color:#9ECBFF">id</span><span style="color:#79B8FF">\]</span><span style="color:#9ECBFF">/</span></span></code></pre>
+<pre><code class="language-bash"><a-f>mkdir</a-f> <a-co>-p</a-co> app/posts/\[id\]/
+</code></pre>
 <p>Then make a file page.tsx in there so it is ‘app/posts/[id]/page.tsx’</p>
 <p>Then on this page, fill in with this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { getPostById, getAllPosts } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '@/lib/api'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// Generate the post, note that this is a "react server component"! it is</span></span>
-<span class="line"><span style="color:#6A737D">// allowed to be async</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> Post</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#FFAB70">  params</span><span style="color:#E1E4E8">: { </span><span style="color:#FFAB70">id</span><span style="color:#E1E4E8"> },</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  params</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }</span></span>
-<span class="line"><span style="color:#E1E4E8">}) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">html</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">title</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">date</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getPostById</span><span style="color:#E1E4E8">(id)</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">article</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">>{title}&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">h4</span><span style="color:#E1E4E8">>{date}&#x3C;/</span><span style="color:#85E89D">h4</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> dangerouslySetInnerHTML</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{ __html: html }} /></span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">article</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// This function can statically allow nextjs to find all the posts that you</span></span>
-<span class="line"><span style="color:#6A737D">// have made, and statically generate them</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> generateStaticParams</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> posts</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getAllPosts</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> posts.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">post</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> ({</span></span>
-<span class="line"><span style="color:#E1E4E8">    id: post.id,</span></span>
-<span class="line"><span style="color:#E1E4E8">  }))</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// Set the title of the page to be the post title, note that we no longer use</span></span>
-<span class="line"><span style="color:#6A737D">// e.g. next/head in app dir, and this can be async just like the server</span></span>
-<span class="line"><span style="color:#6A737D">// component</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> generateMetadata</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#FFAB70">  params</span><span style="color:#E1E4E8">: { </span><span style="color:#FFAB70">id</span><span style="color:#E1E4E8"> },</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  params</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }</span></span>
-<span class="line"><span style="color:#E1E4E8">}) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">title</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getPostById</span><span style="color:#E1E4E8">(id)</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">    title,</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>getPostById</a-v><a-p>,</a-p> <a-v>getAllPosts</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'@/lib/api'</a-s>
+
+<a-c>// Generate the post, note that this is a "react server component"! it is</a-c>
+<a-c>// allowed to be async</a-c>
+<a-k>export</a-k> <a-k>default</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-t>Post</a-t><a-p>({</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> id <a-p>},</a-p>
+<a-p>}</a-p>: <a-p>{</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> <a-pr>id</a-pr>: <a-t>string</a-t> <a-p>}</a-p>
+<a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> html<a-p>,</a-p> title<a-p>,</a-p> date <a-p>}</a-p> <a-o>=</a-o> <a-k>await</a-k> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>article</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>>{</a-p><a-v>title</a-v><a-p>}&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h4</a-tg><a-p>>{</a-p><a-v>date</a-v><a-p>}&#x3C;/</a-p><a-tg>h4</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>dangerouslySetInnerHTML</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>__html</a-pr>: <a-v>html</a-v> <a-p>}}</a-p> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>article</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+
+<a-c>// This function can statically allow nextjs to find all the posts that you</a-c>
+<a-c>// have made, and statically generate them</a-c>
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>generateStaticParams</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>posts</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>getAllPosts</a-f><a-p>()</a-p>
+
+  <a-k>return</a-k> <a-v>posts</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>post</a-v> <a-o>=></a-o> <a-p>({</a-p>
+    <a-pr>id</a-pr>: <a-v>post</a-v><a-p>.</a-p><a-pr>id</a-pr><a-p>,</a-p>
+  <a-p>}))</a-p>
+<a-p>}</a-p>
+
+<a-c>// Set the title of the page to be the post title, note that we no longer use</a-c>
+<a-c>// e.g. next/head in app dir, and this can be async just like the server</a-c>
+<a-c>// component</a-c>
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>generateMetadata</a-f><a-p>({</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> id <a-p>},</a-p>
+<a-p>}</a-p>: <a-p>{</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> <a-pr>id</a-pr>: <a-t>string</a-t> <a-p>}</a-p>
+<a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> title <a-p>}</a-p> <a-o>=</a-o> <a-k>await</a-k> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>{</a-p>
+    title<a-p>,</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="step-4-fix-the-cart-being-ahead-of-the-horse-parse-the-markdown-blogposts">Step 4. Fix the cart being ahead of the horse: parse the markdown blogposts</h2>
 <p>In the last post, I use functions “getAllPosts” and “getPostById”, these are
 functions that I define that parse my markdown blog posts.</p>
 <p>So let’s make those functions. The code below performs markdown parsing manually
 using unified/remark/rehype and allows github flavored markdown. See Footnote 1
 for more info. So first install these</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> gray-matter</span><span style="color:#9ECBFF"> unified</span><span style="color:#9ECBFF"> remark-gfm</span><span style="color:#9ECBFF"> remark-parse</span><span style="color:#9ECBFF"> remark-rehype</span><span style="color:#9ECBFF"> rehype-stringify</span><span style="color:#9ECBFF"> rehype-autolink-headings</span><span style="color:#9ECBFF"> rehype-slug</span><span style="color:#9ECBFF"> @leafac/rehype-shiki</span><span style="color:#9ECBFF"> shiki</span></span></code></pre>
+<pre><code class="language-bash"><a-f>npm</a-f> install gray-matter unified remark-gfm remark-parse remark-rehype rehype-stringify rehype-autolink-headings rehype-slug @leafac/rehype-shiki shiki
+</code></pre>
 <p>And then, add this code</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// lib/api.ts</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> fs </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> matter </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'gray-matter'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> path </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'path'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { unified } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'unified'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> remarkGfm </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'remark-gfm'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> rehypeSlug </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'rehype-slug'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> rehypeAutolinkHeadings </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'rehype-autolink-headings'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> remarkParse </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'remark-parse'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> remarkRehype </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'remark-rehype'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> rehypeStringify </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'rehype-stringify'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> rehypePrettyCode </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'rehype-pretty-code'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> postsDirectory</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> path.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(process.</span><span style="color:#B392F0">cwd</span><span style="color:#E1E4E8">(), </span><span style="color:#9ECBFF">'_posts'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getPostFiles</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> fs.</span><span style="color:#B392F0">readdirSync</span><span style="color:#E1E4E8">(postsDirectory)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getParser</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> unified</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(remarkParse)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(remarkRehype)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(remarkGfm)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(rehypePrettyCode, {</span></span>
-<span class="line"><span style="color:#E1E4E8">      theme: </span><span style="color:#9ECBFF">'one-dark-pro'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    })</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(rehypeStringify)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(rehypeStringify)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(rehypeSlug)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(rehypeAutolinkHeadings, {</span></span>
-<span class="line"><span style="color:#B392F0">      content</span><span style="color:#E1E4E8">: </span><span style="color:#FFAB70">arg</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> ({</span></span>
-<span class="line"><span style="color:#E1E4E8">        type: </span><span style="color:#9ECBFF">'element'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">        tagName: </span><span style="color:#9ECBFF">'a'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">        properties: {</span></span>
-<span class="line"><span style="color:#E1E4E8">          href: </span><span style="color:#9ECBFF">`#${</span><span style="color:#B392F0">String</span><span style="color:#9ECBFF">(</span><span style="color:#E1E4E8">arg</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">properties</span><span style="color:#9ECBFF">?.</span><span style="color:#E1E4E8">id</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">          style: </span><span style="color:#9ECBFF">'margin-right: 10px'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">        },</span></span>
-<span class="line"><span style="color:#E1E4E8">        children: [{ type: </span><span style="color:#9ECBFF">'text'</span><span style="color:#E1E4E8">, value: </span><span style="color:#9ECBFF">'#'</span><span style="color:#E1E4E8"> }],</span></span>
-<span class="line"><span style="color:#E1E4E8">      }),</span></span>
-<span class="line"><span style="color:#E1E4E8">    })</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// small speedup from caching this parser</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> parser</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> getParser</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getPostById</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> realId</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> id.</span><span style="color:#B392F0">replace</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">/</span><span style="color:#85E89D;font-weight:bold">\.</span><span style="color:#DBEDFF">md</span><span style="color:#F97583">$</span><span style="color:#9ECBFF">/</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> fullPath</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> path.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(postsDirectory, </span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">realId</span><span style="color:#9ECBFF">}.md`</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">data</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">content</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#B392F0"> matter</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> fs.promises.</span><span style="color:#B392F0">readFile</span><span style="color:#E1E4E8">(fullPath, </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> html</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> parser.</span><span style="color:#B392F0">process</span><span style="color:#E1E4E8">(content)</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> date</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> data.date </span><span style="color:#F97583">as</span><span style="color:#B392F0"> Date</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    ...</span><span style="color:#E1E4E8">data,</span></span>
-<span class="line"><span style="color:#E1E4E8">    title: data.title </span><span style="color:#F97583">as</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    id: realId,</span></span>
-<span class="line"><span style="color:#E1E4E8">    date: </span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">date</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">toISOString</span><span style="color:#9ECBFF">().</span><span style="color:#B392F0">slice</span><span style="color:#9ECBFF">(</span><span style="color:#79B8FF">0</span><span style="color:#9ECBFF">, </span><span style="color:#79B8FF">10</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    html: html.value.</span><span style="color:#B392F0">toString</span><span style="color:#E1E4E8">(),</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getPageMarkdown</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">string_</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">data</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">content</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#B392F0"> matter</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#E1E4E8">    fs.</span><span style="color:#B392F0">readFileSync</span><span style="color:#E1E4E8">(path.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'_pages'</span><span style="color:#E1E4E8">, string_), </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">),</span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> html</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> parser.</span><span style="color:#B392F0">process</span><span style="color:#E1E4E8">(content)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    ...</span><span style="color:#E1E4E8">data,</span></span>
-<span class="line"><span style="color:#E1E4E8">    html: html.value.</span><span style="color:#B392F0">toString</span><span style="color:#E1E4E8">(),</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getAllPosts</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> posts</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">all</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">getPostFiles</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> getPostById</span><span style="color:#E1E4E8">(id)))</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> posts.</span><span style="color:#B392F0">sort</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">post1</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">post2</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (post1.date </span><span style="color:#F97583">></span><span style="color:#E1E4E8"> post2.date </span><span style="color:#F97583">?</span><span style="color:#F97583"> -</span><span style="color:#79B8FF">1</span><span style="color:#F97583"> :</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// lib/api.ts</a-c>
+<a-k>import</a-k> <a-v>fs</a-v> <a-k>from</a-k> <a-s>'fs'</a-s>
+<a-k>import</a-k> <a-v>matter</a-v> <a-k>from</a-k> <a-s>'gray-matter'</a-s>
+<a-k>import</a-k> <a-v>path</a-v> <a-k>from</a-k> <a-s>'path'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>unified</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'unified'</a-s>
+<a-k>import</a-k> <a-v>remarkGfm</a-v> <a-k>from</a-k> <a-s>'remark-gfm'</a-s>
+<a-k>import</a-k> <a-v>rehypeSlug</a-v> <a-k>from</a-k> <a-s>'rehype-slug'</a-s>
+<a-k>import</a-k> <a-v>rehypeAutolinkHeadings</a-v> <a-k>from</a-k> <a-s>'rehype-autolink-headings'</a-s>
+<a-k>import</a-k> <a-v>remarkParse</a-v> <a-k>from</a-k> <a-s>'remark-parse'</a-s>
+<a-k>import</a-k> <a-v>remarkRehype</a-v> <a-k>from</a-k> <a-s>'remark-rehype'</a-s>
+<a-k>import</a-k> <a-v>rehypeStringify</a-v> <a-k>from</a-k> <a-s>'rehype-stringify'</a-s>
+<a-k>import</a-k> <a-v>rehypePrettyCode</a-v> <a-k>from</a-k> <a-s>'rehype-pretty-code'</a-s>
+
+<a-k>const</a-k> <a-v>postsDirectory</a-v> <a-o>=</a-o> <a-v>path</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-v>process</a-v><a-p>.</a-p><a-f>cwd</a-f><a-p>(),</a-p> <a-s>'_posts'</a-s><a-p>)</a-p>
+
+<a-k>function</a-k> <a-f>getPostFiles</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>fs</a-v><a-p>.</a-p><a-f>readdirSync</a-f><a-p>(</a-p><a-v>postsDirectory</a-v><a-p>)</a-p>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-f>getParser</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-f>unified</a-f><a-p>()</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>remarkParse</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>remarkRehype</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>remarkGfm</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypePrettyCode</a-v><a-p>,</a-p> <a-p>{</a-p>
+      <a-pr>theme</a-pr>: <a-s>'one-dark-pro'</a-s><a-p>,</a-p>
+    <a-p>})</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeStringify</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeStringify</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeSlug</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeAutolinkHeadings</a-v><a-p>,</a-p> <a-p>{</a-p>
+      <a-f>content</a-f>: <a-v>arg</a-v> <a-o>=></a-o> <a-p>({</a-p>
+        <a-pr>type</a-pr>: <a-s>'element'</a-s><a-p>,</a-p>
+        <a-pr>tagName</a-pr>: <a-s>'a'</a-s><a-p>,</a-p>
+        <a-pr>properties</a-pr>: <a-p>{</a-p>
+          <a-pr>href</a-pr>: <a-s>`#</a-s><a-p>${</a-p><a-t>String</a-t><a-p>(</a-p><a-v>arg</a-v><a-p>.</a-p><a-pr>properties</a-pr><a-p>?.</a-p><a-pr>id</a-pr><a-p>)}</a-p><a-s>`</a-s><a-p>,</a-p>
+          <a-pr>style</a-pr>: <a-s>'margin-right: 10px'</a-s><a-p>,</a-p>
+        <a-p>},</a-p>
+        <a-pr>children</a-pr>: <a-p>[{</a-p> <a-pr>type</a-pr>: <a-s>'text'</a-s><a-p>,</a-p> <a-pr>value</a-pr>: <a-s>'#'</a-s> <a-p>}],</a-p>
+      <a-p>}),</a-p>
+    <a-p>})</a-p>
+<a-p>}</a-p>
+
+<a-c>// small speedup from caching this parser</a-c>
+<a-k>const</a-k> <a-v>parser</a-v> <a-o>=</a-o> <a-f>getParser</a-f><a-p>()</a-p>
+
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>realId</a-v> <a-o>=</a-o> <a-v>id</a-v><a-p>.</a-p><a-f>replace</a-f><a-p>(</a-p><a-o>/</a-o><a-s>\.md$</a-s><a-o>/</a-o><a-p>,</a-p> <a-s>''</a-s><a-p>)</a-p>
+  <a-k>const</a-k> <a-v>fullPath</a-v> <a-o>=</a-o> <a-v>path</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-v>postsDirectory</a-v><a-p>,</a-p> <a-s>`</a-s><a-p>${</a-p><a-v>realId</a-v><a-p>}</a-p><a-s>.md`</a-s><a-p>)</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> data<a-p>,</a-p> content <a-p>}</a-p> <a-o>=</a-o> <a-f>matter</a-f><a-p>(</a-p><a-k>await</a-k> <a-v>fs</a-v><a-p>.</a-p><a-pr>promises</a-pr><a-p>.</a-p><a-f>readFile</a-f><a-p>(</a-p><a-v>fullPath</a-v><a-p>,</a-p> <a-s>'utf8'</a-s><a-p>))</a-p>
+
+  <a-k>const</a-k> <a-v>html</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>parser</a-v><a-p>.</a-p><a-f>process</a-f><a-p>(</a-p><a-v>content</a-v><a-p>)</a-p>
+  <a-k>const</a-k> <a-v>date</a-v> <a-o>=</a-o> <a-v>data</a-v><a-p>.</a-p><a-pr>date</a-pr> <a-k>as</a-k> <a-t>Date</a-t>
+
+  <a-k>return</a-k> <a-p>{</a-p>
+    ...<a-v>data</a-v><a-p>,</a-p>
+    <a-pr>title</a-pr>: <a-v>data</a-v><a-p>.</a-p><a-pr>title</a-pr> <a-k>as</a-k> <a-t>string</a-t><a-p>,</a-p>
+    <a-pr>id</a-pr>: <a-v>realId</a-v><a-p>,</a-p>
+    <a-pr>date</a-pr>: <a-s>`</a-s><a-p>${</a-p><a-v>date</a-v><a-p>.</a-p><a-f>toISOString</a-f><a-p>().</a-p><a-f>slice</a-f><a-p>(</a-p><a-n>0</a-n><a-p>,</a-p><a-eb> </a-eb><a-n>10</a-n><a-p>)}</a-p><a-s>`</a-s><a-p>,</a-p>
+    <a-pr>html</a-pr>: <a-v>html</a-v><a-p>.</a-p><a-pr>value</a-pr><a-p>.</a-p><a-f>toString</a-f><a-p>(),</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>getPageMarkdown</a-f><a-p>(</a-p><a-v>string_</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> data<a-p>,</a-p> content <a-p>}</a-p> <a-o>=</a-o> <a-f>matter</a-f><a-p>(</a-p>
+    <a-v>fs</a-v><a-p>.</a-p><a-f>readFileSync</a-f><a-p>(</a-p><a-v>path</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-s>'_pages'</a-s><a-p>,</a-p> <a-v>string_</a-v><a-p>),</a-p> <a-s>'utf8'</a-s><a-p>),</a-p>
+  <a-p>)</a-p>
+  <a-k>const</a-k> <a-v>html</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>parser</a-v><a-p>.</a-p><a-f>process</a-f><a-p>(</a-p><a-v>content</a-v><a-p>)</a-p>
+
+  <a-k>return</a-k> <a-p>{</a-p>
+    ...<a-v>data</a-v><a-p>,</a-p>
+    <a-pr>html</a-pr>: <a-v>html</a-v><a-p>.</a-p><a-pr>value</a-pr><a-p>.</a-p><a-f>toString</a-f><a-p>(),</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>getAllPosts</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>posts</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-t>Promise</a-t><a-p>.</a-p><a-f>all</a-f><a-p>(</a-p><a-f>getPostFiles</a-f><a-p>().</a-p><a-f>map</a-f><a-p>(</a-p><a-v>id</a-v> <a-o>=></a-o> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v><a-p>)))</a-p>
+  <a-k>return</a-k> <a-v>posts</a-v><a-p>.</a-p><a-f>sort</a-f><a-p>((</a-p><a-v>post1</a-v><a-p>,</a-p> <a-v>post2</a-v><a-p>)</a-p> <a-o>=></a-o> <a-p>(</a-p><a-v>post1</a-v><a-p>.</a-p><a-pr>date</a-pr> <a-o>></a-o> <a-v>post2</a-v><a-p>.</a-p><a-pr>date</a-pr> ? <a-o>-</a-o><a-n>1</a-n> : <a-n>1</a-n><a-p>))</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="step-5-create-a-blog-index-showing-all-your-blogposts">Step 5. Create a ‘blog index’ showing all your blogposts</h2>
 <p>Edit the <code>app/page.tsx</code> file, and replace with the below: this is the root of
 your site</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#6A737D">// app/page.tsx</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Link </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'next/link'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { getAllPosts } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '@/lib/api'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> Page</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> posts</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getAllPosts</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">>My blog&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">>All posts:&#x3C;/</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">ul</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">        {posts.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">post</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">          const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">id</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">date</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">title</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> post</span></span>
-<span class="line"><span style="color:#F97583">          return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">            &#x3C;</span><span style="color:#85E89D">li</span><span style="color:#B392F0"> key</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{id}></span></span>
-<span class="line"><span style="color:#E1E4E8">              &#x3C;</span><span style="color:#79B8FF">Link</span><span style="color:#B392F0"> href</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#9ECBFF">`/posts/${</span><span style="color:#E1E4E8">id</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">}></span></span>
-<span class="line"><span style="color:#E1E4E8">                {date} - {title}</span></span>
-<span class="line"><span style="color:#E1E4E8">              &#x3C;/</span><span style="color:#79B8FF">Link</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">            &#x3C;/</span><span style="color:#85E89D">li</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">          )</span></span>
-<span class="line"><span style="color:#E1E4E8">        })}</span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;/</span><span style="color:#85E89D">ul</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-tsx"><a-c>// app/page.tsx</a-c>
+<a-k>import</a-k> <a-t>Link</a-t> <a-k>from</a-k> <a-s>'next/link'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>getAllPosts</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'@/lib/api'</a-s>
+
+<a-k>export</a-k> <a-k>default</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-t>Page</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>posts</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>getAllPosts</a-f><a-p>()</a-p>
+
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>My blog</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+
+      <a-p>&#x3C;</a-p><a-tg>h2</a-tg><a-p>></a-p><a-s>All posts:</a-s><a-p>&#x3C;/</a-p><a-tg>h2</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>ul</a-tg><a-p>></a-p>
+        <a-p>{</a-p><a-v>posts</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>post</a-v> <a-o>=></a-o> <a-p>{</a-p>
+          <a-k>const</a-k> <a-p>{</a-p> id<a-p>,</a-p> date<a-p>,</a-p> title <a-p>}</a-p> <a-o>=</a-o> <a-v>post</a-v>
+          <a-k>return</a-k> <a-p>(</a-p>
+            <a-p>&#x3C;</a-p><a-tg>li</a-tg> <a-at>key</a-at><a-o>=</a-o><a-p>{</a-p><a-v>id</a-v><a-p>}></a-p>
+              <a-p>&#x3C;</a-p><a-cr>Link</a-cr> <a-at>href</a-at><a-o>=</a-o><a-p>{</a-p><a-s>`/posts/</a-s><a-p>${</a-p><a-v>id</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}></a-p>
+                <a-p>{</a-p><a-v>date</a-v><a-p>}</a-p><a-s> - </a-s><a-p>{</a-p><a-v>title</a-v><a-p>}</a-p>
+              <a-p>&#x3C;/</a-p><a-cr>Link</a-cr><a-p>></a-p>
+            <a-p>&#x3C;/</a-p><a-tg>li</a-tg><a-p>></a-p>
+          <a-p>)</a-p>
+        <a-p>})}</a-p>
+      <a-p>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="step-6-put-markdown-files-in-the-_posts-dir">Step 6. Put markdown files in the <code>_posts</code> dir</h2>
 <p>Example</p>
 <p>_posts/2023-04-08-first-post.md</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#E1E4E8">---</span></span>
-<span class="line"><span style="color:#85E89D">title</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">First post</span></span>
-<span class="line"><span style="color:#85E89D">date</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2023-04-08</span></span>
-<span class="line"><span style="color:#E1E4E8">---</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">Hello world!</span></span></code></pre>
+<pre><code class="language-markdown"><a-p>---</a-p>
+<a-pr>title</a-pr><a-p>:</a-p> <a-s>First post</a-s>
+<a-pr>date</a-pr><a-p>:</a-p> <a-s>2023-04-08</a-s>
+<a-p>---</a-p>
+
+Hello world!
+</code></pre>
 <h2 id="step-7-deploy-to-github-pages">Step 7. Deploy to Github Pages</h2>
 <p>Create your repo named <code>yourname.github.io</code> under yourname account</p>
 <p>Then run</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>npm install gh-pages</span></span></code></pre>
+<pre><code>npm install gh-pages
+</code></pre>
 <p>Then add a “predeploy” and “deploy” script to package.json</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "private"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "dev"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"next"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"next build"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "start"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"next dev"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "lint"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"next lint"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "predeploy"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run build &#x26;&#x26; touch out/.nojekyll"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "deploy"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"gh-pages -d out -t true"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "postdeploy"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"git push --follow-tags"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">...</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"private"</a-s>: <a-co>true</a-co>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"dev"</a-s>: <a-s>"next"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"next build"</a-s>,
+    <a-s>"start"</a-s>: <a-s>"next dev"</a-s>,
+    <a-s>"lint"</a-s>: <a-s>"next lint"</a-s>,
+    <a-s>"predeploy"</a-s>: <a-s>"npm run build &#x26;&#x26; touch out/.nojekyll"</a-s>,
+    <a-s>"deploy"</a-s>: <a-s>"gh-pages -d out -t true"</a-s>,
+    <a-s>"postdeploy"</a-s>: <a-s>"git push --follow-tags"</a-s>
+  },
+...
+}
+</code></pre>
 <p>Then when you use <code>npm run deploy</code> it will build, push to github pages, and push
 to the the regular content to the main branch too</p>
 <h2 id="result">Result</h2>

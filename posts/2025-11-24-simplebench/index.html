@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Are your optimizations making any improvement? A simple setup to benchmark two branches</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Are your optimizations making any improvement? A simple setup to benchmark two branches</h1> <h4 data-astro-cid-lvjzyg5v>2025-11-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/media/doggo3.png" alt=""></p>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Are your optimizations making any improvement? A simple setup to benchmark two branches</h1> <h4 data-astro-cid-lvjzyg5v>2025-11-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/media/doggo3.png" alt=""></p>
 <h2 id="background">Background</h2>
 <p>So, you spend all day making “performance improvements” to make your code go
 faster</p>
@@ -31,120 +31,126 @@ outputs to a folder called “dist” [1] [2].</p>
 branch. Then we can add these folders to our .gitignore easily.</p>
 <p>It also puts the actual branchname in a .txt file in each folder, allowing the
 benchmark itself to report the branchname in the report output.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">set</span><span style="color:#79B8FF"> -e</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">CURRENT_BRANCH</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> branch</span><span style="color:#79B8FF"> --show-current</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">BRANCH1</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">${1</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">master</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"><span style="color:#E1E4E8">BRANCH2</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">${2</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">$CURRENT_BRANCH</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">if</span><span style="color:#F97583"> !</span><span style="color:#B392F0"> git</span><span style="color:#9ECBFF"> diff</span><span style="color:#79B8FF"> --quiet</span><span style="color:#F97583"> ||</span><span style="color:#F97583"> !</span><span style="color:#B392F0"> git</span><span style="color:#9ECBFF"> diff</span><span style="color:#79B8FF"> --cached</span><span style="color:#79B8FF"> --quiet</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">then</span></span>
-<span class="line"><span style="color:#79B8FF">  echo</span><span style="color:#9ECBFF"> "Error: Uncommitted changes detected. Please commit or stash your changes first."</span></span>
-<span class="line"><span style="color:#79B8FF">  exit</span><span style="color:#79B8FF"> 1</span></span>
-<span class="line"><span style="color:#F97583">fi</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> dist_branch1</span><span style="color:#9ECBFF"> dist_branch2</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Building </span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> branch..."</span></span>
-<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span>
-<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> dist</span><span style="color:#9ECBFF"> dist_branch1</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">dist_branch1/branchname.txt</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Building </span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> branch..."</span></span>
-<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span>
-<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> dist</span><span style="color:#9ECBFF"> dist_branch2</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF">dist_branch2/branchname.txt</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Build complete!"</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH1</span><span style="color:#9ECBFF"> build: dist_branch1/index.js"</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BRANCH2</span><span style="color:#9ECBFF"> build: dist_branch2/index.js"</span></span></code></pre>
+<pre><code class="language-bash"><a-c>#!/bin/bash</a-c>
+
+<a-f>set</a-f> <a-co>-e</a-co>
+
+<a-pr>CURRENT_BRANCH</a-pr>=<a-eb>$(</a-eb><a-f>git</a-f><a-eb> branch </a-eb><a-co>--show-current</a-co><a-eb>)</a-eb>
+<a-pr>BRANCH1</a-pr>=<a-s>"</a-s><a-eb>${</a-eb><a-pr>1</a-pr><a-eb>:-master}</a-eb><a-s>"</a-s>
+<a-pr>BRANCH2</a-pr>=<a-s>"</a-s><a-eb>${</a-eb><a-pr>2</a-pr><a-eb>:-</a-eb><a-o>$</a-o><a-pr>CURRENT_BRANCH</a-pr><a-eb>}</a-eb><a-s>"</a-s>
+
+<a-k>if</a-k> ! <a-f>git</a-f> diff <a-co>--quiet</a-co> || ! <a-f>git</a-f> diff <a-co>--cached</a-co> <a-co>--quiet</a-co>; <a-k>then</a-k>
+  <a-f>echo</a-f> <a-s>"Error: Uncommitted changes detected. Please commit or stash your changes first."</a-s>
+  <a-f>exit</a-f> 1
+<a-k>fi</a-k>
+
+<a-f>rm</a-f> <a-co>-rf</a-co> dist_branch1 dist_branch2
+
+<a-f>echo</a-f> <a-s>"Building </a-s><a-o>$</a-o><a-pr>BRANCH1</a-pr><a-s> branch..."</a-s>
+<a-f>git</a-f> checkout <a-s>"</a-s><a-o>$</a-o><a-pr>BRANCH1</a-pr><a-s>"</a-s>
+<a-f>yarn</a-f>
+<a-f>yarn</a-f> build
+<a-f>mv</a-f> dist dist_branch1
+<a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>BRANCH1</a-pr><a-s>"</a-s> <a-o>></a-o>dist_branch1/branchname.txt
+
+<a-f>echo</a-f> <a-s>"Building </a-s><a-o>$</a-o><a-pr>BRANCH2</a-pr><a-s> branch..."</a-s>
+<a-f>git</a-f> checkout <a-s>"</a-s><a-o>$</a-o><a-pr>BRANCH2</a-pr><a-s>"</a-s>
+<a-f>yarn</a-f>
+<a-f>yarn</a-f> build
+<a-f>mv</a-f> dist dist_branch2
+<a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>BRANCH2</a-pr><a-s>"</a-s> <a-o>></a-o>dist_branch2/branchname.txt
+
+<a-f>echo</a-f> <a-s>"Build complete!"</a-s>
+<a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>BRANCH1</a-pr><a-s> build: dist_branch1/index.js"</a-s>
+<a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>BRANCH2</a-pr><a-s> build: dist_branch2/index.js"</a-s>
+</code></pre>
 <p>Then in your package.json you can have</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourpackage"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"0.0.0"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourbuild that outputs to a folder named dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "prebench"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"</span></span>
-<span class="line"><span style="color:#9ECBFF">    "bench"</span><span style="color:#FDAEB7;font-style:italic">:</span><span style="color:#9ECBFF"> "vitest bench"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"yourpackage"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"0.0.0"</a-s>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"build"</a-s>: <a-s>"yourbuild that outputs to a folder named dist"</a-s>,
+    <a-s>"prebench"</a-s>: <a-s>"./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"</a-s>
+    <a-s>"bench"</a-s>: <a-s>"vitest bench"</a-s>
+  }
+}
+</code></pre>
 <p>Finally, you can run your benchmark like this:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># default: compare current branch against main</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> bench</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D"># or, set custom env variables to compare two arbitrary branches, branch1 and branch2</span></span>
-<span class="line"><span style="color:#E1E4E8">BRANCH1</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">branch1</span><span style="color:#E1E4E8"> BRANCH2</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">branch2</span><span style="color:#B392F0"> yarn</span><span style="color:#9ECBFF"> bench</span></span></code></pre>
+<pre><code class="language-sh"><a-c># default: compare current branch against main</a-c>
+<a-f>yarn</a-f> bench
+
+<a-c># or, set custom env variables to compare two arbitrary branches, branch1 and branch2</a-c>
+<a-pr>BRANCH1</a-pr>=branch1 <a-pr>BRANCH2</a-pr>=branch2 <a-f>yarn</a-f> bench
+</code></pre>
 <p>Then if you have a function in your code that you want to optimize, like this…</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> Math.</span><span style="color:#B392F0">pow</span><span style="color:#E1E4E8">(n, exp)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>pow</a-f><a-p>(</a-p><a-v>n</a-v>: <a-t>number</a-t><a-p>,</a-p> <a-v>exp</a-v>: <a-t>number</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-t>Math</a-t><a-p>.</a-p><a-f>pow</a-f><a-p>(</a-p><a-v>n</a-v><a-p>,</a-p> <a-v>exp</a-v><a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Then you can make a new branch with a genius idea that plain multiplying in a
 loop would be better</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// src/index.ts</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> pow</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> total </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> n</span></span>
-<span class="line"><span style="color:#F97583">  for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> exp; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    total </span><span style="color:#F97583">*=</span><span style="color:#E1E4E8"> n</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>pow</a-f><a-p>(</a-p><a-v>n</a-v>: <a-t>number</a-t><a-p>,</a-p> <a-v>exp</a-v>: <a-t>number</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>let</a-k> <a-v>total</a-v> <a-o>=</a-o> <a-v>n</a-v>
+  <a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>1</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>exp</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>total</a-v> <a-o>*=</a-o> <a-v>n</a-v>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Then you can make a benchmark like this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { readFileSync } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { bench, describe } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'vitest'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { pow </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> pow1 } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../dist_branch1/index.js'</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { pow </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> pow2 } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../dist_branch2/index.js'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> branch1Name</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> readFileSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dist_branch1/branchname.txt'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">trim</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> branch2Name</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> readFileSync</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dist_branch2/branchname.txt'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">trim</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> benchPow</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#FFAB70">  n</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  exp</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  name</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  opts</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span></span>
-<span class="line"><span style="color:#FFAB70">  exp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span></span>
-<span class="line"><span style="color:#FFAB70">  name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span></span>
-<span class="line"><span style="color:#FFAB70">  opts</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">    iterations</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span></span>
-<span class="line"><span style="color:#FFAB70">    warmupIterations</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}) {</span></span>
-<span class="line"><span style="color:#B392F0">  describe</span><span style="color:#E1E4E8">(name, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">    bench</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#E1E4E8">      branch1Name,</span></span>
-<span class="line"><span style="color:#E1E4E8">      () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">        pow1</span><span style="color:#E1E4E8">(n, exp)</span></span>
-<span class="line"><span style="color:#E1E4E8">      },</span></span>
-<span class="line"><span style="color:#E1E4E8">      opts,</span></span>
-<span class="line"><span style="color:#E1E4E8">    )</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">    bench</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#E1E4E8">      branch2Name,</span></span>
-<span class="line"><span style="color:#E1E4E8">      () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">        pow2</span><span style="color:#E1E4E8">(n, exp)</span></span>
-<span class="line"><span style="color:#E1E4E8">      },</span></span>
-<span class="line"><span style="color:#E1E4E8">      opts,</span></span>
-<span class="line"><span style="color:#E1E4E8">    )</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">benchPow</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#E1E4E8">  name: </span><span style="color:#9ECBFF">'pow'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  n: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  exp: </span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  opts: {</span></span>
-<span class="line"><span style="color:#E1E4E8">    warmupIterations: </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    iterations: </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>readFileSync</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'fs'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>bench</a-v><a-p>,</a-p> <a-v>describe</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'vitest'</a-s>
+
+<a-k>import</a-k> <a-p>{</a-p> <a-v>pow</a-v> <a-k>as</a-k> <a-v>pow1</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'../dist_branch1/index.js'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>pow</a-v> <a-k>as</a-k> <a-v>pow2</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'../dist_branch2/index.js'</a-s>
+
+<a-k>const</a-k> <a-v>branch1Name</a-v> <a-o>=</a-o> <a-f>readFileSync</a-f><a-p>(</a-p><a-s>'dist_branch1/branchname.txt'</a-s><a-p>,</a-p> <a-s>'utf8'</a-s><a-p>).</a-p><a-f>trim</a-f><a-p>()</a-p>
+<a-k>const</a-k> <a-v>branch2Name</a-v> <a-o>=</a-o> <a-f>readFileSync</a-f><a-p>(</a-p><a-s>'dist_branch2/branchname.txt'</a-s><a-p>,</a-p> <a-s>'utf8'</a-s><a-p>).</a-p><a-f>trim</a-f><a-p>()</a-p>
+
+<a-k>function</a-k> <a-f>benchPow</a-f><a-p>({</a-p>
+  n<a-p>,</a-p>
+  exp<a-p>,</a-p>
+  name<a-p>,</a-p>
+  opts<a-p>,</a-p>
+<a-p>}</a-p>: <a-p>{</a-p>
+  <a-pr>n</a-pr>: <a-t>number</a-t>
+  <a-pr>exp</a-pr>: <a-t>number</a-t>
+  <a-pr>name</a-pr>: <a-t>string</a-t>
+  <a-pr>opts</a-pr>: <a-p>{</a-p>
+    <a-pr>iterations</a-pr>?: <a-t>number</a-t>
+    <a-pr>warmupIterations</a-pr>?: <a-t>number</a-t>
+  <a-p>}</a-p>
+<a-p>})</a-p> <a-p>{</a-p>
+  <a-f>describe</a-f><a-p>(</a-p><a-v>name</a-v><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-f>bench</a-f><a-p>(</a-p>
+      <a-v>branch1Name</a-v><a-p>,</a-p>
+      <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+        <a-f>pow1</a-f><a-p>(</a-p><a-v>n</a-v><a-p>,</a-p> <a-v>exp</a-v><a-p>)</a-p>
+      <a-p>},</a-p>
+      <a-v>opts</a-v><a-p>,</a-p>
+    <a-p>)</a-p>
+
+    <a-f>bench</a-f><a-p>(</a-p>
+      <a-v>branch2Name</a-v><a-p>,</a-p>
+      <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+        <a-f>pow2</a-f><a-p>(</a-p><a-v>n</a-v><a-p>,</a-p> <a-v>exp</a-v><a-p>)</a-p>
+      <a-p>},</a-p>
+      <a-v>opts</a-v><a-p>,</a-p>
+    <a-p>)</a-p>
+  <a-p>})</a-p>
+<a-p>}</a-p>
+
+<a-f>benchPow</a-f><a-p>({</a-p>
+  <a-pr>name</a-pr>: <a-s>'pow'</a-s><a-p>,</a-p>
+  <a-pr>n</a-pr>: <a-n>2</a-n><a-p>,</a-p>
+  <a-pr>exp</a-pr>: <a-n>10</a-n><a-p>,</a-p>
+  <a-pr>opts</a-pr>: <a-p>{</a-p>
+    <a-pr>warmupIterations</a-pr>: <a-n>100</a-n><a-p>,</a-p>
+    <a-pr>iterations</a-pr>: <a-n>1000</a-n><a-p>,</a-p>
+  <a-p>},</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>That benchmark code is a little more verbose than it needs to be, but it is
 quite re-usable across projects</p>
 <p>The resulting benchmark report clearly prints the branchname that is the fastest
@@ -165,76 +171,77 @@ setup is a little more involved generally</p>
 <li>Create this bash script, which runs hyperfine to measure the total time taken
 by the puppeteer script</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">BASE_PORT</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">8000</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> results</span></span>
-<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> results</span></span>
-<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> screenshots</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">## kill background scripts after finished</span></span>
-<span class="line"><span style="color:#6A737D">## https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/</span></span>
-<span class="line"><span style="color:#79B8FF">trap</span><span style="color:#9ECBFF"> "exit"</span><span style="color:#9ECBFF"> INT</span><span style="color:#9ECBFF"> TERM</span></span>
-<span class="line"><span style="color:#79B8FF">trap</span><span style="color:#9ECBFF"> "kill 0"</span><span style="color:#9ECBFF"> EXIT</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$BASE_PORT</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#9ECBFF"> builds/*</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">do</span></span>
-<span class="line"><span style="color:#B392F0">  npx</span><span style="color:#9ECBFF"> http-server</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$i</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$X</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF"> -s</span><span style="color:#E1E4E8"> &#x26;</span></span>
-<span class="line"><span style="color:#79B8FF">  echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$X</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$i</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"><span style="color:#E1E4E8">  X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$((</span><span style="color:#B392F0">X</span><span style="color:#9ECBFF"> +</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"><span style="color:#F97583">done</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">declare</span><span style="color:#79B8FF"> -a</span><span style="color:#E1E4E8"> commands</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#F97583">declare</span><span style="color:#79B8FF"> -a</span><span style="color:#E1E4E8"> names</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$BASE_PORT</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#9ECBFF"> builds/*</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">do</span></span>
-<span class="line"><span style="color:#E1E4E8">  build_name</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">basename</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$i</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  screenshot_path</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"screenshots/</span><span style="color:#E1E4E8">$build_name</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"><span style="color:#E1E4E8">  commands</span><span style="color:#F97583">+=</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"node scripts/profile_app.ts </span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">http://localhost:</span><span style="color:#E1E4E8">$X</span><span style="color:#9ECBFF">/</span><span style="color:#79B8FF">\"</span><span style="color:#79B8FF"> \"</span><span style="color:#E1E4E8">$screenshot_path</span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  names</span><span style="color:#F97583">+=</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"-n"</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$build_name</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  X</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$((</span><span style="color:#B392F0">X</span><span style="color:#9ECBFF"> +</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"><span style="color:#F97583">done</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "Running hyperfine with the following commands:"</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> cmd </span><span style="color:#F97583">in</span><span style="color:#9ECBFF"> "${</span><span style="color:#E1E4E8">commands</span><span style="color:#9ECBFF">[</span><span style="color:#F97583">@</span><span style="color:#9ECBFF">]}"</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">do</span></span>
-<span class="line"><span style="color:#79B8FF">  echo</span><span style="color:#9ECBFF"> "  - </span><span style="color:#E1E4E8">$cmd</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"><span style="color:#F97583">done</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">hyperfine</span><span style="color:#79B8FF"> -i</span><span style="color:#79B8FF"> --export-json</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$output_json</span><span style="color:#9ECBFF">.json"</span><span style="color:#79B8FF"> --warmup</span><span style="color:#79B8FF"> 1</span><span style="color:#79B8FF"> --runs</span><span style="color:#79B8FF"> 8</span><span style="color:#9ECBFF"> "${</span><span style="color:#E1E4E8">names</span><span style="color:#9ECBFF">[</span><span style="color:#F97583">@</span><span style="color:#9ECBFF">]}"</span><span style="color:#9ECBFF"> "${</span><span style="color:#E1E4E8">commands</span><span style="color:#9ECBFF">[</span><span style="color:#F97583">@</span><span style="color:#9ECBFF">]}"</span></span>
-<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#79B8FF"> -e</span><span style="color:#9ECBFF"> "\n"</span></span>
-<span class="line"></span></code></pre>
+<pre><code class="language-bash"><a-c>#!/bin/bash</a-c>
+
+
+<a-pr>BASE_PORT</a-pr>=8000
+
+<a-f>rm</a-f> <a-co>-rf</a-co> results
+<a-f>mkdir</a-f> <a-co>-p</a-co> results
+<a-f>mkdir</a-f> <a-co>-p</a-co> screenshots
+
+<a-c>## kill background scripts after finished</a-c>
+<a-c>## https://spin.atomicobject.com/2017/08/24/start-stop-bash-background-process/</a-c>
+<a-f>trap</a-f> <a-s>"exit"</a-s> INT TERM
+<a-f>trap</a-f> <a-s>"kill 0"</a-s> EXIT
+
+<a-pr>X</a-pr>=<a-o>$</a-o><a-pr>BASE_PORT</a-pr>
+<a-k>for</a-k> <a-pr>i</a-pr> <a-k>in</a-k> builds/*; <a-k>do</a-k>
+  <a-f>npx</a-f> http-server <a-s>"</a-s><a-o>$</a-o><a-pr>i</a-pr><a-s>"</a-s> <a-co>-p</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>X</a-pr><a-s>"</a-s> <a-co>-s</a-co> &#x26;
+  <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>X</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>i</a-pr><a-s>"</a-s>
+  <a-pr>X</a-pr>=$((<a-pr>X</a-pr> + 1))
+<a-k>done</a-k>
+
+
+
+declare -a <a-pr>commands</a-pr>=()
+declare -a <a-pr>names</a-pr>=()
+<a-pr>X</a-pr>=<a-o>$</a-o><a-pr>BASE_PORT</a-pr>
+<a-k>for</a-k> <a-pr>i</a-pr> <a-k>in</a-k> builds/*; <a-k>do</a-k>
+  <a-pr>build_name</a-pr>=<a-eb>$(</a-eb><a-f>basename</a-f><a-eb> </a-eb><a-s>"</a-s><a-o>$</a-o><a-pr>i</a-pr><a-s>"</a-s><a-eb>)</a-eb>
+  <a-pr>screenshot_path</a-pr>=<a-s>"screenshots/</a-s><a-o>$</a-o><a-pr>build_name</a-pr><a-s>"</a-s>
+  <a-pr>commands</a-pr>+=(<a-s>"node scripts/profile_app.ts \"http://localhost:</a-s><a-o>$</a-o><a-pr>X</a-pr><a-s>/\" \"</a-s><a-o>$</a-o><a-pr>screenshot_path</a-pr><a-s>\""</a-s>)
+  <a-pr>names</a-pr>+=(<a-s>"-n"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>build_name</a-pr><a-s>"</a-s>)
+  <a-pr>X</a-pr>=$((<a-pr>X</a-pr> + 1))
+<a-k>done</a-k>
+
+<a-f>echo</a-f> <a-s>"Running hyperfine with the following commands:"</a-s>
+<a-k>for</a-k> <a-pr>cmd</a-pr> <a-k>in</a-k> <a-s>"</a-s><a-eb>${</a-eb><a-pr>commands</a-pr><a-eb>[@]}</a-eb><a-s>"</a-s>; <a-k>do</a-k>
+  <a-f>echo</a-f> <a-s>"  - </a-s><a-o>$</a-o><a-pr>cmd</a-pr><a-s>"</a-s>
+<a-k>done</a-k>
+
+<a-f>hyperfine</a-f> <a-co>-i</a-co> <a-co>--export-json</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>output_json</a-pr><a-s>.json"</a-s> <a-co>--warmup</a-co> 1 <a-co>--runs</a-co> 8 <a-s>"</a-s><a-eb>${</a-eb><a-pr>names</a-pr><a-eb>[@]}</a-eb><a-s>"</a-s> <a-s>"</a-s><a-eb>${</a-eb><a-pr>commands</a-pr><a-eb>[@]}</a-eb><a-s>"</a-s>
+<a-f>echo</a-f> <a-co>-e</a-co> <a-s>"\n"</a-s>
+</code></pre>
 <p>Then you can have your puppeteer script</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// profile_app.ts</span></span>
-<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> puppeteer </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'puppeteer'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> WAIT_TIMEOUT</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 30_000</span><span style="color:#6A737D"> // 30 seconds</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> url</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.argv[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> screenshotPath</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.argv[</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> browser</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> puppeteer.</span><span style="color:#B392F0">launch</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#E1E4E8">  args: [</span><span style="color:#9ECBFF">'--no-sandbox'</span><span style="color:#E1E4E8">], </span><span style="color:#6A737D">// needed on my linux setup, not ideal probably</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> page</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> browser.</span><span style="color:#B392F0">newPage</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">goto</span><span style="color:#E1E4E8">(url)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> params</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> URL</span><span style="color:#E1E4E8">(url).searchParams</span></span>
-<span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">waitForFunction</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#E1E4E8">  () </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#E1E4E8">    document.</span><span style="color:#B392F0">querySelectorAll</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[data-testid="thing_to_wait_for"]'</span><span style="color:#E1E4E8">).</span><span style="color:#79B8FF">length</span><span style="color:#F97583"> ===</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  {</span></span>
-<span class="line"><span style="color:#E1E4E8">    timeout: </span><span style="color:#79B8FF">WAIT_TIMEOUT</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#6A737D">// create screenshots to confirm visually</span></span>
-<span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> page.</span><span style="color:#B392F0">screenshot</span><span style="color:#E1E4E8">({</span></span>
-<span class="line"><span style="color:#E1E4E8">  path: screenshotPath </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> '.png'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">await</span><span style="color:#E1E4E8"> browser.</span><span style="color:#B392F0">close</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<pre><code class="language-typescript"><a-c>// profile_app.ts</a-c>
+<a-k>import</a-k> <a-v>puppeteer</a-v> <a-k>from</a-k> <a-s>'puppeteer'</a-s>
+
+<a-k>const</a-k> <a-t>WAIT_TIMEOUT</a-t> <a-o>=</a-o> <a-n>30_000</a-n> <a-c>// 30 seconds</a-c>
+
+<a-k>const</a-k> <a-v>url</a-v> <a-o>=</a-o> <a-v>process</a-v><a-p>.</a-p><a-pr>argv</a-pr><a-p>[</a-p><a-n>2</a-n><a-p>]</a-p>
+<a-k>const</a-k> <a-v>screenshotPath</a-v> <a-o>=</a-o> <a-v>process</a-v><a-p>.</a-p><a-pr>argv</a-pr><a-p>[</a-p><a-n>3</a-n><a-p>]</a-p>
+<a-k>const</a-k> <a-v>browser</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>puppeteer</a-v><a-p>.</a-p><a-f>launch</a-f><a-p>({</a-p>
+  <a-pr>args</a-pr>: <a-p>[</a-p><a-s>'--no-sandbox'</a-s><a-p>],</a-p> <a-c>// needed on my linux setup, not ideal probably</a-c>
+<a-p>})</a-p>
+<a-k>const</a-k> <a-v>page</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>browser</a-v><a-p>.</a-p><a-f>newPage</a-f><a-p>()</a-p>
+<a-k>await</a-k> <a-v>page</a-v><a-p>.</a-p><a-f>goto</a-f><a-p>(</a-p><a-v>url</a-v><a-p>)</a-p>
+
+<a-k>const</a-k> <a-v>params</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-t>URL</a-t><a-p>(</a-p><a-v>url</a-v><a-p>).</a-p><a-pr>searchParams</a-pr>
+<a-k>await</a-k> <a-v>page</a-v><a-p>.</a-p><a-f>waitForFunction</a-f><a-p>(</a-p>
+  <a-p>()</a-p> <a-o>=></a-o>
+    <a-v>document</a-v><a-p>.</a-p><a-f>querySelectorAll</a-f><a-p>(</a-p><a-s>'[data-testid="thing_to_wait_for"]'</a-s><a-p>).</a-p><a-pr>length</a-pr> <a-o>===</a-o> <a-n>1</a-n><a-p>,</a-p>
+  <a-p>{</a-p>
+    <a-pr>timeout</a-pr>: <a-t>WAIT_TIMEOUT</a-t><a-p>,</a-p>
+  <a-p>},</a-p>
+<a-p>)</a-p>
+<a-c>// create screenshots to confirm visually</a-c>
+<a-k>await</a-k> <a-v>page</a-v><a-p>.</a-p><a-f>screenshot</a-f><a-p>({</a-p>
+  <a-pr>path</a-pr>: <a-v>screenshotPath</a-v> <a-o>+</a-o> <a-s>'.png'</a-s><a-p>,</a-p>
+<a-p>})</a-p>
+
+<a-k>await</a-k> <a-v>browser</a-v><a-p>.</a-p><a-f>close</a-f><a-p>()</a-p>
+</code></pre>
 <p>This can be invoked directly as a .ts file with <code>node file.ts</code> (since node.js
 automatically strips types now)! Optionally you can make puppeteer do user
 actions like click around, etc. to test realistic scenarios. It is good to

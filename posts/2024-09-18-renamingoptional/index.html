@@ -1,26 +1,30 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Be careful when you rename an optional &quot;prop&quot; in typescript</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Be careful when you rename an optional &quot;prop&quot; in typescript</h1> <h4 data-astro-cid-lvjzyg5v>2024-09-18</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <h2 id="scenario">Scenario</h2>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Be careful when you rename an optional &quot;prop&quot; in typescript</h1> <h4 data-astro-cid-lvjzyg5v>2024-09-18</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <h2 id="scenario">Scenario</h2>
 <p>The “doStuff” team at your company created a function for you to use</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">x</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">y</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">z</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">y</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">z</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">({ x, y, z })</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>doStuff</a-f><a-p>({</a-p> x<a-p>,</a-p> y<a-p>,</a-p> z <a-p>}</a-p>: <a-p>{</a-p> <a-pr>x</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>y</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>z</a-pr>?: <a-t>number</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>({</a-p> x<a-p>,</a-p> y<a-p>,</a-p> z <a-p>})</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Then, you diligently call it in your code like this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> obj</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { x: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, y: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, z: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> }</span></span>
-<span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">(obj)</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-v>obj</a-v> <a-o>=</a-o> <a-p>{</a-p> <a-pr>x</a-pr>: <a-n>1</a-n><a-p>,</a-p> <a-pr>y</a-pr>: <a-n>2</a-n><a-p>,</a-p> <a-pr>z</a-pr>: <a-n>3</a-n> <a-p>}</a-p>
+<a-f>doStuff</a-f><a-p>(</a-p><a-v>obj</a-v><a-p>)</a-p>
+</code></pre>
 <p>all fine and good</p>
 <h2 id="later-on-the-optional-prop-is-renamed">Later on, the optional “prop” is renamed</h2>
 <p>The <code>doStuff</code> team says, well, it’s not really a true “z coordinate”…it’s more
 of a “z-index” so they change the function definition to be</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">x</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">y</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">zIndex</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">y</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">zIndex</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">({ x, y, zIndex })</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>doStuff</a-f><a-p>({</a-p> x<a-p>,</a-p> y<a-p>,</a-p> zIndex <a-p>}</a-p>: <a-p>{</a-p> <a-pr>x</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>y</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>zIndex</a-pr>?: <a-t>number</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>({</a-p> x<a-p>,</a-p> y<a-p>,</a-p> zIndex <a-p>})</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="now-you-might-have-a-bug">Now you might have a bug</h2>
 <p>Since <code>zIndex</code> is optional, TypeScript will not warn you about <code>zIndex</code> not
 being supplied by your existing code. Typescript is also not bothered that you
 have this “rider” variable <code>z</code> that “does nothing” in this case.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> obj</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { x: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, y: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, z: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> }</span></span>
-<span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">(obj) </span><span style="color:#6A737D">// no typescript error, z is no longer used, zIndex is optional, and you don't get the behavior you want</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>const</a-k> <a-v>obj</a-v> <a-o>=</a-o> <a-p>{</a-p> <a-pr>x</a-pr>: <a-n>1</a-n><a-p>,</a-p> <a-pr>y</a-pr>: <a-n>2</a-n><a-p>,</a-p> <a-pr>z</a-pr>: <a-n>3</a-n> <a-p>}</a-p>
+<a-f>doStuff</a-f><a-p>(</a-p><a-v>obj</a-v><a-p>)</a-p> <a-c>// no typescript error, z is no longer used, zIndex is optional, and you don't get the behavior you want</a-c>
+</code></pre>
 <h2 id="but-wait-why-didnt-typescript-catch-it">But wait, why didn’t TypeScript catch it?</h2>
 <p>Here is the funny thing:</p>
 <ul>
@@ -33,8 +37,9 @@ created “obj” variable.</p>
 function (as an “object literal”)</p>
 </li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">({ x: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, y: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, z: </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> }) </span><span style="color:#6A737D">// ERROR!</span></span>
-<span class="line"><span style="color:#6A737D">// Object literal may only specify known properties, and 'z' does not exist in type '{ x: number; y: number; zIndex?: number | undefined; }'.</span></span></code></pre>
+<pre><code class="language-typescript"><a-f>doStuff</a-f><a-p>({</a-p> <a-pr>x</a-pr>: <a-n>1</a-n><a-p>,</a-p> <a-pr>y</a-pr>: <a-n>2</a-n><a-p>,</a-p> <a-pr>z</a-pr>: <a-n>3</a-n> <a-p>})</a-p> <a-c>// ERROR!</a-c>
+<a-c>// Object literal may only specify known properties, and 'z' does not exist in type '{ x: number; y: number; zIndex?: number | undefined; }'.</a-c>
+</code></pre>
 <p>Demo playground</p>
 <p><a href="https://www.typescriptlang.org/play/?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAb2QA8AaZAT3IC9kBfALmSOKYjAFsAjAUwCcA3JTadeg5NQD8I7v3oBKZsGTIoSAM4IANjwB0WhAHNCJclQkLgdYKEixEKdFhwgATCbKUaASQioexPRMLDJiQhSh-ELUvv7E0sjssnwKSipqEJo6+kYeZj5+AZbWNsBO2LiErACMpBGupNQMAMx08qUA9B1oCDzqqgCGMFAAFshwMGWYFW5VDLX1jS1tNl09fRAA5DCDw2MTwBnqOwhcAFYAvAQ1dQwNTa1Tzrjup2ftpUA">https://www.typescriptlang.org/play/?#code/FAMwrgdgxgLglgewgAgCYIMozCEAKAb2QA8AaZAT3IC9kBfALmSOKYjAFsAjAUwCcA3JTadeg5NQD8I7v3oBKZsGTIoSAM4IANjwB0WhAHNCJclQkLgdYKEixEKdFhwgATCbKUaASQioexPRMLDJiQhSh-ELUvv7E0sjssnwKSipqEJo6+kYeZj5+AZbWNsBO2LiErACMpBGupNQMAMx08qUA9B1oCDzqqgCGMFAAFshwMGWYFW5VDLX1jS1tNl09fRAA5DCDw2MTwBnqOwhcAFYAvAQ1dQwNTa1Tzrjup2ftpUA</a></p>
 <h2 id="footnote">Footnote</h2>

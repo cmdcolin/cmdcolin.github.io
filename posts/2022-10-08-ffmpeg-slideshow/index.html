@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Making an audio slideshow with ffmpeg</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making an audio slideshow with ffmpeg</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-08</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Inspired by a new trend of posting “playlists” on youtube with visual
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making an audio slideshow with ffmpeg</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-08</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Inspired by a new trend of posting “playlists” on youtube with visual
 accompaniment (<a href="https://www.youtube.com/watch?v=zG92ss_2Vjw&#x26;t=1937s">https://www.youtube.com/watch?v=zG92ss_2Vjw&#x26;t=1937s</a>), I wanted to
 try to make my own with a slideshow. I used ffmpeg as the heavy lifting tool</p>
 <h2 id="step-1---prepare-your-playlist">Step 1 - prepare your playlist</h2>
@@ -15,9 +15,11 @@ file.</p>
 alternative.</p>
 <h2 id="step-2---prepare-the-slideshow">Step 2 - prepare the slideshow</h2>
 <p>Use 10 seconds per picture. Note the glob pattern is in quotes</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">ffmpeg</span><span style="color:#79B8FF"> -framerate</span><span style="color:#9ECBFF"> 1/10</span><span style="color:#79B8FF"> -pattern_type</span><span style="color:#9ECBFF"> glob</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> '*.jpg'</span><span style="color:#9ECBFF"> pics.mp4</span></span></code></pre>
+<pre><code class="language-sh"><a-f>ffmpeg</a-f> <a-co>-framerate</a-co> 1/10 <a-co>-pattern_type</a-co> glob <a-co>-i</a-co> <a-s>'*.jpg'</a-s> pics.mp4
+</code></pre>
 <h2 id="step-3---combine-the-slideshow-and-playlist">Step 3 - combine the slideshow and playlist</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">ffmpeg</span><span style="color:#79B8FF"> -stream_loop</span><span style="color:#79B8FF"> -1</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> pics.mp4</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> playlist.wav</span><span style="color:#79B8FF"> -shortest</span><span style="color:#79B8FF"> -vcodec</span><span style="color:#9ECBFF"> copy</span><span style="color:#9ECBFF"> output.mp4</span></span></code></pre>
+<pre><code class="language-sh"><a-f>ffmpeg</a-f> <a-co>-stream_loop</a-co> <a-co>-1</a-co> <a-co>-i</a-co> pics.mp4 <a-co>-i</a-co> playlist.wav <a-co>-shortest</a-co> <a-co>-vcodec</a-co> copy output.mp4
+</code></pre>
 <p>Using <code>-stream_loop -1</code> on pics.mp4 will loop the pics until playlist.wav ends,
 but then limit itself to the length of the playlist.wav with <code>-shortest</code></p>
 <h2 id="step-4---upload-to-youtube">Step 4 - upload to youtube</h2>

@@ -1,16 +1,17 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Cheating in your computer science class by copying from stackoverflow</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Cheating in your computer science class by copying from stackoverflow</h1> <h4 data-astro-cid-lvjzyg5v>2015-12-17</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I would like to tell a story about how I provided some personal tutoring help
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Cheating in your computer science class by copying from stackoverflow</h1> <h4 data-astro-cid-lvjzyg5v>2015-12-17</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I would like to tell a story about how I provided some personal tutoring help
 for a friend in a computer science class, and talk about a nagging feeling that
 really felt wrong for me.</p>
 <p>So, a long time ago, in a land far far away, a friend took an intermediate class
 on C++. I was first updated on his progress when he emailed me to get some help
 with some compiler errors. I was happy to help the young padawan. Here was the
 error:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#79B8FF">         test</span><span style="color:#9ECBFF">.cpp:42:43:</span><span style="color:#9ECBFF"> error:</span><span style="color:#9ECBFF"> non-ASCII</span><span style="color:#9ECBFF"> characters</span><span style="color:#9ECBFF"> are</span><span style="color:#9ECBFF"> not</span><span style="color:#9ECBFF"> allowed</span><span style="color:#9ECBFF"> outside</span><span style="color:#9ECBFF"> of</span><span style="color:#9ECBFF"> literals</span></span>
-<span class="line"><span style="color:#B392F0">                and</span><span style="color:#9ECBFF"> identifiers</span></span>
-<span class="line"><span style="color:#F97583">              for</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">startScan</span><span style="color:#9ECBFF"> =</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; </span><span style="color:#B392F0">startScan</span><span style="color:#F97583"> &#x3C;</span><span style="color:#E1E4E8"> (size </span><span style="color:#9ECBFF">−</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">); </span><span style="color:#B392F0">startScan++</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">                                                    ^~</span></span></code></pre>
+<pre><code class="language-sh">         <a-f>test.cpp:42:43:</a-f> error: non-ASCII characters are not allowed outside of literals
+                <a-f>and</a-f> identifiers
+              <a-k>for</a-k> (<a-f>startScan</a-f> = 0; <a-f>startScan</a-f> <a-o>&#x3C;</a-o> (<a-f>size</a-f> − 1); <a-f>startScan++</a-f>)
+                                                    <a-f>^~</a-f>
+</code></pre>
 <p>Now, what does this say to you? For me, it was actually very clear what the
 error meant. It simply meant that this code was taken from somewhere, and copied
 and pasted into the compiler. I know that because if they had typed it themself,

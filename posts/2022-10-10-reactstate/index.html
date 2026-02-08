@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Handling component state with React...you gotta reset it sometimes</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Handling component state with React...you gotta reset it sometimes</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>If you make a React component that has, say, a prop for a item id, and an async
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Handling component state with React...you gotta reset it sometimes</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>If you make a React component that has, say, a prop for a item id, and an async
 action in a <code>useEffect</code> to fetch data for that item from an API, then you
 probably also have a <code>useState</code> to set data after you get results back from your
 API (or an error occurs). But, the interesting thing to me is</p>
@@ -15,94 +15,95 @@ props change</strong></p>
 to highlight is: when you go to refetch a new item from the API, you likely need
 to clear the state of what was previously there (unless you want to display
 stale results)</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { useState, useEffect } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'react'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> PokemonType</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  type</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">    name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> PokemonInfo</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span></span>
-<span class="line"><span style="color:#FFAB70">  types</span><span style="color:#F97583">:</span><span style="color:#B392F0"> PokemonType</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// util fetch function to throw if !response.ok, I use this util often</span></span>
-<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">url</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">opts</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> RequestInit</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(url, opts)</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">response.ok) {</span></span>
-<span class="line"><span style="color:#F97583">    throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">      `Error fetching ${</span><span style="color:#E1E4E8">url</span><span style="color:#9ECBFF">}: HTTP ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> response</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">text</span><span style="color:#9ECBFF">()</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    )</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> ErrorMessage</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">error</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">error</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> unknown</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{ background: </span><span style="color:#9ECBFF">'red'</span><span style="color:#E1E4E8"> }}>{</span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> PokemonCard</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">pokemonName</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">pokemonName</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">error</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setError</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">pokemonInfo</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setPokemonInfo</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">PokemonInfo</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#B392F0">  useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    let</span><span style="color:#E1E4E8"> cancelled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> false</span></span>
-<span class="line"><span style="color:#E1E4E8">    ;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">      try</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#6A737D">        // important: reset the error and item state of the component!</span></span>
-<span class="line"><span style="color:#B392F0">        setError</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">        setPokemonInfo</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">        const</span><span style="color:#79B8FF"> data</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">          `https://pokeapi.co/api/v2/pokemon/${</span><span style="color:#E1E4E8">pokemonName</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">        )</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">cancelled) {</span></span>
-<span class="line"><span style="color:#B392F0">          setPokemonInfo</span><span style="color:#E1E4E8">(data)</span></span>
-<span class="line"><span style="color:#E1E4E8">        }</span></span>
-<span class="line"><span style="color:#E1E4E8">      } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
-<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">cancelled) {</span></span>
-<span class="line"><span style="color:#B392F0">          setError</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#E1E4E8">        }</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    })()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">      cancelled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">  }, [pokemonName])</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      {error </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#79B8FF">ErrorMessage</span><span style="color:#B392F0"> error</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{error} /></span></span>
-<span class="line"><span style="color:#E1E4E8">      ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> pokemonInfo </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">          {pokemonInfo.name} is of type{</span><span style="color:#9ECBFF">' '</span><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#E1E4E8">          {pokemonInfo.types.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">t</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> t.type.name).</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">', '</span><span style="color:#E1E4E8">)}</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>Loading...&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      )}</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">value</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setValue</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'oddish'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"App"</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">label</span><span style="color:#B392F0"> htmlFor</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"pokemon_name"</span><span style="color:#E1E4E8">>Pokemon name&#x3C;/</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">input</span></span>
-<span class="line"><span style="color:#B392F0">        id</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"pokemon_name"</span></span>
-<span class="line"><span style="color:#B392F0">        type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"text"</span></span>
-<span class="line"><span style="color:#B392F0">        value</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{value}</span></span>
-<span class="line"><span style="color:#B392F0">        onChange</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setValue</span><span style="color:#E1E4E8">(e.target.value)}</span></span>
-<span class="line"><span style="color:#E1E4E8">      /></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">PokemonCard</span><span style="color:#B392F0"> pokemonName</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{value} /></span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
+
+<a-k>interface</a-k> <a-t>PokemonType</a-t> <a-p>{</a-p>
+  <a-pr>type</a-pr>: <a-p>{</a-p>
+    <a-pr>name</a-pr>: <a-t>string</a-t>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+<a-k>interface</a-k> <a-t>PokemonInfo</a-t> <a-p>{</a-p>
+  <a-pr>name</a-pr>: <a-t>string</a-t>
+  <a-pr>types</a-pr>: <a-t>PokemonType</a-t>
+<a-p>}</a-p>
+
+<a-c>// util fetch function to throw if !response.ok, I use this util often</a-c>
+<a-k>async</a-k> <a-k>function</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-v>url</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>opts</a-v>?: <a-t>RequestInit</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-v>url</a-v><a-p>,</a-p> <a-v>opts</a-v><a-p>)</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p>
+      <a-s>`Error fetching </a-s><a-p>${</a-p><a-v>url</a-v><a-p>}</a-p><a-s>: HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-k>await</a-k><a-eb> </a-eb><a-v>response</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()}</a-p><a-s>`</a-s><a-p>,</a-p>
+    <a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-t>ErrorMessage</a-t><a-p>({</a-p> error <a-p>}</a-p>: <a-p>{</a-p> <a-pr>error</a-pr>: <a-t>unknown</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>style</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>background</a-pr>: <a-s>'red'</a-s> <a-p>}}>{</a-p><a-s>`</a-s><a-p>${</a-p><a-v>error</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-t>PokemonCard</a-t><a-p>({</a-p> pokemonName <a-p>}</a-p>: <a-p>{</a-p> <a-pr>pokemonName</a-pr>: <a-t>string</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>pokemonInfo</a-v><a-p>,</a-p> <a-v>setPokemonInfo</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>PokemonInfo</a-t><a-p>>()</a-p>
+  <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>let</a-k> <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>false</a-co>
+    <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-k>try</a-k> <a-p>{</a-p>
+        <a-c>// important: reset the error and item state of the component!</a-c>
+        <a-f>setError</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p>
+        <a-f>setPokemonInfo</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p>
+
+        <a-k>const</a-k> <a-v>data</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>myfetch</a-f><a-p>(</a-p>
+          <a-s>`https://pokeapi.co/api/v2/pokemon/</a-s><a-p>${</a-p><a-v>pokemonName</a-v><a-p>}</a-p><a-s>`</a-s><a-p>,</a-p>
+        <a-p>)</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>cancelled</a-v><a-p>)</a-p> <a-p>{</a-p>
+          <a-f>setPokemonInfo</a-f><a-p>(</a-p><a-v>data</a-v><a-p>)</a-p>
+        <a-p>}</a-p>
+      <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>cancelled</a-v><a-p>)</a-p> <a-p>{</a-p>
+          <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+        <a-p>}</a-p>
+      <a-p>}</a-p>
+    <a-p>})()</a-p>
+
+    <a-k>return</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>true</a-co>
+    <a-p>}</a-p>
+  <a-p>},</a-p> <a-p>[</a-p><a-v>pokemonName</a-v><a-p>])</a-p>
+
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>{</a-p><a-v>error</a-v> ? <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-cr>ErrorMessage</a-cr> <a-at>error</a-at><a-o>=</a-o><a-p>{</a-p><a-v>error</a-v><a-p>}</a-p> <a-p>/></a-p>
+      <a-p>)</a-p> : <a-v>pokemonInfo</a-v> ? <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+          <a-p>{</a-p><a-v>pokemonInfo</a-v><a-p>.</a-p><a-pr>name</a-pr><a-p>}</a-p><a-s> is of type</a-s><a-p>{</a-p><a-s>' '</a-s><a-p>}</a-p>
+          <a-p>{</a-p><a-v>pokemonInfo</a-v><a-p>.</a-p><a-pr>types</a-pr><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>t</a-v> <a-o>=></a-o> <a-v>t</a-v><a-p>.</a-p><a-pr>type</a-pr><a-p>.</a-p><a-pr>name</a-pr><a-p>).</a-p><a-f>join</a-f><a-p>(</a-p><a-s>', '</a-s><a-p>)}</a-p>
+        <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>)</a-p> : <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Loading...</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>)}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>default</a-k> <a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>value</a-v><a-p>,</a-p> <a-v>setValue</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>'oddish'</a-s><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at><a-o>=</a-o><a-s>"App"</a-s><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>label</a-tg> <a-at>htmlFor</a-at><a-o>=</a-o><a-s>"pokemon_name"</a-s><a-p>></a-p><a-s>Pokemon name</a-s><a-p>&#x3C;/</a-p><a-tg>label</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>input</a-tg>
+        <a-at>id</a-at><a-o>=</a-o><a-s>"pokemon_name"</a-s>
+        <a-at>type</a-at><a-o>=</a-o><a-s>"text"</a-s>
+        <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p>
+        <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>e</a-v> <a-o>=></a-o> <a-f>setValue</a-f><a-p>(</a-p><a-v>e</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p>
+      <a-p>/></a-p>
+      <a-p>&#x3C;</a-p><a-cr>PokemonCard</a-cr> <a-at>pokemonName</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="part-2-a-custom-hook">Part 2: A custom hook?</h2>
 <p>Can we make a hook to make this easier? I don’t often make custom hooks, but you
 can try to “encapsulate” some of the multiple-related hooks (the useStates for
@@ -111,98 +112,99 @@ affect our approach, but in the below example, we can call
 <code>usePokemonInfo(pokemonName)</code> and error handling and fetching is handled for us</p>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234">https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234</a></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { useState, useEffect } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'react'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> PokemonType</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  type</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">    name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> PokemonInfo</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#FFAB70">  name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span></span>
-<span class="line"><span style="color:#FFAB70">  types</span><span style="color:#F97583">:</span><span style="color:#B392F0"> PokemonType</span><span style="color:#E1E4E8">[]</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">// util fetch function to throw if !response.ok, I use this util often</span></span>
-<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">url</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">opts</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> RequestInit</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(url, opts)</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">response.ok) {</span></span>
-<span class="line"><span style="color:#F97583">    throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">      `Error fetching ${</span><span style="color:#E1E4E8">url</span><span style="color:#9ECBFF">}: HTTP ${</span><span style="color:#E1E4E8">response</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> response</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">text</span><span style="color:#9ECBFF">()</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    )</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> usePokemonInfo</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">pokemonName</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">error</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setError</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">pokemonInfo</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setItemInfo</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">PokemonInfo</span><span style="color:#E1E4E8">>()</span></span>
-<span class="line"><span style="color:#B392F0">  useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    let</span><span style="color:#E1E4E8"> cancelled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> false</span></span>
-<span class="line"><span style="color:#E1E4E8">    ;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">      try</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">        setItemInfo</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">) </span><span style="color:#6A737D">// &#x3C;-- important to reset the state of the app</span></span>
-<span class="line"><span style="color:#B392F0">        setError</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">) </span><span style="color:#6A737D">// &#x3C;-- important to reset the state of the app</span></span>
-<span class="line"><span style="color:#F97583">        const</span><span style="color:#79B8FF"> data</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">          `https://pokeapi.co/api/v2/pokemon/${</span><span style="color:#E1E4E8">pokemonName</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">        )</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">cancelled) {</span></span>
-<span class="line"><span style="color:#B392F0">          setItemInfo</span><span style="color:#E1E4E8">(data)</span></span>
-<span class="line"><span style="color:#E1E4E8">        }</span></span>
-<span class="line"><span style="color:#E1E4E8">      } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
-<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">cancelled) {</span></span>
-<span class="line"><span style="color:#B392F0">          setError</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#E1E4E8">        }</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    })()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">      cancelled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">  }, [pokemonName])</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> [error, pokemonInfo] </span><span style="color:#F97583">as</span><span style="color:#F97583"> const</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> ErrorMessage</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">error</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">error</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> unknown</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{ background: </span><span style="color:#9ECBFF">'red'</span><span style="color:#E1E4E8"> }}>{</span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> PokemonCard</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">pokemonName</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">pokemonName</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">error</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">pokemonInfo</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> usePokemonInfo</span><span style="color:#E1E4E8">(pokemonName)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      {error </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#79B8FF">ErrorMessage</span><span style="color:#B392F0"> error</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{error} /></span></span>
-<span class="line"><span style="color:#E1E4E8">      ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> pokemonInfo </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">          {pokemonInfo.name} is of type{</span><span style="color:#9ECBFF">' '</span><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#E1E4E8">          {pokemonInfo.types.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">t</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> t.type.name).</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">', '</span><span style="color:#E1E4E8">)}</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>Loading...&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      )}</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">value</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setValue</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'oddish'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"App"</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">label</span><span style="color:#B392F0"> htmlFor</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"pokemon_name"</span><span style="color:#E1E4E8">>Pokemon name&#x3C;/</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">input</span></span>
-<span class="line"><span style="color:#B392F0">        id</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"pokemon_name"</span></span>
-<span class="line"><span style="color:#B392F0">        type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"text"</span></span>
-<span class="line"><span style="color:#B392F0">        value</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{value}</span></span>
-<span class="line"><span style="color:#B392F0">        onChange</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setValue</span><span style="color:#E1E4E8">(e.target.value)}</span></span>
-<span class="line"><span style="color:#E1E4E8">      /></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">PokemonCard</span><span style="color:#B392F0"> pokemonName</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{value} /></span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
+
+<a-k>interface</a-k> <a-t>PokemonType</a-t> <a-p>{</a-p>
+  <a-pr>type</a-pr>: <a-p>{</a-p>
+    <a-pr>name</a-pr>: <a-t>string</a-t>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+<a-k>interface</a-k> <a-t>PokemonInfo</a-t> <a-p>{</a-p>
+  <a-pr>name</a-pr>: <a-t>string</a-t>
+  <a-pr>types</a-pr>: <a-t>PokemonType</a-t><a-p>[]</a-p>
+<a-p>}</a-p>
+
+<a-c>// util fetch function to throw if !response.ok, I use this util often</a-c>
+<a-k>async</a-k> <a-k>function</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-v>url</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>opts</a-v>?: <a-t>RequestInit</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-v>url</a-v><a-p>,</a-p> <a-v>opts</a-v><a-p>)</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p>
+      <a-s>`Error fetching </a-s><a-p>${</a-p><a-v>url</a-v><a-p>}</a-p><a-s>: HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-k>await</a-k><a-eb> </a-eb><a-v>response</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()}</a-p><a-s>`</a-s><a-p>,</a-p>
+    <a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-f>usePokemonInfo</a-f><a-p>(</a-p><a-v>pokemonName</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>pokemonInfo</a-v><a-p>,</a-p> <a-v>setItemInfo</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>PokemonInfo</a-t><a-p>>()</a-p>
+  <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>let</a-k> <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>false</a-co>
+    <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-k>try</a-k> <a-p>{</a-p>
+        <a-f>setItemInfo</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p> <a-c>// &#x3C;-- important to reset the state of the app</a-c>
+        <a-f>setError</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p> <a-c>// &#x3C;-- important to reset the state of the app</a-c>
+        <a-k>const</a-k> <a-v>data</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>myfetch</a-f><a-p>(</a-p>
+          <a-s>`https://pokeapi.co/api/v2/pokemon/</a-s><a-p>${</a-p><a-v>pokemonName</a-v><a-p>}</a-p><a-s>`</a-s><a-p>,</a-p>
+        <a-p>)</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>cancelled</a-v><a-p>)</a-p> <a-p>{</a-p>
+          <a-f>setItemInfo</a-f><a-p>(</a-p><a-v>data</a-v><a-p>)</a-p>
+        <a-p>}</a-p>
+      <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>cancelled</a-v><a-p>)</a-p> <a-p>{</a-p>
+          <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+        <a-p>}</a-p>
+      <a-p>}</a-p>
+    <a-p>})()</a-p>
+
+    <a-k>return</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>true</a-co>
+    <a-p>}</a-p>
+  <a-p>},</a-p> <a-p>[</a-p><a-v>pokemonName</a-v><a-p>])</a-p>
+
+  <a-k>return</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>pokemonInfo</a-v><a-p>]</a-p> <a-k>as</a-k> <a-k>const</a-k>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-t>ErrorMessage</a-t><a-p>({</a-p> error <a-p>}</a-p>: <a-p>{</a-p> <a-pr>error</a-pr>: <a-t>unknown</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>style</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>background</a-pr>: <a-s>'red'</a-s> <a-p>}}>{</a-p><a-s>`</a-s><a-p>${</a-p><a-v>error</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-t>PokemonCard</a-t><a-p>({</a-p> pokemonName <a-p>}</a-p>: <a-p>{</a-p> <a-pr>pokemonName</a-pr>: <a-t>string</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>pokemonInfo</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>usePokemonInfo</a-f><a-p>(</a-p><a-v>pokemonName</a-v><a-p>)</a-p>
+
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>{</a-p><a-v>error</a-v> ? <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-cr>ErrorMessage</a-cr> <a-at>error</a-at><a-o>=</a-o><a-p>{</a-p><a-v>error</a-v><a-p>}</a-p> <a-p>/></a-p>
+      <a-p>)</a-p> : <a-v>pokemonInfo</a-v> ? <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+          <a-p>{</a-p><a-v>pokemonInfo</a-v><a-p>.</a-p><a-pr>name</a-pr><a-p>}</a-p><a-s> is of type</a-s><a-p>{</a-p><a-s>' '</a-s><a-p>}</a-p>
+          <a-p>{</a-p><a-v>pokemonInfo</a-v><a-p>.</a-p><a-pr>types</a-pr><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>t</a-v> <a-o>=></a-o> <a-v>t</a-v><a-p>.</a-p><a-pr>type</a-pr><a-p>.</a-p><a-pr>name</a-pr><a-p>).</a-p><a-f>join</a-f><a-p>(</a-p><a-s>', '</a-s><a-p>)}</a-p>
+        <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>)</a-p> : <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Loading...</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>)}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>default</a-k> <a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>value</a-v><a-p>,</a-p> <a-v>setValue</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>'oddish'</a-s><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at><a-o>=</a-o><a-s>"App"</a-s><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>label</a-tg> <a-at>htmlFor</a-at><a-o>=</a-o><a-s>"pokemon_name"</a-s><a-p>></a-p><a-s>Pokemon name</a-s><a-p>&#x3C;/</a-p><a-tg>label</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>input</a-tg>
+        <a-at>id</a-at><a-o>=</a-o><a-s>"pokemon_name"</a-s>
+        <a-at>type</a-at><a-o>=</a-o><a-s>"text"</a-s>
+        <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p>
+        <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>e</a-v> <a-o>=></a-o> <a-f>setValue</a-f><a-p>(</a-p><a-v>e</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p>
+      <a-p>/></a-p>
+      <a-p>&#x3C;</a-p><a-cr>PokemonCard</a-cr> <a-at>pokemonName</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>I think it’s sometimes common to forget error handling in async JS code
 (useEffect async or many other contexts, etc), and there aren’t e.g. lint rules
@@ -223,67 +225,69 @@ quite a different architecture.</p>
 catch errors that happen in e.g. a useEffect. If you want your ErrorBoundary to
 handle your useEffect related error, then you can use something like this. This
 assumes a <code>react-error-boundary</code> type ErrorBoundary.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { ErrorBoundary } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'react-error-boundary'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> PokemonCard</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">pokemonName</span><span style="color:#E1E4E8"> }</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">pokemonName</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }) {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">error</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">pokemonInfo</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> usePokemonInfo</span><span style="color:#E1E4E8">(pokemonName)</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (error) {</span></span>
-<span class="line"><span style="color:#F97583">    throw</span><span style="color:#E1E4E8"> error</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      {pokemonInfo </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">          {pokemonInfo.name} is of type{</span><span style="color:#9ECBFF">' '</span><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#E1E4E8">          {pokemonInfo.types.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">t</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> t.type.name).</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">', '</span><span style="color:#E1E4E8">)}</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      ) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>Loading...&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">      )}</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">value</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setValue</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'oddish'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">ErrorBoundary</span><span style="color:#B392F0"> FallbackComponent</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{({ </span><span style="color:#FFAB70">error</span><span style="color:#E1E4E8"> }) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>{</span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>}></span></span>
-<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">PokemonCard</span><span style="color:#B392F0"> pokemonName</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{value} /></span></span>
-<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#79B8FF">ErrorBoundary</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-t>ErrorBoundary</a-t> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react-error-boundary'</a-s>
+
+<a-k>function</a-k> <a-t>PokemonCard</a-t><a-p>({</a-p> pokemonName <a-p>}</a-p>: <a-p>{</a-p> <a-pr>pokemonName</a-pr>: <a-t>string</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>pokemonInfo</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>usePokemonInfo</a-f><a-p>(</a-p><a-v>pokemonName</a-v><a-p>)</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>error</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>throw</a-k> <a-v>error</a-v>
+  <a-p>}</a-p>
+
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>{</a-p><a-v>pokemonInfo</a-v> ? <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+          <a-p>{</a-p><a-v>pokemonInfo</a-v><a-p>.</a-p><a-pr>name</a-pr><a-p>}</a-p><a-s> is of type</a-s><a-p>{</a-p><a-s>' '</a-s><a-p>}</a-p>
+          <a-p>{</a-p><a-v>pokemonInfo</a-v><a-p>.</a-p><a-pr>types</a-pr><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>t</a-v> <a-o>=></a-o> <a-v>t</a-v><a-p>.</a-p><a-pr>type</a-pr><a-p>.</a-p><a-pr>name</a-pr><a-p>).</a-p><a-f>join</a-f><a-p>(</a-p><a-s>', '</a-s><a-p>)}</a-p>
+        <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>)</a-p> : <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Loading...</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>)}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>default</a-k> <a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>value</a-v><a-p>,</a-p> <a-v>setValue</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>'oddish'</a-s><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-cr>ErrorBoundary</a-cr> <a-at>FallbackComponent</a-at><a-o>=</a-o><a-p>{({</a-p> error <a-p>})</a-p> <a-o>=></a-o> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>>{</a-p><a-s>`</a-s><a-p>${</a-p><a-v>error</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}&#x3C;/</a-p><a-tg>div</a-tg><a-p>>}></a-p>
+      <a-p>&#x3C;</a-p><a-cr>PokemonCard</a-cr> <a-at>pokemonName</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-cr>ErrorBoundary</a-cr><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Another trick, instead of throwing in the body of the component is throwing in
 the callback form of the useState-setter. Then you wouldn’t necessarily need to
 have a separate useState for the error state, but you would then need an
 ErrorBoundary or something to help display a nice error.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#B392F0">useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> cancelled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> false</span></span>
-<span class="line"><span style="color:#E1E4E8">  ;(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#6A737D">      // important: reset the error and item state of the component!</span></span>
-<span class="line"><span style="color:#B392F0">      setPokemonInfo</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> data</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> myfetch</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">        `https://pokeapi.co/api/v2/pokemon/${</span><span style="color:#E1E4E8">pokemonName</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">      )</span></span>
-<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">cancelled) {</span></span>
-<span class="line"><span style="color:#B392F0">        setPokemonInfo</span><span style="color:#E1E4E8">(data)</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (e) {</span></span>
-<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(e)</span></span>
-<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">cancelled) {</span></span>
-<span class="line"><span style="color:#B392F0">        setPokemonInfo</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">          throw</span><span style="color:#E1E4E8"> e</span></span>
-<span class="line"><span style="color:#E1E4E8">        })</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">  })()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">    cancelled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}, [pokemonName])</span></span></code></pre>
+<pre><code class="language-tsx"><a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-k>let</a-k> <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>false</a-co>
+  <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>try</a-k> <a-p>{</a-p>
+      <a-c>// important: reset the error and item state of the component!</a-c>
+      <a-f>setPokemonInfo</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p>
+
+      <a-k>const</a-k> <a-v>data</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>myfetch</a-f><a-p>(</a-p>
+        <a-s>`https://pokeapi.co/api/v2/pokemon/</a-s><a-p>${</a-p><a-v>pokemonName</a-v><a-p>}</a-p><a-s>`</a-s><a-p>,</a-p>
+      <a-p>)</a-p>
+      <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>cancelled</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-f>setPokemonInfo</a-f><a-p>(</a-p><a-v>data</a-v><a-p>)</a-p>
+      <a-p>}</a-p>
+    <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+      <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>cancelled</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-f>setPokemonInfo</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+          <a-k>throw</a-k> <a-v>e</a-v>
+        <a-p>})</a-p>
+      <a-p>}</a-p>
+    <a-p>}</a-p>
+  <a-p>})()</a-p>
+
+  <a-k>return</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>true</a-co>
+  <a-p>}</a-p>
+<a-p>},</a-p> <a-p>[</a-p><a-v>pokemonName</a-v><a-p>])</a-p>
+</code></pre>
 <h2 id="footnote-2-the-future-with-react-data-fetching">Footnote 2: The future with React data fetching</h2>
 <p>See <a href="https://github.com/reactjs/rfcs/pull/229">https://github.com/reactjs/rfcs/pull/229</a></p>
 <p>This was just announced so there is a lot to unpack there, I can update this

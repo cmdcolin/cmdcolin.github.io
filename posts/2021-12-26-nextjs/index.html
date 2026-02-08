@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>My next.js static blog setup</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>My next.js static blog setup</h1> <h4 data-astro-cid-lvjzyg5v>2021-12-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>TL;DR src here <a href="https://github.com/cmdcolin/cmdcolin.github.io">https://github.com/cmdcolin/cmdcolin.github.io</a></p>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>My next.js static blog setup</h1> <h4 data-astro-cid-lvjzyg5v>2021-12-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>TL;DR src here <a href="https://github.com/cmdcolin/cmdcolin.github.io">https://github.com/cmdcolin/cmdcolin.github.io</a></p>
 <p>Update 2023: converted to app directory mode, see
 <a href="https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog">https://cmdcolin.github.io/posts/2023-04-08-nextjs-appdir-blog</a></p>
 <p>Update 2025: converted the blog to use astro. The next.js rollercoaster was fun
@@ -63,14 +63,15 @@ etc <a href="https://next-blog-starter.vercel.app/">https://next-blog-starter.ve
 a bit, but ended up removing it entirely.</p>
 <p>Tailwind CSS is sort of like a CSS-in-JS system, except every CSS attribute is
 encoded in a CSS classname. For example, here are some tailwind CSS snippets</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"container mx-auto px-5"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">footer</span><span style="color:#B392F0"> className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"bg-accent-1 border-t border-accent-2"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">footer</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"max-w-1xl mx-auto"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"min-h-screen"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">a</span><span style="color:#B392F0"> className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"hover:underline"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">h1</span></span>
-<span class="line"><span style="color:#B392F0">  className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left"</span></span>
-<span class="line"><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span></code></pre>
+<pre><code class="language-html"><a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at>="<a-s>container mx-auto px-5</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+<a-p>&#x3C;</a-p><a-tg>footer</a-tg> <a-at>className</a-at>="<a-s>bg-accent-1 border-t border-accent-2</a-s>"<a-p>>&#x3C;/</a-p><a-tg>footer</a-tg><a-p>></a-p>
+<a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at>="<a-s>max-w-1xl mx-auto</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+<a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at>="<a-s>min-h-screen</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+<a-p>&#x3C;</a-p><a-tg>a</a-tg> <a-at>className</a-at>="<a-s>hover:underline</a-s>"<a-p>>&#x3C;/</a-p><a-tg>a</a-tg><a-p>></a-p>
+<a-p>&#x3C;</a-p><a-tg>h1</a-tg>
+  <a-at>className</a-at>="<a-s>text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left</a-s>"
+<a-p>>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+</code></pre>
 <p>They claim this is better than using external CSS (see comparison here
 <a href="https://tailwindcss.com/docs/utility-first">https://tailwindcss.com/docs/utility-first</a>) but it is yet another language to
 learn, and kind of tricky.</p>

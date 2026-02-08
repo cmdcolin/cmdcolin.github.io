@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>How to make your own npm package with typescript</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>How to make your own npm package with typescript</h1> <h4 data-astro-cid-lvjzyg5v>2021-12-31</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There is a lot of mystery around making your own <code>npm</code> package. Every package
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>How to make your own npm package with typescript</h1> <h4 data-astro-cid-lvjzyg5v>2021-12-31</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There is a lot of mystery around making your own <code>npm</code> package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
 Should you use a “starter kit” or a boilerplate example? Or just roll your own?
 Should you use a bundler? How do you use typescript? Well, why don’t we try
@@ -28,68 +28,73 @@ published (the various “scripts”, where you can have “clean”, “build�
 <p>Let’s try an experiment…</p>
 <h1 id="part-1-the-most-basic-package-with-plain-js-code-in-commonjs-format">Part 1: the most basic package with plain JS code in commonjs format</h1>
 <p>Open up a terminal, and run</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#9ECBFF"> mypackage</span></span>
-<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> mypackage</span></span>
-<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> init</span><span style="color:#6A737D"> # make mypackage version controlled</span></span>
-<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> init</span><span style="color:#6A737D"> # or yarn init</span></span></code></pre>
+<pre><code class="language-sh"><a-f>mkdir</a-f> mypackage
+<a-f>cd</a-f> mypackage
+<a-f>git</a-f> init <a-c># make mypackage version controlled</a-c>
+<a-f>npm</a-f> init <a-c># or yarn init</a-c>
+</code></pre>
 <p>This init command outputs something like this, and we accept the defaults</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">This</span><span style="color:#9ECBFF"> utility</span><span style="color:#9ECBFF"> will</span><span style="color:#9ECBFF"> walk</span><span style="color:#9ECBFF"> you</span><span style="color:#9ECBFF"> through</span><span style="color:#9ECBFF"> creating</span><span style="color:#9ECBFF"> a</span><span style="color:#9ECBFF"> package.json</span><span style="color:#9ECBFF"> file.</span></span>
-<span class="line"><span style="color:#B392F0">It</span><span style="color:#9ECBFF"> only</span><span style="color:#9ECBFF"> covers</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> most</span><span style="color:#9ECBFF"> common</span><span style="color:#9ECBFF"> items,</span><span style="color:#9ECBFF"> and</span><span style="color:#9ECBFF"> tries</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> guess</span><span style="color:#9ECBFF"> sensible</span><span style="color:#9ECBFF"> defaults.</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">See</span><span style="color:#9ECBFF"> `</span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> help init`</span><span style="color:#F97583"> for</span><span style="color:#E1E4E8"> definitive documentation on these fields</span></span>
-<span class="line"><span style="color:#B392F0">and</span><span style="color:#9ECBFF"> exactly</span><span style="color:#9ECBFF"> what</span><span style="color:#9ECBFF"> they</span><span style="color:#9ECBFF"> do.</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">Use</span><span style="color:#9ECBFF"> `</span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install </span><span style="color:#F97583">&#x3C;</span><span style="color:#9ECBFF">pkg</span><span style="color:#F97583">></span><span style="color:#9ECBFF">`</span><span style="color:#B392F0"> afterwards</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> a</span><span style="color:#9ECBFF"> package</span><span style="color:#9ECBFF"> and</span></span>
-<span class="line"><span style="color:#B392F0">save</span><span style="color:#9ECBFF"> it</span><span style="color:#9ECBFF"> as</span><span style="color:#9ECBFF"> a</span><span style="color:#9ECBFF"> dependency</span><span style="color:#9ECBFF"> in</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> package.json</span><span style="color:#9ECBFF"> file.</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">Press</span><span style="color:#9ECBFF"> ^C</span><span style="color:#9ECBFF"> at</span><span style="color:#9ECBFF"> any</span><span style="color:#9ECBFF"> time</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> quit.</span></span>
-<span class="line"><span style="color:#B392F0">package</span><span style="color:#9ECBFF"> name:</span><span style="color:#E1E4E8"> (mypackage)</span></span>
-<span class="line"><span style="color:#B392F0">version:</span><span style="color:#E1E4E8"> (1.0.0)</span></span>
-<span class="line"><span style="color:#B392F0">description:</span></span>
-<span class="line"><span style="color:#B392F0">entry</span><span style="color:#9ECBFF"> point:</span><span style="color:#E1E4E8"> (index.js)</span></span>
-<span class="line"><span style="color:#79B8FF">test</span><span style="color:#9ECBFF"> command:</span></span>
-<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> repository:</span></span>
-<span class="line"><span style="color:#B392F0">keywords:</span></span>
-<span class="line"><span style="color:#B392F0">license:</span><span style="color:#E1E4E8"> (ISC)</span></span>
-<span class="line"><span style="color:#B392F0">About</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> write</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> /home/cdiesh/mypackage/package.json:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#B392F0">  "name"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "mypackage",</span></span>
-<span class="line"><span style="color:#B392F0">  "version"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "1.0.0",</span></span>
-<span class="line"><span style="color:#B392F0">  "description"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "",</span></span>
-<span class="line"><span style="color:#B392F0">  "main"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "index.js",</span></span>
-<span class="line"><span style="color:#B392F0">  "scripts"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> {</span></span>
-<span class="line"><span style="color:#B392F0">    "test"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "echo </span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF">Error: no test specified</span><span style="color:#79B8FF">\"</span><span style="color:#9ECBFF"> &#x26;&#x26; exit 1"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#B392F0">  "author"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "Colin",</span></span>
-<span class="line"><span style="color:#B392F0">  "license"</span><span style="color:#79B8FF">:</span><span style="color:#9ECBFF"> "ISC"</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span></code></pre>
+<pre><code class="language-sh"><a-f>This</a-f> utility will walk you through creating a package.json file.
+<a-f>It</a-f> only covers the most common items, and tries to guess sensible defaults.
+
+<a-f>See</a-f> <a-eb>`</a-eb><a-f>npm</a-f><a-eb> help init`</a-eb> for definitive documentation on these fields
+<a-f>and</a-f> exactly what they do.
+
+<a-f>Use</a-f> `<a-f>npm</a-f> install <a-o>&#x3C;</a-o>pkg<a-o>></a-o>` <a-f>afterwards</a-f> to install a package and
+<a-f>save</a-f> it as a dependency in the package.json file.
+
+<a-f>Press</a-f> ^C at any time to quit.
+<a-f>package</a-f> name: (<a-f>mypackage</a-f>)
+<a-f>version:</a-f> (<a-f>1.0.0</a-f>)
+<a-f>description:</a-f>
+<a-f>entry</a-f> point: (<a-f>index.js</a-f>)
+<a-f>test</a-f> command:
+<a-f>git</a-f> repository:
+<a-f>keywords:</a-f>
+<a-f>license:</a-f> (<a-f>ISC</a-f>)
+<a-f>About</a-f> to write to /home/cdiesh/mypackage/package.json:
+
+{
+  <a-s>"name"</a-s><a-f>:</a-f> <a-s>"mypackage"</a-s>,
+  <a-s>"version"</a-s><a-f>:</a-f> <a-s>"1.0.0"</a-s>,
+  <a-s>"description"</a-s><a-f>:</a-f> <a-s>""</a-s>,
+  <a-s>"main"</a-s><a-f>:</a-f> <a-s>"index.js"</a-s>,
+  <a-s>"scripts"</a-s><a-f>:</a-f> {
+    <a-s>"test"</a-s><a-f>:</a-f> <a-s>"echo \"Error: no test specified\" &#x26;&#x26; exit 1"</a-s>
+  },
+  <a-s>"author"</a-s><a-f>:</a-f> <a-s>"Colin"</a-s>,
+  <a-s>"license"</a-s><a-f>:</a-f> <a-s>"ISC"</a-s>
+<a-f>}</a-f>
+</code></pre>
 <p>Then, you can create a file named <code>index.js</code> (in your package.json it says
 <code>"main": "index.js"</code> to refer to this file, the entrypoint)</p>
 <p>In your <code>index.js</code> file, generally, you would do things like export a function
 or functions. I will use commonjs exports here for maximum compatibility:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">  hello</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello world'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-v>module</a-v><a-p>.</a-p><a-pr>exports</a-pr> <a-o>=</a-o> <a-p>{</a-p>
+  <a-f>hello</a-f>: <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'hello world'</a-s><a-p>)</a-p>
+  <a-p>},</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="publishing-a-package">Publishing a package</h2>
 <p>This npm package, <code>mypackage</code> can now be published to <code>npm</code> with a simple
 command.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> publish</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> publish</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> publish
+<a-c># or</a-c>
+<a-f>yarn</a-f> publish
+</code></pre>
 <p>This will prompt you for your npmjs.com username, password, email, and if
 needed, 2FA token (highly recommended)</p>
 <h2 id="using-your-package-after-it-is-published">Using your package after it is published</h2>
 <p>Once it is published, you can use it in your create-react-app app or other npm
 package.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> mypackage</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> mypackage</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> install mypackage
+<a-c># or</a-c>
+<a-f>yarn</a-f> add mypackage
+</code></pre>
 <p>Then you can use</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { hello } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'mypackage'</span></span></code></pre>
+<pre><code class="language-js"><a-k>import</a-k> <a-p>{</a-p> <a-v>hello</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'mypackage'</a-s>
+</code></pre>
 <p>in any of your other codebases</p>
 <h2 id="summary-of-the-simplest-npm-package">Summary of the simplest NPM package</h2>
 <p>This all seems pretty boring thus far but it tells us a couple things</p>
@@ -106,99 +111,110 @@ index.html. you can use whatever name you want</li>
 <p>To do this, we will use the typescript compiler to compile a directory of files
 in our “src” directory and output the compiled files to a directory named “dist”</p>
 <p>To start, let’s add typescript</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --save-dev</span><span style="color:#9ECBFF"> typescript</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#79B8FF"> -D</span><span style="color:#9ECBFF"> typescript</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> install <a-co>--save-dev</a-co> typescript
+<a-c># or</a-c>
+<a-f>yarn</a-f> add <a-co>-D</a-co> typescript
+</code></pre>
 <p>Our package.json now will have <code>typescript</code> in it’s <code>devDependencies</code> (this
 means that when someone installs your package, it they don’t get typescript as a
 dependency, it is just a dependency for while you are developing the library
 locally).</p>
 <p>Then we need to create a tsconfig.json for typescript to use</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> tsc</span><span style="color:#79B8FF"> --init</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> tsc</span><span style="color:#79B8FF"> --init</span></span></code></pre>
+<pre><code class="language-sh"><a-f>yarn</a-f> tsc <a-co>--init</a-co>
+<a-c># or</a-c>
+<a-f>npx</a-f> tsc <a-co>--init</a-co>
+</code></pre>
 <p>This will generate a <code>tsconfig.json</code> file (needed by <code>typescript</code>) with a bunch
 of options, but I have stripped it down in my projects to look like this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "include"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">  "compilerOptions"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "target"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"es2018"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "moduleResolution"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"node"</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// don't have to import actual filenames, can import extensionless files</span></span>
-<span class="line"><span style="color:#79B8FF">    "declaration"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// generate .d.ts files</span></span>
-<span class="line"><span style="color:#79B8FF">    "sourceMap"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// generate source map</span></span>
-<span class="line"><span style="color:#79B8FF">    "outDir"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// output compiled js, d.ts, and source map to dist folder</span></span>
-<span class="line"><span style="color:#79B8FF">    "strict"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "esModuleInterop"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
+  <a-s>"compilerOptions"</a-s>: {
+    <a-s>"target"</a-s>: <a-s>"es2018"</a-s>,
+    <a-s>"moduleResolution"</a-s>: <a-s>"node"</a-s>, <a-c>// don't have to import actual filenames, can import extensionless files</a-c>
+    <a-s>"declaration"</a-s>: <a-co>true</a-co>, <a-c>// generate .d.ts files</a-c>
+    <a-s>"sourceMap"</a-s>: <a-co>true</a-co>, <a-c>// generate source map</a-c>
+    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>, <a-c>// output compiled js, d.ts, and source map to dist folder</a-c>
+    <a-s>"strict"</a-s>: <a-co>true</a-co>,
+    <a-s>"esModuleInterop"</a-s>: <a-co>true</a-co>
+  }
+}
+</code></pre>
 <p>Now, let’s wrote a little typescript. We can now use “ESM” style code, we will
 compile it to commonjs format.</p>
 <p>util.ts</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getMessage</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> 'hello'</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>export</a-k> <a-k>function</a-k> <a-f>getMessage</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-s>'hello'</a-s>
+<a-p>}</a-p>
+</code></pre>
 <p>index.ts</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { getMessage } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './util'</span></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> sayMessage</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">getMessage</span><span style="color:#E1E4E8">())</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>getMessage</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./util'</a-s>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>sayMessage</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-f>getMessage</a-f><a-p>())</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>And then we will add a <code>"build"</code> script to <code>package.json</code> to compile the
 library, and refer to the <code>"dist"</code> directory for the <code>"files"</code> and <code>"main"</code>
 fields in <code>package.json</code></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"mypackage"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">""</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "main"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"src/index.js"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "files"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">], </span><span style="color:#6A737D">// we publish both dist and src to get proper sourceMaps</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc --module commonjs"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#79B8FF">  "author"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Colin"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "license"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"ISC"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "devDependencies"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "typescript"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^4.5.4"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"mypackage"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"description"</a-s>: <a-s>""</a-s>,
+  <a-s>"main"</a-s>: <a-s>"src/index.js"</a-s>,
+  <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"src"</a-s>], <a-c>// we publish both dist and src to get proper sourceMaps</a-c>
+  <a-s>"scripts"</a-s>: {
+    <a-s>"build"</a-s>: <a-s>"tsc --module commonjs"</a-s>
+  },
+  <a-s>"author"</a-s>: <a-s>"Colin"</a-s>,
+  <a-s>"license"</a-s>: <a-s>"ISC"</a-s>,
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"typescript"</a-s>: <a-s>"^4.5.4"</a-s>
+  }
+}
+</code></pre>
 <p>We can now run</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> run build
+<a-c># or</a-c>
+<a-f>yarn</a-f> build
+</code></pre>
 <p>And this will run the <code>"build"</code> script we created, which in turn, just runs
 <code>tsc</code> with no arguments.</p>
 <p>You can also add a <code>"prebuild"</code> script that clears out the old contents. In
 fact, npm scripts generalizes the naming system — you can make scripts with
 whatever name you want, e.g.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "preparty"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"echo preparty"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "party"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"echo party"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "postparty"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"echo postparty"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"scripts"</a-s>: {
+    <a-s>"preparty"</a-s>: <a-s>"echo preparty"</a-s>,
+    <a-s>"party"</a-s>: <a-s>"echo party"</a-s>,
+    <a-s>"postparty"</a-s>: <a-s>"echo postparty"</a-s>
+  }
+}
+</code></pre>
 <p>Then running</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> yarn</span><span style="color:#9ECBFF"> party</span></span>
-<span class="line"><span style="color:#B392F0">preparty</span></span>
-<span class="line"><span style="color:#B392F0">party</span></span>
-<span class="line"><span style="color:#B392F0">postparty</span></span></code></pre>
+<pre><code class="language-sh"><a-o>$</a-o><a-f> </a-f><a-pr>yarn</a-pr> party
+<a-f>preparty</a-f>
+<a-f>party</a-f>
+<a-f>postparty</a-f>
+</code></pre>
 <p>To make this useful, we will use <code>rimraf</code> (a node package) to make a
 cross-platform removal of the <code>dist</code> directory</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --save-dev</span><span style="color:#9ECBFF"> rimraf</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#79B8FF"> -D</span><span style="color:#9ECBFF"> rimraf</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> install <a-co>--save-dev</a-co> rimraf
+<a-c># or</a-c>
+<a-f>yarn</a-f> add <a-co>-D</a-co> rimraf
+</code></pre>
 <p>and then update your package.json</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">  ...</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "clean"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"rimraf dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "prebuild"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run clean"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc --module commonjs"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#79B8FF">  "devDependencies"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "rimraf"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^3.0.2"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "typescript"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^4.5.4"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  ...
+  <a-s>"scripts"</a-s>: {
+    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"tsc --module commonjs"</a-s>
+  },
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"rimraf"</a-s>: <a-s>"^3.0.2"</a-s>,
+    <a-s>"typescript"</a-s>: <a-s>"^4.5.4"</a-s>
+  }
+}
+</code></pre>
 <p>We could make it say “rm -rf dist” instead of “rimraf dist” (e.g. run arbitrary
 shell commands), but rimraf allows it to be cross-platform</p>
 <h2 id="making-sure-you-create-a-fresh-build-before-you-publish">Making sure you create a fresh build before you publish</h2>
@@ -208,61 +224,70 @@ folder.</p>
 <p>We can use a <code>preversion</code> script that will automatically get invoked when you
 run <code>yarn publish</code> to make sure you get a fresh build in the <code>dist</code> folder
 before you publish</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">  ...</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">    ...</span></span>
-<span class="line"><span style="color:#79B8FF">    "preversion"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run build"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  ...
+  <a-s>"scripts"</a-s>: {
+    ...
+    <a-s>"preversion"</a-s>: <a-s>"npm run build"</a-s>,
+  },
+}
+</code></pre>
 <h2 id="making-sure-you-push-your-tag-to-github-after-publish">Making sure you push your tag to github after publish</h2>
 <p>When you run <code>yarn publish</code>, npm will automatically create a commit with the
 version name and a git tag, it <em>will not</em> automatically push tag to your
 repository.</p>
 <p>Add a <code>postversion</code> script that pushes the tag to your repo after your publish</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">  ...</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">    ...</span></span>
-<span class="line"><span style="color:#79B8FF">    "postversion"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"git push --follow-tags"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  ...
+  <a-s>"scripts"</a-s>: {
+    ...
+    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>,
+  },
+}
+</code></pre>
 <h2 id="incremental-builds">Incremental builds</h2>
 <p>We can use this to do incremental/watch builds</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span><span style="color:#79B8FF"> --watch</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> build</span><span style="color:#79B8FF"> --watch</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> run build <a-co>--watch</a-co>
+<a-c># or</a-c>
+<a-f>yarn</a-f> build <a-co>--watch</a-co>
+</code></pre>
 <h2 id="adding-testing-with-ts-jest">Adding testing with ts-jest</h2>
 <p>You can use ts-jest to test your code. This involves installing jest,
 typescript, ts-jest, @types/jest, and then initializing a jest.config.json</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> i</span><span style="color:#79B8FF"> -D</span><span style="color:#9ECBFF"> jest</span><span style="color:#9ECBFF"> typescript</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#79B8FF"> --dev</span><span style="color:#9ECBFF"> jest</span><span style="color:#9ECBFF"> typescript</span></span></code></pre>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> i</span><span style="color:#79B8FF"> -D</span><span style="color:#9ECBFF"> ts-jest</span><span style="color:#9ECBFF"> @types/jest</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#79B8FF"> --dev</span><span style="color:#9ECBFF"> ts-jest</span><span style="color:#9ECBFF"> @types/jest</span></span></code></pre>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> ts-jest</span><span style="color:#9ECBFF"> config:init</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> ts-jest</span><span style="color:#9ECBFF"> config:init</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> i <a-co>-D</a-co> jest typescript
+<a-c># or</a-c>
+<a-f>yarn</a-f> add <a-co>--dev</a-co> jest typescript
+</code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> i <a-co>-D</a-co> ts-jest @types/jest
+<a-c># or</a-c>
+<a-f>yarn</a-f> add <a-co>--dev</a-co> ts-jest @types/jest
+</code></pre>
+<pre><code class="language-sh"><a-f>npx</a-f> ts-jest config:init
+<a-c># or</a-c>
+<a-f>yarn</a-f> ts-jest config:init
+</code></pre>
 <p>We can then create a test</p>
 <p><code>test/util.spec.ts</code></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { getMessage } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../src/util'</span></span>
-<span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'expected message returned'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">  expect</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">getMessage</span><span style="color:#E1E4E8">()).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>getMessage</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'../src/util'</a-s>
+<a-f>test</a-f><a-p>(</a-p><a-s>'expected message returned'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-f>expect</a-f><a-p>(</a-p><a-f>getMessage</a-f><a-p>()).</a-p><a-f>toBe</a-f><a-p>(</a-p><a-s>'hello'</a-s><a-p>)</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>Then we can then create a script in the package.json that says <code>"test": "jest"</code>,
 and then we can say</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> test</span></span>
-<span class="line"><span style="color:#6A737D"># or</span></span>
-<span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> test</span></span></code></pre>
+<pre><code class="language-sh"><a-f>npm</a-f> run test
+<a-c># or</a-c>
+<a-f>yarn</a-f> test
+</code></pre>
 <p>You can also create an alternative system where you use <code>babel-eslint</code> and
 various babel strategies to test your code, but if you are using <code>typescript</code>,
 <code>ts-jest</code> and <code>typescript</code> works great.</p>
 <h2 id="add-a-gitignore">Add a .gitignore</h2>
 <p>Create a .gitignore with just a line that references this <code>dist</code> folder and
 <code>node_modules</code> folder</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>dist</span></span>
-<span class="line"><span>node_modules</span></span></code></pre>
+<pre><code>dist
+node_modules
+</code></pre>
 <h2 id="the-future-of-esm-modules">The future of ESM modules</h2>
 <p>There is a shift happening where modules are changing to be pure ESM rather than
 keeping commonjs equivalents</p>
@@ -271,19 +296,20 @@ keeping commonjs equivalents</p>
 go “halfway to ESM” and just publish a “dual” package: one “main” field in the
 package.json referring to a commonjs file, and one “module” field with an ESM
 style build for bundlers. I do it like this:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "files"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"esm"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#FDAEB7;font-style:italic">     ...</span></span>
-<span class="line"><span style="color:#79B8FF">    "clean"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"rimraf dist esm"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "prebuild"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run clean"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "build:cjs"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc --module commonjs --ourDir dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "build:esm"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc --target es2018 --outDir esm"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run build:esm &#x26;&#x26; npm run build:cjs"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#79B8FF">  "main"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"dist/index.js"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "module"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"esm/index.js"</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"esm"</a-s>, <a-s>"src"</a-s>],
+  <a-s>"scripts"</a-s>: {
+     ...
+    <a-s>"clean"</a-s>: <a-s>"rimraf dist esm"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
+    <a-s>"build:cjs"</a-s>: <a-s>"tsc --module commonjs --ourDir dist"</a-s>,
+    <a-s>"build:esm"</a-s>: <a-s>"tsc --target es2018 --outDir esm"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"npm run build:esm &#x26;&#x26; npm run build:cjs"</a-s>
+  },
+  <a-s>"main"</a-s>: <a-s>"dist/index.js"</a-s>,
+  <a-s>"module"</a-s>: <a-s>"esm/index.js"</a-s>
+}
+</code></pre>
 <p>The “module” field is understood by bundlers like webpack and you can do
 slightly less polyfilling/babeling on it (hence the different <code>--target</code>
 attributes)</p>
@@ -318,11 +344,12 @@ so take it with a grain of salt!</p>
 <p>I think for many purposes, these can be a bit overkill. I would start with yarn
 workspaces. Basically, the way this works is you can have e.g. in your root
 package.json in your repo something likely</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"root"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "private"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "workspaces"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"lib"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"app"</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"root"</a-s>,
+  <a-s>"private"</a-s>: <a-co>true</a-co>,
+  <a-s>"workspaces"</a-s>: [<a-s>"lib"</a-s>, <a-s>"app"</a-s>]
+}
+</code></pre>
 <p>And then in your <code>lib</code> directory you can have your library as we created above
 and <code>app</code> for example can be an instance of a <code>vite</code> app that uses your library.
 You can reference your lib by name in the <code>app</code> folders package.json, and it

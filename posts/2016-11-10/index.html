@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Creating a JBrowse plugin</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating a JBrowse plugin</h1> <h4 data-astro-cid-lvjzyg5v>2016-11-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I have been very impressed with peoples creativity and willingness to dig into
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating a JBrowse plugin</h1> <h4 data-astro-cid-lvjzyg5v>2016-11-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I have been very impressed with peoples creativity and willingness to dig into
 all the details of JBrowse to customize it’s features. One great way to do this
 in a modular way is to create a “JBrowse plugin”. This concept sounds hard but
 you can set up a simple couple of files and refresh your browser and it will
@@ -29,29 +29,30 @@ your file.</p>
 <p>Then the “declare” function creates a new class. The first argument to declare
 is the is your parent class, like CanvasFeatures, and we type “return declare”
 because we are returning our new track class from the module.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">define</span><span style="color:#E1E4E8">([</span><span style="color:#9ECBFF">'dojo/_base/declare'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'JBrowse/View/Track/CanvasFeatures'</span><span style="color:#E1E4E8">], </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#FFAB70">  declare</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  CanvasFeatures</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> declare</span><span style="color:#E1E4E8">(CanvasFeatures, {</span></span>
-<span class="line"><span style="color:#B392F0">    _trackMenuOptions</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
-<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> opts </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">inherited</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">arguments</span><span style="color:#E1E4E8">) </span><span style="color:#6A737D">//call the parent classes function</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">      opts.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#6A737D">        // add an extra menu item to the array returned from parent class function</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#E1E4E8">          label: </span><span style="color:#9ECBFF">'Custom item'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">          type: </span><span style="color:#9ECBFF">'dijit/CheckedMenuItem'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#B392F0">          onClick</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">            console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Clicked'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">          },</span></span>
-<span class="line"><span style="color:#E1E4E8">          iconClass: </span><span style="color:#9ECBFF">'dijitIconPackage'</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">        },</span></span>
-<span class="line"><span style="color:#E1E4E8">      )</span></span>
-<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> opts</span></span>
-<span class="line"><span style="color:#E1E4E8">    },</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-f>define</a-f><a-p>([</a-p><a-s>'dojo/_base/declare'</a-s><a-p>,</a-p> <a-s>'JBrowse/View/Track/CanvasFeatures'</a-s><a-p>],</a-p> <a-k>function</a-k> <a-p>(</a-p>
+  <a-v>declare</a-v><a-p>,</a-p>
+  <a-cr>CanvasFeatures</a-cr><a-p>,</a-p>
+<a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-f>declare</a-f><a-p>(</a-p><a-cr>CanvasFeatures</a-cr><a-p>,</a-p> <a-p>{</a-p>
+    <a-f>_trackMenuOptions</a-f>: <a-k>function</a-k> <a-p>()</a-p> <a-p>{</a-p>
+      <a-k>var</a-k> <a-v>opts</a-v> <a-o>=</a-o> <a-v>this</a-v><a-p>.</a-p><a-f>inherited</a-f><a-p>(</a-p><a-v>arguments</a-v><a-p>)</a-p> <a-c>//call the parent classes function</a-c>
+
+      <a-v>opts</a-v><a-p>.</a-p><a-f>push</a-f><a-p>(</a-p>
+        <a-c>// add an extra menu item to the array returned from parent class function</a-c>
+        <a-p>{</a-p>
+          <a-pr>label</a-pr>: <a-s>'Custom item'</a-s><a-p>,</a-p>
+          <a-pr>type</a-pr>: <a-s>'dijit/CheckedMenuItem'</a-s><a-p>,</a-p>
+          <a-f>onClick</a-f>: <a-k>function</a-k> <a-p>(</a-p><a-v>event</a-v><a-p>)</a-p> <a-p>{</a-p>
+            <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'Clicked'</a-s><a-p>)</a-p>
+          <a-p>},</a-p>
+          <a-pr>iconClass</a-pr>: <a-s>'dijitIconPackage'</a-s><a-p>,</a-p>
+        <a-p>},</a-p>
+      <a-p>)</a-p>
+      <a-k>return</a-k> <a-v>opts</a-v>
+    <a-p>},</a-p>
+  <a-p>})</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>Code listing 1. an example custom track type, MyTrack.js, that adds an extra
 track menu item</p>
 <h2 id="now-how-do-we-make-this-a-plugin">Now how do we make this a plugin?</h2>
@@ -60,21 +61,22 @@ How do we use this track? We want to turn it into part of afine the boilerplate
 code from the
 <a href="http://gmod.org/wiki/JBrowse_Configuration_Guide#Writing_JBrowse_Plugins">Writing plugins</a>
 guide.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">define</span><span style="color:#E1E4E8">([</span><span style="color:#9ECBFF">'dojo/_base/declare'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'JBrowse/Plugin'</span><span style="color:#E1E4E8">], </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span></span>
-<span class="line"><span style="color:#FFAB70">  declare</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#FFAB70">  JBrowsePlugin</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> declare</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#E1E4E8">    JBrowsePlugin, </span><span style="color:#6A737D">// this line says our plugin's main.js derives from the "JBrowse/Plugin" base class</span></span>
-<span class="line"><span style="color:#E1E4E8">    {</span></span>
-<span class="line"><span style="color:#B392F0">      constructor</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">args</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#6A737D">        //don't necessarily have to do any initializing here, but you</span></span>
-<span class="line"><span style="color:#6A737D">        //can get a handle to various jbrowse components if any initialization</span></span>
-<span class="line"><span style="color:#6A737D">        //is needed from the args.browser variable</span></span>
-<span class="line"><span style="color:#E1E4E8">      },</span></span>
-<span class="line"><span style="color:#E1E4E8">    },</span></span>
-<span class="line"><span style="color:#E1E4E8">  )</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-f>define</a-f><a-p>([</a-p><a-s>'dojo/_base/declare'</a-s><a-p>,</a-p> <a-s>'JBrowse/Plugin'</a-s><a-p>],</a-p> <a-k>function</a-k> <a-p>(</a-p>
+  <a-v>declare</a-v><a-p>,</a-p>
+  <a-cr>JBrowsePlugin</a-cr><a-p>,</a-p>
+<a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-f>declare</a-f><a-p>(</a-p>
+    <a-cr>JBrowsePlugin</a-cr><a-p>,</a-p> <a-c>// this line says our plugin's main.js derives from the "JBrowse/Plugin" base class</a-c>
+    <a-p>{</a-p>
+      <a-f>constructor</a-f>: <a-k>function</a-k> <a-p>(</a-p><a-v>args</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-c>//don't necessarily have to do any initializing here, but you</a-c>
+        <a-c>//can get a handle to various jbrowse components if any initialization</a-c>
+        <a-c>//is needed from the args.browser variable</a-c>
+      <a-p>},</a-p>
+    <a-p>},</a-p>
+  <a-p>)</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>Code listing 2. Our plugin’s main.js</p>
 <p>After this, we create the plugin directory structure</p>
 <blockquote>

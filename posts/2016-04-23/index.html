@@ -1,23 +1,24 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>How to make your resume.json or resume-cli look great</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>How to make your resume.json or resume-cli look great</h1> <h4 data-astro-cid-lvjzyg5v>2016-04-23</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are a ton of themes for resume-cli that are not immediately obvious to
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>How to make your resume.json or resume-cli look great</h1> <h4 data-astro-cid-lvjzyg5v>2016-04-23</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are a ton of themes for resume-cli that are not immediately obvious to
 find</p>
 <p>To see all the great themes on the command line, check out</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">    curl</span><span style="color:#9ECBFF"> http://themes.jsonresume.org/themes.json</span><span style="color:#F97583"> |</span><span style="color:#B392F0">jq</span><span style="color:#9ECBFF"> .</span></span></code></pre>
+<pre><code class="language-sh">    <a-f>curl</a-f> http://themes.jsonresume.org/themes.json <a-o>|</a-o><a-f>jq</a-f> .
+</code></pre>
 <p>I tried a bunch of them</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">   4679</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> modern-freeland</span></span>
-<span class="line"><span style="color:#B392F0">   4680</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> modern-freelance</span></span>
-<span class="line"><span style="color:#B392F0">   4682</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> modern-with-projects-section</span></span>
-<span class="line"><span style="color:#B392F0">   4683</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> dangerflat</span></span>
-<span class="line"><span style="color:#B392F0">   4684</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> striking</span></span>
-<span class="line"><span style="color:#B392F0">   4685</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> crisp</span></span>
-<span class="line"><span style="color:#B392F0">   4686</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> semantic-ui</span></span>
-<span class="line"><span style="color:#B392F0">   4687</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> material</span></span>
-<span class="line"><span style="color:#B392F0">   4688</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> modern-extended</span></span>
-<span class="line"><span style="color:#B392F0">   4689</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> paper</span></span>
-<span class="line"><span style="color:#B392F0">   4690</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> smart</span></span>
-<span class="line"><span style="color:#B392F0">   4691</span><span style="color:#9ECBFF">  resume</span><span style="color:#9ECBFF"> export</span><span style="color:#9ECBFF"> site/resume/index.html</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> flat</span></span>
-<span class="line"></span></code></pre>
+<pre><code class="language-sh">   <a-f>4679</a-f>  resume export site/resume/index.html <a-co>-t</a-co> modern-freeland
+   <a-f>4680</a-f>  resume export site/resume/index.html <a-co>-t</a-co> modern-freelance
+   <a-f>4682</a-f>  resume export site/resume/index.html <a-co>-t</a-co> modern-with-projects-section
+   <a-f>4683</a-f>  resume export site/resume/index.html <a-co>-t</a-co> dangerflat
+   <a-f>4684</a-f>  resume export site/resume/index.html <a-co>-t</a-co> striking
+   <a-f>4685</a-f>  resume export site/resume/index.html <a-co>-t</a-co> crisp
+   <a-f>4686</a-f>  resume export site/resume/index.html <a-co>-t</a-co> semantic-ui
+   <a-f>4687</a-f>  resume export site/resume/index.html <a-co>-t</a-co> material
+   <a-f>4688</a-f>  resume export site/resume/index.html <a-co>-t</a-co> modern-extended
+   <a-f>4689</a-f>  resume export site/resume/index.html <a-co>-t</a-co> paper
+   <a-f>4690</a-f>  resume export site/resume/index.html <a-co>-t</a-co> smart
+   <a-f>4691</a-f>  resume export site/resume/index.html <a-co>-t</a-co> flat
+</code></pre>
 <p>Note: resume.json is setup to use HTML themes, so even though it has a PDF
 output option, it is inherently converting HTML first and then to PDF. The PDF
 conversion is done by a automated cloud service, which currently can fail

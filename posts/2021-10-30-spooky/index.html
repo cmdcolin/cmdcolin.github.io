@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>A spooky error when you have a string bigger than 512MB in Chrome</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>A spooky error when you have a string bigger than 512MB in Chrome</h1> <h4 data-astro-cid-lvjzyg5v>2021-10-30</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Now gather round for a spooky story</p>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>A spooky error when you have a string bigger than 512MB in Chrome</h1> <h4 data-astro-cid-lvjzyg5v>2021-10-30</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Now gather round for a spooky story</p>
 <p>Late one night… in the haunted office/castle the midnight candles were burning
 bright and we entered data for a user file…</p>
 <p>(hindenbugs cackling in the background, dusty technical books line the dark
@@ -11,16 +11,18 @@ it, decode it, and … we see an error!!! <strong>LIGHTNING CRACKS</strong></p>
 <p>But… our code is so simple (we of course abide by the religion of writing
 “simple code” you know)…what could be happening?</p>
 <p>The code looks like this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> buf</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> unzip</span><span style="color:#E1E4E8">(file)</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> str</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> TextDecoder</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">decode</span><span style="color:#E1E4E8">(buf)</span></span></code></pre>
+<pre><code class="language-js"><a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-f>unzip</a-f><a-p>(</a-p><a-v>file</a-v><a-p>)</a-p>
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>().</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
+</code></pre>
 <p>We trace it back and run a <code>console.log(str)</code></p>
 <p>It looks empty. We try running <code>console.log(str.length)</code> … it prints out 0</p>
 <p>But if we look at <code>console.log(buffer.length)</code> we get 546,483,710 bytes…</p>
 <p>What could be happening?</p>
 <p>We see in the <code>TextDecoder</code> documentation that it has a note called “fatal”. We
 try</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> buf</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> unzip</span><span style="color:#E1E4E8">(file)</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> str</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> TextDecoder</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'utf8'</span><span style="color:#E1E4E8">, { fatal: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> }).</span><span style="color:#B392F0">decode</span><span style="color:#E1E4E8">(buf)</span></span></code></pre>
+<pre><code class="language-js"><a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-f>unzip</a-f><a-p>(</a-p><a-v>file</a-v><a-p>)</a-p>
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>(</a-p><a-s>'utf8'</a-s><a-p>,</a-p> <a-p>{</a-p> <a-pr>fatal</a-pr>: <a-co>true</a-co> <a-p>}).</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
+</code></pre>
 <p>This doesn’t change the results though</p>
 <p>Then it dawns on us while the lightning hits and the thunderclap booms and the
 wind blows through the rattly windows</p>
@@ -28,13 +30,14 @@ wind blows through the rattly windows</p>
 <p>BWAHAHAHAHA</p>
 <p>The maximum string length!!! Nooooooo</p>
 <p>It is 512MB on the dot… 536,870,888 bytes. We test this to be sure</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> len</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 536_870_888</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> buf</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Uint8Array</span><span style="color:#E1E4E8">(len)</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> len; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">  buf[i] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'a'</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">charCodeAt</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> str</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> TextDecoder</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">decode</span><span style="color:#E1E4E8">(buf)</span></span>
-<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(str.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<pre><code class="language-js"><a-k>const</a-k> <a-v>len</a-v> <a-o>=</a-o> <a-n>536_870_888</a-n>
+<a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>Uint8Array</a-cr><a-p>(</a-p><a-v>len</a-v><a-p>)</a-p>
+<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>len</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+  <a-v>buf</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>=</a-o> <a-s>'a'</a-s><a-p>.</a-p><a-f>charCodeAt</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
+<a-p>}</a-p>
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>().</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
+<a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>str</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>)</a-p>
+</code></pre>
 <p>This is correct, outputs 536,870,888</p>
 <p>With anything, even one byte more, it fails and outputs 0</p>
 <p>happy halloween!!</p>

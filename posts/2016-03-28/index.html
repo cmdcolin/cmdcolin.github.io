@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Running nginx on containerised travis-CI pt 2</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Running nginx on containerised travis-CI pt 2</h1> <h4 data-astro-cid-lvjzyg5v>2016-03-28</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are several guides out there about how to setup nginx on travis-CI but I
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Running nginx on containerised travis-CI pt 2</h1> <h4 data-astro-cid-lvjzyg5v>2016-03-28</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are several guides out there about how to setup nginx on travis-CI but I
 still found it to be a challenge, especially finding a modern one that works
 with the containerized builds. I was frustrated that things like
 <code>SimpleHTTPServer</code> from python and http-server from npm did not have fully
@@ -18,46 +18,48 @@ now gone (?) and must be accessed through the internet archive!</p>
 to the current directory (instead of /tmp/nowhere as in the link) by using
 “envsubst” to replace variables in the nginx config file.</p>
 <p>Without further ado, the .travis.yml can look like this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">sudo</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
-<span class="line"><span style="color:#85E89D">addons</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#85E89D">  apt</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#85E89D">    packages</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">nginx</span></span>
-<span class="line"><span style="color:#85E89D">install</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">cat tests/travis.conf | envsubst > tests/travis-envsubst.conf</span></span>
-<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">nginx -c `pwd`/tests/travis-envsubst.conf</span></span>
-<span class="line"><span style="color:#85E89D">script</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">wget http://localhost:9000/yourfiles</span></span></code></pre>
+<pre><code class="language-yaml"><a-pr>sudo</a-pr><a-p>:</a-p> <a-co>false</a-co>
+<a-pr>addons</a-pr><a-p>:</a-p>
+  <a-pr>apt</a-pr><a-p>:</a-p>
+    <a-pr>packages</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-s>nginx</a-s>
+<a-pr>install</a-pr><a-p>:</a-p>
+  <a-p>-</a-p> <a-s>cat tests/travis.conf | envsubst > tests/travis-envsubst.conf</a-s>
+  <a-p>-</a-p> <a-s>nginx -c `pwd`/tests/travis-envsubst.conf</a-s>
+<a-pr>script</a-pr><a-p>:</a-p>
+  <a-p>-</a-p> <a-s>wget http://localhost:9000/yourfiles</a-s>
+</code></pre>
 <p>Then your nginx config file can look like this</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    worker_processes 10;</span></span>
-<span class="line"><span>    pid /tmp/nginx.pid;</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    error_log /tmp/error.log;</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    events {</span></span>
-<span class="line"><span>        worker_connections 768;</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    http {</span></span>
-<span class="line"><span>        client_body_temp_path /tmp/nginx_client_body;</span></span>
-<span class="line"><span>        fastcgi_temp_path     /tmp/nginx_fastcgi_temp;</span></span>
-<span class="line"><span>        proxy_temp_path       /tmp/nginx_proxy_temp;</span></span>
-<span class="line"><span>        scgi_temp_path        /tmp/nginx_scgi_temp;</span></span>
-<span class="line"><span>        uwsgi_temp_path       /tmp/nginx_uwsgi_temp;</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        server {</span></span>
-<span class="line"><span>            listen 9000 default_server;</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>            server_name localhost;</span></span>
-<span class="line"><span>            location / {</span></span>
-<span class="line"><span>                root $TRAVIS_BUILD_DIR;</span></span>
-<span class="line"><span>                index  index.html index.htm;</span></span>
-<span class="line"><span>            }</span></span>
-<span class="line"><span>            error_log /tmp/error.log;</span></span>
-<span class="line"><span>            access_log /tmp/access.log;</span></span>
-<span class="line"><span>        }</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span></span></span></code></pre>
+<pre><code>    worker_processes 10;
+    pid /tmp/nginx.pid;
+
+    error_log /tmp/error.log;
+
+    events {
+        worker_connections 768;
+    }
+
+    http {
+        client_body_temp_path /tmp/nginx_client_body;
+        fastcgi_temp_path     /tmp/nginx_fastcgi_temp;
+        proxy_temp_path       /tmp/nginx_proxy_temp;
+        scgi_temp_path        /tmp/nginx_scgi_temp;
+        uwsgi_temp_path       /tmp/nginx_uwsgi_temp;
+
+        server {
+            listen 9000 default_server;
+
+            server_name localhost;
+            location / {
+                root $TRAVIS_BUILD_DIR;
+                index  index.html index.htm;
+            }
+            error_log /tmp/error.log;
+            access_log /tmp/access.log;
+        }
+    }
+
+</code></pre>
 <p>Then, when travis-CI is run, it uses envsubst to replace <code>$TRAVIS_BUILD_DIR</code> in
 the <code>tests/travis.conf</code> file, and then boots up nginx</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');

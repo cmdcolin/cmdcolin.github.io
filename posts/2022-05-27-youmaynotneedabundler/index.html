@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>You may not need a bundler for your NPM library</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>You may not need a bundler for your NPM library</h1> <h4 data-astro-cid-lvjzyg5v>2022-05-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I have seen a couple threads on twitter where people complain about the
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>You may not need a bundler for your NPM library</h1> <h4 data-astro-cid-lvjzyg5v>2022-05-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I have seen a couple threads on twitter where people complain about the
 difficulty with publishing NPM libraries or ask what starter kit they should use
 (or, people recommended starter packs anyways)</p>
 <p>Example threads</p>
@@ -78,23 +78,24 @@ level concern, similar to bundling for the browser though.</p>
 way, you can develop with typescript, it will output <code>js</code> files, and you can
 directly deploy a <code>dist</code> folder of <code>js</code> files to NPM.</p>
 <h3 id="example-packagejson">Example <code>package.json</code></h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"yourlib"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.0.0"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "main"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"dist/index.js"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "clean"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"rimraf dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "prebuild"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run clean"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "preversion"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npm run build"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "postversion"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"git push --follow-tags"</span></span>
-<span class="line"><span style="color:#E1E4E8">  },</span></span>
-<span class="line"><span style="color:#79B8FF">  "files"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">  "devDependencies"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "rimraf"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^3.0.2"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "typescript"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"^4.6.2"</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"name"</a-s>: <a-s>"yourlib"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"main"</a-s>: <a-s>"dist/index.js"</a-s>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
+    <a-s>"preversion"</a-s>: <a-s>"npm run build"</a-s>,
+    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
+  },
+  <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"src"</a-s>],
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"rimraf"</a-s>: <a-s>"^3.0.2"</a-s>,
+    <a-s>"typescript"</a-s>: <a-s>"^4.6.2"</a-s>
+  }
+}
+</code></pre>
 <h4 id="features-of-the-above-packagejson">Features of the above <code>package.json</code></h4>
 <ul>
 <li>We can use a single command, <code>yarn publish</code> to publish to npm</li>
@@ -104,19 +105,20 @@ directly deploy a <code>dist</code> folder of <code>js</code> files to NPM.</p>
 directories, and src is used for the <code>sourceMap</code></li>
 </ul>
 <h3 id="example-tsconfigjson">Example<code> tsconfig.json</code></h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "include"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"src"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">  "compilerOptions"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "target"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"es2018"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "outDir"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"dist"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "lib"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"dom"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"esnext"</span><span style="color:#E1E4E8">],</span></span>
-<span class="line"><span style="color:#79B8FF">    "declaration"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "moduleResolution"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"node"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "sourceMap"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "strict"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    "esModuleInterop"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-json">{
+  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
+  <a-s>"compilerOptions"</a-s>: {
+    <a-s>"target"</a-s>: <a-s>"es2018"</a-s>,
+    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
+    <a-s>"lib"</a-s>: [<a-s>"dom"</a-s>, <a-s>"esnext"</a-s>],
+    <a-s>"declaration"</a-s>: <a-co>true</a-co>,
+    <a-s>"moduleResolution"</a-s>: <a-s>"node"</a-s>,
+    <a-s>"sourceMap"</a-s>: <a-co>true</a-co>,
+    <a-s>"strict"</a-s>: <a-co>true</a-co>,
+    <a-s>"esModuleInterop"</a-s>: <a-co>true</a-co>
+  }
+}
+</code></pre>
 <h4 id="features-of-the-above-tsconfigjson">Features of the above <code>tsconfig.json</code></h4>
 <ul>
 <li>Uses <code>"moduleResolution": "node"</code> - this is not pure-ESM because pure-ESM
@@ -181,19 +183,21 @@ anything which I have found to be difficult to configure</p>
 <p>When I refer to compiling with tsc above, I compile a <code>src</code> directory into a
 <code>dist</code> directory</p>
 <p>So if I have:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/index.ts</span></span>
-<span class="line"><span>src/util.ts</span></span>
-<span class="line"><span>src/components/Button.ts</span></span></code></pre>
+<pre><code>src/index.ts
+src/util.ts
+src/components/Button.ts
+</code></pre>
 <p>Running <code>tsc</code> will output:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>dist/index.js</span></span>
-<span class="line"><span>dist/index.d.ts</span></span>
-<span class="line"><span>dist/index.js.map</span></span>
-<span class="line"><span>dist/util.js</span></span>
-<span class="line"><span>dist/util.d.ts</span></span>
-<span class="line"><span>dist/util.js.map</span></span>
-<span class="line"><span>dist/components/Button.js</span></span>
-<span class="line"><span>dist/components/Button.d.ts</span></span>
-<span class="line"><span>dist/components/Button.js.map</span></span></code></pre>
+<pre><code>dist/index.js
+dist/index.d.ts
+dist/index.js.map
+dist/util.js
+dist/util.d.ts
+dist/util.js.map
+dist/components/Button.js
+dist/components/Button.d.ts
+dist/components/Button.js.map
+</code></pre>
 <p>Then, the <code>dist</code> and <code>src</code> directories are published to npm which enables the
 <code>sourceMaps</code> to work.</p>
 <p>Note: We do not need to explicitly say where the typescript types are with

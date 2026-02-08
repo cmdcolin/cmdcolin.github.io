@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Jest parallelization, globals, mocks, and squawkless tests</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Jest parallelization, globals, mocks, and squawkless tests</h1> <h4 data-astro-cid-lvjzyg5v>2021-10-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I found that there is a little bit of confusion and misunderstanding around how
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Jest parallelization, globals, mocks, and squawkless tests</h1> <h4 data-astro-cid-lvjzyg5v>2021-10-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I found that there is a little bit of confusion and misunderstanding around how
 things like parallelization work in jest, which sometimes leads to additional
 hacking around problems that may not exist or speculating incorrectly about test
 failure. This is also of course a point of concern when you have code that for
@@ -9,29 +9,30 @@ that may cause confusion.</p>
 <h2 id="tests-in-a-single-file-are-not-run-in-parallel">Tests in a single file are NOT run in parallel</h2>
 <p>Simple example, the global variable r is included in the test condition, but it
 is accurately run in all cases because the tests are not run in parallel.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> r </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">ms</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">resolve</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setTimeout</span><span style="color:#E1E4E8">(resolve, ms))</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">describe</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'tests'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">  it</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'t1'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    await</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">    expect</span><span style="color:#E1E4E8">(r).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    r</span><span style="color:#F97583">++</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"><span style="color:#B392F0">  it</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'t2'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    await</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">    expect</span><span style="color:#E1E4E8">(r).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    r</span><span style="color:#F97583">++</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"><span style="color:#B392F0">  it</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'t3'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    await</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">    expect</span><span style="color:#E1E4E8">(r).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    r</span><span style="color:#F97583">++</span></span>
-<span class="line"><span style="color:#E1E4E8">  })</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-k>let</a-k> <a-v>r</a-v> <a-o>=</a-o> <a-n>0</a-n>
+
+<a-k>function</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-v>ms</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-k>new</a-k> <a-cr>Promise</a-cr><a-p>(</a-p><a-v>resolve</a-v> <a-o>=></a-o> <a-f>setTimeout</a-f><a-p>(</a-p><a-v>resolve</a-v><a-p>,</a-p> <a-v>ms</a-v><a-p>))</a-p>
+<a-p>}</a-p>
+
+<a-f>describe</a-f><a-p>(</a-p><a-s>'tests'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-f>it</a-f><a-p>(</a-p><a-s>'t1'</a-s><a-p>,</a-p> <a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>await</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-n>1000</a-n><a-p>)</a-p>
+    <a-f>expect</a-f><a-p>(</a-p><a-v>r</a-v><a-p>).</a-p><a-f>toBe</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
+    <a-v>r</a-v><a-o>++</a-o>
+  <a-p>})</a-p>
+  <a-f>it</a-f><a-p>(</a-p><a-s>'t2'</a-s><a-p>,</a-p> <a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>await</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-n>1000</a-n><a-p>)</a-p>
+    <a-f>expect</a-f><a-p>(</a-p><a-v>r</a-v><a-p>).</a-p><a-f>toBe</a-f><a-p>(</a-p><a-n>1</a-n><a-p>)</a-p>
+    <a-v>r</a-v><a-o>++</a-o>
+  <a-p>})</a-p>
+  <a-f>it</a-f><a-p>(</a-p><a-s>'t3'</a-s><a-p>,</a-p> <a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>await</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-n>1000</a-n><a-p>)</a-p>
+    <a-f>expect</a-f><a-p>(</a-p><a-v>r</a-v><a-p>).</a-p><a-f>toBe</a-f><a-p>(</a-p><a-n>2</a-n><a-p>)</a-p>
+    <a-v>r</a-v><a-o>++</a-o>
+  <a-p>})</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>This test will take 3 seconds, and will accurately count the global variable. If
 it was in parallel, it may only take 1 second, and would inaccurately count the
 global variable due to race conditions</p>
@@ -39,34 +40,37 @@ global variable due to race conditions</p>
 <p>Let’s take another example where we use a global variable, and then two
 different tests use the global variable.</p>
 <p>file_using_some_globals.js</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> myGlobal </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> doStuff</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#E1E4E8">  myGlobal</span><span style="color:#F97583">++</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> myGlobal</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> resetMyGlobal</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#E1E4E8">  myGlobal </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">ms</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">resolve</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> setTimeout</span><span style="color:#E1E4E8">(resolve, ms))</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>let</a-k> <a-v>myGlobal</a-v> <a-o>=</a-o> <a-n>0</a-n>
+
+<a-k>export</a-k> <a-k>function</a-k> <a-f>doStuff</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>myGlobal</a-v><a-o>++</a-o>
+  <a-k>return</a-k> <a-v>myGlobal</a-v>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>function</a-k> <a-f>resetMyGlobal</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>myGlobal</a-v> <a-o>=</a-o> <a-n>0</a-n>
+<a-p>}</a-p>
+
+<a-k>export</a-k> <a-k>function</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-v>ms</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-k>new</a-k> <a-cr>Promise</a-cr><a-p>(</a-p><a-v>resolve</a-v> <a-o>=></a-o> <a-f>setTimeout</a-f><a-p>(</a-p><a-v>resolve</a-v><a-p>,</a-p> <a-v>ms</a-v><a-p>))</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>test_global_vars1.test.js</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { doStuff, timeout } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './dostuff'</span></span>
-<span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'file1'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#B392F0">  doStuff</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#F97583">  await</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">  expect</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">()).</span><span style="color:#B392F0">toEqual</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-k>import</a-k> <a-p>{</a-p> <a-v>doStuff</a-v><a-p>,</a-p> <a-v>timeout</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./dostuff'</a-s>
+<a-f>test</a-f><a-p>(</a-p><a-s>'file1'</a-s><a-p>,</a-p> <a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-f>doStuff</a-f><a-p>()</a-p>
+  <a-k>await</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-n>1000</a-n><a-p>)</a-p>
+  <a-f>expect</a-f><a-p>(</a-p><a-f>doStuff</a-f><a-p>()).</a-p><a-f>toEqual</a-f><a-p>(</a-p><a-n>2</a-n><a-p>)</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>test_global_vars2.test.js</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { doStuff, timeout } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './dostuff'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'file1'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">  await</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">  expect</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">doStuff</span><span style="color:#E1E4E8">()).</span><span style="color:#B392F0">toEqual</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-k>import</a-k> <a-p>{</a-p> <a-v>doStuff</a-v><a-p>,</a-p> <a-v>timeout</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./dostuff'</a-s>
+
+<a-f>test</a-f><a-p>(</a-p><a-s>'file1'</a-s><a-p>,</a-p> <a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-k>await</a-k> <a-f>timeout</a-f><a-p>(</a-p><a-n>1000</a-n><a-p>)</a-p>
+  <a-f>expect</a-f><a-p>(</a-p><a-f>doStuff</a-f><a-p>()).</a-p><a-f>toEqual</a-f><a-p>(</a-p><a-n>1</a-n><a-p>)</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>This test completes in less than 2 seconds, and these tests are run in parallel.
 They use different instances of the global state, and therefore have no worries
 with colliding their state.</p>
@@ -77,36 +81,38 @@ message. However, if not done carefully, you will remove errors across tests</p>
 <p>So, could a mock from one test affect another test? If it’s in the same file,
 yes!</p>
 <p>mock_console.test.js</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'test1'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.error </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> jest.</span><span style="color:#B392F0">fn</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'wow'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">  expect</span><span style="color:#E1E4E8">(console.error).</span><span style="color:#B392F0">toHaveBeenCalled</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'test2'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#6A737D">  // this console.error will not appear because test1 mocked away console.error</span></span>
-<span class="line"><span style="color:#6A737D">  // without restoring it</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Help I can't see!"</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-f>test</a-f><a-p>(</a-p><a-s>'test1'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-pr>error</a-pr> <a-o>=</a-o> <a-v>jest</a-v><a-p>.</a-p><a-f>fn</a-f><a-p>()</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-s>'wow'</a-s><a-p>)</a-p>
+  <a-f>expect</a-f><a-p>(</a-p><a-v>console</a-v><a-p>.</a-p><a-pr>error</a-pr><a-p>).</a-p><a-f>toHaveBeenCalled</a-f><a-p>()</a-p>
+<a-p>})</a-p>
+
+<a-f>test</a-f><a-p>(</a-p><a-s>'test2'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-c>// this console.error will not appear because test1 mocked away console.error</a-c>
+  <a-c>// without restoring it</a-c>
+  <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-s>"Help I can't see!"</a-s><a-p>)</a-p>
+<a-p>})</a-p>
+</code></pre>
 <p>To properly mock these, you should restore the console mock at the end of your
 function</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'test1'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> orig</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> console.error</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.error </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> jest.</span><span style="color:#B392F0">fn</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'I should not see this!'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">  expect</span><span style="color:#E1E4E8">(console.error).</span><span style="color:#B392F0">toHaveBeenCalled</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.error </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> orig</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'test2'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> consoleMock</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> jest.</span><span style="color:#B392F0">spyOn</span><span style="color:#E1E4E8">(console, </span><span style="color:#9ECBFF">'error'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">mockImplementation</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'I should not see this!'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">  consoleMock.</span><span style="color:#B392F0">mockRestore</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#B392F0">test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'test3'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'I should see this error!'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<pre><code class="language-js"><a-f>test</a-f><a-p>(</a-p><a-s>'test1'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>orig</a-v> <a-o>=</a-o> <a-v>console</a-v><a-p>.</a-p><a-pr>error</a-pr>
+  <a-v>console</a-v><a-p>.</a-p><a-pr>error</a-pr> <a-o>=</a-o> <a-v>jest</a-v><a-p>.</a-p><a-f>fn</a-f><a-p>()</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-s>'I should not see this!'</a-s><a-p>)</a-p>
+  <a-f>expect</a-f><a-p>(</a-p><a-v>console</a-v><a-p>.</a-p><a-pr>error</a-pr><a-p>).</a-p><a-f>toHaveBeenCalled</a-f><a-p>()</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-pr>error</a-pr> <a-o>=</a-o> <a-v>orig</a-v>
+<a-p>})</a-p>
+
+<a-f>test</a-f><a-p>(</a-p><a-s>'test2'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>consoleMock</a-v> <a-o>=</a-o> <a-v>jest</a-v><a-p>.</a-p><a-f>spyOn</a-f><a-p>(</a-p><a-v>console</a-v><a-p>,</a-p> <a-s>'error'</a-s><a-p>).</a-p><a-f>mockImplementation</a-f><a-p>()</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-s>'I should not see this!'</a-s><a-p>)</a-p>
+  <a-v>consoleMock</a-v><a-p>.</a-p><a-f>mockRestore</a-f><a-p>()</a-p>
+<a-p>})</a-p>
+
+<a-f>test</a-f><a-p>(</a-p><a-s>'test3'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-s>'I should see this error!'</a-s><a-p>)</a-p>
+<a-p>})</a-p>
+</code></pre>
 <h2 id="add-on-achieve-squawkless-tests">Add-on: Achieve squawkless tests!</h2>
 <p>Your test output should just be a big list of PASS statements, not interleaved
 with console.error outputs from when you are testing error conditions of your

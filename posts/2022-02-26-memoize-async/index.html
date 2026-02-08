@@ -1,31 +1,33 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Memoizing async functions so that you don&#39;t cache errors</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Memoizing async functions so that you don&#39;t cache errors</h1> <h4 data-astro-cid-lvjzyg5v>2022-02-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are two hard problems in computer science:
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Memoizing async functions so that you don&#39;t cache errors</h1> <h4 data-astro-cid-lvjzyg5v>2022-02-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are two hard problems in computer science:
 <a href="https://martinfowler.com/bliki/TwoHardThings.html">Cache invalidation and naming things</a>.
 In this post we’ll show how memoize an async function, and how to invalidate the
 memoization when the promise throws an error.</p>
 <p>This helps us with being able to re-try because since the error is not cached,
 calling it again after an error retries automatically.</p>
 <p>Example async function:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getData</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> ret</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'https://some.hardcoded.resource/file.json'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">ret.ok) {</span></span>
-<span class="line"><span style="color:#F97583">    throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#9ECBFF">      `Failed to fetch ${</span><span style="color:#E1E4E8">url</span><span style="color:#9ECBFF">} HTTP ${</span><span style="color:#E1E4E8">ret</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">status</span><span style="color:#9ECBFF">} ${</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> ret</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">text</span><span style="color:#9ECBFF">()</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    )</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> ret.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>async</a-k> <a-k>function</a-k> <a-f>getData</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>ret</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-s>'https://some.hardcoded.resource/file.json'</a-s><a-p>)</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>ret</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>throw</a-k> <a-k>new</a-k> <a-cr>Error</a-cr><a-p>(</a-p>
+      <a-s>`Failed to fetch </a-s><a-p>${</a-p><a-v>url</a-v><a-p>}</a-p><a-s> HTTP </a-s><a-p>${</a-p><a-v>ret</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-k>await</a-k><a-eb> </a-eb><a-v>ret</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()}</a-p><a-s>`</a-s><a-p>,</a-p>
+    <a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>ret</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
+<a-p>}</a-p>
+</code></pre>
 <p>Here is a technique that can be used to memoize this function</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getDataMemoized</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.promise) {</span></span>
-<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.promise </span><span style="color:#F97583">=</span><span style="color:#B392F0"> getData</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.promise </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> undefined</span></span>
-<span class="line"><span style="color:#F97583">      throw</span><span style="color:#E1E4E8"> e</span></span>
-<span class="line"><span style="color:#E1E4E8">    })</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.promise</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>function</a-k> <a-f>getDataMemoized</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>this</a-v><a-p>.</a-p><a-pr>promise</a-pr><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>this</a-v><a-p>.</a-p><a-pr>promise</a-pr> <a-o>=</a-o> <a-f>getData</a-f><a-p>().</a-p><a-f>catch</a-f><a-p>(</a-p><a-v>e</a-v> <a-o>=></a-o> <a-p>{</a-p>
+      <a-v>this</a-v><a-p>.</a-p><a-pr>promise</a-pr> <a-o>=</a-o> <a-co>undefined</a-co>
+      <a-k>throw</a-k> <a-v>e</a-v>
+    <a-p>})</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>this</a-v><a-p>.</a-p><a-pr>promise</a-pr>
+<a-p>}</a-p>
+</code></pre>
 <p>The promise is held in this.promise, and the important part of this function is
 that when I get an error, I clear this.promise and re-throw the error. The
 caller of the function, on error, will receive the error message, but caching
@@ -49,32 +51,34 @@ so it’s better to use <code>response.text()</code> or <code>response.json()</c
 or other methods. I have also found it useful to have a specific function for
 clearing the cache, so you can get a clean slate each time a test runs in unit
 testing or similar</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> promise</span></span>
-<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getDataMemoized</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">promise) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    promise </span><span style="color:#F97583">=</span><span style="color:#B392F0"> getData</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">      promise </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> undefined</span></span>
-<span class="line"><span style="color:#F97583">      throw</span><span style="color:#E1E4E8"> e</span></span>
-<span class="line"><span style="color:#E1E4E8">    })</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> promise</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> clearCache</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#E1E4E8">  promise </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> undefined</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>let</a-k> <a-v>promise</a-v>
+<a-k>async</a-k> <a-k>function</a-k> <a-f>getDataMemoized</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>promise</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>promise</a-v> <a-o>=</a-o> <a-f>getData</a-f><a-p>().</a-p><a-f>catch</a-f><a-p>(</a-p><a-v>e</a-v> <a-o>=></a-o> <a-p>{</a-p>
+      <a-v>promise</a-v> <a-o>=</a-o> <a-co>undefined</a-co>
+      <a-k>throw</a-k> <a-v>e</a-v>
+    <a-p>})</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>promise</a-v>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-f>clearCache</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>promise</a-v> <a-o>=</a-o> <a-co>undefined</a-co>
+<a-p>}</a-p>
+</code></pre>
 <p>You can also make a general purpose utility to memoize any promise function</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> memoize</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">fn</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> promise</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">promise) {</span></span>
-<span class="line"><span style="color:#E1E4E8">      promise </span><span style="color:#F97583">=</span><span style="color:#B392F0"> fn</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">        promise </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> undefined</span></span>
-<span class="line"><span style="color:#F97583">        throw</span><span style="color:#E1E4E8"> e</span></span>
-<span class="line"><span style="color:#E1E4E8">      })</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>function</a-k> <a-f>memoize</a-f><a-p>(</a-p><a-v>fn</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>let</a-k> <a-v>promise</a-v>
+  <a-k>return</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>promise</a-v><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>promise</a-v> <a-o>=</a-o> <a-f>fn</a-f><a-p>().</a-p><a-f>catch</a-f><a-p>(</a-p><a-v>e</a-v> <a-o>=></a-o> <a-p>{</a-p>
+        <a-v>promise</a-v> <a-o>=</a-o> <a-co>undefined</a-co>
+        <a-k>throw</a-k> <a-v>e</a-v>
+      <a-p>})</a-p>
+    <a-p>}</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
 <h2 id="footnote-3---aborting">Footnote 3 - Aborting</h2>
 <p>If you want to handle aborting, it is a bit trickier. Aborting in javascript is
 handled by
@@ -87,38 +91,40 @@ and then aborted it, it would abort the fetch,
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort">which throws a DOMException called “AbortError”</a>.
 You can detect that it is an AbortError like this, and may choose not to display
 or re-throw the abort exception</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> isAbortException</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">e</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> e </span><span style="color:#F97583">instanceof</span><span style="color:#B392F0"> Error</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#E1E4E8"> exception.name </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'AbortError'</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>function</a-k> <a-f>isAbortException</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>e</a-v> <a-k>instanceof</a-k> <a-cr>Error</a-cr> <a-o>&#x26;&#x26;</a-o> <a-v>exception</a-v><a-p>.</a-p><a-pr>name</a-pr> <a-o>===</a-o> <a-s>'AbortError'</a-s>
+<a-p>}</a-p>
+</code></pre>
 <p>Now, what if 5 functions call getDataMemoized(), all passing different abort
 signals. What if the first one aborts? Then all the rest will get aborted also.
 But what if we only want to abort the cached call if literally all of them
 aborted? Then we may have to synthesize an AbortController inside our function</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> promise</span></span>
-<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> abortcontroller</span></span>
-<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> listeners </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span></span>
-<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getDataMemoized</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">signal</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">promise) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    abortcontroller </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> AbortController</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D">    // synthesize a new signal instead of using the passed in signal</span></span>
-<span class="line"><span style="color:#E1E4E8">    promise </span><span style="color:#F97583">=</span><span style="color:#B392F0"> getData</span><span style="color:#E1E4E8">(abortcontroller.signal).</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">e</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">      promise </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> undefined</span></span>
-<span class="line"><span style="color:#F97583">      throw</span><span style="color:#E1E4E8"> e</span></span>
-<span class="line"><span style="color:#E1E4E8">    })</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (signal) {</span></span>
-<span class="line"><span style="color:#E1E4E8">    listeners</span><span style="color:#F97583">++</span></span>
-<span class="line"><span style="color:#6A737D">    // add listener to the passed in signal</span></span>
-<span class="line"><span style="color:#E1E4E8">    signal.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'abort'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
-<span class="line"><span style="color:#E1E4E8">      listeners</span><span style="color:#F97583">--</span></span>
-<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (listeners </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#E1E4E8">        abortcontroller.</span><span style="color:#B392F0">abort</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    })</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> promise</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre><code class="language-js"><a-k>let</a-k> <a-v>promise</a-v>
+<a-k>let</a-k> <a-v>abortcontroller</a-v>
+<a-k>let</a-k> <a-v>listeners</a-v> <a-o>=</a-o> <a-n>0</a-n>
+<a-k>async</a-k> <a-k>function</a-k> <a-f>getDataMemoized</a-f><a-p>(</a-p><a-v>signal</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>promise</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>abortcontroller</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>AbortController</a-cr><a-p>()</a-p>
+
+    <a-c>// synthesize a new signal instead of using the passed in signal</a-c>
+    <a-v>promise</a-v> <a-o>=</a-o> <a-f>getData</a-f><a-p>(</a-p><a-v>abortcontroller</a-v><a-p>.</a-p><a-pr>signal</a-pr><a-p>).</a-p><a-f>catch</a-f><a-p>(</a-p><a-v>e</a-v> <a-o>=></a-o> <a-p>{</a-p>
+      <a-v>promise</a-v> <a-o>=</a-o> <a-co>undefined</a-co>
+      <a-k>throw</a-k> <a-v>e</a-v>
+    <a-p>})</a-p>
+  <a-p>}</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>signal</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>listeners</a-v><a-o>++</a-o>
+    <a-c>// add listener to the passed in signal</a-c>
+    <a-v>signal</a-v><a-p>.</a-p><a-f>addEventListener</a-f><a-p>(</a-p><a-s>'abort'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-v>listeners</a-v><a-o>--</a-o>
+      <a-k>if</a-k> <a-p>(</a-p><a-v>listeners</a-v> <a-o>===</a-o> <a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p>
+        <a-v>abortcontroller</a-v><a-p>.</a-p><a-f>abort</a-f><a-p>()</a-p>
+      <a-p>}</a-p>
+    <a-p>})</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>promise</a-v>
+<a-p>}</a-p>
+</code></pre>
 <p>My team created,
 <a href="https://github.com/GMOD/abortable-promise-cache">abortable-promise-cache</a>,
 tries to help with this scenario with a cleaner abstraction.</p>

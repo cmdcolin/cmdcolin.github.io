@@ -1,8 +1,9 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Decrease your idle CPU usage when developing typescript apps with this one weird environment variable</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Decrease your idle CPU usage when developing typescript apps with this one weird environment variable</h1> <h4 data-astro-cid-lvjzyg5v>2021-09-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>TL;DR:</p>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Decrease your idle CPU usage when developing typescript apps with this one weird environment variable</h1> <h4 data-astro-cid-lvjzyg5v>2021-09-05</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>TL;DR:</p>
 <p>add this to your bashrc</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> TSC_WATCHFILE</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">UseFsEventsWithFallbackDynamicPolling</span></span></code></pre>
+<pre><code class="language-sh"><a-k>export</a-k> <a-pr>TSC_WATCHFILE</a-pr>=UseFsEventsWithFallbackDynamicPolling
+</code></pre>
 <hr>
 <p>By default, the typescript watcher configuration e.g. tsc —watch or whatever is
 run internally to a create-react-app typescript app (I see it in the process
@@ -27,8 +28,9 @@ commonly have to increase in linux, guide here
 <p>PS: if you have a package.json of a <code>create-react-app --template typescript</code> or
 something like this then you can edit the package.json to apply this
 automatically</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>-"start": "react-scripts start"</span></span>
-<span class="line"><span>+"start": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start"</span></span></code></pre>
+<pre><code>-"start": "react-scripts start"
++"start": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start"
+</code></pre>
 <p>Phew. I can already feel my laptop running cooler…or at least I can sleep more
 soundly knowing that my readers adopt this and save some CPU cycles for planet
 earth…and hopefully don’t run into any of the caveats</p>
@@ -36,12 +38,13 @@ earth…and hopefully don’t run into any of the caveats</p>
 node.js fs.watch API and the polling based API is based on fs.watchFile</p>
 <p>Fun table of how the watchers are implemented on different OSs
 [<a href="https://github.com/microsoft/TypeScript/issues/31048#issuecomment-495483957">1</a>]</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>On Linux systems, this uses inotify(7).</span></span>
-<span class="line"><span>On BSD systems, this uses kqueue(2).</span></span>
-<span class="line"><span>On macOS, this uses kqueue(2) for files and FSEvents for directories.</span></span>
-<span class="line"><span>On SunOS systems (including Solaris and SmartOS), this uses event ports.</span></span>
-<span class="line"><span>On Windows systems, this feature depends on ReadDirectoryChangesW.</span></span>
-<span class="line"><span>On Aix systems, this feature depends on AHAFS, which must be enabled.</span></span></code></pre>
+<pre><code>On Linux systems, this uses inotify(7).
+On BSD systems, this uses kqueue(2).
+On macOS, this uses kqueue(2) for files and FSEvents for directories.
+On SunOS systems (including Solaris and SmartOS), this uses event ports.
+On Windows systems, this feature depends on ReadDirectoryChangesW.
+On Aix systems, this feature depends on AHAFS, which must be enabled.
+</code></pre>
 <p>And in general, these should all respond more or less the same, but there are
 small corner cases that are discussed
 <a href="https://nodejs.org/docs/latest/api/fs.html#fs_availability">https://nodejs.org/docs/latest/api/fs.html#fs_availability</a></p>

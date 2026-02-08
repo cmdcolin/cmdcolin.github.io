@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Vite library mode bundles your library&#39;s dependencies (which I don&#39;t think is good for libraries published to NPM)</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Vite library mode bundles your library&#39;s dependencies (which I don&#39;t think is good for libraries published to NPM)</h1> <h4 data-astro-cid-lvjzyg5v>2025-02-23</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/chiblets.jpg" alt="my cats"></p>
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Vite library mode bundles your library&#39;s dependencies (which I don&#39;t think is good for libraries published to NPM)</h1> <h4 data-astro-cid-lvjzyg5v>2025-02-23</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/chiblets.jpg" alt="my cats"></p>
 <p>Vite is a very popular “build tool” for making all sorts of javascript apps. It
 is most commonly used for making single page apps, but it also has a feature
 called <a href="https://vite.dev/guide/build#library-mode">“library mode”</a> which helps
@@ -9,49 +9,52 @@ commonly used than vite itself, but I wanted to comment on it because it has a
 behavior I’m not a big fan of…</p>
 <h2 id="vite-library-mode-completely-minifiesbundles-all-your-dependencies">Vite library mode completely minifies+bundles all your dependencies</h2>
 <p>For example, if your library that is using vite library mode has</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> leftPad </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'left-pad'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> str</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> leftPad</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'foobar'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">6</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>import</a-k> <a-v>leftPad</a-v> <a-k>from</a-k> <a-s>'left-pad'</a-s>
+
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-f>leftPad</a-f><a-p>(</a-p><a-s>'foobar'</a-s><a-p>,</a-p> <a-n>6</a-n><a-p>)</a-p>
+</code></pre>
 <p>then it is turned into this in the dist folder by vite library mode</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> d</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">t</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> t </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> t.__esModule </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#79B8FF"> Object</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.hasOwnProperty.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(t, </span><span style="color:#9ECBFF">'default'</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">    ?</span><span style="color:#E1E4E8"> t.default</span></span>
-<span class="line"><span style="color:#F97583">    :</span><span style="color:#E1E4E8"> t</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> f, o</span></span>
-<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> n</span><span style="color:#E1E4E8">() {</span></span>
-<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (o) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8"> f</span></span>
-<span class="line"><span style="color:#E1E4E8">  ;((o </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">), (f </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> i))</span></span>
-<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> t </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span></span>
-<span class="line"><span style="color:#9ECBFF">    ''</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    ' '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '  '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '   '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '    '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '     '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '      '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '       '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '        '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#9ECBFF">    '         '</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">  ]</span></span>
-<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> i</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">a</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">r</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">e</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (((a </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">), (r </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> r </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> a.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">), r </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">)) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8"> a</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> ((</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">e </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> e </span><span style="color:#F97583">!==</span><span style="color:#79B8FF"> 0</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#E1E4E8"> (e </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ' '</span><span style="color:#E1E4E8">), (e </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> e </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">), e </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> ' '</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#E1E4E8"> r </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 10</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> t[r] </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> a</span></span>
-<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> u </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">; r </span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF"> 1</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#E1E4E8"> (u </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> e), (r </span><span style="color:#F97583">>>=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">), r; ) e </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> e</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> u </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> a</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> f</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#79B8FF"> P</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> n</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> l</span><span style="color:#F97583"> =</span><span style="color:#6A737D"> /* @__PURE__ */</span><span style="color:#B392F0"> d</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">P</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">l</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'foobar'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">6</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>function</a-k> <a-f>d</a-f><a-p>(</a-p><a-v>t</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>t</a-v> <a-o>&#x26;&#x26;</a-o> <a-v>t</a-v><a-p>.</a-p><a-pr>__esModule</a-pr> <a-o>&#x26;&#x26;</a-o> <a-t>Object</a-t><a-p>.</a-p><a-pr>prototype</a-pr><a-p>.</a-p><a-pr>hasOwnProperty</a-pr><a-p>.</a-p><a-f>call</a-f><a-p>(</a-p><a-v>t</a-v><a-p>,</a-p> <a-s>'default'</a-s><a-p>)</a-p>
+    ? <a-v>t</a-v><a-p>.</a-p><a-pr>default</a-pr>
+    : <a-v>t</a-v>
+<a-p>}</a-p>
+<a-k>var</a-k> <a-v>f</a-v><a-p>,</a-p> <a-v>o</a-v>
+<a-k>function</a-k> <a-f>n</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>if</a-k> <a-p>(</a-p><a-v>o</a-v><a-p>)</a-p> <a-k>return</a-k> <a-v>f</a-v>
+  <a-p>;((</a-p><a-v>o</a-v> <a-o>=</a-o> <a-n>1</a-n><a-p>),</a-p> <a-p>(</a-p><a-v>f</a-v> <a-o>=</a-o> <a-v>i</a-v><a-p>))</a-p>
+  <a-k>var</a-k> <a-v>t</a-v> <a-o>=</a-o> <a-p>[</a-p>
+    <a-s>''</a-s><a-p>,</a-p>
+    <a-s>' '</a-s><a-p>,</a-p>
+    <a-s>'  '</a-s><a-p>,</a-p>
+    <a-s>'   '</a-s><a-p>,</a-p>
+    <a-s>'    '</a-s><a-p>,</a-p>
+    <a-s>'     '</a-s><a-p>,</a-p>
+    <a-s>'      '</a-s><a-p>,</a-p>
+    <a-s>'       '</a-s><a-p>,</a-p>
+    <a-s>'        '</a-s><a-p>,</a-p>
+    <a-s>'         '</a-s><a-p>,</a-p>
+  <a-p>]</a-p>
+  <a-k>function</a-k> <a-f>i</a-f><a-p>(</a-p><a-v>a</a-v><a-p>,</a-p> <a-v>r</a-v><a-p>,</a-p> <a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>if</a-k> <a-p>(((</a-p><a-v>a</a-v> <a-o>=</a-o> <a-v>a</a-v> <a-o>+</a-o> <a-s>''</a-s><a-p>),</a-p> <a-p>(</a-p><a-v>r</a-v> <a-o>=</a-o> <a-v>r</a-v> <a-o>-</a-o> <a-v>a</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>),</a-p> <a-v>r</a-v> <a-o>&#x3C;=</a-o> <a-n>0</a-n><a-p>))</a-p> <a-k>return</a-k> <a-v>a</a-v>
+    <a-k>if</a-k> <a-p>((</a-p><a-o>!</a-o><a-v>e</a-v> <a-o>&#x26;&#x26;</a-o> <a-v>e</a-v> <a-o>!==</a-o> <a-n>0</a-n> <a-o>&#x26;&#x26;</a-o> <a-p>(</a-p><a-v>e</a-v> <a-o>=</a-o> <a-s>' '</a-s><a-p>),</a-p> <a-p>(</a-p><a-v>e</a-v> <a-o>=</a-o> <a-v>e</a-v> <a-o>+</a-o> <a-s>''</a-s><a-p>),</a-p> <a-v>e</a-v> <a-o>===</a-o> <a-s>' '</a-s> <a-o>&#x26;&#x26;</a-o> <a-v>r</a-v> <a-o>&#x3C;</a-o> <a-n>10</a-n><a-p>))</a-p>
+      <a-k>return</a-k> <a-v>t</a-v><a-p>[</a-p><a-v>r</a-v><a-p>]</a-p> <a-o>+</a-o> <a-v>a</a-v>
+    <a-k>for</a-k> <a-p>(</a-p><a-k>var</a-k> <a-v>u</a-v> <a-o>=</a-o> <a-s>''</a-s><a-p>;</a-p> <a-v>r</a-v> <a-o>&#x26;</a-o> <a-n>1</a-n> <a-o>&#x26;&#x26;</a-o> <a-p>(</a-p><a-v>u</a-v> <a-o>+=</a-o> <a-v>e</a-v><a-p>),</a-p> <a-p>(</a-p><a-v>r</a-v> <a-o>>>=</a-o> <a-n>1</a-n><a-p>),</a-p> <a-v>r</a-v><a-p>;</a-p> <a-p>)</a-p> <a-v>e</a-v> <a-o>+=</a-o> <a-v>e</a-v>
+    <a-k>return</a-k> <a-v>u</a-v> <a-o>+</a-o> <a-v>a</a-v>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>f</a-v>
+<a-p>}</a-p>
+<a-k>var</a-k> <a-t>P</a-t> <a-o>=</a-o> <a-f>n</a-f><a-p>()</a-p>
+<a-k>const</a-k> <a-v>l</a-v> <a-o>=</a-o> <a-c>/* @__PURE__ */</a-c> <a-f>d</a-f><a-p>(</a-p><a-t>P</a-t><a-p>)</a-p>
+<a-f>l</a-f><a-p>(</a-p><a-s>'foobar'</a-s><a-p>,</a-p> <a-n>6</a-n><a-p>)</a-p>
+</code></pre>
 <p>yes, that’s the left-pad source code, inlined into your library’s distribution</p>
 <p>I personally believe this is bad. It could have just put this into the dist
 folder:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> leftPad </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'left-pad'</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> str</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> leftPad</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'foobar'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">6</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<pre><code class="language-typescript"><a-k>import</a-k> <a-v>leftPad</a-v> <a-k>from</a-k> <a-s>'left-pad'</a-s>
+
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-f>leftPad</a-f><a-p>(</a-p><a-s>'foobar'</a-s><a-p>,</a-p> <a-n>6</a-n><a-p>)</a-p>
+</code></pre>
 <p>then, any consumer of your library can trace the import from your library to
 left-pad, which is responsibly declared in your package.json “dependencies”, and
 everything is fine and normal.</p>

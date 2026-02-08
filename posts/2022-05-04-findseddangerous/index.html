@@ -1,10 +1,11 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Astro v6.0.0-beta.1"><title>Using find . -exec sed is dangerous in a git repo</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-.footer-style[data-astro-cid-k2f5zb5c]{margin-top:4rem}.footer-link[data-astro-cid-k2f5zb5c]{margin:.5rem}body{font-family:Helvetica,Arial,sans-serif;background-color:Canvas;color:CanvasText;color-scheme:light dark;overflow-wrap:break-word}img{max-width:100%}pre{max-width:100%;overflow:auto}li+li{margin-top:10px}pre{padding:10px;border-radius:5px}
-</style></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Using find . -exec sed is dangerous in a git repo</h1> <h4 data-astro-cid-lvjzyg5v>2022-05-04</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>You want to find and replace all instances of a string in your repo, so you
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Using find . -exec sed is dangerous in a git repo</h1> <h4 data-astro-cid-lvjzyg5v>2022-05-04</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>You want to find and replace all instances of a string in your repo, so you
 google “find replace directory linux command”. You end up here</p>
 <p><a href="https://stackoverflow.com/a/6759339/2129219">https://stackoverflow.com/a/6759339/2129219</a></p>
 <p>They tell us</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">find</span><span style="color:#9ECBFF"> ./</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> f</span><span style="color:#79B8FF"> -exec</span><span style="color:#9ECBFF"> sed</span><span style="color:#79B8FF"> -i</span><span style="color:#79B8FF"> -e</span><span style="color:#9ECBFF"> 's/apple/orange/g'</span><span style="color:#9ECBFF"> {}</span><span style="color:#79B8FF"> \;</span></span></code></pre>
+<pre><code class="language-sh"><a-f>find</a-f> ./ <a-co>-type</a-co> f <a-co>-exec</a-co> sed <a-co>-i</a-co> <a-co>-e</a-co> <a-s>'s/apple/orange/g'</a-s> {} \;
+</code></pre>
 <p>Ignoring the fact that this syntax is very long and hard to type, this command
 is dangerous to use in a git repository. Specifically, this can corrupt your
 .git contents.</p>
@@ -12,42 +13,45 @@ is dangerous to use in a git repository. Specifically, this can corrupt your
 <p>This command is dangerous because, find . will enumerate dotfiles, including the
 .git directory, and then of course will run the find and replace inside them. We
 can see this in the following session</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> mkdir corruptme</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> cd corruptme</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> git init</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> echo </span><span style="color:#9ECBFF">"# README"</span><span style="color:#F97583"> ></span><span style="color:#E1E4E8"> README.md</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> git add README.md</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> git commit -m </span><span style="color:#9ECBFF">"Initial commit"</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> echo </span><span style="color:#9ECBFF">"Hello world, it is a beautiful day. I sure hope someone doesn't corrupt this git repository"</span><span style="color:#F97583"> >></span><span style="color:#E1E4E8"> README.md</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> git commit -am </span><span style="color:#9ECBFF">"Update README.md"</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> find </span><span style="color:#79B8FF">.</span></span>
-<span class="line"><span style="color:#79B8FF">.</span></span>
-<span class="line"><span style="color:#B392F0">./README.md</span></span>
-<span class="line"><span style="color:#B392F0">./.git</span></span>
-<span class="line"><span style="color:#B392F0">./.git/branches</span></span>
-<span class="line"><span style="color:#B392F0">./.git/config</span></span>
-<span class="line"><span style="color:#B392F0">./.git/COMMIT_EDITMSG</span></span>
-<span class="line"><span style="color:#79B8FF">..</span><span style="color:#9ECBFF">.more</span><span style="color:#9ECBFF"> stuff...good</span><span style="color:#9ECBFF"> indication</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> next</span><span style="color:#9ECBFF"> command</span><span style="color:#9ECBFF"> might</span><span style="color:#9ECBFF"> be</span><span style="color:#9ECBFF"> dangerous....</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> find ./ -type f -exec sed -i -e </span><span style="color:#9ECBFF">"s/README/CORRUPTME/g"</span><span style="color:#E1E4E8"> {} </span><span style="color:#79B8FF">\;</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#B392F0"> git</span><span style="color:#9ECBFF"> status</span></span>
-<span class="line"><span style="color:#B392F0">error:</span><span style="color:#9ECBFF"> index</span><span style="color:#9ECBFF"> uses</span><span style="color:#9ECBFF"> md</span><span style="color:#9ECBFF"> extension,</span><span style="color:#9ECBFF"> which</span><span style="color:#9ECBFF"> we</span><span style="color:#9ECBFF"> do</span><span style="color:#9ECBFF"> not</span><span style="color:#9ECBFF"> understand</span></span>
-<span class="line"><span style="color:#B392F0">fatal:</span><span style="color:#9ECBFF"> index</span><span style="color:#9ECBFF"> file</span><span style="color:#9ECBFF"> corrupt</span></span></code></pre>
+<pre><code class="language-sh"><a-o>></a-o> mkdir <a-f>corruptme</a-f>
+<a-o>></a-o> cd <a-f>corruptme</a-f>
+<a-o>></a-o> git <a-f>init</a-f>
+<a-o>></a-o> echo <a-f>"# README"</a-f> <a-o>></a-o> README.md
+<a-o>></a-o> git <a-f>add</a-f> README.md
+<a-o>></a-o> git <a-f>commit</a-f> <a-co>-m</a-co> <a-s>"Initial commit"</a-s>
+<a-o>></a-o> echo <a-f>"Hello world, it is a beautiful day. I sure hope someone doesn't corrupt this git repository"</a-f> <a-o>>></a-o> README.md
+<a-o>></a-o> git <a-f>commit</a-f> <a-co>-am</a-co> <a-s>"Update README.md"</a-s>
+<a-o>></a-o> find <a-f>.</a-f>
+<a-f>.</a-f>
+<a-f>./README.md</a-f>
+<a-f>./.git</a-f>
+<a-f>./.git/branches</a-f>
+<a-f>./.git/config</a-f>
+<a-f>./.git/COMMIT_EDITMSG</a-f>
+<a-f>...more</a-f> stuff...good indication the next command might be dangerous....
+<a-o>></a-o> find <a-f>./</a-f> <a-co>-type</a-co> f <a-co>-exec</a-co> sed <a-co>-i</a-co> <a-co>-e</a-co> <a-s>"s/README/CORRUPTME/g"</a-s> {} \;
+<a-o>></a-o> git <a-f>status</a-f>
+<a-f>error:</a-f> index uses md extension, which we do not understand
+<a-f>fatal:</a-f> index file corrupt
+</code></pre>
 <p>In this case, you may be able to recover it e.g. with
 <a href="https://stackoverflow.com/questions/1115854/how-to-resolve-error-bad-index-fatal-index-file-corrupt-when-using-git">https://stackoverflow.com/questions/1115854/how-to-resolve-error-bad-index-fatal-index-file-corrupt-when-using-git</a></p>
 <p>If you happened to replace some random text that is actually in an object file
 though e.g. .git/objects</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#F97583">></span><span style="color:#E1E4E8"> find ./ -type f -exec sed -i -e </span><span style="color:#9ECBFF">"s/VHTHJM/OOOOOO/g"</span><span style="color:#E1E4E8"> {} </span><span style="color:#79B8FF">\;</span></span>
-<span class="line"><span style="color:#F97583">></span><span style="color:#B392F0"> git</span><span style="color:#9ECBFF"> status</span></span>
-<span class="line"><span style="color:#B392F0">error:</span><span style="color:#9ECBFF"> inflate:</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> stream</span><span style="color:#9ECBFF"> error</span><span style="color:#E1E4E8"> (incorrect </span><span style="color:#9ECBFF">data</span><span style="color:#9ECBFF"> check</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#B392F0">error:</span><span style="color:#9ECBFF"> corrupt</span><span style="color:#9ECBFF"> loose</span><span style="color:#9ECBFF"> object</span><span style="color:#9ECBFF"> '26cfc5964dfa5355a1747eb6eec6250aab5212d5'</span></span>
-<span class="line"><span style="color:#B392F0">fatal:</span><span style="color:#9ECBFF"> unable</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> read</span><span style="color:#9ECBFF"> 26cfc5964dfa5355a1747eb6eec6250aab5212d5</span></span></code></pre>
+<pre><code class="language-sh"><a-o>></a-o> find <a-f>./</a-f> <a-co>-type</a-co> f <a-co>-exec</a-co> sed <a-co>-i</a-co> <a-co>-e</a-co> <a-s>"s/VHTHJM/OOOOOO/g"</a-s> {} \;
+<a-o>></a-o> git <a-f>status</a-f>
+<a-f>error:</a-f> inflate: data stream error (<a-f>incorrect</a-f> data check)
+<a-f>error:</a-f> corrupt loose object <a-s>'26cfc5964dfa5355a1747eb6eec6250aab5212d5'</a-s>
+<a-f>fatal:</a-f> unable to read 26cfc5964dfa5355a1747eb6eec6250aab5212d5
+</code></pre>
 <h2 id="what-is-better">What is better?</h2>
 <p>My take: Use ruplacer <a href="https://github.com/dmerejkowsky/ruplacer">https://github.com/dmerejkowsky/ruplacer</a></p>
 <p>This tool won’t try to replace stuff in your .git directory. It will also skip
 anything in .gitignore including e.g. node_modules. I was delighted to discover
 this tool so, just spreading the word</p>
 <p>Addendum: Reddit /u/Snarwin also recommended using git ls-files instead of find</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> ls-files</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> xargs</span><span style="color:#9ECBFF"> sed</span><span style="color:#79B8FF"> -i</span><span style="color:#79B8FF"> -e</span><span style="color:#9ECBFF"> 's/apple/orange/g'</span></span></code></pre> </div> <div id="giscus"></div> <script>
+<pre><code class="language-sh"><a-f>git</a-f> ls-files <a-o>|</a-o> <a-f>xargs</a-f> sed <a-co>-i</a-co> <a-co>-e</a-co> <a-s>'s/apple/orange/g'</a-s>
+</code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
