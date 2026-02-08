@@ -50,9 +50,9 @@ record has the more specific meaning of being a single line in the <code>SAM</co
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two-character abbreviation like <code>MQ</code>
 (mapping quality) or many others. They can be upper or lower case. Upper case
-tags are reserved for official usages (except those starting with X, Y, or Z, which are reserved for local/user-defined use).
-See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
-details</p>
+tags are reserved for official usages (except those starting with X, Y, or Z,
+which are reserved for local/user-defined use). See
+<a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more details</p>
 <h3 id="what-is-a-cigar-string-and-how-do-you-interpret-it">What is a <code>CIGAR</code> string, and how do you interpret it?</h3>
 <p>A <code>CIGAR</code> string is a “compact idiosyncratic gapped alignment report”. It tells
 you about insertions, deletions, and clipping. It is a series of “operators”
@@ -110,9 +110,9 @@ like, say, lines in a <code>BED</code> file do</p>
 </ul>
 <p>Using this, you can find the “end” coordinate of a record by starting at the POS
 coordinate and enumerating the reference-consuming operators of the <code>CIGAR</code>:
-matches (M/=/X), deletions (D), and skips (N). Processing the whole <code>CIGAR</code> effectively
-gives you the “end” coordinate on the reference genome, so “end” is derived from
-the <code>CIGAR</code>. The “start” field corresponds to the <code>POS</code> field</p>
+matches (M/=/X), deletions (D), and skips (N). Processing the whole <code>CIGAR</code>
+effectively gives you the “end” coordinate on the reference genome, so “end” is
+derived from the <code>CIGAR</code>. The “start” field corresponds to the <code>POS</code> field</p>
 <h3 id="what-are-forward-and-reverse-strand-reads">What are “forward” and “reverse” strand reads?</h3>
 <p>Reads can align to the “forward strand” of the reference genome (e.g. it matches
 the DNA letters as written in the reference genome FASTA file), resulting in
@@ -329,8 +329,8 @@ the insert size).</p>
 <a href="https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf">https://web.archive.org/web/20210827021305/https://www.illumina.com/Documents/products/datasheets/datasheet_genomic_sequence.pdf</a></p>
 <p>The above JBrowse screenshot shows mate pairs. Note that mate pairs have a
 different pair orientation, and pairs don’t necessarily point at each other,
-they “point away from each other” in normal conditions due to how the library is constructed. See Appendix A for
-more info.</p>
+they “point away from each other” in normal conditions due to how the library is
+constructed. See Appendix A for more info.</p>
 <h3 id="linked-reads-aka-simulated-long-reads">Linked reads aka simulated long reads</h3>
 <p>Linked reads are another method that uses short reads but gives long read
 information. I don’t have a lot of info on this but I will update this section
@@ -417,9 +417,9 @@ reference genome coordinates). In the future, SV visualization may look more
 similar to comparative genomics, where we compare an SV to a population-specific
 reference from a graph genomes or something like this.</p>
 <p>It is known that <em>de novo</em> assembly has more power to detect SVs than some read
-operations (<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>). As <em>de
-novo</em> assembled genomes improve and become more widespread, we may see a shift
-in how SVs are called</p>
+operations (<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>). As
+<em>de novo</em> assembled genomes improve and become more widespread, we may see a
+shift in how SVs are called</p>
 <p>I would also like to see improved ability to do fast or ‘on the fly’ gene
 prediction on the <em>de novo</em> assembled genomes, and we can see what SNPs or
 modified splicing might look like in copies of genes (e.g. derived regions of
@@ -737,8 +737,8 @@ preparation, leading to lower coverage.</p>
 </li>
 <li>
 <p><em>Segmental duplications and paralogous sequences</em>: Highly similar duplicated
-regions in the genome can cause reads to map ambiguously, resulting in
-mapping quality drops and uneven coverage.</p>
+regions in the genome can cause reads to map ambiguously, resulting in mapping
+quality drops and uneven coverage.</p>
 </li>
 </ul>
 <h3 id="technical-reasons">Technical reasons</h3>
@@ -746,8 +746,8 @@ mapping quality drops and uneven coverage.</p>
 <li>
 <p><em>PCR amplification bias</em>: Library preparation protocols that involve PCR can
 introduce amplification bias. Some fragments amplify more efficiently than
-others, leading to uneven representation. PCR-free library prep protocols
-can reduce this.</p>
+others, leading to uneven representation. PCR-free library prep protocols can
+reduce this.</p>
 </li>
 <li>
 <p><em>Fragmentation bias</em>: Enzymatic or mechanical fragmentation of DNA during
@@ -756,62 +756,61 @@ being over- or under-represented.</p>
 </li>
 <li>
 <p><em>Mappability</em>: Some regions of the genome are inherently difficult to map
-reads to uniquely. Short reads in particular struggle with repetitive
-regions, leading to mapping quality zero reads or unmapped reads. Long reads
-improve this but don’t fully eliminate it.</p>
+reads to uniquely. Short reads in particular struggle with repetitive regions,
+leading to mapping quality zero reads or unmapped reads. Long reads improve
+this but don’t fully eliminate it.</p>
 </li>
 <li>
-<p><em>Sequencing errors in homopolymers</em>: Nanopore and older PacBio sequencing
-can have higher error rates in homopolymer runs (e.g. AAAAAAA), which can
-cause local alignment artifacts and apparent coverage fluctuations.</p>
+<p><em>Sequencing errors in homopolymers</em>: Nanopore and older PacBio sequencing can
+have higher error rates in homopolymer runs (e.g. AAAAAAA), which can cause
+local alignment artifacts and apparent coverage fluctuations.</p>
 </li>
 <li>
-<p><em>Library complexity</em>: Low input DNA or over-amplified libraries result in
-many duplicate reads. After duplicate marking/removal, the effective coverage
-in some regions can drop significantly.</p>
+<p><em>Library complexity</em>: Low input DNA or over-amplified libraries result in many
+duplicate reads. After duplicate marking/removal, the effective coverage in
+some regions can drop significantly.</p>
 </li>
 <li>
 <p><em>Target capture bias</em>: For exome or targeted sequencing, probe hybridization
-efficiency varies across targets, leading to highly uneven coverage across
-the captured regions.</p>
+efficiency varies across targets, leading to highly uneven coverage across the
+captured regions.</p>
 </li>
 <li>
-<p><em>Edge effects</em>: Coverage tends to drop at the edges of chromosomes
-(telomeres) and near gaps (Ns) in the reference assembly.</p>
+<p><em>Edge effects</em>: Coverage tends to drop at the edges of chromosomes (telomeres)
+and near gaps (Ns) in the reference assembly.</p>
 </li>
 <li>
 <p><em>Reference genome quality</em>: Errors or gaps in the reference genome itself can
-cause reads to fail to map in certain regions, or cause pileups of
-misaligned reads in others.</p>
+cause reads to fail to map in certain regions, or cause pileups of misaligned
+reads in others.</p>
 </li>
 </ul>
-<p>Understanding these sources of coverage variation is important when
-interpreting CNV calls, as not every coverage dip or peak represents a true
-biological copy number change.</p>
+<p>Understanding these sources of coverage variation is important when interpreting
+CNV calls, as not every coverage dip or peak represents a true biological copy
+number change.</p>
 <h3 id="divergent-strains-mapped-to-a-single-reference">Divergent strains mapped to a single reference</h3>
-<p>An extreme case of uneven coverage occurs when you map reads from a
-divergent strain or wild isolate to a reference genome. If the sample is
-highly divergent from the reference in certain genomic regions, reads from
-those regions will either fail to map entirely or map with very high mismatch
-rates, creating dramatic coverage drops and spikes at a fine scale.</p>
+<p>An extreme case of uneven coverage occurs when you map reads from a divergent
+strain or wild isolate to a reference genome. If the sample is highly divergent
+from the reference in certain genomic regions, reads from those regions will
+either fail to map entirely or map with very high mismatch rates, creating
+dramatic coverage drops and spikes at a fine scale.</p>
 <p>This is particularly well-studied in C. elegans, where wild isolates (e.g.
-DL238, JU2526, EG4725) have “hyper-divergent” regions compared to the
-standard N2 reference. These regions can be so different from N2 that they
-resemble a different species, and the coverage profile when mapping to N2
-looks extremely jagged: sharp transitions between well-mapped conserved
-regions and poorly-mapped or unmapped divergent regions. The read pileup
-in these regions will also show an abundance of colored mismatches.</p>
-<p>These hyper-divergent haplotypes in C. elegans often overlap with genes
-involved in environmental response such as chemoreceptors and innate immunity
-genes, and are thought to be maintained by balancing selection. This
-phenomenon is not unique to C. elegans; any organism with high population
-diversity or where you are mapping a divergent strain to a single reference
-can show similar patterns.</p>
+DL238, JU2526, EG4725) have “hyper-divergent” regions compared to the standard
+N2 reference. These regions can be so different from N2 that they resemble a
+different species, and the coverage profile when mapping to N2 looks extremely
+jagged: sharp transitions between well-mapped conserved regions and
+poorly-mapped or unmapped divergent regions. The read pileup in these regions
+will also show an abundance of colored mismatches.</p>
+<p>These hyper-divergent haplotypes in C. elegans often overlap with genes involved
+in environmental response such as chemoreceptors and innate immunity genes, and
+are thought to be maintained by balancing selection. This phenomenon is not
+unique to C. elegans; any organism with high population diversity or where you
+are mapping a divergent strain to a single reference can show similar patterns.</p>
 <p>The solution is not to “fix” the library prep but rather to use a
-strain-specific assembly, a pangenome reference, or a graph genome approach
-that can represent the diversity in these regions. Alternatively, using a
-more lenient aligner setting may recover some reads, but at the cost of
-noisier alignments.</p> </div> <div id="giscus"></div> <script>
+strain-specific assembly, a pangenome reference, or a graph genome approach that
+can represent the diversity in these regions. Alternatively, using a more
+lenient aligner setting may recover some reads, but at the cost of noisier
+alignments.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
