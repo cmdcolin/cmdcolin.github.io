@@ -122,23 +122,26 @@ sessions, but I generally just use multiple separate clones of the repo
 This is a little chaotic on the brain, as you have to mentally juggle multiple
 distinct tasks, but it lets you literally solve like...2-3x the tasks
 
-### Asking Claude Code to simplify, refactor, identify correctness issues repeatedly
+### Asking Claude Code to simplify, refactor, identify bugs repeatedly
 
-After almost every question, I will ask it something like "now that we have a
-working system, are there any simplifications or refactorings that you would
-make, or correctness issues that you can identify"
+After almost every question, I will ask it different questions like
+
+- "Are there any simplifications or refactorings that you would make"
+- "Are there any other changes you would suggest"
+- "Are there any tests you would add"
+- "Are there any bugs you can identify"
+- "Are there any correctness issues you can identify"
 
 Maybe there is more optimal wording but in general it can identify some
 reasonable simplifications that are good-to-have
 
-I also ask it "are there any other changes you would suggest" because if you ask
-it to suggest refactorings, it will only suggest refactorings. I sometimes also
-say "You can create helper functions". And for the people who actually write
-tests, you can ask "Are there any tests you would add?"
+I sometimes also add things like "You can create helper functions" to clue to it
+that this is an option
 
-See also: The Rule of Five
+## The Rule of Five - very similar to the above
 
-"5. The Rule of Five: When in doubt, have the agent review its own work 5 times.
+The "5. The Rule of Five: When in doubt, have the agent review its own work 5
+times.
 
 Jeffrey Emanuel discovered this powerful and unintuitive rule. He found that he
 gets the best designs, the best plans, and the best implementations, all by
@@ -146,10 +149,6 @@ forcing agents to review their proposals (and then their work) 4–5 times, at
 which point it “converges”. It typically takes 4 to 5 iterations before the
 agent declares that it’s as good as it can get."
 https://steve-yegge.medium.com/six-new-tips-for-better-coding-with-agents-d4e9c86e42a9
-
-Sidenote: the yegge-mobile is somewhat insane in later blogposts. See "agent
-psychosis" https://lucumr.pocoo.org/2026/1/18/agent-psychosis/ but this the rule
-of five is a fairly good tip
 
 ### Telling Claude Code to find optimizations
 
