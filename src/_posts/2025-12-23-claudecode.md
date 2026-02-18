@@ -7,7 +7,7 @@ I figured, for the history of the universe, that I would write down some of my
 experiences with AI. I have this feeling that people think that talking about AI
 usage is a little taboo. However, these tools have taken our field and the world
 by storm. People should write more about their experiences with them. I put the
-year 2025 in the title to make it more timely for end-of-year wrap up posts, but
+year 2025 in the title to make it more timely for end-of-year wrap-up posts, but
 I'll add some pre-2025 background also
 
 ## My (mostly pre-2025) impressions with AI
@@ -34,10 +34,10 @@ knowledge...weird!
 Despite my OpenAI stance, once Google came out with Bard, I started asking it
 some questions. It was pretty interesting.
 
-Some early experiences I had with Bard was trying to get it to convert code from
-one language (python) to another (JS). It was very good at doing this, which was
-wild to me. These language translations would take a lot of time to do by
-hand... and it would spit it out in seconds!
+Some early experiences I had with Bard were trying to get it to convert code
+from one language (python) to another (JS). It was very good at doing this,
+which was wild to me. These language translations would take a lot of time to do
+by hand... and it would spit it out in seconds!
 
 ## Early experience with text editor integration: Avante.nvim
 
@@ -64,7 +64,7 @@ Avante.nvim github (e.g. "bug: Avante Gets stuck on tool calling and never
 progresses past that point", "bug: Sonnet just runs in loops, reading the same
 file over and over again", etc.). It also costs more in API tokens
 
-In any case, one rainy day in May 2025 when Avante.nvim was really not working
+In any case, one rainy day in May 2025, when Avante.nvim was really not working
 and I felt very stuck, I think I realized that maybe Avante.nvim was causing me
 more grief than help...see also Footnote 2
 
@@ -84,17 +84,19 @@ integration, so I switched to Claude Code
 I started making Claude Code do very challenging tasks, and it was quite
 successful on many of them. One of the most mindboggling things it has done to
 date for me, and there are many, is that it completely reached into a very
-complex codebase called Bandage, a C++ codebase, and managed to compile it using
-emscripten to WASM and use it in Javascript. This produced
-https://github.com/cmdcolin/bandagejs It is a demo that I still need to work on,
-but I was pretty mindblown by this
+complex codebase called Bandage, a C++ codebase, and managed to extract the
+graph layout functions and compile it using emscripten to WASM and use it in
+Javascript. This produced https://github.com/cmdcolin/bandagejs
+
+BandageJS is a demo that I still need to work on, but I was pretty mindblown by
+this
 
 ## Switching from API billing to subscription
 
 I am not a big fan of subscriptions, but I also started burning through a lot of
 API tokens. I'm talking like...it burned through 50+ bucks to do that bandageJS
 project even though it only did it in a couple hours. That cost is high, but at
-the same time it would literally make breakthroughs that I would (likely) never
+the same time, it would literally make breakthroughs that I would (likely) never
 have done.
 
 In any case, to try to bring 'down the cost' from API billing I decided to
@@ -104,10 +106,10 @@ I bought the basic 20 dollar tier of Claude, and ran out of it immediately. Then
 I upgraded to Claude Max and now am at 100 bucks a month. That's where I am
 "happily" sitting now.
 
-I can sometimes 'max out' the Claude Max tier but it is probably the right level
-for me. This is a weird thing to 'confess' but I buy the subscription myself,
-and do not get it re-imbursed through my work. Might need to have that talk at
-some point with my boss.
+I can sometimes 'max out' the Claude Max tier, but it is probably the right
+level for me. This is a weird thing to 'confess' but I buy the subscription
+myself, and do not get it re-imbursed through my work. Might need to have that
+talk at some point with my boss.
 
 ## How I use Claude Code
 
@@ -122,7 +124,7 @@ sessions, but I generally just use multiple separate clones of the repo
 This is a little chaotic on the brain, as you have to mentally juggle multiple
 distinct tasks, but it lets you literally solve like...2-3x the tasks
 
-### Asking Claude Code to simplify, refactor, identify bugs repeatedly
+### Asking Claude Code to simplify, refactor, and identify bugs repeatedly
 
 After almost every question, I will ask it different questions like
 
@@ -138,16 +140,8 @@ reasonable simplifications that are good-to-have
 I sometimes also add things like "You can create helper functions" to clue to it
 that this is an option
 
-## The Rule of Five - very similar to the above
-
-The "5. The Rule of Five: When in doubt, have the agent review its own work 5
-times.
-
-Jeffrey Emanuel discovered this powerful and unintuitive rule. He found that he
-gets the best designs, the best plans, and the best implementations, all by
-forcing agents to review their proposals (and then their work) 4–5 times, at
-which point it “converges”. It typically takes 4 to 5 iterations before the
-agent declares that it’s as good as it can get."
+Similar idea from the "Rule of Five" mentioned here. Essentially just repeatedly
+telling the AI to check itself
 https://steve-yegge.medium.com/six-new-tips-for-better-coding-with-agents-d4e9c86e42a9
 
 ### Telling Claude Code to find optimizations
@@ -155,8 +149,25 @@ https://steve-yegge.medium.com/six-new-tips-for-better-coding-with-agents-d4e9c8
 I work with 'big data', and being fast is important. A lot of the optimizations
 that Claude Code recommends do not move the needle at all, but if you set up a
 benchmark, as I wrote about previously
-https://cmdcolin.github.io/posts/2025-11-24-simplebench/ you can start to
+https://cmdcolin.github.io/posts/2025-11-24-simplebench/, you can start to
 measurably achieve speed improvements
+
+Note that you can tell claude to analyze performance traces. You can say things
+like
+
+Look at this chrome performance profiling trace in
+~/Downloads/my_chrome_performance_profiling_trace.json.gz and look for
+optimizations. It will often make a script on-the-fly to analyze it and do
+analysis [1]. Alternatively you can take a screenshot of a flamegraph and ask it
+to analyze that
+
+[1] This is actually a very subtle but important point and something some people
+have been philosophizing about a bit. Claude Code is actually so good at just
+writing code for things on the fly, that giving it pre-defined tools and stuff
+(via e.g. MCP) can be more wasteful (to the context window for example) than
+beneficial (because it can just make purpose built solutions as needed). It
+sounds fanatical at first but once you start seeing it pull scripts out of thin
+air, it is not so fanatical
 
 ### Telling Claude Code to solve merge conflicts
 
@@ -196,13 +207,13 @@ I am a big fan of using libraries, but the open source library ecosystem is
 threatened by giant hacks like Shai-Halud
 (https://www.cisa.gov/news-events/alerts/2025/09/23/widespread-supply-chain-compromise-impacting-npm-ecosystem)
 
-Vendoring can maybe help but you become responsible for maintaining this
+Vendoring can maybe help, but you also become responsible for maintaining this
 'dependency' yourself. See also
 https://nolanlawson.com/2025/11/16/the-fate-of-small-open-source/
 
 ### Telling Claude Code to solve github issues
 
-You can literally paste into Claude Code a URL of a github issue, and it will do
+You can literally paste a URL of a github issue into Claude Code, and it will do
 its best to go and solve it. Sometimes it actually works. Amazing
 
 ### Don't be too specific in your prompts if you don't actually know what you want
@@ -218,9 +229,9 @@ tell it exactly what to do if you don't actually know what's best, you can just
 see what it suggests
 
 It is hard to tell if this has an impact but I am often pretty wishy washy with
-claude, i'll say things like "if needed, do X" or whatnot. I imagine that the
+Claude, I'll say things like "if needed, do X" or whatnot. I imagine that the
 power of suggestion of even typing that will strongly steer the direction it
-takes but i still like to just give it the option to decide against the
+takes, but I still like to just give it the option to decide against the
 suggestion
 
 ## Concluding thoughts
@@ -233,7 +244,7 @@ that I've worked on for many years, and I have a good mental model of how it
 works.
 
 It may be more troublesome to work on new things that you have no experience
-with as you may not learn or develop the right mental frameworks for
+with, as you may not learn or develop the right mental frameworks for
 understanding the code
 
 AI coding is a superpower you can use, but it is also a superpower your
@@ -245,9 +256,9 @@ In any event...Good luck out there, and happy holidays
 ## Footnote 1
 
 The rabid anti-AI sentiment on Reddit (generally criticizing it for being
-inadequate, which increasingly is not true), combined with increasing AI
-generated text and rage/engagement bait made me quit Reddit and social media in
-general in mid 2025.
+inadequate, which increasingly is not true), combined with increasing
+AI-generated text and rage/engagement bait, made me quit Reddit and social media
+in general in mid 2025.
 
 Now, I just watch random YouTube videos if I need a dopamine hit. I feel bad
 that I won't be able to help out random strangers that are asking Reddit
@@ -307,8 +318,8 @@ garbage, I can only say, you have to use at least Opus 4.5
 
 The other models will frequently come up with bad ideas. Sometimes I will
 downgrade in Claude Code (due to thinking my task is simple or running out of
-credits) and select e.g. Sonnet or Haiku, but if I forget to change it back
-it'll stay making really bad output and I'll be like wtf is this? This is
+credits) and select e.g. Sonnet or Haiku, but if I forget to change it back,
+it'll continue making really bad output and I'll be like wtf is this? This is
 terrible!
 
 If you want a good experience, you have to use the most powerful model that you
