@@ -114,6 +114,16 @@ that Claude Code recommends do not move the needle at all, but if you set up a
 benchmark, as I wrote about previously
 <a href="https://cmdcolin.github.io/posts/2025-11-24-simplebench/">https://cmdcolin.github.io/posts/2025-11-24-simplebench/</a>, you can start to
 measurably achieve speed improvements</p>
+<p>Note that you can tell claude to analyze performance traces. You can say things
+like</p>
+<p>Look at this chrome performance profiling trace in
+~/Downloads/my_chrome_performance_profiling_trace.json.gz and look for
+optimizations. It will often make a script on-the-fly to analyze it and do
+analysis. I don’t even have a script pre-prepared for it to do this, it just
+comes up with it on the fly everything i ask (wasteful, should probably find a
+better way)</p>
+<p>Alternatively you can take a screenshot of a flamegraph and ask it to analyze
+that</p>
 <h3 id="telling-claude-code-to-solve-merge-conflicts">Telling Claude Code to solve merge conflicts</h3>
 <p>Solving merge conflicts by hand is tricky. I have historically used the Meld
 graphical interface, but even so it is finicky, laborious, and I can get into a
