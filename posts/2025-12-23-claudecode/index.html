@@ -119,11 +119,15 @@ like</p>
 <p>Look at this chrome performance profiling trace in
 ~/Downloads/my_chrome_performance_profiling_trace.json.gz and look for
 optimizations. It will often make a script on-the-fly to analyze it and do
-analysis. I don’t even have a script pre-prepared for it to do this, it just
-comes up with it on the fly everything i ask (wasteful, should probably find a
-better way)</p>
-<p>Alternatively you can take a screenshot of a flamegraph and ask it to analyze
-that</p>
+analysis [1]. Alternatively you can take a screenshot of a flamegraph and ask it
+to analyze that</p>
+<p>[1] This is actually a very subtle but important point and something some people
+have been philosophizing about a bit. Claude Code is actually so good at just
+writing code for things on the fly, that giving it pre-defined tools and stuff
+(via e.g. MCP) can be more wasteful (to the context window for example) than
+beneficial (because it can just make purpose built solutions as needed). It
+sounds fanatical at first but once you start seeing it pull scripts out of thin
+air, it is not so fanatical</p>
 <h3 id="telling-claude-code-to-solve-merge-conflicts">Telling Claude Code to solve merge conflicts</h3>
 <p>Solving merge conflicts by hand is tricky. I have historically used the Meld
 graphical interface, but even so it is finicky, laborious, and I can get into a
