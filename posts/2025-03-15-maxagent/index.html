@@ -13,42 +13,28 @@ to define it.</p>
 <p><img src="/media/prd2.png" alt="picture lovingly handmade using silly gimp fx"></p>
 <p>I’ve worked in software for many years now (ow my back) and hadn’t come across
 the word PRD…So wtf is it?</p>
-<h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a todo list</h2>
-<p>Your “PRD” can just be a markdown file with checkboxes like a normal TODO list:</p>
+<h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a TODO list</h2>
+<p>Your “PRD” can just be a markdown file (e.g. <code>PRD.md</code>) with checkboxes like a
+normal TODO list:</p>
 <pre><code class="language-markdown"><a-p>- </a-p>[ ] Add priority column to tasks table
 <a-p>- </a-p>[ ] Show priority badge on task cards
 <a-p>- </a-p>[ ] Add priority selector to task edit modal
 <a-p>- </a-p>[ ] Filter tasks by priority, persist in URL
 </code></pre>
-<p>You don’t even need the checkbox brackets if you want. But this is the important
-part: you let the AI also manage your TODO list. So as it is working, it will be
-reading the TODOs, and writing what it has completed or discovered, and adding
-further TODOs.</p>
-<h2 id="ok-so-how-does-this-connect-to-the-ralph-loop">Ok so how does this connect to the “Ralph loop”</h2>
-<p>The Ralph loop is a shell script like this</p>
-<pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
-  <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
-  <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
-    <a-f>exit</a-f> 0
-  <a-k>fi</a-k>
-<a-k>done</a-k>
-</code></pre>
-<p>so it’s a bash loop that just keeps running Claude until the literal string
-<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. If found, the loop exits. Otherwise it keeps
-going another instance.</p>
-<p>Each instance starts with zero context. Memory between iterations comes from git
-history and the updated todo list. Claude Code also has
-<a href="https://code.claude.com/docs/en/memory">auto-memory</a> which accumulates codebase
-knowledge across sessions, so the hand-rolled <code>progress.txt</code> that ralph ships
-with isn’t really necessary anymore.</p>
+<p>You don’t even need the checkbox brackets if you want.</p>
+<p>The important part is that you are going to let the AI also manage your TODO
+list. As it is working, it will be reading the TODOs, and writing what it has
+completed or discovered, and adding further TODOs.</p>
 <h2 id="you-be-the-ralph">You be the Ralph</h2>
-<p>You don’t have to use the Ralph repo or even the Ralph bash loop to get most of
-the benefits</p>
-<p>Just use Claude like usual but start each session with: “read <code>todo.md</code>, pick
-the top incomplete task, implement it, mark it done, then stop.” Review the
-result, new session, repeat.</p>
-<p>Then you can also type in the Claude interface to steer it mid-task and do
-whatever else you do with Claude like you do normally.</p>
+<p>The ralph concept is setup as an autonomous loop that keeps running to solve all
+the todo items. However, you don’t have to use the Ralph repo or the Ralph bash
+loop to get most of the benefits</p>
+<p>Just use Claude like usual but start each session with:</p>
+<blockquote>
+<p>read <code>PRD.md</code>, and continue working on tasks. update tasks when done</p>
+</blockquote>
+<p>Then you can just use the Claude interface to steer it mid-task as usual, and do
+whatever you normally do</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This might be a obvious post for some. I dunno. I think figuring out this
 workflow is just an AI managing a TODO list is a good mindset.</p>
@@ -62,6 +48,25 @@ this, and had a LOT of back and forth with the bots.</p>
 <p>This method is a way that can help potentially. Hence, “Maximizing agentic
 coding”. Note that I am also not strict about making each Claude session only
 solve one task at a time and stuff like that. Just do what works for you</p>
+<h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
+<p>I made this a footnote because it is not really the focus of my article to focus
+on the autonomous ralph loop, I just wanted to highlight the concept of the TODO
+list. But for reference, the ralph concept is uses a bash shell script like this</p>
+<pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
+  <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
+  <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
+    <a-f>exit</a-f> 0
+  <a-k>fi</a-k>
+<a-k>done</a-k>
+</code></pre>
+<p>so it’s a bash loop that just keeps running Claude until the literal string
+<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. If found, the loop exits. Otherwise it keeps
+going another instance.</p>
+<p>Note that the ralph github repo also uses a json format for prd.json and a
+progress.txt but this stuff isn’t really needed. Claude Code also has
+<a href="https://code.claude.com/docs/en/memory">auto-memory</a> which can accumulate
+codebase knowledge across sessions, so and the plain markdown format for the
+<code>PRD.md</code> is fine (feel free to also just call it <code>todo.md</code>)</p>
 <section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
 <ol>
 <li id="user-content-fn-1">
