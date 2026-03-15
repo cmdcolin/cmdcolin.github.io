@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.4"><title>Maximizing agentic coding</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Maximizing agentic coding</h1> <h4 data-astro-cid-lvjzyg5v>2026-03-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The “Ralph loop” is a popular workflow but nobody explains it plainly. The repo
+at <a href="https://github.com/snarktank/ralph">https://github.com/snarktank/ralph</a> says:</p>
+<p>“Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items
+are complete.”</p>
+<p>It references the term PRD over and over without ever defining it. So..what is
+it?</p>
+<p><img src="/media/prd2.png" alt=""></p>
+<h2 id="a-prd-project-requirements-document-isor-can-be-just-a-todo-list">A PRD (“project requirements document”) is…or can be… just a todo list</h2>
+<p>A markdown file with checkboxes works fine:</p>
+<pre><code class="language-markdown"><a-p>- </a-p>[ ] Add priority column to tasks table
+<a-p>- </a-p>[ ] Show priority badge on task cards
+<a-p>- </a-p>[ ] Add priority selector to task edit modal
+<a-p>- </a-p>[ ] Filter tasks by priority, persist in URL
+</code></pre>
+<p>The agent reads this at the start of each session, picks the top unchecked item,
+implements it, and checks it off. If you have a scrappy handwritten todo list,
+just paste it and ask Claude to clean it up. The format doesn’t matter.</p>
+<p>You tell it to solve things on the list, and check items off one by one. You can
+tell Claude to reorganize your hand-written todo list into something that looks
+less like a chaotic stream of consciousness from your brain, but ultimately
+that’s all there is to the PRD doc.</p>
+<p>But this is important: To really lean into this, you let the AI also manage your
+TODO list. So as it is working, it will be reading the TODOs, and writing what
+it is done, and adding further TODOs even.</p>
+<h2 id="how-does-this-connect-to-the-ralph-loop">How does this connect to the “Ralph loop”</h2>
+<p>The Ralph loop is a shell script where each iteration spawns a fresh Claude
+instance and pipes in a CLAUDE.md as the prompt. That CLAUDE.md contains
+instructions like “read the PRD at <code>PRD.md</code>” and “pick the highest priority
+incomplete task”, so it’s instructions pointing to more instructions. The agent
+does one task, commits, and exits. Then the loop spawns a new instance for the
+next task.</p>
+<pre><code class="language-bash"><a-k>for</a-k> <a-pr>i</a-pr> <a-k>in</a-k> <a-eb>$(</a-eb><a-f>seq</a-f><a-eb> 1 </a-eb><a-o>$</a-o><a-pr>MAX_ITERATIONS</a-pr><a-eb>)</a-eb>; <a-k>do</a-k>
+  <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
+  <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
+    <a-f>exit</a-f> 0
+  <a-k>fi</a-k>
+<a-k>done</a-k>
+</code></pre>
+<p>The agent has no idea there’s a loop. It stops after one task because the
+CLAUDE.md prompt (at least the one ralph has
+<a href="https://github.com/snarktank/ralph/blob/main/CLAUDE.md#important">https://github.com/snarktank/ralph/blob/main/CLAUDE.md#important</a>) tells it to:</p>
+<pre><code>Work on ONE story per iteration. If stories remain, end normally.
+If all are complete, reply with: &#x3C;promise>COMPLETE&#x3C;/promise>
+</code></pre>
+<p>After each run, the bash script greps the output for
+<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. If found, the loop exits. Otherwise it spawns
+another instance. The entire stop condition is a grep.</p>
+<p>Each instance starts with zero context. Memory between iterations comes from git
+history and the updated todo list. Claude Code also has
+<a href="https://code.claude.com/docs/en/memory">auto-memory</a> which accumulates codebase
+knowledge across sessions, so the hand-rolled <code>progress.txt</code> that ralph ships
+with isn’t really necessary anymore.</p>
+<h2 id="you-be-the-ralph">You be the Ralph</h2>
+<p>You don’t have to use the Ralph repo or even the Ralph bash loop to get most of
+the benefits</p>
+<p>Just use Claude like usual but start each session with: “read <code>todo.md</code>, pick
+the top incomplete task, implement it, mark it done, then stop.” Review the
+result, new session, repeat.</p>
+<p>Then you can also type in the Claude interface to steer it mid-task and do
+whatever else you do with Claude like normal</p>
+<p>Amazing</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The ralph repo adds shell scripts, “skills”, a JSON format for its PRD, a
+progress log, and more. Things that seem necessary one month aren’t needed the
+next.</p>
+<p>I’m not using this ralph loop stuff yet, but just figuring out this workflow for
+having the AI manage a TODO list I think gives you about 90% of the benefits,
+and gets you closer to faster agentic iteration.</p>
+<p>If I’m missing something let me know :)</p>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>The <code>&#x3C;promise></code> tag is unexplained in the repo. It’s just an arbitrary
+signal string for the grep. Could be anything as long as the agent wouldn’t
+accidentally produce it in normal output. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section> </div> <div id="giscus"></div> <script>
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
+  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
+  script.setAttribute('data-category', 'General');
+  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
+  script.setAttribute('data-mapping', 'pathname');
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'bottom');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('giscus').appendChild(script);
+</script> </article>  </div>  <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> </footer> </body></html>
