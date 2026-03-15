@@ -51,7 +51,8 @@ solve one task at a time and stuff like that. Just do what works for you</p>
 <h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
 <p>I made this a footnote because it is not really the focus of my article to focus
 on the autonomous ralph loop, I just wanted to highlight the concept of the TODO
-list. But for reference, the ralph concept is uses a bash shell script like this</p>
+list. But for reference, the ralph concept uses a bash shell script similar to
+this</p>
 <pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
   <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
   <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
@@ -60,8 +61,11 @@ list. But for reference, the ralph concept is uses a bash shell script like this
 <a-k>done</a-k>
 </code></pre>
 <p>so it’s a bash loop that just keeps running Claude until the literal string
-<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. If found, the loop exits. Otherwise it keeps
-going another instance.</p>
+<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> is found in the output via grep and then, the
+entire TODO list is done. The CLAUDE.md from the ralph repo (read the raw text
+<a href="https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md">https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md</a>) is
+what tells it to output this special string, and do one task at a time, and
+various other things.</p>
 <p>Note that the ralph github repo also uses a json format for prd.json and a
 progress.txt but this stuff isn’t really needed. Claude Code also has
 <a href="https://code.claude.com/docs/en/memory">auto-memory</a> which can accumulate
