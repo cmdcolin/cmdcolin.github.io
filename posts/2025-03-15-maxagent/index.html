@@ -1,52 +1,35 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.4"><title>Maximizing agentic coding</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.4"><title>Maximizing agentic coding, or, wtf is ralph</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
-<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Maximizing agentic coding</h1> <h4 data-astro-cid-lvjzyg5v>2026-03-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The “Ralph loop” is a popular workflow but nobody explains it plainly. The repo
-at <a href="https://github.com/snarktank/ralph">https://github.com/snarktank/ralph</a> says:</p>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Maximizing agentic coding, or, wtf is ralph</h1> <h4 data-astro-cid-lvjzyg5v>2026-03-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The “Ralph loop” is a popular workflow but nobody seems to explain it in simple
+terms. Or at the very least, my eyes glaze over. The repo at
+<a href="https://github.com/snarktank/ralph">https://github.com/snarktank/ralph</a> says:</p>
 <p>“Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items
 are complete.”</p>
 <p>It references the term PRD over and over without ever defining it. So..what is
 it?</p>
 <p><img src="/media/prd2.png" alt=""></p>
-<h2 id="a-prd-project-requirements-document-isor-can-be-just-a-todo-list">A PRD (“project requirements document”) is…or can be… just a todo list</h2>
-<p>A markdown file with checkboxes works fine:</p>
+<h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a todo list</h2>
+<p>Your “PRD” can just be a markdown file with checkboxes like a normal TODO list:</p>
 <pre><code class="language-markdown"><a-p>- </a-p>[ ] Add priority column to tasks table
 <a-p>- </a-p>[ ] Show priority badge on task cards
 <a-p>- </a-p>[ ] Add priority selector to task edit modal
 <a-p>- </a-p>[ ] Filter tasks by priority, persist in URL
 </code></pre>
-<p>The agent reads this at the start of each session, picks the top unchecked item,
-implements it, and checks it off. If you have a scrappy handwritten todo list,
-just paste it and ask Claude to clean it up. The format doesn’t matter.</p>
-<p>You tell it to solve things on the list, and check items off one by one. You can
-tell Claude to reorganize your hand-written todo list into something that looks
-less like a chaotic stream of consciousness from your brain, but ultimately
-that’s all there is to the PRD doc.</p>
-<p>But this is important: To really lean into this, you let the AI also manage your
-TODO list. So as it is working, it will be reading the TODOs, and writing what
-it is done, and adding further TODOs even.</p>
-<h2 id="how-does-this-connect-to-the-ralph-loop">How does this connect to the “Ralph loop”</h2>
-<p>The Ralph loop is a shell script where each iteration spawns a fresh Claude
-instance and pipes in a CLAUDE.md as the prompt. That CLAUDE.md contains
-instructions like “read the PRD at <code>PRD.md</code>” and “pick the highest priority
-incomplete task”, so it’s instructions pointing to more instructions. The agent
-does one task, commits, and exits. Then the loop spawns a new instance for the
-next task.</p>
-<pre><code class="language-bash"><a-k>for</a-k> <a-pr>i</a-pr> <a-k>in</a-k> <a-eb>$(</a-eb><a-f>seq</a-f><a-eb> 1 </a-eb><a-o>$</a-o><a-pr>MAX_ITERATIONS</a-pr><a-eb>)</a-eb>; <a-k>do</a-k>
+<p>But this is the important part: you let the AI also manage your TODO list. So as
+it is working, it will be reading the TODOs, and writing what it has completed
+or discovered, and adding further TODOs.</p>
+<h2 id="ok-so-how-does-this-connect-to-the-ralph-loop">Ok so how does this connect to the “Ralph loop”</h2>
+<p>The Ralph loop is a shell script like this</p>
+<pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
   <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
   <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
     <a-f>exit</a-f> 0
   <a-k>fi</a-k>
 <a-k>done</a-k>
 </code></pre>
-<p>The agent has no idea there’s a loop. It stops after one task because the
-CLAUDE.md prompt (at least the one ralph has
-<a href="https://github.com/snarktank/ralph/blob/main/CLAUDE.md#important">https://github.com/snarktank/ralph/blob/main/CLAUDE.md#important</a>) tells it to:</p>
-<pre><code>Work on ONE story per iteration. If stories remain, end normally.
-If all are complete, reply with: &#x3C;promise>COMPLETE&#x3C;/promise>
-</code></pre>
-<p>After each run, the bash script greps the output for
-<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. If found, the loop exits. Otherwise it spawns
-another instance. The entire stop condition is a grep.</p>
+<p>so it’s a bash loop that just keeps running Claude until the literal string
+<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. If found, the loop exits. Otherwise it keeps
+going another instance.</p>
 <p>Each instance starts with zero context. Memory between iterations comes from git
 history and the updated todo list. Claude Code also has
 <a href="https://code.claude.com/docs/en/memory">auto-memory</a> which accumulates codebase
