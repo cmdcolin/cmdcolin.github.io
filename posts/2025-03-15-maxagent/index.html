@@ -31,10 +31,11 @@ running to solve all the todo items.</p>
 <p>However, you don’t have to use this to get a lot of the benefits</p>
 <p>Just use Claude like usual but start each session with:</p>
 <blockquote>
-<p>read <code>PRD.md</code>, and continue working on tasks. update tasks when done</p>
+<p>read PRD.md, and continue working on tasks. update PRD.md when done</p>
 </blockquote>
-<p>Then you can just use the Claude interface to steer it mid-task as usual, and do
-whatever you normally do</p>
+<p>You can be pretty loosy goosy with the wording, just type whatever you want to
+alert Claude to work on the TODOs. Then you can just use the Claude interface to
+steer it mid-task as usual, and do whatever you normally do</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This post might be a really obvious post for some. I dunno. I just wanted to
 convey that there is nothing mysterious behind the idea of a “PRD”…it is just
@@ -63,12 +64,15 @@ this</p>
 <a-k>done</a-k>
 </code></pre>
 <p>so it’s a bash loop that just keeps running Claude until the literal string
-<code>&#x3C;promise>COMPLETE&#x3C;/promise></code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> is found in the output via grep and then, the
+<code>&#x3C;promise>COMPLETE&#x3C;/promise></code> is found in the output via grep and then, the
 entire TODO list is done. The CLAUDE.md from the ralph repo (read the raw text
 <a href="https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md">https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md</a>) is
 what tells it to output this special string, and do one task at a time, and
 various other things.</p>
-<p>Note that the ralph github repo also uses a json format for prd.json and a
+<p>Side note1 : What is this the <code>&#x3C;promise></code> tag? It is not explained in the ralph
+repo. It’s just an arbitrary signal string for the grep. Could be anything as
+long as the agent wouldn’t accidentally produce it in normal output.</p>
+<p>Side note 2: the ralph github repo also uses a json format for prd.json and a
 progress.txt but this stuff isn’t really needed. Claude Code also has
 <a href="https://code.claude.com/docs/en/memory">auto-memory</a> which can accumulate
 codebase knowledge across sessions, so and the plain markdown format for the
@@ -76,16 +80,7 @@ codebase knowledge across sessions, so and the plain markdown format for the
 <h2 id="footnote-3">Footnote 3</h2>
 <p>If this post, again, still sounds really dumb and obvious but you haven’t tried
 just giving Claude your entire todo list, try it. You may want to spend a little
-bit creating the todo list.</p>
-<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
-<ol>
-<li id="user-content-fn-1">
-<p>The <code>&#x3C;promise></code> tag is unexplained in the repo. It’s just an arbitrary
-signal string for the grep. Could be anything as long as the agent wouldn’t
-accidentally produce it in normal output. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
-</li>
-</ol>
-</section> </div> <div id="giscus"></div> <script>
+bit creating the todo list.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
