@@ -1,15 +1,15 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.4"><title>Maximizing agentic coding, or, wtf is ralph</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.5"><title>Maximizing agentic coding, or, wtf is ralph</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
-<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Maximizing agentic coding, or, wtf is ralph</h1> <h4 data-astro-cid-lvjzyg5v>2026-03-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The “Ralph loop” is a popular workflow but nobody, at least to me, seems to
-explain it in layman’s terms</p>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Maximizing agentic coding, or, wtf is ralph</h1> <h4 data-astro-cid-lvjzyg5v>2026-03-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The “Ralph loop” is a popular workflow but nobody seems to explain it in
+layman’s terms</p>
 <p>The <a href="https://github.com/snarktank/ralph?tab=readme-ov-file">repo</a> says stuff
 like this:</p>
 <blockquote>
 <p>“Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items
 are complete.”</p>
 </blockquote>
-<p>It references the term PRD repeatedly without ever defining it, or even trying
-to define it.</p>
+<p>It references the term PRD repeatedly without ever defining it (feel free to
+search in their readme to see).</p>
 <p><img src="/media/prd2.png" alt="picture lovingly handmade using silly gimp fx"></p>
 <p>I’ve worked in software for many years now (ow my back) and hadn’t come across
 the word PRD…So wtf is it?</p>
@@ -25,6 +25,9 @@ normal TODO list:</p>
 <p>The important part is that you are going to let the AI also manage your TODO
 list. As it is working, it will be reading the TODOs, and writing what it has
 completed or discovered, and adding further TODOs.</p>
+<p>You can optionally add extra context about larger project goals or branch goals
+in the PRD, and instruct it to move completed items to a separate file, etc or
+whatever else you want also</p>
 <h2 id="you-be-the-ralph">You be the Ralph</h2>
 <p>The Ralph concept, as originally proposed, uses an autonomous loop that keeps
 running to solve all the todo items.</p>
@@ -33,24 +36,22 @@ running to solve all the todo items.</p>
 <blockquote>
 <p>read PRD.md, and continue working on tasks. update PRD.md when done</p>
 </blockquote>
-<p>You can be pretty loosy goosy with the wording, just type whatever you want to
-alert Claude to work on the TODOs. Then you can just use the Claude interface to
-steer it mid-task as usual, and do whatever you normally do</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>This post might be a really obvious post for some. I dunno. I just wanted to
-convey that there is nothing mysterious behind the idea of a “PRD”…it is just
-a TODO list, and that you do not have to go full Ralph to get the majority of
-the benefits from having your AI power through your todos</p>
+<p>This post might be a really obvious post for some, but I just wanted to convey
+that there is nothing mysterious behind the idea of the Ralph loop and you don’t
+have to ‘use their repo’</p>
+<p>The PRD is really just a TODO list, and you also don’t have to go through the
+Ralph to get the majority of the benefits from having your AI power through your
+todos</p>
 <p>If I’m missing something let me know. Enjoy :)</p>
 <h2 id="footnote-1---why-did-i-write-this-or-where-am-i-coming-from-when-writing-this">Footnote 1 - Why did I write this? Or where am I coming from when writing this?</h2>
 <p>I recently told myself that I need to be even more ambitious in my use of Claude
 for coding.</p>
 <p>However, once you are trying to tackle very large tasks, you can end up having a
 lot of ongoing parallel todos. I was having some challenges keeping track of all
-this, and had a LOT of back and forth with the bots.</p>
+this, and was juggling a lot of separate agent sessions.</p>
 <p>This method is a way that can help potentially. Hence, “Maximizing agentic
-coding”. Note that I am also not strict about making each Claude session only
-solve one task at a time and stuff like that. Just do what works for you</p>
+coding”.</p>
 <h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
 <p>I made this a footnote because it is not really the focus of my article to focus
 on the autonomous ralph loop, I just wanted to highlight the concept of the TODO
@@ -69,16 +70,17 @@ entire TODO list is done. The CLAUDE.md from the ralph repo (read the raw text
 <a href="https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md">https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md</a>) is
 what tells it to output this special string, and do one task at a time, and
 various other things.</p>
-<p>Side note1 : What is this the <code>&#x3C;promise></code> tag? It is not explained in the ralph
+<p>Side note 1 : What is this the <code>&#x3C;promise></code> tag? It is not explained in the ralph
 repo. It’s just an arbitrary signal string for the grep. Could be anything as
 long as the agent wouldn’t accidentally produce it in normal output.</p>
 <p>Side note 2: the ralph github repo also uses a json format for prd.json and a
 progress.txt but this stuff isn’t really needed since the plain markdown format
 for the <code>PRD.md</code> is fine (feel free to also just call it <code>todo.md</code>)</p>
 <h2 id="footnote-3">Footnote 3</h2>
-<p>If this post, again, still sounds really dumb and obvious but you haven’t tried
-just giving Claude your entire todo list, try it. You may want to spend a little
-bit creating the todo list. And like I said above…do ambitious things!</p> </div> <div id="giscus"></div> <script>
+<p>If this post, again, sounds obvious but you haven’t tried just giving Claude
+your entire todo list, try it.</p>
+<p>You may want to spend a little bit curating your todo list before beginning. And
+like I said above…do ambitious things!</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
