@@ -26,8 +26,9 @@ normal TODO list:</p>
 list. As it is working, it will be reading the TODOs, and writing what it has
 completed or discovered, and adding further TODOs.</p>
 <p>You can optionally add extra context about larger project goals or branch goals
-in the PRD, and instruct it to move completed items to a separate file, etc or
-whatever else you want also</p>
+in the PRD. You can also add text to the document to move completed items to a
+separate file, etc or whatever else you want also. In that sense, it can be more
+than just a mere TODO list, but start with a TODO list.</p>
 <h2 id="you-be-the-ralph">You be the Ralph</h2>
 <p>The Ralph concept, as originally proposed, uses an autonomous loop that keeps
 running to solve all the todo items.</p>
@@ -39,10 +40,8 @@ running to solve all the todo items.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This post might be a really obvious post for some, but I just wanted to convey
 that there is nothing mysterious behind the idea of the Ralph loop and you don’t
-have to ‘use their repo’</p>
-<p>The PRD is really just a TODO list, and you also don’t have to go through the
-Ralph to get the majority of the benefits from having your AI power through your
-todos</p>
+have to ‘use their repo’ to do most of what it does…just make a TODO list and
+tell Claude about it.</p>
 <p>If I’m missing something let me know. Enjoy :)</p>
 <h2 id="footnote-1---why-use-this-at-all">Footnote 1 - Why use this at all</h2>
 <p>I recently told myself that I need to be even more ambitious in my use of Claude
@@ -50,13 +49,9 @@ for coding.</p>
 <p>However, once you are trying to tackle very large tasks, you can end up having a
 lot of ongoing parallel todos. I was having some challenges keeping track of all
 this, and was juggling a lot of separate agent sessions.</p>
-<p>This method is a way that can help potentially. Hence, “Maximizing agentic
-coding”.</p>
+<p>This method helps with that. Hence, “Maximizing agentic coding”.</p>
 <h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
-<p>I made this a footnote because it is not really the focus of my article to focus
-on the autonomous ralph loop, I just wanted to highlight the concept of the TODO
-list. But for reference, the ralph concept uses a bash shell script similar to
-this</p>
+<p>For reference the Ralph loop is a bash script like this</p>
 <pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
   <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
   <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
@@ -70,7 +65,7 @@ entire TODO list is done. The CLAUDE.md from the ralph repo (read the raw text
 <a href="https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md">https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md</a>) is
 what tells it to output this special string, and do one task at a time, and
 various other things.</p>
-<p>Side note 1 : What is this the <code>&#x3C;promise></code> tag? It is not explained in the ralph
+<p>Side note 1 : What is the <code>&#x3C;promise></code> tag? It is not explained in the ralph
 repo. It’s just an arbitrary signal string for the grep. Could be anything as
 long as the agent wouldn’t accidentally produce it in normal output.</p>
 <p>Side note 2: the ralph github repo also uses a json format for prd.json and a
