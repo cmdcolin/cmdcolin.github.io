@@ -70,7 +70,7 @@ This says
 
 But what about...
 
-```typescript
+```tsx
 import { useEffect, useState } from 'react'
 
 function useMyHook(myVariable: number[]) {
@@ -87,11 +87,7 @@ function useMyHook(myVariable: number[]) {
 function App() {
   useMyHook([1, 2, 3])
 
-  return (
-    <h1>
-      Hello
-    </h1>
-  )
+  return <h1>Hello</h1>
 }
 
 export default App
@@ -111,8 +107,6 @@ will make me think twice or three more times about it, since the heuristic,
 while imperfect, can help. There are of course also other reasons this failure
 case could be triggered... a prop being used probably breaks the heuristic also.
 
-Are there other ways we can catch or fix this issue? Feel free to let me know
-
-```
-
-```
+Are there other ways we can catch or fix this issue? Feel free to let me know.
+Maybe there are completely different programming paradigms that are needed to
+solve it.
