@@ -5,13 +5,13 @@ title:
 date: 2025-12-27
 ---
 
-I am reporting to you live from the debugging session...A useEffect in my
-codebase has triggered in an infinite loop in my code. But this doesn't just
-cause trouble for me....
+I am reporting to you live from the debugging session...A useEffect has
+triggered in an infinite loop in my code. But this doesn't just cause trouble
+for me....
 
 ## A problem for everybody
 
-This type of issue is something probably everyone has seen. Even CloudFlare saw
+This type of issue is something probably everyone has seen. Even Cloudflare saw
 this bug in Sept 2025, and it caused some big troubles
 
 > The incident’s impact stemmed from several issues, but the immediate trigger
@@ -38,11 +38,12 @@ best time!)
 ## I have eslint-plugin-react-hooks, it's supposed to warn about this, why is this happening???
 
 The critical reader may slap their forehead and say...you may not NEED a
-useEffect! don't you know? `<link to react docs here>`
+useEffect! don't you know?
+([You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect))
 
 Sometimes you just do though. Ok moving on
 
-Lets see what eslint-plugin-react-hooks can help catch
+Let's see what eslint-plugin-react-hooks can help catch
 
 ```typescript
 useEffect(() => {}, [new Number(94)])
@@ -73,39 +74,48 @@ But what about...
 ```tsx
 import { useEffect, useState } from 'react'
 
-function useMyHook(myVariable: number[]) {
-  const [result, setResult] = useState(0)
+interface User {
+  id: string
+  name: string
+}
+
+function useFetchUsers(params: { role: string; active: boolean }) {
+  const [users, setUsers] = useState<User[]>([])
   useEffect(() => {
-    console.log('look mom custom hook', myVariable)
-    ;(async () => {
-      setResult(result => result + 1)
-    })()
-  }, [myVariable])
-  return result
+    fetch(`/api/users?role=${params.role}&active=${params.active}`)
+      .then(r => r.json())
+      .then(setUsers)
+  }, [params])
+  return users
 }
 
-function App() {
-  useMyHook([1, 2, 3])
-
-  return <h1>Hello</h1>
+function UserList() {
+  const users = useFetchUsers({ role: 'admin', active: true })
+  return (
+    <ul>
+      {users.map(u => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  )
 }
 
-export default App
+export default UserList
 ```
 
-This, as the console.log suggests, is an infinite loop because [1,2,3] is not a
-stable reference, and we are not informed by the lint rule because we have
-extracted it to a different hook
+This is an infinite loop because `{ role: 'admin', active: true }` creates a new
+object on every render, and we are not informed by the lint rule because the
+dependency is inside a custom hook. The result: your API gets hammered endlessly
 
 ### A thought to leave you with
 
 Things like typescript eliminate huge classes of bugs via static analysis, and
 typescript-eslint is able to push it even further by adding typed lints, but
-what about this class of bugs. It appears to only be able to be detected via
+what about this class of bugs? It appears to only be able to be detected via
 heuristics. I was already a bit wary of using custom hooks in my code and this
-will make me think twice or three more times about it, since the heuristic,
-while imperfect, can help. There are of course also other reasons this failure
-case could be triggered... a prop being used probably breaks the heuristic also.
+will make me think two or three more times about it, since the heuristic, while
+imperfect, can help. There are of course also other reasons this failure case
+could be triggered... a prop being used probably breaks the heuristic as well.
 
 Are there other ways we can catch or fix this issue? Feel free to let me know.
 Maybe there are completely different programming paradigms that are needed to
