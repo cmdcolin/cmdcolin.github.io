@@ -33,9 +33,9 @@ components in your page</p>
 <h3 id="how-do-these-components-get-rendered-to-html">How do these components get rendered to HTML?</h3>
 <p>Typically, just once in your app, you use ReactDOM to render the “App” level
 component to the page.</p>
-<pre><code class="language-js"><a-k>import</a-k> <a-cr>ReactDOM</a-cr> <a-k>from</a-k> <a-s>'react-dom'</a-s>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-t>ReactDOM</a-t> <a-k>from</a-k> <a-s>'react-dom'</a-s>
 
-<a-cr>ReactDOM</a-cr><a-p>.</a-p><a-f>render</a-f><a-p>(</a-p><a-o>&#x3C;</a-o><a-cr>App</a-cr> /><a-p>,</a-p> <a-v>document</a-v><a-p>.</a-p><a-f>getElementById</a-f><a-p>(</a-p><a-s>'root'</a-s><a-p>))</a-p>
+<a-t>ReactDOM</a-t><a-p>.</a-p><a-f>render</a-f><a-p>(&#x3C;</a-p><a-cr>App</a-cr> <a-p>/>,</a-p> <a-v>document</a-v><a-p>.</a-p><a-f>getElementById</a-f><a-p>(</a-p><a-s>'root'</a-s><a-p>))</a-p>
 </code></pre>
 <p>And in your index.html you have e.g.</p>
 <pre><code class="language-html"><a-co>&#x3C;!doctype html</a-co><a-p>></a-p>
@@ -104,9 +104,9 @@ questions.</p>
 <h3 id="footnote-1-class-based-components">Footnote 1. Class based components</h3>
 <p>In the old days, React used “class based components”, here is the Hello world
 example as a class based component</p>
-<pre><code class="language-js"><a-k>class</a-k> <a-cr>HelloWorld</a-cr> <a-p>{</a-p>
+<pre><code class="language-tsx"><a-k>class</a-k> <a-t>HelloWorld</a-t> <a-p>{</a-p>
   <a-f>render</a-f><a-p>()</a-p> <a-p>{</a-p>
-    <a-k>return</a-k> <a-o>&#x3C;</a-o><a-v>div</a-v><a-o>></a-o>Hello world!&#x3C;/<a-v>div</a-v><a-o>></a-o>
+    <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello world!</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>}</a-p>
 <a-p>}</a-p>
 </code></pre>
@@ -118,8 +118,8 @@ components these days</p>
 <h3 id="footnote-2-how-is-this-html-allowed-in-react">Footnote 2. How is this HTML allowed in React?</h3>
 <p>The HTML-like syntax may look odd in JS code. It is called JSX. So code like
 this:</p>
-<pre><code class="language-js"><a-k>function</a-k> <a-cr>HelloWorld</a-cr><a-p>()</a-p> <a-p>{</a-p>
-  <a-k>return</a-k> <a-o>&#x3C;</a-o><a-v>div</a-v><a-o>></a-o>Hello world&#x3C;/<a-v>div</a-v><a-o>></a-o>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>HelloWorld</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello world</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
 <a-p>}</a-p>
 </code></pre>
 <p>would get converted to this by babel or other jsx transpiler:</p>

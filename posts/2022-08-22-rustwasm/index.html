@@ -96,7 +96,7 @@ the <code>create-react-app</code> to add extra <code>webpack</code> flags.</p>
 <h3 id="final-step-use-async-import-to-import-the-hello-wasm-greeting">Final step: Use async <code>import()</code> to import the <code>hello-wasm</code> greeting</h3>
 <p>We use a <code>useEffect</code> hook to import the code asynchronously, and can call our
 rust function, <code>greet</code>, from javascript!</p>
-<pre><code class="language-ts"><a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-k>const</a-k> <a-p>[</a-p><a-v>greeting</a-v><a-p>,</a-p> <a-v>setGreeting</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>string</a-t><a-p>>()</a-p>
   <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
     <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
@@ -111,12 +111,12 @@ rust function, <code>greet</code>, from javascript!</p>
   <a-p>},</a-p> <a-p>[])</a-p>
 
   <a-k>return</a-k> <a-p>(</a-p>
-    <a-p>&#x3C;</a-p><a-t>div</a-t><a-p>></a-p>
-      <a-p>&#x3C;</a-p><a-t>h1</a-t><a-p>></a-p><a-v>rust</a-v> <a-v>monorepo</a-v> <a-v>wasm</a-v> <a-v>demo</a-v><a-o>&#x3C;</a-o><a-s>/</a-s><a-s>h1></a-s><a-o>
-      </a-o><a-o>&#x3C;</a-o><a-v>h2</a-v><a-o>></a-o><a-t>Greeting</a-t><a-o> </a-o><a-v>from</a-v><a-o> </a-o><a-v>wasm</a-v><a-o>: </a-o><a-p>{</a-p><a-o>!</a-o><a-pr>greeting</a-pr><a-o> ? </a-o><a-s>'Loading...'</a-s><a-o> : </a-o><a-t>greeting</a-t><a-p>}</a-p><a-o>&#x3C;</a-o><a-s>/</a-s><a-s>h2>
-    </a-s><a-o>&#x3C;/</a-o><a-s>div</a-s><a-o>></a-o><a-o>
-  </a-o><a-p>)</a-p><a-o>
-</a-o><a-p>}</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>rust monorepo wasm demo</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h2</a-tg><a-p>></a-p><a-s>Greeting from wasm: </a-s><a-p>{</a-p><a-o>!</a-o><a-v>greeting</a-v> ? <a-s>'Loading...'</a-s> : <a-v>greeting</a-v><a-p>}&#x3C;/</a-p><a-tg>h2</a-tg><a-p>></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>In order to greet an arbitrary person, I modified this slightly in the live
 demo. See
