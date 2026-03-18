@@ -144,9 +144,9 @@ directly deploy a `dist` folder of `js` files to NPM.
   expects you to import filenames with their file extension, while node module
   resolution can import extensionless paths, but node module resolution
   generally works well with consumers that use bundlers themselves
-- Uses `"target": "es2018"` - This is does a small amount of transpilation of
-  super modern features, but would generally not require your users to babel-ify
-  their `node_modules` if they consume your library
+- Uses `"target": "es2018"` - This does a small amount of transpilation of super
+  modern features, but would generally not require your users to babel-ify their
+  `node_modules` if they consume your library
 
 ## What about testing?
 
@@ -155,8 +155,8 @@ really help testing anyways. It's just a starter pack feature we can add on.
 Some options you have include
 
 - Use `ts-jest`
-- Use `jest` on it's own, plus a `babel` config with `@babel/preset-typescript`
-- Use `jest` on it's own, run over the compiled output without a `babel` config
+- Use `jest` on its own, plus a `babel` config with `@babel/preset-typescript`
+- Use `jest` on its own, run over the compiled output without a `babel` config
 - Use `vitest` (edit 2024: this is probably the most popular way to do things
   now)
 - Possibly something else? Node now has a built-in test runner. It will be a
@@ -202,13 +202,13 @@ both the "main" and "module" fields in package.json
 - Then set "main":"dist/index.js" for node and `"module":"esm/index.js"` for
   bundlers
 
-The "module" field is a field only bundlers recognizes
+The "module" field is a field only bundlers recognize
 https://stackoverflow.com/questions/42708484/what-is-the-module-package-json-field-for
 
 Note: This is different from the "type":"module" which marks your module as
 pure-ESM!
 
-I have found this technique can go a long ways towards keeping your package
+I have found this technique can go a long way towards keeping your package
 compatible with nodeJS and bundlers and it does not require "export maps" or
 anything which I have found to be difficult to configure
 

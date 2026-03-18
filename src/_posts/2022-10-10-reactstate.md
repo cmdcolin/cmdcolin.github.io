@@ -35,7 +35,7 @@ interface PokemonType {
 }
 interface PokemonInfo {
   name: string
-  types: PokemonType
+  types: PokemonType[]
 }
 
 // util fetch function to throw if !response.ok, I use this util often

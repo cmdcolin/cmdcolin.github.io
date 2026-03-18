@@ -10,7 +10,7 @@ date: 2023-09-27T00:00:00.000Z
 It is common in typescript to write `Record<string,T>` for whatever type `T` you
 store in an object.
 
-But, are you sure you're actually going to get an `T` back? What if some random
+But, are you sure you're actually going to get a `T` back? What if some random
 user provided string is used to index the Record, and it produces undefined? You
 might think, as a typescripter "do I really have to add undefined to the
 signature, shouldn't Typescript check this for me"? Well..
@@ -61,7 +61,7 @@ object, and you just used `Record<string, T|undefined>` to be able to say
 `obj['randomthing']` returns undefined.
 
 Well, now calling e.g. `Object.values(obj)` will return `(T|undefined)[]`
-(similar for `Object.entries`) which is slightly annoying as a user, why may
+(similar for `Object.entries`) which is slightly annoying as a user, who may
 want it to just be `T[]` but they can non-null assert or filter out potential
 undefined's as a workaround.
 

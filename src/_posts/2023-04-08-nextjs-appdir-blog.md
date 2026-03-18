@@ -306,7 +306,7 @@ Then add a "predeploy" and "deploy" script to package.json
 ```
 
 Then when you use `npm run deploy` it will build, push to github pages, and push
-to the the regular content to the main branch too
+to the regular content to the main branch too
 
 ## Result
 

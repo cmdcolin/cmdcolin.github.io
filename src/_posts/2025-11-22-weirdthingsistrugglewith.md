@@ -3,7 +3,7 @@ title: Weird problems I grapple with a lot
 date: 2025-11-22
 ---
 
-I solve a lot of problems that might share some semblence of universal struggle
+I solve a lot of problems that might share some semblance of universal struggle
 that other people have, but also I am often off on a crazy mission that I'm not
 sure anyone else would really care about
 
@@ -54,7 +54,7 @@ every processing step on every data item on every update
 
 You could think of other ways of doing this (a single script that runs all N
 steps, and then only run the update on new files, but there is inertia from my
-early choice to do things this way that makes it hard to change
+early choice to do things this way that makes it hard to change)
 
 ## Other examples
 
@@ -70,4 +70,4 @@ versus what is volatile and doesn't need persisting
 - Tension between building in a function vs relying on an external tool to do
   something
 - Tension between seeing something measurably improve performance in a
-  microbenchmark, but doing nothing at a automated end-to-end performance test
+  microbenchmark, but doing nothing at an automated end-to-end performance test

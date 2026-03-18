@@ -15,10 +15,9 @@ export async function GET() {
     },
   })
 
-  const postModules = import.meta.glob('../_posts/*.md', { eager: true }) as Record<
-    string,
-    { frontmatter: { title: string; date: string } }
-  >
+  const postModules = import.meta.glob('../_posts/*.md', {
+    eager: true,
+  }) as Record<string, { frontmatter: { title: string; date: string } }>
   const posts = Object.entries(postModules).map(([path, module]) => {
     const filename = path.split('/').pop()!.replace('.md', '')
     return {

@@ -155,8 +155,8 @@ npm install --save-dev typescript
 yarn add -D typescript
 ```
 
-Our package.json now will have `typescript` in it's `devDependencies` (this
-means that when someone installs your package, it they don't get typescript as a
+Our package.json now will have `typescript` in its `devDependencies` (this means
+that when someone installs your package, they don't get typescript as a
 dependency, it is just a dependency for while you are developing the library
 locally).
 
@@ -186,7 +186,7 @@ of options, but I have stripped it down in my projects to look like this
 }
 ```
 
-Now, let's wrote a little typescript. We can now use "ESM" style code, we will
+Now, let's write a little typescript. We can now use "ESM" style code, we will
 compile it to commonjs format.
 
 util.ts
@@ -215,7 +215,7 @@ fields in `package.json`
   "name": "mypackage",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "files": ["dist", "src"], // we publish both dist and src to get proper sourceMaps
   "scripts": {
     "build": "tsc --module commonjs"
@@ -415,7 +415,7 @@ style build for bundlers. I do it like this:
      ...
     "clean": "rimraf dist esm",
     "prebuild": "npm run clean",
-    "build:cjs": "tsc --module commonjs --ourDir dist",
+    "build:cjs": "tsc --module commonjs --outDir dist",
     "build:esm": "tsc --target es2018 --outDir esm",
     "build": "npm run build:esm && npm run build:cjs"
   },
@@ -444,8 +444,8 @@ to `npm`. This little boilerplate includes these features:
 
 You also have full control, and understand the decisions we took to get to this
 point. This package does not use any bundling (rollup or webpack or otherwise).
-It just uses `tsc` is used to compile the files to the `dist` folder, and the
-dist folder is published to `npm`!
+It just uses `tsc` to compile the files to the `dist` folder, and the dist
+folder is published to `npm`!
 
 If you need your package to be usable by consumers that don't themselves use
 bundlers, consider looking into `<script type="module">` for importing ESM
@@ -468,7 +468,7 @@ There are many high powered "monorepo" setups like lerna, nx, turborepo, etc.
 
 I think for many purposes, these can be a bit overkill. I would start with yarn
 workspaces. Basically, the way this works is you can have e.g. in your root
-package.json in your repo something likely
+package.json in your repo something like
 
 ```json
 {
@@ -482,7 +482,7 @@ And then in your `lib` directory you can have your library as we created above
 and `app` for example can be an instance of a `vite` app that uses your library.
 You can reference your lib by name in the `app` folders package.json, and it
 will automatically get the latest version of it that you have built from the
-`lib` directory e.g. your `app` will look at the libs "dist" folder: it's
+`lib` directory e.g. your `app` will look at the libs "dist" folder: its
 compiled outputs. That means you can run `yarn tsc --watch` in the lib folder to
 continuously build it, and then e.g. when you are running e.g. `yarn dev` in the
 `app` directory, it will see updates to the `lib` dist directory and auto-update

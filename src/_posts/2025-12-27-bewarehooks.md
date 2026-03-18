@@ -120,3 +120,17 @@ could be triggered... a prop being used probably breaks the heuristic as well.
 Are there other ways we can catch or fix this issue? Feel free to let me know.
 Maybe there are completely different programming paradigms that are needed to
 solve it.
+
+## Footnote 1
+
+I was alerted to the fact that eslint-plugin-react-hooks actually allows you to
+check custom hooks with exhaustive-deps with advanced configuration
+https://www.npmjs.com/package/eslint-plugin-react-hooks however it also
+recommends to just not do this
+
+## Footnote 2
+
+Part of this issue is really the use of complex objects in useEffect hooks. I
+have half the mind to make a type-aware eslint rule that type checks all
+arguments to be primitives, and require an eslint-disable-next-line for any
+non-primitive object

@@ -46,7 +46,7 @@ my workflow
   files https://prettier.io/docs/en/options.html#prose-wrap
 
 - Setting up "LSP support" in vim can be hard, but rewarding. I went through a
-  whole gammut of using w0rp/ale, then coc.nvim, and then now 'built-in neovim
+  whole gamut of using w0rp/ale, then coc.nvim, and then now 'built-in neovim
   LSP'. I like it, but it was to me not easy to set up. I recommend
   https://github.com/VonHeikemen/lsp-zero.nvim as it makes it easier
 
@@ -65,13 +65,13 @@ my workflow
 
 - I do not use a 'sidebar file browser' like nerdtree or similar. As mentioned
   above, I primarily navigate with `,gg` but I also use `vim-vinegar`, which
-  let's me hit `-` and that opens a file browser of the current directory, and I
+  lets me hit `-` and that opens a file browser of the current directory, and I
   can hop around and hit keys to rename (R), delete (D), create (%) new files in
   the directory. I often go back to the zsh shell to do more sophisticated
   operations
 
 - Snippets: to `console.log`, I created a snippet where I can type `cl`, then it
-  will popup an autocomplete window, which let's me choose to insert
+  will popup an autocomplete window, which lets me choose to insert
   `console.log({|})` or `console.log(|)` where | indicates where the cursor goes
   after hitting enter. The `console.log({})` is very handy because if you fill
   in `console.log({variable})` then the output will be `{variable:5}` so you get
@@ -141,7 +141,7 @@ vaporwave file.mp3 0.5 # custom slowdown factor, outputs file.vaporwave.mp3
 I worked on a couple projects to make custom music players to scratch my own
 itch. I made a Rust one, to try to replace foobar2000, hoping to go back to the
 days of yore when I used a desktop player, and then a web based one when I
-realized I just listen to alot of youtube anyways now
+realized I just listen to a lot of youtube anyways now
 
 - Rust+GTK4 app https://github.com/cmdcolin/fml9000
 - Web based https://cmdcolin.github.io/ytshuffle/

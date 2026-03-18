@@ -28,17 +28,17 @@ artist, track, album, etc. I chose to use the GTK
 [`ColumnView`](https://docs.gtk.org/gtk4/class.ColumnView.html) to drive this. I
 stumbled around looking for example code, but there was none specifically for
 the `ColumnView`. I also realized the `ListView` example from the `gtk4-rs`
-examples with it's factory function had similar needs that the `ColumnView`.
+examples with its factory function had similar needs that the `ColumnView`.
 
 I found out that I basically needed to create a `ListStore`. I thought if I
 could make my own `GObject` subclass, it would solve everything, but I had
-trouble getting making this work (rust doesn't have the concept of extending a
-class for one thing, you implement various traits instead). Finally, I randomly
+trouble getting this to work (rust doesn't have the concept of extending a class
+for one thing, you implement various traits instead). Finally, I randomly
 stumbled on this link using a `BoxedAnyObject` with a good example of storing
 data in a ListStore
 https://gtk-rs.org/gtk-rs-core/git/docs/glib/struct.BoxedAnyObject.html
 
-The `BoxedAnyObject` is a `GObject`, so this was an good route to storing the
+The `BoxedAnyObject` is a `GObject`, so this was a good route to storing the
 `ListView` items. There was no example code for connecting the `ListStore` with
 the `ColumnView`, so I struggled for awhile before realizing that the `ListView`
 example in the `gtk4-rs` codebase has similar concepts.
@@ -51,8 +51,8 @@ repo!
 To actually play audio, I looked at a couple options. There was even one option
 called GTK
 [`MediaFile`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.MediaFile.html)
-which should to be able to play e.g. mp3s, making my job of making a media
-player much simpler, but it produced an error
+which should be able to play e.g. mp3s, making my job of making a media player
+much simpler, but it produced an error
 ["GTK could not find a media module. Check your installation."](https://www.google.com/search?q=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&oq=%22GTK+could+not+find+a+media+module.+Check+your+installation.%22&aqs=chrome..69i57.267j0j7&sourceid=chrome&ie=UTF-8)
 which had very few references on the internet. I figured this could be difficult
 to solve or point to issues I could face later on making minimal executables for
@@ -130,3 +130,10 @@ team for helping out with this!
 
 After this hurdle was crossed, I felt much more comfortable in the GTK mindset,
 and I quickly fleshed out some more UI for the app
+
+### 2026 Update
+
+In 2026, with the help of Claude Code, I extensively updated fml9000 with
+YouTube integration using GStreamer and more. The AI-assisted workflow made it
+much easier to tackle the complexities of GStreamer's Rust bindings and build
+out features that would have taken significantly longer to implement solo

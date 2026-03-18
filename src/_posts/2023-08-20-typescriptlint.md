@@ -230,7 +230,7 @@ but we can't have nice things
 Link 1:
 https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md
 
-Like 2: see also https://typescript-eslint.io/rules/prefer-for-of/
+Link 2: see also https://typescript-eslint.io/rules/prefer-for-of/
 
 This is perhaps a controversial one, but this rule bans use of
 Array.prototype.forEach and calls JS programmers back 'round to the fire of the
@@ -306,7 +306,7 @@ The `@typescript-eslint/recommended-type-checked` is called
 
 ```typescript
 const [data, setData] = useState<MyData>()
-const [data, setError] = useState<unknown>()
+const [error, setError] = useState<unknown>()
 useEffect(() => {
   // gotta ignore the warning in this case
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -331,7 +331,7 @@ alternatively, without the disable, you can add a catch handler
 
 ```typescript
 const [data, setData] = useState<MyData>()
-const [data, setError] = useState<unknown>()
+const [error, setError] = useState<unknown>()
 useEffect(() => {
   ;(async () => {
     const response = await fetch('http://google.com')

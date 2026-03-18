@@ -5,8 +5,8 @@ date: 2022-02-26T00:00:00.000Z
 
 There are two hard problems in computer science:
 [Cache invalidation and naming things](https://martinfowler.com/bliki/TwoHardThings.html).
-In this post we'll show how memoize an async function, and how to invalidate the
-memoization when the promise throws an error.
+In this post we'll show how to memoize an async function, and how to invalidate
+the memoization when the promise throws an error.
 
 This helps us with being able to re-try because since the error is not cached,
 calling it again after an error retries automatically.
@@ -57,7 +57,7 @@ in a Map or Object to do this.
 
 This demo also demonstrates some basic fetch error handling, and uses
 `await response.text()` to get the error message from the API. Sometimes an api
-will return it's error in JSON format, so you can handle that as is, sometimes
+will return its error in JSON format, so you can handle that as is, sometimes
 you have to check both text and json
 
 Note also, that response.statusText does
@@ -100,6 +100,7 @@ function memoize(fn) {
         throw e
       })
     }
+    return promise
   }
 }
 ```
@@ -121,7 +122,7 @@ or re-throw the abort exception
 
 ```js
 function isAbortException(e) {
-  return e instanceof Error && exception.name === 'AbortError'
+  return e instanceof Error && e.name === 'AbortError'
 }
 ```
 

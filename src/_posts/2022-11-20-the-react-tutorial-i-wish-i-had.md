@@ -20,7 +20,7 @@ function HelloWorld() {
 }
 ```
 
-I like to think of React components as "functions that return HTML". That is a
+I like to think of React components as "functions that return HTML". That is an
 oversimplification, but it can be a helpful thinking tool to help you get
 started.
 
@@ -112,7 +112,7 @@ function List() {
 ```
 
 Inside the "list" each item has a key prop that is specified. See
-https://reactjs.org/docs/lists-and-keys.html for more discussion on this
+https://react.dev/learn/rendering-lists for more discussion on this
 
 ### How do I use React in my own app?
 
@@ -200,7 +200,7 @@ many roadblocks
 - You can be bogged down by the difficulty in setting up your dev environment -
   the need to get transpilers and compilers for the JSX syntax and such is not
   easy, and has led to an explosion of developer tooling that often needs to be
-  run on the command line to do any sort of programming for the web. This is a
+  run on the command line to do any sort of programming for the web. This is an
   unfortunate consequence of the web becoming more complicated. Learning to be
   comfortable with the command line is often an important stepping stone to
   becoming comfortable with modern JS dev tooling.

@@ -92,7 +92,7 @@ Then in your package.json you can have
   "version": "0.0.0",
   "scripts": {
     "build": "yourbuild that outputs to a folder named dist",
-    "prebench": "./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"
+    "prebench": "./scripts/build-both-branches.sh $BRANCH1 $BRANCH2",
     "bench": "vitest bench"
   }
 }
@@ -127,6 +127,7 @@ export function pow(n: number, exp: number) {
   for (let i = 1; i < exp; i++) {
     total *= n
   }
+  return total
 }
 ```
 
@@ -196,9 +197,9 @@ An example of this is here https://github.com/cmdcolin/simple_benchmark_example
 
 ## Part 2. Creating 'end-to-end' benchmarks using Puppeteer
 
-Creating end-to-end benchmarks are really IMO where the rubber hits the road.
-You have spent all day making microoptimizations, now it's time to confirm it
-makes an impact.
+Creating end-to-end benchmarks is really IMO where the rubber hits the road. You
+have spent all day making microoptimizations, now it's time to confirm it makes
+an impact.
 
 With puppeteer, you can test against live real builds of your webapp. I
 recommend using production builds (not a dev server) and using localhost only
@@ -327,7 +328,7 @@ used on the branch and main. In that case, you can install the union of the
 libraries on your branch temporarily (should only be needed on your "BRANCH2")
 
 [3] I say this as someone that has superstitiously implemented hundreds of
-microptimizations for it to have absolutely zero effect in a end-to-end
+micro-optimizations for it to have absolutely zero effect in an end-to-end
 benchmark. Conversely, these branch comparison tests have allowed me to ratchet
 back-to-back 5-10% improvements to achieve significant gains
 

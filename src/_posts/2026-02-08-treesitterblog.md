@@ -1,11 +1,11 @@
 ---
 title: Using tree sitter for syntax highlighting on the blog
-date: 2026-02-07
+date: 2026-02-08
 ---
 
-Owners of a programming blogs are obligated to make numerous frivolous tweaks
-and modifications to their blog infrastructure in order to avoid actually
-writing about things.
+Owners of programming blogs are obligated to make numerous frivolous tweaks and
+modifications to their blog infrastructure in order to avoid actually writing
+about things.
 
 However, in certain cases, the blog authors can actually make posts about how
 they modified their blog infrastructure in order to fulfill their blog posting

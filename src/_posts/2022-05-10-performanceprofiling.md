@@ -17,7 +17,7 @@ I use the Chrome DevTools "Performance" profiler, which is a
 statistical/sampling profiler
 https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers
 
-This means it samples at some rate and see's where in the callstack the program
+This means it samples at some rate and sees where in the callstack the program
 is executing.
 
 - If you see large rectangles in the profiler, you may have a long running
@@ -51,7 +51,7 @@ improve performance over time.
 For example, say a program takes 30 seconds to run on a certain dataset
 
 If you do profiling and find a couple microoptimizations that give you a 15%,
-10% and 5% performance improvement, then you program now takes 20 seconds to
+10% and 5% performance improvement, then your program now takes 20 seconds to
 run. That is still not instantaneous, but it is saving users a good 10 seconds.
 
 ## Examples of micro optimizations
@@ -111,8 +111,8 @@ For our app, I created a `puppeteer` based test where I loaded the website and
 waited for a "DONE" condition. I created a variety of different tests which
 allowed me to see e.g. some optimizations may only affect certain conditions.
 
-Developing the end-to-end test suite tool awhile to develop (read: weeks to
-mature, though some earlier result were available), but it let me compare the
+Developing the end-to-end test suite took awhile to develop (read: weeks to
+mature, though some earlier results were available), but it let me compare the
 current release vs experimental branches, and over time, the experimental
 branches were merged and things got faster. [2]
 
@@ -139,6 +139,6 @@ from the browser (and was even removed for a time while these security
 implications were sussed out, due to Spectre/Meltdown vulnerabilities)
 
 [2] I still have not found a good way to get automated memory usage profiling
-via puppeteer. You can access window.process.memory in puppeteer, but this
+via puppeteer. You can access window.performance.memory in puppeteer, but this
 variable does not provide info about webworker memory usage
 https://github.com/puppeteer/puppeteer/issues/8258

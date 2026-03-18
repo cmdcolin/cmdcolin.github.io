@@ -24,8 +24,8 @@ https://typescript-eslint.io/rules/no-unnecessary-condition/
 You can enable this rule just by itself, or you can enable it as part of the
 `strict-type-checked` rule set.
 
-I personally enabled this rule almost on accident almost when I "upgraded" from
-the `recommended-type-checked` rule set to the `strict-type-checked` ruleset. I
+I personally enabled this rule almost on accident when I "upgraded" from the
+`recommended-type-checked` rule set to the `strict-type-checked` ruleset. I
 wasn't even aware of the difference between these two rulesets and just sort of
 switched to the strict version randomly one day.
 
@@ -50,7 +50,7 @@ for `if(object[key])` since a lot of objects are typed `Record<string,string>`
 
 I have previously written about `noUncheckedIndexedAccess` tsconfig.json
 https://cmdcolin.github.io/posts/2023-09-27-areyousure and in my previous
-article, my conclusion was to NOT to enable it, but my recent experience now has
+article, my conclusion was NOT to enable it, but my recent experience now has
 made it so that I think it is better if you DO enable it.
 
 I am a waffler and sometimes yesterday's "simple" is today's gigantic hack that
@@ -67,7 +67,7 @@ In a small number of cases, I had to keep a couple of superstitious
 if-statements alive with a disable-next-line
 `// eslint-disable-next-line for @typescript-eslint/no-unnecessary-condition`
 
-...but these are generally due to poor typescript typing, and is probably a
+...but these are generally due to poor typescript typing, and are probably a
 signal to refactor!
 
 ## Playground

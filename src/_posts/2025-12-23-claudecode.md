@@ -56,13 +56,18 @@ weird bug, and I posted a full chatlog on my early PRs using this (example Dec
 2024, https://github.com/GMOD/cram-js/pull/150 please note that all things
 considered this is now a very basic early example of my AI usage)
 
-Around February 2025, Claude introduced 3.7 which added tool calling, which are
-basically 'agentic' workflows. These were integrated with Avante.nvim but they
-were not super reliable. I was pretty unhappy with the tool calling because it
-seemed like it did not work well. I reported several bugs related to this on the
-Avante.nvim github (e.g. "bug: Avante Gets stuck on tool calling and never
-progresses past that point", "bug: Sonnet just runs in loops, reading the same
-file over and over again", etc.). It also costs more in API tokens
+Around February 2025, Claude introduced
+[3.7](https://www.anthropic.com/news/claude-3-7-sonnet) which added extended
+thinking and improved agentic capabilities. Tool calling itself had been
+available since
+[Claude 3 (March 2024)](https://docs.anthropic.com/en/docs/build-with-claude/tool-use),
+but 3.7 made it more practical for agentic workflows. Avante.nvim integrated
+these tool calling workflows, but they were not super reliable. I was pretty
+unhappy with the tool calling because it seemed like it did not work well. I
+reported several bugs related to this on the Avante.nvim github (e.g. "bug:
+Avante Gets stuck on tool calling and never progresses past that point", "bug:
+Sonnet just runs in loops, reading the same file over and over again", etc.). It
+also costs more in API tokens
 
 In any case, one rainy day in May 2025, when Avante.nvim was really not working
 and I felt very stuck, I think I realized that maybe Avante.nvim was causing me
@@ -108,7 +113,7 @@ I upgraded to Claude Max and now am at 100 bucks a month. That's where I am
 
 I can sometimes 'max out' the Claude Max tier, but it is probably the right
 level for me. This is a weird thing to 'confess' but I buy the subscription
-myself, and do not get it re-imbursed through my work. Might need to have that
+myself, and do not get it reimbursed through my work. Might need to have that
 talk at some point with my boss.
 
 ## How I use Claude Code
@@ -313,7 +318,7 @@ field.
 
 ## Footnote 5
 
-If you are a AI skeptic, or someone that complains that they always spit out
+If you are an AI skeptic, or someone that complains that they always spit out
 garbage, I can only say, you have to use at least Opus 4.5
 
 The other models will frequently come up with bad ideas. Sometimes I will
