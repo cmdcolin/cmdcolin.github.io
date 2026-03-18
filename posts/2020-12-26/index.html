@@ -27,8 +27,8 @@ little bit but it looks like this:</p>
 <p>Here is a detailed code for uploading the file. We upload one file at a time,
 but the client code post to the lambda endpoint individually for each file</p>
 <p>This generates a pre-signed URL to allow the client-side JS (not the lambda
-itself) to directly upload to S3, and also posts a row in the S3 to the filename
-that will. It is very similar code in to
+itself) to directly upload to S3, and also posts a row to DynamoDB with the
+filename. It is very similar code to
 <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
 <p>./lambdas/postFile/app.js</p>
 <pre><code class="language-js"><a-s>'use strict'</a-s>

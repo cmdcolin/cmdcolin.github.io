@@ -354,7 +354,7 @@ package.json in your repo something like</p>
 and <code>app</code> for example can be an instance of a <code>vite</code> app that uses your library.
 You can reference your lib by name in the <code>app</code> folders package.json, and it
 will automatically get the latest version of it that you have built from the
-<code>lib</code> directory e.g. your <code>app</code> will look at the libs “dist” folder: it’s
+<code>lib</code> directory e.g. your <code>app</code> will look at the libs “dist” folder: its
 compiled outputs. That means you can run <code>yarn tsc --watch</code> in the lib folder to
 continuously build it, and then e.g. when you are running e.g. <code>yarn dev</code> in the
 <code>app</code> directory, it will see updates to the <code>lib</code> dist directory and auto-update
