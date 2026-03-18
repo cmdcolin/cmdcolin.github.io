@@ -1,10 +1,10 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.6"><title>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
-<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I am reporting to you live from the debugging session…A useEffect in my
-codebase has triggered in an infinite loop in my code. But this doesn’t just
-cause trouble for me…</p>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I am reporting to you live from the debugging session…A useEffect has
+triggered in an infinite loop in my code. But this doesn’t just cause trouble
+for me…</p>
 <h2 id="a-problem-for-everybody">A problem for everybody</h2>
-<p>This type of issue is something probably everyone has seen. Even CloudFlare saw
+<p>This type of issue is something probably everyone has seen. Even Cloudflare saw
 this bug in Sept 2025, and it caused some big troubles</p>
 <blockquote>
 <p>The incident’s impact stemmed from several issues, but the immediate trigger
@@ -28,9 +28,10 @@ leads to failure, but could this issue have been caught at compile time? (the
 best time!)</p>
 <h2 id="i-have-eslint-plugin-react-hooks-its-supposed-to-warn-about-this-why-is-this-happening">I have eslint-plugin-react-hooks, it’s supposed to warn about this, why is this happening???</h2>
 <p>The critical reader may slap their forehead and say…you may not NEED a
-useEffect! don’t you know? <code>&#x3C;link to react docs here></code></p>
+useEffect! don’t you know?
+(<a href="https://react.dev/learn/you-might-not-need-an-effect">You Might Not Need an Effect</a>)</p>
 <p>Sometimes you just do though. Ok moving on</p>
-<p>Lets see what eslint-plugin-react-hooks can help catch</p>
+<p>Let’s see what eslint-plugin-react-hooks can help catch</p>
 <pre><code class="language-typescript"><a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{},</a-p> <a-p>[</a-p><a-k>new</a-k> <a-t>Number</a-t><a-p>(</a-p><a-n>94</a-n><a-p>)])</a-p>
 </code></pre>
 <p>This produces</p>
@@ -47,36 +48,45 @@ useEffect! don’t you know? <code>&#x3C;link to react docs here></code></p>
 <p>But what about…</p>
 <pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useEffect</a-v><a-p>,</a-p> <a-v>useState</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
-<a-k>function</a-k> <a-f>useMyHook</a-f><a-p>(</a-p><a-v>myVariable</a-v>: <a-t>number</a-t><a-p>[])</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>result</a-v><a-p>,</a-p> <a-v>setResult</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
+<a-k>interface</a-k> <a-t>User</a-t> <a-p>{</a-p>
+  <a-pr>id</a-pr>: <a-t>string</a-t>
+  <a-pr>name</a-pr>: <a-t>string</a-t>
+<a-p>}</a-p>
+
+<a-k>function</a-k> <a-f>useFetchUsers</a-f><a-p>(</a-p><a-v>params</a-v>: <a-p>{</a-p> <a-pr>role</a-pr>: <a-t>string</a-t><a-p>;</a-p> <a-pr>active</a-pr>: <a-t>boolean</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>users</a-v><a-p>,</a-p> <a-v>setUsers</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>User</a-t><a-p>[]>([])</a-p>
   <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'look mom custom hook'</a-s><a-p>,</a-p> <a-v>myVariable</a-v><a-p>)</a-p>
-    <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-      <a-f>setResult</a-f><a-p>(</a-p><a-v>result</a-v> <a-o>=></a-o> <a-v>result</a-v> <a-o>+</a-o> <a-n>1</a-n><a-p>)</a-p>
-    <a-p>})()</a-p>
-  <a-p>},</a-p> <a-p>[</a-p><a-v>myVariable</a-v><a-p>])</a-p>
-  <a-k>return</a-k> <a-v>result</a-v>
+    <a-f>fetch</a-f><a-p>(</a-p><a-s>`/api/users?role=</a-s><a-p>${</a-p><a-v>params</a-v><a-p>.</a-p><a-pr>role</a-pr><a-p>}</a-p><a-s>&#x26;active=</a-s><a-p>${</a-p><a-v>params</a-v><a-p>.</a-p><a-pr>active</a-pr><a-p>}</a-p><a-s>`</a-s><a-p>)</a-p>
+      <a-p>.</a-p><a-f>then</a-f><a-p>(</a-p><a-v>r</a-v> <a-o>=></a-o> <a-v>r</a-v><a-p>.</a-p><a-f>json</a-f><a-p>())</a-p>
+      <a-p>.</a-p><a-f>then</a-f><a-p>(</a-p><a-v>setUsers</a-v><a-p>)</a-p>
+  <a-p>},</a-p> <a-p>[</a-p><a-v>params</a-v><a-p>])</a-p>
+  <a-k>return</a-k> <a-v>users</a-v>
 <a-p>}</a-p>
 
-<a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
-  <a-f>useMyHook</a-f><a-p>([</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>])</a-p>
-
-  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>Hello</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+<a-k>function</a-k> <a-t>UserList</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>users</a-v> <a-o>=</a-o> <a-f>useFetchUsers</a-f><a-p>({</a-p> <a-pr>role</a-pr>: <a-s>'admin'</a-s><a-p>,</a-p> <a-pr>active</a-pr>: <a-co>true</a-co> <a-p>})</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>ul</a-tg><a-p>></a-p>
+      <a-p>{</a-p><a-v>users</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>u</a-v> <a-o>=></a-o> <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>li</a-tg> <a-at>key</a-at><a-o>=</a-o><a-p>{</a-p><a-v>u</a-v><a-p>.</a-p><a-pr>id</a-pr><a-p>}>{</a-p><a-v>u</a-v><a-p>.</a-p><a-pr>name</a-pr><a-p>}&#x3C;/</a-p><a-tg>li</a-tg><a-p>></a-p>
+      <a-p>))}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
 <a-p>}</a-p>
 
-<a-k>export</a-k> <a-k>default</a-k> <a-t>App</a-t>
+<a-k>export</a-k> <a-k>default</a-k> <a-t>UserList</a-t>
 </code></pre>
-<p>This, as the console.log suggests, is an infinite loop because [1,2,3] is not a
-stable reference, and we are not informed by the lint rule because we have
-extracted it to a different hook</p>
+<p>This is an infinite loop because <code>{ role: 'admin', active: true }</code> creates a new
+object on every render, and we are not informed by the lint rule because the
+dependency is inside a custom hook. The result: your API gets hammered endlessly</p>
 <h3 id="a-thought-to-leave-you-with">A thought to leave you with</h3>
 <p>Things like typescript eliminate huge classes of bugs via static analysis, and
 typescript-eslint is able to push it even further by adding typed lints, but
-what about this class of bugs. It appears to only be able to be detected via
+what about this class of bugs? It appears to only be able to be detected via
 heuristics. I was already a bit wary of using custom hooks in my code and this
-will make me think twice or three more times about it, since the heuristic,
-while imperfect, can help. There are of course also other reasons this failure
-case could be triggered… a prop being used probably breaks the heuristic also.</p>
+will make me think two or three more times about it, since the heuristic, while
+imperfect, can help. There are of course also other reasons this failure case
+could be triggered… a prop being used probably breaks the heuristic as well.</p>
 <p>Are there other ways we can catch or fix this issue? Feel free to let me know.
 Maybe there are completely different programming paradigms that are needed to
 solve it.</p> </div> <div id="giscus"></div> <script>
