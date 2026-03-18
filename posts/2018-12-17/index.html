@@ -86,8 +86,8 @@ from their codebase to use it in bam-js code. Commit here
 <li>
 <p>Fixed issue with some GFF3Tabix tracks having some inconsistent layout of
 features. This is a persistently annoying fact in tabix files where we cannot
-really get a unique ID of a feature based on it’s file offset. Therefore this
-takes the full crc32 of a line as it’s unique ID.</p>
+really get a unique ID of a feature based on its file offset. Therefore this
+takes the full crc32 of a line as its unique ID.</p>
 </li>
 <li>
 <p>Fixed CRAM store not renaming reference sequences in the same way as other
@@ -100,7 +100,7 @@ in the CRAM file.</p>
 </li>
 <li>
 <p>Fixed bug where older browsers e.g. IE11 were not being properly supported via
-babel. This was a absolutely terrible bug that I found over thanksgiving
+babel. This was an absolutely terrible bug that I found over thanksgiving
 break. It was a regression from 1.15 branch of JBrowse. Previous versions from
 1.13 when webpack was up until 1.15 used <code>@babel/env</code>. It was changed to
 babel-preset-2015 but it was not being run correctly. Then I found that even

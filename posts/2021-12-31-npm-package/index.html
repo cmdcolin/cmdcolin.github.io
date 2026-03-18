@@ -115,8 +115,8 @@ in our “src” directory and output the compiled files to a directory named �
 <a-c># or</a-c>
 <a-f>yarn</a-f> add <a-co>-D</a-co> typescript
 </code></pre>
-<p>Our package.json now will have <code>typescript</code> in it’s <code>devDependencies</code> (this
-means that when someone installs your package, it they don’t get typescript as a
+<p>Our package.json now will have <code>typescript</code> in its <code>devDependencies</code> (this means
+that when someone installs your package, they don’t get typescript as a
 dependency, it is just a dependency for while you are developing the library
 locally).</p>
 <p>Then we need to create a tsconfig.json for typescript to use</p>
@@ -139,7 +139,7 @@ of options, but I have stripped it down in my projects to look like this</p>
   }
 }
 </code></pre>
-<p>Now, let’s wrote a little typescript. We can now use “ESM” style code, we will
+<p>Now, let’s write a little typescript. We can now use “ESM” style code, we will
 compile it to commonjs format.</p>
 <p>util.ts</p>
 <pre><code class="language-typescript"><a-k>export</a-k> <a-k>function</a-k> <a-f>getMessage</a-f><a-p>()</a-p> <a-p>{</a-p>
@@ -159,7 +159,7 @@ fields in <code>package.json</code></p>
   <a-s>"name"</a-s>: <a-s>"mypackage"</a-s>,
   <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
   <a-s>"description"</a-s>: <a-s>""</a-s>,
-  <a-s>"main"</a-s>: <a-s>"src/index.js"</a-s>,
+  <a-s>"main"</a-s>: <a-s>"dist/index.js"</a-s>,
   <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"src"</a-s>], <a-c>// we publish both dist and src to get proper sourceMaps</a-c>
   <a-s>"scripts"</a-s>: {
     <a-s>"build"</a-s>: <a-s>"tsc --module commonjs"</a-s>
@@ -302,7 +302,7 @@ style build for bundlers. I do it like this:</p>
      ...
     <a-s>"clean"</a-s>: <a-s>"rimraf dist esm"</a-s>,
     <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
-    <a-s>"build:cjs"</a-s>: <a-s>"tsc --module commonjs --ourDir dist"</a-s>,
+    <a-s>"build:cjs"</a-s>: <a-s>"tsc --module commonjs --outDir dist"</a-s>,
     <a-s>"build:esm"</a-s>: <a-s>"tsc --target es2018 --outDir esm"</a-s>,
     <a-s>"build"</a-s>: <a-s>"npm run build:esm &#x26;&#x26; npm run build:cjs"</a-s>
   },
@@ -327,8 +327,8 @@ to <code>npm</code>. This little boilerplate includes these features:</p>
 </ul>
 <p>You also have full control, and understand the decisions we took to get to this
 point. This package does not use any bundling (rollup or webpack or otherwise).
-It just uses <code>tsc</code> is used to compile the files to the <code>dist</code> folder, and the
-dist folder is published to <code>npm</code>!</p>
+It just uses <code>tsc</code> to compile the files to the <code>dist</code> folder, and the dist
+folder is published to <code>npm</code>!</p>
 <p>If you need your package to be usable by consumers that don’t themselves use
 bundlers, consider looking into <code>&#x3C;script type="module"></code> for importing ESM
 modules in the browser, or you can bundle your library using rollup or webpack
@@ -343,7 +343,7 @@ so take it with a grain of salt!</p>
 <p>There are many high powered “monorepo” setups like lerna, nx, turborepo, etc.</p>
 <p>I think for many purposes, these can be a bit overkill. I would start with yarn
 workspaces. Basically, the way this works is you can have e.g. in your root
-package.json in your repo something likely</p>
+package.json in your repo something like</p>
 <pre><code class="language-json">{
   <a-s>"name"</a-s>: <a-s>"root"</a-s>,
   <a-s>"private"</a-s>: <a-co>true</a-co>,

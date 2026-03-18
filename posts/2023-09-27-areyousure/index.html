@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>I see that noUncheckedIndexedAccess is false. Did you want to use Record&lt;string, T|undefined&gt;?</h1> <h4 data-astro-cid-lvjzyg5v>2023-09-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><img src="/clippy.jpg" alt=""></p>
 <p>It is common in typescript to write <code>Record&#x3C;string,T></code> for whatever type <code>T</code> you
 store in an object.</p>
-<p>But, are you sure you’re actually going to get an <code>T</code> back? What if some random
+<p>But, are you sure you’re actually going to get a <code>T</code> back? What if some random
 user provided string is used to index the Record, and it produces undefined? You
 might think, as a typescripter “do I really have to add undefined to the
 signature, shouldn’t Typescript check this for me”? Well..</p>
@@ -41,7 +41,7 @@ old objects, but has this benefit amongst others!</p>
 object, and you just used <code>Record&#x3C;string, T|undefined></code> to be able to say
 <code>obj['randomthing']</code> returns undefined.</p>
 <p>Well, now calling e.g. <code>Object.values(obj)</code> will return <code>(T|undefined)[]</code>
-(similar for <code>Object.entries</code>) which is slightly annoying as a user, why may
+(similar for <code>Object.entries</code>) which is slightly annoying as a user, who may
 want it to just be <code>T[]</code> but they can non-null assert or filter out potential
 undefined’s as a workaround.</p>
 <h2 id="footnote-4-small-upside-to-recordstring-tundefined">Footnote 4: Small upside to <code>Record&#x3C;string, T|undefined></code></h2>

@@ -2,8 +2,8 @@
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Memoizing async functions so that you don&#39;t cache errors</h1> <h4 data-astro-cid-lvjzyg5v>2022-02-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There are two hard problems in computer science:
 <a href="https://martinfowler.com/bliki/TwoHardThings.html">Cache invalidation and naming things</a>.
-In this post we’ll show how memoize an async function, and how to invalidate the
-memoization when the promise throws an error.</p>
+In this post we’ll show how to memoize an async function, and how to invalidate
+the memoization when the promise throws an error.</p>
 <p>This helps us with being able to re-try because since the error is not cached,
 calling it again after an error retries automatically.</p>
 <p>Example async function:</p>
@@ -41,7 +41,7 @@ in a Map or Object to do this.</p>
 <h2 id="footnote-1-error-handling-of-fetch">Footnote 1: Error handling of <code>fetch</code></h2>
 <p>This demo also demonstrates some basic fetch error handling, and uses
 <code>await response.text()</code> to get the error message from the API. Sometimes an api
-will return it’s error in JSON format, so you can handle that as is, sometimes
+will return its error in JSON format, so you can handle that as is, sometimes
 you have to check both text and json</p>
 <p>Note also, that response.statusText does
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/statusText">not exist in HTTP/2</a>
@@ -76,6 +76,7 @@ testing or similar</p>
         <a-k>throw</a-k> <a-v>e</a-v>
       <a-p>})</a-p>
     <a-p>}</a-p>
+    <a-k>return</a-k> <a-v>promise</a-v>
   <a-p>}</a-p>
 <a-p>}</a-p>
 </code></pre>
@@ -92,7 +93,7 @@ and then aborted it, it would abort the fetch,
 You can detect that it is an AbortError like this, and may choose not to display
 or re-throw the abort exception</p>
 <pre><code class="language-js"><a-k>function</a-k> <a-f>isAbortException</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
-  <a-k>return</a-k> <a-v>e</a-v> <a-k>instanceof</a-k> <a-cr>Error</a-cr> <a-o>&#x26;&#x26;</a-o> <a-v>exception</a-v><a-p>.</a-p><a-pr>name</a-pr> <a-o>===</a-o> <a-s>'AbortError'</a-s>
+  <a-k>return</a-k> <a-v>e</a-v> <a-k>instanceof</a-k> <a-cr>Error</a-cr> <a-o>&#x26;&#x26;</a-o> <a-v>e</a-v><a-p>.</a-p><a-pr>name</a-pr> <a-o>===</a-o> <a-s>'AbortError'</a-s>
 <a-p>}</a-p>
 </code></pre>
 <p>Now, what if 5 functions call getDataMemoized(), all passing different abort

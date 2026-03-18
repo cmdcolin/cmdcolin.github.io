@@ -148,7 +148,7 @@ record is forward or reverse strand, you count upwards when processing the
 of 45.</p>
 <h3 id="how-are-reads-ordered-in-a-sam-file">How are reads ordered in a <code>SAM</code> file</h3>
 <p>When you run an aligner program like bwa or minimap2, you type e.g.</p>
-<pre><code>minimap2 -a reference_genom.fa reads.fq > out.sam
+<pre><code>minimap2 -a reference_genome.fa reads.fq > out.sam
 </code></pre>
 <p>out.sam will be ordered in the same order as the fastq. For preparation for
 loading into analysis tools or genome browsers, we will often sort the reads
@@ -240,10 +240,11 @@ event using our “breakpoint split view”. This view shows the evidence for th
 reads that are split aligned across an SV, and can show connections between
 paired-end reads across an SV too.</p>
 <p>We also have a workflow called the “SV inspector” that helps you setup the
-“breakpoint split views” (<a href="https://jbrowse.org/jb2/docs/user_guide/#sv-inspector">https://jbrowse.org/jb2/docs/user_guide/#sv-inspector</a>.
-The SV inspector and Breakpoint split view work best on Breakends (e.g. VCF 4.3
-section 5.4) and <code>&#x3C;TRA></code> (translocation) events from <code>VCF</code>, or <code>BEDPE</code> formatted
-SV calls, and you can launch the “breakpoint split view” from the “SV inspector”</p>
+“breakpoint split views”
+(<a href="https://jbrowse.org/jb2/docs/user_guide/#sv-inspector">https://jbrowse.org/jb2/docs/user_guide/#sv-inspector</a>). The SV inspector and
+Breakpoint split view work best on Breakends (e.g. VCF 4.3 section 5.4) and
+<code>&#x3C;TRA></code> (translocation) events from <code>VCF</code>, or <code>BEDPE</code> formatted SV calls, and
+you can launch the “breakpoint split view” from the “SV inspector”</p>
 <p><img src="/media/breakpoint_split_view.png" alt=""></p>
 <h3 id="visualizing-a-read-vs-reference-view-given-a-split-alignment">Visualizing a ‘read vs reference’ view given a split alignment</h3>
 <p>If we are given the primary alignment of an arbitrary split read, then we can
@@ -312,11 +313,11 @@ the “insert length”. This comes from how the sequencing is done: paired-end
 sequencing performs sequencing on both ends of a fragment.</p>
 <p>But, if you are mapping reads vs the reference genome, and you observe that they
 are abnormally far apart, say 50kb apart instead of 1kb apart, this may indicate
-there your sample contains a deletion relative to the reference.</p>
+that your sample contains a deletion relative to the reference.</p>
 <p><img src="/media/aberrant_size.png" alt=""></p>
 <p>Screenshot of JBrowse 1 with “View as pairs” enabled with “mate paired”
 sequencing, and large insert size colored as red (from
-<a href="https://jbrowse.org/docs/paired_reads.html">https://jbrowse.org/docs/paired_reads.html</a>. Note that some of JBrowse 1’s View
+<a href="https://jbrowse.org/docs/paired_reads.html">https://jbrowse.org/docs/paired_reads.html</a>). Note that some of JBrowse 1’s View
 as pairs features are not yet available in JBrowse 2</p>
 <h3 id="mate-pairs-vs-paired-end-reads">Mate pairs vs paired end reads</h3>
 <p>“Mate paired” reads have a larger distance between pairs (aka the insert size is
@@ -686,7 +687,7 @@ mismatches yourself and forget about the <code>MD</code> tag</p>
 <p>The <code>MD</code> tag is also not required to exist, but the command
 <code>samtools calmd yourfile.bam --reference reference.fa</code> can add <code>MD</code> tags to your
 <code>BAM</code> file. It is generally not useful for <code>CRAM</code> because <code>CRAM</code> actually does
-store mismatches with the reference genome in it’s compression format.</p>
+store mismatches with the reference genome in its compression format.</p>
 <p>Note that there are some oddities about <code>MD</code> tag representation leading to
 complaints (e.g. <a href="https://github.com/samtools/hts-specs/issues/505">https://github.com/samtools/hts-specs/issues/505</a>), which could
 lend credence to “doing it yourself” e.g. finding your own mismatches by

@@ -125,9 +125,9 @@ directories, and src is used for the <code>sourceMap</code></li>
 expects you to import filenames with their file extension, while node module
 resolution can import extensionless paths, but node module resolution
 generally works well with consumers that use bundlers themselves</li>
-<li>Uses <code>"target": "es2018"</code> - This is does a small amount of transpilation of
-super modern features, but would generally not require your users to babel-ify
-their <code>node_modules</code> if they consume your library</li>
+<li>Uses <code>"target": "es2018"</code> - This does a small amount of transpilation of super
+modern features, but would generally not require your users to babel-ify their
+<code>node_modules</code> if they consume your library</li>
 </ul>
 <h2 id="what-about-testing">What about testing?</h2>
 <p>Adding testing is not immediately solved by the above, but bundling doesn’t
@@ -135,8 +135,8 @@ really help testing anyways. It’s just a starter pack feature we can add on.
 Some options you have include</p>
 <ul>
 <li>Use <code>ts-jest</code></li>
-<li>Use <code>jest</code> on it’s own, plus a <code>babel</code> config with <code>@babel/preset-typescript</code></li>
-<li>Use <code>jest</code> on it’s own, run over the compiled output without a <code>babel</code> config</li>
+<li>Use <code>jest</code> on its own, plus a <code>babel</code> config with <code>@babel/preset-typescript</code></li>
+<li>Use <code>jest</code> on its own, run over the compiled output without a <code>babel</code> config</li>
 <li>Use <code>vitest</code> (edit 2024: this is probably the most popular way to do things
 now)</li>
 <li>Possibly something else? Node now has a built-in test runner. It will be a
@@ -172,11 +172,11 @@ both the “main” and “module” fields in package.json</p>
 <li>Then set “main”:“dist/index.js” for node and <code>"module":"esm/index.js"</code> for
 bundlers</li>
 </ul>
-<p>The “module” field is a field only bundlers recognizes
+<p>The “module” field is a field only bundlers recognize
 <a href="https://stackoverflow.com/questions/42708484/what-is-the-module-package-json-field-for">https://stackoverflow.com/questions/42708484/what-is-the-module-package-json-field-for</a></p>
 <p>Note: This is different from the “type”:“module” which marks your module as
 pure-ESM!</p>
-<p>I have found this technique can go a long ways towards keeping your package
+<p>I have found this technique can go a long way towards keeping your package
 compatible with nodeJS and bundlers and it does not require “export maps” or
 anything which I have found to be difficult to configure</p>
 <h2 id="footnote-3-what-does-it-look-like-when-you-compile-with-tsc">Footnote 3: What does it look like when you compile with tsc?</h2>

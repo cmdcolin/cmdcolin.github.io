@@ -11,10 +11,10 @@ virus scanner.</p>
 <p>To install we can use homebrew</p>
 <pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>brew</a-pr> install clamav
 </code></pre>
-<p>Then there is s config file to setup. This is located in
+<p>Then there is a config file to setup. This is located in
 /usr/local/etc/clamav/freshclam.conf</p>
 <p>To setup, edit this file and delete the line that says “Example” and then
-uncheck the desired settings. I would chose to enable logging to
+uncheck the desired settings. I would choose to enable logging to
 /var/log/clamav.log and also database directories in /var/lib/clamav</p>
 <p>Then run the “freshclam” program</p>
 <pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>freshclam</a-pr>

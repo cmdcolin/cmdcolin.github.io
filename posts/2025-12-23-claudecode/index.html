@@ -41,13 +41,18 @@ bugs parsing a very complex file format (CRAM). I can’t imagine it had much
 weird bug, and I posted a full chatlog on my early PRs using this (example Dec
 2024, <a href="https://github.com/GMOD/cram-js/pull/150">https://github.com/GMOD/cram-js/pull/150</a> please note that all things
 considered this is now a very basic early example of my AI usage)</p>
-<p>Around February 2025, Claude introduced 3.7 which added tool calling, which are
-basically ‘agentic’ workflows. These were integrated with Avante.nvim but they
-were not super reliable. I was pretty unhappy with the tool calling because it
-seemed like it did not work well. I reported several bugs related to this on the
-Avante.nvim github (e.g. “bug: Avante Gets stuck on tool calling and never
-progresses past that point”, “bug: Sonnet just runs in loops, reading the same
-file over and over again”, etc.). It also costs more in API tokens</p>
+<p>Around February 2025, Claude introduced
+<a href="https://www.anthropic.com/news/claude-3-7-sonnet">3.7</a> which added extended
+thinking and improved agentic capabilities. Tool calling itself had been
+available since
+<a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use">Claude 3 (March 2024)</a>,
+but 3.7 made it more practical for agentic workflows. Avante.nvim integrated
+these tool calling workflows, but they were not super reliable. I was pretty
+unhappy with the tool calling because it seemed like it did not work well. I
+reported several bugs related to this on the Avante.nvim github (e.g. “bug:
+Avante Gets stuck on tool calling and never progresses past that point”, “bug:
+Sonnet just runs in loops, reading the same file over and over again”, etc.). It
+also costs more in API tokens</p>
 <p>In any case, one rainy day in May 2025, when Avante.nvim was really not working
 and I felt very stuck, I think I realized that maybe Avante.nvim was causing me
 more grief than help…see also Footnote 2</p>
@@ -82,7 +87,7 @@ I upgraded to Claude Max and now am at 100 bucks a month. That’s where I am
 “happily” sitting now.</p>
 <p>I can sometimes ‘max out’ the Claude Max tier, but it is probably the right
 level for me. This is a weird thing to ‘confess’ but I buy the subscription
-myself, and do not get it re-imbursed through my work. Might need to have that
+myself, and do not get it reimbursed through my work. Might need to have that
 talk at some point with my boss.</p>
 <h2 id="how-i-use-claude-code">How I use Claude Code</h2>
 <h3 id="running-multiple-claude-code-sessions-at-once">Running multiple Claude Code sessions at once</h3>
@@ -232,7 +237,7 @@ logging unless instructed
 first posts to make me realize that CHOP aka vibecoding is rapidly changing our
 field.</p>
 <h2 id="footnote-5">Footnote 5</h2>
-<p>If you are a AI skeptic, or someone that complains that they always spit out
+<p>If you are an AI skeptic, or someone that complains that they always spit out
 garbage, I can only say, you have to use at least Opus 4.5</p>
 <p>The other models will frequently come up with bad ideas. Sometimes I will
 downgrade in Claude Code (due to thinking my task is simple or running out of

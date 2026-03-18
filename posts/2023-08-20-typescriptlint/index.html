@@ -160,7 +160,7 @@ but we can’t have nice things</p>
 <h3 id="unicornno-array-for-each-and-typescript-eslintprefer-for-of">unicorn/no-array-for-each (and @typescript-eslint/prefer-for-of)</h3>
 <p>Link 1:
 <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md">https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md</a></p>
-<p>Like 2: see also <a href="https://typescript-eslint.io/rules/prefer-for-of/">https://typescript-eslint.io/rules/prefer-for-of/</a></p>
+<p>Link 2: see also <a href="https://typescript-eslint.io/rules/prefer-for-of/">https://typescript-eslint.io/rules/prefer-for-of/</a></p>
 <p>This is perhaps a controversial one, but this rule bans use of
 Array.prototype.forEach and calls JS programmers back ‘round to the fire of the
 for loop. Specifically: the for-of loop</p>
@@ -208,7 +208,7 @@ accept warnings, and auto-remove unused eslint disables!</p>
 <code>@typescript-eslint/recommended-requiring-type-checking</code> in older versions</p>
 <h3 id="footnote-3-example-of-the-full-error-handling-in-iife">Footnote 3. Example of the “full error handling” in IIFE</h3>
 <pre><code class="language-typescript"><a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setData</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>MyData</a-t><a-p>>()</a-p>
-<a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
+<a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
 <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
   <a-c>// gotta ignore the warning in this case</a-c>
   <a-c>// eslint-disable-next-line @typescript-eslint/no-floating-promises</a-c>
@@ -230,7 +230,7 @@ accept warnings, and auto-remove unused eslint disables!</p>
 </code></pre>
 <p>alternatively, without the disable, you can add a catch handler</p>
 <pre><code class="language-typescript"><a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setData</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>MyData</a-t><a-p>>()</a-p>
-<a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
+<a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
 <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
   <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
     <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-s>'http://google.com'</a-s><a-p>)</a-p>

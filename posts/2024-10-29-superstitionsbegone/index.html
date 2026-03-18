@@ -13,8 +13,8 @@ process of exorcising these superstitious if-statements from your codebase!</p>
 <h2 id="enabling-this-rule">Enabling this rule</h2>
 <p>You can enable this rule just by itself, or you can enable it as part of the
 <code>strict-type-checked</code> rule set.</p>
-<p>I personally enabled this rule almost on accident almost when I “upgraded” from
-the <code>recommended-type-checked</code> rule set to the <code>strict-type-checked</code> ruleset. I
+<p>I personally enabled this rule almost on accident when I “upgraded” from the
+<code>recommended-type-checked</code> rule set to the <code>strict-type-checked</code> ruleset. I
 wasn’t even aware of the difference between these two rulesets and just sort of
 switched to the strict version randomly one day.</p>
 <p>Generally I think it’s good to crank up typescript-eslint strictness as much as
@@ -32,7 +32,7 @@ tsconfig.json.</p>
 for <code>if(object[key])</code> since a lot of objects are typed <code>Record&#x3C;string,string></code></p>
 <p>I have previously written about <code>noUncheckedIndexedAccess</code> tsconfig.json
 <a href="https://cmdcolin.github.io/posts/2023-09-27-areyousure">https://cmdcolin.github.io/posts/2023-09-27-areyousure</a> and in my previous
-article, my conclusion was to NOT to enable it, but my recent experience now has
+article, my conclusion was NOT to enable it, but my recent experience now has
 made it so that I think it is better if you DO enable it.</p>
 <p>I am a waffler and sometimes yesterday’s “simple” is today’s gigantic hack that
 I have to fix now</p>
@@ -44,7 +44,7 @@ of the types.</p>
 <p>In a small number of cases, I had to keep a couple of superstitious
 if-statements alive with a disable-next-line
 <code>// eslint-disable-next-line for @typescript-eslint/no-unnecessary-condition</code></p>
-<p>…but these are generally due to poor typescript typing, and is probably a
+<p>…but these are generally due to poor typescript typing, and are probably a
 signal to refactor!</p>
 <h2 id="playground">Playground</h2>
 <p>Example code, try it in the typescript-eslint playground</p>

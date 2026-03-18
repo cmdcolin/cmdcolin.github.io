@@ -70,7 +70,7 @@ benchmark itself to report the branchname in the report output.</p>
   <a-s>"version"</a-s>: <a-s>"0.0.0"</a-s>,
   <a-s>"scripts"</a-s>: {
     <a-s>"build"</a-s>: <a-s>"yourbuild that outputs to a folder named dist"</a-s>,
-    <a-s>"prebench"</a-s>: <a-s>"./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"</a-s>
+    <a-s>"prebench"</a-s>: <a-s>"./scripts/build-both-branches.sh $BRANCH1 $BRANCH2"</a-s>,
     <a-s>"bench"</a-s>: <a-s>"vitest bench"</a-s>
   }
 }
@@ -96,6 +96,7 @@ loop would be better</p>
   <a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>1</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>exp</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
     <a-v>total</a-v> <a-o>*=</a-o> <a-v>n</a-v>
   <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>total</a-v>
 <a-p>}</a-p>
 </code></pre>
 <p>Then you can make a benchmark like this</p>
@@ -157,9 +158,9 @@ quite re-usable across projects</p>
 with some nice statistics</p>
 <p>An example of this is here <a href="https://github.com/cmdcolin/simple_benchmark_example">https://github.com/cmdcolin/simple_benchmark_example</a></p>
 <h2 id="part-2-creating-end-to-end-benchmarks-using-puppeteer">Part 2. Creating ‘end-to-end’ benchmarks using Puppeteer</h2>
-<p>Creating end-to-end benchmarks are really IMO where the rubber hits the road.
-You have spent all day making microoptimizations, now it’s time to confirm it
-makes an impact.</p>
+<p>Creating end-to-end benchmarks is really IMO where the rubber hits the road. You
+have spent all day making microoptimizations, now it’s time to confirm it makes
+an impact.</p>
 <p>With puppeteer, you can test against live real builds of your webapp. I
 recommend using production builds (not a dev server) and using localhost only
 stuff to avoid network variability. Note that I also said ‘simple’ but this
@@ -270,7 +271,7 @@ branch.</p>
 used on the branch and main. In that case, you can install the union of the
 libraries on your branch temporarily (should only be needed on your “BRANCH2”)</p>
 <p>[3] I say this as someone that has superstitiously implemented hundreds of
-microptimizations for it to have absolutely zero effect in a end-to-end
+micro-optimizations for it to have absolutely zero effect in an end-to-end
 benchmark. Conversely, these branch comparison tests have allowed me to ratchet
 back-to-back 5-10% improvements to achieve significant gains</p>
 <p>[4] This is not strictly related but some good ideas here by some people who are

@@ -18,8 +18,8 @@ extensions</p>
 <a href="https://www.typescriptlang.org/tsconfig/allowImportingTsExtensions.html"><code>allowImportingTsExtensions</code></a>
 and
 <a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths"><code>rewriteRelativeImportExtensions</code></a>
-have now allow us to import from the .ts file extension in the src folder, and
-it automatically rewrites to use the .js file extension in the dist folder</p>
+now allow us to import from the .ts file extension in the src folder, and it
+automatically rewrites to use the .js file extension in the dist folder</p>
 <p>For example we can have</p>
 <pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
 <a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.ts'</a-s>
@@ -42,13 +42,14 @@ total 24K
 
 </code></pre>
 <p>where dist/index.js now contains an import with the .js extension</p>
-<pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>foo</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
-<a-f>foo</a-f><a-p>()</a-p>
-</code></pre>
-<p>and dist/bar.js says</p>
 <pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
 <a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
   <a-f>bar</a-f><a-p>()</a-p>
+<a-p>}</a-p>
+</code></pre>
+<p>and dist/bar.js says</p>
+<pre><code class="language-javascript"><a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
 <p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to

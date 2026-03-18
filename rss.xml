@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io</link>
         <description>Misc scribblings</description>
-        <lastBuildDate>Wed, 18 Mar 2026 19:33:59 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 18 Mar 2026 20:00:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -19,7 +19,7 @@
             <title><![CDATA[Using tree sitter for syntax highlighting on the blog]]></title>
             <link>https://cmdcolin.github.io/posts/2026-02-08-treesitterblog/</link>
             <guid isPermaLink="false">https://cmdcolin.github.io/posts/2026-02-08-treesitterblog/</guid>
-            <pubDate>Sat, 07 Feb 2026 00:00:00 GMT</pubDate>
+            <pubDate>Sun, 08 Feb 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues]]></title>

@@ -11,7 +11,7 @@ javascript</p>
 <p>I use the Chrome DevTools “Performance” profiler, which is a
 statistical/sampling profiler
 <a href="https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers">https://en.wikipedia.org/wiki/Profiling_(computer_programming)#Statistical_profilers</a></p>
-<p>This means it samples at some rate and see’s where in the callstack the program
+<p>This means it samples at some rate and sees where in the callstack the program
 is executing.</p>
 <ul>
 <li>If you see large rectangles in the profiler, you may have a long running
@@ -37,7 +37,7 @@ challenge to make things go fast. But you can use micro optimizations to help
 improve performance over time.</p>
 <p>For example, say a program takes 30 seconds to run on a certain dataset</p>
 <p>If you do profiling and find a couple microoptimizations that give you a 15%,
-10% and 5% performance improvement, then you program now takes 20 seconds to
+10% and 5% performance improvement, then your program now takes 20 seconds to
 run. That is still not instantaneous, but it is saving users a good 10 seconds.</p>
 <h2 id="examples-of-micro-optimizations">Examples of micro optimizations</h2>
 <ul>
@@ -85,8 +85,8 @@ end-to-end test</p>
 <p>For our app, I created a <code>puppeteer</code> based test where I loaded the website and
 waited for a “DONE” condition. I created a variety of different tests which
 allowed me to see e.g. some optimizations may only affect certain conditions.</p>
-<p>Developing the end-to-end test suite tool awhile to develop (read: weeks to
-mature, though some earlier result were available), but it let me compare the
+<p>Developing the end-to-end test suite took awhile to develop (read: weeks to
+mature, though some earlier results were available), but it let me compare the
 current release vs experimental branches, and over time, the experimental
 branches were merged and things got faster. [2]</p>
 <h2 id="note-that-memory-usage-can-be-very-important-to-your-programs-performance">Note that memory usage can be very important to your programs performance.</h2>
@@ -105,7 +105,7 @@ between worker and main thread, but these come with many security limitations
 from the browser (and was even removed for a time while these security
 implications were sussed out, due to Spectre/Meltdown vulnerabilities)</p>
 <p>[2] I still have not found a good way to get automated memory usage profiling
-via puppeteer. You can access window.process.memory in puppeteer, but this
+via puppeteer. You can access window.performance.memory in puppeteer, but this
 variable does not provide info about webworker memory usage
 <a href="https://github.com/puppeteer/puppeteer/issues/8258">https://github.com/puppeteer/puppeteer/issues/8258</a></p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');

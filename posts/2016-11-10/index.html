@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.6"><title>Creating a JBrowse plugin</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating a JBrowse plugin</h1> <h4 data-astro-cid-lvjzyg5v>2016-11-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I have been very impressed with peoples creativity and willingness to dig into
-all the details of JBrowse to customize it’s features. One great way to do this
+all the details of JBrowse to customize its features. One great way to do this
 in a modular way is to create a “JBrowse plugin”. This concept sounds hard but
 you can set up a simple couple of files and refresh your browser and it will
 “just work”!</p>
@@ -27,8 +27,8 @@ below).</p>
 dependencies needed in a file, and they are listed in an array at the top of
 your file.</p>
 <p>Then the “declare” function creates a new class. The first argument to declare
-is the is your parent class, like CanvasFeatures, and we type “return declare”
-because we are returning our new track class from the module.</p>
+is your parent class, like CanvasFeatures, and we type “return declare” because
+we are returning our new track class from the module.</p>
 <pre><code class="language-js"><a-f>define</a-f><a-p>([</a-p><a-s>'dojo/_base/declare'</a-s><a-p>,</a-p> <a-s>'JBrowse/View/Track/CanvasFeatures'</a-s><a-p>],</a-p> <a-k>function</a-k> <a-p>(</a-p>
   <a-v>declare</a-v><a-p>,</a-p>
   <a-cr>CanvasFeatures</a-cr><a-p>,</a-p>

@@ -141,7 +141,7 @@ similar though!
 <p>The <code>hello-wasm</code> folder can be published to NPM by itself. When consumers of the
 package import the module, they would receive <code>pkg/index.js</code> from the <code>main</code>
 field in <code>package.json</code>, and then <code>pkg/index.js</code> in turn imports the
-<code>index.wasm</code> file. Then it is up to the consumers bundler to package that
+<code>index.wasm</code> file. Then it is up to the consumer’s bundler to package that
 correctly.</p>
 <h2 id="footnote-2-bundlers-and-wasm">Footnote 2: Bundlers and wasm</h2>
 <p>As of writing, I am using <code>webpack</code> v5 (part of <code>create-react-app</code> v5), which
@@ -165,7 +165,7 @@ embedding the wasm code in the js itself, or maybe top-level-await. If anyone
 has more info, feel free to leave a comment!</p>
 <h2 id="footnote-4-build-setup">Footnote 4: Build setup</h2>
 <p>The <code>hello-wasm</code> package does not automatically recompile when we are running
-e.g. <code>yarn start</code> in the <code>app</code> folder. Therefore, changes to the rust requires
+e.g. <code>yarn start</code> in the <code>app</code> folder. Therefore, changes to the rust require
 you to manually run <code>yarn build</code> in the <code>hello-wasm</code> folder. Just something to
 be aware of</p>
 <h2 id="footnote-5-my-first-experience-with-trying-to-make-this-work-was-rocky">Footnote 5: My first experience with trying to make this work was rocky!</h2>
