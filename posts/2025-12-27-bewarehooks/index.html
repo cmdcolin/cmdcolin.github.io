@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.5"><title>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.0.6"><title>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Beware! If you make custom React hooks, eslint-plugin-react-hooks may not catch some issues</h1> <h4 data-astro-cid-lvjzyg5v>2025-12-27</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>I am reporting to you live from the debugging session…A useEffect in my
 codebase has triggered in an infinite loop in my code. But this doesn’t just
@@ -45,7 +45,7 @@ useEffect! don’t you know? <code>&#x3C;link to react docs here></code></p>
 <pre><code>  warning  The 'num' object construction makes the dependencies of useEffect Hook (at line 11) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of 'num' in its own useMemo() Hook  react-hooks/exhaustive-deps
 </code></pre>
 <p>But what about…</p>
-<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>useEffect</a-v><a-p>,</a-p> <a-v>useState</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useEffect</a-v><a-p>,</a-p> <a-v>useState</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
 <a-k>function</a-k> <a-f>useMyHook</a-f><a-p>(</a-p><a-v>myVariable</a-v>: <a-t>number</a-t><a-p>[])</a-p> <a-p>{</a-p>
   <a-k>const</a-k> <a-p>[</a-p><a-v>result</a-v><a-p>,</a-p> <a-v>setResult</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
@@ -61,14 +61,10 @@ useEffect! don’t you know? <code>&#x3C;link to react docs here></code></p>
 <a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-f>useMyHook</a-f><a-p>([</a-p><a-n>1</a-n><a-p>,</a-p> <a-n>2</a-n><a-p>,</a-p> <a-n>3</a-n><a-p>])</a-p>
 
-  <a-k>return</a-k> <a-p>(</a-p>
-    <a-p>&#x3C;</a-p><a-t>h1</a-t><a-p>></a-p>
-      <a-t>Hello</a-t>
-    <a-o>&#x3C;</a-o><a-s>/</a-s><a-s>h1></a-s><a-o>
-  </a-o><a-p>)</a-p><a-o>
-</a-o><a-p>}</a-p><a-o>
+  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>Hello</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+<a-p>}</a-p>
 
-</a-o><a-k>export</a-k><a-o> </a-o><a-k>default</a-k><a-o> </a-o><a-t>App</a-t>
+<a-k>export</a-k> <a-k>default</a-k> <a-t>App</a-t>
 </code></pre>
 <p>This, as the console.log suggests, is an infinite loop because [1,2,3] is not a
 stable reference, and we are not informed by the lint rule because we have
@@ -81,8 +77,9 @@ heuristics. I was already a bit wary of using custom hooks in my code and this
 will make me think twice or three more times about it, since the heuristic,
 while imperfect, can help. There are of course also other reasons this failure
 case could be triggered… a prop being used probably breaks the heuristic also.</p>
-<p>Are there other ways we can catch or fix this issue? Feel free to let me know</p>
-<pre><code></code></pre> </div> <div id="giscus"></div> <script>
+<p>Are there other ways we can catch or fix this issue? Feel free to let me know.
+Maybe there are completely different programming paradigms that are needed to
+solve it.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
