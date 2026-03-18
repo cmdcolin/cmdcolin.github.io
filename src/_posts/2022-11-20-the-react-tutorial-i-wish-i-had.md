@@ -51,7 +51,7 @@ components in your page
 Typically, just once in your app, you use ReactDOM to render the "App" level
 component to the page.
 
-```js
+```tsx
 import ReactDOM from 'react-dom'
 
 ReactDOM.render(<App />, document.getElementById('root'))
@@ -146,7 +146,7 @@ questions.
 In the old days, React used "class based components", here is the Hello world
 example as a class based component
 
-```js
+```tsx
 class HelloWorld {
   render() {
     return <div>Hello world!</div>
@@ -166,7 +166,7 @@ components these days
 The HTML-like syntax may look odd in JS code. It is called JSX. So code like
 this:
 
-```js
+```tsx
 function HelloWorld() {
   return <div>Hello world</div>
 }
