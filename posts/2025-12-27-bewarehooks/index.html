@@ -89,7 +89,17 @@ imperfect, can help. There are of course also other reasons this failure case
 could be triggered… a prop being used probably breaks the heuristic as well.</p>
 <p>Are there other ways we can catch or fix this issue? Feel free to let me know.
 Maybe there are completely different programming paradigms that are needed to
-solve it.</p> </div> <div id="giscus"></div> <script>
+solve it.</p>
+<h2 id="footnote-1">Footnote 1</h2>
+<p>I was alerted to the fact that eslint-plugin-react-hooks actually allows you to
+check custom hooks with exhaustive-deps with advanced configuration
+<a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">https://www.npmjs.com/package/eslint-plugin-react-hooks</a> however it also
+recommends to just not do this</p>
+<h2 id="footnote-2">Footnote 2</h2>
+<p>Part of this issue is really the use of complex objects in useEffect hooks. I
+have half the mind to make a type-aware eslint rule that type checks all
+arguments to be primitives, and require an eslint-disable-next-line for any
+non-primitive object</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
