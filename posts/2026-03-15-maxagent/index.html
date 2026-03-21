@@ -16,19 +16,13 @@ the word PRD…So wtf is it?</p>
 <h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a TODO list</h2>
 <p>Your “PRD” can just be a markdown file (e.g. <code>PRD.md</code>) with checkboxes like a
 normal TODO list:</p>
-<pre><code class="language-markdown"><a-p>- </a-p>[ ] Add priority column to tasks table
-<a-p>- </a-p>[ ] Show priority badge on task cards
-<a-p>- </a-p>[ ] Add priority selector to task edit modal
-<a-p>- </a-p>[ ] Filter tasks by priority, persist in URL
+<pre><code class="language-markdown"><a-p>- </a-p>Add priority column to tasks table
+<a-p>- </a-p>Show priority badge on task cards
+<a-p>- </a-p>Add priority selector to task edit modal
+<a-p>- </a-p>Filter tasks by priority, persist in URL
 </code></pre>
-<p>You don’t even need the checkbox brackets if you want.</p>
-<p>The important part is that you are going to let the AI also manage your TODO
-list. As it is working, it will be reading the TODOs, and writing what it has
-completed or discovered, and adding further TODOs.</p>
-<p>You can optionally add extra context about larger project goals or branch goals
-in the PRD. You can also add text to the document to move completed items to a
-separate file, etc or whatever else you want also. In that sense, it can be more
-than just a mere TODO list, but start with a TODO list.</p>
+<p>But here is the key: you are going to let the AI to both read and write your
+TODO list.</p>
 <h2 id="you-be-the-ralph">You be the Ralph</h2>
 <p>The Ralph concept, as originally proposed, uses an autonomous loop that keeps
 running to solve all the todo items.</p>
@@ -37,6 +31,19 @@ running to solve all the todo items.</p>
 <blockquote>
 <p>read PRD.md, and continue working on tasks. update PRD.md when done</p>
 </blockquote>
+<h2 id="further-tweaks-to-the-todo-list-concept">Further tweaks to the TODO list concept</h2>
+<p>I used the TODO concept because it is dead simple but you can also</p>
+<ul>
+<li>ask the AI to ‘whip the todo list into shape’</li>
+<li>say to move completed items to a separate file</li>
+<li>create multiple todo files, and tell agents which one to look at</li>
+<li>add priorities or organization to the document</li>
+<li>add extra branch level or project level goals to keep it on track</li>
+</ul>
+<p>The ceiling is whatever you want it to be</p>
+<p>But just starting easy with a bulleted todo list, with read and writing, gives
+it a little memory to keep grinding away at your task list without you having to
+manually keep it fed</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This post might be a really obvious post for some, but I just wanted to convey
 that there is nothing mysterious behind the idea of the Ralph loop and you don’t
