@@ -7,7 +7,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
-    "predeploy": "yarn build",
+    "predeploy": "pnpm build",
     "deploy": "gh-pages -d dist -t --nojekyll",
     "postdeploy": "git push",
     "format": "prettier --write ."
