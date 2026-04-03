@@ -334,3 +334,7 @@ back-to-back 5-10% improvements to achieve significant gains
 
 [4] This is not strictly related but some good ideas here by some people who are
 smarter than me https://abseil.io/fast/hints.html
+
+[5] 2026 update: if you want to go off the rails into crazy territory, you can
+consider autoresearch, and set any benchmark as your optimization goal
+https://github.com/karpathy/autoresearch
