@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Querying InterMine databases using R</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Querying InterMine databases using R</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Querying InterMine databases using R</h1> <h4 data-astro-cid-lvjzyg5v>2016-06-17</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In the past, I had found some ways to do simple queries on InterMine web
 services using basic HTTP commands with R (see
@@ -7,44 +7,44 @@ services using basic HTTP commands with R (see
 automates some of these features and makes it easier to load the data in R.</p>
 <h2 id="installation">Installation</h2>
 <p>One way to install InterMineR is to install from github with hadley/devtools</p>
-<pre><code class="language-r"><a-f>install.packages</a-f><a-p>(</a-p><a-s>"devtools"</a-s><a-p>)</a-p>
-<a-ns>devtools</a-ns><a-o>::</a-o><a-f>install_github</a-f><a-p>(</a-p><a-s>"hadley/devtools"</a-s><a-p>)</a-p>
-<a-ns>devtools</a-ns><a-o>::</a-o><a-f>install_github</a-f><a-p>(</a-p><a-s>"intermine/intermineR"</a-s><a-p>)</a-p>
+<pre><code class="language-r">install.packages("devtools")
+devtools::install_github("hadley/devtools")
+devtools::install_github("intermine/intermineR")
 </code></pre>
 <h2 id="usage">Usage</h2>
 <p>Basic usage includes loading the “intermine URL” using the initInterMine
 function. Then various functions can be called on this result.</p>
-<pre><code class="language-r"><a-f>library</a-f><a-p>(</a-p><a-v>InterMineR</a-v><a-p>)</a-p>
-<a-v>mine</a-v><a-o>=</a-o><a-f>initInterMine</a-f><a-p>(</a-p><a-s>"http://bovinegenome.org/bovinemine/"</a-s><a-p>)</a-p>
-<a-f>getVersion</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>)</a-p> <a-c>#18, intermine API version</a-c>
-<a-f>getRelease</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>)</a-p> <a-c>#1.0, our data release version</a-c>
-<a-f>getTemplates</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>)</a-p> <a-c># lists all templates on interminer</a-c>
+<pre><code class="language-r">library(InterMineR)
+mine=initInterMine("http://bovinegenome.org/bovinemine/")
+getVersion(mine) #18, intermine API version
+getRelease(mine) #1.0, our data release version
+getTemplates(mine) # lists all templates on interminer
 </code></pre>
 <h2 id="run-a-template-query">Run a template query</h2>
 <p>From the getTemplates function, if you see a template query that you want to
 run, you can use the getTemplateQuery function with its name, and run it with
 the runQuery function</p>
-<pre><code class="language-r"><a-f>getTemplateQuery</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>,</a-p><a-s>"TQ_protein_to_gene"</a-s><a-p>)</a-p> <a-c># see what template looks like</a-c>
-<a-v>template</a-v><a-o>=</a-o><a-f>getTemplateQuery</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>,</a-p><a-s>"TQ_protein_to_gene"</a-s><a-p>)</a-p> <a-c># save template</a-c>
-<a-f>runQuery</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>,</a-p><a-v>template</a-v><a-p>)</a-p> <a-c># run the template query with default params, receive data.frame</a-c>
+<pre><code class="language-r">getTemplateQuery(mine,"TQ_protein_to_gene") # see what template looks like
+template=getTemplateQuery(mine,"TQ_protein_to_gene") # save template
+runQuery(mine,template) # run the template query with default params, receive data.frame
 </code></pre>
 <p>This method is good, but some improvement could be added to change default
 parameters in the template query, etc.</p>
 <h2 id="run-query-xml">Run query XML</h2>
 <p>Another option for running queries is to use the query XML that you can download
 from the InterMine query result pages.</p>
-<pre><code class="language-r"><a-c># get all Ensembl genes on chr28 from bovinemine</a-c>
-<a-v>query</a-v><a-o>=</a-o><a-s>'&#x3C;query model="genomic" view="Gene.primaryIdentifier
+<pre><code class="language-r"># get all Ensembl genes on chr28 from bovinemine
+query='&#x3C;query model="genomic" view="Gene.primaryIdentifier
 Gene.secondaryIdentifier Gene.symbol Gene.name Gene.source
 Gene.organism.shortName Gene.chromosome.primaryIdentifier"
 sortOrder="Gene.primaryIdentifier ASC" >&#x3C;constraint
 path="Gene.organism.shortName" op="=" value="B. taurus"
 />&#x3C;constraint path="Gene.chromosome.primaryIdentifier" op="="
-value="GK000028.2" />&#x3C;/query>'</a-s>
+value="GK000028.2" />&#x3C;/query>'
 
-<a-v>results</a-v><a-o>=</a-o><a-f>runQuery</a-f><a-p>(</a-p><a-v>mine</a-v><a-p>,</a-p> <a-v>query</a-v><a-p>)</a-p>
+results=runQuery(mine, query)
 
-<a-f>head</a-f><a-p>(</a-p><a-v>results</a-v><a-p>)</a-p>
+head(results)
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>The InterMineR package has a couple of nice features for getting InterMine data

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Maximizing agentic coding, or, wtf is a PRD</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Maximizing agentic coding, or, wtf is a PRD</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Maximizing agentic coding, or, wtf is a PRD</h1> <h4 data-astro-cid-lvjzyg5v>2026-03-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The “Ralph loop” is a popular workflow but nobody seems to explain it in
 layman’s terms.</p>
@@ -16,10 +16,10 @@ the word PRD…So wtf is it?</p>
 <h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a TODO list</h2>
 <p>Your “PRD” can just be a markdown file (e.g. <code>PRD.md</code>) with checkboxes like a
 normal TODO list:</p>
-<pre><code class="language-markdown"><a-p>- </a-p>Add priority column to tasks table
-<a-p>- </a-p>Show priority badge on task cards
-<a-p>- </a-p>Add priority selector to task edit modal
-<a-p>- </a-p>Filter tasks by priority, persist in URL
+<pre><code class="language-markdown">- Add priority column to tasks table
+- Show priority badge on task cards
+- Add priority selector to task edit modal
+- Filter tasks by priority, persist in URL
 </code></pre>
 <p>But here is the key: you are going to let the AI to both read and write your
 TODO list.</p>
@@ -62,12 +62,12 @@ this, and was juggling a lot of separate agent sessions.</p>
 <p>This method helps with that. Hence, “Maximizing agentic coding”.</p>
 <h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
 <p>For reference the Ralph loop is a bash script like this</p>
-<pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
-  <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
-  <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
-    <a-f>exit</a-f> 0
-  <a-k>fi</a-k>
-<a-k>done</a-k>
+<pre><code class="language-bash">while true; do
+  OUTPUT=$(claude --dangerously-skip-permissions --print &#x3C; CLAUDE.md)
+  if echo "$OUTPUT" | grep -q "&#x3C;promise>COMPLETE&#x3C;/promise>"; then
+    exit 0
+  fi
+done
 </code></pre>
 <p>so it’s a bash loop that just keeps running Claude until the literal string
 <code>&#x3C;promise>COMPLETE&#x3C;/promise></code> is found in the output via grep and then, the

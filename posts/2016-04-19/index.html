@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Creating a testing framework for JBrowse plugins</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Creating a testing framework for JBrowse plugins</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating a testing framework for JBrowse plugins</h1> <h4 data-astro-cid-lvjzyg5v>2016-04-19</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Testing client side apps requires a couple of tedious steps: Organizing the git
 clone, the dependencies, wrangling up a web server, the test framework, etc.</p>
@@ -20,118 +20,118 @@ plugin for)</p>
 </ol>
 <p>Without further ado</p>
 <p>Here is the .travis.yml</p>
-<pre><code class="language-yaml"><a-pr>sudo</a-pr><a-p>:</a-p> <a-co>false</a-co>
-<a-pr>addons</a-pr><a-p>:</a-p>
-  <a-pr>apt</a-pr><a-p>:</a-p>
-    <a-pr>packages</a-pr><a-p>:</a-p>
-      <a-p>-</a-p> <a-s>nginx</a-s>
-<a-pr>cache</a-pr><a-p>:</a-p>
-  <a-pr>apt</a-pr><a-p>:</a-p> <a-co>true</a-co>
-  <a-pr>directories</a-pr><a-p>:</a-p>
-    <a-p>-</a-p> <a-s>$HOME/.cache/bower</a-s>
-<a-pr>before_install</a-pr><a-p>:</a-p>
-  <a-p>-</a-p> <a-s>npm install -g jshint bower</a-s>
-<a-pr>install</a-pr><a-p>:</a-p>
-  <a-p>-</a-p> <a-s>bower install</a-s>
-<a-pr>before_script</a-pr><a-p>:</a-p>
-  <a-p>-</a-p> <a-s>cat test/travis.conf | envsubst > test/travis-envsubst.conf</a-s>
-  <a-p>-</a-p> <a-s>nginx -c `pwd`/test/travis-envsubst.conf</a-s>
-<a-pr>script</a-pr><a-p>:</a-p>
-  <a-p>-</a-p> <a-s>phantomjs test/run-jasmine.js http://localhost:9000/test/</a-s>
-  <a-p>-</a-p> <a-s>jshint js</a-s>
+<pre><code class="language-yaml">sudo: false
+addons:
+  apt:
+    packages:
+      - nginx
+cache:
+  apt: true
+  directories:
+    - $HOME/.cache/bower
+before_install:
+  - npm install -g jshint bower
+install:
+  - bower install
+before_script:
+  - cat test/travis.conf | envsubst > test/travis-envsubst.conf
+  - nginx -c `pwd`/test/travis-envsubst.conf
+script:
+  - phantomjs test/run-jasmine.js http://localhost:9000/test/
+  - jshint js
 </code></pre>
 <p>Refer to
 <a href="http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2">http://searchvoidstar.tumblr.com/post/141858047213/running-nginx-on-containerised-travis-ci-pt-2</a>
 for details on the nginx setup</p>
 <p>Here is the bower.json</p>
 <pre><code class="language-json">{
-  <a-s>"name"</a-s>: <a-s>"sashimiplot"</a-s>,
-  <a-s>"homepage"</a-s>: <a-s>"https://github.com/cmdcolin/sashimiplot"</a-s>,
-  <a-s>"description"</a-s>: <a-s>"Sashimi track type for jbrowse"</a-s>,
-  <a-s>"main"</a-s>: <a-s>"js/main.js"</a-s>,
-  <a-s>"keywords"</a-s>: [<a-s>"bioinformatics"</a-s>, <a-s>"jbrowse"</a-s>],
-  <a-s>"license"</a-s>: <a-s>"MIT"</a-s>,
-  <a-s>"ignore"</a-s>: [
-    <a-s>"**/.*"</a-s>,
-    <a-s>"node_modules"</a-s>,
-    <a-s>"bower_components"</a-s>,
-    <a-s>"src"</a-s>,
-    <a-s>"test"</a-s>,
-    <a-s>"tests"</a-s>
+  "name": "sashimiplot",
+  "homepage": "https://github.com/cmdcolin/sashimiplot",
+  "description": "Sashimi track type for jbrowse",
+  "main": "js/main.js",
+  "keywords": ["bioinformatics", "jbrowse"],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test",
+    "tests"
   ],
-  <a-s>"devDependencies"</a-s>: {
-    <a-s>"jasmine-core"</a-s>: <a-s>"jasmine#^2.4.1"</a-s>,
-    <a-s>"jbrowse"</a-s>: <a-s>"git://github.com/GMOD/jbrowse.git#master"</a-s>
+  "devDependencies": {
+    "jasmine-core": "jasmine#^2.4.1",
+    "jbrowse": "git://github.com/GMOD/jbrowse.git#master"
   }
 }
 </code></pre>
 <p>The key thing here is that it installs jasmine and JBrowse. I set .bowerrc to
 install both jasmine and JBrowse to the “test” directory</p>
 <pre><code class="language-json">{
-  <a-s>"directory"</a-s>: <a-s>"test"</a-s>
+  "directory": "test"
 }
 </code></pre>
 <p>With this setup, bower will make a “flat dependency tree” in the test directory,
 so it will look like this</p>
-<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>ls</a-pr> <a-co>-1</a-co> test
-    <a-f>FileSaver</a-f>
-    <a-f>dbind</a-f>
-    <a-f>dgrid</a-f>
-    <a-f>dijit</a-f>
-    <a-f>dojo</a-f>
-    <a-f>dojox</a-f>
-    <a-f>*index.html*</a-f>
-    <a-f>jDataView</a-f>
-    <a-f>jasmine-core</a-f>
-    <a-f>jbrowse</a-f>
-    <a-f>json-schema</a-f>
-    <a-f>jszlib</a-f>
-    <a-f>lazyload</a-f>
-    <a-f>put-selector</a-f>
-    <a-f>*run-jasmine.js*</a-f>
-    <a-f>*spec*</a-f>
-    <a-f>*travis.conf*</a-f>
-    <a-f>util</a-f>
-    <a-f>xstyle</a-f>
+<pre><code class="language-sh">    $ ls -1 test
+    FileSaver
+    dbind
+    dgrid
+    dijit
+    dojo
+    dojox
+    *index.html*
+    jDataView
+    jasmine-core
+    jbrowse
+    json-schema
+    jszlib
+    lazyload
+    put-selector
+    *run-jasmine.js*
+    *spec*
+    *travis.conf*
+    util
+    xstyle
 </code></pre>
 <p>Here the asterisks indicate things that are part of our app, others are
 automatically installed by bower (jbrowse, jasmine-core, the dojo dependencies,
 and other things)</p>
 <p>Then we can create the jasmine test/index.html to be something like this</p>
-<pre><code class="language-html"><a-co>&#x3C;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"</a-co><a-p>></a-p>
+<pre><code class="language-html">&#x3C;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<a-p>&#x3C;</a-p><a-tg>meta</a-tg> <a-p>/></a-p>
+&#x3C;meta />
 Jasmine Spec Runner
 
-<a-p>&#x3C;</a-p><a-tg>link</a-tg> <a-at>rel</a-at>="<a-s>stylesheet</a-s>" <a-at>href</a-at>="<a-s>jasmine-core/lib/jasmine-core/jasmine.css</a-s>" <a-p>/></a-p>
-<a-p>&#x3C;</a-p><a-tg>script</a-tg> <a-at>src</a-at>="<a-s>jasmine-core/lib/jasmine-core/jasmine.js</a-s>"<a-p>>&#x3C;/</a-p><a-tg>script</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>script</a-tg> <a-at>src</a-at>="<a-s>jasmine-core/lib/jasmine-core/boot.js</a-s>"<a-p>>&#x3C;/</a-p><a-tg>script</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>script</a-tg>
-  <a-at>type</a-at>="<a-s>text/javascript</a-s>"
-  <a-at>src</a-at>="<a-s>dojo/dojo.js</a-s>"
-  <a-at>data-dojo-config</a-at>="<a-s>async: 1</a-s>"
-<a-p>>&#x3C;/</a-p><a-tg>script</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>script</a-tg> <a-at>type</a-at>="<a-s>text/javascript</a-s>"<a-p>></a-p>
-  <a-f>require</a-f><a-p>({</a-p>
-    <a-pr>baseUrl</a-pr>: <a-s>'.'</a-s><a-p>,</a-p>
-    <a-pr>packages</a-pr>: <a-p>[</a-p>
-      <a-s>'dojo'</a-s><a-p>,</a-p>
-      <a-s>'dijit'</a-s><a-p>,</a-p>
-      <a-s>'dojox'</a-s><a-p>,</a-p>
-      <a-s>'jszlib'</a-s><a-p>,</a-p>
-      <a-p>{</a-p> <a-pr>name</a-pr>: <a-s>'lazyload'</a-s><a-p>,</a-p> <a-pr>location</a-pr>: <a-s>'lazyload'</a-s><a-p>,</a-p> <a-pr>main</a-pr>: <a-s>'lazyload'</a-s> <a-p>},</a-p>
-      <a-s>'dgrid'</a-s><a-p>,</a-p>
-      <a-s>'xstyle'</a-s><a-p>,</a-p>
-      <a-s>'put-selector'</a-s><a-p>,</a-p>
-      <a-s>'FileSaver'</a-s><a-p>,</a-p>
-      <a-p>{</a-p> <a-pr>name</a-pr>: <a-s>'jDataView'</a-s><a-p>,</a-p> <a-pr>location</a-pr>: <a-s>'jDataView/src'</a-s><a-p>,</a-p> <a-pr>main</a-pr>: <a-s>'jdataview'</a-s> <a-p>},</a-p>
-      <a-p>{</a-p> <a-pr>name</a-pr>: <a-s>'JBrowse'</a-s><a-p>,</a-p> <a-pr>location</a-pr>: <a-s>'jbrowse/src/JBrowse'</a-s> <a-p>},</a-p>
-      <a-p>{</a-p> <a-pr>name</a-pr>: <a-s>'SashimiPlot'</a-s><a-p>,</a-p> <a-pr>location</a-pr>: <a-s>'../js'</a-s> <a-p>},</a-p>
-    <a-p>],</a-p>
-  <a-p>})</a-p>
-<a-p>&#x3C;/</a-p><a-tg>script</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>script</a-tg> <a-at>type</a-at>="<a-s>text/javascript</a-s>" <a-at>src</a-at>="<a-s>spec/SashimiPlot.spec.js</a-s>"<a-p>>&#x3C;/</a-p><a-tg>script</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>id</a-at>="<a-s>sandbox</a-s>" <a-at>style</a-at>="<a-s>overflow:hidden; height:1px;</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+&#x3C;link rel="stylesheet" href="jasmine-core/lib/jasmine-core/jasmine.css" />
+&#x3C;script src="jasmine-core/lib/jasmine-core/jasmine.js">&#x3C;/script>
+&#x3C;script src="jasmine-core/lib/jasmine-core/boot.js">&#x3C;/script>
+&#x3C;script
+  type="text/javascript"
+  src="dojo/dojo.js"
+  data-dojo-config="async: 1"
+>&#x3C;/script>
+&#x3C;script type="text/javascript">
+  require({
+    baseUrl: '.',
+    packages: [
+      'dojo',
+      'dijit',
+      'dojox',
+      'jszlib',
+      { name: 'lazyload', location: 'lazyload', main: 'lazyload' },
+      'dgrid',
+      'xstyle',
+      'put-selector',
+      'FileSaver',
+      { name: 'jDataView', location: 'jDataView/src', main: 'jdataview' },
+      { name: 'JBrowse', location: 'jbrowse/src/JBrowse' },
+      { name: 'SashimiPlot', location: '../js' },
+    ],
+  })
+&#x3C;/script>
+&#x3C;script type="text/javascript" src="spec/SashimiPlot.spec.js">&#x3C;/script>
+&#x3C;div id="sandbox" style="overflow:hidden; height:1px;">&#x3C;/div>
 </code></pre>
 <p>The “packages” in the require statement puts all these packages in the right
 “namespace” for the AMD includes, and the “specs” are defined like

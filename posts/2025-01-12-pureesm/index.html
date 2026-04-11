@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Making a pure-ESM package using `tsc`</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Making a pure-ESM package using `tsc`</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a pure-ESM package using `tsc`</h1> <h4 data-astro-cid-lvjzyg5v>2025-01-12</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In the past, I have written about making NPM packages with just the typescript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
@@ -21,16 +21,16 @@ and
 now allow us to import from the .ts file extension in the src folder, and it
 automatically rewrites to use the .js file extension in the dist folder</p>
 <p>For example we can have</p>
-<pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
-<a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.ts'</a-s>
-<a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
-  <a-f>bar</a-f><a-p>()</a-p>
-<a-p>}</a-p>
+<pre><code class="language-typescript">// src/index.ts
+import { bar } from './bar.ts'
+export function foo() {
+  bar()
+}
 </code></pre>
-<pre><code class="language-typescript"><a-c>// src/bar.ts</a-c>
-<a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
-  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
-<a-p>}</a-p>
+<pre><code class="language-typescript">// src/bar.ts
+export function bar() {
+  console.log('bar in bar.ts')
+}
 </code></pre>
 <p>then running tsc over these files will produce</p>
 <pre><code> ❯❯❯ ll dist
@@ -42,37 +42,37 @@ total 24K
 
 </code></pre>
 <p>where dist/index.js now contains an import with the .js extension</p>
-<pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
-<a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
-  <a-f>bar</a-f><a-p>()</a-p>
-<a-p>}</a-p>
+<pre><code class="language-javascript">import { bar } from './bar.js'
+export function foo() {
+  bar()
+}
 </code></pre>
 <p>and dist/bar.js says</p>
-<pre><code class="language-javascript"><a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
-  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
-<a-p>}</a-p>
+<pre><code class="language-javascript">export function bar() {
+  console.log('bar in bar.ts')
+}
 </code></pre>
 <p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
 have this behavior, but now you can reference the actual file, bar.ts</p>
 <h2 id="the-packagejson">The package.json</h2>
 <pre><code class="language-json">{
-  <a-s>"name"</a-s>: <a-s>"minimalpackage"</a-s>,
-  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
-  <a-s>"description"</a-s>: <a-s>"simple pure-esm package compatible with tsc"</a-s>,
-  <a-s>"license"</a-s>: <a-s>"MIT"</a-s>,
-  <a-s>"type"</a-s>: <a-s>"module"</a-s>,
-  <a-s>"exports"</a-s>: <a-s>"./dist/index.js"</a-s>,
-  <a-s>"main"</a-s>: <a-s>"./dist/index.js"</a-s>,
-  <a-s>"scripts"</a-s>: {
-    <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
-    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
-    <a-s>"prebuild"</a-s>: <a-s>"yarn clean"</a-s>,
-    <a-s>"preversion"</a-s>: <a-s>"yarn build"</a-s>,
-    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
+  "name": "minimalpackage",
+  "version": "1.0.0",
+  "description": "simple pure-esm package compatible with tsc",
+  "license": "MIT",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "prebuild": "yarn clean",
+    "preversion": "yarn build",
+    "postversion": "git push --follow-tags"
   },
-  <a-s>"devDependencies"</a-s>: {
-    <a-s>"rimraf"</a-s>: <a-s>"^6.0.1"</a-s>,
-    <a-s>"typescript"</a-s>: <a-s>"^5.7.3"</a-s>
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
   }
 }
 </code></pre>
@@ -102,20 +102,20 @@ postversion script</p>
 </ul>
 <h2 id="the-tsconfigjson">The tsconfig.json</h2>
 <pre><code class="language-json">{
-  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
-  <a-s>"compilerOptions"</a-s>: {
-    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
-    <a-s>"target"</a-s>: <a-s>"es2020"</a-s>,
-    <a-s>"declaration"</a-s>: <a-co>true</a-co>,
-    <a-s>"strict"</a-s>: <a-co>true</a-co>,
-    <a-s>"allowImportingTsExtensions"</a-s>: <a-co>true</a-co>,
-    <a-s>"rewriteRelativeImportExtensions"</a-s>: <a-co>true</a-co>
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es2020",
+    "declaration": true,
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true
   }
 }
 </code></pre>
 <h2 id="using-minimalpackage">Using minimalpackage</h2>
-<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>foo</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'minimalpackage'</a-s>
-<a-f>foo</a-f><a-p>()</a-p>
+<pre><code class="language-typescript">import { foo } from 'minimalpackage'
+foo()
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>This article proposes a bundler-less approach to distributing typescript

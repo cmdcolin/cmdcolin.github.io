@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Making a serverless website for photo and video upload pt. 2</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Making a serverless website for photo and video upload pt. 2</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a serverless website for photo and video upload pt. 2</h1> <h4 data-astro-cid-lvjzyg5v>2020-12-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>This post follows onhttps://cmdcolin.github.io/2020-12-24.html</p>
 <p>It is possible I zoomed ahead too fast to make this a continuous tutorial, but
@@ -16,13 +16,13 @@ tutorial and converted it to react. Then I extended the app to allow</p>
 <p>It will be hard to summarize all the changes since now the app has taken off a
 little bit but it looks like this:</p>
 <p>Repo structure</p>
-<pre><code class="language-sh"><a-f>./frontend</a-f>
-<a-f>./frontend/src/App.tsx</a-f>
-<a-f>./lambdas/</a-f>
-<a-f>./lambdas/postFile</a-f>
-<a-f>./lambdas/getFiles</a-f>
-<a-f>./lambdas/postComment</a-f>
-<a-f>./lambdas/getComments</a-f>
+<pre><code class="language-sh">./frontend
+./frontend/src/App.tsx
+./lambdas/
+./lambdas/postFile
+./lambdas/getFiles
+./lambdas/postComment
+./lambdas/getComments
 </code></pre>
 <p>Here is a detailed code for uploading the file. We upload one file at a time,
 but the client code post to the lambda endpoint individually for each file</p>
@@ -30,405 +30,405 @@ but the client code post to the lambda endpoint individually for each file</p>
 itself) to directly upload to S3, and also posts a row to DynamoDB with the
 filename. It is very similar code to <a href="https://cmdcolin.github.io/2020-12-24.html">https://cmdcolin.github.io/2020-12-24.html</a></p>
 <p>./lambdas/postFile/app.js</p>
-<pre><code class="language-js"><a-s>'use strict'</a-s>
+<pre><code class="language-js">'use strict'
 
-<a-k>const</a-k> <a-co>AWS</a-co> <a-o>=</a-o> <a-f>require</a-f><a-p>(</a-p><a-s>'aws-sdk'</a-s><a-p>)</a-p>
-<a-k>const</a-k> <a-v>multipart</a-v> <a-o>=</a-o> <a-f>require</a-f><a-p>(</a-p><a-s>'./multipart'</a-s><a-p>)</a-p>
-<a-co>AWS</a-co><a-p>.</a-p><a-pr>config</a-pr><a-p>.</a-p><a-f>update</a-f><a-p>({</a-p> <a-pr>region</a-pr>: <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr><a-p>.</a-p><a-pr>AWS_REGION</a-pr> <a-p>})</a-p>
-<a-k>const</a-k> <a-v>s3</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-co>AWS</a-co><a-p>.</a-p><a-pr>S3</a-pr><a-p>()</a-p>
+const AWS = require('aws-sdk')
+const multipart = require('./multipart')
+AWS.config.update({ region: process.env.AWS_REGION })
+const s3 = new AWS.S3()
 
-<a-c>// Change this value to adjust the signed URL's expiration</a-c>
-<a-k>const</a-k> <a-co>URL_EXPIRATION_SECONDS</a-co> <a-o>=</a-o> <a-n>300</a-n>
+// Change this value to adjust the signed URL's expiration
+const URL_EXPIRATION_SECONDS = 300
 
-<a-c>// Main Lambda entry point</a-c>
-<a-v>exports</a-v><a-p>.</a-p><a-f>handler</a-f> <a-o>=</a-o> <a-k>async</a-k> <a-v>event</a-v> <a-o>=></a-o> <a-p>{</a-p>
-  <a-k>return</a-k> <a-k>await</a-k> <a-f>getUploadURL</a-f><a-p>(</a-p><a-v>event</a-v><a-p>)</a-p>
-<a-p>}</a-p>
+// Main Lambda entry point
+exports.handler = async event => {
+  return await getUploadURL(event)
+}
 
-<a-k>const</a-k> <a-p>{</a-p> <a-pr>AWS_REGION</a-pr>: <a-v>region</a-v> <a-p>}</a-p> <a-o>=</a-o> <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr>
+const { AWS_REGION: region } = process.env
 
-<a-k>const</a-k> <a-v>dynamodb</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-co>AWS</a-co><a-p>.</a-p><a-pr>DynamoDB</a-pr><a-p>({</a-p> <a-pr>apiVersion</a-pr>: <a-s>'2012-08-10'</a-s><a-p>,</a-p> region <a-p>})</a-p>
+const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10', region })
 
-<a-k>async</a-k> <a-k>function</a-k> <a-f>uploadPic</a-f><a-p>({</a-p>
-  timestamp<a-p>,</a-p>
-  filename<a-p>,</a-p>
-  message<a-p>,</a-p>
-  user<a-p>,</a-p>
-  date<a-p>,</a-p>
-  contentType<a-p>,</a-p>
-<a-p>})</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-v>params</a-v> <a-o>=</a-o> <a-p>{</a-p>
-    <a-pr>Item</a-pr>: <a-p>{</a-p>
-      <a-pr>timestamp</a-pr>: <a-p>{</a-p>
-        <a-pr>N</a-pr>: <a-s>`</a-s><a-p>${</a-p><a-v>timestamp</a-v><a-p>}</a-p><a-s>`</a-s><a-p>,</a-p>
-      <a-p>},</a-p>
-      <a-pr>filename</a-pr>: <a-p>{</a-p>
-        <a-pr>S</a-pr>: <a-v>filename</a-v><a-p>,</a-p>
-      <a-p>},</a-p>
-      <a-pr>message</a-pr>: <a-p>{</a-p>
-        <a-pr>S</a-pr>: <a-v>message</a-v><a-p>,</a-p>
-      <a-p>},</a-p>
-      <a-pr>user</a-pr>: <a-p>{</a-p>
-        <a-pr>S</a-pr>: <a-v>user</a-v><a-p>,</a-p>
-      <a-p>},</a-p>
-      <a-pr>date</a-pr>: <a-p>{</a-p>
-        <a-pr>S</a-pr>: <a-v>date</a-v><a-p>,</a-p>
-      <a-p>},</a-p>
-      <a-pr>contentType</a-pr>: <a-p>{</a-p>
-        <a-pr>S</a-pr>: <a-v>contentType</a-v><a-p>,</a-p>
-      <a-p>},</a-p>
-    <a-p>},</a-p>
-    <a-pr>TableName</a-pr>: <a-s>'files'</a-s><a-p>,</a-p>
-  <a-p>}</a-p>
-  <a-k>return</a-k> <a-v>dynamodb</a-v><a-p>.</a-p><a-f>putItem</a-f><a-p>(</a-p><a-v>params</a-v><a-p>).</a-p><a-f>promise</a-f><a-p>()</a-p>
-<a-p>}</a-p>
+async function uploadPic({
+  timestamp,
+  filename,
+  message,
+  user,
+  date,
+  contentType,
+}) {
+  const params = {
+    Item: {
+      timestamp: {
+        N: `${timestamp}`,
+      },
+      filename: {
+        S: filename,
+      },
+      message: {
+        S: message,
+      },
+      user: {
+        S: user,
+      },
+      date: {
+        S: date,
+      },
+      contentType: {
+        S: contentType,
+      },
+    },
+    TableName: 'files',
+  }
+  return dynamodb.putItem(params).promise()
+}
 
-<a-k>const</a-k> <a-f>getUploadURL</a-f> <a-o>=</a-o> <a-k>async</a-k> <a-k>function</a-k> <a-p>(</a-p><a-v>event</a-v><a-p>)</a-p> <a-p>{</a-p>
-  <a-k>try</a-k> <a-p>{</a-p>
-    <a-k>const</a-k> <a-v>data</a-v> <a-o>=</a-o> <a-v>multipart</a-v><a-p>.</a-p><a-f>parse</a-f><a-p>(</a-p><a-v>event</a-v><a-p>)</a-p>
-    <a-k>const</a-k> <a-p>{</a-p> filename<a-p>,</a-p> contentType<a-p>,</a-p> user<a-p>,</a-p> message<a-p>,</a-p> date <a-p>}</a-p> <a-o>=</a-o> <a-v>data</a-v>
-    <a-k>const</a-k> <a-v>timestamp</a-v> <a-o>=</a-o> <a-o>+</a-o><a-cr>Date</a-cr><a-p>.</a-p><a-f>now</a-f><a-p>()</a-p>
-    <a-k>const</a-k> <a-cr>Key</a-cr> <a-o>=</a-o> <a-s>`</a-s><a-p>${</a-p><a-v>timestamp</a-v><a-p>}</a-p><a-s>-</a-s><a-p>${</a-p><a-v>filename</a-v><a-p>}</a-p><a-s>`</a-s> <a-c>// Get signed URL from S3</a-c>
+const getUploadURL = async function (event) {
+  try {
+    const data = multipart.parse(event)
+    const { filename, contentType, user, message, date } = data
+    const timestamp = +Date.now()
+    const Key = `${timestamp}-${filename}` // Get signed URL from S3
 
-    <a-k>const</a-k> <a-v>s3Params</a-v> <a-o>=</a-o> <a-p>{</a-p>
-      <a-pr>Bucket</a-pr>: <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr><a-p>.</a-p><a-pr>UploadBucket</a-pr><a-p>,</a-p>
-      Key<a-p>,</a-p>
-      <a-pr>Expires</a-pr>: <a-co>URL_EXPIRATION_SECONDS</a-co><a-p>,</a-p>
-      <a-pr>ContentType</a-pr>: <a-v>contentType</a-v><a-p>,</a-p>
-      <a-c>// This ACL makes the uploaded object publicly readable. You must also</a-c>
-      <a-c>// uncomment the extra permission for the Lambda function in the SAM</a-c>
-      <a-c>// template.</a-c>
+    const s3Params = {
+      Bucket: process.env.UploadBucket,
+      Key,
+      Expires: URL_EXPIRATION_SECONDS,
+      ContentType: contentType,
+      // This ACL makes the uploaded object publicly readable. You must also
+      // uncomment the extra permission for the Lambda function in the SAM
+      // template.
 
-      <a-pr>ACL</a-pr>: <a-s>'public-read'</a-s><a-p>,</a-p>
-    <a-p>}</a-p>
+      ACL: 'public-read',
+    }
 
-    <a-k>const</a-k> <a-v>uploadURL</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>s3</a-v><a-p>.</a-p><a-f>getSignedUrlPromise</a-f><a-p>(</a-p><a-s>'putObject'</a-s><a-p>,</a-p> <a-v>s3Params</a-v><a-p>)</a-p>
+    const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params)
 
-    <a-k>await</a-k> <a-f>uploadPic</a-f><a-p>({</a-p>
-      timestamp<a-p>,</a-p>
-      <a-pr>filename</a-pr>: <a-cr>Key</a-cr><a-p>,</a-p>
-      message<a-p>,</a-p>
-      user<a-p>,</a-p>
-      date<a-p>,</a-p>
-      contentType<a-p>,</a-p>
-    <a-p>})</a-p>
+    await uploadPic({
+      timestamp,
+      filename: Key,
+      message,
+      user,
+      date,
+      contentType,
+    })
 
-    <a-k>return</a-k> <a-co>JSON</a-co><a-p>.</a-p><a-f>stringify</a-f><a-p>({</a-p>
-      uploadURL<a-p>,</a-p>
-      Key<a-p>,</a-p>
-    <a-p>})</a-p>
-  <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
-    <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-p>{</a-p>
-      <a-pr>statusCode</a-pr>: <a-n>500</a-n><a-p>,</a-p>
-      <a-pr>body</a-pr>: <a-co>JSON</a-co><a-p>.</a-p><a-f>stringify</a-f><a-p>({</a-p> <a-pr>message</a-pr>: <a-s>`</a-s><a-p>${</a-p><a-v>e</a-v><a-p>}</a-p><a-s>`</a-s> <a-p>}),</a-p>
-    <a-p>}</a-p>
-    <a-k>return</a-k> <a-v>response</a-v>
-  <a-p>}</a-p>
-<a-p>}</a-p>
+    return JSON.stringify({
+      uploadURL,
+      Key,
+    })
+  } catch (e) {
+    const response = {
+      statusCode: 500,
+      body: JSON.stringify({ message: `${e}` }),
+    }
+    return response
+  }
+}
 </code></pre>
 <p>./lambdas/getFiles/app.js</p>
-<pre><code class="language-js"><a-c>// eslint-disable-next-line import/no-unresolved</a-c>
-<a-k>const</a-k> <a-co>AWS</a-co> <a-o>=</a-o> <a-f>require</a-f><a-p>(</a-p><a-s>'aws-sdk'</a-s><a-p>)</a-p>
+<pre><code class="language-js">// eslint-disable-next-line import/no-unresolved
+const AWS = require('aws-sdk')
 
-<a-k>const</a-k> <a-p>{</a-p> <a-pr>AWS_REGION</a-pr>: <a-v>region</a-v> <a-p>}</a-p> <a-o>=</a-o> <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr>
+const { AWS_REGION: region } = process.env
 
-<a-k>const</a-k> <a-v>docClient</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-co>AWS</a-co><a-p>.</a-p><a-pr>DynamoDB</a-pr><a-p>.</a-p><a-pr>DocumentClient</a-pr><a-p>()</a-p>
+const docClient = new AWS.DynamoDB.DocumentClient()
 
-<a-k>const</a-k> <a-f>getItems</a-f> <a-o>=</a-o> <a-k>function</a-k> <a-p>()</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-v>params</a-v> <a-o>=</a-o> <a-p>{</a-p>
-    <a-pr>TableName</a-pr>: <a-s>'files'</a-s><a-p>,</a-p>
-  <a-p>}</a-p>
+const getItems = function () {
+  const params = {
+    TableName: 'files',
+  }
 
-  <a-k>return</a-k> <a-v>docClient</a-v><a-p>.</a-p><a-f>scan</a-f><a-p>(</a-p><a-v>params</a-v><a-p>).</a-p><a-f>promise</a-f><a-p>()</a-p>
-<a-p>}</a-p>
+  return docClient.scan(params).promise()
+}
 
-<a-v>exports</a-v><a-p>.</a-p><a-f>handler</a-f> <a-o>=</a-o> <a-k>async</a-k> <a-v>event</a-v> <a-o>=></a-o> <a-p>{</a-p>
-  <a-k>try</a-k> <a-p>{</a-p>
-    <a-k>const</a-k> <a-v>result</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>getItems</a-f><a-p>()</a-p>
-    <a-k>return</a-k> <a-p>{</a-p>
-      <a-pr>statusCode</a-pr>: <a-n>200</a-n><a-p>,</a-p>
-      <a-pr>body</a-pr>: <a-co>JSON</a-co><a-p>.</a-p><a-f>stringify</a-f><a-p>(</a-p><a-v>result</a-v><a-p>),</a-p>
-    <a-p>}</a-p>
-  <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
-    <a-k>return</a-k> <a-p>{</a-p>
-      <a-pr>statusCode</a-pr>: <a-n>400</a-n><a-p>,</a-p>
-      <a-pr>body</a-pr>: <a-co>JSON</a-co><a-p>.</a-p><a-f>stringify</a-f><a-p>({</a-p> <a-pr>message</a-pr>: <a-s>`</a-s><a-p>${</a-p><a-v>e</a-v><a-p>}</a-p><a-s>`</a-s> <a-p>}),</a-p>
-    <a-p>}</a-p>
-  <a-p>}</a-p>
-<a-p>}</a-p>
+exports.handler = async event => {
+  try {
+    const result = await getItems()
+    return {
+      statusCode: 200,
+      body: JSON.stringify(result),
+    }
+  } catch (e) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: `${e}` }),
+    }
+  }
+}
 </code></pre>
 <p>./frontend/src/App.tsx (excerpt)</p>
-<pre><code class="language-tsx"><a-k>async</a-k> <a-k>function</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-v>params</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>opts</a-v>?: <a-t>any</a-t><a-p>)</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-v>params</a-v><a-p>,</a-p> <a-v>opts</a-v><a-p>)</a-p>
-  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
-    <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p><a-s>`HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>statusText</a-pr><a-p>}</a-p><a-s>`</a-s><a-p>)</a-p>
-  <a-p>}</a-p>
-  <a-k>return</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
-<a-p>}</a-p>
+<pre><code class="language-tsx">async function myfetch(params: string, opts?: any) {
+  const response = await fetch(params, opts)
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} ${response.statusText}`)
+  }
+  return response.json()
+}
 
-<a-k>function</a-k> <a-t>UploadDialog</a-t><a-p>({</a-p>
-  open<a-p>,</a-p>
-  onClose<a-p>,</a-p>
-<a-p>}</a-p>: <a-p>{</a-p>
-  <a-pr>open</a-pr>: <a-t>boolean</a-t>
-  <a-pr>onClose</a-pr>: <a-p>()</a-p> <a-o>=></a-o> <a-t>void</a-t>
-<a-p>})</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>images</a-v><a-p>,</a-p> <a-v>setImages</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>FileList</a-t><a-p>>()</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>Error</a-t><a-p>>()</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>loading</a-v><a-p>,</a-p> <a-v>setLoading</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-co>false</a-co><a-p>)</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>total</a-v><a-p>,</a-p> <a-v>setTotal</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>completed</a-v><a-p>,</a-p> <a-v>setCompleted</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>user</a-v><a-p>,</a-p> <a-v>setUser</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
-  <a-k>const</a-k> <a-p>[</a-p><a-v>message</a-v><a-p>,</a-p> <a-v>setMessage</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
-  <a-k>const</a-k> <a-v>classes</a-v> <a-o>=</a-o> <a-f>useStyles</a-f><a-p>()</a-p>
+function UploadDialog({
+  open,
+  onClose,
+}: {
+  open: boolean
+  onClose: () => void
+}) {
+  const [images, setImages] = useState&#x3C;FileList>()
+  const [error, setError] = useState&#x3C;Error>()
+  const [loading, setLoading] = useState(false)
+  const [total, setTotal] = useState(0)
+  const [completed, setCompleted] = useState(0)
+  const [user, setUser] = useState('')
+  const [message, setMessage] = useState('')
+  const classes = useStyles()
 
-  <a-k>const</a-k> <a-f>handleClose</a-f> <a-o>=</a-o> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-    <a-f>setError</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p>
-    <a-f>setLoading</a-f><a-p>(</a-p><a-co>false</a-co><a-p>)</a-p>
-    <a-f>setImages</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p>
-    <a-f>setCompleted</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
-    <a-f>setTotal</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
-    <a-f>setMessage</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
-    <a-f>onClose</a-f><a-p>()</a-p>
-  <a-p>}</a-p>
+  const handleClose = () => {
+    setError(undefined)
+    setLoading(false)
+    setImages(undefined)
+    setCompleted(0)
+    setTotal(0)
+    setMessage('')
+    onClose()
+  }
 
-  <a-k>return</a-k> <a-p>(</a-p>
-    <a-p>&#x3C;</a-p><a-cr>Dialog</a-cr> <a-at>onClose</a-at><a-o>=</a-o><a-p>{</a-p><a-v>handleClose</a-v><a-p>}</a-p> <a-at>open</a-at><a-o>=</a-o><a-p>{</a-p><a-v>open</a-v><a-p>}></a-p>
-      <a-p>&#x3C;</a-p><a-cr>DialogTitle</a-cr><a-p>></a-p><a-s>upload a file (supports picture or video)</a-s><a-p>&#x3C;/</a-p><a-cr>DialogTitle</a-cr><a-p>></a-p>
-      <a-p>&#x3C;</a-p><a-cr>DialogContent</a-cr><a-p>></a-p>
-        <a-p>&#x3C;</a-p><a-tg>label</a-tg> <a-at>htmlFor</a-at><a-o>=</a-o><a-s>"user"</a-s><a-p>></a-p><a-s>name (optional) </a-s><a-p>&#x3C;/</a-p><a-tg>label</a-tg><a-p>></a-p>
-        <a-p>&#x3C;</a-p><a-tg>input</a-tg>
-          <a-at>type</a-at><a-o>=</a-o><a-s>"text"</a-s>
-          <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>user</a-v><a-p>}</a-p>
-          <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>event</a-v> <a-o>=></a-o> <a-f>setUser</a-f><a-p>(</a-p><a-v>event</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p>
-          <a-at>id</a-at><a-o>=</a-o><a-s>"user"</a-s>
-        <a-p>/></a-p>
-        <a-p>&#x3C;</a-p><a-tg>br</a-tg> <a-p>/></a-p><a-s> </a-s><a-p>&#x3C;</a-p><a-tg>label</a-tg> <a-at>htmlFor</a-at><a-o>=</a-o><a-s>"user"</a-s><a-p>></a-p><a-s>message (optional) </a-s><a-p>&#x3C;/</a-p><a-tg>label</a-tg><a-p>></a-p>
-        <a-p>&#x3C;</a-p><a-tg>input</a-tg>
-          <a-at>type</a-at><a-o>=</a-o><a-s>"text"</a-s>
-          <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>message</a-v><a-p>}</a-p>
-          <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>event</a-v> <a-o>=></a-o> <a-f>setMessage</a-f><a-p>(</a-p><a-v>event</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p>
-          <a-at>id</a-at><a-o>=</a-o><a-s>"message"</a-s>
-        <a-p>/></a-p>
-        <a-p>&#x3C;</a-p><a-tg>br</a-tg> <a-p>/></a-p>
-        <a-p>&#x3C;</a-p><a-tg>input</a-tg>
-          <a-at>multiple</a-at>
-          <a-at>type</a-at><a-o>=</a-o><a-s>"file"</a-s>
-          <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>e</a-v> <a-o>=></a-o> <a-p>{</a-p>
-            <a-k>let</a-k> <a-v>files</a-v> <a-o>=</a-o> <a-v>e</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>files</a-pr>
-            <a-k>if</a-k> <a-p>(</a-p><a-v>files</a-v> <a-o>&#x26;&#x26;</a-o> <a-v>files</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>)</a-p> <a-p>{</a-p>
-              <a-f>setImages</a-f><a-p>(</a-p><a-v>files</a-v><a-p>)</a-p>
-            <a-p>}</a-p>
-          <a-p>}}</a-p>
-        <a-p>/>{</a-p><a-s>' '</a-s><a-p>}</a-p>
-        <a-p>{</a-p><a-v>error</a-v> ? <a-p>(</a-p>
-          <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at><a-o>=</a-o><a-p>{</a-p><a-v>classes</a-v><a-p>.</a-p><a-pr>error</a-pr><a-p>}>{</a-p><a-s>`</a-s><a-p>${</a-p><a-v>error</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
-        <a-p>)</a-p> : <a-v>loading</a-v> ? <a-p>(</a-p>
-          <a-s>`Uploading...</a-s><a-p>${</a-p><a-v>completed</a-v><a-p>}</a-p><a-s>/</a-s><a-p>${</a-p><a-v>total</a-v><a-p>}</a-p><a-s>`</a-s>
-        <a-p>)</a-p> : <a-v>completed</a-v> ? <a-p>(</a-p>
-          <a-p>&#x3C;</a-p><a-tg>h2</a-tg><a-p>></a-p><a-s>Uploaded </a-s><a-p>&#x3C;/</a-p><a-tg>h2</a-tg><a-p>></a-p>
-        <a-p>)</a-p> : <a-co>null</a-co><a-p>}{</a-p><a-s>' '</a-s><a-p>}</a-p>
-        <a-p>&#x3C;</a-p><a-cr>DialogActions</a-cr><a-p>></a-p>
-          <a-p>&#x3C;</a-p><a-cr>Button</a-cr>
-            <a-at>style</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>textTransform</a-pr>: <a-s>'none'</a-s> <a-p>}}</a-p>
-            <a-at>onClick</a-at><a-o>=</a-o><a-p>{</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-              <a-k>try</a-k> <a-p>{</a-p>
-                <a-k>if</a-k> <a-p>(</a-p><a-v>images</a-v><a-p>)</a-p> <a-p>{</a-p>
-                  <a-f>setLoading</a-f><a-p>(</a-p><a-co>true</a-co><a-p>)</a-p>
-                  <a-f>setError</a-f><a-p>(</a-p><a-co>undefined</a-co><a-p>)</a-p>
-                  <a-f>setCompleted</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
-                  <a-f>setTotal</a-f><a-p>(</a-p><a-v>images</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>)</a-p>
-                  <a-k>await</a-k> <a-t>Promise</a-t><a-p>.</a-p><a-f>all</a-f><a-p>(</a-p>
-                    <a-t>Array</a-t><a-p>.</a-p><a-f>from</a-f><a-p>(</a-p><a-v>images</a-v><a-p>).</a-p><a-f>map</a-f><a-p>(</a-p><a-k>async</a-k> <a-v>image</a-v> <a-o>=></a-o> <a-p>{</a-p>
-                      <a-k>const</a-k> <a-v>data</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-t>FormData</a-t><a-p>()</a-p>
-                      <a-v>data</a-v><a-p>.</a-p><a-f>append</a-f><a-p>(</a-p><a-s>'message'</a-s><a-p>,</a-p> <a-v>message</a-v><a-p>)</a-p>
-                      <a-v>data</a-v><a-p>.</a-p><a-f>append</a-f><a-p>(</a-p><a-s>'user'</a-s><a-p>,</a-p> <a-v>user</a-v><a-p>)</a-p>
-                      <a-v>data</a-v><a-p>.</a-p><a-f>append</a-f><a-p>(</a-p><a-s>'date'</a-s><a-p>,</a-p> <a-k>new</a-k> <a-t>Date</a-t><a-p>().</a-p><a-f>toLocaleString</a-f><a-p>())</a-p>
-                      <a-v>data</a-v><a-p>.</a-p><a-f>append</a-f><a-p>(</a-p><a-s>'filename'</a-s><a-p>,</a-p> <a-v>image</a-v><a-p>.</a-p><a-pr>name</a-pr><a-p>)</a-p>
-                      <a-v>data</a-v><a-p>.</a-p><a-f>append</a-f><a-p>(</a-p><a-s>'contentType'</a-s><a-p>,</a-p> <a-v>image</a-v><a-p>.</a-p><a-pr>type</a-pr><a-p>)</a-p>
-                      <a-k>const</a-k> <a-v>res</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-t>API_ENDPOINT</a-t> <a-o>+</a-o> <a-s>'/postFile'</a-s><a-p>,</a-p> <a-p>{</a-p>
-                        <a-pr>method</a-pr>: <a-s>'POST'</a-s><a-p>,</a-p>
-                        <a-pr>body</a-pr>: <a-v>data</a-v><a-p>,</a-p>
-                      <a-p>})</a-p>
+  return (
+    &#x3C;Dialog onClose={handleClose} open={open}>
+      &#x3C;DialogTitle>upload a file (supports picture or video)&#x3C;/DialogTitle>
+      &#x3C;DialogContent>
+        &#x3C;label htmlFor="user">name (optional) &#x3C;/label>
+        &#x3C;input
+          type="text"
+          value={user}
+          onChange={event => setUser(event.target.value)}
+          id="user"
+        />
+        &#x3C;br /> &#x3C;label htmlFor="user">message (optional) &#x3C;/label>
+        &#x3C;input
+          type="text"
+          value={message}
+          onChange={event => setMessage(event.target.value)}
+          id="message"
+        />
+        &#x3C;br />
+        &#x3C;input
+          multiple
+          type="file"
+          onChange={e => {
+            let files = e.target.files
+            if (files &#x26;&#x26; files.length) {
+              setImages(files)
+            }
+          }}
+        />{' '}
+        {error ? (
+          &#x3C;div className={classes.error}>{`${error}`}&#x3C;/div>
+        ) : loading ? (
+          `Uploading...${completed}/${total}`
+        ) : completed ? (
+          &#x3C;h2>Uploaded &#x3C;/h2>
+        ) : null}{' '}
+        &#x3C;DialogActions>
+          &#x3C;Button
+            style={{ textTransform: 'none' }}
+            onClick={async () => {
+              try {
+                if (images) {
+                  setLoading(true)
+                  setError(undefined)
+                  setCompleted(0)
+                  setTotal(images.length)
+                  await Promise.all(
+                    Array.from(images).map(async image => {
+                      const data = new FormData()
+                      data.append('message', message)
+                      data.append('user', user)
+                      data.append('date', new Date().toLocaleString())
+                      data.append('filename', image.name)
+                      data.append('contentType', image.type)
+                      const res = await myfetch(API_ENDPOINT + '/postFile', {
+                        method: 'POST',
+                        body: data,
+                      })
 
-                      <a-k>await</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-v>res</a-v><a-p>.</a-p><a-pr>uploadURL</a-pr><a-p>,</a-p> <a-p>{</a-p>
-                        <a-pr>method</a-pr>: <a-s>'PUT'</a-s><a-p>,</a-p>
-                        <a-pr>body</a-pr>: <a-v>image</a-v><a-p>,</a-p>
-                      <a-p>})</a-p>
+                      await myfetch(res.uploadURL, {
+                        method: 'PUT',
+                        body: image,
+                      })
 
-                      <a-f>setCompleted</a-f><a-p>(</a-p><a-v>completed</a-v> <a-o>=></a-o> <a-v>completed</a-v> <a-o>+</a-o> <a-n>1</a-n><a-p>)</a-p>
-                    <a-p>}),</a-p>
-                  <a-p>)</a-p>
-                  <a-f>setTimeout</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-                    <a-f>handleClose</a-f><a-p>()</a-p>
-                  <a-p>},</a-p> <a-n>500</a-n><a-p>)</a-p>
-                <a-p>}</a-p>
-              <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
-                <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
-              <a-p>}</a-p>
-            <a-p>}}</a-p>
-            <a-at>color</a-at><a-o>=</a-o><a-s>"primary"</a-s>
-          <a-p>></a-p><a-s>
+                      setCompleted(completed => completed + 1)
+                    }),
+                  )
+                  setTimeout(() => {
+                    handleClose()
+                  }, 500)
+                }
+              } catch (e) {
+                setError(e)
+              }
+            }}
+            color="primary"
+          >
             upload
-          </a-s><a-p>&#x3C;/</a-p><a-cr>Button</a-cr><a-p>></a-p>
-          <a-p>&#x3C;</a-p><a-cr>Button</a-cr>
-            <a-at>onClick</a-at><a-o>=</a-o><a-p>{</a-p><a-v>handleClose</a-v><a-p>}</a-p>
-            <a-at>color</a-at><a-o>=</a-o><a-s>"primary"</a-s>
-            <a-at>style</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>textTransform</a-pr>: <a-s>'none'</a-s> <a-p>}}</a-p>
-          <a-p>></a-p><a-s>
+          &#x3C;/Button>
+          &#x3C;Button
+            onClick={handleClose}
+            color="primary"
+            style={{ textTransform: 'none' }}
+          >
             cancel
-          </a-s><a-p>&#x3C;/</a-p><a-cr>Button</a-cr><a-p>></a-p>
-        <a-p>&#x3C;/</a-p><a-cr>DialogActions</a-cr><a-p>></a-p>
-      <a-p>&#x3C;/</a-p><a-cr>DialogContent</a-cr><a-p>></a-p>
-    <a-p>&#x3C;/</a-p><a-cr>Dialog</a-cr><a-p>></a-p>
-  <a-p>)</a-p>
-<a-p>}</a-p>
+          &#x3C;/Button>
+        &#x3C;/DialogActions>
+      &#x3C;/DialogContent>
+    &#x3C;/Dialog>
+  )
+}
 </code></pre>
 <p>template.yaml for AWS</p>
-<pre><code class="language-yaml"><a-pr>AWSTemplateFormatVersion</a-pr><a-p>:</a-p> <a-s>2010-09-09</a-s>
-<a-pr>Transform</a-pr><a-p>:</a-p> <a-s>AWS::Serverless-2016-10-31</a-s>
-<a-pr>Description</a-pr><a-p>:</a-p> <a-s>S3 Uploader</a-s>
+<pre><code class="language-yaml">AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: S3 Uploader
 
-<a-pr>Resources</a-pr><a-p>:</a-p>
-  <a-pr>filesDynamoDBTable</a-pr><a-p>:</a-p>
-    <a-pr>Type</a-pr><a-p>:</a-p> <a-s>AWS::DynamoDB::Table</a-s>
-    <a-pr>Properties</a-pr><a-p>:</a-p>
-      <a-pr>AttributeDefinitions</a-pr><a-p>:</a-p>
-        <a-p>-</a-p> <a-pr>AttributeName</a-pr><a-p>:</a-p> <a-s>'timestamp'</a-s>
-          <a-pr>AttributeType</a-pr><a-p>:</a-p> <a-s>'N'</a-s>
-      <a-pr>KeySchema</a-pr><a-p>:</a-p>
-        <a-p>-</a-p> <a-pr>AttributeName</a-pr><a-p>:</a-p> <a-s>'timestamp'</a-s>
-          <a-pr>KeyType</a-pr><a-p>:</a-p> <a-s>'HASH'</a-s>
-      <a-pr>ProvisionedThroughput</a-pr><a-p>:</a-p>
-        <a-pr>ReadCapacityUnits</a-pr><a-p>:</a-p> <a-s>'5'</a-s>
-        <a-pr>WriteCapacityUnits</a-pr><a-p>:</a-p> <a-s>'5'</a-s>
-      <a-pr>TableName</a-pr><a-p>:</a-p> <a-s>'files'</a-s>
+Resources:
+  filesDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: 'timestamp'
+          AttributeType: 'N'
+      KeySchema:
+        - AttributeName: 'timestamp'
+          KeyType: 'HASH'
+      ProvisionedThroughput:
+        ReadCapacityUnits: '5'
+        WriteCapacityUnits: '5'
+      TableName: 'files'
 
-  <a-c># HTTP API</a-c>
-  <a-pr>MyApi</a-pr><a-p>:</a-p>
-    <a-pr>Type</a-pr><a-p>:</a-p> <a-s>AWS::Serverless::HttpApi</a-s>
-    <a-pr>Properties</a-pr><a-p>:</a-p>
-      <a-c># CORS configuration - this is open for development only and should be restricted in prod.</a-c>
-      <a-c># See https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html</a-c>
-      <a-pr>CorsConfiguration</a-pr><a-p>:</a-p>
-        <a-pr>AllowMethods</a-pr><a-p>:</a-p>
-          <a-p>-</a-p> <a-s>GET</a-s>
-          <a-p>-</a-p> <a-s>POST</a-s>
-          <a-p>-</a-p> <a-s>DELETE</a-s>
-          <a-p>-</a-p> <a-s>OPTIONS</a-s>
-        <a-pr>AllowHeaders</a-pr><a-p>:</a-p>
-          <a-p>-</a-p> <a-s>'*'</a-s>
-        <a-pr>AllowOrigins</a-pr><a-p>:</a-p>
-          <a-p>-</a-p> <a-s>'*'</a-s>
+  # HTTP API
+  MyApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      # CORS configuration - this is open for development only and should be restricted in prod.
+      # See https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-httpapi-httpapicorsconfiguration.html
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+          - DELETE
+          - OPTIONS
+        AllowHeaders:
+          - '*'
+        AllowOrigins:
+          - '*'
 
-  <a-pr>UploadRequestFunction</a-pr><a-p>:</a-p>
-    <a-pr>Type</a-pr><a-p>:</a-p> <a-s>AWS::Serverless::Function</a-s>
-    <a-pr>Properties</a-pr><a-p>:</a-p>
-      <a-pr>CodeUri</a-pr><a-p>:</a-p> <a-s>lambdas/postFile/</a-s>
-      <a-pr>Handler</a-pr><a-p>:</a-p> <a-s>app.handler</a-s>
-      <a-pr>Runtime</a-pr><a-p>:</a-p> <a-s>nodejs12.x</a-s>
-      <a-pr>Timeout</a-pr><a-p>:</a-p> <a-n>3</a-n>
-      <a-pr>MemorySize</a-pr><a-p>:</a-p> <a-n>128</a-n>
-      <a-pr>Environment</a-pr><a-p>:</a-p>
-        <a-pr>Variables</a-pr><a-p>:</a-p>
-          <a-pr>UploadBucket</a-pr><a-p>:</a-p> <a-t>!Ref</a-t> <a-s>S3UploadBucket</a-s>
-      <a-pr>Policies</a-pr><a-p>:</a-p>
-        <a-p>-</a-p> <a-s>AmazonDynamoDBFullAccess</a-s>
-        <a-p>-</a-p> <a-pr>S3WritePolicy</a-pr><a-p>:</a-p>
-            <a-pr>BucketName</a-pr><a-p>:</a-p> <a-t>!Ref</a-t> <a-s>S3UploadBucket</a-s>
-        <a-p>-</a-p> <a-pr>Statement</a-pr><a-p>:</a-p>
-            <a-p>-</a-p> <a-pr>Effect</a-pr><a-p>:</a-p> <a-s>Allow</a-s>
-              <a-pr>Resource</a-pr><a-p>:</a-p> <a-t>!Sub</a-t> <a-s>'arn:aws:s3:::${S3UploadBucket}/'</a-s>
-              <a-pr>Action</a-pr><a-p>:</a-p>
-                <a-p>-</a-p> <a-s>s3:putObjectAcl</a-s>
-      <a-pr>Events</a-pr><a-p>:</a-p>
-        <a-pr>UploadAssetAPI</a-pr><a-p>:</a-p>
-          <a-pr>Type</a-pr><a-p>:</a-p> <a-s>HttpApi</a-s>
-          <a-pr>Properties</a-pr><a-p>:</a-p>
-            <a-pr>Path</a-pr><a-p>:</a-p> <a-s>/postFile</a-s>
-            <a-pr>Method</a-pr><a-p>:</a-p> <a-s>post</a-s>
-            <a-pr>ApiId</a-pr><a-p>:</a-p> <a-t>!Ref</a-t> <a-s>MyApi</a-s>
+  UploadRequestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/postFile/
+      Handler: app.handler
+      Runtime: nodejs12.x
+      Timeout: 3
+      MemorySize: 128
+      Environment:
+        Variables:
+          UploadBucket: !Ref S3UploadBucket
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - S3WritePolicy:
+            BucketName: !Ref S3UploadBucket
+        - Statement:
+            - Effect: Allow
+              Resource: !Sub 'arn:aws:s3:::${S3UploadBucket}/'
+              Action:
+                - s3:putObjectAcl
+      Events:
+        UploadAssetAPI:
+          Type: HttpApi
+          Properties:
+            Path: /postFile
+            Method: post
+            ApiId: !Ref MyApi
 
-  <a-pr>FileReadFunction</a-pr><a-p>:</a-p>
-    <a-pr>Type</a-pr><a-p>:</a-p> <a-s>AWS::Serverless::Function</a-s>
-    <a-pr>Properties</a-pr><a-p>:</a-p>
-      <a-pr>CodeUri</a-pr><a-p>:</a-p> <a-s>lambdas/getFiles/</a-s>
-      <a-pr>Handler</a-pr><a-p>:</a-p> <a-s>app.handler</a-s>
-      <a-pr>Runtime</a-pr><a-p>:</a-p> <a-s>nodejs12.x</a-s>
-      <a-pr>Timeout</a-pr><a-p>:</a-p> <a-n>3</a-n>
-      <a-pr>MemorySize</a-pr><a-p>:</a-p> <a-n>128</a-n>
-      <a-pr>Policies</a-pr><a-p>:</a-p>
-        <a-p>-</a-p> <a-s>AmazonDynamoDBFullAccess</a-s>
-      <a-pr>Events</a-pr><a-p>:</a-p>
-        <a-pr>UploadAssetAPI</a-pr><a-p>:</a-p>
-          <a-pr>Type</a-pr><a-p>:</a-p> <a-s>HttpApi</a-s>
-          <a-pr>Properties</a-pr><a-p>:</a-p>
-            <a-pr>Path</a-pr><a-p>:</a-p> <a-s>/getFiles</a-s>
-            <a-pr>Method</a-pr><a-p>:</a-p> <a-s>get</a-s>
-            <a-pr>ApiId</a-pr><a-p>:</a-p> <a-t>!Ref</a-t> <a-s>MyApi</a-s>
+  FileReadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/getFiles/
+      Handler: app.handler
+      Runtime: nodejs12.x
+      Timeout: 3
+      MemorySize: 128
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Events:
+        UploadAssetAPI:
+          Type: HttpApi
+          Properties:
+            Path: /getFiles
+            Method: get
+            ApiId: !Ref MyApi
 
-  <a-c>## S3 bucket</a-c>
-  <a-pr>S3UploadBucket</a-pr><a-p>:</a-p>
-    <a-pr>Type</a-pr><a-p>:</a-p> <a-s>AWS::S3::Bucket</a-s>
-    <a-pr>Properties</a-pr><a-p>:</a-p>
-      <a-pr>CorsConfiguration</a-pr><a-p>:</a-p>
-        <a-pr>CorsRules</a-pr><a-p>:</a-p>
-          <a-p>-</a-p> <a-pr>AllowedHeaders</a-pr><a-p>:</a-p>
-              <a-p>-</a-p> <a-s>'*'</a-s>
-            <a-pr>AllowedMethods</a-pr><a-p>:</a-p>
-              <a-p>-</a-p> <a-s>GET</a-s>
-              <a-p>-</a-p> <a-s>PUT</a-s>
-              <a-p>-</a-p> <a-s>HEAD</a-s>
-            <a-pr>AllowedOrigins</a-pr><a-p>:</a-p>
-              <a-p>-</a-p> <a-s>'*'</a-s>
+  ## S3 bucket
+  S3UploadBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - HEAD
+            AllowedOrigins:
+              - '*'
 
-<a-c>## Take a note of the outputs for deploying the workflow templates in this sample application</a-c>
-<a-pr>Outputs</a-pr><a-p>:</a-p>
-  <a-pr>APIendpoint</a-pr><a-p>:</a-p>
-    <a-pr>Description</a-pr><a-p>:</a-p> <a-s>'HTTP API endpoint URL'</a-s>
-    <a-pr>Value</a-pr><a-p>:</a-p> <a-t>!Sub</a-t> <a-s>'https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com'</a-s>
-  <a-pr>S3UploadBucketName</a-pr><a-p>:</a-p>
-    <a-pr>Description</a-pr><a-p>:</a-p> <a-s>'S3 bucket for application uploads'</a-s>
-    <a-pr>Value</a-pr><a-p>:</a-p> <a-t>!Ref</a-t> <a-s>'S3UploadBucket'</a-s>
+## Take a note of the outputs for deploying the workflow templates in this sample application
+Outputs:
+  APIendpoint:
+    Description: 'HTTP API endpoint URL'
+    Value: !Sub 'https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com'
+  S3UploadBucketName:
+    Description: 'S3 bucket for application uploads'
+    Value: !Ref 'S3UploadBucket'
 </code></pre>
 <p>To display all the pictures I use a switch from video or img tag based on
 contentType.startsWith(‘video’). I also use the “figcaption” HTML tag to have a
 little caption on the pics/videos</p>
 <p>./frontend/src/App.tsx</p>
-<pre><code class="language-tsx"><a-k>function</a-k> <a-t>Media</a-t><a-p>({</a-p>
-  file<a-p>,</a-p>
-  style<a-p>,</a-p>
-  onClick<a-p>,</a-p>
-  children<a-p>,</a-p>
-<a-p>}</a-p>: <a-p>{</a-p>
-  <a-pr>file</a-pr>: <a-t>File</a-t>
-  <a-pr>onClick</a-pr>?: <a-t>Function</a-t>
-  <a-pr>style</a-pr>?: <a-t>React</a-t><a-p>.</a-p><a-t>CSSProperties</a-t>
-  <a-pr>children</a-pr>?: <a-t>React</a-t><a-p>.</a-p><a-t>ReactNode</a-t>
-<a-p>})</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-p>{</a-p> filename<a-p>,</a-p> contentType <a-p>}</a-p> <a-o>=</a-o> <a-v>file</a-v>
-  <a-k>const</a-k> <a-v>src</a-v> <a-o>=</a-o> <a-s>`</a-s><a-p>${</a-p><a-t>BUCKET</a-t><a-p>}</a-p><a-s>/</a-s><a-p>${</a-p><a-v>filename</a-v><a-p>}</a-p><a-s>`</a-s>
-  <a-k>return</a-k> <a-p>(</a-p>
-    <a-p>&#x3C;</a-p><a-tg>figure</a-tg> <a-at>style</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>display</a-pr>: <a-s>'inline-block'</a-s> <a-p>}}></a-p>
-      <a-p>&#x3C;</a-p><a-tg>picture</a-tg><a-p>></a-p>
-        <a-p>{</a-p><a-v>contentType</a-v><a-p>.</a-p><a-f>startsWith</a-f><a-p>(</a-p><a-s>'video'</a-s><a-p>)</a-p> ? <a-p>(</a-p>
-          <a-p>&#x3C;</a-p><a-tg>video</a-tg> <a-at>style</a-at><a-o>=</a-o><a-p>{</a-p><a-v>style</a-v><a-p>}</a-p> <a-at>src</a-at><a-o>=</a-o><a-p>{</a-p><a-v>src</a-v><a-p>}</a-p> <a-at>controls</a-at> <a-at>onClick</a-at><a-o>=</a-o><a-p>{</a-p><a-v>onClick</a-v> <a-k>as</a-k> <a-t>any</a-t><a-p>}</a-p> <a-p>/></a-p>
-        <a-p>)</a-p> : <a-p>(</a-p>
-          <a-p>&#x3C;</a-p><a-tg>img</a-tg> <a-at>style</a-at><a-o>=</a-o><a-p>{</a-p><a-v>style</a-v><a-p>}</a-p> <a-at>src</a-at><a-o>=</a-o><a-p>{</a-p><a-v>src</a-v><a-p>}</a-p> <a-at>onClick</a-at><a-o>=</a-o><a-p>{</a-p><a-v>onClick</a-v> <a-k>as</a-k> <a-t>any</a-t><a-p>}</a-p> <a-p>/></a-p>
-        <a-p>)}</a-p>
-      <a-p>&#x3C;/</a-p><a-tg>picture</a-tg><a-p>></a-p>
-      <a-p>&#x3C;</a-p><a-tg>figcaption</a-tg><a-p>>{</a-p><a-v>children</a-v><a-p>}&#x3C;/</a-p><a-tg>figcaption</a-tg><a-p>></a-p>
-    <a-p>&#x3C;/</a-p><a-tg>figure</a-tg><a-p>></a-p>
-  <a-p>)</a-p>
-<a-p>}</a-p>
+<pre><code class="language-tsx">function Media({
+  file,
+  style,
+  onClick,
+  children,
+}: {
+  file: File
+  onClick?: Function
+  style?: React.CSSProperties
+  children?: React.ReactNode
+}) {
+  const { filename, contentType } = file
+  const src = `${BUCKET}/${filename}`
+  return (
+    &#x3C;figure style={{ display: 'inline-block' }}>
+      &#x3C;picture>
+        {contentType.startsWith('video') ? (
+          &#x3C;video style={style} src={src} controls onClick={onClick as any} />
+        ) : (
+          &#x3C;img style={style} src={src} onClick={onClick as any} />
+        )}
+      &#x3C;/picture>
+      &#x3C;figcaption>{children}&#x3C;/figcaption>
+    &#x3C;/figure>
+  )
+}
 </code></pre>
 <p>Now the really fun part: if you get an image of a picture frame like
 <a href="https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T">https://www.amazon.com/Paintings-Frames-Antique-Shatterproof-Osafs2-Gld-A3/dp/B06XNQ8W9T</a></p>
 <p>You can make it a border for any image or video using border-image CSS</p>
-<pre><code class="language-js"><a-v>style</a-v> <a-o>=</a-o> <a-p>{</a-p>
-  <a-pr>border</a-pr>: <a-s>'30px solid'</a-s><a-p>,</a-p>
-  <a-pr>borderImage</a-pr>: <a-s>`url(borders/</a-s><a-p>${</a-p><a-v>border</a-v><a-p>}</a-p><a-s>) 30 round`</a-s><a-p>,</a-p>
-<a-p>}</a-p>
+<pre><code class="language-js">style = {
+  border: '30px solid',
+  borderImage: `url(borders/${border}) 30 round`,
+}
 </code></pre>
 <p><img src="/media/638602799897329664_0.png" alt=""></p>
 <h2 id="summary">Summary</h2>

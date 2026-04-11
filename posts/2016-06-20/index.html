@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Installing clamav on OSX</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Installing clamav on OSX</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Installing clamav on OSX</h1> <h4 data-astro-cid-lvjzyg5v>2016-06-20</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>It is a common trope that OSX doesn’t need anti-virus because everyone targets
 windows. That is maybe comforting to some but I think it’s pretty naive. It
@@ -9,7 +9,7 @@ good features for Mac scanning but thought it could be fun to install</p>
 <p>ClamAV is the top choice for linux based OSs being free and open source (GPL)
 virus scanner.</p>
 <p>To install we can use homebrew</p>
-<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>brew</a-pr> install clamav
+<pre><code class="language-sh">    $ brew install clamav
 </code></pre>
 <p>Then there is a config file to setup. This is located in
 /usr/local/etc/clamav/freshclam.conf</p>
@@ -17,17 +17,18 @@ virus scanner.</p>
 uncheck the desired settings. I would choose to enable logging to
 /var/log/clamav.log and also database directories in /var/lib/clamav</p>
 <p>Then run the “freshclam” program</p>
-<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>freshclam</a-pr>
+<pre><code class="language-sh">    $ freshclam
 </code></pre>
 <p>This will download the virus scanner database (main) and daily scanning updates</p>
 <p>Then you can run clamscan on a given directory (recursively, only print infected
 files)</p>
-<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>clamscan</a-pr> <a-co>-ri</a-co> ~/
+<pre><code class="language-sh">    $ clamscan -ri ~/
 </code></pre>
 <p>Or add this to a cronjob</p>
-<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>crontab</a-pr> <a-co>-</a-co>
+<pre><code class="language-sh">    $ crontab -
 
-    <a-f>@hourly</a-f> clamscan <a-co>-ri</a-co> ~/ <a-o>|</a-o> <a-f>mail</a-f> <a-co>-v</a-co> <a-co>-s</a-co> <a-s>"clamscan results"</a-s> your.email@gmail.com  <a-o>></a-o>/dev/null <a-n>2</a-n>>&#x26;1
+    @hourly clamscan -ri ~/ | mail -v -s "clamscan results" your.email@gmail.com  >/dev/null 2>&#x26;1
+
 </code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>How to make your own npm package with typescript</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>How to make your own npm package with typescript</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>How to make your own npm package with typescript</h1> <h4 data-astro-cid-lvjzyg5v>2021-12-31</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>There is a lot of mystery around making your own <code>npm</code> package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
@@ -28,72 +28,73 @@ published (the various “scripts”, where you can have “clean”, “build�
 <p>Let’s try an experiment…</p>
 <h1 id="part-1-the-most-basic-package-with-plain-js-code-in-commonjs-format">Part 1: the most basic package with plain JS code in commonjs format</h1>
 <p>Open up a terminal, and run</p>
-<pre><code class="language-sh"><a-f>mkdir</a-f> mypackage
-<a-f>cd</a-f> mypackage
-<a-f>git</a-f> init <a-c># make mypackage version controlled</a-c>
-<a-f>npm</a-f> init <a-c># or yarn init</a-c>
+<pre><code class="language-sh">mkdir mypackage
+cd mypackage
+git init # make mypackage version controlled
+npm init # or yarn init
 </code></pre>
 <p>This init command outputs something like this, and we accept the defaults</p>
-<pre><code class="language-sh"><a-f>This</a-f> utility will walk you through creating a package.json file.
-<a-f>It</a-f> only covers the most common items, and tries to guess sensible defaults.
+<pre><code class="language-sh">This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
 
-<a-f>See</a-f> <a-eb>`</a-eb><a-f>npm</a-f><a-eb> help init`</a-eb> for definitive documentation on these fields
-<a-f>and</a-f> exactly what they do.
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
 
-<a-f>Use</a-f> `<a-f>npm</a-f> install <a-o>&#x3C;</a-o>pkg<a-o>></a-o>` <a-f>afterwards</a-f> to install a package and
-<a-f>save</a-f> it as a dependency in the package.json file.
+Use `npm install &#x3C;pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
 
-<a-f>Press</a-f> ^C at any time to quit.
-<a-f>package</a-f> name: (<a-f>mypackage</a-f>)
-<a-f>version:</a-f> (<a-f>1.0.0</a-f>)
-<a-f>description:</a-f>
-<a-f>entry</a-f> point: (<a-f>index.js</a-f>)
-<a-f>test</a-f> command:
-<a-f>git</a-f> repository:
-<a-f>keywords:</a-f>
-<a-f>license:</a-f> (<a-f>ISC</a-f>)
-<a-f>About</a-f> to write to /home/cdiesh/mypackage/package.json:
+Press ^C at any time to quit.
+package name: (mypackage)
+version: (1.0.0)
+description:
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+license: (ISC)
+About to write to /home/cdiesh/mypackage/package.json:
 
 {
-  <a-s>"name"</a-s><a-f>:</a-f> <a-s>"mypackage"</a-s>,
-  <a-s>"version"</a-s><a-f>:</a-f> <a-s>"1.0.0"</a-s>,
-  <a-s>"description"</a-s><a-f>:</a-f> <a-s>""</a-s>,
-  <a-s>"main"</a-s><a-f>:</a-f> <a-s>"index.js"</a-s>,
-  <a-s>"scripts"</a-s><a-f>:</a-f> {
-    <a-s>"test"</a-s><a-f>:</a-f> <a-s>"echo \"Error: no test specified\" &#x26;&#x26; exit 1"</a-s>
+  "name": "mypackage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &#x26;&#x26; exit 1"
   },
-  <a-s>"author"</a-s><a-f>:</a-f> <a-s>"Colin"</a-s>,
-  <a-s>"license"</a-s><a-f>:</a-f> <a-s>"ISC"</a-s>
-<a-f>}</a-f>
+  "author": "Colin",
+  "license": "ISC"
+}
+
 </code></pre>
 <p>Then, you can create a file named <code>index.js</code> (in your package.json it says
 <code>"main": "index.js"</code> to refer to this file, the entrypoint)</p>
 <p>In your <code>index.js</code> file, generally, you would do things like export a function
 or functions. I will use commonjs exports here for maximum compatibility:</p>
-<pre><code class="language-js"><a-v>module</a-v><a-p>.</a-p><a-pr>exports</a-pr> <a-o>=</a-o> <a-p>{</a-p>
-  <a-f>hello</a-f>: <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'hello world'</a-s><a-p>)</a-p>
-  <a-p>},</a-p>
-<a-p>}</a-p>
+<pre><code class="language-js">module.exports = {
+  hello: () => {
+    console.log('hello world')
+  },
+}
 </code></pre>
 <h2 id="publishing-a-package">Publishing a package</h2>
 <p>This npm package, <code>mypackage</code> can now be published to <code>npm</code> with a simple
 command.</p>
-<pre><code class="language-sh"><a-f>npm</a-f> publish
-<a-c># or</a-c>
-<a-f>yarn</a-f> publish
+<pre><code class="language-sh">npm publish
+# or
+yarn publish
 </code></pre>
 <p>This will prompt you for your npmjs.com username, password, email, and if
 needed, 2FA token (highly recommended)</p>
 <h2 id="using-your-package-after-it-is-published">Using your package after it is published</h2>
 <p>Once it is published, you can use it in your create-react-app app or other npm
 package.</p>
-<pre><code class="language-sh"><a-f>npm</a-f> install mypackage
-<a-c># or</a-c>
-<a-f>yarn</a-f> add mypackage
+<pre><code class="language-sh">npm install mypackage
+# or
+yarn add mypackage
 </code></pre>
 <p>Then you can use</p>
-<pre><code class="language-js"><a-k>import</a-k> <a-p>{</a-p> <a-v>hello</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'mypackage'</a-s>
+<pre><code class="language-js">import { hello } from 'mypackage'
 </code></pre>
 <p>in any of your other codebases</p>
 <h2 id="summary-of-the-simplest-npm-package">Summary of the simplest NPM package</h2>
@@ -111,70 +112,70 @@ index.html. you can use whatever name you want</li>
 <p>To do this, we will use the typescript compiler to compile a directory of files
 in our “src” directory and output the compiled files to a directory named “dist”</p>
 <p>To start, let’s add typescript</p>
-<pre><code class="language-sh"><a-f>npm</a-f> install <a-co>--save-dev</a-co> typescript
-<a-c># or</a-c>
-<a-f>yarn</a-f> add <a-co>-D</a-co> typescript
+<pre><code class="language-sh">npm install --save-dev typescript
+# or
+yarn add -D typescript
 </code></pre>
 <p>Our package.json now will have <code>typescript</code> in its <code>devDependencies</code> (this means
 that when someone installs your package, they don’t get typescript as a
 dependency, it is just a dependency for while you are developing the library
 locally).</p>
 <p>Then we need to create a tsconfig.json for typescript to use</p>
-<pre><code class="language-sh"><a-f>yarn</a-f> tsc <a-co>--init</a-co>
-<a-c># or</a-c>
-<a-f>npx</a-f> tsc <a-co>--init</a-co>
+<pre><code class="language-sh">yarn tsc --init
+# or
+npx tsc --init
 </code></pre>
 <p>This will generate a <code>tsconfig.json</code> file (needed by <code>typescript</code>) with a bunch
 of options, but I have stripped it down in my projects to look like this</p>
 <pre><code class="language-json">{
-  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
-  <a-s>"compilerOptions"</a-s>: {
-    <a-s>"target"</a-s>: <a-s>"es2018"</a-s>,
-    <a-s>"moduleResolution"</a-s>: <a-s>"node"</a-s>, <a-c>// don't have to import actual filenames, can import extensionless files</a-c>
-    <a-s>"declaration"</a-s>: <a-co>true</a-co>, <a-c>// generate .d.ts files</a-c>
-    <a-s>"sourceMap"</a-s>: <a-co>true</a-co>, <a-c>// generate source map</a-c>
-    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>, <a-c>// output compiled js, d.ts, and source map to dist folder</a-c>
-    <a-s>"strict"</a-s>: <a-co>true</a-co>,
-    <a-s>"esModuleInterop"</a-s>: <a-co>true</a-co>
+  "include": ["src"],
+  "compilerOptions": {
+    "target": "es2018",
+    "moduleResolution": "node", // don't have to import actual filenames, can import extensionless files
+    "declaration": true, // generate .d.ts files
+    "sourceMap": true, // generate source map
+    "outDir": "dist", // output compiled js, d.ts, and source map to dist folder
+    "strict": true,
+    "esModuleInterop": true
   }
 }
 </code></pre>
 <p>Now, let’s write a little typescript. We can now use “ESM” style code, we will
 compile it to commonjs format.</p>
 <p>util.ts</p>
-<pre><code class="language-typescript"><a-k>export</a-k> <a-k>function</a-k> <a-f>getMessage</a-f><a-p>()</a-p> <a-p>{</a-p>
-  <a-k>return</a-k> <a-s>'hello'</a-s>
-<a-p>}</a-p>
+<pre><code class="language-typescript">export function getMessage() {
+  return 'hello'
+}
 </code></pre>
 <p>index.ts</p>
-<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>getMessage</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./util'</a-s>
-<a-k>export</a-k> <a-k>function</a-k> <a-f>sayMessage</a-f><a-p>()</a-p> <a-p>{</a-p>
-  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-f>getMessage</a-f><a-p>())</a-p>
-<a-p>}</a-p>
+<pre><code class="language-typescript">import { getMessage } from './util'
+export function sayMessage() {
+  console.log(getMessage())
+}
 </code></pre>
 <p>And then we will add a <code>"build"</code> script to <code>package.json</code> to compile the
 library, and refer to the <code>"dist"</code> directory for the <code>"files"</code> and <code>"main"</code>
 fields in <code>package.json</code></p>
 <pre><code class="language-json">{
-  <a-s>"name"</a-s>: <a-s>"mypackage"</a-s>,
-  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
-  <a-s>"description"</a-s>: <a-s>""</a-s>,
-  <a-s>"main"</a-s>: <a-s>"dist/index.js"</a-s>,
-  <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"src"</a-s>], <a-c>// we publish both dist and src to get proper sourceMaps</a-c>
-  <a-s>"scripts"</a-s>: {
-    <a-s>"build"</a-s>: <a-s>"tsc --module commonjs"</a-s>
+  "name": "mypackage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "files": ["dist", "src"], // we publish both dist and src to get proper sourceMaps
+  "scripts": {
+    "build": "tsc --module commonjs"
   },
-  <a-s>"author"</a-s>: <a-s>"Colin"</a-s>,
-  <a-s>"license"</a-s>: <a-s>"ISC"</a-s>,
-  <a-s>"devDependencies"</a-s>: {
-    <a-s>"typescript"</a-s>: <a-s>"^4.5.4"</a-s>
+  "author": "Colin",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.5.4"
   }
 }
 </code></pre>
 <p>We can now run</p>
-<pre><code class="language-sh"><a-f>npm</a-f> run build
-<a-c># or</a-c>
-<a-f>yarn</a-f> build
+<pre><code class="language-sh">npm run build
+# or
+yarn build
 </code></pre>
 <p>And this will run the <code>"build"</code> script we created, which in turn, just runs
 <code>tsc</code> with no arguments.</p>
@@ -182,36 +183,36 @@ fields in <code>package.json</code></p>
 fact, npm scripts generalizes the naming system — you can make scripts with
 whatever name you want, e.g.</p>
 <pre><code class="language-json">{
-  <a-s>"scripts"</a-s>: {
-    <a-s>"preparty"</a-s>: <a-s>"echo preparty"</a-s>,
-    <a-s>"party"</a-s>: <a-s>"echo party"</a-s>,
-    <a-s>"postparty"</a-s>: <a-s>"echo postparty"</a-s>
+  "scripts": {
+    "preparty": "echo preparty",
+    "party": "echo party",
+    "postparty": "echo postparty"
   }
 }
 </code></pre>
 <p>Then running</p>
-<pre><code class="language-sh"><a-o>$</a-o><a-f> </a-f><a-pr>yarn</a-pr> party
-<a-f>preparty</a-f>
-<a-f>party</a-f>
-<a-f>postparty</a-f>
+<pre><code class="language-sh">$ yarn party
+preparty
+party
+postparty
 </code></pre>
 <p>To make this useful, we will use <code>rimraf</code> (a node package) to make a
 cross-platform removal of the <code>dist</code> directory</p>
-<pre><code class="language-sh"><a-f>npm</a-f> install <a-co>--save-dev</a-co> rimraf
-<a-c># or</a-c>
-<a-f>yarn</a-f> add <a-co>-D</a-co> rimraf
+<pre><code class="language-sh">npm install --save-dev rimraf
+# or
+yarn add -D rimraf
 </code></pre>
 <p>and then update your package.json</p>
 <pre><code class="language-json">{
   ...
-  <a-s>"scripts"</a-s>: {
-    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
-    <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
-    <a-s>"build"</a-s>: <a-s>"tsc --module commonjs"</a-s>
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc --module commonjs"
   },
-  <a-s>"devDependencies"</a-s>: {
-    <a-s>"rimraf"</a-s>: <a-s>"^3.0.2"</a-s>,
-    <a-s>"typescript"</a-s>: <a-s>"^4.5.4"</a-s>
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.4"
   }
 }
 </code></pre>
@@ -226,9 +227,9 @@ run <code>yarn publish</code> to make sure you get a fresh build in the <code>di
 before you publish</p>
 <pre><code class="language-json">{
   ...
-  <a-s>"scripts"</a-s>: {
+  "scripts": {
     ...
-    <a-s>"preversion"</a-s>: <a-s>"npm run build"</a-s>,
+    "preversion": "npm run build",
   },
 }
 </code></pre>
@@ -239,45 +240,45 @@ repository.</p>
 <p>Add a <code>postversion</code> script that pushes the tag to your repo after your publish</p>
 <pre><code class="language-json">{
   ...
-  <a-s>"scripts"</a-s>: {
+  "scripts": {
     ...
-    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>,
+    "postversion": "git push --follow-tags",
   },
 }
 </code></pre>
 <h2 id="incremental-builds">Incremental builds</h2>
 <p>We can use this to do incremental/watch builds</p>
-<pre><code class="language-sh"><a-f>npm</a-f> run build <a-co>--watch</a-co>
-<a-c># or</a-c>
-<a-f>yarn</a-f> build <a-co>--watch</a-co>
+<pre><code class="language-sh">npm run build --watch
+# or
+yarn build --watch
 </code></pre>
 <h2 id="adding-testing-with-ts-jest">Adding testing with ts-jest</h2>
 <p>You can use ts-jest to test your code. This involves installing jest,
 typescript, ts-jest, @types/jest, and then initializing a jest.config.json</p>
-<pre><code class="language-sh"><a-f>npm</a-f> i <a-co>-D</a-co> jest typescript
-<a-c># or</a-c>
-<a-f>yarn</a-f> add <a-co>--dev</a-co> jest typescript
+<pre><code class="language-sh">npm i -D jest typescript
+# or
+yarn add --dev jest typescript
 </code></pre>
-<pre><code class="language-sh"><a-f>npm</a-f> i <a-co>-D</a-co> ts-jest @types/jest
-<a-c># or</a-c>
-<a-f>yarn</a-f> add <a-co>--dev</a-co> ts-jest @types/jest
+<pre><code class="language-sh">npm i -D ts-jest @types/jest
+# or
+yarn add --dev ts-jest @types/jest
 </code></pre>
-<pre><code class="language-sh"><a-f>npx</a-f> ts-jest config:init
-<a-c># or</a-c>
-<a-f>yarn</a-f> ts-jest config:init
+<pre><code class="language-sh">npx ts-jest config:init
+# or
+yarn ts-jest config:init
 </code></pre>
 <p>We can then create a test</p>
 <p><code>test/util.spec.ts</code></p>
-<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>getMessage</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'../src/util'</a-s>
-<a-f>test</a-f><a-p>(</a-p><a-s>'expected message returned'</a-s><a-p>,</a-p> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
-  <a-f>expect</a-f><a-p>(</a-p><a-f>getMessage</a-f><a-p>()).</a-p><a-f>toBe</a-f><a-p>(</a-p><a-s>'hello'</a-s><a-p>)</a-p>
-<a-p>})</a-p>
+<pre><code class="language-typescript">import { getMessage } from '../src/util'
+test('expected message returned', () => {
+  expect(getMessage()).toBe('hello')
+})
 </code></pre>
 <p>Then we can then create a script in the package.json that says <code>"test": "jest"</code>,
 and then we can say</p>
-<pre><code class="language-sh"><a-f>npm</a-f> run test
-<a-c># or</a-c>
-<a-f>yarn</a-f> test
+<pre><code class="language-sh">npm run test
+# or
+yarn test
 </code></pre>
 <p>You can also create an alternative system where you use <code>babel-eslint</code> and
 various babel strategies to test your code, but if you are using <code>typescript</code>,
@@ -297,17 +298,17 @@ go “halfway to ESM” and just publish a “dual” package: one “main” fi
 package.json referring to a commonjs file, and one “module” field with an ESM
 style build for bundlers. I do it like this:</p>
 <pre><code class="language-json">{
-  <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"esm"</a-s>, <a-s>"src"</a-s>],
-  <a-s>"scripts"</a-s>: {
+  "files": ["dist", "esm", "src"],
+  "scripts": {
      ...
-    <a-s>"clean"</a-s>: <a-s>"rimraf dist esm"</a-s>,
-    <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
-    <a-s>"build:cjs"</a-s>: <a-s>"tsc --module commonjs --outDir dist"</a-s>,
-    <a-s>"build:esm"</a-s>: <a-s>"tsc --target es2018 --outDir esm"</a-s>,
-    <a-s>"build"</a-s>: <a-s>"npm run build:esm &#x26;&#x26; npm run build:cjs"</a-s>
+    "clean": "rimraf dist esm",
+    "prebuild": "npm run clean",
+    "build:cjs": "tsc --module commonjs --outDir dist",
+    "build:esm": "tsc --target es2018 --outDir esm",
+    "build": "npm run build:esm &#x26;&#x26; npm run build:cjs"
   },
-  <a-s>"main"</a-s>: <a-s>"dist/index.js"</a-s>,
-  <a-s>"module"</a-s>: <a-s>"esm/index.js"</a-s>
+  "main": "dist/index.js",
+  "module": "esm/index.js"
 }
 </code></pre>
 <p>The “module” field is understood by bundlers like webpack and you can do
@@ -345,9 +346,9 @@ so take it with a grain of salt!</p>
 workspaces. Basically, the way this works is you can have e.g. in your root
 package.json in your repo something like</p>
 <pre><code class="language-json">{
-  <a-s>"name"</a-s>: <a-s>"root"</a-s>,
-  <a-s>"private"</a-s>: <a-co>true</a-co>,
-  <a-s>"workspaces"</a-s>: [<a-s>"lib"</a-s>, <a-s>"app"</a-s>]
+  "name": "root",
+  "private": true,
+  "workspaces": ["lib", "app"]
 }
 </code></pre>
 <p>And then in your <code>lib</code> directory you can have your library as we created above

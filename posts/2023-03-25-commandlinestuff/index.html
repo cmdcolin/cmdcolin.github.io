@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Command line productivity stuff</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Command line productivity stuff</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Command line productivity stuff</h1> <h4 data-astro-cid-lvjzyg5v>2023-03-25</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In 2016, I wrote a list of things that I found to be useful or interesting
 information about the work I did at the time
@@ -126,8 +126,8 @@ the millions with true color). Resources</p>
 <code>"youtube-dl -f 'bestaudio[ext=m4a]' "</code></li>
 <li><code>vaporwave</code> - a function to slow down the audio for a track with ffmpeg</li>
 </ul>
-<pre><code class="language-bash"><a-k>function</a-k> <a-f>vaporwave</a-f>() {
-  <a-f>ffmpeg</a-f> <a-co>-i</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-af</a-co> <a-s>"asetrate=44100*</a-s><a-eb>${</a-eb><a-pr>2</a-pr><a-eb>:-0.66}</a-eb><a-s>,aresample=44100"</a-s> <a-s>"</a-s><a-eb>`</a-eb><a-f>basename</a-f><a-eb> </a-eb><a-o>$</a-o><a-pr>1</a-pr><a-eb> .m4a`</a-eb><a-s>.vaporwave.m4a"</a-s>
+<pre><code class="language-bash">function vaporwave() {
+  ffmpeg -i "$1" -af "asetrate=44100*${2:-0.66},aresample=44100" "`basename $1 .m4a`.vaporwave.m4a"
 }
 </code></pre>
 <p>example usage:</p>

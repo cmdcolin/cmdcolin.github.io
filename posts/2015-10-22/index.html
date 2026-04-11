@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>Killing postgres the hard way</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Killing postgres the hard way</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Killing postgres the hard way</h1> <h4 data-astro-cid-lvjzyg5v>2015-10-22</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>So today, I finally decided to do something about a query that we saw had been
 running for 25 DAYS on our server</p>
@@ -8,7 +8,7 @@ data first if possible.</p>
 process so I could see in “htop” that there was this process that had been
 running for 600 hours, or about 25 days</p>
 <p>Next, I opened a psql console and ran this query:</p>
-<pre><code class="language-sql"><a-k>SELECT</a-k> <a-v>datname</a-v><a-p>,</a-p><a-v>procpid</a-v><a-p>,</a-p><a-v>current_query</a-v> <a-k>FROM</a-k> <a-t>pg_stat_activity</a-t> <a-k>WHERE</a-k> <a-v>datname</a-v><a-o>=</a-o><a-s>'database_name'</a-s> <a-k>ORDER</a-k> <a-k>BY</a-k> <a-v>procpid</a-v> <a-p>;</a-p>
+<pre><code class="language-sql">SELECT datname,procpid,current_query FROM pg_stat_activity WHERE datname='database_name' ORDER BY procpid ;
 </code></pre>
 <p>This returns which actual queries are being run on the database at any given
 time. I could easily see the one problematic query being run, which was a badly
@@ -20,7 +20,7 @@ essentially.</p>
 <p>Each time I ran it, it would say it returned one result but it did nothing.</p>
 <p>I also read that you can try to nicely “kill” it from the command line (no kill
 -9) so I ran</p>
-<pre><code class="language-sh"><a-o>></a-o> kill <a-f>29033</a-f>
+<pre><code class="language-sh">> kill 29033
 </code></pre>
 <p>This also did not work!</p>
 <p>I thought perhaps all these problems were because tomcat was still active, so we
@@ -30,22 +30,22 @@ risky move… but I am sort of a risky kind of guy…(that is not a good thing
 with databases). If you are doing this, make backups! I didn’t. Luckily I
 suffered no data loss but what follows is kind of intense.</p>
 <p>So first, I try and stop the database service</p>
-<pre><code class="language-sh"><a-o>></a-o> service <a-f>postgresql-9.1</a-f> stop
+<pre><code class="language-sh">> service postgresql-9.1 stop
 </code></pre>
 <p>Unfortunately, this <code>[FAILED]</code> ! And of course, even though it failed, the
 database is now unusable. No logging into it anymore, we have to go with the
 hard way now…</p>
 <p>Looking at /etc/init.d/postgres-9.1 told me that the service stop command was
 effectively using something like this:</p>
-<pre><code class="language-sh"><a-o>></a-o> pg_ctl <a-co>-D</a-co> /db/postgres/data <a-co>-m</a-co> fast stop
+<pre><code class="language-sh">> pg_ctl -D /db/postgres/data -m fast stop
 </code></pre>
 <p>After some reading, I learned that you can try using a slightly different flag
 to restart it</p>
-<pre><code class="language-sh"><a-o>></a-o> pg_ctl <a-co>-D</a-co> /db/postgres/data <a-co>-m</a-co> immediate  stop
+<pre><code class="language-sh">> pg_ctl -D /db/postgres/data -m immediate  stop
 </code></pre>
 <p>I ran this and to my horror/surprise, it actually worked! At this point I
 decided to start postgresql back up again!</p>
-<pre><code class="language-sh"><a-o>></a-o> service <a-f>postgresql-9.1</a-f> start
+<pre><code class="language-sh">> service postgresql-9.1 start
 </code></pre>
 <p>The service start quickly returned a SUCCESS, which was great, but then I tried
 to start a psql console and the console froze on me! I could not even ctrl+c it!</p>
@@ -53,120 +53,120 @@ to start a psql console and the console froze on me! I could not even ctrl+c it!
 that there was one postmaster process running but it was not clear what it was
 doing. I actually tried to shutdown the server again in a panic mode but at this
 point it said</p>
-<pre><code class="language-sh"><a-o>></a-o> /usr/pgsql-9.1/bin/pg_ctl <a-f>stop</a-f> <a-co>-D</a-co> /db/postgres/data/ <a-co>-m</a-co> immediate
-<a-o>></a-o> waiting <a-f>for</a-f> server to shut
-<a-o>></a-o> down...............................................................
-<a-o>></a-o> failed
+<pre><code class="language-sh">> /usr/pgsql-9.1/bin/pg_ctl stop -D /db/postgres/data/ -m immediate
+> waiting for server to shut
+> down...............................................................
+> failed
 </code></pre>
 <p>It was probably good that it didn’t shut down, because I would quickly find out
 that it was in recovery mode. I looked at the postgresql logs and I saw this,
 reproduced here for full detail (from before the shutdown to the restart)</p>
-<pre><code class="language-sh"><a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o> WARNING:  <a-f>pgstat</a-f> wait timeout
-<a-o>></a-o>
-<a-o>></a-o> ERROR:  <a-f>canceling</a-f> statement due to user request
-<a-o>></a-o> STATEMENT:  <a-f>CREATE</a-f> TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS
-<a-o>></a-o> a1_id, <a-f>a2_.id</a-f> AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,
-<a-o>></a-o> a5_.id <a-f>AS</a-f> a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS
-<a-o>></a-o> a10_id, <a-f>a1_.id</a-f> AS a13_, a1_.primaryIdentifier AS a14_,
-<a-o>></a-o> a1_.secondaryIdentifier <a-f>AS</a-f> a15_, a2_.type AS a16_, a3_.name AS
-<a-o>></a-o> a17_, <a-f>a4_.primaryIdentifier</a-f> AS a18_, a5_.primaryIdentifier AS
-<a-o>></a-o> a19_, <a-f>a6_.shortName</a-f> AS a20_, a12_.identifier AS a21_, a10_.code
-<a-o>></a-o> AS <a-f>a22_</a-f> FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene
-<a-o>></a-o> AS <a-f>a4_,</a-f> Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,
-<a-o>></a-o> GOEvidence <a-f>AS</a-f> a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,
-<a-o>></a-o> OntologyAnnotation <a-f>AS</a-f> a11_, OntologyTerm AS a12_, GeneGoAnnotation
-<a-o>></a-o> AS <a-f>indirect0,</a-f> EvidenceGOAnnotation AS indirect1 WHERE a1_.id =
-<a-o>></a-o> a2_.geneId <a-f>AND</a-f> a1_.organismId = a3_.id AND a2_.geneId = a4_.id
-<a-o>></a-o> AND <a-f>a2_.homologueId</a-f> = a5_.id AND a5_.organismId = a6_.id AND
-<a-o>></a-o> a1_.id <a-f>=</a-f> indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND
-<a-o>></a-o> a7_.id <a-f>=</a-f> indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND
-<a-o>></a-o> a7_.ontologyTermId <a-f>=</a-f> a9_.id AND a8_.codeId = a10_.id AND a9_.id =
-<a-o>></a-o> a11_.ontologyTermId <a-f>AND</a-f> a11_.ontologyTermId = a12_.id ORDER BY
-<a-o>></a-o> a1_.primaryIdentifier, <a-f>a1_.secondaryIdentifier,</a-f> a2_.type,
-<a-o>></a-o> a3_.name, <a-f>a4_.primaryIdentifier,</a-f> a5_.primaryIdentifier,
-<a-o>></a-o> a6_.shortName, <a-f>a12_.identifier,</a-f> a10_.code, a1_.id, a2_.id,
-<a-o>></a-o> a3_.id, <a-f>a4_.id,</a-f> a5_.id, a6_.id, a12_.id, a10_.id
-<a-o>></a-o> LOG:  <a-f>could</a-f> not send data to client: Broken pipe
-<a-o>></a-o> STATEMENT:  <a-f>CREATE</a-f> TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS
-<a-o>></a-o> a1_id, <a-f>a2_.id</a-f> AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,
-<a-o>></a-o> a5_.id <a-f>AS</a-f> a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS
-<a-o>></a-o> a10_id, <a-f>a1_.id</a-f> AS a13_, a1_.primaryIdentifier AS a14_,
-<a-o>></a-o> a1_.secondaryIdentifier <a-f>AS</a-f> a15_, a2_.type AS a16_, a3_.name AS
-<a-o>></a-o> a17_, <a-f>a4_.primaryIdentifier</a-f> AS a18_, a5_.primaryIdentifier AS
-<a-o>></a-o> a19_, <a-f>a6_.shortName</a-f> AS a20_, a12_.identifier AS a21_, a10_.code
-<a-o>></a-o> AS <a-f>a22_</a-f> FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene
-<a-o>></a-o> AS <a-f>a4_,</a-f> Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,
-<a-o>></a-o> GOEvidence <a-f>AS</a-f> a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,
-<a-o>></a-o> OntologyAnnotation <a-f>AS</a-f> a11_, OntologyTerm AS a12_, GeneGoAnnotation
-<a-o>></a-o> AS <a-f>indirect0,</a-f> EvidenceGOAnnotation AS indirect1 WHERE a1_.id =
-<a-o>></a-o> a2_.geneId <a-f>AND</a-f> a1_.organismId = a3_.id AND a2_.geneId = a4_.id
-<a-o>></a-o> AND <a-f>a2_.homologueId</a-f> = a5_.id AND a5_.organismId = a6_.id AND
-<a-o>></a-o> a1_.id <a-f>=</a-f> indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND
-<a-o>></a-o> a7_.id <a-f>=</a-f> indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND
-<a-o>></a-o> a7_.ontologyTermId <a-f>=</a-f> a9_.id AND a8_.codeId = a10_.id AND a9_.id =
-<a-o>></a-o> a11_.ontologyTermId <a-f>AND</a-f> a11_.ontologyTermId = a12_.id ORDER BY
-<a-o>></a-o> a1_.primaryIdentifier, <a-f>a1_.secondaryIdentifier,</a-f> a2_.type,
-<a-o>></a-o> a3_.name, <a-f>a4_.primaryIdentifier,</a-f> a5_.primaryIdentifier,
-<a-o>></a-o> a6_.shortName, <a-f>a12_.identifier,</a-f> a10_.code, a1_.id, a2_.id,
-<a-o>></a-o> a3_.id, <a-f>a4_.id,</a-f> a5_.id, a6_.id, a12_.id, a10_.id
-<a-o>></a-o> LOG:  <a-f>unexpected</a-f> EOF on client connection
-<a-o>></a-o> LOG:  <a-f>unexpected</a-f> EOF on client connection
-<a-o>></a-o> LOG:  <a-f>unexpected</a-f> EOF on client connection
-<a-o>></a-o> LOG:  <a-f>unexpected</a-f> EOF on client connection
-<a-o>></a-o> LOG:  <a-f>received</a-f> fast shutdown request
-<a-o>></a-o> LOG:  <a-f>aborting</a-f> any active transactions
-<a-o>></a-o> LOG:  <a-f>autovacuum</a-f> launcher shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> FATAL:  <a-f>the</a-f> database system is shutting down
-<a-o>></a-o> LOG:  <a-f>received</a-f> immediate shutdown request
-<a-o>></a-o> WARNING:  <a-f>terminating</a-f> connection because of crash of another server
-<a-o>></a-o> process
-<a-o>></a-o> DETAIL:  <a-f>The</a-f> postmaster has commanded this server process to roll back
-<a-o>></a-o> the <a-f>current</a-f> transaction and exit, because another server process
-<a-o>></a-o> exited <a-f>abnormally</a-f> and possibly corrupted shared memory.
-<a-o>></a-o> HINT:  <a-f>In</a-f> a moment you should be able to reconnect to the database and
-<a-o>></a-o> repeat <a-f>your</a-f> command.
-<a-o>></a-o> LOG:  <a-f>received</a-f> fast shutdown request
-<a-o>></a-o> LOG:  <a-f>database</a-f> system was interrupted; <a-f>last</a-f> known up at 2015-10-22
-<a-o>></a-o> 15:47:43 <a-f>CDT</a-f>
-<a-o>></a-o> LOG:  <a-f>received</a-f> immediate shutdown request
-<a-o>></a-o> LOG:  <a-f>database</a-f> system was interrupted; <a-f>last</a-f> known up at 2015-10-22
-<a-o>></a-o> 15:47:43 <a-f>CDT</a-f>
-<a-o>></a-o> LOG:  <a-f>database</a-f> system was not properly shut down; <a-f>automatic</a-f> recovery
-<a-o>></a-o> in <a-f>progress</a-f>
-<a-o>></a-o> LOG:  <a-f>record</a-f> with zero length at BBD/1CC2F0C0
-<a-o>></a-o> ...
+<pre><code class="language-sh">> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+> WARNING:  pgstat wait timeout
+>
+> ERROR:  canceling statement due to user request
+> STATEMENT:  CREATE TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS
+> a1_id, a2_.id AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,
+> a5_.id AS a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS
+> a10_id, a1_.id AS a13_, a1_.primaryIdentifier AS a14_,
+> a1_.secondaryIdentifier AS a15_, a2_.type AS a16_, a3_.name AS
+> a17_, a4_.primaryIdentifier AS a18_, a5_.primaryIdentifier AS
+> a19_, a6_.shortName AS a20_, a12_.identifier AS a21_, a10_.code
+> AS a22_ FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene
+> AS a4_, Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,
+> GOEvidence AS a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,
+> OntologyAnnotation AS a11_, OntologyTerm AS a12_, GeneGoAnnotation
+> AS indirect0, EvidenceGOAnnotation AS indirect1 WHERE a1_.id =
+> a2_.geneId AND a1_.organismId = a3_.id AND a2_.geneId = a4_.id
+> AND a2_.homologueId = a5_.id AND a5_.organismId = a6_.id AND
+> a1_.id = indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND
+> a7_.id = indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND
+> a7_.ontologyTermId = a9_.id AND a8_.codeId = a10_.id AND a9_.id =
+> a11_.ontologyTermId AND a11_.ontologyTermId = a12_.id ORDER BY
+> a1_.primaryIdentifier, a1_.secondaryIdentifier, a2_.type,
+> a3_.name, a4_.primaryIdentifier, a5_.primaryIdentifier,
+> a6_.shortName, a12_.identifier, a10_.code, a1_.id, a2_.id,
+> a3_.id, a4_.id, a5_.id, a6_.id, a12_.id, a10_.id
+> LOG:  could not send data to client: Broken pipe
+> STATEMENT:  CREATE TABLE precomp_90519 AS SELECT DISTINCT a1_.id AS
+> a1_id, a2_.id AS a2_id, a3_.id AS a3_id, a4_.id AS a4_id,
+> a5_.id AS a5_id, a6_.id AS a6_id, a12_.id AS a12_id, a10_.id AS
+> a10_id, a1_.id AS a13_, a1_.primaryIdentifier AS a14_,
+> a1_.secondaryIdentifier AS a15_, a2_.type AS a16_, a3_.name AS
+> a17_, a4_.primaryIdentifier AS a18_, a5_.primaryIdentifier AS
+> a19_, a6_.shortName AS a20_, a12_.identifier AS a21_, a10_.code
+> AS a22_ FROM Gene AS a1_, Homologue AS a2_, Organism AS a3_, Gene
+> AS a4_, Gene AS a5_, Organism AS a6_, GOAnnotation AS a7_,
+> GOEvidence AS a8_, OntologyTerm AS a9_, GOEvidenceCode AS a10_,
+> OntologyAnnotation AS a11_, OntologyTerm AS a12_, GeneGoAnnotation
+> AS indirect0, EvidenceGOAnnotation AS indirect1 WHERE a1_.id =
+> a2_.geneId AND a1_.organismId = a3_.id AND a2_.geneId = a4_.id
+> AND a2_.homologueId = a5_.id AND a5_.organismId = a6_.id AND
+> a1_.id = indirect0.Gene AND indirect0.GoAnnotation = a7_.id AND
+> a7_.id = indirect1.GOAnnotation AND indirect1.Evidence = a8_.id AND
+> a7_.ontologyTermId = a9_.id AND a8_.codeId = a10_.id AND a9_.id =
+> a11_.ontologyTermId AND a11_.ontologyTermId = a12_.id ORDER BY
+> a1_.primaryIdentifier, a1_.secondaryIdentifier, a2_.type,
+> a3_.name, a4_.primaryIdentifier, a5_.primaryIdentifier,
+> a6_.shortName, a12_.identifier, a10_.code, a1_.id, a2_.id,
+> a3_.id, a4_.id, a5_.id, a6_.id, a12_.id, a10_.id
+> LOG:  unexpected EOF on client connection
+> LOG:  unexpected EOF on client connection
+> LOG:  unexpected EOF on client connection
+> LOG:  unexpected EOF on client connection
+> LOG:  received fast shutdown request
+> LOG:  aborting any active transactions
+> LOG:  autovacuum launcher shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> FATAL:  the database system is shutting down
+> LOG:  received immediate shutdown request
+> WARNING:  terminating connection because of crash of another server
+> process
+> DETAIL:  The postmaster has commanded this server process to roll back
+> the current transaction and exit, because another server process
+> exited abnormally and possibly corrupted shared memory.
+> HINT:  In a moment you should be able to reconnect to the database and
+> repeat your command.
+> LOG:  received fast shutdown request
+> LOG:  database system was interrupted; last known up at 2015-10-22
+> 15:47:43 CDT
+> LOG:  received immediate shutdown request
+> LOG:  database system was interrupted; last known up at 2015-10-22
+> 15:47:43 CDT
+> LOG:  database system was not properly shut down; automatic recovery
+> in progress
+> LOG:  record with zero length at BBD/1CC2F0C0
+> ...
 </code></pre>
 <p>You can see all the weird activity that was done here</p>
 <ul>
@@ -184,9 +184,9 @@ up files in /db/postgres/data/base/pgsql_tmp/, I could see the file system
 <p>There were about 150 large files in /db/postgres/data/base/pgsql_tmp/, and I
 waited about an hour for them to be deleted, and after that, the postgresql log
 file said it was ready, and indeed, it was perfect :)</p>
-<pre><code class="language-sh"><a-o>></a-o> LOG:  <a-f>redo</a-f> is not required
-<a-o>></a-o> LOG:  <a-f>database</a-f> system is ready to accept connections
-<a-o>></a-o> LOG:  <a-f>autovacuum</a-f> launcher started
+<pre><code class="language-sh">> LOG:  redo is not required
+> LOG:  database system is ready to accept connections
+> LOG:  autovacuum launcher started
 </code></pre>
 <p>What a relief!</p>
 <p>I hope this might help any wayward stragglers to see how the postgresql restart

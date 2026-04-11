@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>A spooky error when you have a string bigger than 512MB in Chrome</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>A spooky error when you have a string bigger than 512MB in Chrome</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>A spooky error when you have a string bigger than 512MB in Chrome</h1> <h4 data-astro-cid-lvjzyg5v>2021-10-30</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Now gather round for a spooky story</p>
 <p>Late one night… in the haunted office/castle the midnight candles were burning
@@ -11,8 +11,8 @@ it, decode it, and … we see an error!!! <strong>LIGHTNING CRACKS</strong></p>
 <p>But… our code is so simple (we of course abide by the religion of writing
 “simple code” you know)…what could be happening?</p>
 <p>The code looks like this</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-f>unzip</a-f><a-p>(</a-p><a-v>file</a-v><a-p>)</a-p>
-<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>().</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
+<pre><code class="language-js">const buf = unzip(file)
+const str = new TextDecoder().decode(buf)
 </code></pre>
 <p>We trace it back and run a <code>console.log(str)</code></p>
 <p>It looks empty. We try running <code>console.log(str.length)</code> … it prints out 0</p>
@@ -20,8 +20,8 @@ it, decode it, and … we see an error!!! <strong>LIGHTNING CRACKS</strong></p>
 <p>What could be happening?</p>
 <p>We see in the <code>TextDecoder</code> documentation that it has a note called “fatal”. We
 try</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-f>unzip</a-f><a-p>(</a-p><a-v>file</a-v><a-p>)</a-p>
-<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>(</a-p><a-s>'utf8'</a-s><a-p>,</a-p> <a-p>{</a-p> <a-pr>fatal</a-pr>: <a-co>true</a-co> <a-p>}).</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
+<pre><code class="language-js">const buf = unzip(file)
+const str = new TextDecoder('utf8', { fatal: true }).decode(buf)
 </code></pre>
 <p>This doesn’t change the results though</p>
 <p>Then it dawns on us while the lightning hits and the thunderclap booms and the
@@ -30,13 +30,13 @@ wind blows through the rattly windows</p>
 <p>BWAHAHAHAHA</p>
 <p>The maximum string length!!! Nooooooo</p>
 <p>It is 512MB on the dot… 536,870,888 bytes. We test this to be sure</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>len</a-v> <a-o>=</a-o> <a-n>536_870_888</a-n>
-<a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>Uint8Array</a-cr><a-p>(</a-p><a-v>len</a-v><a-p>)</a-p>
-<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>len</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
-  <a-v>buf</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>=</a-o> <a-s>'a'</a-s><a-p>.</a-p><a-f>charCodeAt</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
-<a-p>}</a-p>
-<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>().</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
-<a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>str</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>)</a-p>
+<pre><code class="language-js">const len = 536_870_888
+const buf = new Uint8Array(len)
+for (let i = 0; i &#x3C; len; i++) {
+  buf[i] = 'a'.charCodeAt(0)
+}
+const str = new TextDecoder().decode(buf)
+console.log(str.length)
 </code></pre>
 <p>This is correct, outputs 536,870,888</p>
 <p>With anything, even one byte more, it fails and outputs 0</p>

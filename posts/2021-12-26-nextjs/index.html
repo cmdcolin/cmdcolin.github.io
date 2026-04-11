@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>My next.js static blog setup</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>My next.js static blog setup</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>My next.js static blog setup</h1> <h4 data-astro-cid-lvjzyg5v>2021-12-26</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>TL;DR src here <a href="https://github.com/cmdcolin/cmdcolin.github.io">https://github.com/cmdcolin/cmdcolin.github.io</a></p>
 <p>Update 2023: converted to app directory mode, see
@@ -63,14 +63,14 @@ etc <a href="https://next-blog-starter.vercel.app/">https://next-blog-starter.ve
 a bit, but ended up removing it entirely.</p>
 <p>Tailwind CSS is sort of like a CSS-in-JS system, except every CSS attribute is
 encoded in a CSS classname. For example, here are some tailwind CSS snippets</p>
-<pre><code class="language-html"><a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at>="<a-s>container mx-auto px-5</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>footer</a-tg> <a-at>className</a-at>="<a-s>bg-accent-1 border-t border-accent-2</a-s>"<a-p>>&#x3C;/</a-p><a-tg>footer</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at>="<a-s>max-w-1xl mx-auto</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>className</a-at>="<a-s>min-h-screen</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>a</a-tg> <a-at>className</a-at>="<a-s>hover:underline</a-s>"<a-p>>&#x3C;/</a-p><a-tg>a</a-tg><a-p>></a-p>
-<a-p>&#x3C;</a-p><a-tg>h1</a-tg>
-  <a-at>className</a-at>="<a-s>text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left</a-s>"
-<a-p>>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+<pre><code class="language-html">&#x3C;div className="container mx-auto px-5">&#x3C;/div>
+&#x3C;footer className="bg-accent-1 border-t border-accent-2">&#x3C;/footer>
+&#x3C;div className="max-w-1xl mx-auto">&#x3C;/div>
+&#x3C;div className="min-h-screen">&#x3C;/div>
+&#x3C;a className="hover:underline">&#x3C;/a>
+&#x3C;h1
+  className="text-2xl md:text-2xl lg:text-2xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left"
+>&#x3C;/h1>
 </code></pre>
 <p>They claim this is better than using external CSS (see comparison here
 <a href="https://tailwindcss.com/docs/utility-first">https://tailwindcss.com/docs/utility-first</a>) but it is yet another language to

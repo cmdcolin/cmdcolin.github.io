@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.3"><title>An amazing error message if you put more than 2^24 items in a JS Map object</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>An amazing error message if you put more than 2^24 items in a JS Map object</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>An amazing error message if you put more than 2^24 items in a JS Map object</h1> <h4 data-astro-cid-lvjzyg5v>2021-08-15</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>One of the fun things about working with big data is that you can often hit
 weird limits with a system.</p>
@@ -8,13 +8,13 @@ entries (there are many more uncommon ones) for the purposes of making a custom
 search index for them [1].</p>
 <p>Turns out, you may run into some hard limits. Note that these are all V8-isms
 and may not apply to all browsers or engines (I was using node.js for this)</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>myObject</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>Map</a-cr><a-p>()</a-p>
-<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;=</a-o> <a-n>50_000_000</a-n><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
-  <a-v>myObject</a-v><a-p>.</a-p><a-f>set</a-f><a-p>(</a-p><a-v>i</a-v><a-p>,</a-p> <a-v>i</a-v><a-p>)</a-p>
-  <a-k>if</a-k> <a-p>(</a-p><a-v>i</a-v> <a-o>%</a-o> <a-n>100000</a-n> <a-o>==</a-o> <a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p>
-    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>i</a-v><a-p>)</a-p>
-  <a-p>}</a-p>
-<a-p>}</a-p>
+<pre><code class="language-js">const myObject = new Map()
+for (let i = 0; i &#x3C;= 50_000_000; i++) {
+  myObject.set(i, i)
+  if (i % 100000 == 0) {
+    console.log(i)
+  }
+}
 </code></pre>
 <p>This will crash after adding approx 16.7M elements and say</p>
 <pre><code>0
@@ -34,11 +34,11 @@ than your usual <code>TypeError: Can’t find property ‘lol’ of undefined</c
 <a href="https://bugs.chromium.org/p/v8/issues/detail?id=11852">https://bugs.chromium.org/p/v8/issues/detail?id=11852</a> for a bug filed to help
 improve the error message perhaps.</p>
 <p>Now, also interestingly enough, if you use an Object instead of a Map</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>myObject</a-v> <a-o>=</a-o> <a-p>{};</a-p>
-<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;=</a-o> <a-n>50_000_000</a-n><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
-  <a-v>myObject</a-v><a-p>[</a-p>'myobj_’+i]=i;
-  <a-v>if</a-v><a-p>(</a-p><a-v>i</a-v><a-o>%</a-o><a-n>100000</a-n><a-o>==</a-o><a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p> <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>i</a-v><a-p>)</a-p> <a-p>}</a-p>
-<a-p>}</a-p>
+<pre><code class="language-js">const myObject = {};
+for (let i = 0; i &#x3C;= 50_000_000; i++) {
+  myObject['myobj_’+i]=i;
+  if(i%100000==0) { console.log(i) }
+}
 </code></pre>
 <p>Then it will print…</p>
 <pre><code>0
@@ -89,26 +89,26 @@ message…</p>
 <p>Another fun note: if I modify the Object code to use only “integer IDs” the code
 actually works fine, does not hit any errors, and is “blazingly fast” as the
 kids call it</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>myObject</a-v> <a-o>=</a-o> <a-p>{}</a-p>
-<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;=</a-o> <a-n>50_000_000</a-n><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
-  <a-v>myObject</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>=</a-o> <a-v>i</a-v>
-  <a-k>if</a-k> <a-p>(</a-p><a-v>i</a-v> <a-o>%</a-o> <a-n>100000</a-n> <a-o>==</a-o> <a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p>
-    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>i</a-v><a-p>)</a-p>
-  <a-p>}</a-p>
-<a-p>}</a-p>
+<pre><code class="language-js">const myObject = {}
+for (let i = 0; i &#x3C;= 50_000_000; i++) {
+  myObject[i] = i
+  if (i % 100000 == 0) {
+    console.log(i)
+  }
+}
 </code></pre>
 <p>I presume that this code works because it detects that I’m using it like an
 array and it decides to transform how it is working internally and not use a
 hash-map-style data structure, so does not hit a limit. There is a slightly
 higher limit though, e.g. 1 billion elements gives “Uncaught RangeError: Invalid
 array length”</p>
-<pre><code class="language-js"><a-k>const</a-k> <a-v>myObject</a-v> <a-o>=</a-o> <a-p>{}</a-p>
-<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;=</a-o> <a-n>1_000_000_000</a-n><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
-  <a-v>myObject</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>=</a-o> <a-v>i</a-v>
-  <a-k>if</a-k> <a-p>(</a-p><a-v>i</a-v> <a-o>%</a-o> <a-n>100000</a-n> <a-o>==</a-o> <a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p>
-    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>i</a-v><a-p>)</a-p>
-  <a-p>}</a-p>
-<a-p>}</a-p>
+<pre><code class="language-js">const myObject = {}
+for (let i = 0; i &#x3C;= 1_000_000_000; i++) {
+  myObject[i] = i
+  if (i % 100000 == 0) {
+    console.log(i)
+  }
+}
 </code></pre>
 <p>This has been another episode of …the twilight zone (other episodes
 catalogued here) <a href="https://github.com/cmdcolin/technical_oddities/">https://github.com/cmdcolin/technical_oddities/</a></p>
