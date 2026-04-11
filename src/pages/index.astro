@@ -1,15 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import { getAllPosts } from '../../lib/api.ts'
 
-const postModules = import.meta.glob('../_posts/*.md', { eager: true });
-const posts = Object.entries(postModules).map(([path, module]) => {
-  const filename = path.split('/').pop().replace('.md', '');
-  return {
-    frontmatter: module.frontmatter,
-    url: `/posts/${filename}/`
-  };
-});
-posts.sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
+const posts = await getAllPosts()
+posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
 ---
 
 <Layout title="Misc scribblings">
@@ -23,17 +17,13 @@ posts.sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontma
   <section>
     <h1>Posts</h1>
     <ul>
-      {posts.slice(0, 8).map(post => {
-        const { frontmatter, url } = post;
-        const { date, title } = frontmatter;
-        return (
-          <li>
-            <a href={url}>
-              {date.slice(0,10)} - {title}
-            </a>
-          </li>
-        );
-      })}
+      {posts.slice(0, 8).map(({ id, date, title }) => (
+        <li>
+          <a href={`/posts/${id}/`}>
+            {date.slice(0, 10)} - {title}
+          </a>
+        </li>
+      ))}
     </ul>
   </section>
   <a href="/archive">More posts...</a>

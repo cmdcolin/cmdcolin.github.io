@@ -17,7 +17,6 @@
     "@astrojs/sitemap": "3.7.2",
     "astro": "^6.1.5",
     "feed": "^5.2.0",
-    "gray-matter": "^4.0.3",
     "hast-util-to-string": "^3.0.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

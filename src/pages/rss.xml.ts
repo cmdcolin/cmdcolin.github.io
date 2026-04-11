@@ -1,4 +1,5 @@
 import { Feed } from 'feed'
+import { getAllPosts } from '../../lib/api.ts'
 
 export async function GET() {
   const siteUrl = 'https://cmdcolin.github.io'
@@ -15,25 +16,16 @@ export async function GET() {
     },
   })
 
-  const postModules = import.meta.glob('../_posts/*.md', {
-    eager: true,
-  }) as Record<string, { frontmatter: { title: string; date: string } }>
-  const posts = Object.entries(postModules).map(([path, module]) => {
-    const filename = path.split('/').pop()!.replace('.md', '')
-    return {
-      title: module.frontmatter.title,
-      pubDate: new Date(module.frontmatter.date),
-      link: `${siteUrl}/posts/${filename}/`,
-    }
-  })
-  posts.sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf())
+  const posts = await getAllPosts()
+  posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
 
   for (const post of posts) {
+    const link = `${siteUrl}/posts/${post.id}/`
     feed.addItem({
       title: post.title,
-      id: post.link,
-      link: post.link,
-      date: post.pubDate,
+      id: link,
+      link,
+      date: new Date(post.date),
     })
   }
 

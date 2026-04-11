@@ -15,16 +15,7 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 const post = await getPostById(id);
-
-// Import the actual markdown module
-const postModules = import.meta.glob('/src/_posts/*.md', { eager: true });
-const postModule = postModules[`/src/_posts/${id}.md`];
-
-if (!postModule) {
-  return Astro.redirect('/404');
-}
-
-const { default: Content } = postModule;
+const Content = post.default as any;
 ---
 
 <Layout title={post.title}>
