@@ -138,6 +138,8 @@ After almost every question, I will ask it different questions like
 - "Are there any tests you would add"
 - "Are there any bugs you can identify"
 - "Are there any correctness issues you can identify"
+- "Critically analyze your above approach, what issues can you find and what
+  changes would you make"?
 
 Maybe there is more optimal wording but in general it can identify some
 reasonable simplifications that are good-to-have
