@@ -29,29 +29,29 @@ your file.</p>
 <p>Then the “declare” function creates a new class. The first argument to declare
 is your parent class, like CanvasFeatures, and we type “return declare” because
 we are returning our new track class from the module.</p>
-<pre><code class="language-js">define(['dojo/_base/declare', 'JBrowse/View/Track/CanvasFeatures'], function (
-  declare,
-  CanvasFeatures,
-) {
-  return declare(CanvasFeatures, {
-    _trackMenuOptions: function () {
-      var opts = this.inherited(arguments) //call the parent classes function
+<pre><code class="language-js"><a-f>define</a-f><a-p>([</a-p><a-s>'dojo/_base/declare'</a-s><a-p>,</a-p> <a-s>'JBrowse/View/Track/CanvasFeatures'</a-s><a-p>],</a-p> <a-k>function</a-k> <a-p>(</a-p>
+  <a-v>declare</a-v><a-p>,</a-p>
+  <a-cr>CanvasFeatures</a-cr><a-p>,</a-p>
+<a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-f>declare</a-f><a-p>(</a-p><a-cr>CanvasFeatures</a-cr><a-p>,</a-p> <a-p>{</a-p>
+    <a-f>_trackMenuOptions</a-f>: <a-k>function</a-k> <a-p>()</a-p> <a-p>{</a-p>
+      <a-k>var</a-k> <a-v>opts</a-v> <a-o>=</a-o> <a-v>this</a-v><a-p>.</a-p><a-f>inherited</a-f><a-p>(</a-p><a-v>arguments</a-v><a-p>)</a-p> <a-c>//call the parent classes function</a-c>
 
-      opts.push(
-        // add an extra menu item to the array returned from parent class function
-        {
-          label: 'Custom item',
-          type: 'dijit/CheckedMenuItem',
-          onClick: function (event) {
-            console.log('Clicked')
-          },
-          iconClass: 'dijitIconPackage',
-        },
-      )
-      return opts
-    },
-  })
-})
+      <a-v>opts</a-v><a-p>.</a-p><a-f>push</a-f><a-p>(</a-p>
+        <a-c>// add an extra menu item to the array returned from parent class function</a-c>
+        <a-p>{</a-p>
+          <a-pr>label</a-pr>: <a-s>'Custom item'</a-s><a-p>,</a-p>
+          <a-pr>type</a-pr>: <a-s>'dijit/CheckedMenuItem'</a-s><a-p>,</a-p>
+          <a-f>onClick</a-f>: <a-k>function</a-k> <a-p>(</a-p><a-v>event</a-v><a-p>)</a-p> <a-p>{</a-p>
+            <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'Clicked'</a-s><a-p>)</a-p>
+          <a-p>},</a-p>
+          <a-pr>iconClass</a-pr>: <a-s>'dijitIconPackage'</a-s><a-p>,</a-p>
+        <a-p>},</a-p>
+      <a-p>)</a-p>
+      <a-k>return</a-k> <a-v>opts</a-v>
+    <a-p>},</a-p>
+  <a-p>})</a-p>
+<a-p>})</a-p>
 </code></pre>
 <p>Code listing 1. an example custom track type, MyTrack.js, that adds an extra
 track menu item</p>
@@ -61,21 +61,21 @@ How do we use this track? We want to turn it into part of afine the boilerplate
 code from the
 <a href="http://gmod.org/wiki/JBrowse_Configuration_Guide#Writing_JBrowse_Plugins">Writing plugins</a>
 guide.</p>
-<pre><code class="language-js">define(['dojo/_base/declare', 'JBrowse/Plugin'], function (
-  declare,
-  JBrowsePlugin,
-) {
-  return declare(
-    JBrowsePlugin, // this line says our plugin's main.js derives from the "JBrowse/Plugin" base class
-    {
-      constructor: function (args) {
-        //don't necessarily have to do any initializing here, but you
-        //can get a handle to various jbrowse components if any initialization
-        //is needed from the args.browser variable
-      },
-    },
-  )
-})
+<pre><code class="language-js"><a-f>define</a-f><a-p>([</a-p><a-s>'dojo/_base/declare'</a-s><a-p>,</a-p> <a-s>'JBrowse/Plugin'</a-s><a-p>],</a-p> <a-k>function</a-k> <a-p>(</a-p>
+  <a-v>declare</a-v><a-p>,</a-p>
+  <a-cr>JBrowsePlugin</a-cr><a-p>,</a-p>
+<a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-f>declare</a-f><a-p>(</a-p>
+    <a-cr>JBrowsePlugin</a-cr><a-p>,</a-p> <a-c>// this line says our plugin's main.js derives from the "JBrowse/Plugin" base class</a-c>
+    <a-p>{</a-p>
+      <a-f>constructor</a-f>: <a-k>function</a-k> <a-p>(</a-p><a-v>args</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-c>//don't necessarily have to do any initializing here, but you</a-c>
+        <a-c>//can get a handle to various jbrowse components if any initialization</a-c>
+        <a-c>//is needed from the args.browser variable</a-c>
+      <a-p>},</a-p>
+    <a-p>},</a-p>
+  <a-p>)</a-p>
+<a-p>})</a-p>
 </code></pre>
 <p>Code listing 2. Our plugin’s main.js</p>
 <p>After this, we create the plugin directory structure</p>

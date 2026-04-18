@@ -7,10 +7,10 @@ really felt wrong for me.</p>
 on C++. I was first updated on his progress when he emailed me to get some help
 with some compiler errors. I was happy to help the young padawan. Here was the
 error:</p>
-<pre><code class="language-sh">         test.cpp:42:43: error: non-ASCII characters are not allowed outside of literals
-                and identifiers
-              for (startScan = 0; startScan &#x3C; (size − 1); startScan++)
-                                                    ^~
+<pre><code class="language-sh">         <a-f>test.cpp:42:43:</a-f> error: non-ASCII characters are not allowed outside of literals
+                <a-f>and</a-f> identifiers
+              <a-k>for</a-k> (<a-f>startScan</a-f> = 0; <a-f>startScan</a-f> <a-o>&#x3C;</a-o> (<a-f>size</a-f> − 1); <a-f>startScan++</a-f>)
+                                                    <a-f>^~</a-f>
 </code></pre>
 <p>Now, what does this say to you? For me, it was actually very clear what the
 error meant. It simply meant that this code was taken from somewhere, and copied

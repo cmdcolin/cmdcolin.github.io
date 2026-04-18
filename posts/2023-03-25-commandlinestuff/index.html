@@ -126,8 +126,8 @@ the millions with true color). Resources</p>
 <code>"youtube-dl -f 'bestaudio[ext=m4a]' "</code></li>
 <li><code>vaporwave</code> - a function to slow down the audio for a track with ffmpeg</li>
 </ul>
-<pre><code class="language-bash">function vaporwave() {
-  ffmpeg -i "$1" -af "asetrate=44100*${2:-0.66},aresample=44100" "`basename $1 .m4a`.vaporwave.m4a"
+<pre><code class="language-bash"><a-k>function</a-k> <a-f>vaporwave</a-f>() {
+  <a-f>ffmpeg</a-f> <a-co>-i</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-af</a-co> <a-s>"asetrate=44100*</a-s><a-eb>${</a-eb><a-pr>2</a-pr><a-eb>:-0.66}</a-eb><a-s>,aresample=44100"</a-s> <a-s>"</a-s><a-eb>`</a-eb><a-f>basename</a-f><a-eb> </a-eb><a-o>$</a-o><a-pr>1</a-pr><a-eb> .m4a`</a-eb><a-s>.vaporwave.m4a"</a-s>
 }
 </code></pre>
 <p>example usage:</p>

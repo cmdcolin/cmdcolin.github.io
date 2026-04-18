@@ -11,8 +11,8 @@ it, decode it, and … we see an error!!! <strong>LIGHTNING CRACKS</strong></p>
 <p>But… our code is so simple (we of course abide by the religion of writing
 “simple code” you know)…what could be happening?</p>
 <p>The code looks like this</p>
-<pre><code class="language-js">const buf = unzip(file)
-const str = new TextDecoder().decode(buf)
+<pre><code class="language-js"><a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-f>unzip</a-f><a-p>(</a-p><a-v>file</a-v><a-p>)</a-p>
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>().</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
 </code></pre>
 <p>We trace it back and run a <code>console.log(str)</code></p>
 <p>It looks empty. We try running <code>console.log(str.length)</code> … it prints out 0</p>
@@ -20,8 +20,8 @@ const str = new TextDecoder().decode(buf)
 <p>What could be happening?</p>
 <p>We see in the <code>TextDecoder</code> documentation that it has a note called “fatal”. We
 try</p>
-<pre><code class="language-js">const buf = unzip(file)
-const str = new TextDecoder('utf8', { fatal: true }).decode(buf)
+<pre><code class="language-js"><a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-f>unzip</a-f><a-p>(</a-p><a-v>file</a-v><a-p>)</a-p>
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>(</a-p><a-s>'utf8'</a-s><a-p>,</a-p> <a-p>{</a-p> <a-pr>fatal</a-pr>: <a-co>true</a-co> <a-p>}).</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
 </code></pre>
 <p>This doesn’t change the results though</p>
 <p>Then it dawns on us while the lightning hits and the thunderclap booms and the
@@ -30,13 +30,13 @@ wind blows through the rattly windows</p>
 <p>BWAHAHAHAHA</p>
 <p>The maximum string length!!! Nooooooo</p>
 <p>It is 512MB on the dot… 536,870,888 bytes. We test this to be sure</p>
-<pre><code class="language-js">const len = 536_870_888
-const buf = new Uint8Array(len)
-for (let i = 0; i &#x3C; len; i++) {
-  buf[i] = 'a'.charCodeAt(0)
-}
-const str = new TextDecoder().decode(buf)
-console.log(str.length)
+<pre><code class="language-js"><a-k>const</a-k> <a-v>len</a-v> <a-o>=</a-o> <a-n>536_870_888</a-n>
+<a-k>const</a-k> <a-v>buf</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>Uint8Array</a-cr><a-p>(</a-p><a-v>len</a-v><a-p>)</a-p>
+<a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>len</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+  <a-v>buf</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>=</a-o> <a-s>'a'</a-s><a-p>.</a-p><a-f>charCodeAt</a-f><a-p>(</a-p><a-n>0</a-n><a-p>)</a-p>
+<a-p>}</a-p>
+<a-k>const</a-k> <a-v>str</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-cr>TextDecoder</a-cr><a-p>().</a-p><a-f>decode</a-f><a-p>(</a-p><a-v>buf</a-v><a-p>)</a-p>
+<a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>str</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>)</a-p>
 </code></pre>
 <p>This is correct, outputs 536,870,888</p>
 <p>With anything, even one byte more, it fails and outputs 0</p>

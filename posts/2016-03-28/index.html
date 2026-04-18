@@ -18,16 +18,16 @@ now gone (?) and must be accessed through the internet archive!</p>
 to the current directory (instead of /tmp/nowhere as in the link) by using
 “envsubst” to replace variables in the nginx config file.</p>
 <p>Without further ado, the .travis.yml can look like this</p>
-<pre><code class="language-yaml">sudo: false
-addons:
-  apt:
-    packages:
-      - nginx
-install:
-  - cat tests/travis.conf | envsubst > tests/travis-envsubst.conf
-  - nginx -c `pwd`/tests/travis-envsubst.conf
-script:
-  - wget http://localhost:9000/yourfiles
+<pre><code class="language-yaml"><a-pr>sudo</a-pr><a-p>:</a-p> <a-co>false</a-co>
+<a-pr>addons</a-pr><a-p>:</a-p>
+  <a-pr>apt</a-pr><a-p>:</a-p>
+    <a-pr>packages</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-s>nginx</a-s>
+<a-pr>install</a-pr><a-p>:</a-p>
+  <a-p>-</a-p> <a-s>cat tests/travis.conf | envsubst > tests/travis-envsubst.conf</a-s>
+  <a-p>-</a-p> <a-s>nginx -c `pwd`/tests/travis-envsubst.conf</a-s>
+<a-pr>script</a-pr><a-p>:</a-p>
+  <a-p>-</a-p> <a-s>wget http://localhost:9000/yourfiles</a-s>
 </code></pre>
 <p>Then your nginx config file can look like this</p>
 <pre><code>    worker_processes 10;

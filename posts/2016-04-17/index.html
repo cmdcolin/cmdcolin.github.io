@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.5"><title>Creating a docker image</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Creating a docker image</h1> <h4 data-astro-cid-lvjzyg5v>2016-04-17</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>Example</p>
-<pre><code class="language-sh">    brew install docker boot2docker docker-machine
-    docker-machine create --driver virtualbox default
-    docker-machine env default # will output some variables
-    eval "$(docker-machine env default)" # use those variables
-    # make dockerfile
-    docker build -t nameof-yourimage .
+<pre><code class="language-sh">    <a-f>brew</a-f> install docker boot2docker docker-machine
+    <a-f>docker-machine</a-f> create <a-co>--driver</a-co> virtualbox default
+    <a-f>docker-machine</a-f> env default <a-c># will output some variables</a-c>
+    <a-f>eval</a-f> <a-s>"</a-s><a-eb>$(</a-eb><a-f>docker-machine</a-f><a-eb> env default)</a-eb><a-s>"</a-s> <a-c># use those variables</a-c>
+    <a-c># make dockerfile</a-c>
+    <a-f>docker</a-f> build <a-co>-t</a-co> nameof-yourimage .
 </code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';

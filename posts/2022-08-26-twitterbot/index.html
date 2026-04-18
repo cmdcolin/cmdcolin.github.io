@@ -22,45 +22,45 @@ in twitter terms, this article only requires “Essential” access and not any
 <p><img src="https://github.com/cmdcolin/twitter_fractal_bot/blob/master/img/devpanel.png?raw=true" alt=""></p>
 <h3 id="step-2">Step 2</h3>
 <p>Make a repo with a couple dependencies</p>
-<pre><code class="language-sh">mkdir mybot
-cd mybot
-yarn init
-yarn add node-fetch formdata-node oauth dotenv typescript
+<pre><code class="language-sh"><a-f>mkdir</a-f> mybot
+<a-f>cd</a-f> mybot
+<a-f>yarn</a-f> init
+<a-f>yarn</a-f> add node-fetch formdata-node oauth dotenv typescript
 </code></pre>
 <h3 id="step-3">Step 3</h3>
 <p>Update <code>package.json</code> with a couple scripts to build these typescript files
 (alternatively use <code>ts-node</code> or similar to run the ts files directly)</p>
 <pre><code class="language-json">{
-  "dependencies": {
-    "dotenv": "^16.0.1",
-    "formdata-node": "^4.4.1",
-    "node-fetch": "^3.2.10",
-    "oauth": "^0.10.0",
-    "typescript": "^4.7.4"
+  <a-s>"dependencies"</a-s>: {
+    <a-s>"dotenv"</a-s>: <a-s>"^16.0.1"</a-s>,
+    <a-s>"formdata-node"</a-s>: <a-s>"^4.4.1"</a-s>,
+    <a-s>"node-fetch"</a-s>: <a-s>"^3.2.10"</a-s>,
+    <a-s>"oauth"</a-s>: <a-s>"^0.10.0"</a-s>,
+    <a-s>"typescript"</a-s>: <a-s>"^4.7.4"</a-s>
   },
-  "license": "MIT",
-  "type": "module",
-  "devDependencies": {
-    "@types/node": "^18.7.9",
-    "@types/oauth": "^0.9.1"
+  <a-s>"license"</a-s>: <a-s>"MIT"</a-s>,
+  <a-s>"type"</a-s>: <a-s>"module"</a-s>,
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"@types/node"</a-s>: <a-s>"^18.7.9"</a-s>,
+    <a-s>"@types/oauth"</a-s>: <a-s>"^0.9.1"</a-s>
   },
-  "scripts": {
-    "build": "tsc",
-    "prepost": "yarn build",
-    "post": "node dist/bot.js"
+  <a-s>"scripts"</a-s>: {
+    <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
+    <a-s>"prepost"</a-s>: <a-s>"yarn build"</a-s>,
+    <a-s>"post"</a-s>: <a-s>"node dist/bot.js"</a-s>
   }
 }
 </code></pre>
 <p>And <code>tsconfig.json</code> file</p>
 <pre><code class="language-json">{
-  "include": ["src"],
-  "compilerOptions": {
-    "target": "esnext",
-    "outDir": "dist",
-    "moduleResolution": "node",
-    "declaration": true,
-    "strict": true,
-    "esModuleInterop": true
+  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
+  <a-s>"compilerOptions"</a-s>: {
+    <a-s>"target"</a-s>: <a-s>"esnext"</a-s>,
+    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
+    <a-s>"moduleResolution"</a-s>: <a-s>"node"</a-s>,
+    <a-s>"declaration"</a-s>: <a-co>true</a-co>,
+    <a-s>"strict"</a-s>: <a-co>true</a-co>,
+    <a-s>"esModuleInterop"</a-s>: <a-co>true</a-co>
   }
 }
 </code></pre>
@@ -80,86 +80,86 @@ ACCESS_TOKEN_SECRET="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 to github!</p>
 <h3 id="step-5">Step 5</h3>
 <p>Make the bot! Create <code>src/bot.ts</code></p>
-<pre><code class="language-ts">import fs from 'fs'
-import * as dotenv from 'dotenv'
-import OAuth from 'oauth'
-import fetch, { RequestInit } from 'node-fetch'
-import { FormData, File } from 'formdata-node'
+<pre><code class="language-ts"><a-k>import</a-k> <a-v>fs</a-v> <a-k>from</a-k> <a-s>'fs'</a-s>
+<a-k>import</a-k> <a-o>*</a-o> <a-k>as</a-k> <a-v>dotenv</a-v> <a-k>from</a-k> <a-s>'dotenv'</a-s>
+<a-k>import</a-k> <a-t>OAuth</a-t> <a-k>from</a-k> <a-s>'oauth'</a-s>
+<a-k>import</a-k> <a-v>fetch</a-v><a-p>,</a-p> <a-p>{</a-p> <a-t>RequestInit</a-t> <a-p>}</a-p> <a-k>from</a-k> <a-s>'node-fetch'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-t>FormData</a-t><a-p>,</a-p> <a-t>File</a-t> <a-p>}</a-p> <a-k>from</a-k> <a-s>'formdata-node'</a-s>
 
-dotenv.config()
+<a-v>dotenv</a-v><a-p>.</a-p><a-f>config</a-f><a-p>()</a-p>
 
-async function mfetch(url: string, params: RequestInit) {
-  const response = await fetch(url, params)
+<a-k>async</a-k> <a-k>function</a-k> <a-f>mfetch</a-f><a-p>(</a-p><a-v>url</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>params</a-v>: <a-t>RequestInit</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-v>url</a-v><a-p>,</a-p> <a-v>params</a-v><a-p>)</a-p>
 
-  if (!response.ok) {
-    const text = await response.text()
-    throw new Error(`HTTP ${response.status} ${text}`)
-  }
-  return response.json() as Promise&#x3C;Record&#x3C;string, unknown>>
-}
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>text</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()</a-p>
+    <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p><a-s>`HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-v>text</a-v><a-p>}</a-p><a-s>`</a-s><a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p> <a-k>as</a-k> <a-t>Promise</a-t><a-p>&#x3C;</a-p><a-t>Record</a-t><a-p>&#x3C;</a-p><a-t>string</a-t><a-p>,</a-p> <a-t>unknown</a-t><a-p>>></a-p>
+<a-p>}</a-p>
 
-function getAuthHeader(oauth: OAuth.OAuth, url: string) {
-  return oauth.authHeader(
-    url,
-    process.env.ACCESS_TOKEN as string,
-    process.env.ACCESS_TOKEN_SECRET as string,
-    'post',
-  )
-}
+<a-k>function</a-k> <a-f>getAuthHeader</a-f><a-p>(</a-p><a-v>oauth</a-v>: <a-t>OAuth</a-t><a-p>.</a-p><a-t>OAuth</a-t><a-p>,</a-p> <a-v>url</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>oauth</a-v><a-p>.</a-p><a-f>authHeader</a-f><a-p>(</a-p>
+    <a-v>url</a-v><a-p>,</a-p>
+    <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr><a-p>.</a-p><a-pr>ACCESS_TOKEN</a-pr> <a-k>as</a-k> <a-t>string</a-t><a-p>,</a-p>
+    <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr><a-p>.</a-p><a-pr>ACCESS_TOKEN_SECRET</a-pr> <a-k>as</a-k> <a-t>string</a-t><a-p>,</a-p>
+    <a-s>'post'</a-s><a-p>,</a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
 
-;(async () => {
-  try {
-    const client = new OAuth.OAuth(
-      'https://api.twitter.com/oauth/request_token',
-      'https://api.twitter.com/oauth/access_token',
-      process.env.API_KEY as string,
-      process.env.API_SECRET as string,
-      '1.0A',
-      null,
-      'HMAC-SHA1',
-    )
+<a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+  <a-k>try</a-k> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>client</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-t>OAuth</a-t><a-p>.</a-p><a-pr>OAuth</a-pr><a-p>(</a-p>
+      <a-s>'https://api.twitter.com/oauth/request_token'</a-s><a-p>,</a-p>
+      <a-s>'https://api.twitter.com/oauth/access_token'</a-s><a-p>,</a-p>
+      <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr><a-p>.</a-p><a-pr>API_KEY</a-pr> <a-k>as</a-k> <a-t>string</a-t><a-p>,</a-p>
+      <a-v>process</a-v><a-p>.</a-p><a-pr>env</a-pr><a-p>.</a-p><a-pr>API_SECRET</a-pr> <a-k>as</a-k> <a-t>string</a-t><a-p>,</a-p>
+      <a-s>'1.0A'</a-s><a-p>,</a-p>
+      <a-co>null</a-co><a-p>,</a-p>
+      <a-s>'HMAC-SHA1'</a-s><a-p>,</a-p>
+    <a-p>)</a-p>
 
-    const picEndpoint = 'https://upload.twitter.com/1.1/media/upload.json'
-    const tweetEndpoint = 'https://api.twitter.com/2/tweets'
-    const clientName = 'v3CreateTweetJS'
+    <a-k>const</a-k> <a-v>picEndpoint</a-v> <a-o>=</a-o> <a-s>'https://upload.twitter.com/1.1/media/upload.json'</a-s>
+    <a-k>const</a-k> <a-v>tweetEndpoint</a-v> <a-o>=</a-o> <a-s>'https://api.twitter.com/2/tweets'</a-s>
+    <a-k>const</a-k> <a-v>clientName</a-v> <a-o>=</a-o> <a-s>'v3CreateTweetJS'</a-s>
 
-    const form = new FormData()
-    form.set(
-      'media',
-      new File([fs.readFileSync('yourpicture.png')], 'yourpicture.png'),
-    )
+    <a-k>const</a-k> <a-v>form</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-t>FormData</a-t><a-p>()</a-p>
+    <a-v>form</a-v><a-p>.</a-p><a-f>set</a-f><a-p>(</a-p>
+      <a-s>'media'</a-s><a-p>,</a-p>
+      <a-k>new</a-k> <a-t>File</a-t><a-p>([</a-p><a-v>fs</a-v><a-p>.</a-p><a-f>readFileSync</a-f><a-p>(</a-p><a-s>'yourpicture.png'</a-s><a-p>)],</a-p> <a-s>'yourpicture.png'</a-s><a-p>),</a-p>
+    <a-p>)</a-p>
 
-    // first post a picture
-    const response1 = await mfetch(picEndpoint, {
-      headers: {
-        Authorization: getAuthHeader(client, picEndpoint),
-        'user-agent': clientName,
-      },
-      method: 'POST',
-      //@ts-ignore
-      body: form,
-    })
+    <a-c>// first post a picture</a-c>
+    <a-k>const</a-k> <a-v>response1</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>mfetch</a-f><a-p>(</a-p><a-v>picEndpoint</a-v><a-p>,</a-p> <a-p>{</a-p>
+      <a-pr>headers</a-pr>: <a-p>{</a-p>
+        <a-pr>Authorization</a-pr>: <a-f>getAuthHeader</a-f><a-p>(</a-p><a-v>client</a-v><a-p>,</a-p> <a-v>picEndpoint</a-v><a-p>),</a-p>
+        <a-s>'user-agent'</a-s>: <a-v>clientName</a-v><a-p>,</a-p>
+      <a-p>},</a-p>
+      <a-pr>method</a-pr>: <a-s>'POST'</a-s><a-p>,</a-p>
+      <a-c>//@ts-ignore</a-c>
+      <a-pr>body</a-pr>: <a-v>form</a-v><a-p>,</a-p>
+    <a-p>})</a-p>
 
-    // then post a tweet, referring to the media_id_string from response1
-    const response2 = await mfetch(tweetEndpoint, {
-      headers: {
-        Authorization: getAuthHeader(client, tweetEndpoint),
-        'user-agent': clientName,
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
-      body: JSON.stringify({
-        media: { media_ids: [response1.media_id_string] },
-        text: 'Hello world!',
-      }),
-      method: 'post',
-    })
-    console.log(response2)
-  } catch (e) {
-    console.error(e)
-    process.exit(1)
-  }
-})()
+    <a-c>// then post a tweet, referring to the media_id_string from response1</a-c>
+    <a-k>const</a-k> <a-v>response2</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>mfetch</a-f><a-p>(</a-p><a-v>tweetEndpoint</a-v><a-p>,</a-p> <a-p>{</a-p>
+      <a-pr>headers</a-pr>: <a-p>{</a-p>
+        <a-pr>Authorization</a-pr>: <a-f>getAuthHeader</a-f><a-p>(</a-p><a-v>client</a-v><a-p>,</a-p> <a-v>tweetEndpoint</a-v><a-p>),</a-p>
+        <a-s>'user-agent'</a-s>: <a-v>clientName</a-v><a-p>,</a-p>
+        <a-s>'content-type'</a-s>: <a-s>'application/json'</a-s><a-p>,</a-p>
+        <a-pr>accept</a-pr>: <a-s>'application/json'</a-s><a-p>,</a-p>
+      <a-p>},</a-p>
+      <a-pr>body</a-pr>: <a-t>JSON</a-t><a-p>.</a-p><a-f>stringify</a-f><a-p>({</a-p>
+        <a-pr>media</a-pr>: <a-p>{</a-p> <a-pr>media_ids</a-pr>: <a-p>[</a-p><a-v>response1</a-v><a-p>.</a-p><a-pr>media_id_string</a-pr><a-p>]</a-p> <a-p>},</a-p>
+        <a-pr>text</a-pr>: <a-s>'Hello world!'</a-s><a-p>,</a-p>
+      <a-p>}),</a-p>
+      <a-pr>method</a-pr>: <a-s>'post'</a-s><a-p>,</a-p>
+    <a-p>})</a-p>
+    <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-v>response2</a-v><a-p>)</a-p>
+  <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+    <a-v>process</a-v><a-p>.</a-p><a-f>exit</a-f><a-p>(</a-p><a-n>1</a-n><a-p>)</a-p>
+  <a-p>}</a-p>
+<a-p>})()</a-p>
 </code></pre>
 <h3 id="step-6">Step 6</h3>
 <p>Now that you have the bot, you can run it locally with <code>yarn post</code> (runs the
@@ -177,30 +177,30 @@ example does
 <a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule">https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule</a></p>
 <p>The below github action posts every 5 hours on the hour (see
 <a href="https://crontab.guru/">https://crontab.guru/</a> for more info on cron syntax)</p>
-<pre><code class="language-yaml">name: Post tweet
-on:
-  schedule:
-    - cron: '0 */5 * * *'
+<pre><code class="language-yaml"><a-pr>name</a-pr><a-p>:</a-p> <a-s>Post tweet</a-s>
+<a-pr>on</a-pr><a-p>:</a-p>
+  <a-pr>schedule</a-pr><a-p>:</a-p>
+    <a-p>-</a-p> <a-pr>cron</a-pr><a-p>:</a-p> <a-s>'0 */5 * * *'</a-s>
 
-jobs:
-  test:
-    name: Post tweet
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Install deps (with cache)
-        uses: bahmutov/npm-install@v1
-      - name: Post tweet
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          API_SECRET: ${{ secrets.API_SECRET }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-        run: yarn post
+<a-pr>jobs</a-pr><a-p>:</a-p>
+  <a-pr>test</a-pr><a-p>:</a-p>
+    <a-pr>name</a-pr><a-p>:</a-p> <a-s>Post tweet</a-s>
+    <a-pr>runs-on</a-pr><a-p>:</a-p> <a-s>ubuntu-latest</a-s>
+    <a-pr>steps</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/checkout@v2</a-s>
+      <a-p>-</a-p> <a-pr>name</a-pr><a-p>:</a-p> <a-s>Use Node.js 14.x</a-s>
+        <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/setup-node@v2</a-s>
+        <a-pr>with</a-pr><a-p>:</a-p>
+          <a-pr>node-version</a-pr><a-p>:</a-p> <a-s>'14'</a-s>
+      <a-p>-</a-p> <a-pr>name</a-pr><a-p>:</a-p> <a-s>Install deps (with cache)</a-s>
+        <a-pr>uses</a-pr><a-p>:</a-p> <a-s>bahmutov/npm-install@v1</a-s>
+      <a-p>-</a-p> <a-pr>name</a-pr><a-p>:</a-p> <a-s>Post tweet</a-s>
+        <a-pr>env</a-pr><a-p>:</a-p>
+          <a-pr>API_KEY</a-pr><a-p>:</a-p> <a-s>${{ secrets.API_KEY }}</a-s>
+          <a-pr>API_SECRET</a-pr><a-p>:</a-p> <a-s>${{ secrets.API_SECRET }}</a-s>
+          <a-pr>ACCESS_TOKEN</a-pr><a-p>:</a-p> <a-s>${{ secrets.ACCESS_TOKEN }}</a-s>
+          <a-pr>ACCESS_TOKEN_SECRET</a-pr><a-p>:</a-p> <a-s>${{ secrets.ACCESS_TOKEN_SECRET }}</a-s>
+        <a-pr>run</a-pr><a-p>:</a-p> <a-s>yarn post</a-s>
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>See <a href="https://github.com/cmdcolin/twitter_fractal_bot">https://github.com/cmdcolin/twitter_fractal_bot</a> for working example. I could

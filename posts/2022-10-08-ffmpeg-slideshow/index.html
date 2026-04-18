@@ -15,10 +15,10 @@ file.</p>
 alternative.</p>
 <h2 id="step-2---prepare-the-slideshow">Step 2 - prepare the slideshow</h2>
 <p>Use 10 seconds per picture. Note the glob pattern is in quotes</p>
-<pre><code class="language-sh">ffmpeg -framerate 1/10 -pattern_type glob -i '*.jpg' pics.mp4
+<pre><code class="language-sh"><a-f>ffmpeg</a-f> <a-co>-framerate</a-co> 1/10 <a-co>-pattern_type</a-co> glob <a-co>-i</a-co> <a-s>'*.jpg'</a-s> pics.mp4
 </code></pre>
 <h2 id="step-3---combine-the-slideshow-and-playlist">Step 3 - combine the slideshow and playlist</h2>
-<pre><code class="language-sh">ffmpeg -stream_loop -1 -i pics.mp4 -i playlist.wav -shortest -vcodec copy output.mp4
+<pre><code class="language-sh"><a-f>ffmpeg</a-f> <a-co>-stream_loop</a-co> <a-co>-1</a-co> <a-co>-i</a-co> pics.mp4 <a-co>-i</a-co> playlist.wav <a-co>-shortest</a-co> <a-co>-vcodec</a-co> copy output.mp4
 </code></pre>
 <p>Using <code>-stream_loop -1</code> on pics.mp4 will loop the pics until playlist.wav ends,
 but then limit itself to the length of the playlist.wav with <code>-shortest</code></p>

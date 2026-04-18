@@ -25,88 +25,88 @@ raw basics</p>
 <h2 id="step-1-run-create-next-app">Step 1. Run create-next-app</h2>
 <p>I accepted all defaults but added “YES” to the use experimental app directory</p>
 <pre><code class="language-bash">
-$ npx create-next-app myblog
-✔ Would you like to use TypeScript with this project? … No / YES
-✔ Would you like to use ESLint with this project? … No / YES
-✔ Would you like to use `src/` directory with this project? … NO / Yes
-✔ Would you like to use experimental `app/` directory with this project? … No / YES
-✔ What import alias would you like configured? … @/*
-Creating a new Next.js app in /home/cdiesh/myblog.
+<a-o>$</a-o><a-f> </a-f><a-pr>npx</a-pr> create-next-app myblog
+<a-f>✔</a-f> Would you like to use TypeScript with this project? … No / YES
+<a-f>✔</a-f> Would you like to use ESLint with this project? … No / YES
+<a-f>✔</a-f> Would you like to use <a-eb>`</a-eb><a-f>src/</a-f><a-eb>`</a-eb> directory with this project? … NO / Yes
+<a-f>✔</a-f> Would you like to use experimental <a-eb>`</a-eb><a-f>app/</a-f><a-eb>`</a-eb> directory with this project? … No / YES
+<a-f>✔</a-f> What import alias would you like configured? … @/*
+<a-f>Creating</a-f> a new Next.js app in /home/cdiesh/myblog.
 
-Using npm.
+<a-f>Using</a-f> npm.
 
-Initializing project with template: app
+<a-f>Initializing</a-f> project with template: app
 
 
-Installing dependencies:
-- react
-- react-dom
-- next
-- typescript
-- @types/react
-- @types/node
-- @types/react-dom
-- eslint
-- eslint-config-next
+<a-f>Installing</a-f> dependencies:
+<a-co>-</a-co> react
+<a-co>-</a-co> react-dom
+<a-co>-</a-co> next
+<a-co>-</a-co> typescript
+<a-co>-</a-co> @types/react
+<a-co>-</a-co> @types/node
+<a-co>-</a-co> @types/react-dom
+<a-co>-</a-co> eslint
+<a-co>-</a-co> eslint-config-next
 </code></pre>
 <h2 id="step-2-edit-nextconfigjs">Step 2. Edit next.config.js</h2>
 <p>Add ‘output’: ‘export’ to the next.config.js file</p>
-<pre><code class="language-typescript">/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-}
+<pre><code class="language-typescript"><a-c>/** @type {import('next').NextConfig} */</a-c>
+<a-k>const</a-k> <a-v>nextConfig</a-v> <a-o>=</a-o> <a-p>{</a-p>
+  <a-pr>output</a-pr>: <a-s>'export'</a-s><a-p>,</a-p>
+<a-p>}</a-p>
 
-module.exports = nextConfig
+<a-v>module</a-v><a-p>.</a-p><a-pr>exports</a-pr> <a-o>=</a-o> <a-v>nextConfig</a-v>
 </code></pre>
 <h2 id="step-3-create-the-page-that-will-display-your-posts">Step 3. Create the page that will display your posts</h2>
 <p>Create a new directory like this on the command line, yes there are square
 brackets in the directory name</p>
-<pre><code class="language-bash">mkdir -p app/posts/\[id\]/
+<pre><code class="language-bash"><a-f>mkdir</a-f> <a-co>-p</a-co> app/posts/\[id\]/
 </code></pre>
 <p>Then make a file page.tsx in there so it is ‘app/posts/[id]/page.tsx’</p>
 <p>Then on this page, fill in with this</p>
-<pre><code class="language-tsx">import { getPostById, getAllPosts } from '@/lib/api'
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>getPostById</a-v><a-p>,</a-p> <a-v>getAllPosts</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'@/lib/api'</a-s>
 
-// Generate the post, note that this is a "react server component"! it is
-// allowed to be async
-export default async function Post({
-  params: { id },
-}: {
-  params: { id: string }
-}) {
-  const { html, title, date } = await getPostById(id)
-  return (
-    &#x3C;article>
-      &#x3C;h1>{title}&#x3C;/h1>
-      &#x3C;h4>{date}&#x3C;/h4>
-      &#x3C;div dangerouslySetInnerHTML={{ __html: html }} />
-    &#x3C;/article>
-  )
-}
+<a-c>// Generate the post, note that this is a "react server component"! it is</a-c>
+<a-c>// allowed to be async</a-c>
+<a-k>export</a-k> <a-k>default</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-t>Post</a-t><a-p>({</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> id <a-p>},</a-p>
+<a-p>}</a-p>: <a-p>{</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> <a-pr>id</a-pr>: <a-t>string</a-t> <a-p>}</a-p>
+<a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> html<a-p>,</a-p> title<a-p>,</a-p> date <a-p>}</a-p> <a-o>=</a-o> <a-k>await</a-k> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>article</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>>{</a-p><a-v>title</a-v><a-p>}&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h4</a-tg><a-p>>{</a-p><a-v>date</a-v><a-p>}&#x3C;/</a-p><a-tg>h4</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>dangerouslySetInnerHTML</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>__html</a-pr>: <a-v>html</a-v> <a-p>}}</a-p> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>article</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
 
-// This function can statically allow nextjs to find all the posts that you
-// have made, and statically generate them
-export async function generateStaticParams() {
-  const posts = await getAllPosts()
+<a-c>// This function can statically allow nextjs to find all the posts that you</a-c>
+<a-c>// have made, and statically generate them</a-c>
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>generateStaticParams</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>posts</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>getAllPosts</a-f><a-p>()</a-p>
 
-  return posts.map(post => ({
-    id: post.id,
-  }))
-}
+  <a-k>return</a-k> <a-v>posts</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>post</a-v> <a-o>=></a-o> <a-p>({</a-p>
+    <a-pr>id</a-pr>: <a-v>post</a-v><a-p>.</a-p><a-pr>id</a-pr><a-p>,</a-p>
+  <a-p>}))</a-p>
+<a-p>}</a-p>
 
-// Set the title of the page to be the post title, note that we no longer use
-// e.g. next/head in app dir, and this can be async just like the server
-// component
-export async function generateMetadata({
-  params: { id },
-}: {
-  params: { id: string }
-}) {
-  const { title } = await getPostById(id)
-  return {
-    title,
-  }
-}
+<a-c>// Set the title of the page to be the post title, note that we no longer use</a-c>
+<a-c>// e.g. next/head in app dir, and this can be async just like the server</a-c>
+<a-c>// component</a-c>
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>generateMetadata</a-f><a-p>({</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> id <a-p>},</a-p>
+<a-p>}</a-p>: <a-p>{</a-p>
+  <a-pr>params</a-pr>: <a-p>{</a-p> <a-pr>id</a-pr>: <a-t>string</a-t> <a-p>}</a-p>
+<a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> title <a-p>}</a-p> <a-o>=</a-o> <a-k>await</a-k> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>{</a-p>
+    title<a-p>,</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
 </code></pre>
 <h2 id="step-4-fix-the-cart-being-ahead-of-the-horse-parse-the-markdown-blogposts">Step 4. Fix the cart being ahead of the horse: parse the markdown blogposts</h2>
 <p>In the last post, I use functions “getAllPosts” and “getPostById”, these are
@@ -114,127 +114,127 @@ functions that I define that parse my markdown blog posts.</p>
 <p>So let’s make those functions. The code below performs markdown parsing manually
 using unified/remark/rehype and allows github flavored markdown. See Footnote 1
 for more info. So first install these</p>
-<pre><code class="language-bash">npm install gray-matter unified remark-gfm remark-parse remark-rehype rehype-stringify rehype-autolink-headings rehype-slug @leafac/rehype-shiki shiki
+<pre><code class="language-bash"><a-f>npm</a-f> install gray-matter unified remark-gfm remark-parse remark-rehype rehype-stringify rehype-autolink-headings rehype-slug @leafac/rehype-shiki shiki
 </code></pre>
 <p>And then, add this code</p>
-<pre><code class="language-typescript">// lib/api.ts
-import fs from 'fs'
-import matter from 'gray-matter'
-import path from 'path'
-import { unified } from 'unified'
-import remarkGfm from 'remark-gfm'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
-import rehypePrettyCode from 'rehype-pretty-code'
+<pre><code class="language-typescript"><a-c>// lib/api.ts</a-c>
+<a-k>import</a-k> <a-v>fs</a-v> <a-k>from</a-k> <a-s>'fs'</a-s>
+<a-k>import</a-k> <a-v>matter</a-v> <a-k>from</a-k> <a-s>'gray-matter'</a-s>
+<a-k>import</a-k> <a-v>path</a-v> <a-k>from</a-k> <a-s>'path'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>unified</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'unified'</a-s>
+<a-k>import</a-k> <a-v>remarkGfm</a-v> <a-k>from</a-k> <a-s>'remark-gfm'</a-s>
+<a-k>import</a-k> <a-v>rehypeSlug</a-v> <a-k>from</a-k> <a-s>'rehype-slug'</a-s>
+<a-k>import</a-k> <a-v>rehypeAutolinkHeadings</a-v> <a-k>from</a-k> <a-s>'rehype-autolink-headings'</a-s>
+<a-k>import</a-k> <a-v>remarkParse</a-v> <a-k>from</a-k> <a-s>'remark-parse'</a-s>
+<a-k>import</a-k> <a-v>remarkRehype</a-v> <a-k>from</a-k> <a-s>'remark-rehype'</a-s>
+<a-k>import</a-k> <a-v>rehypeStringify</a-v> <a-k>from</a-k> <a-s>'rehype-stringify'</a-s>
+<a-k>import</a-k> <a-v>rehypePrettyCode</a-v> <a-k>from</a-k> <a-s>'rehype-pretty-code'</a-s>
 
-const postsDirectory = path.join(process.cwd(), '_posts')
+<a-k>const</a-k> <a-v>postsDirectory</a-v> <a-o>=</a-o> <a-v>path</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-v>process</a-v><a-p>.</a-p><a-f>cwd</a-f><a-p>(),</a-p> <a-s>'_posts'</a-s><a-p>)</a-p>
 
-function getPostFiles() {
-  return fs.readdirSync(postsDirectory)
-}
+<a-k>function</a-k> <a-f>getPostFiles</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>fs</a-v><a-p>.</a-p><a-f>readdirSync</a-f><a-p>(</a-p><a-v>postsDirectory</a-v><a-p>)</a-p>
+<a-p>}</a-p>
 
-function getParser() {
-  return unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(remarkGfm)
-    .use(rehypePrettyCode, {
-      theme: 'one-dark-pro',
-    })
-    .use(rehypeStringify)
-    .use(rehypeStringify)
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      content: arg => ({
-        type: 'element',
-        tagName: 'a',
-        properties: {
-          href: `#${String(arg.properties?.id)}`,
-          style: 'margin-right: 10px',
-        },
-        children: [{ type: 'text', value: '#' }],
-      }),
-    })
-}
+<a-k>function</a-k> <a-f>getParser</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-f>unified</a-f><a-p>()</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>remarkParse</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>remarkRehype</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>remarkGfm</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypePrettyCode</a-v><a-p>,</a-p> <a-p>{</a-p>
+      <a-pr>theme</a-pr>: <a-s>'one-dark-pro'</a-s><a-p>,</a-p>
+    <a-p>})</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeStringify</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeStringify</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeSlug</a-v><a-p>)</a-p>
+    <a-p>.</a-p><a-f>use</a-f><a-p>(</a-p><a-v>rehypeAutolinkHeadings</a-v><a-p>,</a-p> <a-p>{</a-p>
+      <a-f>content</a-f>: <a-v>arg</a-v> <a-o>=></a-o> <a-p>({</a-p>
+        <a-pr>type</a-pr>: <a-s>'element'</a-s><a-p>,</a-p>
+        <a-pr>tagName</a-pr>: <a-s>'a'</a-s><a-p>,</a-p>
+        <a-pr>properties</a-pr>: <a-p>{</a-p>
+          <a-pr>href</a-pr>: <a-s>`#</a-s><a-p>${</a-p><a-t>String</a-t><a-p>(</a-p><a-v>arg</a-v><a-p>.</a-p><a-pr>properties</a-pr><a-p>?.</a-p><a-pr>id</a-pr><a-p>)}</a-p><a-s>`</a-s><a-p>,</a-p>
+          <a-pr>style</a-pr>: <a-s>'margin-right: 10px'</a-s><a-p>,</a-p>
+        <a-p>},</a-p>
+        <a-pr>children</a-pr>: <a-p>[{</a-p> <a-pr>type</a-pr>: <a-s>'text'</a-s><a-p>,</a-p> <a-pr>value</a-pr>: <a-s>'#'</a-s> <a-p>}],</a-p>
+      <a-p>}),</a-p>
+    <a-p>})</a-p>
+<a-p>}</a-p>
 
-// small speedup from caching this parser
-const parser = getParser()
+<a-c>// small speedup from caching this parser</a-c>
+<a-k>const</a-k> <a-v>parser</a-v> <a-o>=</a-o> <a-f>getParser</a-f><a-p>()</a-p>
 
-export async function getPostById(id: string) {
-  const realId = id.replace(/\.md$/, '')
-  const fullPath = path.join(postsDirectory, `${realId}.md`)
-  const { data, content } = matter(await fs.promises.readFile(fullPath, 'utf8'))
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>realId</a-v> <a-o>=</a-o> <a-v>id</a-v><a-p>.</a-p><a-f>replace</a-f><a-p>(</a-p><a-o>/</a-o><a-s>\.md$</a-s><a-o>/</a-o><a-p>,</a-p> <a-s>''</a-s><a-p>)</a-p>
+  <a-k>const</a-k> <a-v>fullPath</a-v> <a-o>=</a-o> <a-v>path</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-v>postsDirectory</a-v><a-p>,</a-p> <a-s>`</a-s><a-p>${</a-p><a-v>realId</a-v><a-p>}</a-p><a-s>.md`</a-s><a-p>)</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> data<a-p>,</a-p> content <a-p>}</a-p> <a-o>=</a-o> <a-f>matter</a-f><a-p>(</a-p><a-k>await</a-k> <a-v>fs</a-v><a-p>.</a-p><a-pr>promises</a-pr><a-p>.</a-p><a-f>readFile</a-f><a-p>(</a-p><a-v>fullPath</a-v><a-p>,</a-p> <a-s>'utf8'</a-s><a-p>))</a-p>
 
-  const html = await parser.process(content)
-  const date = data.date as Date
+  <a-k>const</a-k> <a-v>html</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>parser</a-v><a-p>.</a-p><a-f>process</a-f><a-p>(</a-p><a-v>content</a-v><a-p>)</a-p>
+  <a-k>const</a-k> <a-v>date</a-v> <a-o>=</a-o> <a-v>data</a-v><a-p>.</a-p><a-pr>date</a-pr> <a-k>as</a-k> <a-t>Date</a-t>
 
-  return {
-    ...data,
-    title: data.title as string,
-    id: realId,
-    date: `${date.toISOString().slice(0, 10)}`,
-    html: html.value.toString(),
-  }
-}
+  <a-k>return</a-k> <a-p>{</a-p>
+    ...<a-v>data</a-v><a-p>,</a-p>
+    <a-pr>title</a-pr>: <a-v>data</a-v><a-p>.</a-p><a-pr>title</a-pr> <a-k>as</a-k> <a-t>string</a-t><a-p>,</a-p>
+    <a-pr>id</a-pr>: <a-v>realId</a-v><a-p>,</a-p>
+    <a-pr>date</a-pr>: <a-s>`</a-s><a-p>${</a-p><a-v>date</a-v><a-p>.</a-p><a-f>toISOString</a-f><a-p>().</a-p><a-f>slice</a-f><a-p>(</a-p><a-n>0</a-n><a-p>,</a-p><a-eb> </a-eb><a-n>10</a-n><a-p>)}</a-p><a-s>`</a-s><a-p>,</a-p>
+    <a-pr>html</a-pr>: <a-v>html</a-v><a-p>.</a-p><a-pr>value</a-pr><a-p>.</a-p><a-f>toString</a-f><a-p>(),</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
 
-export async function getPageMarkdown(string_: string) {
-  const { data, content } = matter(
-    fs.readFileSync(path.join('_pages', string_), 'utf8'),
-  )
-  const html = await parser.process(content)
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>getPageMarkdown</a-f><a-p>(</a-p><a-v>string_</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>{</a-p> data<a-p>,</a-p> content <a-p>}</a-p> <a-o>=</a-o> <a-f>matter</a-f><a-p>(</a-p>
+    <a-v>fs</a-v><a-p>.</a-p><a-f>readFileSync</a-f><a-p>(</a-p><a-v>path</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-s>'_pages'</a-s><a-p>,</a-p> <a-v>string_</a-v><a-p>),</a-p> <a-s>'utf8'</a-s><a-p>),</a-p>
+  <a-p>)</a-p>
+  <a-k>const</a-k> <a-v>html</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-v>parser</a-v><a-p>.</a-p><a-f>process</a-f><a-p>(</a-p><a-v>content</a-v><a-p>)</a-p>
 
-  return {
-    ...data,
-    html: html.value.toString(),
-  }
-}
+  <a-k>return</a-k> <a-p>{</a-p>
+    ...<a-v>data</a-v><a-p>,</a-p>
+    <a-pr>html</a-pr>: <a-v>html</a-v><a-p>.</a-p><a-pr>value</a-pr><a-p>.</a-p><a-f>toString</a-f><a-p>(),</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
 
-export async function getAllPosts() {
-  const posts = await Promise.all(getPostFiles().map(id => getPostById(id)))
-  return posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-}
+<a-k>export</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-f>getAllPosts</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>posts</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-t>Promise</a-t><a-p>.</a-p><a-f>all</a-f><a-p>(</a-p><a-f>getPostFiles</a-f><a-p>().</a-p><a-f>map</a-f><a-p>(</a-p><a-v>id</a-v> <a-o>=></a-o> <a-f>getPostById</a-f><a-p>(</a-p><a-v>id</a-v><a-p>)))</a-p>
+  <a-k>return</a-k> <a-v>posts</a-v><a-p>.</a-p><a-f>sort</a-f><a-p>((</a-p><a-v>post1</a-v><a-p>,</a-p> <a-v>post2</a-v><a-p>)</a-p> <a-o>=></a-o> <a-p>(</a-p><a-v>post1</a-v><a-p>.</a-p><a-pr>date</a-pr> <a-o>></a-o> <a-v>post2</a-v><a-p>.</a-p><a-pr>date</a-pr> ? <a-o>-</a-o><a-n>1</a-n> : <a-n>1</a-n><a-p>))</a-p>
+<a-p>}</a-p>
 </code></pre>
 <h2 id="step-5-create-a-blog-index-showing-all-your-blogposts">Step 5. Create a ‘blog index’ showing all your blogposts</h2>
 <p>Edit the <code>app/page.tsx</code> file, and replace with the below: this is the root of
 your site</p>
-<pre><code class="language-tsx">// app/page.tsx
-import Link from 'next/link'
-import { getAllPosts } from '@/lib/api'
+<pre><code class="language-tsx"><a-c>// app/page.tsx</a-c>
+<a-k>import</a-k> <a-t>Link</a-t> <a-k>from</a-k> <a-s>'next/link'</a-s>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>getAllPosts</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'@/lib/api'</a-s>
 
-export default async function Page() {
-  const posts = await getAllPosts()
+<a-k>export</a-k> <a-k>default</a-k> <a-k>async</a-k> <a-k>function</a-k> <a-t>Page</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>posts</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>getAllPosts</a-f><a-p>()</a-p>
 
-  return (
-    &#x3C;div>
-      &#x3C;h1>My blog&#x3C;/h1>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>My blog</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
 
-      &#x3C;h2>All posts:&#x3C;/h2>
-      &#x3C;ul>
-        {posts.map(post => {
-          const { id, date, title } = post
-          return (
-            &#x3C;li key={id}>
-              &#x3C;Link href={`/posts/${id}`}>
-                {date} - {title}
-              &#x3C;/Link>
-            &#x3C;/li>
-          )
-        })}
-      &#x3C;/ul>
-    &#x3C;/div>
-  )
-}
+      <a-p>&#x3C;</a-p><a-tg>h2</a-tg><a-p>></a-p><a-s>All posts:</a-s><a-p>&#x3C;/</a-p><a-tg>h2</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>ul</a-tg><a-p>></a-p>
+        <a-p>{</a-p><a-v>posts</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>post</a-v> <a-o>=></a-o> <a-p>{</a-p>
+          <a-k>const</a-k> <a-p>{</a-p> id<a-p>,</a-p> date<a-p>,</a-p> title <a-p>}</a-p> <a-o>=</a-o> <a-v>post</a-v>
+          <a-k>return</a-k> <a-p>(</a-p>
+            <a-p>&#x3C;</a-p><a-tg>li</a-tg> <a-at>key</a-at><a-o>=</a-o><a-p>{</a-p><a-v>id</a-v><a-p>}></a-p>
+              <a-p>&#x3C;</a-p><a-cr>Link</a-cr> <a-at>href</a-at><a-o>=</a-o><a-p>{</a-p><a-s>`/posts/</a-s><a-p>${</a-p><a-v>id</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}></a-p>
+                <a-p>{</a-p><a-v>date</a-v><a-p>}</a-p><a-s> - </a-s><a-p>{</a-p><a-v>title</a-v><a-p>}</a-p>
+              <a-p>&#x3C;/</a-p><a-cr>Link</a-cr><a-p>></a-p>
+            <a-p>&#x3C;/</a-p><a-tg>li</a-tg><a-p>></a-p>
+          <a-p>)</a-p>
+        <a-p>})}</a-p>
+      <a-p>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <h2 id="step-6-put-markdown-files-in-the-_posts-dir">Step 6. Put markdown files in the <code>_posts</code> dir</h2>
 <p>Example</p>
 <p>_posts/2023-04-08-first-post.md</p>
-<pre><code class="language-markdown">---
-title: First post
-date: 2023-04-08
----
+<pre><code class="language-markdown"><a-p>---</a-p>
+<a-pr>title</a-pr><a-p>:</a-p> <a-s>First post</a-s>
+<a-pr>date</a-pr><a-p>:</a-p> <a-s>2023-04-08</a-s>
+<a-p>---</a-p>
 
 Hello world!
 </code></pre>
@@ -245,15 +245,15 @@ Hello world!
 </code></pre>
 <p>Then add a “predeploy” and “deploy” script to package.json</p>
 <pre><code class="language-json">{
-  "private": true,
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next dev",
-    "lint": "next lint",
-    "predeploy": "npm run build &#x26;&#x26; touch out/.nojekyll",
-    "deploy": "gh-pages -d out -t true",
-    "postdeploy": "git push --follow-tags"
+  <a-s>"private"</a-s>: <a-co>true</a-co>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"dev"</a-s>: <a-s>"next"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"next build"</a-s>,
+    <a-s>"start"</a-s>: <a-s>"next dev"</a-s>,
+    <a-s>"lint"</a-s>: <a-s>"next lint"</a-s>,
+    <a-s>"predeploy"</a-s>: <a-s>"npm run build &#x26;&#x26; touch out/.nojekyll"</a-s>,
+    <a-s>"deploy"</a-s>: <a-s>"gh-pages -d out -t true"</a-s>,
+    <a-s>"postdeploy"</a-s>: <a-s>"git push --follow-tags"</a-s>
   },
 ...
 }

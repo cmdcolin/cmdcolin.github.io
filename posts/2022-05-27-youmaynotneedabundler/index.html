@@ -79,20 +79,20 @@ way, you can develop with typescript, it will output <code>js</code> files, and 
 directly deploy a <code>dist</code> folder of <code>js</code> files to NPM.</p>
 <h3 id="example-packagejson">Example <code>package.json</code></h3>
 <pre><code class="language-json">{
-  "name": "yourlib",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "clean": "rimraf dist",
-    "prebuild": "npm run clean",
-    "build": "tsc",
-    "preversion": "npm run build",
-    "postversion": "git push --follow-tags"
+  <a-s>"name"</a-s>: <a-s>"yourlib"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"main"</a-s>: <a-s>"dist/index.js"</a-s>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"npm run clean"</a-s>,
+    <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
+    <a-s>"preversion"</a-s>: <a-s>"npm run build"</a-s>,
+    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
   },
-  "files": ["dist", "src"],
-  "devDependencies": {
-    "rimraf": "^3.0.2",
-    "typescript": "^4.6.2"
+  <a-s>"files"</a-s>: [<a-s>"dist"</a-s>, <a-s>"src"</a-s>],
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"rimraf"</a-s>: <a-s>"^3.0.2"</a-s>,
+    <a-s>"typescript"</a-s>: <a-s>"^4.6.2"</a-s>
   }
 }
 </code></pre>
@@ -106,16 +106,16 @@ directories, and src is used for the <code>sourceMap</code></li>
 </ul>
 <h3 id="example-tsconfigjson">Example<code> tsconfig.json</code></h3>
 <pre><code class="language-json">{
-  "include": ["src"],
-  "compilerOptions": {
-    "target": "es2018",
-    "outDir": "dist",
-    "lib": ["dom", "esnext"],
-    "declaration": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "strict": true,
-    "esModuleInterop": true
+  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
+  <a-s>"compilerOptions"</a-s>: {
+    <a-s>"target"</a-s>: <a-s>"es2018"</a-s>,
+    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
+    <a-s>"lib"</a-s>: [<a-s>"dom"</a-s>, <a-s>"esnext"</a-s>],
+    <a-s>"declaration"</a-s>: <a-co>true</a-co>,
+    <a-s>"moduleResolution"</a-s>: <a-s>"node"</a-s>,
+    <a-s>"sourceMap"</a-s>: <a-co>true</a-co>,
+    <a-s>"strict"</a-s>: <a-co>true</a-co>,
+    <a-s>"esModuleInterop"</a-s>: <a-co>true</a-co>
   }
 }
 </code></pre>

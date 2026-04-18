@@ -9,7 +9,7 @@ good features for Mac scanning but thought it could be fun to install</p>
 <p>ClamAV is the top choice for linux based OSs being free and open source (GPL)
 virus scanner.</p>
 <p>To install we can use homebrew</p>
-<pre><code class="language-sh">    $ brew install clamav
+<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>brew</a-pr> install clamav
 </code></pre>
 <p>Then there is a config file to setup. This is located in
 /usr/local/etc/clamav/freshclam.conf</p>
@@ -17,18 +17,17 @@ virus scanner.</p>
 uncheck the desired settings. I would choose to enable logging to
 /var/log/clamav.log and also database directories in /var/lib/clamav</p>
 <p>Then run the “freshclam” program</p>
-<pre><code class="language-sh">    $ freshclam
+<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>freshclam</a-pr>
 </code></pre>
 <p>This will download the virus scanner database (main) and daily scanning updates</p>
 <p>Then you can run clamscan on a given directory (recursively, only print infected
 files)</p>
-<pre><code class="language-sh">    $ clamscan -ri ~/
+<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>clamscan</a-pr> <a-co>-ri</a-co> ~/
 </code></pre>
 <p>Or add this to a cronjob</p>
-<pre><code class="language-sh">    $ crontab -
+<pre><code class="language-sh">    <a-o>$</a-o><a-f> </a-f><a-pr>crontab</a-pr> <a-co>-</a-co>
 
-    @hourly clamscan -ri ~/ | mail -v -s "clamscan results" your.email@gmail.com  >/dev/null 2>&#x26;1
-
+    <a-f>@hourly</a-f> clamscan <a-co>-ri</a-co> ~/ <a-o>|</a-o> <a-f>mail</a-f> <a-co>-v</a-co> <a-co>-s</a-co> <a-s>"clamscan results"</a-s> your.email@gmail.com  <a-o>></a-o>/dev/null <a-n>2</a-n>>&#x26;1
 </code></pre> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';

@@ -14,27 +14,26 @@ me…I couldn’t stay focused (blame ADHD or just my CLI obsession?) and certai
 things like “Execution role” that they say to modify are not there in the web UI
 anymore, so I just gave up (I did try though!)</p>
 <p>To install aws-sam I used homebrew</p>
-<pre><code class="language-sh">brew tap aws/tap
-brew install aws-sam-cli
-brew install aws-sam-cli # I had to run the install command twice ref https://github.com/aws/aws-sam-cli/issues/2320#issuecomment-721414971
+<pre><code class="language-sh"><a-f>brew</a-f> tap aws/tap
+<a-f>brew</a-f> install aws-sam-cli
+<a-f>brew</a-f> install aws-sam-cli <a-c># I had to run the install command twice ref https://github.com/aws/aws-sam-cli/issues/2320#issuecomment-721414971</a-c>
 
-git clone https://github.com/aws-samples/amazon-s3-presigned-urls-aws-sam
-cd amazon-s3-presigned-urls-aws-sam
-sam deploy --guided
+<a-f>git</a-f> clone https://github.com/aws-samples/amazon-s3-presigned-urls-aws-sam
+<a-f>cd</a-f> amazon-s3-presigned-urls-aws-sam
+<a-f>sam</a-f> deploy <a-co>--guided</a-co>
 
-# proceeds with a guided installation, I used all defaults except I
-# made "UploadRequestFunction may not have authorization definedIs
-Is this okay? [y/N]: y"
+<a-c># proceeds with a guided installation, I used all defaults except I</a-c>
+<a-c># made "UploadRequestFunction may not have authorization definedIs</a-c>
+<a-f>Is</a-f> this okay? [y/N]: y"
 </code></pre>
 <p><img src="/media/638408397901987840_0.png" alt=""></p>
 <p>They then in the tutorial describe trying to use postman to test</p>
 <p>I test with <code>curl</code> instead</p>
-<pre><code class="language-sh">curl 'https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads'
-
+<pre><code class="language-sh"><a-f>curl</a-f> <a-s>'https://fjgbqj5436.execute-api.us-east-2.amazonaws.com/uploads'</a-s>
 </code></pre>
 <pre><code class="language-json">{
-  "uploadURL": "https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host",
-  "Key": "112162.jpg"
+  <a-s>"uploadURL"</a-s>: <a-s>"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host"</a-s>,
+  <a-s>"Key"</a-s>: <a-s>"112162.jpg"</a-s>
 }
 </code></pre>
 <p>The premise of this is you make a request, and then the response from the API is
@@ -43,7 +42,7 @@ a pre-signed URL that then allows you to upload directly to S3. You can use
 to the s3 bucket (yes, this is talking directly to s3 now, not the lambda! the
 lambda is just for generating the “pre-signed URL” to let you upload). Careful
 to copy it exactly as is</p>
-<pre><code class="language-sh">curl "https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host" --upload-file test.jpg
+<pre><code class="language-sh"><a-f>curl</a-f> <a-s>"https://sam-app-s3uploadbucket-1653634.s3.us-east-2.amazonaws.com/112162.jpg?Content-Type=image%2Fjpeg&#x26;X-Amz-Algorithm=AWS4-HMAC-SHA256&#x26;X-Amz-Credential=xxx&#x26;X-Amz-Date=20201224T174804Z&#x26;X-Amz-Expires=300&#x26;X-Amz-Security-Token=yyy&#x26;X-Amz-SignedHeaders=host"</a-s> <a-co>--upload-file</a-co> test.jpg
 </code></pre>
 <p>There is no response, but I can then check the s3 console and see the file
 upload is successful (all files are renamed)</p>
@@ -52,10 +51,10 @@ upload is successful (all files are renamed)</p>
 <p>Then we can edit the file frontend/index.html from the repo we cloned to contain
 the lambda with the /uploads/ suffix</p>
 <p>Then we manually upload this file to another s3 bucket or test it locally</p>
-<pre><code class="language-sh">aws s3 cp index.html s3://mybucket/
+<pre><code class="language-sh"><a-f>aws</a-f> s3 cp index.html s3://mybucket/
 
 
-# then ...visit that in the browser
+<a-c># then ...visit that in the browser</a-c>
 </code></pre>
 <p>At this point the files are getting uploaded but not publicly accessible. To
 make them publicly accessible we uncomment the ACL: ‘public-read’ in the

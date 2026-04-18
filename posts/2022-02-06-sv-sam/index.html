@@ -460,54 +460,54 @@ may look a bit different (see <code>cs</code> tag in <code>PAF</code> for exampl
 <p>This may be unnecessarily low-level code for this article, but it could be
 helpful utility to help determine the pair orientation from a single
 SAM/BAM/CRAM record.</p>
-<pre><code class="language-ts">// @param flags - flags from a single read
-// @param ref - the string of the reference sequence, just used to determine if it matches rnext
-// @param rnext - the string of the RNEXT, just used to determine if it matches ref
-// @param tlen - the TLEN field from SAM
-// @return e.g. F1R2 normal paired end orientation
-function getPairOrientation(
-  flags: number,
-  ref: string,
-  rnext: string,
-  tlen: number,
-) {
-  // this read is not unmapped &#x26;&#x26;
-  // this read's mate is also not unmapped &#x26;&#x26;
-  // this read's mate is on the same reference genome
-  if (!(flags &#x26; 4) &#x26;&#x26; !(flags &#x26; 8) &#x26;&#x26; ref === rnext) {
-    const s1 = flags &#x26; 16 ? 'R' : 'F'
-    const s2 = flags &#x26; 32 ? 'R' : 'F'
-    let o1 = ' '
-    let o2 = ' '
+<pre><code class="language-ts"><a-c>// @param flags - flags from a single read</a-c>
+<a-c>// @param ref - the string of the reference sequence, just used to determine if it matches rnext</a-c>
+<a-c>// @param rnext - the string of the RNEXT, just used to determine if it matches ref</a-c>
+<a-c>// @param tlen - the TLEN field from SAM</a-c>
+<a-c>// @return e.g. F1R2 normal paired end orientation</a-c>
+<a-k>function</a-k> <a-f>getPairOrientation</a-f><a-p>(</a-p>
+  <a-v>flags</a-v>: <a-t>number</a-t><a-p>,</a-p>
+  <a-v>ref</a-v>: <a-t>string</a-t><a-p>,</a-p>
+  <a-v>rnext</a-v>: <a-t>string</a-t><a-p>,</a-p>
+  <a-v>tlen</a-v>: <a-t>number</a-t><a-p>,</a-p>
+<a-p>)</a-p> <a-p>{</a-p>
+  <a-c>// this read is not unmapped &#x26;&#x26;</a-c>
+  <a-c>// this read's mate is also not unmapped &#x26;&#x26;</a-c>
+  <a-c>// this read's mate is on the same reference genome</a-c>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>4</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>8</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-v>ref</a-v> <a-o>===</a-o> <a-v>rnext</a-v><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>s1</a-v> <a-o>=</a-o> <a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>16</a-n> ? <a-s>'R'</a-s> : <a-s>'F'</a-s>
+    <a-k>const</a-k> <a-v>s2</a-v> <a-o>=</a-o> <a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>32</a-n> ? <a-s>'R'</a-s> : <a-s>'F'</a-s>
+    <a-k>let</a-k> <a-v>o1</a-v> <a-o>=</a-o> <a-s>' '</a-s>
+    <a-k>let</a-k> <a-v>o2</a-v> <a-o>=</a-o> <a-s>' '</a-s>
 
-    // if first in pair
-    if (flags &#x26; 64) {
-      o1 = '1'
-      o2 = '2'
-    }
+    <a-c>// if first in pair</a-c>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>64</a-n><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>o1</a-v> <a-o>=</a-o> <a-s>'1'</a-s>
+      <a-v>o2</a-v> <a-o>=</a-o> <a-s>'2'</a-s>
+    <a-p>}</a-p>
 
-    // else if second in pair
-    else if (flags &#x26; 128) {
-      o1 = '2'
-      o2 = '1'
-    }
+    <a-c>// else if second in pair</a-c>
+    <a-k>else</a-k> <a-k>if</a-k> <a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>128</a-n><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>o1</a-v> <a-o>=</a-o> <a-s>'2'</a-s>
+      <a-v>o2</a-v> <a-o>=</a-o> <a-s>'1'</a-s>
+    <a-p>}</a-p>
 
-    const tmp = []
-    if (tlen > 0) {
-      tmp[0] = s1
-      tmp[1] = o1
-      tmp[2] = s2
-      tmp[3] = o2
-    } else {
-      tmp[2] = s1
-      tmp[3] = o1
-      tmp[0] = s2
-      tmp[1] = o2
-    }
-    return tmp.join('')
-  }
-  return null
-}
+    <a-k>const</a-k> <a-v>tmp</a-v> <a-o>=</a-o> <a-p>[]</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>tlen</a-v> <a-o>></a-o> <a-n>0</a-n><a-p>)</a-p> <a-p>{</a-p>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>0</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>1</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>2</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s2</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>3</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o2</a-v>
+    <a-p>}</a-p> <a-k>else</a-k> <a-p>{</a-p>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>2</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>3</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o1</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>0</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>s2</a-v>
+      <a-v>tmp</a-v><a-p>[</a-p><a-n>1</a-n><a-p>]</a-p> <a-o>=</a-o> <a-v>o2</a-v>
+    <a-p>}</a-p>
+    <a-k>return</a-k> <a-v>tmp</a-v><a-p>.</a-p><a-f>join</a-f><a-p>(</a-p><a-s>''</a-s><a-p>)</a-p>
+  <a-p>}</a-p>
+  <a-k>return</a-k> <a-co>null</a-co>
+<a-p>}</a-p>
 </code></pre>
 <p>Then this can be broken down further by orientation type</p>
 <ul>
@@ -518,109 +518,109 @@ function getPairOrientation(
 mate pair (rf) below and with this link
 <a href="https://software.broadinstitute.org/software/igv/interpreting_pair_orientations">https://software.broadinstitute.org/software/igv/interpreting_pair_orientations</a></p>
 <pre><code class="language-json">{
-  "fr": {
-    "F1R2": "LR",
-    "F2R1": "LR",
+  <a-s>"fr"</a-s>: {
+    <a-s>"F1R2"</a-s>: <a-s>"LR"</a-s>,
+    <a-s>"F2R1"</a-s>: <a-s>"LR"</a-s>,
 
-    "F1F2": "LL",
-    "F2F1": "LL",
+    <a-s>"F1F2"</a-s>: <a-s>"LL"</a-s>,
+    <a-s>"F2F1"</a-s>: <a-s>"LL"</a-s>,
 
-    "R1R2": "RR",
-    "R2R1": "RR",
+    <a-s>"R1R2"</a-s>: <a-s>"RR"</a-s>,
+    <a-s>"R2R1"</a-s>: <a-s>"RR"</a-s>,
 
-    "R1F2": "RL",
-    "R2F1": "RL"
+    <a-s>"R1F2"</a-s>: <a-s>"RL"</a-s>,
+    <a-s>"R2F1"</a-s>: <a-s>"RL"</a-s>
   },
 
-  "rf": {
-    "R1F2": "LR",
-    "R2F1": "LR",
+  <a-s>"rf"</a-s>: {
+    <a-s>"R1F2"</a-s>: <a-s>"LR"</a-s>,
+    <a-s>"R2F1"</a-s>: <a-s>"LR"</a-s>,
 
-    "R1R2": "LL",
-    "R2R1": "LL",
+    <a-s>"R1R2"</a-s>: <a-s>"LL"</a-s>,
+    <a-s>"R2R1"</a-s>: <a-s>"LL"</a-s>,
 
-    "F1F2": "RR",
-    "F2F1": "RR",
+    <a-s>"F1F2"</a-s>: <a-s>"RR"</a-s>,
+    <a-s>"F2F1"</a-s>: <a-s>"RR"</a-s>,
 
-    "F1R2": "RL",
-    "F2R1": "RL"
+    <a-s>"F1R2"</a-s>: <a-s>"RL"</a-s>,
+    <a-s>"F2R1"</a-s>: <a-s>"RL"</a-s>
   }
 }
 </code></pre>
 <h3 id="appendix-b---cigar-parsing">Appendix B - <code>CIGAR</code> parsing</h3>
-<pre><code class="language-ts">// @param cigar: CIGAR string in text form
-// @returns an array of elements like ['30','M', '2','I', '50','M', '40','D']
-// which you can consume in a loop two elements at a time
-function parseCigar(cigar: string) {
-  return cigar.split(/([MIDNSHPX=])/)
-}
+<pre><code class="language-ts"><a-c>// @param cigar: CIGAR string in text form</a-c>
+<a-c>// @returns an array of elements like ['30','M', '2','I', '50','M', '40','D']</a-c>
+<a-c>// which you can consume in a loop two elements at a time</a-c>
+<a-k>function</a-k> <a-f>parseCigar</a-f><a-p>(</a-p><a-v>cigar</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-v>cigar</a-v><a-p>.</a-p><a-f>split</a-f><a-p>(</a-p><a-o>/</a-o><a-s>([MIDNSHPX=])</a-s><a-o>/</a-o><a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>Then parse the returned array two at a time</p>
-<pre><code class="language-ts">// this function does nothing, but is informative for how to interpret a
-// CIGAR string
-// @param cigar - CIGAR string from record
-// @param readSeq -  the SEQ from record
-// @param refSeq -  the reference sequence underlying the read
-function interpretCigar(cigar: string, readSeq: string, refSeq: string) {
-  const opts = parseCigar(cigar)
-  let qpos = 0 // query position, position on the read
-  let tpos = 0 // target position, position on the reference sequence
+<pre><code class="language-ts"><a-c>// this function does nothing, but is informative for how to interpret a</a-c>
+<a-c>// CIGAR string</a-c>
+<a-c>// @param cigar - CIGAR string from record</a-c>
+<a-c>// @param readSeq -  the SEQ from record</a-c>
+<a-c>// @param refSeq -  the reference sequence underlying the read</a-c>
+<a-k>function</a-k> <a-f>interpretCigar</a-f><a-p>(</a-p><a-v>cigar</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>readSeq</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>refSeq</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>opts</a-v> <a-o>=</a-o> <a-f>parseCigar</a-f><a-p>(</a-p><a-v>cigar</a-v><a-p>)</a-p>
+  <a-k>let</a-k> <a-v>qpos</a-v> <a-o>=</a-o> <a-n>0</a-n> <a-c>// query position, position on the read</a-c>
+  <a-k>let</a-k> <a-v>tpos</a-v> <a-o>=</a-o> <a-n>0</a-n> <a-c>// target position, position on the reference sequence</a-c>
 
-  // opts will be an array like this ['30','M', '2','I', '50','M', '40','D']
-  // which we parse two elements at a time
-  for (let i = 0; i &#x3C; opts.length; i += 2) {
-    const len = +opts[i]
-    const op = opts[i + 1]
-    // do things. refer to the CIGAR chart in SAMv1.pdf for which operators
-    // "consume reference" to see whether to increment
-    if (op === 'M' || op === '=') {
-      // matches consume query and reference
-      const refMatch = refSeq.slice(tpos, tpos + len)
-      const readMatch = readSeq.slice(qpos, qpos + len)
-      for (let i = 0; i &#x3C; len; i++) {
-        if (refMatch[i] !== readMatch[i]) {
-          // SNP at this position
-        }
-      }
-      qpos += len
-      tpos += len
-    }
-    if (op === 'I') {
-      // insertions only consume query
-      // sequence of the insertion from the read is
-      const insSeq = readSeq.slice(qpos, qpos + len)
-      qpos += len
-    }
-    if (op === 'D') {
-      // deletions only consume reference
-      // sequence of the deletion from the reference is
-      const delSeq = refSeq.slice(tpos, tpos + len)
-      tpos += len
-    }
-    if (op === 'N') {
-      // skips only consume reference
-      // skips are similar to deletions but are related to spliced alignments
-      tpos += len
-    }
-    if (op === 'X') {
-      // mismatch using the extended CIGAR format
-      // could lookup the mismatch letter in a string containing the reference
-      const mismatch = refSeq.slice(tpos, tpos + len)
-      qpos += len
-      tpos += len
-    }
-    if (op === 'H') {
-      // does not consume query or reference
-      // hardclip is just an indicator
-    }
-    if (op === 'S') {
-      // softclip consumes query
-      // below gets the entire soft clipped portion
-      const softClipStr = readSeq.slice(qpos, qpos + len)
-      qpos += len
-    }
-  }
-}
+  <a-c>// opts will be an array like this ['30','M', '2','I', '50','M', '40','D']</a-c>
+  <a-c>// which we parse two elements at a time</a-c>
+  <a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>opts</a-v><a-p>.</a-p><a-pr>length</a-pr><a-p>;</a-p> <a-v>i</a-v> <a-o>+=</a-o> <a-n>2</a-n><a-p>)</a-p> <a-p>{</a-p>
+    <a-k>const</a-k> <a-v>len</a-v> <a-o>=</a-o> <a-o>+</a-o><a-v>opts</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p>
+    <a-k>const</a-k> <a-v>op</a-v> <a-o>=</a-o> <a-v>opts</a-v><a-p>[</a-p><a-v>i</a-v> <a-o>+</a-o> <a-n>1</a-n><a-p>]</a-p>
+    <a-c>// do things. refer to the CIGAR chart in SAMv1.pdf for which operators</a-c>
+    <a-c>// "consume reference" to see whether to increment</a-c>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'M'</a-s> <a-o>||</a-o> <a-v>op</a-v> <a-o>===</a-o> <a-s>'='</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// matches consume query and reference</a-c>
+      <a-k>const</a-k> <a-v>refMatch</a-v> <a-o>=</a-o> <a-v>refSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>tpos</a-v><a-p>,</a-p> <a-v>tpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-k>const</a-k> <a-v>readMatch</a-v> <a-o>=</a-o> <a-v>readSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>qpos</a-v><a-p>,</a-p> <a-v>qpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-k>for</a-k> <a-p>(</a-p><a-k>let</a-k> <a-v>i</a-v> <a-o>=</a-o> <a-n>0</a-n><a-p>;</a-p> <a-v>i</a-v> <a-o>&#x3C;</a-o> <a-v>len</a-v><a-p>;</a-p> <a-v>i</a-v><a-o>++</a-o><a-p>)</a-p> <a-p>{</a-p>
+        <a-k>if</a-k> <a-p>(</a-p><a-v>refMatch</a-v><a-p>[</a-p><a-v>i</a-v><a-p>]</a-p> <a-o>!==</a-o> <a-v>readMatch</a-v><a-p>[</a-p><a-v>i</a-v><a-p>])</a-p> <a-p>{</a-p>
+          <a-c>// SNP at this position</a-c>
+        <a-p>}</a-p>
+      <a-p>}</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'I'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// insertions only consume query</a-c>
+      <a-c>// sequence of the insertion from the read is</a-c>
+      <a-k>const</a-k> <a-v>insSeq</a-v> <a-o>=</a-o> <a-v>readSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>qpos</a-v><a-p>,</a-p> <a-v>qpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'D'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// deletions only consume reference</a-c>
+      <a-c>// sequence of the deletion from the reference is</a-c>
+      <a-k>const</a-k> <a-v>delSeq</a-v> <a-o>=</a-o> <a-v>refSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>tpos</a-v><a-p>,</a-p> <a-v>tpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'N'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// skips only consume reference</a-c>
+      <a-c>// skips are similar to deletions but are related to spliced alignments</a-c>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'X'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// mismatch using the extended CIGAR format</a-c>
+      <a-c>// could lookup the mismatch letter in a string containing the reference</a-c>
+      <a-k>const</a-k> <a-v>mismatch</a-v> <a-o>=</a-o> <a-v>refSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>tpos</a-v><a-p>,</a-p> <a-v>tpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+      <a-v>tpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'H'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// does not consume query or reference</a-c>
+      <a-c>// hardclip is just an indicator</a-c>
+    <a-p>}</a-p>
+    <a-k>if</a-k> <a-p>(</a-p><a-v>op</a-v> <a-o>===</a-o> <a-s>'S'</a-s><a-p>)</a-p> <a-p>{</a-p>
+      <a-c>// softclip consumes query</a-c>
+      <a-c>// below gets the entire soft clipped portion</a-c>
+      <a-k>const</a-k> <a-v>softClipStr</a-v> <a-o>=</a-o> <a-v>readSeq</a-v><a-p>.</a-p><a-f>slice</a-f><a-p>(</a-p><a-v>qpos</a-v><a-p>,</a-p> <a-v>qpos</a-v> <a-o>+</a-o> <a-v>len</a-v><a-p>)</a-p>
+      <a-v>qpos</a-v> <a-o>+=</a-o> <a-v>len</a-v>
+    <a-p>}</a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>Note for example, that to determine how long a record is on the reference
 sequence, you have to combine the records start position with the CIGAR string,
@@ -631,44 +631,44 @@ basically parsing the CIGAR string to add up tpos and return tpos</p>
 from <code>FASTQ</code> to <code>CRAM</code> (and generate the index file .crai too)</p>
 <p>If you want, you can make this a little shell script, easy_align_shortreads.sh</p>
 <p>easy_align_shortreads.sh</p>
-<pre><code class="language-sh">#!/bin/bash
-minimap2 -t 8 -a -x sr "$1" "$2" "$3"  | \
-samtools fixmate -u -m - - | \
-samtools sort -u -@2 - | \
-samtools markdup -@8 --reference "$1" - --write-index "$4"
+<pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-co>-x</a-co> sr <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>3</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
+<a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>4</a-pr><a-s>"</a-s>
 </code></pre>
 <p>Similar idea for longreads, except just a single fastq file is generally used
 for longreads</p>
 <p>easy_align_longreads.sh</p>
-<pre><code class="language-sh">#!/bin/bash
-minimap2 -t 8 -a "$1" "$2"  | \
-samtools fixmate -u -m - - | \
-samtools sort -u -@2 - | \
-samtools markdup -@8 --reference "$1" - --write-index "$3"
+<pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
+<a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>3</a-pr><a-s>"</a-s>
 </code></pre>
 <p>Then call</p>
-<pre><code class="language-sh">bash easy_align_shortreads.sh ref.fa reads1.fq reads2.fq out.cram
-bash easy_align_longreads.sh ref.fa reads.fq out.cram
+<pre><code class="language-sh"><a-f>bash</a-f> easy_align_shortreads.sh ref.fa reads1.fq reads2.fq out.cram
+<a-f>bash</a-f> easy_align_longreads.sh ref.fa reads.fq out.cram
 
-## output BAM instead
-bash easy_align_shortreads.sh ref.fa reads1.fq reads2.fq out.bam
-bash easy_align_longreads.sh ref.fa reads.fq out.bam
+<a-c>## output BAM instead</a-c>
+<a-f>bash</a-f> easy_align_shortreads.sh ref.fa reads1.fq reads2.fq out.bam
+<a-f>bash</a-f> easy_align_longreads.sh ref.fa reads.fq out.bam
 </code></pre>
 <p>This same concept works with other common aligners as well like bwa</p>
 <p>Bonus: CRAM to bigwig, for looking at CNV/coverage</p>
-<pre><code class="language-sh">#!/bin/bash
-# quickalign.sh ref.fa 1.fq 2.fq out.cram
-# produces out.cram and out.bw
-samtools faidx $1
-minimap2 -t 8 -a -x sr "$1" "$2" "$3"  | \
-samtools fixmate -u -m - - | \
-samtools sort -u -@2 - | \
-samtools markdup -@8 --reference "$1" - --write-index "$4"
+<pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-c># quickalign.sh ref.fa 1.fq 2.fq out.cram</a-c>
+<a-c># produces out.cram and out.bw</a-c>
+<a-f>samtools</a-f> faidx <a-o>$</a-o><a-pr>1</a-pr>
+<a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-co>-x</a-co> sr <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>3</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
+<a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
+<a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>4</a-pr><a-s>"</a-s>
 
 
-mosdepth $4 -f $1 $4
-gunzip $4.per-base.bed.gz
-bedGraphToBigWig $4.per-base.bed $1.fa.fai $4.bw
+<a-f>mosdepth</a-f> <a-o>$</a-o><a-pr>4</a-pr> <a-co>-f</a-co> <a-o>$</a-o><a-pr>1</a-pr> <a-o>$</a-o><a-pr>4</a-pr>
+<a-f>gunzip</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed.gz
+<a-f>bedGraphToBigWig</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed <a-o>$</a-o><a-pr>1</a-pr>.fa.fai <a-o>$</a-o><a-pr>4</a-pr>.bw
 </code></pre>
 <p>Call as “quickalign.sh ref.fa 1.fq 2.fq out.cram” gives you out.cram,
 out.cram.crai, and out.cram.bw (coverage)</p>
@@ -695,15 +695,15 @@ comparing the read sequence with the reference, instead of relying on the <code>
 tag. (see Appendix B)</p>
 <h2 id="appendix-e-converting-between-sambamcram">Appendix E: Converting between SAM/BAM/CRAM</h2>
 <p>You can convert <code>SAM</code> to <code>BAM</code> with samtools</p>
-<pre><code class="language-sh">samtools view file.sam -o file.bam
+<pre><code class="language-sh"><a-f>samtools</a-f> view file.sam <a-co>-o</a-co> file.bam
 </code></pre>
 <p>You can also convert a <code>BAM</code> back to <code>SAM</code> with samtools view</p>
-<pre><code class="language-sh">samtools view -h file.bam -o file.sam
+<pre><code class="language-sh"><a-f>samtools</a-f> view <a-co>-h</a-co> file.bam <a-co>-o</a-co> file.sam
 </code></pre>
 <p>The -h just makes sure to preserve the header.</p>
 <p>If you are converting <code>SAM</code> to <code>CRAM</code>, it may require the -T argument to specify
 your reference sequence (this is because the <code>CRAM</code> is “reference compressed”)</p>
-<pre><code class="language-sh">samtools view -T reference.fa file.sam -o file.cram
+<pre><code class="language-sh"><a-f>samtools</a-f> view <a-co>-T</a-co> reference.fa file.sam <a-co>-o</a-co> file.cram
 </code></pre>
 <p>Note that in some cases you can pipe data directly from e.g. an aligner straight
 to CRAM. See Appendix C: piping FASTQ from <code>minimap2</code> directly to CRAM</p>

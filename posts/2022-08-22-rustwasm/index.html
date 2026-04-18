@@ -24,14 +24,14 @@ git init
 <h3 id="create-root-packagejson">Create root <code>package.json</code></h3>
 <p>Then put this in the monorepo’s root <code>package.json</code></p>
 <pre><code class="language-json">{
-  "private": true,
-  "workspaces": ["hello-wasm", "app"]
+  <a-s>"private"</a-s>: <a-co>true</a-co>,
+  <a-s>"workspaces"</a-s>: [<a-s>"hello-wasm"</a-s>, <a-s>"app"</a-s>]
 }
 </code></pre>
 <p>This sets our repo up as a “monorepo” with two “workspaces”. one will be the
 wasm code, in <code>hello-wasm</code>, one will be an instance of <code>create-react-app</code></p>
 <h3 id="add-a-create-react-app-instance-inside-the-monorepo">Add a <code>create-react-app</code> instance inside the monorepo</h3>
-<pre><code class="language-sh">npx create-react-app --template typescript app
+<pre><code class="language-sh"><a-f>npx</a-f> create-react-app <a-co>--template</a-co> typescript app
 </code></pre>
 <p>This will make an <code>app</code> subfolder inside our monorepo</p>
 <h3 id="download-the-hello-world-rust-wasm-bindgen-example-and-put-it-in-a-folder-named-hello-wasm">Download the hello world rust <code>wasm-bindgen</code> example and put it in a folder named <code>hello-wasm</code></h3>
@@ -41,19 +41,19 @@ to the hello-wasm folder</p>
 <a href="https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Frustwasm%2Fwasm-bindgen%2Ftree%2Fmain%2Fexamples%2Fhello_world">https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Frustwasm%2Fwasm-bindgen%2Ftree%2Fmain%2Fexamples%2Fhello_world</a></p>
 <h3 id="add-some-extra-fields-to-the-packagejson-in-the-hello-wasm-folder">Add some extra fields to the <code>package.json</code> in the <code>hello-wasm</code> folder</h3>
 <pre><code class="language-json">{
-  "name": "hello-wasm",
-  "version": "1.0.0",
-  "files": ["pkg"],
-  "main": "pkg/index.js"
+  <a-s>"name"</a-s>: <a-s>"hello-wasm"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"files"</a-s>: [<a-s>"pkg"</a-s>],
+  <a-s>"main"</a-s>: <a-s>"pkg/index.js"</a-s>
   ... rest
 }
 </code></pre>
 <h3 id="modify-the-hello-wasm-example-to-return-a-value-instead-of-making-an-alert">Modify the <code>hello-wasm</code> example to return a value instead of making an alert</h3>
 <p>I changed the rust code to return a String value instead of making an alert box</p>
-<pre><code class="language-rust">#[wasm_bindgen]
-pub fn greet(name: &#x26;str) -> String {
-    format!("Hello {}", name)
-}
+<pre><code class="language-rust"><a-at>#</a-at><a-p>[</a-p><a-at>wasm_bindgen</a-at><a-p>]</a-p>
+<a-k>pub</a-k> <a-k>fn</a-k> <a-f>greet</a-f><a-p>(</a-p><a-v>name</a-v><a-p>:</a-p> <a-o>&#x26;</a-o><a-t>str</a-t><a-p>)</a-p> -> <a-t>String</a-t> <a-p>{</a-p>
+    <a-m>format!</a-m><a-p>(</a-p><a-s>"Hello {}"</a-s><a-p>,</a-p> name<a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <h3 id="build-the-hello-wasm-pkg">Build the <code>hello-wasm</code> pkg</h3>
 <p>Go into the <code>hello-wasm</code> folder and run <code>yarn build</code>. This creates a directory
@@ -68,27 +68,27 @@ This will refer to our local monorepo’s rust wasm package!</p>
 the <code>create-react-app</code> to add extra <code>webpack</code> flags.</p>
 <p>So, <code>yarn add @craco/craco</code> in the app folder, then create this
 <code>craco.config.js</code></p>
-<pre><code class="language-js">module.exports = {
-  webpack: {
-    configure: config => {
-      const wasmExtensionRegExp = /\.wasm$/
-      config.resolve.extensions.push('.wasm')
-      config.experiments = {
-        syncWebAssembly: true,
-      }
+<pre><code class="language-js"><a-v>module</a-v><a-p>.</a-p><a-pr>exports</a-pr> <a-o>=</a-o> <a-p>{</a-p>
+  <a-pr>webpack</a-pr>: <a-p>{</a-p>
+    <a-f>configure</a-f>: <a-v>config</a-v> <a-o>=></a-o> <a-p>{</a-p>
+      <a-k>const</a-k> <a-v>wasmExtensionRegExp</a-v> <a-o>=</a-o> <a-o>/</a-o><a-s>\.wasm$</a-s><a-o>/</a-o>
+      <a-v>config</a-v><a-p>.</a-p><a-pr>resolve</a-pr><a-p>.</a-p><a-pr>extensions</a-pr><a-p>.</a-p><a-f>push</a-f><a-p>(</a-p><a-s>'.wasm'</a-s><a-p>)</a-p>
+      <a-v>config</a-v><a-p>.</a-p><a-pr>experiments</a-pr> <a-o>=</a-o> <a-p>{</a-p>
+        <a-pr>syncWebAssembly</a-pr>: <a-co>true</a-co><a-p>,</a-p>
+      <a-p>}</a-p>
 
-      config.module.rules.forEach(rule => {
-        ;(rule.oneOf || []).forEach(oneOf => {
-          if (oneOf.type === 'asset/resource') {
-            oneOf.exclude.push(wasmExtensionRegExp)
-          }
-        })
-      })
+      <a-v>config</a-v><a-p>.</a-p><a-pr>module</a-pr><a-p>.</a-p><a-pr>rules</a-pr><a-p>.</a-p><a-f>forEach</a-f><a-p>(</a-p><a-v>rule</a-v> <a-o>=></a-o> <a-p>{</a-p>
+        <a-p>;(</a-p><a-v>rule</a-v><a-p>.</a-p><a-pr>oneOf</a-pr> <a-o>||</a-o> <a-p>[]).</a-p><a-f>forEach</a-f><a-p>(</a-p><a-v>oneOf</a-v> <a-o>=></a-o> <a-p>{</a-p>
+          <a-k>if</a-k> <a-p>(</a-p><a-v>oneOf</a-v><a-p>.</a-p><a-pr>type</a-pr> <a-o>===</a-o> <a-s>'asset/resource'</a-s><a-p>)</a-p> <a-p>{</a-p>
+            <a-v>oneOf</a-v><a-p>.</a-p><a-pr>exclude</a-pr><a-p>.</a-p><a-f>push</a-f><a-p>(</a-p><a-v>wasmExtensionRegExp</a-v><a-p>)</a-p>
+          <a-p>}</a-p>
+        <a-p>})</a-p>
+      <a-p>})</a-p>
 
-      return config
-    },
-  },
-}
+      <a-k>return</a-k> <a-v>config</a-v>
+    <a-p>},</a-p>
+  <a-p>},</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>Note: this thread helped me to create the craco config
 <a href="https://github.com/Emurgo/cardano-serialization-lib/issues/295">https://github.com/Emurgo/cardano-serialization-lib/issues/295</a></p>
@@ -96,27 +96,27 @@ the <code>create-react-app</code> to add extra <code>webpack</code> flags.</p>
 <h3 id="final-step-use-async-import-to-import-the-hello-wasm-greeting">Final step: Use async <code>import()</code> to import the <code>hello-wasm</code> greeting</h3>
 <p>We use a <code>useEffect</code> hook to import the code asynchronously, and can call our
 rust function, <code>greet</code>, from javascript!</p>
-<pre><code class="language-tsx">function App() {
-  const [greeting, setGreeting] = useState&#x3C;string>()
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const wasm = await import('hello-wasm')
-        const greeting = wasm.greet('Colin')
-        setGreeting(greeting)
-      } catch (e) {
-        console.error(e)
-      }
-    })()
-  }, [])
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>greeting</a-v><a-p>,</a-p> <a-v>setGreeting</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>string</a-t><a-p>>()</a-p>
+  <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+      <a-k>try</a-k> <a-p>{</a-p>
+        <a-k>const</a-k> <a-v>wasm</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-k>import</a-k><a-p>(</a-p><a-s>'hello-wasm'</a-s><a-p>)</a-p>
+        <a-k>const</a-k> <a-v>greeting</a-v> <a-o>=</a-o> <a-v>wasm</a-v><a-p>.</a-p><a-f>greet</a-f><a-p>(</a-p><a-s>'Colin'</a-s><a-p>)</a-p>
+        <a-f>setGreeting</a-f><a-p>(</a-p><a-v>greeting</a-v><a-p>)</a-p>
+      <a-p>}</a-p> <a-k>catch</a-k> <a-p>(</a-p><a-v>e</a-v><a-p>)</a-p> <a-p>{</a-p>
+        <a-v>console</a-v><a-p>.</a-p><a-f>error</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
+      <a-p>}</a-p>
+    <a-p>})()</a-p>
+  <a-p>},</a-p> <a-p>[])</a-p>
 
-  return (
-    &#x3C;div>
-      &#x3C;h1>rust monorepo wasm demo&#x3C;/h1>
-      &#x3C;h2>Greeting from wasm: {!greeting ? 'Loading...' : greeting}&#x3C;/h2>
-    &#x3C;/div>
-  )
-}
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h1</a-tg><a-p>></a-p><a-s>rust monorepo wasm demo</a-s><a-p>&#x3C;/</a-p><a-tg>h1</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>h2</a-tg><a-p>></a-p><a-s>Greeting from wasm: </a-s><a-p>{</a-p><a-o>!</a-o><a-v>greeting</a-v> ? <a-s>'Loading...'</a-s> : <a-v>greeting</a-v><a-p>}&#x3C;/</a-p><a-tg>h2</a-tg><a-p>></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>In order to greet an arbitrary person, I modified this slightly in the live
 demo. See

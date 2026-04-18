@@ -32,49 +32,49 @@ useEffect! don’t you know?
 (<a href="https://react.dev/learn/you-might-not-need-an-effect">You Might Not Need an Effect</a>)</p>
 <p>Sometimes you just do though. Ok moving on</p>
 <p>Let’s see what eslint-plugin-react-hooks can help catch</p>
-<pre><code class="language-typescript">useEffect(() => {}, [new Number(94)])
+<pre><code class="language-typescript"><a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{},</a-p> <a-p>[</a-p><a-k>new</a-k> <a-t>Number</a-t><a-p>(</a-p><a-n>94</a-n><a-p>)])</a-p>
 </code></pre>
 <p>This produces</p>
 <pre><code>  warning  React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked  react-hooks/exhaustive-deps
 
 </code></pre>
 <p>What about</p>
-<pre><code class="language-typescript">const num = new Number(94)
-useEffect(() => {}, [num])
+<pre><code class="language-typescript"><a-k>const</a-k> <a-v>num</a-v> <a-o>=</a-o> <a-k>new</a-k> <a-t>Number</a-t><a-p>(</a-p><a-n>94</a-n><a-p>)</a-p>
+<a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{},</a-p> <a-p>[</a-p><a-v>num</a-v><a-p>])</a-p>
 </code></pre>
 <p>This says</p>
 <pre><code>  warning  The 'num' object construction makes the dependencies of useEffect Hook (at line 11) change on every render. Move it inside the useEffect callback. Alternatively, wrap the initialization of 'num' in its own useMemo() Hook  react-hooks/exhaustive-deps
 </code></pre>
 <p>But what about…</p>
-<pre><code class="language-tsx">import { useEffect, useState } from 'react'
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useEffect</a-v><a-p>,</a-p> <a-v>useState</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
-interface User {
-  id: string
-  name: string
-}
+<a-k>interface</a-k> <a-t>User</a-t> <a-p>{</a-p>
+  <a-pr>id</a-pr>: <a-t>string</a-t>
+  <a-pr>name</a-pr>: <a-t>string</a-t>
+<a-p>}</a-p>
 
-function useFetchUsers(params: { role: string; active: boolean }) {
-  const [users, setUsers] = useState&#x3C;User[]>([])
-  useEffect(() => {
-    fetch(`/api/users?role=${params.role}&#x26;active=${params.active}`)
-      .then(r => r.json())
-      .then(setUsers)
-  }, [params])
-  return users
-}
+<a-k>function</a-k> <a-f>useFetchUsers</a-f><a-p>(</a-p><a-v>params</a-v>: <a-p>{</a-p> <a-pr>role</a-pr>: <a-t>string</a-t><a-p>;</a-p> <a-pr>active</a-pr>: <a-t>boolean</a-t> <a-p>})</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>users</a-v><a-p>,</a-p> <a-v>setUsers</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>User</a-t><a-p>[]>([])</a-p>
+  <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-f>fetch</a-f><a-p>(</a-p><a-s>`/api/users?role=</a-s><a-p>${</a-p><a-v>params</a-v><a-p>.</a-p><a-pr>role</a-pr><a-p>}</a-p><a-s>&#x26;active=</a-s><a-p>${</a-p><a-v>params</a-v><a-p>.</a-p><a-pr>active</a-pr><a-p>}</a-p><a-s>`</a-s><a-p>)</a-p>
+      <a-p>.</a-p><a-f>then</a-f><a-p>(</a-p><a-v>r</a-v> <a-o>=></a-o> <a-v>r</a-v><a-p>.</a-p><a-f>json</a-f><a-p>())</a-p>
+      <a-p>.</a-p><a-f>then</a-f><a-p>(</a-p><a-v>setUsers</a-v><a-p>)</a-p>
+  <a-p>},</a-p> <a-p>[</a-p><a-v>params</a-v><a-p>])</a-p>
+  <a-k>return</a-k> <a-v>users</a-v>
+<a-p>}</a-p>
 
-function UserList() {
-  const users = useFetchUsers({ role: 'admin', active: true })
-  return (
-    &#x3C;ul>
-      {users.map(u => (
-        &#x3C;li key={u.id}>{u.name}&#x3C;/li>
-      ))}
-    &#x3C;/ul>
-  )
-}
+<a-k>function</a-k> <a-t>UserList</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>const</a-k> <a-v>users</a-v> <a-o>=</a-o> <a-f>useFetchUsers</a-f><a-p>({</a-p> <a-pr>role</a-pr>: <a-s>'admin'</a-s><a-p>,</a-p> <a-pr>active</a-pr>: <a-co>true</a-co> <a-p>})</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>ul</a-tg><a-p>></a-p>
+      <a-p>{</a-p><a-v>users</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>u</a-v> <a-o>=></a-o> <a-p>(</a-p>
+        <a-p>&#x3C;</a-p><a-tg>li</a-tg> <a-at>key</a-at><a-o>=</a-o><a-p>{</a-p><a-v>u</a-v><a-p>.</a-p><a-pr>id</a-pr><a-p>}>{</a-p><a-v>u</a-v><a-p>.</a-p><a-pr>name</a-pr><a-p>}&#x3C;/</a-p><a-tg>li</a-tg><a-p>></a-p>
+      <a-p>))}</a-p>
+    <a-p>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
+<a-p>}</a-p>
 
-export default UserList
+<a-k>export</a-k> <a-k>default</a-k> <a-t>UserList</a-t>
 </code></pre>
 <p>This is an infinite loop because <code>{ role: 'admin', active: true }</code> creates a new
 object on every render, and we are not informed by the lint rule because the

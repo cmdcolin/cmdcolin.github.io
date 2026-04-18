@@ -16,10 +16,10 @@ the word PRD…So wtf is it?</p>
 <h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a TODO list</h2>
 <p>Your “PRD” can just be a markdown file (e.g. <code>PRD.md</code>) with checkboxes like a
 normal TODO list:</p>
-<pre><code class="language-markdown">- Add priority column to tasks table
-- Show priority badge on task cards
-- Add priority selector to task edit modal
-- Filter tasks by priority, persist in URL
+<pre><code class="language-markdown"><a-p>- </a-p>Add priority column to tasks table
+<a-p>- </a-p>Show priority badge on task cards
+<a-p>- </a-p>Add priority selector to task edit modal
+<a-p>- </a-p>Filter tasks by priority, persist in URL
 </code></pre>
 <p>But here is the key: you are going to let the AI to both read and write your
 TODO list.</p>
@@ -62,12 +62,12 @@ this, and was juggling a lot of separate agent sessions.</p>
 <p>This method helps with that. Hence, “Maximizing agentic coding”.</p>
 <h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
 <p>For reference the Ralph loop is a bash script like this</p>
-<pre><code class="language-bash">while true; do
-  OUTPUT=$(claude --dangerously-skip-permissions --print &#x3C; CLAUDE.md)
-  if echo "$OUTPUT" | grep -q "&#x3C;promise>COMPLETE&#x3C;/promise>"; then
-    exit 0
-  fi
-done
+<pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
+  <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
+  <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
+    <a-f>exit</a-f> 0
+  <a-k>fi</a-k>
+<a-k>done</a-k>
 </code></pre>
 <p>so it’s a bash loop that just keeps running Claude until the literal string
 <code>&#x3C;promise>COMPLETE&#x3C;/promise></code> is found in the output via grep and then, the
