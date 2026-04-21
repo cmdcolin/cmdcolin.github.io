@@ -13,14 +13,14 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.3",
+    "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "3.7.2",
-    "astro": "^6.1.5",
-    "feed": "^5.2.0",
+    "astro": "^6.1.9",
+    "feed": "^5.2.1",
     "hast-util-to-string": "^3.0.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "typescript": "^6.0.2",
+    "typescript": "^6.0.3",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
@@ -28,11 +28,11 @@
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.2.0",
+    "eslint": "^10.2.1",
     "eslint-plugin-astro": "^1.7.0",
     "eslint-plugin-unicorn": "^64.0.0",
     "gh-pages": "^6.3.0",
-    "prettier": "^3.8.2",
-    "typescript-eslint": "^8.58.2"
+    "prettier": "^3.8.3",
+    "typescript-eslint": "^8.59.0"
   }
 }
