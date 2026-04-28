@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 const post = await getPostById(id);
-const Content = post.default as any;
+const Content = post.default;
 ---
 
 <Layout title={post.title}>
