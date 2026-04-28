@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.9"><title>The React tutorial I wish I had</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>The React tutorial I wish I had</h1> <h4 data-astro-cid-lvjzyg5v>2022-11-20</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>When I was learning React, I found it very challenging, and my eyes would glaze
-over any time I tried to learn</p>
+over any time I tried to learn it.</p>
 <p>Here is a short tutorial that could help you get started. Ultimately, for me,
 sitting down with a book was what finally helped me, but this blogpost aims to
 be a sort of TLDR for certain concepts.</p>
@@ -33,18 +33,20 @@ components in your page</p>
 <h3 id="how-do-these-components-get-rendered-to-html">How do these components get rendered to HTML?</h3>
 <p>Typically, just once in your app, you use ReactDOM to render the “App” level
 component to the page.</p>
-<pre><code class="language-tsx"><a-k>import</a-k> <a-t>ReactDOM</a-t> <a-k>from</a-k> <a-s>'react-dom'</a-s>
+<pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>createRoot</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react-dom/client'</a-s>
 
-<a-t>ReactDOM</a-t><a-p>.</a-p><a-f>render</a-f><a-p>(&#x3C;</a-p><a-cr>App</a-cr> <a-p>/>,</a-p> <a-v>document</a-v><a-p>.</a-p><a-f>getElementById</a-f><a-p>(</a-p><a-s>'root'</a-s><a-p>))</a-p>
+<a-f>createRoot</a-f><a-p>(</a-p><a-v>document</a-v><a-p>.</a-p><a-f>getElementById</a-f><a-p>(</a-p><a-s>'root'</a-s><a-p>)).</a-p><a-f>render</a-f><a-p>(&#x3C;</a-p><a-cr>App</a-cr> <a-p>/>)</a-p>
 </code></pre>
 <p>And in your index.html you have e.g.</p>
 <pre><code class="language-html"><a-co>&#x3C;!doctype html</a-co><a-p>></a-p>
 <a-p>&#x3C;</a-p><a-tg>html</a-tg><a-p>></a-p>
   <a-p>&#x3C;</a-p><a-tg>body</a-tg><a-p>></a-p>
-    <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>id</a-at>="<a-s>root</a-s>" <a-p>/></a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>id</a-at>="<a-s>root</a-s>"<a-p>>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>&#x3C;/</a-p><a-tg>body</a-tg><a-p>></a-p>
 <a-p>&#x3C;/</a-p><a-tg>html</a-tg><a-p>></a-p>
 </code></pre>
+<p>The index.html guarantees that the document.getElementById(‘root’) succeeds, and
+then react renders the ‘App’ component into this div</p>
 <h3 id="accepting-parameters-to-your-components">Accepting parameters to your components</h3>
 <p>React components can accept “props” which are like parameters to your component</p>
 <pre><code class="language-jsx"><a-k>function</a-k> <a-cr>Hello</a-cr><a-p>(</a-p><a-v>props</a-v><a-p>)</a-p> <a-p>{</a-p>
@@ -84,38 +86,31 @@ requires some extra steps to get JSX to compile which is often done by babel. I
 will not cover a minimal React setup here, but I will recommend a couple setups
 that make it easy for starting out.</p>
 <ul>
-<li>Use <code>create-react-app</code>. You run <code>npx create-react-app yourapp</code> on your command
-line, this creates a folder named <code>yourapp</code> on your computer, and then you
-<code>cd yourapp</code> to go into that directory and run <code>npm run start</code>. This starts a
-“dev server” that runs at <a href="http://localhost:3000">http://localhost:3000</a>, and you can then change the
-js files, and the results are instantly updated in your web browser</li>
-<li>CodeSandbox: this is a 100% web based IDE that you can use to experiment with
-React or other toolkits, visit <a href="https://codesandbox.io">https://codesandbox.io</a> and run “Create” and
-then click “React app”, this is the React app that it creates
-<a href="https://codesandbox.io/s/cool-moon-7x96jk">https://codesandbox.io/s/cool-moon-7x96jk</a></li>
+<li>
+<p>Use <code>vite</code>. You run <code>npm create vite@latest</code> on your command line, follow the
+steps to create a react app (with or without typescript). Then it starts a
+“dev server” at <a href="http://localhost:5173">http://localhost:5173</a>, and you can then change files, and the
+results are instantly updated in your web browser</p>
+</li>
+<li>
+<p>If you don’t want to run commands on your computer, try CodeSandbox: this is a
+100% web based IDE that you can use to experiment with React or other
+toolkits, visit <a href="https://codesandbox.io">https://codesandbox.io</a> and run “Create” and then click “React
+app”, this is the React app that it creates
+<a href="https://codesandbox.io/s/cool-moon-7x96jk">https://codesandbox.io/s/cool-moon-7x96jk</a> (note that there are many others
+like this like stackblitz, etc also)</p>
+</li>
 </ul>
-<p>If you are trying to incorporate React into a legacy or existing project, then I
-encourage you to experiment in these starter kit environments first. It can be
-difficult to bolt on React to an existing environment in some ways and
-understanding the basics will help.</p>
+<p>IMPORTANT! If you are trying to incorporate React into a legacy or existing
+project, then I encourage you to not bring in any legacy baggage in your brain.
+come into this with an open mind and just experiment in these starter kit
+environments first.</p>
+<p>It can be difficult to bolt on React to your existing mental model and existing
+legacy apps. Just approaching it fresh to learn the basics will help.</p>
 <h3 id="conclusion">Conclusion</h3>
 <p>I hope this helps you get started with React, let me know if you have any
 questions.</p>
-<h3 id="footnote-1-class-based-components">Footnote 1. Class based components</h3>
-<p>In the old days, React used “class based components”, here is the Hello world
-example as a class based component</p>
-<pre><code class="language-tsx"><a-k>class</a-k> <a-t>HelloWorld</a-t> <a-p>{</a-p>
-  <a-f>render</a-f><a-p>()</a-p> <a-p>{</a-p>
-    <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello world!</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
-  <a-p>}</a-p>
-<a-p>}</a-p>
-</code></pre>
-<p>The class based components had other “lifecycle functions” like
-“componentDidMount” and such that do not exist in function based components. In
-function components, React hooks are used instead.</p>
-<p>You will probably mostly see function components instead of class based
-components these days</p>
-<h3 id="footnote-2-how-is-this-html-allowed-in-react">Footnote 2. How is this HTML allowed in React?</h3>
+<h3 id="footnote-1-how-is-this-html-allowed-in-react">Footnote 1. How is this HTML allowed in React?</h3>
 <p>The HTML-like syntax may look odd in JS code. It is called JSX. So code like
 this:</p>
 <pre><code class="language-tsx"><a-k>function</a-k> <a-t>HelloWorld</a-t><a-p>()</a-p> <a-p>{</a-p>
@@ -129,34 +124,40 @@ this:</p>
 <a-p>}</a-p>
 </code></pre>
 <p>It’s not common to write React without jsx, but as seen above, it can be done :)</p>
-<h3 id="footnote-3-slightly-changed-in-react-18">Footnote 3. Slightly changed in React 18</h3>
-<p>React 18 uses <code>createRoot</code> instead of <code>ReactDOM.render</code> and is a little bit more
-verbose, but I’m going for brevity here</p>
-<h3 id="footnote-4-things-that-sometimes-complicate-your-react-learning-experience">Footnote 4. Things that sometimes complicate your React learning experience</h3>
-<p>The React learning experience, when it’s good, is quite nice. But there can be
-many roadblocks</p>
+<h3 id="footnote-2-there-are-many-things-that-can-complicate-your-react-learning-experience">Footnote 2. There are many things that can complicate your React learning experience</h3>
+<p>The React learning experience, when it’s good, is quite nice. Many people find
+react ‘easy to learn’. But there can be many roadblocks</p>
 <ul>
 <li>
 <p>You can be bogged down by many different sometimes conflicted learning
-resources - The new docs at <a href="https://react.dev">https://react.dev</a> should make the learning
-experience better.</p>
+resources - The new docs at <a href="https://react.dev">https://react.dev</a> ideally make the learning
+experience better but honestly, it’s still a web based resource, and it is
+easy to get distracted on ye olde’ internet</p>
 </li>
 <li>
 <p>You can be bogged down by the difficulty in setting up your dev environment -
-the need to get transpilers and compilers for the JSX syntax and such is not
-easy, and has led to an explosion of developer tooling that often needs to be
-run on the command line to do any sort of programming for the web. This is an
-unfortunate consequence of the web becoming more complicated. Learning to be
-comfortable with the command line is often an important stepping stone to
-becoming comfortable with modern JS dev tooling.</p>
+as I mentioned above the ‘just choose vite’ is often a good choice for single
+page apps these days. It is much less of a wild west than when I learned
+in 2018. But understanding that there are transpilers for the JSX syntax and
+such is not easy, and often runs on the command line so learning the command
+line is often an important stepping stone to becoming comfortable with modern
+JS dev tooling.</p>
 </li>
 <li>
-<p>You can be bogged down by “tangential” concepts like state management</p>
+<p>You can be bogged down by the many “tangential” concepts that complicate the
+modern web like state management, hooks, async/await, ESM modules, etc. there
+is a steep learning curve and it just takes time to develop an intuition for
+them.</p>
 </li>
 <li>
 <p>React codebases often use newer features of javascript like destructuring,
 which can be confusing for newcomers (“Why does this function have curly
-braces in the place of the arguments?”)</p>
+braces in the place of the function arguments?“…that is modern
+‘destructuring’ syntax in javascript. So instead of
+<code>function MyComponent(props) { return &#x3C;div>{props.name}&#x3C;/div> }</code> React
+components generally say
+<code>function MyComponent({name}) { return &#x3C;div>{name}&#x3C;/div> }</code> even though the
+two are equivalent</p>
 </li>
 <li>
 <p>You can be confused by weird concepts like “controlled” components (and how
@@ -164,26 +165,42 @@ React hooks like useState integrate with these)</p>
 </li>
 <li>
 <p>You can be bogged down by Typescript or PropTypes - When I was learning React,
-I was confused by PropTypes in code. PropTypes are fully optional though, and
-are just used to check the types of props at runtime. TypeScript can be tricky
-also, and does type checking at “compile time”</p>
+the concept of ‘prop-types’ was very common
+(<a href="https://legacy.reactjs.org/docs/typechecking-with-proptypes.html">https://legacy.reactjs.org/docs/typechecking-with-proptypes.html</a>). PropTypes
+are fully optional though, and are just used to check the types of props at
+runtime. Most modern React instead uses compile time checking with TypeScript
+now, but TypeScript can be tricky also</p>
 </li>
 </ul>
-<h3 id="footnote-5-brief-intro-to-usestate">Footnote 5. Brief intro to useState</h3>
-<p>The component HelloWorld does not do much, it just does a div. How do you make
-dynamic content in React? One way is with React hooks like useState and
-useEffect.</p>
+<h3 id="footnote-3-brief-intro-to-the-usestate-hook">Footnote 3. Brief intro to the useState hook</h3>
+<p>The component HelloWorld does not do much, it just renders a simple <code>div</code>. How
+do you make dynamic content in React? One way is with React hooks like useState
+and useEffect.</p>
 <pre><code class="language-tsx"><a-k>function</a-k> <a-t>FormField</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-k>const</a-k> <a-p>[</a-p><a-v>value</a-v><a-p>,</a-p> <a-v>setValue</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-s>'Initial value'</a-s><a-p>)</a-p>
-  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>input</a-tg> <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p> <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>evt</a-v> <a-o>=></a-o> <a-f>setValue</a-f><a-p>(</a-p><a-v>evt</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p> <a-p>/></a-p>
+  <a-k>const</a-k> <a-p>[</a-p><a-v>clicked</a-v><a-p>,</a-p> <a-v>setClicked</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>(</a-p><a-co>false</a-co><a-p>)</a-p>
+  <a-k>return</a-k> <a-p>(</a-p>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>input</a-tg> <a-at>value</a-at><a-o>=</a-o><a-p>{</a-p><a-v>value</a-v><a-p>}</a-p> <a-at>onChange</a-at><a-o>=</a-o><a-p>{</a-p><a-v>evt</a-v> <a-o>=></a-o> <a-f>setValue</a-f><a-p>(</a-p><a-v>evt</a-v><a-p>.</a-p><a-pr>target</a-pr><a-p>.</a-p><a-pr>value</a-pr><a-p>)}</a-p> <a-p>/></a-p>
+      <a-p>&#x3C;</a-p><a-tg>button</a-tg> <a-at>onClick</a-at><a-o>=</a-o><a-p>{()</a-p> <a-o>=></a-o> <a-f>setClicked</a-f><a-p>(</a-p><a-co>true</a-co><a-p>)}></a-p><a-s>Click me</a-s><a-p>&#x3C;/</a-p><a-tg>button</a-tg><a-p>></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
-<p>This is a ‘controlled component’ in React terms: we control the value that is
-displayed by the <code>&#x3C;input></code> box with the ‘value prop’ and any time the user types
-something, we run the setValue callback, and then it re-renders. Any time a
-‘setter’ from the useState is called, React re-renders the component.</p>
-<h3 id="footnote-6-brief-intro-to-useeffect">Footnote 6. Brief intro to useEffect</h3>
-<p>The useEffect method can be thought of as saying: “as a side effect of rendering
+<p>This adds ‘state’ to the component. Specifically, when the user types in the
+input box, that makes your component (the function) re-run, or “re-render”.
+Then, notably, the new value that the user typed is passed back into the ‘value’
+in the input box, which is actually the value displayed in the input box.</p>
+<p>This is called a ‘controlled component’ in React terms: we control the value
+that is displayed by the <code>&#x3C;input></code> box with the ‘value prop’ and any time the
+user types something, we run the setValue callback, and then it re-renders. Any
+time a ‘setter’ from the useState is called, React re-renders the component.</p>
+<p>There are also uncontrolled components, but it is worth understanding the
+controlled component perspective to see how just typing a letter in the input
+box causes a re-render. That makes your app suddenly more dynamic and ‘reactive’
+to a users typing or button presses, etc.</p>
+<h3 id="footnote-4-brief-intro-to-useeffect">Footnote 4. Brief intro to useEffect</h3>
+<p>The useEffect hook can be thought of as saying: “as a side effect of rendering
 the component, do some stuff”. You can use it to fetch data from an API for
 example, and so you’d say “as a side effect of rendering this component, go
 fetch some data from this API”. Then you can combine it with a useState and make
@@ -212,7 +229,7 @@ it re-render after the fetch has completed.</p>
         <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
       <a-p>}</a-p>
     <a-p>})()</a-p>
-  <a-p>})</a-p>
+  <a-p>},</a-p> <a-p>[])</a-p>
   <a-k>if</a-k> <a-p>(</a-p><a-v>data</a-v><a-p>)</a-p> <a-p>{</a-p>
     <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Got some data </a-s><a-p>{</a-p><a-t>JSON</a-t><a-p>.</a-p><a-f>stringify</a-f><a-p>(</a-p><a-v>data</a-v><a-p>)}&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>}</a-p> <a-k>else</a-k> <a-k>if</a-k> <a-p>(</a-p><a-v>error</a-v><a-p>)</a-p> <a-p>{</a-p>
@@ -221,7 +238,25 @@ it re-render after the fetch has completed.</p>
     <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Loading...</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>}</a-p>
 <a-p>}</a-p>
-</code></pre> </div> <div id="giscus"></div> <script>
+</code></pre>
+<p>Notably, instead of manually doing this, many people use a pre-made ‘hook
+library’ like ‘react-query’ or ‘swr’ <a href="https://tanstack.com/query/latest">https://tanstack.com/query/latest</a>
+<a href="https://swr.vercel.app/">https://swr.vercel.app/</a> which automatically helps with handling aborting,
+caching, and other things like that regarding async fetch behavior</p>
+<h3 id="footnote-5-class-based-components">Footnote 5. Class based components</h3>
+<p>In the old days, React used “class based components”, here is the Hello world
+example as a class based component</p>
+<pre><code class="language-tsx"><a-k>class</a-k> <a-t>HelloWorld</a-t> <a-k>extends</a-k> <a-t>React</a-t><a-p>.</a-p><a-pr>Component</a-pr> <a-p>{</a-p>
+  <a-f>render</a-f><a-p>()</a-p> <a-p>{</a-p>
+    <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello world!</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
+  <a-p>}</a-p>
+<a-p>}</a-p>
+</code></pre>
+<p>The class based components had other “lifecycle functions” like
+“componentDidMount” and such that do not exist in function based components. In
+function components, React hooks are used instead.</p>
+<p>You will probably mostly see function components instead of class based
+components these days</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
