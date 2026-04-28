@@ -4,7 +4,7 @@ date: 2022-11-20T00:00:00.000Z
 ---
 
 When I was learning React, I found it very challenging, and my eyes would glaze
-over any time I tried to learn
+over any time I tried to learn it.
 
 Here is a short tutorial that could help you get started. Ultimately, for me,
 sitting down with a book was what finally helped me, but this blogpost aims to
@@ -14,11 +14,14 @@ be a sort of TLDR for certain concepts.
 
 Here is a "React component" that prints hello world in a div
 
-```jsx
+```tsx
 function HelloWorld() {
   return <div>Hello world!</div>
 }
 ```
+
+The HTML-like syntax inside JS is called JSX (see appendix below for how it
+works).
 
 I like to think of React components as "functions that return HTML". That is an
 oversimplification, but it can be a helpful thinking tool to help you get
@@ -32,7 +35,7 @@ combine them together.
 For example, we can create a component named "App" that uses our "HelloWorld"
 component
 
-```jsx
+```tsx
 function App() {
   return (
     <div>
@@ -52,9 +55,9 @@ Typically, just once in your app, you use ReactDOM to render the "App" level
 component to the page.
 
 ```tsx
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+createRoot(document.getElementById('root')).render(<App />)
 ```
 
 And in your index.html you have e.g.
@@ -63,16 +66,19 @@ And in your index.html you have e.g.
 <!doctype html>
 <html>
   <body>
-    <div id="root" />
+    <div id="root"></div>
   </body>
 </html>
 ```
+
+The index.html guarantees that the document.getElementById('root') succeeds, and
+then react renders the 'App' component into this div
 
 ### Accepting parameters to your components
 
 React components can accept "props" which are like parameters to your component
 
-```jsx
+```tsx
 function Hello(props) {
   const name = props.name
   return <div>Hello {name}!</div>
@@ -81,7 +87,7 @@ function Hello(props) {
 
 We then pass props using HTML like attributes
 
-```jsx
+```tsx
 function App() {
   return (
     <div>
@@ -98,7 +104,7 @@ This will print "Hello Colin!"
 The `{name}` inside the div is a little snippet of plain-JS code. It can be used
 to do more complicated things. For example you can render a list of items
 
-```jsx
+```tsx
 function List() {
   const list = ['Apples', 'Oranges', 'Pears']
   return (
@@ -111,60 +117,51 @@ function List() {
 }
 ```
 
-Inside the "list" each item has a key prop that is specified. See
-https://react.dev/learn/rendering-lists for more discussion on this
+Inside the "list" each item has a key prop that is specified. See the appendix
+below for why keys are needed, and https://react.dev/learn/rendering-lists for
+more discussion
 
 ### How do I use React in my own app?
 
 Commonly, React is downloaded from npm using your package manager, but often
-requires some extra steps to get JSX to compile which is often done by babel. I
+requires some extra steps to get JSX to compile, which is often done by Babel. I
 will not cover a minimal React setup here, but I will recommend a couple setups
 that make it easy for starting out.
 
-- Use `create-react-app`. You run `npx create-react-app yourapp` on your command
-  line, this creates a folder named `yourapp` on your computer, and then you
-  `cd yourapp` to go into that directory and run `npm run start`. This starts a
-  "dev server" that runs at http://localhost:3000, and you can then change the
-  js files, and the results are instantly updated in your web browser
-- CodeSandbox: this is a 100% web based IDE that you can use to experiment with
-  React or other toolkits, visit https://codesandbox.io and run "Create" and
-  then click "React app", this is the React app that it creates
-  https://codesandbox.io/s/cool-moon-7x96jk
+- Use `vite`. You run `npm create vite@latest` on your command line, follow the
+  steps to create a React app (with or without TypeScript). Then it starts a
+  "dev server" at http://localhost:5173, and you can then change files, and the
+  results are instantly updated in your web browser
 
-If you are trying to incorporate React into a legacy or existing project, then I
-encourage you to experiment in these starter kit environments first. It can be
-difficult to bolt on React to an existing environment in some ways and
-understanding the basics will help.
+- If you don't want to run commands on your computer, try CodeSandbox: this is a
+  100% web-based IDE that you can use to experiment with React or other
+  toolkits, visit https://codesandbox.io and run "Create" and then click "React
+  app", this is the React app that it creates
+  https://codesandbox.io/s/cool-moon-7x96jk (note that there are many others
+  like this like StackBlitz, etc. also)
+
+IMPORTANT! If you are trying to incorporate React into a legacy or existing
+project, then I encourage you to not bring in any legacy baggage in your brain.
+Come into this with an open mind and just experiment in these starter kit
+environments first.
+
+It can be difficult to bolt on React to your existing mental model and existing
+legacy apps. Just approaching it fresh to learn the basics will help.
 
 ### Conclusion
 
 I hope this helps you get started with React, let me know if you have any
 questions.
 
-### Footnote 1. Class based components
+### Appendix: Why list items need keys
 
-In the old days, React used "class based components", here is the Hello world
-example as a class based component
+Keys help React identify which items in a list changed, were added, or were
+removed. Without them, React would have to re-render the entire list on every
+update instead of updating only the affected items.
 
-```tsx
-class HelloWorld {
-  render() {
-    return <div>Hello world!</div>
-  }
-}
-```
+### Appendix: JSX explained
 
-The class based components had other "lifecycle functions" like
-"componentDidMount" and such that do not exist in function based components. In
-function components, React hooks are used instead.
-
-You will probably mostly see function components instead of class based
-components these days
-
-### Footnote 2. How is this HTML allowed in React?
-
-The HTML-like syntax may look odd in JS code. It is called JSX. So code like
-this:
+The HTML-like syntax may look odd in JS code. So code like this:
 
 ```tsx
 function HelloWorld() {
@@ -172,7 +169,7 @@ function HelloWorld() {
 }
 ```
 
-would get converted to this by babel or other jsx transpiler:
+would get converted to this by Babel or another JSX transpiler:
 
 ```js
 function HelloWorld() {
@@ -181,73 +178,101 @@ function HelloWorld() {
 }
 ```
 
-It's not common to write React without jsx, but as seen above, it can be done :)
+It's not common to write React without JSX, but as seen above, it can be done :)
 
-### Footnote 3. Slightly changed in React 18
+### Appendix: Common learning pitfalls
 
-React 18 uses `createRoot` instead of `ReactDOM.render` and is a little bit more
-verbose, but I'm going for brevity here
-
-### Footnote 4. Things that sometimes complicate your React learning experience
-
-The React learning experience, when it's good, is quite nice. But there can be
-many roadblocks
+The React learning experience, when it's good, is quite nice. Many people find
+react 'easy to learn'. But there can be many roadblocks
 
 - You can be bogged down by many different sometimes conflicted learning
-  resources - The new docs at https://react.dev should make the learning
-  experience better.
+  resources - The new docs at https://react.dev ideally make the learning
+  experience better but honestly, it's still a web based resource, and it is
+  easy to get distracted on ye olde' internet
 
 - You can be bogged down by the difficulty in setting up your dev environment -
-  the need to get transpilers and compilers for the JSX syntax and such is not
-  easy, and has led to an explosion of developer tooling that often needs to be
-  run on the command line to do any sort of programming for the web. This is an
-  unfortunate consequence of the web becoming more complicated. Learning to be
-  comfortable with the command line is often an important stepping stone to
-  becoming comfortable with modern JS dev tooling.
+  as I mentioned above the 'just choose vite' is often a good choice for single
+  page apps these days. It is much less of a wild west than when I learned
+  in 2018. But understanding that there are transpilers for the JSX syntax and
+  such is not easy, and often runs on the command line so learning the command
+  line is often an important stepping stone to becoming comfortable with modern
+  JS dev tooling.
 
-- You can be bogged down by "tangential" concepts like state management
+- You can be bogged down by the many "tangential" concepts that complicate the
+  modern web like state management, hooks, async/await, ESM modules, etc. there
+  is a steep learning curve and it just takes time to develop an intuition for
+  them.
 
 - React codebases often use newer features of javascript like destructuring,
   which can be confusing for newcomers ("Why does this function have curly
-  braces in the place of the arguments?")
+  braces in the place of the function arguments?"...that is modern
+  'destructuring' syntax in javascript. So instead of
+  `function MyComponent(props) { return <div>{props.name}</div> }` React
+  components generally say
+  `function MyComponent({name}) { return <div>{name}</div> }` even though the
+  two are equivalent
 
 - You can be confused by weird concepts like "controlled" components (and how
-  React hooks like useState integrate with these)
+  React hooks like useState integrate with these) — see the useState appendix
+  below for an intro
 
 - You can be bogged down by Typescript or PropTypes - When I was learning React,
-  I was confused by PropTypes in code. PropTypes are fully optional though, and
-  are just used to check the types of props at runtime. TypeScript can be tricky
-  also, and does type checking at "compile time"
+  the concept of 'prop-types' was very common
+  (https://legacy.reactjs.org/docs/typechecking-with-proptypes.html). PropTypes
+  are fully optional though, and are just used to check the types of props at
+  runtime. Most modern React instead uses compile time checking with TypeScript
+  now, but TypeScript can be tricky also
 
-### Footnote 5. Brief intro to useState
+### Appendix: useState
 
-The component HelloWorld does not do much, it just does a div. How do you make
-dynamic content in React? One way is with React hooks like useState and
-useEffect.
+The component HelloWorld does not do much, it just renders a simple `div`. How
+do you make dynamic content in React? One way is with React hooks like useState
+and useEffect.
 
 ```tsx
+import { useState } from 'react'
+
 function FormField() {
   const [value, setValue] = useState('Initial value')
-  return <input value={value} onChange={evt => setValue(evt.target.value)} />
+  const [clicked, setClicked] = useState(false)
+  return (
+    <div>
+      <input value={value} onChange={evt => setValue(evt.target.value)} />
+      <button onClick={() => setClicked(true)}>Click me</button>
+      {clicked ? <p>You clicked the button!</p> : null}
+      <div>Current value: {value}</div>
+    </div>
+  )
 }
 ```
 
-This is a 'controlled component' in React terms: we control the value that is
-displayed by the `<input>` box with the 'value prop' and any time the user types
-something, we run the setValue callback, and then it re-renders. Any time a
-'setter' from the useState is called, React re-renders the component.
+This adds 'state' to the component. Specifically, when the user types in the
+input box, that makes your component (the function) re-run, or "re-render".
+Then, notably, the new value that the user typed is passed back into the 'value'
+in the input box, which is actually the value displayed in the input box.
 
-### Footnote 6. Brief intro to useEffect
+This is called a 'controlled component' in React terms: we control the value
+that is displayed by the `<input>` box with the 'value prop' and any time the
+user types something, we run the setValue callback, and then it re-renders. Any
+time a 'setter' from the useState is called, React re-renders the component.
 
-The useEffect method can be thought of as saying: "as a side effect of rendering
-the component, do some stuff". You can use it to fetch data from an API for
-example, and so you'd say "as a side effect of rendering this component, go
-fetch some data from this API". Then you can combine it with a useState and make
-it re-render after the fetch has completed.
+There are also uncontrolled components, but it is worth understanding the
+controlled component perspective to see how just typing a letter in the input
+box causes a re-render. That makes your app suddenly more dynamic and 'reactive'
+to a user's typing or button presses, etc.
+
+### Appendix: useEffect
+
+The useEffect hook runs after the component renders. You can use it to fetch
+data from an API, for example: "after this component renders, go fetch some data
+from this API". Then you can combine it with useState to re-render once the
+fetch completes.
 
 example
 
 ```tsx
+import { useState, useEffect } from 'react'
+
 // I use this myfetch helper a lot, many examples with fetch neglect to handle
 // !result.ok
 async function myfetch(url: string) {
@@ -263,6 +288,8 @@ function FetchStuff() {
   const [data, setData] = useState()
   const [error, setError] = useState()
   useEffect(() => {
+    // useEffect callbacks can't be async directly, so we use an immediately
+    // invoked async function expression (IIFE) as a workaround
     ;(async () => {
       try {
         const result = await myfetch('/my/api')
@@ -271,7 +298,7 @@ function FetchStuff() {
         setError(e)
       }
     })()
-  })
+  }, []) // the empty array means this effect runs only once on mount
   if (data) {
     return <div>Got some data {JSON.stringify(data)}</div>
   } else if (error) {
@@ -281,3 +308,28 @@ function FetchStuff() {
   }
 }
 ```
+
+Notably, instead of manually doing this, many people use a pre-made 'hook
+library' like 'react-query' or 'swr' https://tanstack.com/query/latest
+https://swr.vercel.app/ which automatically helps with handling aborting,
+caching, and other things like that regarding async fetch behavior
+
+### Appendix: Class based components
+
+In the old days, React used "class based components", here is the Hello world
+example as a class based component
+
+```tsx
+class HelloWorld extends React.Component {
+  render() {
+    return <div>Hello world!</div>
+  }
+}
+```
+
+The class based components had other "lifecycle functions" like
+"componentDidMount" and such that do not exist in function based components. In
+function components, React hooks are used instead.
+
+You will probably mostly see function components instead of class based
+components these days

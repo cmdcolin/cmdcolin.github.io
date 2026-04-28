@@ -1,17 +1,23 @@
 ---
 title: Handling component state with React...you gotta reset it sometimes
-date: 2022-10-10T00:00:00.000Z
+date: 2022-10-10
 ---
 
-If you make a React component that has, say, a prop for a item id, and an async
-action in a `useEffect` to fetch data for that item from an API, then you
-probably also have a `useState` to set data after you get results back from your
-API (or an error occurs). But, the interesting thing to me is
+**Note:** Before reaching for `useEffect` + `useState` to fetch data, check
+whether you actually need an effect: https://react.dev/learn/you-might-not-need-an-effect.
+Libraries like `react-query` or `swr` (see Footnote 3) also handle many of
+these concerns. The examples below assume you've decided `useEffect` is the
+right tool.
 
-**you have to remember to reset that state, including error state, when your
-props change**
+---
 
-It seems obvious, but I just wanted to write some working examples here
+If you make a React component with a prop for an item id and a `useEffect` to
+fetch data for that item, you probably also have a `useState` for the result or
+error. The thing to remember is
+
+**you have to reset that state, including error state, when your props change**
+
+It seems obvious, but here are some working examples
 
 ## Part 1: Having component state for API response or error
 
@@ -19,11 +25,8 @@ Working codesandbox
 
 https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003
 
-In the below example, we will handle fetching from the Pokemon API, and use a
-`useState` to handle the returned data or a returned error. The important thing
-to highlight is: when you go to refetch a new item from the API, you likely need
-to clear the state of what was previously there (unless you want to display
-stale results)
+When refetching a new item, you need to clear the previous state — otherwise
+you'll show stale results while the new fetch is in flight.
 
 ```tsx
 import { useState, useEffect } from 'react'
@@ -118,11 +121,10 @@ export default function App() {
 
 ## Part 2: A custom hook?
 
-Can we make a hook to make this easier? I don't often make custom hooks, but you
-can try to "encapsulate" some of the multiple-related hooks (the useStates for
-error, pokemonInfo, and useEffect) into a single hook. This does not drastically
-affect our approach, but in the below example, we can call
-`usePokemonInfo(pokemonName)` and error handling and fetching is handled for us
+You can encapsulate the related hooks (`useState` for error and data, plus
+`useEffect`) into a single custom hook. The approach is the same, but callers
+just write `usePokemonInfo(pokemonName)` and get error handling and fetching for
+free.
 
 Working codesandbox
 
@@ -131,26 +133,7 @@ https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234
 ```tsx
 import { useState, useEffect } from 'react'
 
-interface PokemonType {
-  type: {
-    name: string
-  }
-}
-interface PokemonInfo {
-  name: string
-  types: PokemonType[]
-}
-
-// util fetch function to throw if !response.ok, I use this util often
-async function myfetch(url: string, opts?: RequestInit) {
-  const response = await fetch(url, opts)
-  if (!response.ok) {
-    throw new Error(
-      `Error fetching ${url}: HTTP ${response.status} ${await response.text()}`,
-    )
-  }
-  return response.json()
-}
+// ...same myfetch, PokemonType, PokemonInfo, ErrorMessage as above...
 
 function usePokemonInfo(pokemonName: string) {
   const [error, setError] = useState<unknown>()
@@ -181,10 +164,6 @@ function usePokemonInfo(pokemonName: string) {
   }, [pokemonName])
 
   return [error, pokemonInfo] as const
-}
-
-function ErrorMessage({ error }: { error: unknown }) {
-  return <div style={{ background: 'red' }}>{`${error}`}</div>
 }
 
 function PokemonCard({ pokemonName }: { pokemonName: string }) {
@@ -225,30 +204,26 @@ export default function App() {
 
 ## Conclusion
 
-I think it's sometimes common to forget error handling in async JS code
-(useEffect async or many other contexts, etc), and there aren't e.g. lint rules
-to really help, leaving errors uncaught or handled poorly. If you don't manually
-handle the error in the `useEffect`, your user probably will not see that an
-error occurred.
+It's easy to forget error handling in async `useEffect` code — there are no
+lint rules to catch it, so errors often go silently uncaught. If you don't
+handle the error manually, your user won't know anything went wrong.
 
-In addition to this error handling rant, the other point of this article is you
-need to reset your component state when props change, which in the code above,
-are the calls to setError(undefined) and setPokemonInfo(undefined) before I
-fetch a new Pokemon from the API.
+The broader point is also how "sticky" `useState` is. You need to reset your
+component state when props change — in the code above, that's the
+`setError(undefined)` and `setPokemonInfo(undefined)` calls before fetching a
+new Pokemon.
 
 ## Footnote 0 - Web perf pontificating
 
-I think sometimes, this manner of fetching data inside a component can lead to
-what some web-perf-experts refer to as waterfall. Can you get your state from
-your parent? That might result in fewer individual requests made, but is also
-quite a different architecture.
+Fetching inside a component can lead to what web-perf folks call waterfall.
+Lifting the fetch to a parent might reduce individual requests, but it's quite
+a different architecture.
 
 ## Footnote 1 - ErrorBoundaries don't automatically save you from manually handling error
 
-You can also consider using an ErrorBoundary, but this does not automatically
-catch errors that happen in e.g. a useEffect. If you want your ErrorBoundary to
-handle your useEffect related error, then you can use something like this. This
-assumes a `react-error-boundary` type ErrorBoundary.
+`ErrorBoundary` does not automatically catch errors from `useEffect`. To route
+a `useEffect` error through an ErrorBoundary (e.g. `react-error-boundary`), you
+can throw it in the component body:
 
 ```tsx
 import { ErrorBoundary } from 'react-error-boundary'
@@ -283,10 +258,9 @@ export default function App() {
 }
 ```
 
-Another trick, instead of throwing in the body of the component is throwing in
-the callback form of the useState-setter. Then you wouldn't necessarily need to
-have a separate useState for the error state, but you would then need an
-ErrorBoundary or something to help display a nice error.
+Another trick is throwing inside the `useState` setter callback, which lets you
+drop the separate error state entirely — though you'd still need an ErrorBoundary
+to display it nicely.
 
 ```tsx
 useEffect(() => {
@@ -322,31 +296,24 @@ useEffect(() => {
 
 See https://github.com/reactjs/rfcs/pull/229
 
-This was just announced so there is a lot to unpack there, I can update this
-blog post if I come up with an analogous example using this RFC
-
 ## Footnote 3: Using react-query or swr
 
-There are helper libraries that try to help
-
-One helper library suggested was called `react-query`, so I made a demo using
-`@tanstack/react-query` v4.
+`@tanstack/react-query` v4 demo:
 
 https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx
 
-Another is `swr`, here is a demo for that library
+`swr` demo:
 
 https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx
 
-These libraries definitely **do** a lot of things, so take on some more baggage
-than the simple hooks described above, but may be helpful to you also.
+These libraries do a lot more than the simple hooks above, so they carry more
+baggage, but may be worth it depending on your use case.
 
 ## Footnote 4: Fetching is just one aspect of this blogpost
 
-Really, the thing I wanted to make more clear in general was also how "sticky"
-useState can be. I find other patterns in my codebase besides just fetching
-where I have to "reset" the useState hook to a neutral state, sometimes related
-to controlled components.
+The broader point is how "sticky" `useState` can be. I run into this beyond
+just fetching — anytime I have a controlled component that needs to reset when
+its props change.
 
 See also
 https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/
@@ -355,18 +322,39 @@ https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/
 
 See https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx
 
-I am not sure I recommend this as it basically forces the component to unmount,
-which may be ok in some cases but I don't know all the ramifications. A quote
-from https://kentcdodds.com/blog/understanding-reacts-key-prop explains
+This forces the component to unmount and remount, wiping all state. A quote
+from https://kentcdodds.com/blog/understanding-reacts-key-prop explains it well:
 
 "This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state
 that had existed in the component at the time is completely removed and the
-component is "reinitialized" for all intents and purposes."
+component is 'reinitialized' for all intents and purposes."
+
+I'm not sure I'd recommend it by default — unmounting has side effects — but
+it's useful to know about.
 
 See also
 https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes
 
 ## Footnote 6: The `use` hook
 
-Might also be related https://blixtdev.com/all-about-reacts-new-use-hook/
+https://react.dev/reference/react/use
+
+`use` is a stable React API that reads a Promise or context value. Its main
+data-fetching use case is with Server Components: the server creates a Promise,
+passes it as a prop, and the client component calls `use(promise)`, which
+suspends until it resolves (integrated with Suspense and ErrorBoundary). It's
+not really a replacement for the `useEffect` pattern shown in this post — if
+you're doing pure client-side fetching without Server Components, `use` doesn't
+help much here.
+
+## Footnote 7: AbortController vs the `cancelled` flag
+
+The examples use a `cancelled` boolean rather than `AbortController`.
+`AbortController` is more correct — it actually cancels the in-flight request —
+but threading an `AbortSignal` through every layer of your call chain,
+especially when the fetch is buried several functions deep, adds real complexity
+and is easy to get wrong. The `cancelled` flag is simpler, covers the part that
+matters (no stale renders), and is easier to reason about. If cancelling the
+request itself matters for your use case (e.g. reducing server load),
+`AbortController` is worth the extra work.
