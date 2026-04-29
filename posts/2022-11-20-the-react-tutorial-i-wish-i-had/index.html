@@ -7,10 +7,12 @@ sitting down with a book was what finally helped me, but this blogpost aims to
 be a sort of TLDR for certain concepts.</p>
 <h3 id="the-simplest-react-component">The simplest React component</h3>
 <p>Here is a “React component” that prints hello world in a div</p>
-<pre><code class="language-jsx"><a-k>function</a-k> <a-cr>HelloWorld</a-cr><a-p>()</a-p> <a-p>{</a-p>
-  <a-k>return</a-k> <a-o>&#x3C;</a-o><a-v>div</a-v><a-o>></a-o>Hello world!&#x3C;/<a-v>div</a-v><a-o>></a-o>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>HelloWorld</a-t><a-p>()</a-p> <a-p>{</a-p>
+  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello world!</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
 <a-p>}</a-p>
 </code></pre>
+<p>The HTML-like syntax inside JS is called JSX (see appendix below for how it
+works).</p>
 <p>I like to think of React components as “functions that return HTML”. That is an
 oversimplification, but it can be a helpful thinking tool to help you get
 started.</p>
@@ -19,12 +21,12 @@ started.</p>
 combine them together.</p>
 <p>For example, we can create a component named “App” that uses our “HelloWorld”
 component</p>
-<pre><code class="language-jsx"><a-k>function</a-k> <a-cr>App</a-cr><a-p>()</a-p> <a-p>{</a-p>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-k>return</a-k> <a-p>(</a-p>
-    <a-o>&#x3C;</a-o><a-v>div</a-v><a-o>></a-o>
-      <a-o>&#x3C;</a-o><a-v>p</a-v><a-o>></a-o>This is my app&#x3C;/<a-v>p</a-v><a-o>></a-o>
-      <a-o>&#x3C;</a-o><a-cr>HelloWorld</a-cr> />
-    &#x3C;/<a-v>div</a-v><a-o>></a-o>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-tg>p</a-tg><a-p>></a-p><a-s>This is my app</a-s><a-p>&#x3C;/</a-p><a-tg>p</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-cr>HelloWorld</a-cr> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
@@ -49,17 +51,17 @@ component to the page.</p>
 then react renders the ‘App’ component into this div</p>
 <h3 id="accepting-parameters-to-your-components">Accepting parameters to your components</h3>
 <p>React components can accept “props” which are like parameters to your component</p>
-<pre><code class="language-jsx"><a-k>function</a-k> <a-cr>Hello</a-cr><a-p>(</a-p><a-v>props</a-v><a-p>)</a-p> <a-p>{</a-p>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>Hello</a-t><a-p>(</a-p><a-v>props</a-v><a-p>)</a-p> <a-p>{</a-p>
   <a-k>const</a-k> <a-v>name</a-v> <a-o>=</a-o> <a-v>props</a-v><a-p>.</a-p><a-pr>name</a-pr>
-  <a-k>return</a-k> <a-o>&#x3C;</a-o><a-v>div</a-v><a-o>></a-o>Hello <a-p>{</a-p><a-v>name</a-v><a-p>}</a-p>!&#x3C;/<a-v>div</a-v><a-o>></a-o>
+  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello </a-s><a-p>{</a-p><a-v>name</a-v><a-p>}</a-p><a-s>!</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
 <a-p>}</a-p>
 </code></pre>
 <p>We then pass props using HTML like attributes</p>
-<pre><code class="language-jsx"><a-k>function</a-k> <a-cr>App</a-cr><a-p>()</a-p> <a-p>{</a-p>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>App</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-k>return</a-k> <a-p>(</a-p>
-    <a-o>&#x3C;</a-o><a-v>div</a-v><a-o>></a-o>
-      <a-o>&#x3C;</a-o><a-cr>Hello</a-cr> <a-pr>name</a-pr><a-o>=</a-o><a-s>"Colin"</a-s> />
-    &#x3C;/<a-v>div</a-v><a-o>></a-o>
+    <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p>
+      <a-p>&#x3C;</a-p><a-cr>Hello</a-cr> <a-at>name</a-at><a-o>=</a-o><a-s>"Colin"</a-s> <a-p>/></a-p>
+    <a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
@@ -67,19 +69,20 @@ then react renders the ‘App’ component into this div</p>
 <h3 id="rendering-lists-of-items">Rendering lists of items</h3>
 <p>The <code>{name}</code> inside the div is a little snippet of plain-JS code. It can be used
 to do more complicated things. For example you can render a list of items</p>
-<pre><code class="language-jsx"><a-k>function</a-k> <a-cr>List</a-cr><a-p>()</a-p> <a-p>{</a-p>
+<pre><code class="language-tsx"><a-k>function</a-k> <a-t>List</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-k>const</a-k> <a-v>list</a-v> <a-o>=</a-o> <a-p>[</a-p><a-s>'Apples'</a-s><a-p>,</a-p> <a-s>'Oranges'</a-s><a-p>,</a-p> <a-s>'Pears'</a-s><a-p>]</a-p>
   <a-k>return</a-k> <a-p>(</a-p>
-    <a-o>&#x3C;</a-o><a-v>ul</a-v><a-o>></a-o>
+    <a-p>&#x3C;</a-p><a-tg>ul</a-tg><a-p>></a-p>
       <a-p>{</a-p><a-v>list</a-v><a-p>.</a-p><a-f>map</a-f><a-p>(</a-p><a-v>item</a-v> <a-o>=></a-o> <a-p>(</a-p>
-        <a-o>&#x3C;</a-o><a-v>li</a-v> <a-pr>key</a-pr><a-o>=</a-o><a-p>{</a-p><a-v>item</a-v><a-p>}</a-p><a-o>></a-o><a-p>{</a-p><a-v>item</a-v><a-p>}</a-p>&#x3C;/<a-v>li</a-v><a-o>></a-o>
+        <a-p>&#x3C;</a-p><a-tg>li</a-tg> <a-at>key</a-at><a-o>=</a-o><a-p>{</a-p><a-v>item</a-v><a-p>}>{</a-p><a-v>item</a-v><a-p>}&#x3C;/</a-p><a-tg>li</a-tg><a-p>></a-p>
       <a-p>))}</a-p>
-    &#x3C;/<a-v>ul</a-v><a-o>></a-o>
+    <a-p>&#x3C;/</a-p><a-tg>ul</a-tg><a-p>></a-p>
   <a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
-<p>Inside the “list” each item has a key prop that is specified. See
-<a href="https://react.dev/learn/rendering-lists">https://react.dev/learn/rendering-lists</a> for more discussion on this</p>
+<p>Inside the “list” each item has a key prop that is specified. See the appendix
+below for why keys are needed, and <a href="https://react.dev/learn/rendering-lists">https://react.dev/learn/rendering-lists</a> for
+more discussion</p>
 <h3 id="how-do-i-use-react-in-my-own-app">How do I use React in my own app?</h3>
 <p>Commonly, React is downloaded from npm using your package manager, but often
 requires some extra steps to get JSX to compile, which is often done by Babel. I
@@ -110,9 +113,12 @@ legacy apps. Just approaching it fresh to learn the basics will help.</p>
 <h3 id="conclusion">Conclusion</h3>
 <p>I hope this helps you get started with React, let me know if you have any
 questions.</p>
-<h3 id="footnote-1-how-is-this-html-allowed-in-react">Footnote 1. How is this HTML allowed in React?</h3>
-<p>The HTML-like syntax may look odd in JS code. It is called JSX. So code like
-this:</p>
+<h3 id="appendix-why-list-items-need-keys">Appendix: Why list items need keys</h3>
+<p>Keys help React identify which items in a list changed, were added, or were
+removed. Without them, React would have to re-render the entire list on every
+update instead of updating only the affected items.</p>
+<h3 id="appendix-jsx-explained">Appendix: JSX explained</h3>
+<p>The HTML-like syntax may look odd in JS code. So code like this:</p>
 <pre><code class="language-tsx"><a-k>function</a-k> <a-t>HelloWorld</a-t><a-p>()</a-p> <a-p>{</a-p>
   <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Hello world</a-s><a-p>&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
 <a-p>}</a-p>
@@ -124,7 +130,7 @@ this:</p>
 <a-p>}</a-p>
 </code></pre>
 <p>It’s not common to write React without JSX, but as seen above, it can be done :)</p>
-<h3 id="footnote-2-there-are-many-things-that-can-complicate-your-react-learning-experience">Footnote 2. There are many things that can complicate your React learning experience</h3>
+<h3 id="appendix-common-learning-pitfalls">Appendix: Common learning pitfalls</h3>
 <p>The React learning experience, when it’s good, is quite nice. Many people find
 react ‘easy to learn’. But there can be many roadblocks</p>
 <ul>
@@ -161,7 +167,8 @@ two are equivalent</p>
 </li>
 <li>
 <p>You can be confused by weird concepts like “controlled” components (and how
-React hooks like useState integrate with these)</p>
+React hooks like useState integrate with these) — see the useState appendix
+below for an intro</p>
 </li>
 <li>
 <p>You can be bogged down by Typescript or PropTypes - When I was learning React,
@@ -172,7 +179,7 @@ runtime. Most modern React instead uses compile time checking with TypeScript
 now, but TypeScript can be tricky also</p>
 </li>
 </ul>
-<h3 id="footnote-3-brief-intro-to-the-usestate-hook">Footnote 3. Brief intro to the useState hook</h3>
+<h3 id="appendix-usestate">Appendix: useState</h3>
 <p>The component HelloWorld does not do much, it just renders a simple <code>div</code>. How
 do you make dynamic content in React? One way is with React hooks like useState
 and useEffect.</p>
@@ -203,12 +210,11 @@ time a ‘setter’ from the useState is called, React re-renders the component.
 controlled component perspective to see how just typing a letter in the input
 box causes a re-render. That makes your app suddenly more dynamic and ‘reactive’
 to a user’s typing or button presses, etc.</p>
-<h3 id="footnote-4-brief-intro-to-useeffect">Footnote 4. Brief intro to useEffect</h3>
-<p>The useEffect hook can be thought of as saying: “as a side effect of rendering
-the component, do some stuff”. You can use it to fetch data from an API for
-example, and so you’d say “as a side effect of rendering this component, go
-fetch some data from this API”. Then you can combine it with a useState and make
-it re-render after the fetch has completed.</p>
+<h3 id="appendix-useeffect">Appendix: useEffect</h3>
+<p>The useEffect hook runs after the component renders. You can use it to fetch
+data from an API, for example: “after this component renders, go fetch some data
+from this API”. Then you can combine it with useState to re-render once the
+fetch completes.</p>
 <p>example</p>
 <pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
@@ -227,6 +233,8 @@ it re-render after the fetch has completed.</p>
   <a-k>const</a-k> <a-p>[</a-p><a-v>data</a-v><a-p>,</a-p> <a-v>setData</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>()</a-p>
   <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>()</a-p>
   <a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
+    <a-c>// useEffect callbacks can't be async directly, so we use an immediately</a-c>
+    <a-c>// invoked async function expression (IIFE) as a workaround</a-c>
     <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
       <a-k>try</a-k> <a-p>{</a-p>
         <a-k>const</a-k> <a-v>result</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-s>'/my/api'</a-s><a-p>)</a-p>
@@ -235,7 +243,7 @@ it re-render after the fetch has completed.</p>
         <a-f>setError</a-f><a-p>(</a-p><a-v>e</a-v><a-p>)</a-p>
       <a-p>}</a-p>
     <a-p>})()</a-p>
-  <a-p>},</a-p> <a-p>[])</a-p>
+  <a-p>},</a-p> <a-p>[])</a-p> <a-c>// the empty array means this effect runs only once on mount</a-c>
   <a-k>if</a-k> <a-p>(</a-p><a-v>data</a-v><a-p>)</a-p> <a-p>{</a-p>
     <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg><a-p>></a-p><a-s>Got some data </a-s><a-p>{</a-p><a-t>JSON</a-t><a-p>.</a-p><a-f>stringify</a-f><a-p>(</a-p><a-v>data</a-v><a-p>)}&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
   <a-p>}</a-p> <a-k>else</a-k> <a-k>if</a-k> <a-p>(</a-p><a-v>error</a-v><a-p>)</a-p> <a-p>{</a-p>
@@ -249,7 +257,7 @@ it re-render after the fetch has completed.</p>
 library’ like ‘react-query’ or ‘swr’ <a href="https://tanstack.com/query/latest">https://tanstack.com/query/latest</a>
 <a href="https://swr.vercel.app/">https://swr.vercel.app/</a> which automatically helps with handling aborting,
 caching, and other things like that regarding async fetch behavior</p>
-<h3 id="footnote-5-class-based-components">Footnote 5. Class based components</h3>
+<h3 id="appendix-class-based-components">Appendix: Class based components</h3>
 <p>In the old days, React used “class based components”, here is the Hello world
 example as a class based component</p>
 <pre><code class="language-tsx"><a-k>class</a-k> <a-t>HelloWorld</a-t> <a-k>extends</a-k> <a-t>React</a-t><a-p>.</a-p><a-pr>Component</a-pr> <a-p>{</a-p>

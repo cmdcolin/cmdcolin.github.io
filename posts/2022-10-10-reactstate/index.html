@@ -1,20 +1,21 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.1.9"><title>Handling component state with React...you gotta reset it sometimes</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
-<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Handling component state with React...you gotta reset it sometimes</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>If you make a React component that has, say, a prop for a item id, and an async
-action in a <code>useEffect</code> to fetch data for that item from an API, then you
-probably also have a <code>useState</code> to set data after you get results back from your
-API (or an error occurs). But, the interesting thing to me is</p>
-<p><strong>you have to remember to reset that state, including error state, when your
-props change</strong></p>
-<p>It seems obvious, but I just wanted to write some working examples here</p>
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Handling component state with React...you gotta reset it sometimes</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><strong>Note:</strong> Before reaching for <code>useEffect</code> + <code>useState</code> to fetch data, check
+whether you actually need an effect: <a href="https://react.dev/learn/you-might-not-need-an-effect">https://react.dev/learn/you-might-not-need-an-effect</a>.
+Libraries like <code>react-query</code> or <code>swr</code> (see Footnote 3) also handle many of
+these concerns. The examples below assume you’ve decided <code>useEffect</code> is the
+right tool.</p>
+<hr>
+<p>If you make a React component with a prop for an item id and a <code>useEffect</code> to
+fetch data for that item, you probably also have a <code>useState</code> for the result or
+error. The thing to remember is</p>
+<p><strong>you have to reset that state, including error state, when your props change</strong></p>
+<p>It seems obvious, but here are some working examples</p>
 <h2 id="part-1-having-component-state-for-api-response-or-error">Part 1: Having component state for API response or error</h2>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003">https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003</a></p>
-<p>In the below example, we will handle fetching from the Pokemon API, and use a
-<code>useState</code> to handle the returned data or a returned error. The important thing
-to highlight is: when you go to refetch a new item from the API, you likely need
-to clear the state of what was previously there (unless you want to display
-stale results)</p>
+<p>When refetching a new item, you need to clear the previous state — otherwise
+you’ll show stale results while the new fetch is in flight.</p>
 <pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
 <a-k>interface</a-k> <a-t>PokemonType</a-t> <a-p>{</a-p>
@@ -105,35 +106,15 @@ stale results)</p>
 <a-p>}</a-p>
 </code></pre>
 <h2 id="part-2-a-custom-hook">Part 2: A custom hook?</h2>
-<p>Can we make a hook to make this easier? I don’t often make custom hooks, but you
-can try to “encapsulate” some of the multiple-related hooks (the useStates for
-error, pokemonInfo, and useEffect) into a single hook. This does not drastically
-affect our approach, but in the below example, we can call
-<code>usePokemonInfo(pokemonName)</code> and error handling and fetching is handled for us</p>
+<p>You can encapsulate the related hooks (<code>useState</code> for error and data, plus
+<code>useEffect</code>) into a single custom hook. The approach is the same, but callers
+just write <code>usePokemonInfo(pokemonName)</code> and get error handling and fetching for
+free.</p>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234">https://codesandbox.io/s/fragrant-wind-008pfn?file=/src/App.tsx:0-2234</a></p>
 <pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
-<a-k>interface</a-k> <a-t>PokemonType</a-t> <a-p>{</a-p>
-  <a-pr>type</a-pr>: <a-p>{</a-p>
-    <a-pr>name</a-pr>: <a-t>string</a-t>
-  <a-p>}</a-p>
-<a-p>}</a-p>
-<a-k>interface</a-k> <a-t>PokemonInfo</a-t> <a-p>{</a-p>
-  <a-pr>name</a-pr>: <a-t>string</a-t>
-  <a-pr>types</a-pr>: <a-t>PokemonType</a-t><a-p>[]</a-p>
-<a-p>}</a-p>
-
-<a-c>// util fetch function to throw if !response.ok, I use this util often</a-c>
-<a-k>async</a-k> <a-k>function</a-k> <a-f>myfetch</a-f><a-p>(</a-p><a-v>url</a-v>: <a-t>string</a-t><a-p>,</a-p> <a-v>opts</a-v>?: <a-t>RequestInit</a-t><a-p>)</a-p> <a-p>{</a-p>
-  <a-k>const</a-k> <a-v>response</a-v> <a-o>=</a-o> <a-k>await</a-k> <a-f>fetch</a-f><a-p>(</a-p><a-v>url</a-v><a-p>,</a-p> <a-v>opts</a-v><a-p>)</a-p>
-  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-v>response</a-v><a-p>.</a-p><a-pr>ok</a-pr><a-p>)</a-p> <a-p>{</a-p>
-    <a-k>throw</a-k> <a-k>new</a-k> <a-t>Error</a-t><a-p>(</a-p>
-      <a-s>`Error fetching </a-s><a-p>${</a-p><a-v>url</a-v><a-p>}</a-p><a-s>: HTTP </a-s><a-p>${</a-p><a-v>response</a-v><a-p>.</a-p><a-pr>status</a-pr><a-p>}</a-p><a-s> </a-s><a-p>${</a-p><a-k>await</a-k><a-eb> </a-eb><a-v>response</a-v><a-p>.</a-p><a-f>text</a-f><a-p>()}</a-p><a-s>`</a-s><a-p>,</a-p>
-    <a-p>)</a-p>
-  <a-p>}</a-p>
-  <a-k>return</a-k> <a-v>response</a-v><a-p>.</a-p><a-f>json</a-f><a-p>()</a-p>
-<a-p>}</a-p>
+<a-c>// ...same myfetch, PokemonType, PokemonInfo, ErrorMessage as above...</a-c>
 
 <a-k>function</a-k> <a-f>usePokemonInfo</a-f><a-p>(</a-p><a-v>pokemonName</a-v>: <a-t>string</a-t><a-p>)</a-p> <a-p>{</a-p>
   <a-k>const</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>setError</a-v><a-p>]</a-p> <a-o>=</a-o> <a-f>useState</a-f><a-p>&#x3C;</a-p><a-t>unknown</a-t><a-p>>()</a-p>
@@ -164,10 +145,6 @@ affect our approach, but in the below example, we can call
   <a-p>},</a-p> <a-p>[</a-p><a-v>pokemonName</a-v><a-p>])</a-p>
 
   <a-k>return</a-k> <a-p>[</a-p><a-v>error</a-v><a-p>,</a-p> <a-v>pokemonInfo</a-v><a-p>]</a-p> <a-k>as</a-k> <a-k>const</a-k>
-<a-p>}</a-p>
-
-<a-k>function</a-k> <a-t>ErrorMessage</a-t><a-p>({</a-p> error <a-p>}</a-p>: <a-p>{</a-p> <a-pr>error</a-pr>: <a-t>unknown</a-t> <a-p>})</a-p> <a-p>{</a-p>
-  <a-k>return</a-k> <a-p>&#x3C;</a-p><a-tg>div</a-tg> <a-at>style</a-at><a-o>=</a-o><a-p>{{</a-p> <a-pr>background</a-pr>: <a-s>'red'</a-s> <a-p>}}>{</a-p><a-s>`</a-s><a-p>${</a-p><a-v>error</a-v><a-p>}</a-p><a-s>`</a-s><a-p>}&#x3C;/</a-p><a-tg>div</a-tg><a-p>></a-p>
 <a-p>}</a-p>
 
 <a-k>function</a-k> <a-t>PokemonCard</a-t><a-p>({</a-p> pokemonName <a-p>}</a-p>: <a-p>{</a-p> <a-pr>pokemonName</a-pr>: <a-t>string</a-t> <a-p>})</a-p> <a-p>{</a-p>
@@ -206,25 +183,21 @@ affect our approach, but in the below example, we can call
 <a-p>}</a-p>
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
-<p>I think it’s sometimes common to forget error handling in async JS code
-(useEffect async or many other contexts, etc), and there aren’t e.g. lint rules
-to really help, leaving errors uncaught or handled poorly. If you don’t manually
-handle the error in the <code>useEffect</code>, your user probably will not see that an
-error occurred.</p>
-<p>In addition to this error handling rant, the other point of this article is you
-need to reset your component state when props change, which in the code above,
-are the calls to setError(undefined) and setPokemonInfo(undefined) before I
-fetch a new Pokemon from the API.</p>
+<p>It’s easy to forget error handling in async <code>useEffect</code> code — there are no
+lint rules to catch it, so errors often go silently uncaught. If you don’t
+handle the error manually, your user won’t know anything went wrong.</p>
+<p>The broader point is also how “sticky” <code>useState</code> is. You need to reset your
+component state when props change — in the code above, that’s the
+<code>setError(undefined)</code> and <code>setPokemonInfo(undefined)</code> calls before fetching a
+new Pokemon.</p>
 <h2 id="footnote-0---web-perf-pontificating">Footnote 0 - Web perf pontificating</h2>
-<p>I think sometimes, this manner of fetching data inside a component can lead to
-what some web-perf-experts refer to as waterfall. Can you get your state from
-your parent? That might result in fewer individual requests made, but is also
-quite a different architecture.</p>
+<p>Fetching inside a component can lead to what web-perf folks call waterfall.
+Lifting the fetch to a parent might reduce individual requests, but it’s quite
+a different architecture.</p>
 <h2 id="footnote-1---errorboundaries-dont-automatically-save-you-from-manually-handling-error">Footnote 1 - ErrorBoundaries don’t automatically save you from manually handling error</h2>
-<p>You can also consider using an ErrorBoundary, but this does not automatically
-catch errors that happen in e.g. a useEffect. If you want your ErrorBoundary to
-handle your useEffect related error, then you can use something like this. This
-assumes a <code>react-error-boundary</code> type ErrorBoundary.</p>
+<p><code>ErrorBoundary</code> does not automatically catch errors from <code>useEffect</code>. To route
+a <code>useEffect</code> error through an ErrorBoundary (e.g. <code>react-error-boundary</code>), you
+can throw it in the component body:</p>
 <pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-t>ErrorBoundary</a-t> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react-error-boundary'</a-s>
 
 <a-k>function</a-k> <a-t>PokemonCard</a-t><a-p>({</a-p> pokemonName <a-p>}</a-p>: <a-p>{</a-p> <a-pr>pokemonName</a-pr>: <a-t>string</a-t> <a-p>})</a-p> <a-p>{</a-p>
@@ -256,10 +229,9 @@ assumes a <code>react-error-boundary</code> type ErrorBoundary.</p>
   <a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
-<p>Another trick, instead of throwing in the body of the component is throwing in
-the callback form of the useState-setter. Then you wouldn’t necessarily need to
-have a separate useState for the error state, but you would then need an
-ErrorBoundary or something to help display a nice error.</p>
+<p>Another trick is throwing inside the <code>useState</code> setter callback, which lets you
+drop the separate error state entirely — though you’d still need an ErrorBoundary
+to display it nicely.</p>
 <pre><code class="language-tsx"><a-f>useEffect</a-f><a-p>(()</a-p> <a-o>=></a-o> <a-p>{</a-p>
   <a-k>let</a-k> <a-v>cancelled</a-v> <a-o>=</a-o> <a-co>false</a-co>
   <a-p>;(</a-p><a-k>async</a-k> <a-p>()</a-p> <a-o>=></a-o> <a-p>{</a-p>
@@ -290,37 +262,49 @@ ErrorBoundary or something to help display a nice error.</p>
 </code></pre>
 <h2 id="footnote-2-the-future-with-react-data-fetching">Footnote 2: The future with React data fetching</h2>
 <p>See <a href="https://github.com/reactjs/rfcs/pull/229">https://github.com/reactjs/rfcs/pull/229</a></p>
-<p>This was just announced so there is a lot to unpack there, I can update this
-blog post if I come up with an analogous example using this RFC</p>
 <h2 id="footnote-3-using-react-query-or-swr">Footnote 3: Using react-query or swr</h2>
-<p>There are helper libraries that try to help</p>
-<p>One helper library suggested was called <code>react-query</code>, so I made a demo using
-<code>@tanstack/react-query</code> v4.</p>
+<p><code>@tanstack/react-query</code> v4 demo:</p>
 <p><a href="https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx">https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx</a></p>
-<p>Another is <code>swr</code>, here is a demo for that library</p>
+<p><code>swr</code> demo:</p>
 <p><a href="https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx">https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx</a></p>
-<p>These libraries definitely <strong>do</strong> a lot of things, so take on some more baggage
-than the simple hooks described above, but may be helpful to you also.</p>
+<p>These libraries do a lot more than the simple hooks above, so they carry more
+baggage, but may be worth it depending on your use case.</p>
 <h2 id="footnote-4-fetching-is-just-one-aspect-of-this-blogpost">Footnote 4: Fetching is just one aspect of this blogpost</h2>
-<p>Really, the thing I wanted to make more clear in general was also how “sticky”
-useState can be. I find other patterns in my codebase besides just fetching
-where I have to “reset” the useState hook to a neutral state, sometimes related
-to controlled components.</p>
+<p>The broader point is how “sticky” <code>useState</code> can be. I run into this beyond
+just fetching — anytime I have a controlled component that needs to reset when
+its props change.</p>
 <p>See also
 <a href="https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/">https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/</a></p>
 <h2 id="footnote-5-you-can-also-use-the-key-prop-as-an-alternative-to-manually-resetting-state">Footnote 5: You can also use the “key” prop as an alternative to manually resetting state</h2>
 <p>See <a href="https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx">https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx</a></p>
-<p>I am not sure I recommend this as it basically forces the component to unmount,
-which may be ok in some cases but I don’t know all the ramifications. A quote
-from <a href="https://kentcdodds.com/blog/understanding-reacts-key-prop">https://kentcdodds.com/blog/understanding-reacts-key-prop</a> explains</p>
+<p>This forces the component to unmount and remount, wiping all state. A quote
+from <a href="https://kentcdodds.com/blog/understanding-reacts-key-prop">https://kentcdodds.com/blog/understanding-reacts-key-prop</a> explains it well:</p>
 <p>“This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state
 that had existed in the component at the time is completely removed and the
-component is “reinitialized” for all intents and purposes.”</p>
+component is ‘reinitialized’ for all intents and purposes.”</p>
+<p>I’m not sure I’d recommend it by default — unmounting has side effects — but
+it’s useful to know about.</p>
 <p>See also
 <a href="https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes">https://react.dev/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes</a></p>
 <h2 id="footnote-6-the-use-hook">Footnote 6: The <code>use</code> hook</h2>
-<p>Might also be related <a href="https://blixtdev.com/all-about-reacts-new-use-hook/">https://blixtdev.com/all-about-reacts-new-use-hook/</a></p> </div> <div id="giscus"></div> <script>
+<p><a href="https://react.dev/reference/react/use">https://react.dev/reference/react/use</a></p>
+<p><code>use</code> is a stable React API that reads a Promise or context value. Its main
+data-fetching use case is with Server Components: the server creates a Promise,
+passes it as a prop, and the client component calls <code>use(promise)</code>, which
+suspends until it resolves (integrated with Suspense and ErrorBoundary). It’s
+not really a replacement for the <code>useEffect</code> pattern shown in this post — if
+you’re doing pure client-side fetching without Server Components, <code>use</code> doesn’t
+help much here.</p>
+<h2 id="footnote-7-abortcontroller-vs-the-cancelled-flag">Footnote 7: AbortController vs the <code>cancelled</code> flag</h2>
+<p>The examples use a <code>cancelled</code> boolean rather than <code>AbortController</code>.
+<code>AbortController</code> is more correct — it actually cancels the in-flight request —
+but threading an <code>AbortSignal</code> through every layer of your call chain,
+especially when the fetch is buried several functions deep, adds real complexity
+and is easy to get wrong. The <code>cancelled</code> flag is simpler, covers the part that
+matters (no stale renders), and is easier to reason about. If cancelling the
+request itself matters for your use case (e.g. reducing server load),
+<code>AbortController</code> is worth the extra work.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
