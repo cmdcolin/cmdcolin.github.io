@@ -7,15 +7,15 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
-    "predeploy": "pnpm build",
-    "deploy": "gh-pages -d dist -t --nojekyll",
-    "postdeploy": "git push",
+    "predep": "pnpm build",
+    "dep": "gh-pages -d dist -t --nojekyll",
+    "postdep": "git push",
     "format": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "3.7.2",
-    "astro": "^6.1.9",
+    "astro": "^6.2.1",
     "feed": "^5.2.1",
     "hast-util-to-string": "^3.0.1",
     "react": "^19.2.5",
@@ -33,6 +33,6 @@
     "eslint-plugin-unicorn": "^64.0.0",
     "gh-pages": "^6.3.0",
     "prettier": "^3.8.3",
-    "typescript-eslint": "^8.59.0"
+    "typescript-eslint": "^8.59.1"
   }
 }
