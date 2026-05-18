@@ -28,8 +28,8 @@ git init
   <a-s>"workspaces"</a-s>: [<a-s>"hello-wasm"</a-s>, <a-s>"app"</a-s>]
 }
 </code></pre>
-<p>This sets our repo up as a “monorepo” with two “workspaces”. one will be the
-wasm code, in <code>hello-wasm</code>, one will be an instance of <code>create-react-app</code></p>
+<p>This sets our repo up as a “monorepo” with two “workspaces”. One will be the
+wasm code, in <code>hello-wasm</code>, and one will be an instance of <code>create-react-app</code></p>
 <h3 id="add-a-create-react-app-instance-inside-the-monorepo">Add a <code>create-react-app</code> instance inside the monorepo</h3>
 <pre><code class="language-sh"><a-f>npx</a-f> create-react-app <a-co>--template</a-co> typescript app
 </code></pre>
@@ -61,7 +61,7 @@ named <code>pkg</code> which has <code>.wasm</code> files and <code>.js</code> f
 folder is effectively a node package. We could publish this to <code>NPM</code> (see
 footnote 1)</p>
 <h3 id="add-the-hello-wasm-package-to-the-app-dependencies">Add the <code>hello-wasm</code> package to the <code>app</code> dependencies</h3>
-<p>Add <code>"hello-wasm":"^1.0.0"</code> to the <code>dependencies</code> array in <code>app/package.json</code>.
+<p>Add <code>"hello-wasm":"^1.0.0"</code> to the <code>dependencies</code> object in <code>app/package.json</code>.
 This will refer to our local monorepo’s rust wasm package!</p>
 <h3 id="create-craco-config-for-create-react-app">Create craco config for <code>create-react-app</code></h3>
 <p>As of writing, with <code>webpack</code> v5/<code>create-react-app</code> v5, you have to customize
@@ -184,11 +184,7 @@ are getting started with rust, read the Rust Book along with doing rustlings
 <h2 id="footnote-7-another-resource">Footnote 7: Another resource</h2>
 <p>This article was posted on reddit and is also a great resource especially about
 sync vs async webpack loading schemes for wasm</p>
-<p><a href="https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/">https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/</a></p>
-<h2 id="footnote-8-vite-version">Footnote 8: Vite version</h2>
-<p>2025 update: While this article covers create-react-app, the Vite version is
-simpler and easier. I made a simple Vite app in
-<a href="https://github.com/cmdcolin/logistic_chaos_map">https://github.com/cmdcolin/logistic_chaos_map</a></p> </div> <div id="giscus"></div> <script>
+<p><a href="https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/">https://canvasapp.com/blog/building-modern-web-apps-with-rust-wasm-and-webpack/</a></p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
