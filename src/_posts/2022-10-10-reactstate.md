@@ -4,10 +4,10 @@ date: 2022-10-10
 ---
 
 **Note:** Before reaching for `useEffect` + `useState` to fetch data, check
-whether you actually need an effect: https://react.dev/learn/you-might-not-need-an-effect.
-Libraries like `react-query` or `swr` (see Footnote 3) also handle many of
-these concerns. The examples below assume you've decided `useEffect` is the
-right tool.
+whether you actually need an effect:
+https://react.dev/learn/you-might-not-need-an-effect. Libraries like
+`react-query` or `swr` (see Footnote 3) also handle many of these concerns. The
+examples below assume you've decided `useEffect` is the right tool.
 
 ---
 
@@ -204,9 +204,9 @@ export default function App() {
 
 ## Conclusion
 
-It's easy to forget error handling in async `useEffect` code — there are no
-lint rules to catch it, so errors often go silently uncaught. If you don't
-handle the error manually, your user won't know anything went wrong.
+It's easy to forget error handling in async `useEffect` code — there are no lint
+rules to catch it, so errors often go silently uncaught. If you don't handle the
+error manually, your user won't know anything went wrong.
 
 The broader point is also how "sticky" `useState` is. You need to reset your
 component state when props change — in the code above, that's the
@@ -216,13 +216,13 @@ new Pokemon.
 ## Footnote 0 - Web perf pontificating
 
 Fetching inside a component can lead to what web-perf folks call waterfall.
-Lifting the fetch to a parent might reduce individual requests, but it's quite
-a different architecture.
+Lifting the fetch to a parent might reduce individual requests, but it's quite a
+different architecture.
 
 ## Footnote 1 - ErrorBoundaries don't automatically save you from manually handling error
 
-`ErrorBoundary` does not automatically catch errors from `useEffect`. To route
-a `useEffect` error through an ErrorBoundary (e.g. `react-error-boundary`), you
+`ErrorBoundary` does not automatically catch errors from `useEffect`. To route a
+`useEffect` error through an ErrorBoundary (e.g. `react-error-boundary`), you
 can throw it in the component body:
 
 ```tsx
@@ -259,8 +259,8 @@ export default function App() {
 ```
 
 Another trick is throwing inside the `useState` setter callback, which lets you
-drop the separate error state entirely — though you'd still need an ErrorBoundary
-to display it nicely.
+drop the separate error state entirely — though you'd still need an
+ErrorBoundary to display it nicely.
 
 ```tsx
 useEffect(() => {
@@ -311,9 +311,9 @@ baggage, but may be worth it depending on your use case.
 
 ## Footnote 4: Fetching is just one aspect of this blogpost
 
-The broader point is how "sticky" `useState` can be. I run into this beyond
-just fetching — anytime I have a controlled component that needs to reset when
-its props change.
+The broader point is how "sticky" `useState` can be. I run into this beyond just
+fetching — anytime I have a controlled component that needs to reset when its
+props change.
 
 See also
 https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/
@@ -322,8 +322,8 @@ https://bikeshedd.ing/posts/use_state_should_require_a_dependency_array/
 
 See https://codesandbox.io/s/cool-grass-9nb43y?file=/src/App.tsx
 
-This forces the component to unmount and remount, wiping all state. A quote
-from https://kentcdodds.com/blog/understanding-reacts-key-prop explains it well:
+This forces the component to unmount and remount, wiping all state. A quote from
+https://kentcdodds.com/blog/understanding-reacts-key-prop explains it well:
 
 "This allows you to return the exact same element type, but force React to
 unmount the previous instance, and mount a new one. This means that all state
