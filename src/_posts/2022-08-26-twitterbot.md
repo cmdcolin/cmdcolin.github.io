@@ -17,11 +17,11 @@ can make a bot!
 
 Get your keys. I forget the exact procedure for this but go to
 https://developer.twitter.com and sign up, register an "app" with them, and poke
-around for awhile. This github repo provides a couple more details about the
+around for a while. This github repo provides a couple more details about the
 process of registering
 https://github.com/manzt/cron-tweet#create-a-standalone-app-in-the-developer-portal
 
-After sometime, you should get a screen that looks like this. Keep this around
+After some time, you should get a screen that looks like this. Keep this around
 for Step 4. Note: I did not have to apply for any elevated access for this
 article, just the basic level you get from the initial registration! I believe
 in twitter terms, this article only requires "Essential" access and not any
@@ -85,14 +85,14 @@ And `tsconfig.json` file
 ```
 
 This compiles the `src` folder and outputs js files to the `dist` directory, and
-we can run the `node dist/bot.js` file with node to post the file
+we can run `node dist/bot.js` to post the tweet
 
 ### Step 4
 
 Create a .env file with your keys that you found in the above screenshot
-corresponding to the box1 (which gives you API_KEY/API_SECRET, sometimes also
-referred to as consumer keys in other documents) and box2 (which gives you
-ACCESS_TOKEN and ACCESS_TOKEN_SECRET) from the above screenshot
+corresponding to box 1 (which gives you API_KEY/API_SECRET, sometimes also
+referred to as consumer keys in other documents) and box 2 (which gives you
+ACCESS_TOKEN and ACCESS_TOKEN_SECRET)
 
 ```
 API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxx"

@@ -3,30 +3,54 @@ title: Handling component state with React...you gotta reset it sometimes
 date: 2022-10-10
 ---
 
-**Note:** Before reaching for `useEffect` + `useState` to fetch data, check
-whether you actually need an effect:
-https://react.dev/learn/you-might-not-need-an-effect. Libraries like
-`react-query` or `swr` (see Footnote 3) also handle many of these concerns. The
-examples below assume you've decided `useEffect` is the right tool.
+> ## Big disclaimer (please read before the rest of the post)
+>
+> Looking back at this post, many of the "lessons" below are not really that
+> valid. The most important thing is to first ask whether you need an effect at
+> all. Please read
+> [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+> from the React docs. It is genuinely required reading.
+>
+> Most of the patterns in this post (manual `useState` resets, `cancelled`
+> flags, throwing inside setter callbacks, etc.) are workarounds for problems
+> you create by reaching for `useEffect` in the first place. In almost every
+> case you are better off:
+>
+> - Using the `key` prop to reset component state when an id changes (see
+>   Footnote 5), instead of manually resetting state inside an effect
+> - Using a data-fetching library like `swr` (see Footnote 3), which handles
+>   caching, cancellation, and state resets for you
+> - Lifting fetching out of the component entirely (server components, route
+>   loaders, parent fetching)
+>
+> I'm leaving the post up because the "sticky `useState`" point is still
+> occasionally useful, but treat the code below as a cautionary example of what
+> happens when you commit to `useEffect` data fetching, not as a pattern to
+> copy.
 
 ---
 
 If you make a React component with a prop for an item id and a `useEffect` to
 fetch data for that item, you probably also have a `useState` for the result or
-error. The thing to remember is
+error. The kernel of truth this post is built around is:
 
-**you have to reset that state, including error state, when your props change**
+**`useState` does not reset when props change.**
 
-It seems obvious, but here are some working examples
+The 2022 version of this post said "remember to manually call
+`setError(undefined)` and `setData(undefined)` at the top of your effect." That
+works, but it is a symptom of an architecture that does not compose. The
+recommended fixes are above in the disclaimer. The original walkthrough follows
+below as a cautionary example.
 
-## Part 1: Having component state for API response or error
+## Part 1: Having component state for API response or error (the cautionary version)
 
 Working codesandbox
 
 https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003
 
-When refetching a new item, you need to clear the previous state — otherwise
-you'll show stale results while the new fetch is in flight.
+When refetching a new item, you need to clear the previous state, otherwise
+you'll show stale results while the new fetch is in flight. The `key` prop
+gives you this for free (see Footnote 5); doing it by hand looks like:
 
 ```tsx
 import { useState, useEffect } from 'react'
@@ -124,7 +148,8 @@ export default function App() {
 You can encapsulate the related hooks (`useState` for error and data, plus
 `useEffect`) into a single custom hook. The approach is the same, but callers
 just write `usePokemonInfo(pokemonName)` and get error handling and fetching for
-free.
+free. At this point you are effectively reinventing a worse version of `swr`,
+which is one reason the disclaimer recommends just using `swr` instead.
 
 Working codesandbox
 
@@ -137,18 +162,18 @@ import { useState, useEffect } from 'react'
 
 function usePokemonInfo(pokemonName: string) {
   const [error, setError] = useState<unknown>()
-  const [pokemonInfo, setItemInfo] = useState<PokemonInfo>()
+  const [pokemonInfo, setPokemonInfo] = useState<PokemonInfo>()
   useEffect(() => {
     let cancelled = false
     ;(async () => {
       try {
-        setItemInfo(undefined) // <-- important to reset the state of the app
+        setPokemonInfo(undefined) // <-- important to reset the state of the app
         setError(undefined) // <-- important to reset the state of the app
         const data = await myfetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
         )
         if (!cancelled) {
-          setItemInfo(data)
+          setPokemonInfo(data)
         }
       } catch (e) {
         console.error(e)
@@ -204,14 +229,17 @@ export default function App() {
 
 ## Conclusion
 
-It's easy to forget error handling in async `useEffect` code — there are no lint
-rules to catch it, so errors often go silently uncaught. If you don't handle the
-error manually, your user won't know anything went wrong.
+The original takeaway here was "`useState` is sticky, so remember to reset it"
+along with "remember to handle errors, there are no lint rules for it." Both
+points are still true in a narrow sense, but the better takeaway is: don't put
+yourself in a position where you need to remember any of that. Use the `key`
+prop, use `swr`, or move fetching out of the component, and the manual reset
+and error plumbing both disappear.
 
-The broader point is also how "sticky" `useState` is. You need to reset your
-component state when props change — in the code above, that's the
-`setError(undefined)` and `setPokemonInfo(undefined)` calls before fetching a
-new Pokemon.
+If you do end up writing the manual version, note that it is easy to forget
+error handling entirely in async `useEffect` code, since there are no lint
+rules to catch it. The user just sees a stuck "Loading..." while the error sits
+in the console.
 
 ## Footnote 0 - Web perf pontificating
 
@@ -296,18 +324,14 @@ useEffect(() => {
 
 See https://github.com/reactjs/rfcs/pull/229
 
-## Footnote 3: Using react-query or swr
-
-`@tanstack/react-query` v4 demo:
-
-https://codesandbox.io/s/hungry-framework-ctmhkz?file=/src/App.tsx
+## Footnote 3: Using swr
 
 `swr` demo:
 
 https://codesandbox.io/s/condescending-poitras-fiwxym?file=/src/App.tsx
 
-These libraries do a lot more than the simple hooks above, so they carry more
-baggage, but may be worth it depending on your use case.
+It does a lot more than the simple hooks above, so it carries more baggage, but
+for most use cases the tradeoff is worth it.
 
 ## Footnote 4: Fetching is just one aspect of this blogpost
 
