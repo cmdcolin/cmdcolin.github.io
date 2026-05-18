@@ -12,8 +12,9 @@ are complete.”</p>
 search in their readme to see).</p>
 <p><img src="/media/prd2.png" alt="picture lovingly handmade using silly gimp fx"></p>
 <p>I’ve worked in software for many years now (ow my back) and hadn’t come across
-the word PRD…So wtf is it?</p>
-<h2 id="a-prd-project-requirements-document-is-just-a-todo-list">A PRD (“project requirements document”) is just a TODO list</h2>
+the word <a href="https://en.wikipedia.org/wiki/Product_requirements_document">PRD</a>…So
+wtf is it?</p>
+<h2 id="a-prd-product-requirements-document-is-just-a-todo-list">A PRD (“product requirements document”) is just a TODO list</h2>
 <p>Your “PRD” can just be a markdown file (e.g. <code>PRD.md</code>) with checkboxes like a
 normal TODO list:</p>
 <pre><code class="language-markdown"><a-p>- </a-p>Add priority column to tasks table
@@ -21,18 +22,18 @@ normal TODO list:</p>
 <a-p>- </a-p>Add priority selector to task edit modal
 <a-p>- </a-p>Filter tasks by priority, persist in URL
 </code></pre>
-<p>But here is the key: you are going to let the AI to both read and write your
-TODO list.</p>
+<p>But here is the key: you are going to let the AI both read and write your TODO
+list.</p>
 <h2 id="you-be-the-ralph">You be the Ralph</h2>
 <p>The Ralph concept, as originally proposed, uses an autonomous loop that keeps
 running to solve all the todo items.</p>
-<p>However, you don’t have to use this to get a lot of the benefits</p>
+<p>However, you don’t have to use this to get a lot of the benefits.</p>
 <p>Just use Claude like usual but start each session with:</p>
 <blockquote>
 <p>read PRD.md, and continue working on tasks. update PRD.md when done</p>
 </blockquote>
-<h2 id="further-tweaks-to-the-todo-list-concept">Further tweaks to the TODO list concept</h2>
-<p>I used the TODO concept because it is dead simple but you can also</p>
+<h2 id="variations">Variations</h2>
+<p>I used the TODO concept because it is dead simple, but you can also</p>
 <ul>
 <li>ask the AI to ‘whip the todo list into shape’</li>
 <li>say to move completed items to a separate file</li>
@@ -44,15 +45,15 @@ and the numbering causes even more</li>
 <li>maintain multiple of these documents. you don’t need to call it ‘PRD.md’</li>
 <li>tell it to create architectural-decision-records for important decisions</li>
 </ul>
-<p>The ceiling is whatever you want it to be</p>
-<p>But just starting easy with a bulleted todo list, with read and writing, gives
-it a little memory to keep grinding away at your task list without you having to
-manually keep it fed</p>
+<p>The ceiling is whatever you want it to be.</p>
+<p>But just starting easy with a bulleted todo list, with reading and writing,
+gives it a little memory to keep grinding away at your task list without you
+having to manually keep it fed.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>This post might be a really obvious post for some, but I just wanted to convey
-that there is nothing mysterious behind the idea of the Ralph loop and you don’t
-have to ‘use their repo’ to do most of what it does…just make a TODO list and
-tell Claude about it.</p>
+<p>This might be obvious to some, but I just wanted to convey that there is nothing
+mysterious behind the idea of the Ralph loop, and you don’t have to ‘use their
+repo’ to do most of what it does. Just make a TODO list and tell Claude about
+it.</p>
 <p>If I’m missing something let me know. Enjoy :)</p>
 <h2 id="footnote-1---why-use-this-at-all">Footnote 1 - Why use this at all</h2>
 <p>I recently told myself that I need to be even more ambitious in my use of Claude
@@ -62,7 +63,8 @@ lot of ongoing parallel todos. I was having some challenges keeping track of all
 this, and was juggling a lot of separate agent sessions.</p>
 <p>This method helps with that. Hence, “Maximizing agentic coding”.</p>
 <h2 id="footnote-2---the-ralph-loop">Footnote 2 - the Ralph loop</h2>
-<p>For reference the Ralph loop is a bash script like this</p>
+<p>For reference the Ralph loop is roughly a bash script like this (the real one
+uses a <code>for</code> loop with max iterations, but same idea)</p>
 <pre><code class="language-bash"><a-k>while</a-k> <a-f>true</a-f>; <a-k>do</a-k>
   <a-pr>OUTPUT</a-pr>=<a-eb>$(</a-eb><a-f>claude</a-f><a-eb> </a-eb><a-co>--dangerously-skip-permissions</a-co><a-eb> </a-eb><a-co>--print</a-co><a-eb> </a-eb><a-o>&#x3C;</a-o><a-eb> CLAUDE.md)</a-eb>
   <a-k>if</a-k> <a-f>echo</a-f> <a-s>"</a-s><a-o>$</a-o><a-pr>OUTPUT</a-pr><a-s>"</a-s> <a-o>|</a-o> <a-f>grep</a-f> <a-co>-q</a-co> <a-s>"&#x3C;promise>COMPLETE&#x3C;/promise>"</a-s>; <a-k>then</a-k>
@@ -70,23 +72,21 @@ this, and was juggling a lot of separate agent sessions.</p>
   <a-k>fi</a-k>
 <a-k>done</a-k>
 </code></pre>
-<p>so it’s a bash loop that just keeps running Claude until the literal string
-<code>&#x3C;promise>COMPLETE&#x3C;/promise></code> is found in the output via grep and then, the
+<p>So it’s a bash loop that just keeps running Claude until the literal string
+<code>&#x3C;promise>COMPLETE&#x3C;/promise></code> is found in the output via grep, and then the
 entire TODO list is done. The CLAUDE.md from the ralph repo (read the raw text
 <a href="https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md">https://raw.githubusercontent.com/snarktank/ralph/refs/heads/main/CLAUDE.md</a>) is
-what tells it to output this special string, and do one task at a time, and
-various other things.</p>
-<p>Side note 1: What is the <code>&#x3C;promise></code> tag? It is not explained in the ralph repo.
-It’s just an arbitrary signal string for the grep. Could be anything as long as
-the agent wouldn’t accidentally produce it in normal output.</p>
-<p>Side note 2: the ralph github repo also uses a json format for prd.json and a
-progress.txt but this stuff isn’t really needed since the plain markdown format
-for the <code>PRD.md</code> is fine (feel free to also just call it <code>todo.md</code>)</p>
-<h2 id="footnote-3">Footnote 3</h2>
-<p>If this post, again, sounds obvious but you haven’t tried just giving Claude
-your entire todo list, try it.</p>
-<p>You may want to spend a little bit curating your todo list before beginning. And
-like I said above…do ambitious things!</p> </div> <div id="giscus"></div> <script>
+what tells it to output this special string, do one task at a time, and various
+other things.</p>
+<p>What is the <code>&#x3C;promise></code> tag? It is not explained in the ralph repo. It’s just an
+arbitrary signal string for the grep. Could be anything as long as the agent
+wouldn’t accidentally produce it in normal output.</p>
+<p>The ralph repo also converts your markdown PRD into a <code>prd.json</code> (user stories
+with a <code>passes</code> field for tracking completion) and keeps an append-only
+<code>progress.txt</code> of learnings across iterations. For autonomous runs this gives
+the loop something stable to read and write between iterations, but if you’re
+just driving Claude manually you don’t need any of it. A plain <code>PRD.md</code> (or
+<code>todo.md</code>) is fine.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');

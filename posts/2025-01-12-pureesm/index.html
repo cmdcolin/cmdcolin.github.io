@@ -1,26 +1,25 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.3.3"><title>Making a pure-ESM package using `tsc`</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
-<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a pure-ESM package using `tsc`</h1> <h4 data-astro-cid-lvjzyg5v>2025-01-12</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>In the past, I have written about making NPM packages with just the typescript
+<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Making a pure-ESM package using `tsc`</h1> <h4 data-astro-cid-lvjzyg5v>2025-01-12</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p><em>Updated 2026: switched the publish flow from yarn + npm tokens to pnpm + npm
+trusted publishing (see Footnote 2).</em></p>
+<p>In the past, I have written about making NPM packages with just the typescript
 compiler (<a href="https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler">https://cmdcolin.github.io/posts/2022-05-27-youmaynotneedabundler</a>).
-There, I focused on “CJS” build because it was arguably simpler</p>
-<p>Now, I am addressing the “ESM” case</p>
-<p>TLDR: here is the minimal github repo for this post
+That post focused on the “CJS” build because it was arguably simpler. This one
+covers the “ESM” case.</p>
+<p>TL;DR, minimal github repo for this post:
 <a href="https://github.com/cmdcolin/minimalpackage">https://github.com/cmdcolin/minimalpackage</a></p>
 <h2 id="why-pure-esm-now">Why pure-ESM now?</h2>
-<p>As my previous article mentions, I like taking a ‘bundler-less’ approach to
-library distribution. That means that multiple files might end up in the <code>dist</code>
-folder which reference each other. However, using “pure ESM” requires these
-files that reference each other to import the actual path, with the file
-extensions</p>
-<p>Which was awkward before…but now</p>
-<h2 id="we-have-some-new-tsconfigjson-settings-to-help">We have some new tsconfig.json settings to help</h2>
-<p>The recent addition of the <code>tsc</code> settings
+<p>I like a ‘bundler-less’ approach to library distribution, which means multiple
+files end up in <code>dist</code> referencing each other. Pure ESM requires those imports
+to include the file extension, which used to be awkward, but now we have some
+new options.</p>
+<h2 id="new-tsconfig-settings">New tsconfig settings</h2>
+<p>Two new <code>tsc</code> settings,
 <a href="https://www.typescriptlang.org/tsconfig/allowImportingTsExtensions.html"><code>allowImportingTsExtensions</code></a>
 and
-<a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths"><code>rewriteRelativeImportExtensions</code></a>
-now allow us to import from the .ts file extension in the src folder, and it
-automatically rewrites to use the .js file extension in the dist folder</p>
-<p>For example we can have</p>
+<a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths"><code>rewriteRelativeImportExtensions</code></a>,
+let us import <code>.ts</code> files in <code>src</code> and have tsc rewrite them to <code>.js</code> in <code>dist</code>.</p>
+<p>For example:</p>
 <pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
 <a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.ts'</a-s>
 <a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
@@ -32,7 +31,7 @@ automatically rewrites to use the .js file extension in the dist folder</p>
   <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
-<p>then running tsc over these files will produce</p>
+<p>Running tsc produces:</p>
 <pre><code> ❯❯❯ ll dist
 total 24K
 -rw-rw-r-- 1 cdiesh cdiesh  37 Jan 14 06:07 bar.d.ts
@@ -41,19 +40,19 @@ total 24K
 -rw-rw-r-- 1 cdiesh cdiesh 116 Jan 14 06:07 index.js
 
 </code></pre>
-<p>where dist/index.js now contains an import with the .js extension</p>
+<p><code>dist/index.js</code> now has the rewritten <code>.js</code> import:</p>
 <pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
 <a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
   <a-f>bar</a-f><a-p>()</a-p>
 <a-p>}</a-p>
 </code></pre>
-<p>and dist/bar.js says</p>
+<p>and <code>dist/bar.js</code>:</p>
 <pre><code class="language-javascript"><a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
   <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
 <a-p>}</a-p>
 </code></pre>
-<p>Previously you had to write <code>import {foo} from './bar.js'</code> in the src folder to
-have this behavior, but now you can reference the actual file, bar.ts</p>
+<p>Previously you had to write <code>import { bar } from './bar.js'</code> in <code>src</code> to get
+this behavior. Now you can reference the actual <code>bar.ts</code> file.</p>
 <h2 id="the-packagejson">The package.json</h2>
 <pre><code class="language-json">{
   <a-s>"name"</a-s>: <a-s>"minimalpackage"</a-s>,
@@ -66,8 +65,8 @@ have this behavior, but now you can reference the actual file, bar.ts</p>
   <a-s>"scripts"</a-s>: {
     <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
     <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
-    <a-s>"prebuild"</a-s>: <a-s>"yarn clean"</a-s>,
-    <a-s>"preversion"</a-s>: <a-s>"yarn build"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"pnpm clean"</a-s>,
+    <a-s>"preversion"</a-s>: <a-s>"pnpm build"</a-s>,
     <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
   },
   <a-s>"devDependencies"</a-s>: {
@@ -76,28 +75,30 @@ have this behavior, but now you can reference the actual file, bar.ts</p>
   }
 }
 </code></pre>
-<p>Some things you can observe</p>
+<p>Notes:</p>
 <ul>
 <li>
-<p>I specify main and exports. Exports is sufficient for some but requires
-consumers use moduleResolution with nodenext which is rare</p>
+<p>I specify both <code>main</code> and <code>exports</code>. <code>exports</code> alone works for consumers on
+<code>moduleResolution: nodenext</code>, which is still uncommon.</p>
 </li>
 <li>
-<p>You can see from the above, I did not need to specify the location of “types”</p>
+<p>No <code>types</code> field is needed. tsc picks it up from the <code>.d.ts</code> next to the
+entry.</p>
 </li>
 <li>
-<p>Lots of usages of “exports” have a complex object but it can simply be a
-string that points to a file</p>
+<p><code>exports</code> is often a complex object, but a plain string pointing at a file is
+enough here.</p>
 </li>
 <li>
-<p>I use rimraf to clear the dist folder before building. I can use “yarn build
-—watch” for a tsc watcher</p>
+<p><code>rimraf</code> clears <code>dist</code> before each build. <code>pnpm build --watch</code> passes
+<code>--watch</code> through to tsc.</p>
 </li>
 <li>
-<p>You can run <code>yarn publish</code> to publish to NPM, and it will automatically run
-the clean and build via the preversion script, and then will automatically
-push the updated version and tag to github once it is finished via the
-postversion script</p>
+<p><code>pnpm version &#x3C;patch|minor|major></code> triggers <code>preversion</code>/<code>postversion</code>, which
+cleans, builds, and pushes the new tag to github. Combined with
+<a href="https://docs.npmjs.com/trusted-publishers">npm trusted publishing</a>, a GitHub
+Actions workflow then publishes to NPM without long-lived tokens. See
+Footnote 2.</p>
 </li>
 </ul>
 <h2 id="the-tsconfigjson">The tsconfig.json</h2>
@@ -105,7 +106,9 @@ postversion script</p>
   <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
   <a-s>"compilerOptions"</a-s>: {
     <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
-    <a-s>"target"</a-s>: <a-s>"es2020"</a-s>,
+    <a-s>"target"</a-s>: <a-s>"es2022"</a-s>,
+    <a-s>"module"</a-s>: <a-s>"nodenext"</a-s>,
+    <a-s>"moduleResolution"</a-s>: <a-s>"nodenext"</a-s>,
     <a-s>"declaration"</a-s>: <a-co>true</a-co>,
     <a-s>"strict"</a-s>: <a-co>true</a-co>,
     <a-s>"allowImportingTsExtensions"</a-s>: <a-co>true</a-co>,
@@ -117,24 +120,64 @@ postversion script</p>
 <pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>foo</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'minimalpackage'</a-s>
 <a-f>foo</a-f><a-p>()</a-p>
 </code></pre>
-<h2 id="conclusion">Conclusion</h2>
-<p>This article proposes a bundler-less approach to distributing typescript
-packages on NPM. It was possible before, but I think the addition of the
-<code>allowImportingTsExtensions</code> and <code>rewriteRelativeImportExtensions</code> made it more
-sane.</p>
 <h2 id="footnote-1---publishing-dual-esmcjs-using-this-technique">Footnote 1 - Publishing dual ESM/CJS using this technique</h2>
-<p>I don’t even know if I fully stand behind doing a dual publish this way, but for
-reference, here is a potential way to dual ESM/CJS publish with this method
+<p>If you need dual ESM/CJS, here is a sketch of how to do it with this method:
 <a href="https://gist.github.com/cmdcolin/c3089a4b37f2ff8c8eabce5ebd3b4082">https://gist.github.com/cmdcolin/c3089a4b37f2ff8c8eabce5ebd3b4082</a></p>
-<p>The ‘quick start kit’ tshy is also a pretty good minimal approach to publishing.
-You might consider trying it</p>
-<h2 id="footnote-2---add-the-eslint-plugin-import-with-rule-requiring-file-extension-imports">Footnote 2 - Add the eslint-plugin-import with rule requiring file extension imports</h2>
-<p>Add this to your eslint config</p>
-<pre><code>'import/extensions': ['error', 'ignorePackages'],
+<h2 id="footnote-2---setting-up-npm-trusted-publishing">Footnote 2 - Setting up npm trusted publishing</h2>
+<p>Trusted publishing lets a GitHub Actions workflow publish to NPM via OIDC, so
+you don’t have to manage an <code>NPM_TOKEN</code> secret.</p>
+<p>Configure the trusted publisher for your package, pointing at your GitHub repo
+and the workflow filename (e.g. <code>publish.yml</code>). This can be done via the
+npmjs.com web UI under Settings -> Publishing access, or via the <code>npm</code> CLI on
+v11+.</p>
+<p>Then add <code>.github/workflows/publish.yml</code>, triggered on tag pushes (which is what
+<code>pnpm version</code> produces via <code>postversion</code>):</p>
+<pre><code class="language-yaml"><a-pr>name</a-pr><a-p>:</a-p> <a-s>Publish</a-s>
+
+<a-pr>on</a-pr><a-p>:</a-p>
+  <a-pr>push</a-pr><a-p>:</a-p>
+    <a-pr>tags</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-s>'v*'</a-s>
+
+<a-pr>jobs</a-pr><a-p>:</a-p>
+  <a-pr>publish</a-pr><a-p>:</a-p>
+    <a-pr>runs-on</a-pr><a-p>:</a-p> <a-s>ubuntu-latest</a-s>
+    <a-pr>permissions</a-pr><a-p>:</a-p>
+      <a-pr>id-token</a-pr><a-p>:</a-p> <a-s>write</a-s>
+      <a-pr>contents</a-pr><a-p>:</a-p> <a-s>read</a-s>
+    <a-pr>steps</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/checkout@v4</a-s>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>pnpm/action-setup@v4</a-s>
+        <a-pr>with</a-pr><a-p>:</a-p>
+          <a-pr>version</a-pr><a-p>:</a-p> <a-n>10</a-n>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/setup-node@v4</a-s>
+        <a-pr>with</a-pr><a-p>:</a-p>
+          <a-pr>node-version</a-pr><a-p>:</a-p> <a-s>24.x</a-s>
+          <a-pr>cache</a-pr><a-p>:</a-p> <a-s>pnpm</a-s>
+          <a-pr>registry-url</a-pr><a-p>:</a-p> <a-s>'https://registry.npmjs.org'</a-s>
+      <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>pnpm install --frozen-lockfile</a-s>
+      <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>pnpm build</a-s>
+      <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>npm publish --access public</a-s>
 </code></pre>
-<p>It will enforce importing from specific files, except for package names e.g. you
-need to import from ‘yourfile.ts’ for your code, but can import from packages
-like normal like <code>import {useState} from 'react'</code></p> </div> <div id="giscus"></div> <script>
+<p>A few load-bearing details:</p>
+<ul>
+<li><code>id-token: write</code> lets <code>npm publish</code> exchange a GitHub OIDC token for an npm
+publish credential, so no <code>NPM_TOKEN</code> is needed.</li>
+<li><code>registry-url</code> in <code>setup-node</code> is what writes the <code>.npmrc</code> used by the OIDC
+exchange. Don’t drop it.</li>
+<li>We use <code>npm publish</code> instead of <code>pnpm publish</code> because the OIDC integration
+lives in the npm CLI.</li>
+<li><code>pnpm install --frozen-lockfile</code> assumes a <code>pnpm-lock.yaml</code> is committed.</li>
+</ul>
+<p>Full flow: <code>pnpm version patch</code> locally, <code>postversion</code> pushes the tag, and
+GitHub Actions sees the <code>v*</code> tag and publishes.</p>
+<h2 id="footnote-3---add-the-eslint-plugin-import-with-rule-requiring-file-extension-imports">Footnote 3 - Add the eslint-plugin-import with rule requiring file extension imports</h2>
+<p>Add this to your eslint config:</p>
+<pre><code class="language-js"><a-s>'import/extensions'</a-s>: <a-p>[</a-p><a-s>'error'</a-s><a-p>,</a-p> <a-s>'ignorePackages'</a-s><a-p>],</a-p>
+</code></pre>
+<p>It will enforce importing from specific files, except for package names, e.g.
+you need to import from ‘yourfile.ts’ for your code, but can import from
+packages like normal: <code>import { useState } from 'react'</code>.</p> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
