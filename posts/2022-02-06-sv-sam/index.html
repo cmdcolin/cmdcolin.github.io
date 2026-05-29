@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.3.3"><title>Structural variants and the SAM format - the long (reads) and short (reads) of it</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.4.2"><title>Structural variants and the SAM format - the long (reads) and short (reads) of it</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
 </style>
 <link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Structural variants and the SAM format - the long (reads) and short (reads) of it</h1> <h4 data-astro-cid-lvjzyg5v>2022-02-06</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <p>The
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"><code>SAM</code> file format and its specification</a>
-is pretty amazing, but it is also fairly terse and abstract. To really
-understand what is going on with your reads, you probably gotta play around with
-real world data and learn from tutorials.</p>
-<p>I will try to relay some things I have learned over the years, with a bit of a
-focus on how <code>SAM</code> file concepts can relate to structural variants.</p>
+is pretty amazing, but also terse and abstract. To really understand what is
+going on with your reads, you need to play with real-world data and learn from
+tutorials.</p>
+<p>I’ll relay some things I’ve learned over the years, focused on how <code>SAM</code>
+concepts relate to structural variants.</p>
 <p>Disclaimer: I’m a developer of JBrowse 2. This document has some screenshots and
 links for it, feel free to try it at <a href="https://jbrowse.org">https://jbrowse.org</a>.</p>
 <h2 id="basics">Basics</h2>
@@ -14,12 +14,12 @@ links for it, feel free to try it at <a href="https://jbrowse.org">https://jbrow
 <ul>
 <li>
 <p>A <code>SAM</code> file <strong>generally</strong> contains “reads” from a sequencer, with information
-about how they are mapped to a reference genome [^1][^2].</p>
+about how they are mapped to a reference genome <sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup><sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup>.</p>
 </li>
 <li>
-<p>A <code>SAM</code> file is <strong>generally</strong> produced when an aligner takes in raw, unaligned
-reads (often stored in <code>FASTQ</code> format files) and aligns them to a reference
-genome [^3].</p>
+<p>It is <strong>generally</strong> produced when an aligner takes in raw, unaligned reads
+(often stored in <code>FASTQ</code> format files) and aligns them to a reference genome
+<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref="" aria-describedby="footnote-label">3</a></sup>.</p>
 </li>
 <li>
 <p>A <code>SAM</code> file is a text format that you can read with your text editor. <code>BAM</code>
@@ -29,15 +29,6 @@ and <code>CRAM</code> are compressed representations of the <code>SAM</code> for
 <p>You generally see <code>BAM</code> or <code>CRAM</code> in the wild instead of <code>SAM</code> since the files
 are very large, so the compressed versions are better to store on disk.</p>
 <p>See Appendix E on how to convert between SAM/BAM/CRAM.</p>
-<p>[^1] <code>SAM</code> can contain any type of sequence, not specifically reads. If you
-created a <em>de novo</em> assembly, you could align the contigs of the <em>de novo</em>
-assembly to a reference genome and store the results in <code>SAM</code>.</p>
-<p>[^2] Does not always have to have information about mapping to a reference
-genome. You can also store unaligned data in <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> (so-called
-<code>uBAM</code> for example) but most of the time, the reads in <code>SAM</code> format are aligned
-to a reference genome.</p>
-<p>[^3] Examples of programs that do alignment include <code>bwa</code>, <code>bowtie</code>, and
-<code>minimap2</code> (there are many others). These programs can all produce <code>SAM</code> outputs</p>
 <h3 id="what-is-in-a-sambamcram-file">What is in a <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> file?</h3>
 <p>A <code>SAM</code> file contains a “header” and a series of “records”.</p>
 <h3 id="what-is-a-sam-record">What is a <code>SAM</code> “record”?</h3>
@@ -46,13 +37,14 @@ single read, but as we will see, a split alignment may produce multiple records
 that refer to the same source read.</p>
 <p>Note that the words “read” and “record” are sometimes used interchangeably, but
 record has the more specific meaning of being a single line in the <code>SAM</code> file.</p>
-<h3 id="what-are-tags-in-a-sam-file">What are tags in a <code>SAM</code> file</h3>
+<h3 id="what-are-tags-in-a-sam-file">What are tags in a <code>SAM</code> file?</h3>
 <p>A SAM file has a core set of required fields, and then an arbitrary list of
 extra columns called tags. The tags have a two-character abbreviation like <code>MQ</code>
 (mapping quality) or many others. They can be upper or lower case. Upper case
 tags are reserved for official usages (except those starting with X, Y, or Z,
 which are reserved for local/user-defined use). See
-<a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more details</p>
+<a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
+details.</p>
 <h3 id="what-is-a-cigar-string-and-how-do-you-interpret-it">What is a <code>CIGAR</code> string, and how do you interpret it?</h3>
 <p>A <code>CIGAR</code> string is a “compact idiosyncratic gapped alignment report”. It tells
 you about insertions, deletions, and clipping. It is a series of “operators”
@@ -98,7 +90,7 @@ parse CIGAR strings. See Appendix B for handy functions for parsing <code>CIGAR<
 strings. Don’t fear the <code>CIGAR</code>!</p>
 <p>Note regarding soft clipping: this will be discussed further in this post, but
 “supplementary alignments” might indicate that e.g. those 500 bases that were
-soft-clipped aligned to another region on the genome</p>
+soft-clipped aligned to another region on the genome.</p>
 <h3 id="how-do-you-determine-start-and-end-and-strand-of-a-record">How do you determine “start” and “end” and “strand” of a record?</h3>
 <p>SAM records do not have easy-to-interpret “start” and “end” and “strand” fields
 like, say, lines in a <code>BED</code> file do</p>
@@ -121,8 +113,8 @@ the DNA letters as written in the reference genome FASTA file), resulting in
 resulting in “reverse strand reads”.</p>
 <p>Strandedness is recorded for each record in the SAM/BAM/CRAM file by having the
 SAM flags bitwise flag 16 enabled
-(<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), the flag there is
-referred to as “read reverse strand”</p>
+(<a href="https://broadinstitute.github.io/picard/explain-flags.html">https://broadinstitute.github.io/picard/explain-flags.html</a>), where this flag is
+called “read reverse strand”.</p>
 <h3 id="do-you-count-backwards-with-the-cigar-for-reverse-strand-reads">Do you count backwards with the <code>CIGAR</code> for reverse strand reads?</h3>
 <p>As mentioned above, you get the “start” and “end” by processing the <code>CIGAR</code>, so
 one might wonder whether you count “downwards” from POS for reverse strand
@@ -146,7 +138,7 @@ record is forward or reverse strand, you count upwards when processing the
 “reverse strand” read, and its <code>POS</code>, or “start” position, is 37, and then the
 <code>CIGAR</code> (9M, 9 matches) counts upwards from there, giving it an “end” position
 of 45.</p>
-<h3 id="how-are-reads-ordered-in-a-sam-file">How are reads ordered in a <code>SAM</code> file</h3>
+<h3 id="how-are-reads-ordered-in-a-sam-file">How are reads ordered in a <code>SAM</code> file?</h3>
 <p>When you run an aligner program like bwa or minimap2, you type e.g.</p>
 <pre><code>minimap2 -a reference_genome.fa reads.fq > out.sam
 </code></pre>
@@ -155,8 +147,9 @@ loading into analysis tools or genome browsers, we will often sort the reads
 using <code>samtools sort</code> which will group by chromosome name, and then increasing
 in coordinate start position. Then <code>samtools index</code> creates an index file (e.g.
 bam.bai, cram.crai). The index file lets you quickly query the reads in a
-specific genomic region (e.g. with <code>samtools view myfile chr10:1000-2000</code>)</p>
-<h3 id="what-happens-to-reads-that-dont-align-to-the-genome">What happens to reads that don’t align to the genome</h3>
+specific genomic region (e.g. with <code>samtools view myfile chr10:1000-2000</code>). See
+Appendix G for how this indexing actually works.</p>
+<h3 id="what-happens-to-reads-that-dont-align-to-the-genome">What happens to reads that don’t align to the genome?</h3>
 <p>If a read failed to align to the reference genome, it may still be in your <code>SAM</code>
 file, marked as unmapped using the flag column. Sometimes, “dumpster diving”
 (looking at the unmapped records from a <code>SAM</code> file) can be used to aid
@@ -178,9 +171,9 @@ and one part maps to the other</li>
 reads can be split into multiple parts, one part of it aligns in the reverse
 orientation, while the other part aligns in the forward orientation</li>
 </ul>
-<p>Note that there are many different methods for detecting SVs from long reads,
-e.g. not all use mapped reads from SAM files, some use <em>de novo</em> assembly, but
-it is still useful to be familiar with mapped read methods.</p>
+<p>There are many other methods for detecting SVs from long reads — not all use
+mapped reads (some use <em>de novo</em> assembly for example) — but mapped-read methods
+are still useful to know.</p>
 <h3 id="what-are-splitsupplementarychimeric-alignments">What are split/supplementary/chimeric alignments?</h3>
 <p>Split alignments, or chimeric alignments, are alignments where part of the read
 maps to one place, and another part to another. For example, part of a long read
@@ -197,17 +190,15 @@ clipping operators saying which part of that sequence aligned), and the
 “supplementary alignments” will have <code>SEQ</code> field but sometimes just segments of
 the original read’s sequence with CIGAR hard clipping operators indicating that
 it is partial.</p>
-<p>Supplementary alignments are especially common with long reads, and it can be a
-signal for structural variants e.g. where two chromosomes are fused together,
-and parts of the read align to multiple chromosomes, or the split alignment may
-align to either side of a large deletion, or they may be split to align through
-an inversion (part of it aligns to the forward strand, part of it to the reverse
-strand, and again the forward strand)</p>
+<p>Supplementary alignments are especially common with long reads and can signal
+structural variants: a read may split across a chromosomal fusion, align to
+either side of a large deletion, or span an inversion (part aligning forward,
+part reverse).</p>
 <p>There is no limitation on how many splits might occur so the split can align to
 3, 4, or more different places. Each part of the split puts a new line in the
 SAM file, and note that all the records also have the same read name, or <code>QNAME</code>
 (first column of <code>SAM</code>).</p>
-<h3 id="what-are-secondary-alignmentsmulti-mappers">What are secondary alignments/multi-mappers</h3>
+<h3 id="what-are-secondary-alignmentsmulti-mappers">What are secondary alignments/multi-mappers?</h3>
 <p>Secondary alignments generally come from “multi-mappers” where the entire read
 maps equally well (or at least somewhat equally well) to, say, somewhere on both
 <code>chr4</code> and <code>chr1</code>. “Multi mapping” results in secondary alignments, while split
@@ -215,13 +206,13 @@ reads result in supplementary alignments. See “Multiple mapping” in the
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAMv1.pdf</a> for the definition
 of multi-mapping. Note also that secondary alignments sometimes are missing the
 <code>SEQ</code> field entirely too, see
-<a href="https://github.com/lh3/minimap2/issues/458#issuecomment-516661855">https://github.com/lh3/minimap2/issues/458#issuecomment-516661855</a></p>
+<a href="https://github.com/lh3/minimap2/issues/458#issuecomment-516661855">https://github.com/lh3/minimap2/issues/458#issuecomment-516661855</a>.</p>
 <p>I wrote a tool called secondary_rewriter to add the <code>SEQ</code> field back to
-secondary alignments, which may help in some cases</p>
+secondary alignments, which may help in some cases.</p>
 <h3 id="what-is-the-sa-tag">What is the <code>SA</code> tag?</h3>
 <p>The <code>SA</code> tag is outputted on each part of the supplementary/split/chimeric
 alignment, e.g. the primary contains an <code>SA</code> tag that refers to information
-(e.g. the location) of where all the supplementary alignments where placed, and
+(e.g. the location) of where all the supplementary alignments were placed, and
 each of the supplementary alignments also contains an <code>SA</code> tag that refers to
 the primary alignment and each other supplementary alignment.</p>
 <p>Fun fact: The <code>SA</code> tag conceptually can result in a ‘quadratic explosion’ of
@@ -234,66 +225,51 @@ factor.</p>
 <p>See <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMtags.pdf</a> for more
 info on the <code>SA</code> tag.</p>
 <h3 id="visualizing-split-reads-across-a-breakend-or-translocation">Visualizing split reads across a breakend or translocation</h3>
-<p>This is a specialized JBrowse 2 feature, but if there is an inter-chromosomal
-translocation, you can load this into JBrowse and visualize support for this
-event using our “breakpoint split view”. This view shows the evidence for the
-reads that are split aligned across an SV, and can show connections between
-paired-end reads across an SV too.</p>
-<p>We also have a workflow called the “SV inspector” that helps you setup the
-“breakpoint split views”
-(<a href="https://jbrowse.org/jb2/docs/user_guide/#sv-inspector">https://jbrowse.org/jb2/docs/user_guide/#sv-inspector</a>). The SV inspector and
-Breakpoint split view work best on Breakends (e.g. VCF 4.3 section 5.4) and
-<code>&#x3C;TRA></code> (translocation) events from <code>VCF</code>, or <code>BEDPE</code> formatted SV calls, and
-you can launch the “breakpoint split view” from the “SV inspector”</p>
+<p>For an inter-chromosomal translocation, JBrowse 2’s “breakpoint split view”
+visualizes support for the event, showing reads that are split-aligned across
+the SV (and connections between paired-end reads across it too).</p>
+<p>The <a href="https://jbrowse.org/jb2/docs/user_guides/sv_inspector_view/">SV inspector</a>
+workflow helps you set these up, and you can launch the breakpoint split view
+from it. Both work best on Breakends (VCF 4.3 section 5.4) and <code>&#x3C;TRA></code> events
+from <code>VCF</code>, or <code>BEDPE</code> SV calls.</p>
 <p><img src="/media/breakpoint_split_view.png" alt=""></p>
 <h3 id="visualizing-a-read-vs-reference-view-given-a-split-alignment">Visualizing a ‘read vs reference’ view given a split alignment</h3>
-<p>If we are given the primary alignment of an arbitrary split read, then we can
-construct what that split looks like compared to the reference genome.</p>
-<p>If we are not given the primary alignment (e.g. we are starting from a
-supplementary alignment) then we can search the <code>SA</code> list for the one that is
-primary, because at least one will be.</p>
-<p>Now that we have the primary alignment, it will have the <code>SEQ</code> (of the entire
-read, the supplementary alignments typically have a blank <code>SEQ</code>!) and the <code>SA</code>
-tag containing the <code>CIGAR</code> of all the different parts of the split. We can then
-construct how the entire read, not just a particular record of the split
-alignment, compares to the genome. In JBrowse 2 we implemented this, and it uses
-a synteny-style rendering. [1]</p>
+<p>Given any one record of a split read, we can reconstruct what the whole read
+looks like compared to the reference genome. We don’t need the primary
+specifically: the record’s <code>SA</code> tag lists every other piece, so the record plus
+its <code>SA</code> tag describe the whole read.</p>
+<p>The primary is special in one respect: it carries the <code>SEQ</code> of the entire read,
+so it’s where the full read sequence lives if you want to display the bases.
+(Whether supplementary records also carry the full <code>SEQ</code> depends on the aligner:
+<code>minimap2</code> and <code>bwa</code> hard-clip them by default so they store only their aligned
+portion, but <code>-Y</code> makes them soft-clip and keep the entire <code>SEQ</code>.) JBrowse 2
+implements this reconstruction with a synteny-style rendering. [1]</p>
 <p><img src="/media/linear_alignment.png" alt=""></p>
 <p>Figure showing JBrowse 2 piecing together a long read vs the reference genome
 from a single read</p>
-<p>In order to do this reconstruction, JBrowse 2 takes the <code>CIGAR</code> strings of the
-primary alignment and each of the pieces of the <code>SA</code> tag (it is a semi-colon
-separated list of chunks), sort them by the amount of softclipping (the
-softclipping values will progressively trim off more of the <code>SEQ</code> telling you it
-aligned further and further on in the long read), and then this tells me where
-each piece of the split alignment came from in the original <code>SEQ</code>, so we can
-plot the alignments of the read vs the reference genome using synteny style
-display.</p>
+<p>To do this, JBrowse takes the <code>CIGAR</code> of the record you started from plus each
+piece in its <code>SA</code> tag, and sorts them by the length of the clip at the start of
+the read, counting soft (<code>S</code>) and hard (<code>H</code>) clips alike (since supplementary
+records may be either, depending on the aligner). A larger leading clip means
+the piece starts further along the read, so the clip lengths give the order of
+the pieces — telling us where each came from in the original read, which we plot
+in a synteny-style display.</p>
 <p>[1] Similar functionality also exists in GenomeRibbon <a href="https://genomeribbon.org">https://genomeribbon.org</a></p>
 <h3 id="sam-vs-vcf---breakends-vs-split-alignments"><code>SAM</code> vs <code>VCF</code> - Breakends vs split alignments</h3>
-<p>An interesting outcome (to me) is that from a single record in a <code>SAM</code> file, I
-can reconstruct the “derived” genome around a region of interest from a single
-read.</p>
-<p>If I were to try to do this with the <code>VCF</code> Breakend specification (section 5.4
-of <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a>), it may
-actually be more challenging than from a <code>SAM</code> read. This is because a Breakend
-in <code>VCF</code> format is only an edge in a graph (and the sequences are nodes).
-Therefore, in order to properly reconstruct a structural variant from a <code>VCF</code>
-with Breakends, I would have to construct a graph and decode paths through it.</p>
-<p>I like the ability to reconstruct the derived genome from a single read, but
-individual reads can be noisy (contain errors). That said, <em>de novo</em> assembled
-contigs can also be stored in <code>SAM</code> format and is significantly less noisy
-(being composed of the aggregate information of many reads).</p>
-<p>The point though is that interpretation of the <code>VCF</code> breakend specification is
-challenging due to imposing a sequence graph on the genome, while the <code>SA</code> tag
-remains just a simple set of linear alignments that can easily be pieced
-together, and you only need to refer to a single record in the <code>SAM</code> file to do
-so.</p>
-<p>I am not aware of a lot of tools that work on the <code>VCF</code> Breakend graph, and
-expect more will need to be created to truly work with this standard. An
-inversion for example may create 4 records in the <code>VCF</code> file (see section 5.4 in
-the <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a> for example),
-and needs careful interpretation.</p>
+<p>A nice property of <code>SAM</code> is that from a single record I can reconstruct the
+“derived” genome around a region of interest. The <code>SA</code> tag is just a set of
+linear alignments that piece together easily, and you only need that one record
+to do it.</p>
+<p>Doing the same from the <code>VCF</code> Breakend specification (section 5.4 of
+<a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a>) is harder: a
+Breakend is only an edge in a graph (sequences are the nodes), so reconstructing
+a structural variant means building that graph and decoding paths through it. An
+inversion, for example, may take 4 <code>VCF</code> records to express. I’m not aware of
+many tools that work on the Breakend graph, and expect more will be needed to
+truly support it.</p>
+<p>The catch with single reads is that they can be noisy (contain errors). <em>de
+novo</em> assembled contigs can also be stored in <code>SAM</code> format and are much less
+noisy, being built from many reads.</p>
 <h3 id="haplotype-tagged-reads">Haplotype-tagged reads</h3>
 <p>A new trend has been to create <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> files with tagged reads, which
 tells us which haplotype a read was inferred to have come from. This is commonly
@@ -303,14 +279,13 @@ can color and sort by these tags.</p>
 <p><img src="/media/color_by_tag.png" alt=""></p>
 <p>Screenshot of JBrowse 2 with the “Color by tag” and “Sort by tag” settings
 enabled (coloring and sorting by the <code>HP</code> tag), letting us see that only one
-haplotype has a deletion. Tutorial for how to do this in JBrowse 2 here
-<a href="https://jbrowse.org/jb2/docs/user_guide/#sort-color-and-filter-by-tag">https://jbrowse.org/jb2/docs/user_guide/#sort-color-and-filter-by-tag</a></p>
+haplotype has a deletion. Tutorial for how to do this in JBrowse 2 here:
+<a href="https://jbrowse.org/jb2/docs/user_guides/alignments_track/#sort-color-and-filter-by-tag">https://jbrowse.org/jb2/docs/user_guides/alignments_track/#sort-color-and-filter-by-tag</a></p>
 <h2 id="how-do-you-detect-svs-with-paired-end-reads">How do you detect SVs with paired-end reads?</h2>
 <h3 id="distance-between-pairs-being-abnormally-large-or-short">Distance between pairs being abnormally large or short</h3>
-<p>The distance between pairs is encoded by the <code>TLEN</code> column in the <code>SAM</code> format.
-The distance between pairs with good mapping is relatively constant and called
-the “insert length”. This comes from how the sequencing is done: paired-end
-sequencing performs sequencing on both ends of a fragment.</p>
+<p>The distance between pairs is encoded by the <code>TLEN</code> column. For well-mapped
+pairs it is relatively constant, called the “insert size”, and comes from how
+paired-end sequencing reads both ends of a fragment.</p>
 <p>But, if you are mapping reads vs the reference genome, and you observe that they
 are abnormally far apart, say 50kb apart instead of 1kb apart, this may indicate
 that your sample contains a deletion relative to the reference.</p>
@@ -333,10 +308,11 @@ different pair orientation, and pairs don’t necessarily point at each other,
 they “point away from each other” in normal conditions due to how the library is
 constructed. See Appendix A for more info.</p>
 <h3 id="linked-reads-aka-simulated-long-reads">Linked reads aka simulated long reads</h3>
-<p>Linked reads are another method that uses short reads but gives long read
-information. I don’t have a lot of info on this but I will update this section
-if I do. The company, 10x genomics, that originally used this discontinued
-commercial sequencing using this method to focus instead on single cell AFAIK.
+<p>Briefly: linked reads are another method that uses short reads but gives long
+read information, by tagging short reads that came from the same long molecule
+with a shared barcode. Note that 10x Genomics, the company that originally
+popularized this method, has since discontinued commercial linked-read
+sequencing to focus on single cell.
 <a href="https://www.10xgenomics.com/products/linked-reads">https://www.10xgenomics.com/products/linked-reads</a></p>
 <h3 id="an-abundance-of-reads-being-clipped-at-a-particular-position">An abundance of reads being “clipped” at a particular position</h3>
 <p>This can indicate that part of the reads map well, but then there was an abrupt
@@ -363,9 +339,8 @@ JBrowse 2 and IGV can be used to show visually the bases that extend into the
 insertion (shown on the bottom track).</p>
 <h3 id="unexpected-pair-orientation">Unexpected pair orientation</h3>
 <p>With standard paired end sequencing, the pairs normally point at each other</p>
-<pre><code>
-forward reverse ---> &#x3C;---
-
+<pre><code>forward          reverse
+--->             &#x3C;---
 </code></pre>
 <p>If the stranded-ness of the pair is off, then it could indicate a structural
 variant. See Appendix A for a handy function for calculating pair orientation.</p>
@@ -382,25 +357,20 @@ same direction e.g. <code>--></code> and <code>--></code></p>
 <p>Note that <code>TLEN</code> is a field in the SAM format that is somewhat ill-defined, at
 least in the sense that different tools may use it differently
 <a href="https://github.com/pysam-developers/pysam/issues/667#issuecomment-381521767">https://github.com/pysam-developers/pysam/issues/667#issuecomment-381521767</a></p>
-<p>If needed, you can calculate <code>TLEN</code> yourself if you process the file yourself
-(e.g. process all reads, get the actual records for the pairs, and calculate
-distance) but I have not had trouble with relying on the <code>TLEN</code> from the data
-files themselves.</p>
+<p>If needed, you can compute the distance yourself from the paired records, but I
+haven’t had trouble relying on the <code>TLEN</code> in the data files.</p>
 <h2 id="calling-copy-number-variants-with-your-short-or-long-reads">Calling copy number variants with your short or long reads</h2>
-<p>Another type of SV that you can get from your <code>SAM</code> files are copy number
-variants (CNVs). By looking at the depth-of-coverage for your data files, you
-can look for abnormalities that may indicate copy number variants. By using a
-tool like <code>mosdepth</code>, you can quickly get a file showing the coverage across the
-genome.</p>
+<p>Another type of SV you can get from <code>SAM</code> files is copy number variants (CNVs).
+Looking at depth-of-coverage for abnormalities can reveal them; a tool like
+<code>mosdepth</code> quickly produces a file of coverage across the genome.</p>
 <p>Be aware that if you are comparing the coverage counts from different tools,
 they have different defaults that may affect comparison. Some discard <code>QC_FAIL</code>,
 <code>DUP</code>, and <code>SECONDARY</code> flagged reads. This is probably appropriate, and
 corresponds to what most genome browsers will display (see
 <a href="https://gist.github.com/cmdcolin/9f677eca28448d8a7c5d6e9917fc56af">https://gist.github.com/cmdcolin/9f677eca28448d8a7c5d6e9917fc56af</a> for a short
 summary of depth calculated from different tools)</p>
-<p>Note that both long and short reads can be used for CNV detection. Long reads
-may give more accurate measurements also, with their better ability to map
-smoothly through difficult regions of the genome.</p>
+<p>Both long and short reads can be used for CNV detection; long reads may be more
+accurate thanks to better mapping through difficult regions.</p>
 <p><img src="/media/coverage_cnv.png" alt=""></p>
 <p>Screenshot showing coverage in <code>BigWig</code> format from nanopore reads on normal and
 tumor tissue from a melanoma cancer cell line (COLO829) plotted using JBrowse 2.
@@ -410,21 +380,18 @@ This coverage data is calculated from nanopore sequencing from
 <code>BigWig</code>, and loaded into JBrowse 2. See
 (<a href="https://jbrowse.org/code/jb2/v1.6.4/?config=test_data%2Fconfig_demo.json&#x26;session=share-MZj3d18lzH&#x26;password=3X7bS">demo</a>
 and
-<a href="https://jbrowse.org/jb2/docs/user_guide/#viewing-whole-genome-coverage-for-profiling-cnv">tutorial</a>)</p>
+<a href="https://jbrowse.org/jb2/docs/user_guides/quantitative_track/#viewing-whole-genome-coverage-for-cnv-profiling">tutorial</a>)</p>
 <h2 id="the-future-with-graph-genomes-and-de-novo-assemblies">The future, with graph genomes and <em>de novo</em> assemblies</h2>
-<p>Currently, SV visualization is highly based on comparing data versus a reference
-genome (and the <code>SAM</code> format is a signature of this: it stores data in terms of
-reference genome coordinates). In the future, SV visualization may look more
-similar to comparative genomics, where we compare an SV to a population-specific
-reference from a graph genomes or something like this.</p>
-<p>It is known that <em>de novo</em> assembly has more power to detect SVs than some read
-operations (<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>). As
-<em>de novo</em> assembled genomes improve and become more widespread, we may see a
-shift in how SVs are called</p>
-<p>I would also like to see improved ability to do fast or ‘on the fly’ gene
-prediction on the <em>de novo</em> assembled genomes, and we can see what SNPs or
-modified splicing might look like in copies of genes (e.g. derived regions of
-the CNV duplications).</p>
+<p>Currently, SV visualization is mostly based on comparing data to a reference
+genome (and <code>SAM</code> is a signature of this: it stores everything in reference
+coordinates). In the future it may look more like comparative genomics,
+comparing an SV to a population-specific or graph-genome reference.</p>
+<p><em>de novo</em> assembly has more power to detect SVs than some read-based methods
+(<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>), so as assembled
+genomes improve and become more widespread, we may see a shift in how SVs are
+called. I’d also like to see fast ‘on the fly’ gene prediction on assembled
+genomes, to see what SNPs or altered splicing look like in duplicated gene
+copies.</p>
 <p>Fun fact: the
 <a href="https://github.com/lh3/gfatools/blob/master/doc/rGFA.md#the-graph-alignment-format-gaf"><code>GAF</code></a>
 (graphical alignment format) is a strict superset of
@@ -447,22 +414,22 @@ insertions)</li>
 <li>Over-abundance of clipping (<code>S</code> or <code>H</code> operators in <code>CIGAR</code>)</li>
 <li>Depth of coverage changes for CNVs</li>
 <li>Aligning <em>de novo</em> assembly vs a reference genome
-(<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>) which can
-output <code>SAM</code>, but it can also output
-<a href="https://github.com/lh3/miniasm/blob/master/PAF.md"><code>PAF</code></a> format (which can
-be loaded in JBrowse 2 in the synteny views). Techniques of detecting SVs on
-PAF will be fundamentally pretty similar to the techniques listed above but
-may look a bit different (see <code>cs</code> tag in <code>PAF</code> for example, it is a modified
-<code>CIGAR</code>-like string)</li>
+(<a href="https://twitter.com/lh3lh3/status/1362921612690010118/photo/1">https://twitter.com/lh3lh3/status/1362921612690010118/photo/1</a>)</li>
 </ul>
+<p>That last point is worth expanding on: aligning a <em>de novo</em> assembly to a
+reference can output <code>SAM</code>, but it can also output
+<a href="https://github.com/lh3/miniasm/blob/master/PAF.md"><code>PAF</code></a> format, which can be
+loaded into the JBrowse 2 synteny views. The techniques for detecting SVs from
+<code>PAF</code> are fundamentally similar to those listed above, but may look a bit
+different (see the <code>cs</code> tag in <code>PAF</code> for example, which is a modified
+<code>CIGAR</code>-like string).</p>
 <p>If you have any ideas I should include here, let me know!</p>
 <h3 id="appendix-a-interpreting-pair-orientation">Appendix A: Interpreting pair orientation</h3>
-<p>This may be unnecessarily low-level code for this article, but it could be
-helpful utility to help determine the pair orientation from a single
-SAM/BAM/CRAM record.</p>
+<p>This is fairly low-level, but it’s a handy utility for determining pair
+orientation from a single SAM/BAM/CRAM record.</p>
 <pre><code class="language-ts"><a-c>// @param flags - flags from a single read</a-c>
-<a-c>// @param ref - the string of the reference sequence, just used to determine if it matches rnext</a-c>
-<a-c>// @param rnext - the string of the RNEXT, just used to determine if it matches ref</a-c>
+<a-c>// @param ref - this read's RNAME (reference sequence name)</a-c>
+<a-c>// @param rnext - the RNEXT field, used to check the mate is on the same reference</a-c>
 <a-c>// @param tlen - the TLEN field from SAM</a-c>
 <a-c>// @return e.g. F1R2 normal paired end orientation</a-c>
 <a-k>function</a-k> <a-f>getPairOrientation</a-f><a-p>(</a-p>
@@ -473,8 +440,8 @@ SAM/BAM/CRAM record.</p>
 <a-p>)</a-p> <a-p>{</a-p>
   <a-c>// this read is not unmapped &#x26;&#x26;</a-c>
   <a-c>// this read's mate is also not unmapped &#x26;&#x26;</a-c>
-  <a-c>// this read's mate is on the same reference genome</a-c>
-  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>4</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>8</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-v>ref</a-v> <a-o>===</a-o> <a-v>rnext</a-v><a-p>)</a-p> <a-p>{</a-p>
+  <a-c>// this read's mate is on the same reference genome (RNEXT '=' means same as RNAME)</a-c>
+  <a-k>if</a-k> <a-p>(</a-p><a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>4</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-o>!</a-o><a-p>(</a-p><a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>8</a-n><a-p>)</a-p> <a-o>&#x26;&#x26;</a-o> <a-p>(</a-p><a-v>rnext</a-v> <a-o>===</a-o> <a-s>'='</a-s> <a-o>||</a-o> <a-v>ref</a-v> <a-o>===</a-o> <a-v>rnext</a-v><a-p>))</a-p> <a-p>{</a-p>
     <a-k>const</a-k> <a-v>s1</a-v> <a-o>=</a-o> <a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>16</a-n> ? <a-s>'R'</a-s> : <a-s>'F'</a-s>
     <a-k>const</a-k> <a-v>s2</a-v> <a-o>=</a-o> <a-v>flags</a-v> <a-o>&#x26;</a-o> <a-n>32</a-n> ? <a-s>'R'</a-s> : <a-s>'F'</a-s>
     <a-k>let</a-k> <a-v>o1</a-v> <a-o>=</a-o> <a-s>' '</a-s>
@@ -641,6 +608,7 @@ from <code>FASTQ</code> to <code>CRAM</code> (and generate the index file .crai 
 for longreads</p>
 <p>easy_align_longreads.sh</p>
 <pre><code class="language-sh"><a-c>#!/bin/bash</a-c>
+<a-c># add the preset for your platform, e.g. -x map-ont, -x map-hifi, or -x map-pb</a-c>
 <a-f>minimap2</a-f> <a-co>-t</a-co> 8 <a-co>-a</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-s>"</a-s><a-o>$</a-o><a-pr>2</a-pr><a-s>"</a-s>  <a-o>|</a-o> \
 <a-f>samtools</a-f> fixmate <a-co>-u</a-co> <a-co>-m</a-co> <a-co>-</a-co> <a-co>-</a-co> <a-o>|</a-o> \
 <a-f>samtools</a-f> sort <a-co>-u</a-co> <a-co>-@2</a-co> <a-co>-</a-co> <a-o>|</a-o> \
@@ -666,9 +634,9 @@ for longreads</p>
 <a-f>samtools</a-f> markdup <a-co>-@8</a-co> <a-co>--reference</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>1</a-pr><a-s>"</a-s> <a-co>-</a-co> <a-co>--write-index</a-co> <a-s>"</a-s><a-o>$</a-o><a-pr>4</a-pr><a-s>"</a-s>
 
 
-<a-f>mosdepth</a-f> <a-o>$</a-o><a-pr>4</a-pr> <a-co>-f</a-co> <a-o>$</a-o><a-pr>1</a-pr> <a-o>$</a-o><a-pr>4</a-pr>
+<a-f>mosdepth</a-f> <a-co>-f</a-co> <a-o>$</a-o><a-pr>1</a-pr> <a-o>$</a-o><a-pr>4</a-pr> <a-o>$</a-o><a-pr>4</a-pr>
 <a-f>gunzip</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed.gz
-<a-f>bedGraphToBigWig</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed <a-o>$</a-o><a-pr>1</a-pr>.fa.fai <a-o>$</a-o><a-pr>4</a-pr>.bw
+<a-f>bedGraphToBigWig</a-f> <a-o>$</a-o><a-pr>4</a-pr>.per-base.bed <a-o>$</a-o><a-pr>1</a-pr>.fai <a-o>$</a-o><a-pr>4</a-pr>.bw
 </code></pre>
 <p>Call as “quickalign.sh ref.fa 1.fq 2.fq out.cram” gives you out.cram,
 out.cram.crai, and out.cram.bw (coverage)</p>
@@ -811,7 +779,61 @@ are mapping a divergent strain to a single reference can show similar patterns.<
 strain-specific assembly, a pangenome reference, or a graph genome approach that
 can represent the diversity in these regions. Alternatively, using a more
 lenient aligner setting may recover some reads, but at the cost of noisier
-alignments.</p> </div> <div id="giscus"></div> <script>
+alignments.</p>
+<h2 id="appendix-g-how-bamcram-index-files-work">Appendix G: How BAM/CRAM index files work</h2>
+<p>When you run <code>samtools index</code>, why does the resulting <code>.bai</code>/<code>.csi</code>/<code>.crai</code> let
+you jump straight to <code>chr10:1,000-2,000</code> without reading the whole file? Two
+ingredients:</p>
+<ul>
+<li>
+<p><em>BGZF block compression</em>: BAM is compressed with <code>BGZF</code>, a flavor of gzip made
+of independent ~64kb blocks. A reader can seek to the start of any block and
+decompress from there instead of from the top of the file. Positions are
+stored as “virtual offsets” that pack the compressed block offset and the
+offset-within-the-uncompressed-block into a single 64-bit number.</p>
+</li>
+<li>
+<p><em>A two-part index</em>: the <code>.bai</code> combines a <strong>binning index</strong> and a <strong>linear
+index</strong>.</p>
+<ul>
+<li>The binning index uses the UCSC hierarchical binning scheme: the genome is
+split into bins at several size levels (the smallest is 16kb), and each read
+is filed into the smallest bin that fully contains it. To answer a region
+query, you compute which bins overlap the region at each level and gather
+the file chunks filed under them.</li>
+<li>The linear index stores, for each 16kb window, the smallest virtual offset
+where reads overlapping that window begin, so the reader can skip chunks
+that end before the region of interest.</li>
+</ul>
+</li>
+</ul>
+<p>The <code>.csi</code> index generalizes this with a configurable bin size and depth (needed
+for chromosomes longer than ~512Mb). CRAM’s <code>.crai</code> is a bit different: it is a
+gzipped list of the file’s containers/slices with their reference id, start,
+span, and file offsets.</p>
+<p>If you want to actually see which bins and chunks a given query touches, I made
+an interactive BAM index visualizer that is kind of fun to play with:
+<a href="https://cmdcolin.github.io/bam_index_visualizer/">https://cmdcolin.github.io/bam_index_visualizer/</a></p>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p><code>SAM</code> can contain any type of sequence, not specifically reads. If you
+created a <em>de novo</em> assembly, you could align the contigs of the <em>de novo</em>
+assembly to a reference genome and store the results in <code>SAM</code>. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p>Does not always have to have information about mapping to a reference
+genome. You can also store unaligned data in <code>SAM</code>/<code>BAM</code>/<code>CRAM</code> (so-called
+<code>uBAM</code> for example) but most of the time, the reads in <code>SAM</code> format are
+aligned to a reference genome. <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-3">
+<p>Examples of programs that do alignment include <code>bwa</code>, <code>bowtie</code>, and
+<code>minimap2</code> (there are many others). These programs can all produce <code>SAM</code>
+outputs. <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section> </div> <div id="giscus"></div> <script>
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
   script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
