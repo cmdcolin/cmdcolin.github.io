@@ -264,9 +264,11 @@ to do it.</p>
 <a href="https://samtools.github.io/hts-specs/VCFv4.3.pdf">VCF4.3.pdf</a>) is harder: a
 Breakend is only an edge in a graph (sequences are the nodes), so reconstructing
 a structural variant means building that graph and decoding paths through it. An
-inversion, for example, may take 4 <code>VCF</code> records to express. I’m not aware of
-many tools that work on the Breakend graph, and expect more will be needed to
-truly support it.</p>
+inversion, for example, may take 4 <code>VCF</code> records to express. Some tools do
+tackle this — the GRIDSS / PURPLE / LINX pipeline reconstructs derivative
+chromosomes from breakends, and so does my
+<a href="https://github.com/cmdcolin/derivative-chromosome-utils">derivative-chromosome-utils</a>
+— but it remains more involved than piecing together an <code>SA</code> tag.</p>
 <p>The catch with single reads is that they can be noisy (contain errors). <em>de
 novo</em> assembled contigs can also be stored in <code>SAM</code> format and are much less
 noisy, being built from many reads.</p>
