@@ -12,13 +12,15 @@ posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
   <section>
     <h1>Posts</h1>
     <ul>
-      {posts.map(({ id, date, title }) => (
-        <li>
-          <a href={`/posts/${id}/`}>
-            {date.slice(0, 10)} - {title}
-          </a>
-        </li>
-      ))}
+      {
+        posts.map(({ id, date, title }) => (
+          <li>
+            <a href={`/posts/${id}/`}>
+              {date.slice(0, 10)} - {title}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 </Layout>

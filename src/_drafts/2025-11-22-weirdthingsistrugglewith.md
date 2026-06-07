@@ -111,10 +111,10 @@ started as a static JSON file
 - Tension between abortability and synchronous computation. You want to abort a
   500ms computation when the user moves on, but JS is single-threaded. So either
   you restructure the computation to yield periodically (setTimeout chunking,
-  generators, checking an abort signal), making the code way more complex, or you
-  move it to a web worker and deal with all the web worker problems above. 99%
-  of the time the computation finishes fast enough and the abort machinery is
-  dead weight
+  generators, checking an abort signal), making the code way more complex, or
+  you move it to a web worker and deal with all the web worker problems above.
+  99% of the time the computation finishes fast enough and the abort machinery
+  is dead weight
 - Tension between abortability and caching. If someone aborts an expensive
   operation midway, what do you cache? Nothing, and the next caller pays full
   cost? A partial result? Let it finish in the background to populate the cache
@@ -122,8 +122,8 @@ started as a static JSON file
 - Tension between building something in versus relying on an external tool.
   Should I use a JS library to parse this file format, or just call the
   canonical C tool as a subprocess? The JS library is more portable but often a
-  partial reimplementation that doesn't handle the weird files. The external tool
-  handles everything but now you have a system dependency and subprocess to
+  partial reimplementation that doesn't handle the weird files. The external
+  tool handles everything but now you have a system dependency and subprocess to
   manage
 - Tension between microbenchmark wins and real-world performance. You optimize a
   hot path, microbenchmark shows 3x speedup, end-to-end test shows no

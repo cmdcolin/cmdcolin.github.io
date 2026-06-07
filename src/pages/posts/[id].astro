@@ -1,21 +1,21 @@
 ---
-import { getAllPosts, getPostById } from '../../../lib/api.ts';
-import Container from '../../components/container.astro';
-import GiscusBox from '../../components/giscus.astro';
-import Layout from '../../layouts/Layout.astro';
+import { getAllPosts, getPostById } from '../../../lib/api.ts'
+import Container from '../../components/container.astro'
+import GiscusBox from '../../components/giscus.astro'
+import Layout from '../../layouts/Layout.astro'
 
 export async function getStaticPaths() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts()
 
   return posts.map(post => ({
     params: { id: post.id },
-    props: { post }
-  }));
+    props: { post },
+  }))
 }
 
-const { id } = Astro.params;
-const post = await getPostById(id);
-const Content = post.default;
+const { id } = Astro.params
+const post = await getPostById(id)
+const Content = post.default
 ---
 
 <Layout title={post.title}>

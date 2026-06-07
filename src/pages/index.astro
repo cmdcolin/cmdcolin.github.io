@@ -10,20 +10,23 @@ posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
   <div>
     <h1>Colin Diesh</h1>
     <p>
-      I&apos;m a bioinformatician/software engineer/web developer. Blogging for the future.
+      I&apos;m a bioinformatician/software engineer/web developer. Blogging for
+      the future.
     </p>
   </div>
 
   <section>
     <h1>Posts</h1>
     <ul>
-      {posts.slice(0, 8).map(({ id, date, title }) => (
-        <li>
-          <a href={`/posts/${id}/`}>
-            {date.slice(0, 10)} - {title}
-          </a>
-        </li>
-      ))}
+      {
+        posts.slice(0, 8).map(({ id, date, title }) => (
+          <li>
+            <a href={`/posts/${id}/`}>
+              {date.slice(0, 10)} - {title}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
   <a href="/archive">More posts...</a>

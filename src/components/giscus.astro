@@ -6,20 +6,20 @@
 <div id="giscus"></div>
 
 <script is:inline>
-  const script = document.createElement('script');
-  script.src = 'https://giscus.app/client.js';
-  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
-  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
-  script.setAttribute('data-category', 'General');
-  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
-  script.setAttribute('data-mapping', 'pathname');
-  script.setAttribute('data-strict', '0');
-  script.setAttribute('data-reactions-enabled', '1');
-  script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'bottom');
-  script.setAttribute('data-theme', 'light');
-  script.setAttribute('data-lang', 'en');
-  script.setAttribute('crossorigin', 'anonymous');
-  script.async = true;
-  document.getElementById('giscus').appendChild(script);
+  const script = document.createElement('script')
+  script.src = 'https://giscus.app/client.js'
+  script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
+  script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=='
+  script.dataset.category = 'General'
+  script.dataset.categoryId = 'DIC_kwDOAY8DLc4CO-L9'
+  script.dataset.mapping = 'pathname'
+  script.dataset.strict = '0'
+  script.dataset.reactionsEnabled = '1'
+  script.dataset.emitMetadata = '0'
+  script.dataset.inputPosition = 'bottom'
+  script.dataset.theme = 'light'
+  script.dataset.lang = 'en'
+  script.setAttribute('crossorigin', 'anonymous')
+  script.async = true
+  document.getElementById('giscus').appendChild(script)
 </script>

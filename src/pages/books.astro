@@ -1,12 +1,22 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import styles from './_books.module.css';
+import Layout from '../layouts/Layout.astro'
+import styles from './_books.module.css'
 
 const returnValue = [
   {
+    year: 2026,
+    author: 'John Cheever',
+    title: 'The Swimmer (short story)',
+  },
+  {
+    year: 2026,
+    author: 'Emma Cline',
+    title: 'The Guest',
+  },
+  {
     year: 2025,
     author: 'George Orwell',
-    title: 'Animal Farm'
+    title: 'Animal Farm',
   },
   {
     year: 2025,
@@ -47,7 +57,7 @@ const returnValue = [
   {
     year: 2024,
     author: 'George Orwell',
-    title: '1984'
+    title: '1984',
   },
   {
     year: 2024,
@@ -236,11 +246,14 @@ const returnValue = [
     author: 'Tennessee William',
     title: 'A Streetcar Named Desire',
   },
-];
+]
 ---
 
 <Layout title="Books">
-  <h2>Books I&apos;ve read lately</h2>
+  <h2>
+    Books I&apos;ve read lately. Note that books I started and never finished do
+    not appear here (somewhat more numerous)
+  </h2>
   <table class={styles.table}>
     <thead>
       <tr>
@@ -250,17 +263,18 @@ const returnValue = [
       </tr>
     </thead>
     <tbody>
-      {returnValue.map(line => (
-        <tr>
-          <td class={styles.cell}>{line.year}</td>
-          <td class={styles.cell}>{line.author}</td>
-          <td class={styles.cell}>{line.title}</td>
-        </tr>
-      ))}
+      {
+        returnValue.map(line => (
+          <tr>
+            <td class={styles.cell}>{line.year}</td>
+            <td class={styles.cell}>{line.author}</td>
+            <td class={styles.cell}>{line.title}</td>
+          </tr>
+        ))
+      }
     </tbody>
   </table>
   <a href="https://github.com/cmdcolin/cmdcolin.github.io/discussions/15">
     Recommend me a book
   </a>
 </Layout>
-

@@ -49,8 +49,8 @@ Working codesandbox
 https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003
 
 When refetching a new item, you need to clear the previous state, otherwise
-you'll show stale results while the new fetch is in flight. The `key` prop
-gives you this for free (see Footnote 5); doing it by hand looks like:
+you'll show stale results while the new fetch is in flight. The `key` prop gives
+you this for free (see Footnote 5); doing it by hand looks like:
 
 ```tsx
 import { useState, useEffect } from 'react'
@@ -233,13 +233,13 @@ The original takeaway here was "`useState` is sticky, so remember to reset it"
 along with "remember to handle errors, there are no lint rules for it." Both
 points are still true in a narrow sense, but the better takeaway is: don't put
 yourself in a position where you need to remember any of that. Use the `key`
-prop, use `swr`, or move fetching out of the component, and the manual reset
-and error plumbing both disappear.
+prop, use `swr`, or move fetching out of the component, and the manual reset and
+error plumbing both disappear.
 
 If you do end up writing the manual version, note that it is easy to forget
-error handling entirely in async `useEffect` code, since there are no lint
-rules to catch it. The user just sees a stuck "Loading..." while the error sits
-in the console.
+error handling entirely in async `useEffect` code, since there are no lint rules
+to catch it. The user just sees a stuck "Loading..." while the error sits in the
+console.
 
 ## Footnote 0 - Web perf pontificating
 
