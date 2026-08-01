@@ -107,9 +107,10 @@ have done.
 In any case, to try to bring the cost down from API billing, I decided to switch
 to a subscription at some point.
 
-I bought the basic $20 tier of Claude, and ran out of it immediately. Then I
-upgraded to Claude Max and now am at $100/month. That's where I am "happily"
-sitting now.
+I bought the basic
+$20 tier of Claude, and ran out of it immediately. Then I
+upgraded to Claude Max and now am at $100/month.
+That's where I am "happily" sitting now.
 
 I can sometimes 'max out' the Claude Max tier, but it is probably the right
 level for me. This is a weird thing to 'confess' but I buy the subscription

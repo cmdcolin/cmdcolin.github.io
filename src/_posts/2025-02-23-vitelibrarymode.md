@@ -52,7 +52,7 @@ function n() {
     if (((a = a + ''), (r = r - a.length), r <= 0)) return a
     if ((!e && e !== 0 && (e = ' '), (e = e + ''), e === ' ' && r < 10))
       return t[r] + a
-    for (var u = ''; r & 1 && (u += e), (r >>= 1), r; ) e += e
+    for (var u = ''; r & 1 && (u += e), (r >>= 1), r;) e += e
     return u + a
   }
   return f
