@@ -10,13 +10,15 @@ documentation system more automated.</p>
 <h2 id="make-a-helper-app">Make a helper app</h2>
 <p>You can likely make AI agents help you make the screenshots and puppeteer
 scripts, but critically, I also recommend making your AI agent whip up a small
-‘review’ webapp where you can review updated screenshots. Make it show you when
-a figure gets updated. Make it have a textfield so you can specify if there is
-something wrong with the screenshot. Then the website updates a review.json
-file, and you feed that back to the AI.</p>
+‘review’ webapp where you can review updated screenshots.</p>
+<p>In my review app, it starts a local dev express.js server, and it has a
+textfield so you can specify if there is something wrong with the screenshot and
+it writes that to a reviews.json file.</p>
+<p>Then you feed reviews.json back to the AI.</p>
 <p>The screenshots can also get an extra layer of ‘markup’ added to them (text
 blurbs, etc) which can be tricky, but here again, accessibility helps to locate
-elements on the page</p>
+elements on the page. You can also add things like a tolerance e.g. greater than
+1% of px changed, etc. it just grows with your needs.</p>
 <p><img src="/screenshot-reviews.png" alt="Review app showing each updated screenshot with a textfield for feedback, saved to review.json"></p>
 <h2 id="there-are-many-benefits-to-this-type-of-workflow">There are many benefits to this type of workflow</h2>
 <ul>
