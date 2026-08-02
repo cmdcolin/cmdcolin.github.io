@@ -35,32 +35,17 @@ want people to use. Similar to the
 Google</li>
 <li>It forces you to work on accessibility, because you should make your puppeteer
 scripts use simple selectors, not complicated ones</li>
-<li>It forces you to think about navigating complex states within your app, and
-even better, forces you to confront issues that users face: are there easier
-ways to get to this state in my app?</li>
-</ul>
-<h2 id="it-really-makes-ya-think">It really makes ya think</h2>
-<p><a href="https://www.youtube.com/watch?v=QhnsC2V4_0w">https://www.youtube.com/watch?v=QhnsC2V4_0w</a></p>
-<ul>
-<li>
-<p>Can I declaratively specify the entire state of my app with ease? This is
-something that can be done with react state managers. There are complex state
-trees that can be serialized to json (mobx-state-tree) or just
-url-is-the-state people like nuqs. But in any case, this can be very handy,
-and avoids lots of puppeteer point-and-click. Your app’s only interface might
-not just be point-and-click from a user…agents might use it or other
-programmatic automation may occur</p>
-</li>
-<li>
-<p>It makes your GUI documentation amenable to agentic improvement. I can just
-tell Claude “make a new tutorial for X” and voila it’s done. No clicking and
-pointing. I additionally tell it to “let the screenshots do the talking,
-absolute minimal prose”</p>
-</li>
+<li>It forces you to think about navigating complex states in the app or even,
+supplying complex state tree snapshots (e.g. mobx-state-tree/zustand) as json
+or just more simple and bespoke url state (e.g. nuqs)</li>
+<li></li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
-<p>There is no real excuse not to do this now if you use AI, and the benefits are
-likely a big net positive …now go out there and fix those docs</p>
+<p>Ultimately, this makes your GUI documentation amenable to agentic improvement. I
+can just tell Claude “make a new tutorial for X” and voila it’s done. I am not a
+huge fan of AI generated text, but I can “let the screenshots do the talking”</p>
+<p>There is no real excuse not to do this now, and the benefits are likely a big
+net positive! Now go out there and fix those docs</p>
 <h2 id="links">Links</h2>
 <ul>
 <li>Beyonce rule <a href="https://abseil.io/resources/swe-book/html/ch11.html">https://abseil.io/resources/swe-book/html/ch11.html</a></li>
