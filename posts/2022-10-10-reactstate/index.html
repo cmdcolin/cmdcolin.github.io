@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v6.4.2"><title>Handling component state with React...you gotta reset it sometimes</title><style>.container[data-astro-cid-4oxc2zqz]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-lvjzyg5v]{max-width:100%}.post-content[data-astro-cid-lvjzyg5v]{margin:2rem 0;line-height:1.6}
-</style>
-<link rel="stylesheet" href="/_astro/Layout.Ca4IH_rv.css"></head> <body> <div class="mb-8"> <a href="/">Misc scribbles</a> </div>  <div class="container" data-astro-cid-4oxc2zqz>  <article data-astro-cid-lvjzyg5v> <div data-astro-cid-lvjzyg5v> <h1 data-astro-cid-lvjzyg5v>Handling component state with React...you gotta reset it sometimes</h1> <h4 data-astro-cid-lvjzyg5v>2022-10-10</h4> </div> <div class="post-content" data-astro-cid-lvjzyg5v> <blockquote>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>Handling component state with React...you gotta reset it sometimes</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
+</style><link rel="stylesheet" href="/_astro/Layout.DnV3inpF.css"></head><body><div class="mb-8"><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Handling component state with React...you gotta reset it sometimes</h1><h4 data-astro-cid-p5wnqomb>2022-10-10</h4></div><div class="post-content" data-astro-cid-p5wnqomb><blockquote>
 <h2 id="big-disclaimer-please-read-before-the-rest-of-the-post">Big disclaimer (please read before the rest of the post)</h2>
 <p>Looking back at this post, many of the “lessons” below are not really that
 valid. The most important thing is to first ask whether you need an effect at
@@ -38,8 +37,8 @@ below as a cautionary example.</p>
 <p>Working codesandbox</p>
 <p><a href="https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003">https://codesandbox.io/s/practical-rubin-l2d5el?file=/src/App.tsx:0-2003</a></p>
 <p>When refetching a new item, you need to clear the previous state, otherwise
-you’ll show stale results while the new fetch is in flight. The <code>key</code> prop
-gives you this for free (see Footnote 5); doing it by hand looks like:</p>
+you’ll show stale results while the new fetch is in flight. The <code>key</code> prop gives
+you this for free (see Footnote 5); doing it by hand looks like:</p>
 <pre><code class="language-tsx"><a-k>import</a-k> <a-p>{</a-p> <a-v>useState</a-v><a-p>,</a-p> <a-v>useEffect</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'react'</a-s>
 
 <a-k>interface</a-k> <a-t>PokemonType</a-t> <a-p>{</a-p>
@@ -212,12 +211,12 @@ which is one reason the disclaimer recommends just using <code>swr</code> instea
 along with “remember to handle errors, there are no lint rules for it.” Both
 points are still true in a narrow sense, but the better takeaway is: don’t put
 yourself in a position where you need to remember any of that. Use the <code>key</code>
-prop, use <code>swr</code>, or move fetching out of the component, and the manual reset
-and error plumbing both disappear.</p>
+prop, use <code>swr</code>, or move fetching out of the component, and the manual reset and
+error plumbing both disappear.</p>
 <p>If you do end up writing the manual version, note that it is easy to forget
-error handling entirely in async <code>useEffect</code> code, since there are no lint
-rules to catch it. The user just sees a stuck “Loading…” while the error sits
-in the console.</p>
+error handling entirely in async <code>useEffect</code> code, since there are no lint rules
+to catch it. The user just sees a stuck “Loading…” while the error sits in the
+console.</p>
 <h2 id="footnote-0---web-perf-pontificating">Footnote 0 - Web perf pontificating</h2>
 <p>Fetching inside a component can lead to what web-perf folks call waterfall.
 Lifting the fetch to a parent might reduce individual requests, but it’s quite a
@@ -330,21 +329,21 @@ especially when the fetch is buried several functions deep, adds real complexity
 and is easy to get wrong. The <code>cancelled</code> flag is simpler, covers the part that
 matters (no stale renders), and is easier to reason about. If cancelling the
 request itself matters for your use case (e.g. reducing server load),
-<code>AbortController</code> is worth the extra work.</p> </div> <div id="giscus"></div> <script>
-  const script = document.createElement('script');
-  script.src = 'https://giscus.app/client.js';
-  script.setAttribute('data-repo', 'cmdcolin/cmdcolin.github.io');
-  script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==');
-  script.setAttribute('data-category', 'General');
-  script.setAttribute('data-category-id', 'DIC_kwDOAY8DLc4CO-L9');
-  script.setAttribute('data-mapping', 'pathname');
-  script.setAttribute('data-strict', '0');
-  script.setAttribute('data-reactions-enabled', '1');
-  script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'bottom');
-  script.setAttribute('data-theme', 'light');
-  script.setAttribute('data-lang', 'en');
-  script.setAttribute('crossorigin', 'anonymous');
-  script.async = true;
-  document.getElementById('giscus').appendChild(script);
-</script> </article>  </div>  <footer class="footer-style" data-astro-cid-k2f5zb5c> <a class="footer-link" href="/" data-astro-cid-k2f5zb5c>Home</a> <a class="footer-link" href="/archive" data-astro-cid-k2f5zb5c>Blog archive</a> <a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-k2f5zb5c>Github</a> <a class="footer-link" href="/projects" data-astro-cid-k2f5zb5c>Projects</a> <a class="footer-link" href="/about" data-astro-cid-k2f5zb5c>About</a> </footer> </body></html>
+<code>AbortController</code> is worth the extra work.</p></div><div id="giscus"></div><script>
+  const script = document.createElement('script')
+  script.src = 'https://giscus.app/client.js'
+  script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
+  script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=='
+  script.dataset.category = 'General'
+  script.dataset.categoryId = 'DIC_kwDOAY8DLc4CO-L9'
+  script.dataset.mapping = 'pathname'
+  script.dataset.strict = '0'
+  script.dataset.reactionsEnabled = '1'
+  script.dataset.emitMetadata = '0'
+  script.dataset.inputPosition = 'bottom'
+  script.dataset.theme = 'light'
+  script.dataset.lang = 'en'
+  script.setAttribute('crossorigin', 'anonymous')
+  script.async = true
+  document.getElementById('giscus').appendChild(script)
+</script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>
