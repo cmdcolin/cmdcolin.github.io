@@ -4,7 +4,7 @@
         <title>Misc scribblings</title>
         <link>https://cmdcolin.github.io/</link>
         <description>Misc scribblings</description>
-        <lastBuildDate>Sun, 02 Aug 2026 01:38:35 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 02 Aug 2026 02:03:45 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -19,12 +19,6 @@
             <title><![CDATA[Maximizing agentic coding, or, wtf is a PRD]]></title>
             <link>https://cmdcolin.github.io/posts/2026-03-15-maxagent/</link>
             <guid isPermaLink="false">https://cmdcolin.github.io/posts/2026-03-15-maxagent/</guid>
-            <pubDate>Sun, 15 Mar 2026 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[The plot]]></title>
-            <link>https://cmdcolin.github.io/posts/2026-06-02-theplot/</link>
-            <guid isPermaLink="false">https://cmdcolin.github.io/posts/2026-06-02-theplot/</guid>
             <pubDate>Sun, 15 Mar 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
