@@ -52,12 +52,15 @@ net positive! Now go out there and fix those docs</p>
 <li>Benchmarks can and even should be automated and maintained continuously as
 well <a href="https://cmdcolin.github.io/posts/2025-11-24-simplebench/">https://cmdcolin.github.io/posts/2025-11-24-simplebench/</a></li>
 </ul>
+<p>There is also the notion of ‘storybook’ for live react renderings but frankly, I
+don’t believe this is a substitute for statically captured documentation, and
+when you have app-as-react-component use cases not statically captured
+screenshots can feel heavy</p>
 <h2 id="footnote">Footnote</h2>
 <p>You can also add things like a tolerance e.g. greater than 1% of px changed,
 etc. if you got some minor flakyness. i don’t necessarily regenerate all figures
-on every CI run, but periodically it should be automatable. after i started
-doing this, i very quickly expanded the number of screenshots in my docs almost
-5x</p>
+on every CI run, but periodically it should be automatable. After we started
+doing this, we quickly expanded the number of docs screenshots ~5x.</p>
 <h2 id="another-footnote">Another footnote</h2>
 <p>This is written from the perspective of someone who works on a very very small
 product team consisting of basically n=1, me. Different types of
