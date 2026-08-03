@@ -52,10 +52,6 @@ net positive! Now go out there and fix those docs</p>
 <li>Benchmarks can and even should be automated and maintained continuously as
 well <a href="https://cmdcolin.github.io/posts/2025-11-24-simplebench/">https://cmdcolin.github.io/posts/2025-11-24-simplebench/</a></li>
 </ul>
-<p>There is also the notion of ‘storybook’ for live react renderings but frankly, I
-don’t believe this is a substitute for statically captured documentation, and
-when you have app-as-react-component use cases not statically captured
-screenshots can feel heavy</p>
 <h2 id="footnote">Footnote</h2>
 <p>You can also add things like a tolerance e.g. greater than 1% of px changed,
 etc. if you got some minor flakyness. i don’t necessarily regenerate all figures
@@ -65,7 +61,18 @@ doing this, we quickly expanded the number of docs screenshots ~5x.</p>
 <p>This is written from the perspective of someone who works on a very very small
 product team consisting of basically n=1, me. Different types of
 industries/teams/niches may have different considerations, though I think any
-team should consider this</p></div><div id="giscus"></div><script>
+team should consider this.</p>
+<h2 id="another-another-footnote">Another another footnote</h2>
+<p>The target audience of this post is generally web developers making complex
+webapps. Systems like storybook (<a href="https://storybook.js.org/">https://storybook.js.org/</a>) are sometimes used
+for ‘docs’ by web developers, and then you get a live component, but IMO it is
+not a substitute for statically captured documentation screenshots.</p>
+<p>When you have app-as-react-component the dynamically rendered storybook feels
+much more heavyweight than statically captured screenshots. The storybook
+platform itself has felt a little complex and constrained lately and I have
+changed to just making custom astro sites instead for live docs. this is sort of
+similar to ‘bet on the primitives’…you can roll your own system better
+sometimes; <a href="https://www.robinwieruch.de/agentic-coding-bet-on-primitives/">https://www.robinwieruch.de/agentic-coding-bet-on-primitives/</a></p></div><div id="giscus"></div><script>
   const script = document.createElement('script')
   script.src = 'https://giscus.app/client.js'
   script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
