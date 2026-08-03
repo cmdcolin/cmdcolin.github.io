@@ -3,9 +3,9 @@
 screenshots for bespoke tutorials or emails to their boss to say “look at this
 cool feature we have!”</p>
 <p>This is nice, but this doesn’t really scale. These screenshots don’t tell the
-user the exact steps for how you did <insert cool="" thing="" here=""> with your app, but
-making complex multi-step tutorials is hard to maintain over time with app
-changes, and so oftentimes, a tutorial is not even written leaving the
+user the exact steps for what you did to achieve <insert cool="" thing="" here=""> with
+your app, but making complex multi-step tutorials is hard to maintain over time
+with app changes, and so oftentimes, a tutorial is not even written leaving the
 knowledgebank of how to do things in your brain.</insert></p>
 <p>To externalize this brain-only content, you should make your documentation
 system more automated. Specifically: you should aim to make the screenshots in
@@ -17,9 +17,10 @@ puppeteer scripts pretty effectively</p>
 <p>To help visually inspect the large set of screenshots, I made a simple review
 app that puts all the screenshots on a webpage with a couple filters, and then I
 can “APPROVE” or “DENY” then with a deny reason. This uses a local dev-only
-express.js server, with a textfield for the deny reason, which it writes that to
-a reviews.json file. Then, I just periodically say ‘please read bad items in
-reviews.json and continue making fixes’.</p>
+express.js server, with a textfield for the deny reason, which it writes to a
+file named reviews.json.</p>
+<p>Then, I just periodically ask Claude ‘please read bad items in reviews.json and
+continue making fixes’.</p>
 <p><img src="/screenshot-reviews.png" alt=""></p>
 <h2 id="nitty-gritty-considerations">Nitty-gritty considerations</h2>
 <p>You can also add things like a pixel tolerance threshold (e.g., flag only if >1%
@@ -28,8 +29,8 @@ regenerate all figures on every CI run, but periodic runs should be fully
 automated.</p>
 <h2 id="automate-the-annotations-on-top-of-the-tutorial-images-too">Automate the annotations on top of the tutorial images too</h2>
 <p>To truly improve the screenshots it is often necessary to add an extra layer of
-‘markup’ to them. Before, you might manually have gone into powerpoint or
-mspaint to do this…that is a huge deterrant to continuously updating your
+‘markup’ to them. Before, you might have manually gone into powerpoint or
+mspaint to do this…that is a huge deterrent to continuously updating your
 docs. Make the annotations on your images automated too! Making accessible
 selectors on your webpages helps to locate elements on the page.</p>
 <h2 id="there-are-many-benefits-to-this-type-of-workflow">There are many benefits to this type of workflow</h2>
