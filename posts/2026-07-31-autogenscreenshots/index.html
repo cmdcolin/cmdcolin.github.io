@@ -7,23 +7,28 @@ user the exact steps for how you did <insert cool="" thing="" here=""> with your
 making complex multi-step tutorials is hard to maintain over time with app
 changes, and so oftentimes, a tutorial is not even written leaving the
 knowledgebank of how to do things in your brain.</insert></p>
-<p>To externalize this brain-only content, you should to make documentation system
-more automated.</p>
-<p>Specifically: you should make screenshots in your documentation 100% automated.
-You can likely make AI agents help you make the screenshots and puppeteer
-scripts</p>
-<h2 id="make-a-helper-app">Make a helper app</h2>
-<p>I also recommend making your AI agent whip up a small ‘review’ webapp where you
-can review updated screenshots. In the review app I whipped up, it starts a
-local dev express.js server, and it has a textfield so you can specify if there
-is something wrong with the screenshot and it writes that to a reviews.json
-file.</p>
-<p>Then, I just periodically say ‘please read bad items in reviews.json and
-continue making fixes’</p>
+<p>To externalize this brain-only content, you should make your documentation
+system more automated. Specifically: you should aim to make the screenshots in
+your documentation 100% automatically generated</p>
+<h2 id="how">How</h2>
+<p>I recommend making puppeteer scripts for this. You can make AI agents write
+puppeteer scripts pretty effectively</p>
+<h2 id="make-a-small-review-webapp-to-help-review-screenshots">Make a small ‘review’ webapp to help review screenshots</h2>
+<p>To help visually inspect the large set of screenshots, I made a simple review
+app that puts all the screenshots on a webpage with a couple filters, and then I
+can “APPROVE” or “DENY” then with a deny reason. This uses a local dev-only
+express.js server, with a textfield for the deny reason, which it writes that to
+a reviews.json file. Then, I just periodically say ‘please read bad items in
+reviews.json and continue making fixes’.</p>
 <p><img src="/screenshot-reviews.png" alt=""></p>
+<h2 id="nitty-gritty-considerations">Nitty-gritty considerations</h2>
+<p>You can also add things like a pixel tolerance threshold (e.g., flag only if >1%
+of pixels changed) if you encounter minor test flakiness. I don’t necessarily
+regenerate all figures on every CI run, but periodic runs should be fully
+automated.</p>
 <h2 id="automate-the-annotations-on-top-of-the-tutorial-images-too">Automate the annotations on top of the tutorial images too</h2>
-<p>To truly improve the screenshots it is often necessary to an extra layer of
-‘markup’ added to them. Before, you might manually have gone into powerpoint or
+<p>To truly improve the screenshots it is often necessary to add an extra layer of
+‘markup’ to them. Before, you might manually have gone into powerpoint or
 mspaint to do this…that is a huge deterrant to continuously updating your
 docs. Make the annotations on your images automated too! Making accessible
 selectors on your webpages helps to locate elements on the page.</p>
@@ -38,41 +43,23 @@ scripts use simple selectors, not complicated ones</li>
 <li>It forces you to think about navigating complex states in the app or even,
 supplying complex state tree snapshots (e.g. mobx-state-tree/zustand) as json
 or just more simple and bespoke url state (e.g. nuqs)</li>
+<li>It enables agentic improvement of your docs. I can now just say “write a
+tutorial for topic X” and get 100% reproducible script and screenshots for it.
+After starting this, we quickly expanded a new ‘tutorials’ section in our docs
+in a way that I really think is going to help users.</li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
-<p>Ultimately, this makes your GUI documentation amenable to agentic improvement. I
-can just tell Claude “make a new tutorial for X” and voila it’s done. I am not a
-huge fan of AI generated text, but I can “let the screenshots do the talking”</p>
-<p>There is no real excuse not to do this now, and the benefits are likely a big
-net positive! Now go out there and fix those docs</p>
-<h2 id="links">Links</h2>
+<p>There is no real excuse not to do this now! Now go out there and automate those
+screenshots</p>
+<h2 id="similar-notion">Similar notion</h2>
 <ul>
-<li>Beyonce rule <a href="https://abseil.io/resources/swe-book/html/ch11.html">https://abseil.io/resources/swe-book/html/ch11.html</a></li>
 <li>Reproducible research <a href="https://hbiostat.org/rr/">https://hbiostat.org/rr/</a></li>
-<li>Benchmarks can and even should be automated and maintained continuously as
-well <a href="https://cmdcolin.github.io/posts/2025-11-24-simplebench/">https://cmdcolin.github.io/posts/2025-11-24-simplebench/</a></li>
+<li>Literate programming <a href="https://en.wikipedia.org/wiki/Literate_programming">https://en.wikipedia.org/wiki/Literate_programming</a></li>
 </ul>
 <h2 id="footnote">Footnote</h2>
-<p>You can also add things like a tolerance e.g. greater than 1% of px changed,
-etc. if you got some minor flakyness. i don’t necessarily regenerate all figures
-on every CI run, but periodically it should be automatable. After we started
-doing this, we quickly expanded the number of docs screenshots ~5x.</p>
-<h2 id="another-footnote">Another footnote</h2>
-<p>This is written from the perspective of someone who works on a very very small
-product team consisting of basically n=1, me. Different types of
-industries/teams/niches may have different considerations, though I think any
-team should consider this.</p>
-<h2 id="another-another-footnote">Another another footnote</h2>
-<p>The target audience of this post is generally web developers making complex
-webapps. Systems like storybook (<a href="https://storybook.js.org/">https://storybook.js.org/</a>) are sometimes used
-for ‘docs’ by web developers, and then you get a live component, but IMO it is
-not a substitute for statically captured documentation screenshots.</p>
-<p>When you have app-as-react-component the dynamically rendered storybook feels
-much more heavyweight than statically captured screenshots. The storybook
-platform itself has felt a little complex and constrained lately and I have
-changed to just making custom astro sites instead for live docs. this is sort of
-similar to ‘bet on the primitives’…you can roll your own system better
-sometimes; <a href="https://www.robinwieruch.de/agentic-coding-bet-on-primitives/">https://www.robinwieruch.de/agentic-coding-bet-on-primitives/</a></p></div><div id="giscus"></div><script>
+<p>This is written from the perspective of someone who works on a very small
+product team consisting of basically n=1, me. Different types of teams may have
+different considerations, though I think any team should consider this</p></div><div id="giscus"></div><script>
   const script = document.createElement('script')
   script.src = 'https://giscus.app/client.js'
   script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
