@@ -6,19 +6,28 @@ https://cmdcolin.github.io/
 
 ## deploy
 
-Deploys the blog on github via gh-pages
-
-```
-yarn deploy
-```
+Pushing to `main` builds and publishes to the `gh-pages` branch via GitHub
+Actions (`.github/workflows/deploy.yml`)
 
 ## dev
 
+Syntax highlighting shells out to the `arborium` CLI at build time, so it has to
+be on your PATH or the build will fail:
+
 ```
-yarn dev
+cargo install arborium-cli
+```
+
+Then
+
+```
+pnpm install
+pnpm dev
 ```
 
 Starts locally on http://localhost:3000
+
+Checks: `pnpm lint` (oxlint), `pnpm format` (oxfmt), `pnpm typecheck` (tsc)
 
 ## Note
 

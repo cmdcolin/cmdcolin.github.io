@@ -1,12 +1,11 @@
 import { defineConfig } from 'astro/config'
 import { unified } from '@astrojs/markdown-remark'
-import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import rehypeTreeSitter from './lib/rehype-tree-sitter.ts'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), sitemap()],
+  integrations: [sitemap()],
   site: 'https://cmdcolin.github.io',
   markdown: {
     syntaxHighlight: false,

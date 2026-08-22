@@ -2,8 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { getAllPosts } from '../../lib/api.ts'
 
-const posts = await getAllPosts()
-posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+const posts = getAllPosts()
 ---
 
 <Layout title="Archive">

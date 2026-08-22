@@ -1,5 +1,3 @@
-// Post API utilities for Astro
-
 interface PostModule {
   frontmatter: {
     title: string
@@ -9,28 +7,27 @@ interface PostModule {
   default: unknown
 }
 
-export async function getAllPosts() {
-  const postModules = import.meta.glob<PostModule>('/src/_posts/*.md', {
-    eager: true,
-  })
+function getPostModules() {
+  return import.meta.glob<PostModule>('/src/_posts/*.md', { eager: true })
+}
 
-  return Object.entries(postModules).map(([path, module]) => {
-    const filename = path.split('/').pop()!.replace('.md', '')
-    return {
-      id: filename,
+function idFromPath(path: string) {
+  return path.slice(path.lastIndexOf('/') + 1, -'.md'.length)
+}
+
+export function getAllPosts() {
+  return Object.entries(getPostModules())
+    .map(([path, module]) => ({
+      id: idFromPath(path),
       title: module.frontmatter.title,
       date: module.frontmatter.date,
       frontmatter: module.frontmatter,
-    }
-  })
+    }))
+    .toSorted((a, b) => b.date.localeCompare(a.date))
 }
 
-export async function getPostById(id: string) {
-  const postModules = import.meta.glob<PostModule>('/src/_posts/*.md', {
-    eager: true,
-  })
-  const postPath = `/src/_posts/${id}.md`
-  const module = postModules[postPath]
+export function getPostById(id: string) {
+  const module = getPostModules()[`/src/_posts/${id}.md`]
 
   if (!module) {
     throw new Error(`Post not found: ${id}`)
@@ -39,7 +36,7 @@ export async function getPostById(id: string) {
   return {
     id,
     title: module.frontmatter.title,
-    date: module.frontmatter.date.slice(0, 10),
+    date: module.frontmatter.date,
     frontmatter: module.frontmatter,
     default: module.default,
   }

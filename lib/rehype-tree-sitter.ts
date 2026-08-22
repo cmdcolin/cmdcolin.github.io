@@ -23,17 +23,28 @@ function resolveLanguage(lang: string) {
 }
 
 function runArborium(lang: string, code: string) {
-  return new Promise<string | null>(resolve => {
+  return new Promise<string>((resolve, reject) => {
     const child = execFile(
       'arborium',
       ['--lang', lang, '--html'],
       (err, stdout) => {
-        resolve(err ? null : stdout)
+        if (err) {
+          reject(err)
+        } else {
+          resolve(stdout)
+        }
       },
     )
-    child.stdin!.write(code)
-    child.stdin!.end()
+    const { stdin } = child
+    if (stdin) {
+      stdin.write(code)
+      stdin.end()
+    }
   })
+}
+
+function isMissingBinary(error: unknown) {
+  return error instanceof Error && 'code' in error && error.code === 'ENOENT'
 }
 
 function unescapeHtml(text: string) {
@@ -87,12 +98,18 @@ function parseArboriumHtml(html: string) {
 }
 
 async function highlightCode(lang: string, code: string) {
-  const resolved = resolveLanguage(lang)
-  const html = await runArborium(resolved, code)
-  if (!html) {
+  try {
+    return parseArboriumHtml(await runArborium(resolveLanguage(lang), code))
+  } catch (error) {
+    if (isMissingBinary(error)) {
+      throw new Error(
+        'The `arborium` CLI is required for syntax highlighting but was not found on PATH. Install it with `cargo install arborium-cli`.',
+        { cause: error },
+      )
+    }
+    console.warn(`arborium could not highlight a ${lang} block: ${error}`)
     return null
   }
-  return parseArboriumHtml(html)
 }
 
 export default function rehypeTreeSitter() {

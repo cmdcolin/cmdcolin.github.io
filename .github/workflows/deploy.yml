@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  ARBORIUM_VERSION: 2.18.1
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,6 +27,25 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm format --check
+
+      - uses: crate-ci/typos@v1.48.0
+
+      - name: Cache arborium CLI
+        id: arborium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/arborium
+          key: arborium-cli-${{ env.ARBORIUM_VERSION }}-${{ runner.os }}
+
+      - name: Install arborium CLI
+        if: steps.arborium.outputs.cache-hit != 'true'
+        run: |
+          cargo install arborium-cli --version "$ARBORIUM_VERSION" --locked
+
       - run: pnpm build
 
       - uses: peaceiris/actions-gh-pages@v4

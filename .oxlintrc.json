@@ -1,0 +1,39 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error",
+    "pedantic": "warn"
+  },
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "es2024": true
+  },
+  "rules": {
+    "unicorn/filename-case": "off",
+    "unicorn/no-null": "off",
+    "import/no-unassigned-import": "off"
+  },
+  "ignorePatterns": ["dist", ".astro", "public"],
+  "overrides": [
+    {
+      "files": ["src/env.d.ts"],
+      "rules": {
+        "typescript/triple-slash-reference": "off"
+      }
+    },
+    {
+      "files": ["**/*.astro"],
+      "rules": {
+        "unicorn/prefer-dom-node-append": "off",
+        "unicorn/prefer-query-selector": "off",
+        "unicorn/prefer-dom-node-dataset": "off",
+        "unicorn/prefer-module": "off",
+        "unicorn/text-encoding-identifier-case": "off"
+      }
+    }
+  ]
+}

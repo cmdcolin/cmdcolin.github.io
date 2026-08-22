@@ -6,35 +6,22 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint --report-unused-disable-directives --max-warnings 0",
-    "predep": "pnpm build",
-    "dep": "gh-pages -d dist -t --nojekyll",
-    "postdep": "git push",
-    "format": "prettier --write ."
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.2.2",
-    "@astrojs/react": "^6.0.2",
+    "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.1.6",
-    "feed": "^6.0.0",
     "hast-util-to-string": "^3.0.1",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "typescript": "^6.0.2",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@types/hast": "^3.0.5",
     "@types/node": "^26.1.2",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^10.8.0",
-    "eslint-plugin-astro": "^3.0.1",
-    "eslint-plugin-unicorn": "^72.0.0",
-    "gh-pages": "^6.3.0",
-    "prettier": "^3.9.6",
-    "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.65.0"
+    "oxfmt": "^0.64.0",
+    "oxlint": "^1.79.0",
+    "typescript": "^7.0.2"
   }
 }

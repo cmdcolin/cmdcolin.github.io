@@ -4,8 +4,8 @@ import Container from '../../components/container.astro'
 import GiscusBox from '../../components/giscus.astro'
 import Layout from '../../layouts/Layout.astro'
 
-export async function getStaticPaths() {
-  const posts = await getAllPosts()
+export function getStaticPaths() {
+  const posts = getAllPosts()
 
   return posts.map(post => ({
     params: { id: post.id },
@@ -14,16 +14,16 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params
-const post = await getPostById(id)
+const post = getPostById(id)
 const Content = post.default
 ---
 
-<Layout title={post.title}>
+<Layout title={post.title} description={post.title}>
   <Container>
     <article>
       <div>
         <h1>{post.title}</h1>
-        <h4>{post.date}</h4>
+        <h4>{post.date.slice(0, 10)}</h4>
       </div>
       <div class="post-content">
         <Content />

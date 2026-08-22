@@ -6,16 +6,17 @@ import '../highlight.css'
 
 export interface Props {
   title: string
+  description?: string
 }
 
-const { title } = Astro.props
+const { title, description = 'Misc scribblings by Colin Diesh' } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link
