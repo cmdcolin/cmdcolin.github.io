@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>Making a pure-ESM package using `tsc`</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Making a pure-ESM package using `tsc`"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>Making a pure-ESM package using `tsc`</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
 </style><link rel="stylesheet" href="/_astro/Layout.DnV3inpF.css"></head><body><div class="mb-8"><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Making a pure-ESM package using `tsc`</h1><h4 data-astro-cid-p5wnqomb>2025-01-12</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p><em>Updated 2026: switched the publish flow from yarn + npm tokens to pnpm + npm
 trusted publishing (see Footnote 2).</em></p>
 <p>In the past, I have written about making NPM packages with just the typescript
@@ -19,16 +19,16 @@ and
 <a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths"><code>rewriteRelativeImportExtensions</code></a>,
 let us import <code>.ts</code> files in <code>src</code> and have tsc rewrite them to <code>.js</code> in <code>dist</code>.</p>
 <p>For example:</p>
-<pre><code class="language-typescript">// src/index.ts
-import { bar } from './bar.ts'
-export function foo() {
-  bar()
-}
+<pre><code class="language-typescript"><a-c>// src/index.ts</a-c>
+<a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.ts'</a-s>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-f>bar</a-f><a-p>()</a-p>
+<a-p>}</a-p>
 </code></pre>
-<pre><code class="language-typescript">// src/bar.ts
-export function bar() {
-  console.log('bar in bar.ts')
-}
+<pre><code class="language-typescript"><a-c>// src/bar.ts</a-c>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>Running tsc produces:</p>
 <pre><code> ❯❯❯ ll dist
@@ -40,37 +40,37 @@ total 24K
 
 </code></pre>
 <p><code>dist/index.js</code> now has the rewritten <code>.js</code> import:</p>
-<pre><code class="language-javascript">import { bar } from './bar.js'
-export function foo() {
-  bar()
-}
+<pre><code class="language-javascript"><a-k>import</a-k> <a-p>{</a-p> <a-v>bar</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'./bar.js'</a-s>
+<a-k>export</a-k> <a-k>function</a-k> <a-f>foo</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-f>bar</a-f><a-p>()</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>and <code>dist/bar.js</code>:</p>
-<pre><code class="language-javascript">export function bar() {
-  console.log('bar in bar.ts')
-}
+<pre><code class="language-javascript"><a-k>export</a-k> <a-k>function</a-k> <a-f>bar</a-f><a-p>()</a-p> <a-p>{</a-p>
+  <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>(</a-p><a-s>'bar in bar.ts'</a-s><a-p>)</a-p>
+<a-p>}</a-p>
 </code></pre>
 <p>Previously you had to write <code>import { bar } from './bar.js'</code> in <code>src</code> to get
 this behavior. Now you can reference the actual <code>bar.ts</code> file.</p>
 <h2 id="the-packagejson">The package.json</h2>
 <pre><code class="language-json">{
-  "name": "minimalpackage",
-  "version": "1.0.0",
-  "description": "simple pure-esm package compatible with tsc",
-  "license": "MIT",
-  "type": "module",
-  "exports": "./dist/index.js",
-  "main": "./dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "clean": "rimraf dist",
-    "prebuild": "pnpm clean",
-    "preversion": "pnpm build",
-    "postversion": "git push --follow-tags"
+  <a-s>"name"</a-s>: <a-s>"minimalpackage"</a-s>,
+  <a-s>"version"</a-s>: <a-s>"1.0.0"</a-s>,
+  <a-s>"description"</a-s>: <a-s>"simple pure-esm package compatible with tsc"</a-s>,
+  <a-s>"license"</a-s>: <a-s>"MIT"</a-s>,
+  <a-s>"type"</a-s>: <a-s>"module"</a-s>,
+  <a-s>"exports"</a-s>: <a-s>"./dist/index.js"</a-s>,
+  <a-s>"main"</a-s>: <a-s>"./dist/index.js"</a-s>,
+  <a-s>"scripts"</a-s>: {
+    <a-s>"build"</a-s>: <a-s>"tsc"</a-s>,
+    <a-s>"clean"</a-s>: <a-s>"rimraf dist"</a-s>,
+    <a-s>"prebuild"</a-s>: <a-s>"pnpm clean"</a-s>,
+    <a-s>"preversion"</a-s>: <a-s>"pnpm build"</a-s>,
+    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
   },
-  "devDependencies": {
-    "rimraf": "^6.0.1",
-    "typescript": "^5.7.3"
+  <a-s>"devDependencies"</a-s>: {
+    <a-s>"rimraf"</a-s>: <a-s>"^6.0.1"</a-s>,
+    <a-s>"typescript"</a-s>: <a-s>"^5.7.3"</a-s>
   }
 }
 </code></pre>
@@ -102,22 +102,22 @@ Footnote 2.</p>
 </ul>
 <h2 id="the-tsconfigjson">The tsconfig.json</h2>
 <pre><code class="language-json">{
-  "include": ["src"],
-  "compilerOptions": {
-    "outDir": "dist",
-    "target": "es2022",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "declaration": true,
-    "strict": true,
-    "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true
+  <a-s>"include"</a-s>: [<a-s>"src"</a-s>],
+  <a-s>"compilerOptions"</a-s>: {
+    <a-s>"outDir"</a-s>: <a-s>"dist"</a-s>,
+    <a-s>"target"</a-s>: <a-s>"es2022"</a-s>,
+    <a-s>"module"</a-s>: <a-s>"nodenext"</a-s>,
+    <a-s>"moduleResolution"</a-s>: <a-s>"nodenext"</a-s>,
+    <a-s>"declaration"</a-s>: <a-co>true</a-co>,
+    <a-s>"strict"</a-s>: <a-co>true</a-co>,
+    <a-s>"allowImportingTsExtensions"</a-s>: <a-co>true</a-co>,
+    <a-s>"rewriteRelativeImportExtensions"</a-s>: <a-co>true</a-co>
   }
 }
 </code></pre>
 <h2 id="using-minimalpackage">Using minimalpackage</h2>
-<pre><code class="language-typescript">import { foo } from 'minimalpackage'
-foo()
+<pre><code class="language-typescript"><a-k>import</a-k> <a-p>{</a-p> <a-v>foo</a-v> <a-p>}</a-p> <a-k>from</a-k> <a-s>'minimalpackage'</a-s>
+<a-f>foo</a-f><a-p>()</a-p>
 </code></pre>
 <h2 id="footnote-1---publishing-dual-esmcjs-using-this-technique">Footnote 1 - Publishing dual ESM/CJS using this technique</h2>
 <p>If you need dual ESM/CJS, here is a sketch of how to do it with this method:
@@ -131,32 +131,32 @@ npmjs.com web UI under Settings -> Publishing access, or via the <code>npm</code
 v11+.</p>
 <p>Then add <code>.github/workflows/publish.yml</code>, triggered on tag pushes (which is what
 <code>pnpm version</code> produces via <code>postversion</code>):</p>
-<pre><code class="language-yaml">name: Publish
+<pre><code class="language-yaml"><a-pr>name</a-pr><a-p>:</a-p> <a-s>Publish</a-s>
 
-on:
-  push:
-    tags:
-      - 'v*'
+<a-pr>on</a-pr><a-p>:</a-p>
+  <a-pr>push</a-pr><a-p>:</a-p>
+    <a-pr>tags</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-s>'v*'</a-s>
 
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24.x
-          cache: pnpm
-          registry-url: 'https://registry.npmjs.org'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: npm publish --access public
+<a-pr>jobs</a-pr><a-p>:</a-p>
+  <a-pr>publish</a-pr><a-p>:</a-p>
+    <a-pr>runs-on</a-pr><a-p>:</a-p> <a-s>ubuntu-latest</a-s>
+    <a-pr>permissions</a-pr><a-p>:</a-p>
+      <a-pr>id-token</a-pr><a-p>:</a-p> <a-s>write</a-s>
+      <a-pr>contents</a-pr><a-p>:</a-p> <a-s>read</a-s>
+    <a-pr>steps</a-pr><a-p>:</a-p>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/checkout@v4</a-s>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>pnpm/action-setup@v4</a-s>
+        <a-pr>with</a-pr><a-p>:</a-p>
+          <a-pr>version</a-pr><a-p>:</a-p> <a-n>10</a-n>
+      <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/setup-node@v4</a-s>
+        <a-pr>with</a-pr><a-p>:</a-p>
+          <a-pr>node-version</a-pr><a-p>:</a-p> <a-s>24.x</a-s>
+          <a-pr>cache</a-pr><a-p>:</a-p> <a-s>pnpm</a-s>
+          <a-pr>registry-url</a-pr><a-p>:</a-p> <a-s>'https://registry.npmjs.org'</a-s>
+      <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>pnpm install --frozen-lockfile</a-s>
+      <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>pnpm build</a-s>
+      <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>npm publish --access public</a-s>
 </code></pre>
 <p>A few load-bearing details:</p>
 <ul>
@@ -172,7 +172,7 @@ lives in the npm CLI.</li>
 GitHub Actions sees the <code>v*</code> tag and publishes.</p>
 <h2 id="footnote-3---add-the-eslint-plugin-import-with-rule-requiring-file-extension-imports">Footnote 3 - Add the eslint-plugin-import with rule requiring file extension imports</h2>
 <p>Add this to your eslint config:</p>
-<pre><code class="language-js">'import/extensions': ['error', 'ignorePackages'],
+<pre><code class="language-js"><a-s>'import/extensions'</a-s>: <a-p>[</a-p><a-s>'error'</a-s><a-p>,</a-p> <a-s>'ignorePackages'</a-s><a-p>],</a-p>
 </code></pre>
 <p>It will enforce importing from specific files, except for package names, e.g.
 you need to import from ‘yourfile.ts’ for your code, but can import from
