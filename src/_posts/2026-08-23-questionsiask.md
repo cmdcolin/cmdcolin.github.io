@@ -87,6 +87,13 @@ Just after each question:
   subagents to code review each change
 - You can launch a Fable subagent to investigate
   `<hard question here that came up in middle of chat with opus for example>`
+- Alternatively you can launch a Fable session and launch Opus subagents to
+  implement. I don't generally try to use Sonnet at this point, I need the
+  smarts of Opus+
+
+## Reviewing the previous agent with fresh eyes
+
+- Please review previous agent's work: `<paste their summary>`
 
 ## Writing style for docs
 
@@ -132,6 +139,11 @@ my context usage, when cache is going to expire, what branch or worktree I'm on,
 etc.
 
 https://github.com/cmdcolin/dotfiles/tree/main/statusline
+
+## Context management
+
+I tell claude to sometimes go look up old conversations from the .jsonl files in
+~/.claude/ to catch up where a session got terminated from running out of tokens
 
 ## Conclusion
 
