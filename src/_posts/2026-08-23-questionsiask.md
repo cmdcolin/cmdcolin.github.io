@@ -20,6 +20,7 @@ frequently ask of Claude...a FAQ of sorts
 ## After almost every question
 
 - Are you happy with this solution?
+- You can also push back if you think there are issues with this
 - Is there anything that would help you gain confidence in this solution?
 - Is there anything else you'd recommend?
 - Is there anything that would make this code more 'obviously correct'? You can
@@ -77,7 +78,7 @@ Just after each question:
 - Are you sure about this? Without screenshots proving we made it work I'm not
   sure we solved it
 
-## Delegation
+## Delegation to subagents
 
 - These are excellent findings, please launch subagents to implement changes and
   fixes
@@ -90,6 +91,14 @@ Just after each question:
 - Alternatively you can launch a Fable session and launch Opus subagents to
   implement. I don't generally try to use Sonnet at this point, I need the
   smarts of Opus+
+
+In general, launching subagents is good because the agents are good at prompting
+other agents, perhaps better than you are. It lets you scale up, e.g. "identify
+major themes of the last 100 commits and then launch 5 subagents"...it's like
+learning how to write a for loop. it feels stupidly simple, but it scales. See
+also...my article on the ralph loop
+https://cmdcolin.github.io/posts/2026-03-15-maxagent/ the use of /goal in claude
+code is similar in a way to just make it keep going
 
 ## Reviewing the previous agent with fresh eyes
 
