@@ -4,4 +4,3 @@ dist
 tsconfig.tsbuildinfo
 .vscode
 .DS_Store
-public/rss.xml

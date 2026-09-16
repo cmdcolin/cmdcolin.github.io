@@ -15,7 +15,7 @@ Syntax highlighting shells out to the `arborium` CLI at build time, so it has to
 be on your PATH or the build will fail:
 
 ```
-cargo install arborium-cli
+cargo install arborium-cli --version 2.18.1 --locked
 ```
 
 Then
