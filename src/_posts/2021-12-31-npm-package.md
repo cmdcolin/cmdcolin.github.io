@@ -12,6 +12,12 @@ starting from scratch and seeing where we can get?
 TLDR: here is a github repo with a template package
 https://github.com/cmdcolin/npm-package-tutorial/
 
+Note: this post uses `npm`/`yarn` interchangeably since that's how it was
+originally written, but these days we suggest `pnpm` instead — it's faster and
+stricter about phantom dependencies. See the
+[trusted publishing](#footnote-3-trusted-publishing-with-pnpm) footnote at the
+end for how we publish packages now.
+
 ## Introduction
 
 An `npm` package can be very bare bones. In some sense, npmjs.com is just an
@@ -495,3 +501,83 @@ build in the `lib` directory, but for simple monorepo setups, this works ok
 ## Footnote 2 - 2025 update
 
 See https://cmdcolin.github.io/posts/2025-01-12-pureesm
+
+## Footnote 3 - trusted publishing with pnpm
+
+As of 2026, we suggest `pnpm` over `npm`/`yarn` for new packages, and we
+publish with npm's "trusted publishing" instead of a long-lived `NPM_TOKEN`.
+
+### What trusted publishing is
+
+npm can treat a specific GitHub Actions workflow as a trusted publisher for
+your package. The workflow authenticates with a short-lived OIDC token that
+GitHub issues at run time instead of a secret you have to store and rotate.
+There's nothing to leak if a repo or CI log is compromised, since there's no
+long-lived credential sitting in your secrets at all.
+
+To set it up:
+
+1. On your package's page on npmjs.com, go to **Settings → Trusted
+   Publisher**, and add a GitHub Actions publisher: your GitHub org/repo and
+   the workflow filename (e.g. `publish.yml`).
+2. In that workflow, grant the job `permissions: id-token: write` and run
+   `npm publish` (this works even if you use `pnpm` for everything else — it's
+   `npm`'s CLI that speaks the OIDC handshake with the registry).
+
+```yaml
+publish:
+  if: startsWith(github.ref, 'refs/tags/v')
+  runs-on: ubuntu-latest
+  permissions:
+    id-token: write
+    contents: read
+  steps:
+    - uses: actions/checkout@v7
+    - uses: pnpm/action-setup@v6
+    - uses: actions/setup-node@v7
+      with:
+        node-version: 24.x
+        cache: pnpm
+        registry-url: 'https://registry.npmjs.org'
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm build
+    - run: npm publish --access public
+```
+
+No `NODE_AUTH_TOKEN` or `secrets.NPM_TOKEN` anywhere in this file.
+
+### Wiring it up with `pnpm version patch`
+
+The rest of the release flow is just `pnpm version`'s built-in lifecycle
+scripts, run locally:
+
+```json
+{
+  "scripts": {
+    "preversion": "pnpm lint && pnpm typecheck && pnpm build && pnpm test --run",
+    "postversion": "git push --follow-tags"
+  }
+}
+```
+
+Then a release is just:
+
+```sh
+pnpm version patch
+```
+
+This runs `preversion` (so you never tag a build that's broken), bumps the
+version and commits it, tags the commit `vX.Y.Z`, then runs `postversion`,
+which pushes the commit and tag. The pushed tag matches the workflow's
+`if: startsWith(github.ref, 'refs/tags/v')` condition, so GitHub Actions picks
+it up, rebuilds, and runs `npm publish` under the trusted-publisher OIDC flow —
+no token, no manual `npm publish` from your laptop.
+
+See any of the `gmod` packages, e.g.
+https://github.com/GMOD/hclust/blob/main/.github/workflows/publish.yml, for a
+full working example.
+
+Note: trusted publishing only secures the *publish* step. Anyone who can push
+a `v*` tag can trigger it, so also protect tag creation (GitHub Settings →
+Rules → Rulesets, restrict who can create tags matching `v*`) and require
+review on `main` before anything lands there.
