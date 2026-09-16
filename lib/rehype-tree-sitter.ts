@@ -1,7 +1,8 @@
 import { visit } from 'unist-util-visit'
 import { toString as hastToString } from 'hast-util-to-string'
+import { fromHtml } from 'hast-util-from-html'
 import { execFile } from 'node:child_process'
-import type { Element, Text, Root } from 'hast'
+import type { Element, ElementContent, Root } from 'hast'
 
 const LANG_ALIASES: Record<string, string> = {
   sh: 'bash',
@@ -17,16 +18,15 @@ const LANG_ALIASES: Record<string, string> = {
   md: 'markdown',
 }
 
-function resolveLanguage(lang: string) {
-  const lower = lang.toLowerCase()
-  return LANG_ALIASES[lower] || lower
-}
-
 function runArborium(lang: string, code: string) {
   return new Promise<string>((resolve, reject) => {
     const child = execFile(
       'arborium',
-      ['--lang', lang, '--html'],
+      [
+        '--lang',
+        LANG_ALIASES[lang.toLowerCase()] ?? lang.toLowerCase(),
+        '--html',
+      ],
       (err, stdout) => {
         if (err) {
           reject(err)
@@ -35,11 +35,7 @@ function runArborium(lang: string, code: string) {
         }
       },
     )
-    const { stdin } = child
-    if (stdin) {
-      stdin.write(code)
-      stdin.end()
-    }
+    child.stdin?.end(code)
   })
 }
 
@@ -47,59 +43,12 @@ function isMissingBinary(error: unknown) {
   return error instanceof Error && 'code' in error && error.code === 'ENOENT'
 }
 
-function unescapeHtml(text: string) {
-  return text
-    .replaceAll('&#39;', "'")
-    .replaceAll('&amp;', '&')
-    .replaceAll('&lt;', '<')
-    .replaceAll('&gt;', '>')
-    .replaceAll('&quot;', '"')
-}
-
-// Parse arborium HTML output (custom elements like <a-k>, <a-v>) into HAST nodes
-function parseArboriumHtml(html: string) {
-  const children: (Element | Text)[] = []
-  let i = 0
-  while (i < html.length) {
-    if (html[i] === '<' && html[i + 1] !== '/') {
-      // Opening tag like <a-k>
-      const tagEnd = html.indexOf('>', i)
-      if (tagEnd === -1) {
-        break
-      }
-      const tagName = html.slice(i + 1, tagEnd)
-      const closeTag = `</${tagName}>`
-      const closeIdx = html.indexOf(closeTag, tagEnd + 1)
-      if (closeIdx === -1) {
-        break
-      }
-      const innerHtml = html.slice(tagEnd + 1, closeIdx)
-      children.push({
-        type: 'element',
-        tagName,
-        properties: {},
-        children: [{ type: 'text', value: unescapeHtml(innerHtml) }],
-      })
-      i = closeIdx + closeTag.length
-    } else {
-      // Plain text until next tag
-      let j = html.indexOf('<', i)
-      if (j === -1) {
-        j = html.length
-      }
-      const text = unescapeHtml(html.slice(i, j))
-      if (text) {
-        children.push({ type: 'text', value: text })
-      }
-      i = j
-    }
-  }
-  return children
-}
-
 async function highlightCode(lang: string, code: string) {
   try {
-    return parseArboriumHtml(await runArborium(resolveLanguage(lang), code))
+    const html = await runArborium(lang, code)
+    return fromHtml(html, { fragment: true }).children.filter(
+      (c): c is ElementContent => c.type === 'element' || c.type === 'text',
+    )
   } catch (error) {
     if (isMissingBinary(error)) {
       throw new Error(
@@ -112,38 +61,36 @@ async function highlightCode(lang: string, code: string) {
   }
 }
 
+function codeLanguage(node: Element) {
+  const codeEl = node.children.find(
+    (c): c is Element => c.type === 'element' && c.tagName === 'code',
+  )
+  const className = codeEl?.properties.className
+  const classes = Array.isArray(className) ? className : [className]
+  const langClass = classes.find(
+    c => typeof c === 'string' && c.startsWith('language-'),
+  )
+  return codeEl && typeof langClass === 'string'
+    ? { codeEl, lang: langClass.slice('language-'.length) }
+    : undefined
+}
+
 export default function rehypeTreeSitter() {
   return async function (tree: Root) {
-    const codeBlocks: { codeEl: Element; lang: string; code: string }[] = []
+    const codeBlocks: { codeEl: Element; lang: string }[] = []
 
     visit(tree, 'element', node => {
-      if (node.tagName !== 'pre') {
-        return
+      if (node.tagName === 'pre') {
+        const block = codeLanguage(node)
+        if (block) {
+          codeBlocks.push(block)
+        }
       }
-      const codeEl = node.children.find(
-        (c): c is Element => c.type === 'element' && c.tagName === 'code',
-      )
-      if (!codeEl) {
-        return
-      }
-      const className = codeEl.properties?.className
-      if (!className) {
-        return
-      }
-      const langClass = (
-        Array.isArray(className) ? className : [className]
-      ).find(c => typeof c === 'string' && c.startsWith('language-'))
-      if (!langClass) {
-        return
-      }
-      const lang = (langClass as string).slice('language-'.length)
-      const code = hastToString(codeEl)
-      codeBlocks.push({ codeEl, lang, code })
     })
 
     await Promise.all(
-      codeBlocks.map(async ({ codeEl, lang, code }) => {
-        const children = await highlightCode(lang, code)
+      codeBlocks.map(async ({ codeEl, lang }) => {
+        const children = await highlightCode(lang, hastToString(codeEl))
         if (children) {
           codeEl.children = children
         }

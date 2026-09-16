@@ -1,12 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript",
-    "unicorn",
-    "oxc",
-    "import",
-    "promise"
-  ],
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
@@ -23,9 +17,5 @@
     "unicorn/no-null": "off",
     "import/no-unassigned-import": "off"
   },
-  "ignorePatterns": [
-    "dist",
-    ".astro",
-    "public"
-  ]
+  "ignorePatterns": ["dist", ".astro", "public"]
 }
