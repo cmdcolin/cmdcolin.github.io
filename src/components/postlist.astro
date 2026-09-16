@@ -1,0 +1,22 @@
+---
+import { getAllPosts } from '../../lib/api.ts'
+
+interface Props {
+  limit?: number
+}
+
+const { limit } = Astro.props
+const posts = getAllPosts().slice(0, limit)
+---
+
+<ul>
+  {
+    posts.map(({ id, date, title }) => (
+      <li>
+        <a href={`/posts/${id}/`}>
+          {date.slice(0, 10)} - {title}
+        </a>
+      </li>
+    ))
+  }
+</ul>

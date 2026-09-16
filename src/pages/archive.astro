@@ -1,8 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getAllPosts } from '../../lib/api.ts'
-
-const posts = getAllPosts()
+import PostList from '../components/postlist.astro'
 ---
 
 <Layout title="Archive">
@@ -10,16 +8,6 @@ const posts = getAllPosts()
 
   <section>
     <h1>Posts</h1>
-    <ul>
-      {
-        posts.map(({ id, date, title }) => (
-          <li>
-            <a href={`/posts/${id}/`}>
-              {date.slice(0, 10)} - {title}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <PostList />
   </section>
 </Layout>
