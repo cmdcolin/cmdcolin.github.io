@@ -77,3 +77,8 @@ are...'worthwhile'.
   can often apply to your work
 - You should use AI to the extent you feel is true to yourself and know when you
   are becoming fake with it. This is one of the hardest problems of AI
+
+## Others are saying
+
+- "You should be asking way more questions"
+  https://www.seangoedecke.com/you-should-all-be-asking-way-more-questions/
