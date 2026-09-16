@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Structural variants and the SAM format - the long (reads) and short (reads) of it"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>Structural variants and the SAM format - the long (reads) and short (reads) of it</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
-</style><link rel="stylesheet" href="/_astro/Layout.DnV3inpF.css"></head><body><div class="mb-8"><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Structural variants and the SAM format - the long (reads) and short (reads) of it</h1><h4 data-astro-cid-p5wnqomb>2022-02-06</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p>The
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Structural variants and the SAM format - the long (reads) and short (reads) of it"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.3.2"><title>Structural variants and the SAM format - the long (reads) and short (reads) of it</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
+</style><link rel="stylesheet" href="/_astro/Layout.BSA--c2y.css"></head><body><div><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Structural variants and the SAM format - the long (reads) and short (reads) of it</h1><h4 data-astro-cid-p5wnqomb>2022-02-06</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p>The
 <a href="https://samtools.github.io/hts-specs/SAMv1.pdf"><code>SAM</code> file format and its specification</a>
 is pretty amazing, but also terse and abstract. To really understand what is
 going on with your reads, you need to play with real-world data and learn from
@@ -231,7 +231,7 @@ the SV (and connections between paired-end reads across it too).</p>
 workflow helps you set these up, and you can launch the breakpoint split view
 from it. Both work best on Breakends (VCF 4.3 section 5.4) and <code>&#x3C;TRA></code> events
 from <code>VCF</code>, or <code>BEDPE</code> SV calls.</p>
-<p><img src="/media/breakpoint_split_view.png" alt=""></p>
+<p><img src="/media/breakpoint_split_view.png" alt="" loading="lazy" decoding="async"></p>
 <h3 id="visualizing-a-read-vs-reference-view-given-a-split-alignment">Visualizing a ‘read vs reference’ view given a split alignment</h3>
 <p>Given any one record of a split read, we can reconstruct what the whole read
 looks like compared to the reference genome. We don’t need the primary
@@ -243,16 +243,23 @@ so it’s where the full read sequence lives if you want to display the bases.
 <code>minimap2</code> and <code>bwa</code> hard-clip them by default so they store only their aligned
 portion, but <code>-Y</code> makes them soft-clip and keep the entire <code>SEQ</code>.) JBrowse 2
 implements this reconstruction with a synteny-style rendering. [1]</p>
-<p><img src="/media/linear_alignment.png" alt=""></p>
+<p><img src="/media/linear_alignment.png" alt="" loading="lazy" decoding="async"></p>
 <p>Figure showing JBrowse 2 piecing together a long read vs the reference genome
 from a single read</p>
 <p>To do this, JBrowse takes the <code>CIGAR</code> of the record you started from plus each
 piece in its <code>SA</code> tag, and sorts them by the length of the clip at the start of
 the read, counting soft (<code>S</code>) and hard (<code>H</code>) clips alike (since supplementary
-records may be either, depending on the aligner). A larger leading clip means
-the piece starts further along the read, so the clip lengths give the order of
-the pieces — telling us where each came from in the original read, which we plot
-in a synteny-style display.</p>
+records may be either, depending on the aligner).</p>
+<p>Watch the strand when you do this. A <code>CIGAR</code> is written in reference
+orientation, so for a piece aligned to the minus strand the clip at the start of
+the read is the one at the <em>end</em> of its <code>CIGAR</code>. Take the leading clip for <code>+</code>
+pieces and the trailing clip for <code>-</code> pieces (the <code>SA</code> tag gives you the strand
+of each piece alongside its <code>CIGAR</code>), and you have every piece measured on the
+same axis: the original read, 5’ to 3’. A larger clip means the piece starts
+further along that read, so the clip lengths give the order of the pieces —
+telling us where each came from in the original read, which we plot in a
+synteny-style display. Get the strand wrong and the pieces of an inversion sort
+backwards, which is exactly the case you were trying to look at.</p>
 <p>[1] Similar functionality also exists in GenomeRibbon <a href="https://genomeribbon.org">https://genomeribbon.org</a></p>
 <h3 id="sam-vs-vcf---breakends-vs-split-alignments"><code>SAM</code> vs <code>VCF</code> - Breakends vs split alignments</h3>
 <p>A nice property of <code>SAM</code> is that from a single record I can reconstruct the
@@ -277,7 +284,7 @@ tells us which haplotype a read was inferred to have come from. This is commonly
 done with the <code>HP</code> tag, which might have <code>HP=1</code> and <code>HP=2</code> for a diploid genome.
 Tools like <code>whatshap</code> can add these tags to a <code>SAM</code> file, and IGV and JBrowse 2
 can color and sort by these tags.</p>
-<p><img src="/media/color_by_tag.png" alt=""></p>
+<p><img src="/media/color_by_tag.png" alt="" loading="lazy" decoding="async"></p>
 <p>Screenshot of JBrowse 2 with the “Color by tag” and “Sort by tag” settings
 enabled (coloring and sorting by the <code>HP</code> tag), letting us see that only one
 haplotype has a deletion. Tutorial for how to do this in JBrowse 2 here:
@@ -290,7 +297,7 @@ paired-end sequencing reads both ends of a fragment.</p>
 <p>But, if you are mapping reads vs the reference genome, and you observe that they
 are abnormally far apart, say 50kb apart instead of 1kb apart, this may indicate
 that your sample contains a deletion relative to the reference.</p>
-<p><img src="/media/aberrant_size.png" alt=""></p>
+<p><img src="/media/aberrant_size.png" alt="" loading="lazy" decoding="async"></p>
 <p>Screenshot of JBrowse 1 with “View as pairs” enabled with “mate paired”
 sequencing, and large insert size colored as red (from
 <a href="https://jbrowse.org/docs/paired_reads.html">https://jbrowse.org/docs/paired_reads.html</a>). Note that some of JBrowse 1’s View
@@ -324,12 +331,12 @@ it by an <code>S</code> or an <code>H</code>. The <code>S</code> indicates “so
 the sequence of the clipped portion can be found in the <code>SEQ</code> field of the
 primary alignment. The <code>H</code> is hard clipped, and the sequence that is hard
 clipped will not appear in the <code>SEQ</code>.</p>
-<p><img src="/media/clipping_pileup.png" alt=""></p>
+<p><img src="/media/clipping_pileup.png" alt="" loading="lazy" decoding="async"></p>
 <p>Screenshot of JBrowse 2 showing blue clipping indicator with a “pileup” of
 soft-clipping at a particular position shown in blue. The clipping is an
 “interbase” operation (it occurs between base pair coordinates) so it is plotted
 separately from the normal coverage histogram.</p>
-<p><img src="/media/show_soft_clipping.png" alt=""></p>
+<p><img src="/media/show_soft_clipping.png" alt="" loading="lazy" decoding="async"></p>
 <p>Screenshot of JBrowse 2 showing an insertion with Nanopore (top), PacBio
 (middle) and Illumina short reads. The long reads may completely span the
 insertion, so the <code>CIGAR</code> string on those have an <code>I</code> operator and are indicated
@@ -348,7 +355,7 @@ variant. See Appendix A for a handy function for calculating pair orientation.</
 <p>This guide from IGV is helpful for interpreting the pair directionality with
 patterns of SVs using “Color by pair orientation”</p>
 <p><a href="https://software.broadinstitute.org/software/igv/interpreting_pair_orientations">https://software.broadinstitute.org/software/igv/interpreting_pair_orientations</a></p>
-<p><img src="/media/inverted_duplication.png" alt=""></p>
+<p><img src="/media/inverted_duplication.png" alt="" loading="lazy" decoding="async"></p>
 <p>Figure: JBrowse 2 showing an inverted (tandem) duplication in 1000 genomes data.
 It uses the same coloring as IGV for pair orientation. The tandem duplication
 can produce green arrows which have reads pointing in opposite directions e.g.
@@ -372,7 +379,7 @@ corresponds to what most genome browsers will display (see
 summary of depth calculated from different tools)</p>
 <p>Both long and short reads can be used for CNV detection; long reads may be more
 accurate thanks to better mapping through difficult regions.</p>
-<p><img src="/media/coverage_cnv.png" alt=""></p>
+<p><img src="/media/coverage_cnv.png" alt="" loading="lazy" decoding="async"></p>
 <p>Screenshot showing coverage in <code>BigWig</code> format from nanopore reads on normal and
 tumor tissue from a melanoma cancer cell line (COLO829) plotted using JBrowse 2.
 This coverage data is calculated from nanopore sequencing from
@@ -834,21 +841,4 @@ aligned to a reference genome. <a href="#user-content-fnref-2" data-footnote-bac
 outputs. <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
-</section></div><div id="giscus"></div><script>
-  const script = document.createElement('script')
-  script.src = 'https://giscus.app/client.js'
-  script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
-  script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=='
-  script.dataset.category = 'General'
-  script.dataset.categoryId = 'DIC_kwDOAY8DLc4CO-L9'
-  script.dataset.mapping = 'pathname'
-  script.dataset.strict = '0'
-  script.dataset.reactionsEnabled = '1'
-  script.dataset.emitMetadata = '0'
-  script.dataset.inputPosition = 'bottom'
-  script.dataset.theme = 'light'
-  script.dataset.lang = 'en'
-  script.setAttribute('crossorigin', 'anonymous')
-  script.async = true
-  document.getElementById('giscus').appendChild(script)
-</script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>
+</section></div><script src="https://giscus.app/client.js" data-repo="cmdcolin/cmdcolin.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==" data-category="General" data-category-id="DIC_kwDOAY8DLc4CO-L9" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>

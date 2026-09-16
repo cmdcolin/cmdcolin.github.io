@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Be careful when you rename an optional &quot;prop&quot; in typescript"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>Be careful when you rename an optional &quot;prop&quot; in typescript</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
-</style><link rel="stylesheet" href="/_astro/Layout.DnV3inpF.css"></head><body><div class="mb-8"><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Be careful when you rename an optional &quot;prop&quot; in typescript</h1><h4 data-astro-cid-p5wnqomb>2024-09-18</h4></div><div class="post-content" data-astro-cid-p5wnqomb><h2 id="scenario">Scenario</h2>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Be careful when you rename an optional &quot;prop&quot; in typescript"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.3.2"><title>Be careful when you rename an optional &quot;prop&quot; in typescript</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
+</style><link rel="stylesheet" href="/_astro/Layout.BSA--c2y.css"></head><body><div><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Be careful when you rename an optional &quot;prop&quot; in typescript</h1><h4 data-astro-cid-p5wnqomb>2024-09-18</h4></div><div class="post-content" data-astro-cid-p5wnqomb><h2 id="scenario">Scenario</h2>
 <p>The “doStuff” team at your company created a function for you to use</p>
 <pre><code class="language-typescript"><a-k>function</a-k> <a-f>doStuff</a-f><a-p>({</a-p> x<a-p>,</a-p> y<a-p>,</a-p> z <a-p>}</a-p>: <a-p>{</a-p> <a-pr>x</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>y</a-pr>: <a-t>number</a-t><a-p>;</a-p> <a-pr>z</a-pr>?: <a-t>number</a-t> <a-p>})</a-p> <a-p>{</a-p>
   <a-v>console</a-v><a-p>.</a-p><a-f>log</a-f><a-p>({</a-p> x<a-p>,</a-p> y<a-p>,</a-p> z <a-p>})</a-p>
@@ -56,21 +56,4 @@ breaking changes are breaking”.</p>
 <a href="https://www.reddit.com/r/typescript/comments/1fk1rqe/be_careful_when_you_rename_an_optional_prop_in/">https://www.reddit.com/r/typescript/comments/1fk1rqe/be_careful_when_you_rename_an_optional_prop_in/</a></p>
 <p>I think maybe people are distracted that I posited this as the “doStuff team” vs
 “you”, but keep in mind this could just be your left brain vs right brain in an
-actively developed codebase</p></div><div id="giscus"></div><script>
-  const script = document.createElement('script')
-  script.src = 'https://giscus.app/client.js'
-  script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
-  script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=='
-  script.dataset.category = 'General'
-  script.dataset.categoryId = 'DIC_kwDOAY8DLc4CO-L9'
-  script.dataset.mapping = 'pathname'
-  script.dataset.strict = '0'
-  script.dataset.reactionsEnabled = '1'
-  script.dataset.emitMetadata = '0'
-  script.dataset.inputPosition = 'bottom'
-  script.dataset.theme = 'light'
-  script.dataset.lang = 'en'
-  script.setAttribute('crossorigin', 'anonymous')
-  script.async = true
-  document.getElementById('giscus').appendChild(script)
-</script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>
+actively developed codebase</p></div><script src="https://giscus.app/client.js" data-repo="cmdcolin/cmdcolin.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==" data-category="General" data-category-id="DIC_kwDOAY8DLc4CO-L9" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>

@@ -1,11 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="How to make your own npm package with typescript"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>How to make your own npm package with typescript</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
-</style><link rel="stylesheet" href="/_astro/Layout.DnV3inpF.css"></head><body><div class="mb-8"><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>How to make your own npm package with typescript</h1><h4 data-astro-cid-p5wnqomb>2021-12-31</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p>There is a lot of mystery around making your own <code>npm</code> package. Every package
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="How to make your own npm package with typescript"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.3.2"><title>How to make your own npm package with typescript</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
+</style><link rel="stylesheet" href="/_astro/Layout.BSA--c2y.css"></head><body><div><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>How to make your own npm package with typescript</h1><h4 data-astro-cid-p5wnqomb>2021-12-31</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p>There is a lot of mystery around making your own <code>npm</code> package. Every package
 likely does it a bit differently, and it can be tricky to get a setup you like.
 Should you use a “starter kit” or a boilerplate example? Or just roll your own?
 Should you use a bundler? How do you use typescript? Well, why don’t we try
 starting from scratch and seeing where we can get?</p>
 <p>TLDR: here is a github repo with a template package
 <a href="https://github.com/cmdcolin/npm-package-tutorial/">https://github.com/cmdcolin/npm-package-tutorial/</a></p>
+<p>Note: this post uses <code>npm</code>/<code>yarn</code> interchangeably since that’s how it was
+originally written, but these days we suggest <code>pnpm</code> instead — it’s faster and
+stricter about phantom dependencies. See the
+<a href="#footnote-3-trusted-publishing-with-pnpm">trusted publishing</a> footnote at the
+end for how we publish packages now.</p>
 <h2 id="introduction">Introduction</h2>
 <p>An <code>npm</code> package can be very bare bones. In some sense, npmjs.com is just an
 arbitrary file host, and you can upload pretty much anything you want to it.</p>
@@ -362,21 +367,67 @@ via hot module refresh</p>
 ‘automatically building all the stuff’ without you explicitly having to run the
 build in the <code>lib</code> directory, but for simple monorepo setups, this works ok</p>
 <h2 id="footnote-2---2025-update">Footnote 2 - 2025 update</h2>
-<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p></div><div id="giscus"></div><script>
-  const script = document.createElement('script')
-  script.src = 'https://giscus.app/client.js'
-  script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
-  script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=='
-  script.dataset.category = 'General'
-  script.dataset.categoryId = 'DIC_kwDOAY8DLc4CO-L9'
-  script.dataset.mapping = 'pathname'
-  script.dataset.strict = '0'
-  script.dataset.reactionsEnabled = '1'
-  script.dataset.emitMetadata = '0'
-  script.dataset.inputPosition = 'bottom'
-  script.dataset.theme = 'light'
-  script.dataset.lang = 'en'
-  script.setAttribute('crossorigin', 'anonymous')
-  script.async = true
-  document.getElementById('giscus').appendChild(script)
-</script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>
+<p>See <a href="https://cmdcolin.github.io/posts/2025-01-12-pureesm">https://cmdcolin.github.io/posts/2025-01-12-pureesm</a></p>
+<h2 id="footnote-3---trusted-publishing-with-pnpm">Footnote 3 - trusted publishing with pnpm</h2>
+<p>As of 2026, we suggest <code>pnpm</code> over <code>npm</code>/<code>yarn</code> for new packages, and we publish
+with npm’s “trusted publishing” instead of a long-lived <code>NPM_TOKEN</code>.</p>
+<h3 id="what-trusted-publishing-is">What trusted publishing is</h3>
+<p>npm can treat a specific GitHub Actions workflow as a trusted publisher for your
+package. The workflow authenticates with a short-lived OIDC token that GitHub
+issues at run time instead of a secret you have to store and rotate. There’s
+nothing to leak if a repo or CI log is compromised, since there’s no long-lived
+credential sitting in your secrets at all.</p>
+<p>To set it up:</p>
+<ol>
+<li>On your package’s page on npmjs.com, go to <strong>Settings → Trusted Publisher</strong>,
+and add a GitHub Actions publisher: your GitHub org/repo and the workflow
+filename (e.g. <code>publish.yml</code>).</li>
+<li>In that workflow, grant the job <code>permissions: id-token: write</code> and run
+<code>npm publish</code> (this works even if you use <code>pnpm</code> for everything else — it’s
+<code>npm</code>’s CLI that speaks the OIDC handshake with the registry).</li>
+</ol>
+<pre><code class="language-yaml"><a-pr>publish</a-pr><a-p>:</a-p>
+  <a-pr>if</a-pr><a-p>:</a-p> <a-s>startsWith(github.ref, 'refs/tags/v')</a-s>
+  <a-pr>runs-on</a-pr><a-p>:</a-p> <a-s>ubuntu-latest</a-s>
+  <a-pr>permissions</a-pr><a-p>:</a-p>
+    <a-pr>id-token</a-pr><a-p>:</a-p> <a-s>write</a-s>
+    <a-pr>contents</a-pr><a-p>:</a-p> <a-s>read</a-s>
+  <a-pr>steps</a-pr><a-p>:</a-p>
+    <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/checkout@v7</a-s>
+    <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>pnpm/action-setup@v6</a-s>
+    <a-p>-</a-p> <a-pr>uses</a-pr><a-p>:</a-p> <a-s>actions/setup-node@v7</a-s>
+      <a-pr>with</a-pr><a-p>:</a-p>
+        <a-pr>node-version</a-pr><a-p>:</a-p> <a-s>24.x</a-s>
+        <a-pr>cache</a-pr><a-p>:</a-p> <a-s>pnpm</a-s>
+        <a-pr>registry-url</a-pr><a-p>:</a-p> <a-s>'https://registry.npmjs.org'</a-s>
+    <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>pnpm install --frozen-lockfile</a-s>
+    <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>pnpm build</a-s>
+    <a-p>-</a-p> <a-pr>run</a-pr><a-p>:</a-p> <a-s>npm publish --access public</a-s>
+</code></pre>
+<p>No <code>NODE_AUTH_TOKEN</code> or <code>secrets.NPM_TOKEN</code> anywhere in this file.</p>
+<h3 id="wiring-it-up-with-pnpm-version-patch">Wiring it up with <code>pnpm version patch</code></h3>
+<p>The rest of the release flow is just <code>pnpm version</code>’s built-in lifecycle
+scripts, run locally:</p>
+<pre><code class="language-json">{
+  <a-s>"scripts"</a-s>: {
+    <a-s>"preversion"</a-s>: <a-s>"pnpm lint &#x26;&#x26; pnpm typecheck &#x26;&#x26; pnpm build &#x26;&#x26; pnpm test --run"</a-s>,
+    <a-s>"postversion"</a-s>: <a-s>"git push --follow-tags"</a-s>
+  }
+}
+</code></pre>
+<p>Then a release is just:</p>
+<pre><code class="language-sh"><a-f>pnpm</a-f> version patch
+</code></pre>
+<p>This runs <code>preversion</code> (so you never tag a build that’s broken), bumps the
+version and commits it, tags the commit <code>vX.Y.Z</code>, then runs <code>postversion</code>, which
+pushes the commit and tag. The pushed tag matches the workflow’s
+<code>if: startsWith(github.ref, 'refs/tags/v')</code> condition, so GitHub Actions picks
+it up, rebuilds, and runs <code>npm publish</code> under the trusted-publisher OIDC flow —
+no token, no manual <code>npm publish</code> from your laptop.</p>
+<p>See any of the <code>gmod</code> packages, e.g.
+<a href="https://github.com/GMOD/hclust/blob/main/.github/workflows/publish.yml">https://github.com/GMOD/hclust/blob/main/.github/workflows/publish.yml</a>, for a
+full working example.</p>
+<p>Note: trusted publishing only secures the <em>publish</em> step. Anyone who can push a
+<code>v*</code> tag can trigger it, so also protect tag creation (GitHub Settings → Rules →
+Rulesets, restrict who can create tags matching <code>v*</code>) and require review on
+<code>main</code> before anything lands there.</p></div><script src="https://giscus.app/client.js" data-repo="cmdcolin/cmdcolin.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==" data-category="General" data-category-id="DIC_kwDOAY8DLc4CO-L9" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>

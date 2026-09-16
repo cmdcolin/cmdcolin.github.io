@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Jest parallelization, globals, mocks, and squawkless tests"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><title>Jest parallelization, globals, mocks, and squawkless tests</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
-</style><link rel="stylesheet" href="/_astro/Layout.DnV3inpF.css"></head><body><div class="mb-8"><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Jest parallelization, globals, mocks, and squawkless tests</h1><h4 data-astro-cid-p5wnqomb>2021-10-05</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p>I found that there is a little bit of confusion and misunderstanding around how
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="description" content="Jest parallelization, globals, mocks, and squawkless tests"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Colin Diesh" href="/rss.xml"><meta name="generator" content="Astro v7.3.2"><title>Jest parallelization, globals, mocks, and squawkless tests</title><style>.container[data-astro-cid-vobai22x]{max-width:800px;margin:0 auto;padding:0 1rem}article[data-astro-cid-p5wnqomb]{max-width:100%}.post-content[data-astro-cid-p5wnqomb]{margin:2rem 0;line-height:1.6}
+</style><link rel="stylesheet" href="/_astro/Layout.BSA--c2y.css"></head><body><div><a href="/">Misc scribbles</a></div><div class="container" data-astro-cid-vobai22x><article data-astro-cid-p5wnqomb><div data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>Jest parallelization, globals, mocks, and squawkless tests</h1><h4 data-astro-cid-p5wnqomb>2021-10-05</h4></div><div class="post-content" data-astro-cid-p5wnqomb><p>I found that there is a little bit of confusion and misunderstanding around how
 things like parallelization work in jest, which sometimes leads to additional
 hacking around problems that may not exist or speculating incorrectly about test
 failure. This is also of course a point of concern when you have code that for
@@ -122,26 +122,9 @@ function, as in the previous section. Don’t stand for having a bunch of verbos
 errors in your CI logs! However, I also suggest only mocking out console.error
 for tests that are <strong>expected</strong> to have errors, lest you paper over unexpected
 errors.</p>
-<p><img src="/media/squawkless_tests.png" alt=""></p>
+<p><img src="/media/squawkless_tests.png" alt="" loading="lazy" decoding="async"></p>
 <p>Figure: a nice clean test suite without a bunch of crazy console.error outputs</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Getting better at testing requires exercise, and understanding the basics of
 your tools can help! Hopefully this helps you achieve a better understanding and
-write cleaner jest tests.</p></div><div id="giscus"></div><script>
-  const script = document.createElement('script')
-  script.src = 'https://giscus.app/client.js'
-  script.dataset.repo = 'cmdcolin/cmdcolin.github.io'
-  script.dataset.repoId = 'MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw=='
-  script.dataset.category = 'General'
-  script.dataset.categoryId = 'DIC_kwDOAY8DLc4CO-L9'
-  script.dataset.mapping = 'pathname'
-  script.dataset.strict = '0'
-  script.dataset.reactionsEnabled = '1'
-  script.dataset.emitMetadata = '0'
-  script.dataset.inputPosition = 'bottom'
-  script.dataset.theme = 'light'
-  script.dataset.lang = 'en'
-  script.setAttribute('crossorigin', 'anonymous')
-  script.async = true
-  document.getElementById('giscus').appendChild(script)
-</script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>
+write cleaner jest tests.</p></div><script src="https://giscus.app/client.js" data-repo="cmdcolin/cmdcolin.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkyNjE0OTY3Nw==" data-category="General" data-category-id="DIC_kwDOAY8DLc4CO-L9" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></article></div><footer class="footer-style" data-astro-cid-ddhozxeg><a class="footer-link" href="/" data-astro-cid-ddhozxeg>Home</a><a class="footer-link" href="/archive" data-astro-cid-ddhozxeg>Blog archive</a><a class="footer-link" href="https://github.com/cmdcolin/" data-astro-cid-ddhozxeg>Github</a><a class="footer-link" href="/projects" data-astro-cid-ddhozxeg>Projects</a><a class="footer-link" href="/about" data-astro-cid-ddhozxeg>About</a></footer></body></html>
