@@ -16,6 +16,7 @@ are...'worthwhile'.
 - You should be saying things like 'launch a subagent to review plan Y'
 - You should be saying things like 'launch 2 subagents to review plan Y and get
   consensus'
+- You should be doing the above on your hard problems. Really.
 - You should be thinking that you are still in your infancy of agentic coding
 - You should be thinking of launching subagents like you're learning to
   program...a ralph-loop is like a do-while loop
@@ -77,6 +78,13 @@ are...'worthwhile'.
   can often apply to your work
 - You should use AI to the extent you feel is true to yourself and know when you
   are becoming fake with it. This is one of the hardest problems of AI
+
+## Leaning in
+
+- You should likely be using the same lingo opus likes, however cringy, back to
+  it. Tell it to 'spike' a prototype ;)
+- You should be using Claude artifacts extensively...create an artifact to help
+  you see screenshots, see results visually, before you land stuff:w
 
 ## Others are saying
 
